@@ -23,7 +23,7 @@
 		var scrollHeight = $(document).height();
 		var windowHeight = $(this).height();
 		if(pageend>=page||pageend==null){
-		if (scrollTop + windowHeight == scrollHeight) {
+		if (scrollTop + windowHeight >= scrollHeight) {
 				loadMeinv();//加载新图片
 				page=page+1;
 			}
