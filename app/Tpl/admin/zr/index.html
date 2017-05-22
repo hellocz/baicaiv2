@@ -1,0 +1,60 @@
+<include file="public:header" />
+<!--商品来源-->
+<div class="subnav">
+<div class="content_menu ib_a blue line_x">
+<a href="{:U('zr/index')}" class="on"><em>商品管理</em> </a> <span>|</span> <a href="{:U('zr/add')}"><em>添加商品</em> </a>
+</div>
+</div>
+<div class="pad_lr_10" >
+    <div class="J_tablelist table_list" data-acturi="{:U('zr/ajax_edit')}">
+	<table width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th width="25"><input type="checkbox" id="checkall_t" class="J_checkall"></th>
+                <th width="40"><span tdtype="order_by" fieldname="id">ID</span></th>
+				<th align="center" >商品名称</th>
+				<th align="center" >分类</th>
+                <th align="center" width="80">用户名</th> 
+				<th align="center" width="80"><span data-tdtype="order_by" data-field="price">价格</span></th>				
+				<th align="center"><span data-tdtype="order_by" data-field="likes">喜欢</span></th>
+				<th align="center"><span data-tdtype="order_by" data-field="hits">人气</span></th>
+				<th align="center"><span data-tdtype="order_by" data-field="zan">赞</span></th>
+				<th align="center" width="120"><span data-tdtype="order_by" data-field="zan">发布时间</span></th>
+				<th align="center" width="80">状态</th> 
+                <th width="120">{:L('operations_manage')}</th>
+            </tr>
+        </thead>
+    	<tbody>
+            <volist name="list" id="val" >
+            <tr>
+                <td align="center">
+                <input type="checkbox" class="J_checkitem" value="{$val.id}"></td>
+                <td align="center">{$val.id}</td>
+				<td align="center"><span data-tdtype="edit" data-field="title" data-id="{$val.id}" class="tdedit" >{$val.title}</span></td>
+				<td align="center">{$val.catename}</td>
+                <td align="center">{$val.uname}</td>
+				<td align="center"><span data-tdtype="edit" data-field="price" data-id="{$val.id}" class="tdedit" >{$val.price}</span></td>
+                <td align="center">{$val.likes}</td>
+				<td align="center">{$val.hits}</td>
+				<td align="center">{$val.zan}</td>
+				<td align="center">{$val.add_time|fdate}</td>
+				<td align="center"><if condition="$val.status eq 2"><font color="orange">草稿</font><elseif condition="$val.status eq 3"/><font color="orange">退回</font><elseif condition="$val.status eq 4"/><font color="orange">交易关闭</font><else/><img data-tdtype="toggle" data-id="{$val.id}" data-field="status" data-value="{$val.status}" src="__STATIC__/images/admin/toggle_<if condition="$val.status eq 1">enabled<elseif condition="$val.status eq 0"/>disabled</if>.gif" /></if></td>
+                <td align="center">
+					<a href="{:U('zr/edit', array('id'=>$val['id']))}" data-title="{:L('edit')} - {$val.name}"  data-id="edit" data-acttype="ajax" data-width="500" data-height="140">{:L('edit')}</a> | 
+                    <a href="javascript:;" class="J_confirmurl" data-acttype="ajax" data-uri="{:U('zr/delete', array('id'=>$val['id']))}" data-msg="{:sprintf(L('confirm_delete_one'),$val['name'])}">{:L('delete')}</a>
+					</td>
+            </tr>
+            </volist>
+    	</tbody>
+    </table>
+    </div>
+
+    <div class="btn_wrap_fixed">
+    	<label><input type="checkbox" name="checkall" class="J_checkall">{:L('select_all')}/{:L('cancel')}</label>
+    	<input type="button" class="btn" data-tdtype="batch_action" data-acttype="ajax" data-uri="{:U('zr/delete')}" data-name="id" data-msg="{:L('confirm_delete')}" value="{:L('delete')}" />
+    	<div id="pages">{$page}</div>
+    </div>
+</div>
+<include file="public:footer" />
+</body>
+</html>

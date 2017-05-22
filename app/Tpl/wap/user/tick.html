@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<include file="public:head" />
+</head>
+<body style="background:#f5f5f5;">
+<include file="public:head1" />
+<div class="w_center">
+  <div class="w_yhj_t">
+    <a href="{:U('wap/tick/index')}" title="领取优惠卷">领取优惠卷</a>
+    <span onclick="window.location='wap-user-tick'" <if condition="$tab neq '1'">class="w_yhj_t1"</if>>全部（{$all}）</span>
+    <span onclick="window.location='wap-user-tick-gq-1'" <if condition="$tab eq '1'">class="w_yhj_t1"</if>>已过期（{$gq}）</span>
+  </div>
+  <div class="w_yhj_n">
+    <ul id="mores">
+      <volist name="list" id="item">
+      <li>
+        <a href="{:U('wap/tick/show',array('id'=>$item['id']))}" title="{$item['name']}">
+         <div class="w_yhj_n_img">
+           <img src="{:orig_img($item['orig_id'])}" title="{$item['name']}" alt="{$item['name']}" />
+         </div>
+        </a>
+        <h2>{$item['name']}</h2>
+        <p>有效时间：{$item.end_time}</p>
+      </li>
+      </volist>
+    </ul>
+  
+    <if condition="($tab neq 1 and $pagesize lt $count) or ($tab eq 1 and $pagesize lt $gq)"><div class="clear"></div>
+    <div id="more" class="btn_getmore" ><a href="javascript:;" title="加载更多">加载更多</a></div></if>
+    <div id="Loading" style="display: none;text-align:center">加载中...</div>
+    <input type="hidden" id="page" value="2"/>
+  </div>
+   <include file="public:footer" />
+   <script src="/static/js/wap/weui.min.js"></script>
+   <link href="/static/js/wap/weui.css" type="text/css" rel="stylesheet"/>
+   <script>
+$(document).ready(function(){
+	$("#more").click(function(){
+		var more_id=$("#page").val(),l=$("#Loading"),g=$("#more");
+		l.show();g.hide();
+		$.ajax({
+		   type:"GET",
+		   url: "/wap-user-tick-gq-{$tab}",
+		   data: "more=more&p="+more_id,
+		   success: function(msg){
+			   if(msg){
+				   $("#page").val(parseInt(more_id)+1);
+				   $("#mores").append(msg);
+				   g.show();l.hide();
+			   }else{
+				   weui.Loading.error("已经到最后一页了");
+				   $(".btn_getmore").hide();
+				   l.hide();
+			   }
+		   }
+		});
+	})
+});
+
+</script>
+</div>
+</body>
+</html>

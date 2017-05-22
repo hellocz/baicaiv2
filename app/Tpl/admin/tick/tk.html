@@ -1,0 +1,47 @@
+<include file="public:header" />
+<div class="pad_lr_10" >
+    <div class="J_tablelist table_list" data-acturi="{:U('tick/ajax_edit')}">
+	<table width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th width="25"><input type="checkbox" id="checkall_t" class="J_checkall"></th>
+                <th width="40"><span tdtype="order_by" fieldname="tk_id">ID</span></th>
+				<th align="center" >优惠券码</th>
+				<th align="center" >密码</th>
+                <th align="center">用户</th>                
+				<th align="center">领取时间</th>
+				<th align="center">状态</span></th>
+            </tr>
+        </thead>
+    	<tbody>
+            <volist name="list" id="val" >
+            <tr>
+                <td align="center">
+                <input type="checkbox" class="J_checkitem" value="{$val.tk_id}"></td>
+                <td align="center">{$val.tk_id}</td>
+				<td align="center">{$val.tk_code}</td>
+				<td align="center">{$val.tk_psw}</td>
+                <td align="center">{:get_uname($val['uid'])}</td>
+                <td align="center">{$val.lq_time}</td>
+				<td align="center"><if condition="$val['status'] eq 1">已领<else/>未领</if></td>
+            </tr>
+            </volist>
+    	</tbody>
+    </table>
+    </div>
+
+    <div class="btn_wrap_fixed">
+    	<label><input type="checkbox" name="checkall" class="J_checkall">{:L('select_all')}/{:L('cancel')}</label>
+    	<input type="button" class="btn" data-tdtype="batch_action" data-acttype="ajax" data-uri="{:U('tick/delete_tk')}" data-name="id" data-msg="{:L('confirm_delete')}" value="{:L('delete')}" />
+    	<div id="pages">{$page}</div>
+    </div>
+</div>
+<include file="public:footer" />
+<script src="/static/js/jquery/plugins/listTable.js"></script>
+<script>
+    $(function(){
+        $('.J_tablelist').listTable();
+    });
+</script>
+</body>
+</html>

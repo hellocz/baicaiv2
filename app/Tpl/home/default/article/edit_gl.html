@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<include file="public:head" />
+	<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
+	<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"> </script>
+	<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+</head>
+
+<body style="background:#f5f5f5">
+<include file="public:header" />
+<div class="w_bl_bd">
+  <div class="w_bl">
+  <h2>编辑攻略</h2>
+  <form id="info_form" action="{:U('article/edit')}" method="post" enctype="multipart/form-data">
+  <table class="w_fbgl">
+	  <if condition="$item['status'] eq 3">
+	  <tr height="60px">
+		  <td  class="w_fbgl_1"><em>*</em>退回理由</td>
+		  <td>
+			  {$item.remark}
+		  </td>
+	  </tr>
+	  </if>
+	  <tr height="170px">
+	  <td class="w_fbgl_1"><em>*</em>攻略图片</td>
+	  <td>
+	     <div class="w_tp_bd">
+          <div class="w_tpk"><img src="<if condition="$item['img'] eq ''">/images/jia_pic.png<else/>{:attach($item['img'],'article')}</if>" id="btn_img"/></div>
+          <p style="color:#999999;">支持小于300k格式为jpg、jpeg、png的图片，截图请注意隐藏个人信息</p>
+          <div class="w_cczx">
+            <em>上传照片</em>
+            <input type="file" name="J_img" id="J_img" class="w_bl_in2" >
+			<input type="hidden" name="img" id="img" value="{$item['img']}"/>
+          </div>
+         </div>
+	  </td>
+	</tr>
+	<tr height="60px">
+	  <td  class="w_fbgl_1"><em>*</em>攻略名称</td>
+	  <td>
+	   <input type="text" id="title" name="title" value="{$item.title}" class="w_gl_in1"/>
+	  </td>
+	</tr>
+	<tr height="40px">
+	  <td  class="w_fbgl_1"><em>*</em>文章类别</td>
+	  <td>
+	     <select name="cate_id" id="cate_id">
+            <option value="0">选择分类</option>
+			<?php $article_cate=M("article_cate")->where("pid=9")->order("id asc")->select();?>
+			<volist name="article_cate" id="r">
+			<option value="{$r.id}" <if condition="$item['cate_id'] eq $r['id']">selected</if>>{$r.name}</option>
+			</volist>
+          </select>
+	  </td>
+	</tr>
+	<!--<tr height="200px">
+	  <td colspan="2">
+	  <div class="w_tbamx"><textarea name="info" id="info" style="width: 762px; height: 228px; visibility: hidden; resize: none; display: none;">{$item.info}</textarea></div>
+	  </td>
+	</tr>-->
+	  <tr>
+		  <td colspan="2"><script id="info" type="text/plain" style="width:779px;height:300px;">{$item.info}</script></td>
+	  </tr>
+	<tr>
+	  <td colspan="2">
+	  <input type="hidden" name="id" value="{$item.id}"/>
+	  <input type="hidden" name="t" value="{$t}"/>
+	  <input type="hidden" name="status" value="0"/>
+	  <input type="submit" value="发布" class="w_gl_in2" />
+	  <input type="button" value="保存草稿" class="J_cg w_gl_in3" />
+	 </td>
+	</tr>
+  </table>
+  </form>
+ </div>
+ </div>
+<style>
+	#clipArea {
+		margin: 20px;
+		height: 300px;}
+	#car{
+		display: block;
+		left: 50%;
+		top: 50%;
+		width: 600px;
+		height: 300px;
+		position: fixed;
+		margin-left: -300px;
+		margin-top: -150px;
+		display: none;
+		z-index: 999;
+	}
+</style>
+<div id="car">
+	<div id="clipArea"></div>
+	<button id="clipBtn">裁剪</button>
+	<p class="clipArea_tips"><span>*</span>滑动鼠标滑轮，可进行裁剪区域缩放。</p>
+</div>
+
+<include file="public:footer" />
+<script src="/js/function.js" type="text/javascript"></script>
+<script src="/js/ajaxfileupload.js" type="text/javascript"></script>
+<script src="/static/js/kindeditor/kindeditor-min.js"></script>
+
+<script src="/js/car/iscroll-zoom.js"></script>
+<script src="/js/car/hammer.js"></script>
+<script src="/js/car/lrz.all.bundle.js"></script>
+<script src="/js/car/jquery.photoClip.js"></script>
+
+<script>
+	var clipArea = new bjj.PhotoClip("#clipArea", {
+		size: [200, 200],
+		outputSize: [200, 200],
+		file: "#J_img",
+		source: "/images/jia_pic.png",
+		//view: "#view",
+		ok: "#clipBtn",
+		loadStart: function() {
+			console.log("照片读取中");
+		},
+		loadComplete: function() {
+			console.log("照片读取完成");
+		},
+		clipFinish: function(dataURL) {
+			$('#clipBtn').html('保存中....');
+			$.post('/index.php?m=article&a=uploadimg1',{data:dataURL},function(result){
+				if(result.status ==1){
+					$('#clipBtn').html('裁剪');
+					$('#btn_img').attr('src', result.data);
+					$('#img').val(result.data);
+					$('#car').hide();
+				}
+			},'json')
+		}
+	});
+
+	$('#J_img').on('change',function () {
+		$('#car').show();
+	});
+
+$(".J_cg").click(function(){
+	$("input[name='status']").val(2);
+	$("#info_form").submit();
+});
+$("#btn_img").click(function(){
+	$("#J_img").trigger("click");
+});
+/*$("#J_img").live('change',function () {
+	ajaxFileUpload();
+});*/
+function ajaxFileUpload() {
+	$('#btn_img').attr('src', '/images/bcloading.gif');
+	$.ajaxFileUpload
+	(
+		{
+			url: PINER.root + '/?m=article&a=uploadimg', //用于文件上传的服务器端请求地址
+			secureuri: false, //是否需要安全协议，一般设置为false
+			fileElementId: 'J_img', //文件上传域的ID
+			dataType: 'json', //返回值类型 一般设置为json
+			success: function (result, status)  //服务器成功响应处理函数
+			{
+				if(result.status =='1'){
+					$('#btn_img').attr('src', result.data);
+					$('#img').val(result.data);
+				}
+			},
+			error: function (data, status, e)//服务器响应失败处理函数
+			{
+				tips(e,0);
+			}
+		}
+	)
+	return false;
+}
+$(function(){
+	$("form").submit(function(){
+		if($("#img").val()==""){tips("请选择图片",'0');return false;}
+		if($("#title").val()==""){tips("标题不能为空",'0');return false;}
+		if($("#cate_id").val()=="0"){tips("请选择文章分类",'0');return false;}
+	});
+})
+var editor;
+KindEditor.ready(function(K) {
+	editor = K.create('#info', {
+		uploadJson : '/index.php?g=admin&m=attachment&a=editer_upload',
+		fileManagerJson : '/index.php?g=admin&m=attachment&a=editer_manager',
+		allowFileManager : true,
+		items:['undo','redo','bold','fontsize','forecolor','emoticons','link','unlink', 'image','multiimage','media']
+	});
+	K('#info_form').bind('submit', function() {
+		editor.sync();
+	});
+});
+var is_confirm=true;
+// 关闭窗口时弹出确认提示
+$(window).bind('beforeunload', function(){
+    // 只有在标识变量is_confirm不为false时，才弹出确认提示
+    if(window.is_confirm !== false)
+        return "您有未保存的内容，您确定关闭吗？";
+});
+// 提交表单时，不弹出确认提示框
+$('form').bind('submit', function(){
+    is_confirm = false;  
+});
+var ue = UE.getEditor('info');
+</script>
+</body>
+</html>

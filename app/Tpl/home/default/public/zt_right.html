@@ -1,0 +1,118 @@
+   <!--
+<div class="w_r6">
+
+     <h2>专题</h2>
+
+     <div class="w_bd_3">
+
+      advert 11;
+
+    </div>
+    </div>
+      -->
+    
+    <div class="w_r7">
+
+    
+
+    
+
+        <!--
+
+        <h3>热门资讯</h3>
+
+        -->
+
+
+
+        {:R('advert/index', array(15), 'Widget')}
+
+
+
+       </div>
+
+  
+
+  <div style=" clear:both;"></div>
+
+  
+
+  <!--
+
+  <script type="text/javascript" src="/js/jquery.SuperSlide2.js"></script>
+
+     
+
+       <div style="width:300px;margin:40px auto 0 auto">
+
+      
+
+          <h2>&nbsp;&nbsp;您可能还喜欢</h2>
+
+          
+
+          <div class="mr_frbox" >
+
+              <img class="mr_frBtnL prev" src="/images/w_le1.png" width="28" height="46" />
+
+              <div class="mr_frUl">
+
+                  <ul>
+
+                      <?php $art_list =M("item")->where("status=1")->order('ishot desc,id desc')->limit(8)->select();?>
+
+                      <volist name="art_list" id="r">
+
+                          <if condition="$i%2">
+
+                          <li>
+
+                              <a href="{:U('item/index', array('id'=>$r['id']))}" target="_blank"><img src="{:attach($r['img'],'item')}" width="115" height="95" alt="{$r.title}" /><p>{$r.title|msubstr=0,8,""}</p></a>
+
+                          <else/>
+
+                              <a href="{:U('item/index', array('id'=>$r['id']))}" target="_blank"><img src="{:attach($r['img'],'item')}" width="115" height="95" alt="{$r.title}" /><p>{$r.title|msubstr=0,8,""}</p></a>
+
+                          </li>
+
+                          </if>
+
+                      </volist>
+
+                  </ul>
+
+              </div>
+
+              <img class="mr_frBtnR next" src="/images/w_rig1.png" width="28" height="46" />
+
+          </div>
+
+      
+
+       </div>
+
+      
+
+      
+
+      <script type="text/javascript">
+
+      $(".mr_frbox").slide({
+
+          titCell:"",
+
+          mainCell:".mr_frUl ul",
+
+          autoPage:true,
+
+          effect:"leftLoop",
+
+          autoPlay:true,
+
+          vis:4
+
+      });
+
+      </script>
+
+    --> 

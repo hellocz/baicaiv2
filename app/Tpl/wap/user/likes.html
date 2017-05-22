@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<include file="public:head" />
+<style>
+.J_del_art{ width:6% !important;}
+</style>
+</head>
+<body style="background:#f5f5f5;">
+<include file="public:head1" />
+<div class="w_center">
+  <div class="w_cxp">
+   <a href="{:U('wap/user/likes',array('t'=>'gn'))}" title="国内" <if condition="$cur eq 'gn'">class="w_cxp_t"</if>>国内</a>
+   <a href="{:U('wap/user/likes',array('t'=>'ht'))}" title="海外陶" <if condition="$cur eq 'ht'">class="w_cxp_t"</if>>海外陶</a>
+   <a href="{:U('wap/user/likes',array('t'=>'best'))}" title="精品汇" <if condition="$cur eq 'best'">class="w_cxp_t"</if>>精品汇</a>
+   <a href="{:U('wap/user/likes',array('t'=>'sd'))}" title="晒单" <if condition="$cur eq 'sd'">class="w_cxp_t"</if>>晒单</a>
+   <a href="{:U('wap/user/likes',array('t'=>'gl'))}" title="攻略" <if condition="$cur eq 'gl'">class="w_cxp_t"</if>>攻略</a>
+   <a href="{:U('wap/user/likes',array('t'=>'zr'))}" title="转让" <if condition="$cur eq 'zr'">class="w_cxp_t"</if>>转让</a>                                       
+  </div>
+  <div class="w_djzk">
+    <ul id="mores">
+      <volist name="list" id="item">
+      <li>
+       <a href="{$item.url}" title="{$item.title}">
+        <div class="w_zk_img">
+         <img src="<if condition="$item['img']">{$item.img}<else/>/images/nopic.jpg</if>" title="{$item.title}" alt="{$item.title}"/>
+        </div>
+        <address><span>{$item.addtime|fdate}</span>{$item.title|msubstr=0,26,false}</address>
+        <h2>{$item.intro|msubstr=0,26,false}</h2>
+        </a>
+        <div class="w_jg">
+            <em data-url="{:U('wap/user/del_likes',array('itemid'=>$item['id'],'xid'=>$xid,'uid'=>$visitor['id']))}" class="J_like_del">删除</em>
+            <span><i class="icons icon_comment"></i>{$item.comments}</span>
+        </div>
+      </li>
+      </volist>
+    </ul>
+    <if condition="$pagesize lt $num[$cur]"><div class="clear"></div>
+    <div id="more" class="btn_getmore" ><a href="javascript:;" title="加载更多">加载更多</a></div></if>
+    <div id="Loading" style="display: none;text-align:center">加载中...</div>
+    <input type="hidden" id="page" value="2"/>
+  </div>
+   <include file="public:footer" />
+   <script src="/static/js/wap/weui.min.js"></script>
+   <link href="/static/js/wap/weui.css" type="text/css" rel="stylesheet"/>
+   <script>
+$(document).ready(function(){
+	$("#more").click(function(){
+		var more_id=$("#page").val(),l=$("#Loading"),g=$("#more");
+		l.show();g.hide();
+		$.ajax({
+		   type:"GET",
+		   url: "/wap-user-likes-t-{$cur}",
+		   data: "more=more&p="+more_id,
+		   success: function(msg){
+			   if(msg){
+				   $("#page").val(parseInt(more_id)+1);
+				   $("#mores").append(msg);
+				   g.show();l.hide();
+			   }else{
+				   weui.Loading.error("已经到最后一页了");
+				   $(".btn_getmore").hide();
+				   l.hide();
+			   }
+		   }
+		});
+	})
+	$(document).on("click",".J_like_del",function(){
+		var obj=$(this);
+		var url = obj.attr('data-url');
+		$.post(url,function(result){
+			if(result.status==1){
+				obj.parents("li").remove();
+				weui.Loading.success(result.msg);
+			}else{
+				weui.Loading.error(result.msg);
+			}
+		},'json');
+		return false;
+	})
+});
+
+</script>
+</div>
+</body>
+</html>

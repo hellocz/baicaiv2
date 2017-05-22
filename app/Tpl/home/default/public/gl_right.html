@@ -1,0 +1,31 @@
+     <!--<div class="w_r8">
+	   <a href="javascript:;" class="J_gl" title="发表攻略">发表攻略</a>
+	 </div>-->
+     <div class="w_r9">
+      <h3>热门攻略</h3>
+	  <?php $gl_list = M("article")->where("cate_id in(select id from try_article_cate where pid=9 or id=9) and status=1")->order("isbest desc,id desc")->limit(5)->select();?>
+	  <volist name="gl_list" id="item">
+      <li>
+         <a href="{:U('article/show',array('id'=>$item['id']))}" title="{$item.title}" target="_blank">
+         <img src="{:attach($item['img'],'article')}" title="{$item.title}" alt="{$item.title}"/>
+         <p>{$item.title|msubstr=0,25,false}</p>
+         </a>
+         <div><a href="{:U('article/show',array('id'=>$item['id']))}" title="{$item.zan}" class="w_r7_1">{$item.zan}</a><a href="{:U('article/show',array('id'=>$item['id']))}" title="{$item.comments}"  class="w_r7_2">{$item.comments}</a></div>
+       </li>
+	   </volist>
+     </div>
+<script src="/static/js/lhg/lhgdialog.min.js?self=true&amp;skin=idialog" type="text/javascript"></script>
+<script>
+$(".J_gl").click(function(){
+	if(PINER.uid==''){
+		$.get("index.php?m=user&a=login",function(res){
+			opdg(res.data,524,262,'用户登录');
+		},'json');
+	}else{
+		window.location="{:U('article/publish',array('t'=>'gl'))}";
+	}
+});
+function opdg(content,w,h,title){  
+	var dg = new $.dialog({id:'selectorder',title:title, lock:true,content:content,width:w,height:h,background:'#000',opacity:1,max: false, min: false,resize:false});    
+}
+</script>

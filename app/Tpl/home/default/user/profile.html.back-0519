@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<include file="public:head" />
+<script src="/js/slide.js" ></script>
+</head>
+
+<body style="background:#f5f5f5">
+<include file="public:header" />
+<div class="w_gezx_ce"> 
+  <div class="w_ger">
+    <include file="user:center_left" />
+    <div class="w_lxfs">
+      <h2>联系方式</h2>
+      <div class="w_lxfs_h">
+        <span class="w_lxfs_h1"   id="lxfs1" onmouseover="setTab('lxfs',1,2,'w_lxfs_h1')">个人资料</span><span id="lxfs2" onmouseover="setTab('lxfs',2,2,'w_lxfs_h1')">上传头像</span>        
+      </div>
+      <div class="w_lxfs_1" id="con_lxfs_1">
+	   <form id="J_basic_form" action="{:U('user/profile')}" method="post">
+        <ul>
+          <li><label class="w_lxfs_la">用户名：</label>{$info.username}</li>
+          <li><label class="w_lxfs_la">性别：</label>
+		  <label><input name="gender" value="0" type="radio" <if condition="$info['gender'] eq '0'">checked</if>>&nbsp;{:L('female')}</label>&nbsp;&nbsp;
+          <label><input name="gender" value="1" type="radio" <if condition="$info['gender'] eq '1'">checked</if>>&nbsp;{:L('male')}</label></li>
+          <li><label class="w_lxfs_la">生日：</label><input type="text" name="birthday" id="J_birthday" readonly class="w_lx_in1" size="12" value="{$info.byear}-{$info.bmonth}-{$info.bday}"></li>
+          <li><label class="w_lxfs_la">邮编：</label><input value="{$info.zipcode}" name="zipcode" type="text" class="w_lx_in2"/></li>
+          <li><label class="w_lxfs_la">手机：</label><input value="{$info.mobile}" name="mobile" type="text" class="w_lx_in2"/></li>
+          <li><label class="w_lxfs_la">邮箱：</label><input value="{$info.email}" name="email" type="text" class="w_lx_in1"/></li>
+          <li><label class="w_lxfs_la">真实姓名：</label><input value="{$info.realname}" name="realname" type="text" class="w_lx_in1"/></li>
+          <li><label class="w_lxfs_la">所在地：</label>
+             <select id="J_province" name="province"></select> <select id="J_city" name="city"></select>
+          </li>
+          <li><label class="w_lxfs_la">详细地址：</label><textarea name="address">{$info.address}</textarea></li>
+          <li><label class="w_lxfs_la">&nbsp;</label><input value="提交" type="submit" class="w_lx_in3"/></li>
+        </ul>
+		</form>
+      </div>
+      <div class="w_lxfs_2" style="display:none" id="con_lxfs_2">
+        <div class="w_lxfs_2_l">
+          <b>当前我的头像</b>
+          <p>如果您还没有设置自己的头像，系统会显示为默认头像， 您需要自己上传一张新照片来作为自己的个人头像</p>
+          <div class="w_lxfs2_t"><img src="{:avatar($info['id'],200)}" class="J_avatar"/></div>
+        </div>
+        <div class="w_lxfs2_r">
+        <b>当前我的头像</b>
+          <p>如果您还没有设置自己的头像，系统会显示为默认头像， 您需要自己上传一张新照片来作为自己的个人头像</p>
+          <div class="w_lxfs2_t">
+		   <a class="w_sczp"></a>
+		   <input type="file" name="avatar" class="w_sczp" id="avatar" style="opacity: 0;cursor:pointer;z-index:1000">
+          <img src="/images/w_tx_div.jpg" class="J_avatar"/>
+          </div>
+        </div>
+      </div>
+    </div>
+	
+	</div>
+  </div>
+ <include file="public:footer" />
+ <link rel="stylesheet" type="text/css" href="/static/js/calendar/calendar-blue.css"/><script src="/static/js/calendar/calendar.js"></script>
+ <script src="/js/ajaxfileupload.js" type="text/javascript"></script>
+ <script src="__STATIC__/js/minicity.js"></script>
+ <script>
+ $(function(){
+    $.minicity( "#J_province", "#J_city", "<?php echo $info['province'];?>", "<?php echo $info['city'];?>");
+});
+ $('#J_birthday')[0] && Calendar.setup({
+	inputField : "J_birthday",
+	ifFormat   : "%Y-%m-%d",
+	showsTime  : false,
+	timeFormat : "24"
+});
+$('#avatar').live('change',function () {
+	ajaxFileUpload();
+});
+function ajaxFileUpload() {
+	$.ajaxFileUpload
+	(
+		{
+			url: PINER.root + '/?m=user&a=upload_avatar', //用于文件上传的服务器端请求地址
+			secureuri: false, //是否需要安全协议，一般设置为false
+			fileElementId: 'avatar', //文件上传域的ID
+			dataType: 'json', //返回值类型 一般设置为json
+			success: function (result, status)  //服务器成功响应处理函数
+			{
+				if(result.status =='1'){
+					$('.J_avatar').attr('src', result.data);
+				}
+			},
+			error: function (data, status, e)//服务器响应失败处理函数
+			{
+				$(".tip-c").html(e);
+				$('.tipbox').show().removeClass('tip-success').addClass("tip-error");
+				setTimeout("$('.tipbox').hide();", 2000); 
+			}
+		}
+	)
+	return false;
+}
+</script>
+
+</body>
+</html>

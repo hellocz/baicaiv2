@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /_core/
+Disallow: /api/
+Disallow: /app/
+Disallow: /?m=item&a=tgo&to=*

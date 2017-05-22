@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<include file="public:head" />
+<style>
+.J_del_art{ width:6% !important;}
+</style>
+</head>
+<body style="background:#f5f5f5;">
+<include file="public:head1" />
+<div class="w_center">
+  <div class="w_pl_t">
+    <span onclick="window.location='wap-user-comments'" <if condition="$t neq 'r'">class="w_pljc"</if>>所有评论</span>
+    <span onclick="window.location='wap-user-comments-t-r'" <if condition="$t eq 'r'">class="w_pljc"</if>>近期评论</span>
+  </div>
+  <div class="w_pl_nr"  id="con_pl_1">
+    <ul id="mores">
+      <volist name="list" id="item">
+      <li>
+        <div class="w_p1nr_1"><a href="javascript:;" title="删除" class="J_del w_scsc" data-url="{:U('wap/user/del_comment',array('id'=>$item['id']))}">删除</a>
+        <span>{$item.add_time|fdate}</span>{$item.info}</div>
+        <div class="w_p1nr_2">
+         <a href="{$item.url}" title="{$item.title}">
+         <div class="w_p1nr_2_img">
+          <img src="{$item.img}" title="{$item.title}" alt="{$item.title}"/>
+         </div>
+         {$item.title}
+         </a>
+        </div>
+      </li>
+      </volist>
+    </ul>
+  
+    <if condition="$pagesize lt $count"><div class="clear"></div>
+    <div id="more" class="btn_getmore" ><a href="javascript:;" title="加载更多">加载更多</a></div></if>
+    <div id="Loading" style="display: none;text-align:center">加载中...</div>
+    <input type="hidden" id="page" value="2"/>
+  </div>
+   <include file="public:footer" />
+   <script src="/static/js/wap/weui.min.js"></script>
+   <link href="/static/js/wap/weui.css" type="text/css" rel="stylesheet"/>
+   <script>
+$(document).ready(function(){
+	$("#more").click(function(){
+		var more_id=$("#page").val(),l=$("#Loading"),g=$("#more");
+		l.show();g.hide();
+		$.ajax({
+		   type:"GET",
+		   url: "/wap-user-comments-t-{$t}",
+		   data: "more=more&p="+more_id,
+		   success: function(msg){
+			   if(msg){
+				   $("#page").val(parseInt(more_id)+1);
+				   $("#mores").append(msg);
+				   g.show();l.hide();
+			   }else{
+				   weui.Loading.error("已经到最后一页了");
+				   $(".btn_getmore").hide();
+				   l.hide();
+			   }
+		   }
+		});
+	})
+	$(document).on("click",".J_del",function(){
+		var obj=$(this);
+		var url = obj.attr('data-url');
+		$.post(url,function(result){
+			if(result.status==1){
+				obj.parents("li").remove();
+				weui.Loading.success(result.msg);
+			}else{
+				weui.Loading.error(result.msg);
+			}
+		},'json');
+		return false;
+	})
+});
+
+</script>
+</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<include file="public:head" />
+</head>
+
+<body style="background:#f5f5f5">
+<include file="public:header" />
+<div class="w_gezx_ce"> 
+  <div class="w_ger">
+    <include file="user:center_left" />
+	<div class="w_yhjj">
+	 <h2>我的优惠劵</h2> 
+     <div class="w_yhjj_t"><em><a href="{:U('tick/index')}" title="领取优惠劵">领取优惠劵</a></em><span class="w_yhjj_t_s">兑换的优惠劵</span></div>
+     <div class="w_yhjj_t1"><em></em>筛选：<span <if condition="$tab eq ''">class="w_yhjj_t1_s"</if> onclick="window.location='{:U('user/tick')}'">全部（{$all}）</span><span <if condition="$tab eq '1'">class="w_yhjj_t1_s"</if> onclick="window.location='{:U('user/tick',array('gq'=>1))}'">已过期（{$gq}）</span></div>
+      <ul class="w_yhj_nr">
+	  <volist name="list" id="item">
+        <li>
+          <a href="{:U('tick/show',array('id'=>$item['id']))}" title="{$item['name']}"><img src="{:orig_img($item['orig_id'])}"/></a>
+          <div><a href="{:U('tick/show',array('id'=>$item['id']))}" title="{$item['name']}">{$item['name']}<br/>有效时间:{$item.end_time}</a></div>
+            <div class="ssnx">
+                <p>券码/密码{$item.tk_code}<notempty name="item['tk_psw']">/{$item.tk_psw}</notempty></p>
+                <p>
+				
+				  <a href="<if condition="$item['sssss'] eq 1">javascript:;<else/>{$item.ljdz}</if>" title="立即兑换" target="_blank"  class="w_dha" <if condition="$item['sssss'] eq 1">style="background: #c9c9c9;"</if>>去使用</a>
+				 
+				 </p>
+            </div>
+        </li>
+	  </volist>
+      </ul>
+	  <div class="w_pag">{$page_bar}</div>
+	</div>
+	</div>
+  </div>
+<include file="public:footer" />
+</body>
+</html>

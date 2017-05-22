@@ -1,0 +1,329 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<include file="public:head" />
+<link rel="stylesheet" href="/static/css/default/main.css" type="text/css">
+<script type="text/javascript"> var zhiyou_open = 1; </script>
+<script type="text/javascript" src="/js/userbase.1.0.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+<style type="text/css">
+  .w_r_tab{
+    margin-top: 30px;
+  }
+</style>
+</head>
+
+<body style="background:#f5f5f5">
+<include file="public:header" />
+<div class="w_center">
+  <div class="w_cen_lef">
+    <div class="w_zh_dq">
+	  <a href="/" title="首页">首页</a>>{$strpos}
+	</div>
+    <div class="w_spxx_bd">
+    <div class="w_spxx_1">
+      <h2>{$item.title}<em style="color:red;margin-left:15px">{$item.price}</em><br/></h2>
+	  <div class="w_xgxq">
+	    <div class="w_xgxq_1">
+		  <i><a href="javascript:;" class="J_jb " data-id="{$item.id}" data-xid='1' title="无货举报">无货举报</a></i>
+		  <span>标签：</span>
+		  <volist name="item['tag_list']" id="tag">
+		<a href="{:U('book/index', array('tag'=>urlencode($tag)))}" target="_blank">{$tag}</a>
+		</volist>
+		  <br/><span>时间：</span><a>{$item.add_time|fdate}</a><span style="margin-left:15px;">商城：</span><a href="{:U('orig/show',array('id'=>$item['orig_id']))}" title="{:getly($item['orig_id'])}" style="margin-left:10px;">{:getly($item['orig_id'])}</a>
+		</div>
+		<div class="w_zj">
+        <div class="w_zdlj">
+		 <volist name="item['go_link']" id="r" >
+		  <if condition="$i==1">	
+		  <a href="__ROOT__/?m=item&a=tgo&to={:shortUrl($r['link'])}" rel="nofollow" target="_blank"  title="{$item.title}" class="w_zdlj_a" style="background:#3dc399;"><i class="w_down"></i>{$r.name}</a>
+		  </if>
+		  </volist>		 
+          <if condition="count($item['go_link']) gt 1">
+		  <ul style="display: none;">
+		   <volist name="item['go_link']" id="r" >
+            <li><a href="__ROOT__/?m=item&a=tgo&to={:shortUrl($r['link'])}" target="_blank" rel="nofollow"  title="{$item.title}">{$r.name}</a></li>
+			</volist>
+          </ul>
+		  </if>
+        </div>
+      </div>
+	   <div class="w_xxgg">
+	     <a href="javascript:;"  data-id="{$item.id}" title="分享+" class="T_share w_xxgg_1">分享</a>
+		 <a href="javascript:;" data="{$item.id}" title="点赞" class="z_submit w_xxgg_2">点赞</a>
+		 <a href="javascript:;" data-id="{$item.id}" data-xid="1" title="收藏" class="J_fav w_xxgg_3">收藏</a>
+		 <a href="#pl" title="评论" class="w_xxgg_4">评论</a>
+	   </div>	   
+	  <div class="clear"></div>
+	  </div>
+        <notempty name="item['remark']">
+        <div class="pyss">
+            小编评语：{$item.remark}
+        </div>
+            </notempty>
+	  <div class="content">
+		{$item.content}
+		</div>
+      <div class="w_spxx_3">
+       <em>注意：</em>优惠信息有时效性和地域性，如果看到价格变化或者已经无货请点击 : <a href="javascript:;" class="J_jb " data-id="{$item.id}" data-xid='1'>无货举报</a><br>希望大家发扬网络共享精神，如果发现了优质商品特价，欢迎<a href="{:U('item/share_item')}" title="爆料">点此爆料</a>，以便及时分享给广大菜油，谢绝商家广告。
+      </div>
+      <!--<div class="w_spxx_4">
+       <div class="w_spxx_4_l">
+         <p>上一篇：<if condition="$pre"><a href="{:U('item/index',array('id'=>$pre['id']))}" title="{$pre['title']}">{$pre['title']|msubstr=0,35}</a><else/>无</if></p>
+         <p>下一篇：<if condition="$next"><a href="{:U('item/index',array('id'=>$next['id']))}" title="{$next['title']}">{$next['title']|msubstr=0,35}</a><else/>无</if></p>
+       </div>
+       
+      </div>-->
+      <div class="w_spxx_5">
+      {:R('advert/index', array(13), 'Widget')}
+      </div>
+
+	  <a name="pl"></a>
+      <if condition="$item['uid'] neq 0"><else/> <include file="public:comment" /> </if>
+      
+    </div>
+  </div>
+  </div>
+  <div class="w_cen_rig ">
+	  <if condition="$item['uid'] neq 0">
+	  <div class="w_rr1">
+      <div class="w_bjrr"><img src="{:avatar($item['uid'], 48)}"/><span>爆料人：<a href="{:U('space/index', array('uid'=>$item['uid']))}" class="J_card n" data-uid="{$item.uid}" target="_blank">{$item.uname}</a></span></div>
+	 	<!--<div class="w_wybj"><a href="{:U("item/share_item")}" title="我要爆料" class="w_zdlj_a">我要爆料</a></div>-->
+      </div>
+	  </if>
+    <div class="w_r_tab">
+        <h2>热门白菜榜</h2>
+
+
+              <div class="rightPanel beyondHide">
+
+                <ul class="tab_nav" id="tabNav2">
+                    <li class="tab_faxian_li current_item"><h3>小时榜</h3></li>
+                    <li class="tab_faxian_li"><h3>24小时榜</h3></li>
+                    <!--
+                    <li class="more"><a href="" target="_blank">更多 &gt;</a></li>
+                    -->
+                </ul>
+
+                <div class="tab_info_con" style="display: block;">
+                    <ul class="ninePicBox">
+                        <volist name="hour_list" id="r">
+                        <li class="re_pic" <if condition="!($i%3)">class="gogo"</if>>
+                            <if condition="$i lt 4"><img class="re_tt" src="/images/tz_{$i}.png" /></if>
+                            <a href="{:U('item/index',array('id'=>$r['id']))}" title="{$r.title}" target="_blank">
+                               <img src="<if condition="$r['img']==''">/images/nopic.jpg<else/> <if condition="preg_match('/img.baicaio.com/',$r['img'])">{:attach($r['img'],'item')}!thumb94<else/>{:attach($r['img'],'item')}</if></if>" alt="{$r.title}" style="width:94px; height:94px;">
+                                <div class="tabCon" style="z-index:999999;">
+                                    <p>{$r.title|msubstr=0,16,""}</p>
+                                    <span>{$r.price}</span>
+                                </div>
+                            </a>
+                        </li>
+                        </volist>
+                    </ul>
+                 </div>
+
+                <div class="tab_info_con" style="display: none;">
+                    <ul class="ninePicBox">
+                        <volist name="day_list" id="r">
+                            <li class="re_pic" <if condition="!($i%3)">class="gogo"</if>>
+                            <if condition="$i lt 4"><img class="re_tt" src="/images/tz_{$i}.png" /></if>
+                            <a href="{:U('item/index',array('id'=>$r['id']))}" title="{$r.title}" target="_blank">
+                                <img src="<if condition="$r['img']==''">/images/nopic.jpg<else/> <if condition="preg_match('/img.baicaio.com/',$r['img'])">{:attach($r['img'],'item')}!thumb94<else/>{:attach($r['img'],'item')}</if></if>" alt="{$r.title}" style="width:94px; height:94px;">
+                                <div class="tabCon" style="z-index:999999;">
+                                    <p>{$r.title|msubstr=0,16,""}</p>
+                                    <span>{$r.price}</span>
+                                </div>
+                            </a>
+                            </li>
+                        </volist>
+                    </ul>
+                </div>
+
+              </div>
+    </div>
+    <include file="public:zt_right" />
+  <!--   <include file="public:yhq_right" /> -->
+	 
+
+    
+  <div style=" clear:both;"></div>
+  <style>
+			.widget{ background-color:#fff; width: 280px; margin:30px 0 20px 0;padding:10px;
+-moz-box-shadow:rgba(0, 0, 0, 0.0980392) 2px 2px 5px;-webkit-box-shadow:rgba(0, 0, 0, 0.0980392) 2px 2px 5px;box-shadow:rgba(0, 0, 0, 0.0980392) 2px 2px 5px;}
+.widget-title{font-size:1.2em;color:#AC643D;margin-bottom:10px;padding-bottom:5px;border-bottom:#dedede dotted 1px;}
+.widget li{padding:5px;background:#F6F6F6;margin:10px 0;font-size:12px;}
+.widget a{color:#333;}
+.widget li a{font-weight:bold;color:#333333;}
+.widget li a:hover{color:#AC643D;text-decoration:none;}
+.widget li img{max-width: 100%;}
+.widget_tag_cloud a{background:#F2F2F2;color:#AC643D;
+-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;}
+.recommendd-posts-list a img {
+    border: #dedede solid 1px;
+    padding: 1px;
+}
+.widget ul.recommendd-posts-list li a {
+    color: #0066DD;
+    font-size: 1.1em;
+}
+.widget ul.recommendd-posts-list li a{
+	color:#0066DD;font-size:1.1em;}
+.widget ul.recommendd-posts-list li a:hover{
+	text-decoration:underline;
+	}
+.recommendd-posts-list a span{color:red;}
+.recommendd-posts-list a img{border:#dedede solid 1px;padding:1px;}
+		</style>
+	</head>
+	<body>
+		<div id="recommendpostswidget-2" class="widget recommend-posts"><div class="widget-title">热门推荐</div>
+		
+		<ul class="recommendd-posts-list">
+		
+		<volist name="is_hot" id="val">
+			<li style="background:none;border-bottom:#ccc solid 1px;margin:0;padding:0;padding-bottom:10px;margin-bottom:10px;padding-left:80px;">
+				<a href="{:U('item/index', array('id'=>$val['id']))}" title="" style="float:left;width:65px;margin-left:-80px;"><img src="{$val.img}" alt="{$val.title}"></a>
+				<a href="{:U('item/index', array('id'=>$val['id']))}" title="" style="font-weight:normal;">{$val.title}</a>
+				<p style=" line-height:40px; color:#FF0000">
+					价格：{$val.price}
+				</p>
+				<div class="clear"></div>
+			</li>
+		</volist>
+			
+			</ul>
+		</div>
+  
+  <script type="text/javascript" src="/js/jquery.SuperSlide2.js"></script>
+     
+       <div style="width:300px;margin:40px auto 0 auto; background:#fff;">
+      
+          <h2 style=" color:#323232; font-size:16px; padding-left:16px; padding-top:20px; padding-bottom:20px;">&nbsp;&nbsp;您可能还喜欢</h2>
+          
+          <div class="mr_frbox" >
+              <img class="mr_frBtnL prev" src="/images/knxh_l.png" width="28" height="46" />
+              <div class="mr_frUl">
+                  <ul>
+					  <volist name="maylike_list" id="mval">
+						  <volist name="mval['list']" id="r">
+                          <if condition="$i%2">
+                          <li>
+                              <a href="{:U('item/index', array('id'=>$r['id']))}" title="{$r.title}" target="_blank"><img src="{:attach($r['img'],'item')}" width="115" height="95" alt="{$r.title}" /><p>{$r.title|msubstr=0,8,""}</p></a>
+                          <else/>
+                              <a href="{:U('item/index', array('id'=>$r['id']))}" title="{$r.title}" target="_blank"><img src="{:attach($r['img'],'item')}" width="115" height="95" alt="{$r.title}" /><p>{$r.title|msubstr=0,8,""}</p></a>
+                          </li>
+                          </if>
+						  </volist>
+                      </volist>
+                  </ul>
+              </div>
+              <img class="mr_frBtnR next" src="/images/knxh_r.png" width="28" height="46" />
+          </div>
+      
+       </div>
+      
+      
+      <script type="text/javascript">
+      $(".mr_frbox").slide({
+          titCell:"",
+          mainCell:".mr_frUl ul",
+          autoPage:true,
+          effect:"leftLoop",
+          autoPlay:true,
+          vis:4
+      });
+      </script>
+     
+     
+  </div>
+</div>   
+<include file="public:footer" />
+<include file="public:baidu_js_push" />
+<script>var t="item";</script>
+<script src="/js/function.js"></script>
+<script src="/static/js/lhg/lhgdialog.min.js?self=true&skin=idialog" type="text/javascript"></script>
+<script>
+$(document).ready(function() {
+ $(".w_zdlj").hover(
+	  function () {
+		$(this).children(".w_zdlj ul").show();
+	  },
+	  function () {
+		$(this).children(".w_zdlj ul").hide("");
+	  }
+	);
+}) 
+</script>
+<div class="S_float w_clb_bd" style="display:none">
+  <ul class="w_clb_1">
+    <li>
+	<a <volist name="item['go_link']" id="r" >
+		  <if condition="$i==1">	
+		   href="__ROOT__/?m=item&a=tgo&to={:shortUrl($r['link'])}" rel="nofollow" target="_blank"  title="{$item.title}" class="w_zdlj_a" style="background:#3dc399;" 
+		  </if>
+	</volist>
+	>
+	 <i class="w_clb_i1"></i>
+	 <em class="S_like" style="display:none">{$item.likes}</em>
+	</a>
+	
+	</li>
+	<li>
+	<a href="javascript:;"  data-id="{$item.id}" data-xid="1" title="收藏" class="J_fav">
+	 <i class="w_clb_i2"></i>
+	 <em></em>
+	</a>
+	</li>
+	<li>
+	<a href="javascript:;" data="{$item.id}" title="点赞" class="z_submit">
+	 <i class="w_clb_i3"></i>
+	 <em class="S_pl" style="display:none">{$item.comments}</em>
+	</a>
+	</li>
+	<li class="no_bott">
+	<a href="javascript:;" class="T_share" data-id="{$item.id}" title="分享">
+	 <i class="w_clb_i4"></i>
+	 <em></em>
+	</a>
+	</li>
+  </ul>
+  <div class="w_sjsm">
+   <a href="javascript:void(0);" title="" class="w_sjsm_a"></a>
+   <div class="w_sjsm_d" style="display:none;">
+      <div class="w_sjsm_d1">
+	    <span id="qrcode"></span>
+	    <span>扫一下，分享更方便，购买更轻松</span>
+	  </div>
+     <s></s>
+   </div>
+<script src="/js/qrcode.js"></script>
+<script>
+$(document).ready(function(e) {
+ $(".w_sjsm").hover(
+	  function () {
+		$(this).children(".w_sjsm_d").show();		
+	  },
+	  function () {
+		$(this).children(".w_sjsm_d").hide("");
+	  }
+	); 
+	$(window).scroll(function (){
+		if($(document).scrollTop()>200){
+			$(".S_float").show();
+		}else{
+			$(".S_float").hide();
+		}
+	});
+}) 
+window.onload =function(){
+	var qrcode = new QRCode(document.getElementById("qrcode"), {
+		width : 200,//设置宽高
+		height : 200
+	});
+	qrcode.makeCode("http://"+window.location.host+"{:U('wap/item/index',array('id'=>$item['id']))}");
+}
+</script>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<include file="public:head" />
+<script src="/static/js/wap/tab.js" type="text/javascript"></script>
+</head>
+<body style="background:#f3f7f7;">
+<nav class="w_h2">
+<a href="{:U('wap/index/index')}" title="首页" class="w_h2_r"><img src="/static/images/wap/w_fz.png" title="首页" alt="首页"/></a>
+<a href="javascript:history.go(-1);" title="返回" class="w_h2_l"><img src="/static/images/wap/w_t_lef.png" title="返回" alt="返回"/></a>
+<h2>{$info.name}</h2>
+</nav>
+<div class="w_center">
+  <div class="w_djxq">
+    <div class="w_djlogo">
+    <img src="{:attach($info['img_url'],'item_orig')}" title="{$info.name}" alt="{$info.name}" />
+    </div>
+    <h2>{$info.name}</h2>
+    <p>{$info.intro}</p>
+    <a href="http://{$info.url}" title="去逛逛">去逛逛</a>
+  </div>
+   <div class="w_djzk">
+    <h2 class="w_djzk_t">折扣商品</h2>
+    <ul id="mores">
+      <volist name="list" id="item">
+      <li>
+       <a href="{:U('wap/item/index',array('id'=>$item['id']))}" title="{$item['title']}">
+        <div class="w_zk_img">
+         <img src="{:attach($item['img'],'item')}" title="{$item['title']}" alt="{$item['title']}"/>
+        </div>
+        <address><span>{$item['add_time']|fdate}</span>{$info.name}</address>
+        <h2>{$item['title']}</h2>
+        
+        </a>
+      </li>
+      </volist>
+    </ul>
+    <if condition="$pagesize lt $count"><div class="clear"></div>
+    <div id="more" class="btn_getmore" ><a href="javascript:;" title="加载更多">加载更多</a></div></if>
+    <div id="Loading" style="display: none;text-align:center">加载中...</div>
+    <input type="hidden" id="page" value="2"/>
+  </div>
+   <include file="public:footer" />
+   <script src="/static/js/wap/weui.min.js"></script>
+   <link href="/static/js/wap/weui.css" type="text/css" rel="stylesheet"/>
+   <script>
+$(document).ready(function(){
+	$("#more").click(function(){
+		var more_id=$("#page").val(),l=$("#Loading"),g=$("#more");
+		l.show();g.hide();
+		$.ajax({
+		   type:"GET",
+		   url: "/wap-orig-show-id-{$id}",
+		   data: "more=more&p="+more_id,
+		   success: function(msg){
+			   if(msg){
+				   $("#page").val(parseInt(more_id)+1);
+				   $("#mores").append(msg);
+				   g.show();l.hide();
+			   }else{
+				   weui.Loading.error("已经到最后一页了");
+				   $(".btn_getmore").hide();l.hide();
+			   }
+		   }
+		});
+	})
+	
+	});
+</script>
+</div>
+</body>
+</html>

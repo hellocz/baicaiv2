@@ -1,0 +1,65 @@
+<div class="w_head_bd">
+   <div class="w_head">
+     <div class="w_hea_le">
+       <div class="w_logo w1"><a href="/" title="白菜网首页"><img src="/images/w_logo.png" title="白菜网首页" alt="白菜网首页"/></a></div>
+       <div class="w_h_l1 w1"><a href="/" title="首页" <if condition="$bcid eq '0'">style="color: #3dc399;"</if>>首页</a></div>
+       <div class="w_h_l2 w1">
+        <a href="{:U('book/index')}" title="分类" class="w_h_12_a" >分类</a>
+        <div class="w_l2_z">
+          <i class="w_xsj1"></i>
+          <ul>
+		  <?php $item_cate = M("item_cate")->where('pid=0 and status=1')->select();?>
+		  <volist name="item_cate" id="val">
+            <li>
+            <a href="{:U('book/cate', array('cid'=>$val['id']))}" title="{$val['name']}" class="w_nav{$i}">{$val['name']}</a>
+             <!--<div class="w_xlzc">
+			 <?php $item_scate = M("item_cate")->where("pid=$val[id] and status=1")->select();?>
+			 <volist name="item_scate" id="s" key="n">
+              <dl>
+                <dt>{$s['name']}</dt>
+				<?php $item_lcate = M("item_cate")->where("pid=$s[id] and status=1")->select();?>
+				<volist name="item_lcate" id="l" key="m">
+                <dd><a href="{:U('book/cate', array('cid'=>$l['id']))}" title="{$l['name']}">{$l['name']}</a></dd>
+				</volist>
+                <dd><a href="{:U('book/cate', array('cid'=>$s['id']))}" title="查看更多>>">查看更多>></a></dd>             
+              </dl>
+			 </volist>
+             </div>-->
+            </li>
+		 </volist>
+          </ul>
+        </div>
+       </div>
+       <div class="w_h_l3 w1"><a href="{:U('book/gny',array('tp'=>'0'))}" <if condition="$tp eq '0'">style="color: #3dc399;"</if>  title="国内">国内</a></div>
+       <div class="w_h_l4 w1"><a href="{:U('book/gny',array('tp'=>'1'))}" <if condition="$tp eq '1'">style="color: #3dc399;"</if>  title="海淘">海淘</a></div>
+       <div class="w_h_l5 w1"><a href="{:U('book/best')}" title="精品汇" <if condition="$bcid==='best'">style="color: #3dc399;"</if>>精品汇</a></div>
+       <div class="w_h_l6 w1"><a href="{:U('article/index',array('id'=>10))}" <if condition="$bcid eq 10">style="color: #3dc399;"</if> title="晒单">晒单</a></div>
+       <div class="w_h_l7 w1"><a href="{:U('article/index',array('id'=>9))}"  <if condition="$bcid eq 9">style="color: #3dc399;"</if> title="攻略">攻略</a></div>
+       <div class="w_h_l8 w1">
+          <a href="javascript:;" title="其他" class="w_h_18_a">其他</a>
+          <div class="w_xs2">
+          <i class="w_xsj"></i>
+          <ul>
+            <li><a href="{:U('zr/index')}" title="闲置转让">闲置转让</a></li>
+            <li><a href="{:U('tick/index')}" title="优惠劵">优惠劵</a></li>
+            <li><a href="{:U('exchange/index')}" title="礼品兑换">礼品兑换</a></li>
+            <li><a href="{:U('orig/index')}" title="商城导航">商城导航</a></li>
+          </ul>
+          </div>
+      </div>
+            <form class="form_search" action="{:U('search/index')}"  method="get">
+                 <button type="submit" class="btn_search icon-search"><!--[if lt IE 8]>Go<![endif]--></button>
+                <input id="s" name="q" type="search" class="text_search" value="<if condition="$strpos1">{$strpos1}<else/>白菜帮你搜</if>" onblur="if(this.value==&#39;&#39;) {this.value=&#39;白菜帮你搜&#39;;this.style.color=&#39;#999&#39;;}" onfocus="if(this.value==&#39;白菜帮你搜&#39;) {this.value=&#39;&#39;;this.style.color=&#39;#333&#39;;}" style="color: rgb(153, 153, 153);" _hover-ignore="1">
+            </form>
+     </div>
+     <div class="w_hea_rig">
+	 <notempty name="visitor">
+	 <a href="{:U('user/index', array('uid'=>$visitor['id']))}" class="mb_name">{$visitor.username}</a>
+	 <a href="{:U('user/logout')}">退出</a>
+	 <else/>
+	 <a href="{:U('user/index')}" title="登录" class="w_dl">登录</a>|<a href="{:U('user/register')}" title="注册">注册</a>
+	 </notempty>
+	 </div>  
+   </div>
+</div>
+<div class="clear"></div>

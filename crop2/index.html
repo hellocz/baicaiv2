@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="js/ajaxfileupload.js"></script>
+<script type="text/javascript" src="js/artDialog4.1.6/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="js/artDialog4.1.6/plugins/iframeTools.js"></script>
+<style type="text/css">
+body{
+	padding:0; margin-left:50px;margin-top:50px; font-size:12px;  color:#333333; font-family:'宋体',Verdana, Geneva, sans-serif;
+}
+.tips{padding:10px;color:red;margin-top:20px;}
+</style>
+<script>
+$(document).ready(function(e){
+		
+	$('#head_photo').live('change',function(){ 
+		ajaxFileUploadview('head_photo','photo_pic',"upload.php");
+	});	
+
+});
+
+
+function show_head(head_file){
+	
+	//插入数据库
+	//$.post("{:U('Home/Index/update_head')}",{head_file:head_file},function(result){		
+		$("#head_photo_src").attr('src',head_file);			
+	//});	
+
+}
+
+//文件上传带预览
+function ajaxFileUploadview(imgid,hiddenid,url){
+		
+		
+		$.ajaxFileUpload
+		({
+			url:url,
+			secureuri:false,
+			fileElementId:imgid,
+			dataType: 'json',
+			data:{name:'logan', id:'id'},
+			success: function (data, status)
+			{
+				if(typeof(data.error) != 'undefined')
+				{
+					if(data.error != '')
+					{
+						var dialog = art.dialog({title:false,fixed: true,padding:0});
+						dialog.time(2).content("<div class='tips'>"+data.error+"</div>");
+					}else{
+
+						var resp = data.msg;						
+						if(resp != '0000'){
+							var dialog = art.dialog({title:false,fixed: true,padding:0});
+							dialog.time(2).content("<div class='tips'>"+data.error+"</div>");
+							return false;
+						}else{
+							$('#'+hiddenid).val(data.imgurl);						
+
+							art.dialog.open("crop_image.php?img="+data.imgurl,{
+								title: '裁剪头像',
+								width:'580px',
+								height:'400px'
+							});						
+							
+							//dialog.time(3).content("<div class='msg-all-succeed'>上传成功！</div>");
+						}
+									
+
+						
+						
+					}
+				}
+			},
+			error: function (data, status, e)
+			{
+
+				dialog.time(3).content("<div class='tips'>"+e+"</div>");
+			}
+		})
+
+		return false;
+	}
+
+</script>
+</head>
+<body>
+<input type="file" name="head_photo" id="head_photo" value="">  
+<input type="hidden" name="photo_pic" id="photo_pic" value="">
+<!--头像显示-->
+<div id="show_photo" style="border:1px solid #f7f7f7;width:66px;height:66px;"><img id="head_photo_src" src="images/default.gif"></div>
+</body>
+</html>

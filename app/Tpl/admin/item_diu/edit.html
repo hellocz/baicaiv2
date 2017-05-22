@@ -1,0 +1,1103 @@
+<include file="public:header" />
+
+<!--编辑商品-->
+
+<form id="info_form" action="{:u('item_diu/edit')}" method="post" enctype="multipart/form-data">
+
+<div class="pad_lr_10">
+
+	<div class="col_tab">
+
+		<ul class="J_tabs tab_but cu_li">
+
+			<li class="current">基本信息</li>
+
+            <li>展示图片</li>
+
+			<li>SEO设置</li>
+
+            <li>附加属性</li>
+
+		</ul>
+
+		<div class="J_panes">
+
+        <div class="content_list pad_10">
+
+		<table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+
+			<tr>
+
+				<th width="120">所属分类 :</th>
+
+                <td><select class="J_cate_select mr10" data-pid="0" data-uri="{:U('item_cate/ajax_getchilds', array('type'=>0))}" data-selected="{$selected_ids}"></select>
+
+                <input type="hidden" name="cate_id" id="J_cate_id" value="{$info.cate_id}" /></td>
+
+			</tr>
+
+            <tr>
+
+				<th>商品名称 :</th>
+
+				<td><input type="text" name="title" id="J_title" class="input-text" size="60" value="{$info.title}"></td>
+
+			</tr>
+
+			<tr>
+
+				<th>副标题 :</th>
+
+				<td><input type="text" name="otitle" id="J_otitle" class="input-text" size="60" value="{$info.otitle}"></td>
+
+			</tr>
+<!--
+			<tr>
+
+                <th>商品简介 :</th>
+
+                <td><textarea name="intro" id="intro" cols="80" rows="2">{$info.intro}</textarea></td>
+
+            </tr>
+-->
+            <tr>
+
+				<th>商品图片 :</th>
+
+				<td>
+				<div class="w_tpk">
+				<img id="spimg" src="<if condition="$info['img'] neq '' && $info['img']!='http:' ">{$info['img']}<else/>/images/jia_pic.png</if>"/>
+
+		  </div>
+		   <div style="margin-top:90px">    <p style="color:#999999;">支持小于300k格式为jpg、jpeg、png的图片，截图请注意商品显示完全</p></div>
+		   <div class="w_cczx">
+
+            			<em>上传照片</em>
+  		<input type="hidden" name="img" value="{$item['img']}" id="img"/>
+
+		  <input type="file" name="J_img" id="J_img" class="w_bl_in2" />
+		<!--		<input type="file" name="img"  id="img" class="w_bl_in2" />
+				<input type="text" size="40" name="img_usb"   placeholder="远程图片地址" class="input-text" value=""> </td>
+ -->
+ 			</div>
+ 			<input style="top:15px;left: 15px;"  type="button" name="J_img_d" class="btn" id="J_img_d"   value="选取第一张" />
+ 			</tr>
+
+			<tr>
+
+				<th>链接地址 : </th>
+
+				<td id="Link_form">
+
+				<?php $go_link = unserialize($info['go_link']);?>
+
+				<if condition="$go_link !='' ">
+
+				<volist name="go_link" id="r">
+
+				<span><input type="text" name="link_type[]" placeholder="链接类型" class="input-text" value="{$r.name}"> ：<input type="text" id="J_link" style="width:1000px;" name="link_url[]" placeholder="链接地址" class="input-text" value="{$r.link}"/> &nbsp;<input type="button"  value=" + " id="J_add_link">
+				 <input type="button" value="{:L('auto_convert')}" id="J_convert" name="tags_btn" class="btn">
+				  <input type="button" value="强制直营" id="J_smid" name="tags_btn" class="btn">
+				 <br><br></span>
+				</volist>
+
+				<else />
+
+					<span><input type="text" name="link_type[]" placeholder="链接类型" value="直达链接" class="input-text" value=""> ：<input id="J_link" type="text" style="width:1000px;" name="link_url[]" placeholder="链接地址" class="input-text"/> &nbsp;<input type="button" value=" + " id="J_add_link"></span>
+				 <input type="button" value="{:L('auto_convert')}" id="J_convert" name="tags_btn" class="btn">
+				 <input type="button" value="强制直营" id="J_smid" name="tags_btn" class="btn">
+					
+
+ 				</if>
+
+				
+
+				</td>
+
+			</tr>			
+
+            <tr>
+
+				<th>商品标签 :</th>
+
+				<td>
+
+                	<input type="text" name="tags" id="J_tags" class="input-text" size="50" value="{$info.tags}">
+		<span style="color:red;"><分隔符支持中文的顿号、或者英文的逗号,></span>
+                    <input type="button" value="{:L('auto_get')}" id="J_gettags" name="tags_btn" class="btn">
+
+                </td>
+
+			</tr>
+
+            <tr>
+
+				<th>商品价格 :</th>
+
+				<td><input type="text" name="price" id="price" size="50" class="input-text" value="{$info.price}"> </td>
+
+			</tr>
+
+			<!--<tr>
+
+				<th>邮费 :</th>
+
+				<td><input type="text" name="express" id="express" class="input-text" size="10" value="{$info.express}"> 元 <label><input type="checkbox" value="1" name="ispost" id="ispost"  <if condition="$info['ispost'] eq 1">checked</if>>可直邮</label></td>
+
+			</tr>-->
+
+			<tr>
+
+				<th width="120">商品来源 :</th>
+
+				<!--<td><input type="text" name="orig_id" id="orig_id" size="30" class="input-text" value="{$orig_name}"> </td>-->
+
+                <td>
+
+				<select name="orig_id" id="orig_id">
+
+            	<volist name="orig_list" id="val">
+
+            	<option value="{$val.id}" <if condition="$info['orig_id'] eq $val['id']">selected="selected"</if>>{$val.name}</option>
+
+            	</volist>
+
+            	</select></td>
+
+			</tr>
+
+			<tr>
+
+				<th>商品属性 :</th>
+
+				<td>
+
+				<script language="javascript" src="../../js/jquery-1.9.1.min.js"></script>
+
+				<script>
+
+					$(function(){;
+
+						$("input[type='checkbox']").click(function(){
+
+							if($(this).is(':checked')){
+
+								$(this).val(1);
+
+							}else{
+
+								$("this").val(0);
+
+							}	
+
+						});
+
+	
+
+					});
+
+				</script>
+
+				<label><input type="checkbox" value="{$info['isbest']}" name="isbest" id="isbest" <if condition="$info['isbest'] eq 1">checked</if>>精品</label> &nbsp;&nbsp;
+
+				<label><input type="checkbox" value="{$info['ishot']}"  name="ishot" id="ishot" <if condition="$info['ishot'] eq 1">checked</if>>热门</label> &nbsp;&nbsp;
+
+				<label><input type="checkbox" value="{$info['istop']}" name="istop" id="istop"  <if condition="$info['istop'] eq 1">checked</if>>置顶</label> &nbsp;&nbsp;
+
+				<label><input type="checkbox" value="{$info['isbao']}" name="isbao" id="isbao" disabled <if condition="$info['isbao'] eq 1">checked</if>>网友爆料</label>
+
+				&nbsp;&nbsp;
+
+				<label><input type="checkbox" value="{$info['isnice']}" name="isnice" id="isnice"  <if condition="$info['isnice'] eq 1">checked</if>>推荐</label>
+
+					<label><input type="checkbox" value="{$info['ispost']}" name="ispost" id="ispost"  <if condition="$info['ispost'] eq 1">checked</if>>可直邮</label>
+
+					<label>&nbsp;&nbsp;<input type="text" value="{$info.express}"  disabled="disabled" style="width:50px;"></label>
+
+					<input type="hidden" value="{$info.source}" name="source">
+
+				</td>
+
+			</tr>
+
+			<tr>
+
+				<th>商品详情 :</th>
+
+				<td>
+
+					<script id="content" name="content" type="text/plain" style="width:80%;height:300px;z-index:100;">{$info.content}</script>
+
+					<!--<textarea name="content" id="content" style="width:68%;height:400px;visibility:hidden;resize:none;">{$info.content}</textarea>--></td>
+
+			</tr>
+
+			<tr>
+
+            	<th>发布人 :</th>
+
+                <td>{$info.uname}</td>
+
+           </tr>
+
+			<tr>
+
+				<th>
+			<input type="button" value="{:L('ds_publish')}" id="J_ds_publish" name="tags_btn" class="btn">
+			<input type="button" style="display: none" value="{:L('rm_ds_publish')}" id="J_rm_publish" name="tags_btn" class="btn"></th>
+				<td>
+				<input type="text"  style="display: none"  name="add_time" id="add_time" size="25" class="input-text" value="<if condition="$info['add_time'] != 0 "> {$info.add_time|date='Y-m-d H:i:s',###}</if>"/>
+
+				<input type="text" name="hide_time" id="hide_time" style="display: none" size="25" class="input-text" value="<?php echo  date('Y-m-d H:i:s',time());?>">
+				</td>
+
+
+			</tr>
+
+		
+
+			<tr>
+
+				<th>评语 / 退回理由 :</th>
+
+				<td>
+
+					<input type="text" name="remark" id="remark" size="75" class="input-text" value="{$info.remark}"></td>
+
+			</tr>
+
+			<tr>
+
+				<th>状态 :</th>
+
+				<td>
+
+					<select name="status">
+
+						<option value="0" <if condition="$info['status'] eq 0">selected="selected"</if>>未审</option>
+
+						<option value="1" <if condition="$info['status'] eq 1">selected="selected"</if>>通过</option>
+
+						<option value="2" <if condition="$info['status'] eq 2">selected="selected"</if>>草稿</option>
+
+						<option value="3" <if condition="$info['status'] eq 3">selected="selected"</if>>退回</option>
+
+					</select>
+
+				</td>
+
+			</tr>
+
+			<tr>
+
+				<th>操作：</th> 
+
+				<td>
+
+					<if condition="$info['status'] eq 0"><a href="javascript:;" class="J_showdialog " data-uri="/?g=admin&m=item&a=set_score&id={$info.id}" data-title="设置积分信息" data-id="edit" data-acttype="ajax" data-width="300" data-height="140" title="审核">审核</a> | </if>
+
+					<a href="javascript:void(0);" class="J_confirmurl" data-uri="{:u('item_diu/delete', array('id'=>$info['id']))}" data-msg="{:sprintf(L('confirm_delete_one'),$info['title'])}">{:L('delete')}</a>
+
+				</td>
+
+			</tr>
+
+		</table>
+
+		</div>
+
+        <div class="content_list pad_10 hidden">
+
+        	<style>
+
+				.addpic {}
+
+				.addpic li { float:left; text-align:center; margin:0 0 10px 20px;}
+
+				.addpic a { display:block;}
+
+            </style>
+
+            <ul class="addpic">
+
+            <volist name="img_list" id="val">      
+
+            <li class="album_{$val['id']}">
+
+            <a href="javascript:void(0)" onclick="del_album({$val['id']});"><img src="__STATIC__/css/admin/bgimg/tv-collapsable.gif" /></a>
+
+            <a><img src="{:attach($val['url'],'item')}" style="width:80px;height:60px; border:solid 1px #000; "/></a>
+
+            </li>
+
+            </volist>
+
+            </ul>
+
+            <div class="cb"></div>
+
+            <table width="100%" cellpadding="2" cellspacing="1" class="table_form" id="first_upload_file">
+
+                <tbody class="uplode_file">
+
+                <tr>
+
+                    <th width="100" align="left"><a href="javascript:void(0);" class="blue" onclick="add_file();"><img src="__STATIC__/css/admin/bgimg/tv-expandable.gif" /></a>上传文件 :</th>
+
+                    <td><input type="file" name="imgs[]"><!--<input type="text" size="40" name="img_usbs[]" placeholder="远程图片地址" class="input-text" value="">--></td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+		<div class="content_list pad_10 hidden">
+
+		<table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+
+			<tr>
+
+				<th width="120">{:L('seo_title')} :</th>
+
+ 				<td><input type="text" name="seo_title" id="seo_title" class="input-text" size="60" value="{$info.seo_title}"></td>
+
+			</tr>
+
+			<tr>
+
+				<th>{:L('seo_keys')} :</th>
+
+				<td><input type="text" name="seo_keys" id="seo_keys" class="input-text" size="60" value="{$info.seo_keys}"></td>
+
+			</tr>
+
+			<tr>
+
+				<th>{:L('seo_desc')} :</th>
+
+				<td><textarea name="seo_desc" id="seo_desc" cols="80" rows="8">{$info.seo_desc}</textarea></td>
+
+			</tr>
+
+		</table>
+
+		</div>
+
+        <div class="content_list pad_10 hidden">
+
+		<table width="100%" cellpadding="2" cellspacing="1" class="table_form" id="item_attr">
+
+			<volist name="attr_list" id="val">
+
+            <tr>
+
+                <td width="200">
+
+                <a href="javascript:void(0);" class="blue" onclick="del_attr({$val.id},this);"><img src="__STATIC__/css/admin/bgimg/tv-collapsable.gif" /></a>属性名 :{$val.attr_name}
+
+                </td>
+
+                <td width="">属性值 :{$val.attr_value}</td>
+
+            </tr>
+
+            </volist>
+
+            
+
+            <tbody class="add_item_attr">
+
+            <tr>
+
+                <th width="200">
+
+                <a href="javascript:void(0);" class="blue" onclick="add_attr();"><img src="__STATIC__/css/admin/bgimg/tv-expandable.gif" /></a>属性名 :<input type="text" name="attr[name][]" class="input-text" size="20">
+
+                </th>
+
+                <td>属性值 :<input type="text" name="attr[value][]" class="input-text" size="30"></td>
+
+            </tr>
+
+            </tbody>
+
+		</table>
+
+		</div>
+
+        </div>
+
+		
+
+	<!--	<div class="mt10"><input type="submit" value="{:L('submit')}" id="dosubmit" name="dosubmit" class="btn btn_submit" style="margin:0 0 10px 100px;"></div>-->
+
+		<input  type="hidden" value="4"  name="statusA" id="statusA"/>
+
+		<div class="mt10">
+
+			<!--<input type="button"  class="btn btn_submit" id="bccg" name="dosubmit"  style="margin:0 0 10px 100px;"  value="保存草稿" class="btn">-->
+
+			<input type="submit" class="btn btn_submit"  id="dosubmit" name="dosubmit"  style="margin:0 0 10px 100px;"   value="提交保存">&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="button"  class="btn btn_submit" id="zzfb" name="dosubmit"  style="margin:0 0 10px 10px;"   value="直接发布" class="btn">&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="button"  class="btn btn_submit" id="preview" name="dosubmit"  style="margin:0 0 10px 10px;"   value="预览" class="btn">
+			
+
+		</div>
+
+	</div>
+
+</div>
+
+<input type="hidden" name="menuid"  value="{$menuid}"/>
+
+<input type="hidden" name="id" id="id" value="{$info.id}" />
+
+<!--<input type="hidden" name="status" id="status" value="{$info.status}" />-->
+
+</form>
+<style>
+
+	#clipArea {
+
+		margin: 20px;
+
+		height: 300px;}
+
+	#car{
+
+		display: block;
+
+		left: 50%;
+
+		top: 50%;
+
+		width: 600px;
+
+		height: 300px;
+
+		position: fixed;
+
+		margin-left: -300px;
+
+		margin-top: -150px;
+
+		display: none;
+
+            z-index: 999;
+
+	}
+
+</style>
+
+<div id="car">
+
+	<div id="clipArea"></div>
+
+	<button id="clipBtn">裁剪</button>
+
+	<button id="J_img_close">关闭</button>
+
+	<p class="clipArea_tips"><span>*</span>滑动鼠标滑轮，可进行裁剪区域缩放。</p>
+
+</div>
+
+<include file="public:footer" />
+
+<script src="/js/ajaxfileupload.js" type="text/javascript"></script>
+
+<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
+
+<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"> </script>
+
+<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+<script>
+
+	$(function(){
+
+		$("#bccg").click(function(){
+
+			$("#statusA").val('2');	
+			$("#info_form").attr("target","_self");
+
+			$("#info_form").submit();
+
+		});
+
+		$("#zzfb").click(function(){
+
+			$imgsrc=$("#spimg")[0].src;
+
+			if($('#J_cate_id').val()== 0){
+
+			  alert("请选择所属分类！");
+
+			}else if($('#img').val()=='' && !$imgsrc){
+
+			  alert("请上传商品图片！");
+
+			}else{
+
+				$("#statusA").val('1');	
+				$("#info_form").attr("target","_self");
+				$("#info_form").submit();
+
+			}
+
+		});
+		$("#preview").click(function(){
+
+			$imgsrc=$("#spimg")[0].src;
+
+			if($('#J_cate_id').val()== 0){
+
+			  alert("请选择所属分类！");
+
+			}else if($('#img').val()=='' && !$imgsrc){
+
+			  alert("请上传商品图片！");
+
+			}else{
+
+				$("#statusA").val('5');	
+				$("#info_form").attr("target","_blank");
+				$("#info_form").submit();
+
+			}
+
+		});
+
+
+		$("#dosubmit").click(function(){
+
+			$imgsrc=$("#spimg")[0].src;
+
+			if($('#J_cate_id').val()== 0){
+
+			  alert("请选择所属分类！");
+
+			}else if($('#img').val()=='' && !$imgsrc){
+
+			  alert("请上传商品图片！");
+
+			}else{
+
+			  $("#statusA").val('4');	
+			  $("#info_form").attr("target","_self");
+			  $("#info_form").submit();
+
+			}
+
+		});
+
+	});
+
+
+
+
+
+</script>
+
+<script type="text/javascript">
+
+	var ue = UE.getEditor('content');
+
+
+
+$('.J_cate_select').cate_select('请选择');
+
+
+
+$(function() {
+
+	if($("#add_time").val() !=""){
+		$('#J_ds_publish').hide()
+		$("#add_time").show()
+		$('#J_rm_publish').show();
+	}
+
+
+
+	$('#save_msg').click(function(){
+
+		$('#add_time').val('');
+
+	});
+
+	$('#send_msg').click(function(){
+
+		
+
+	});
+
+	$('ul.J_tabs').tabs('div.J_panes > div');
+
+	//自动获取标签
+
+	$('#J_gettags').live('click', function() {
+
+		var title = $.trim($('#J_title').val());
+
+		if(title == ''){
+
+			$.pinphp.tip({content:lang.article_title_isempty, icon:'alert'});
+
+			return false;
+
+		}
+
+		$.getJSON('{:U("item_diu/ajax_gettags")}', {title:title}, function(result){
+
+			if(result.status == 1){
+
+				$('#J_tags').val(result.data);
+
+			}else{
+
+				$.pinphp.tip({content:result.msg});
+
+			}
+
+		});
+
+	});
+
+	$('#J_smid').live('click', function() {
+
+		var url = $.trim($('#J_link').val());
+
+		if(url == ''){
+
+			$.pinphp.tip({content:lang.article_title_isempty, icon:'alert'});
+
+			return false;
+
+		}
+
+		$.getJSON('{:U("item_diu/ajax_smid")}', {url:url}, function(result){
+
+			if(result.status == 1){
+				if(result.data.id!=-1){
+				$('#J_link').val(result.data.convert_url);
+				}
+
+			}else{
+
+				$.pinphp.tip({content:result.msg});
+
+			}
+
+		});
+
+	});
+
+	$('#J_ds_publish').live('click', function() {
+		$('#J_ds_publish').hide()
+		$("#add_time").show()
+		$('#J_rm_publish').show();
+		$("#add_time").val($("#hide_time").val());
+
+	});
+	$('#J_rm_publish').live('click', function() {
+		$('#J_rm_publish').hide();
+		$("#add_time").hide()
+		$('#J_ds_publish').show()
+		$("#add_time").val("");
+
+	});
+	
+	$('#J_convert').live('click', function() {
+
+		var url = $.trim($('#J_link').val());
+
+		if(url == ''){
+
+			$.pinphp.tip({content:lang.article_title_isempty, icon:'alert'});
+
+			return false;
+
+		}
+
+		$.getJSON('{:U("item_diu/ajax_converturl")}', {url:url}, function(result){
+
+			if(result.status == 1){
+
+				$('#J_link').val(result.data.convert_url);
+				if(result.data.id!=-1)
+				 $("#orig_id").val(result.data.id);
+
+			}else{
+
+				$.pinphp.tip({content:result.msg});
+
+			}
+
+		});
+
+	});
+
+	$.formValidator.initConfig({formid:"info_form",autotip:true});
+
+	$("#J_title").formValidator({onshow:'请填写商品名称',onfocus:'请填写商品名称'}).inputValidator({min:1,onerror:'请填写商品名称'}).defaultPassed();
+
+});
+
+function get_child_cates(obj,to_id)
+
+{
+
+	var parent_id = $(obj).val();
+
+	if( parent_id ){
+
+		$.get('?m=item&a=get_child_cates&g=admin&parent_id='+parent_id,function(data){
+
+				var obj = eval("("+data+")");
+
+				$('#'+to_id).html( obj.content );
+
+	    });
+
+    }
+
+}
+
+
+
+function add_file()
+
+{
+
+    $("#next_upload_file .uplode_file").clone().insertAfter($("#first_upload_file .uplode_file:last"));
+
+}
+
+function del_file_box(obj)
+
+{
+
+	$(obj).parent().parent().remove();
+
+}
+
+function del_album(id)
+
+{
+
+	var url = "{:U('item_diu/delete_album')}";
+
+    $.get(url+"&album_id="+id, function(data){
+
+		if(data==1){
+
+		    $('.album_'+id).remove();
+
+		};
+
+    });
+
+}
+
+function add_attr()
+
+{
+
+    $("#hidden_attr .add_item_attr").clone().insertAfter($("#item_attr .add_item_attr:last"));
+
+}
+
+function del_attrs(obj)
+
+{
+
+	$(obj).parent().parent().remove();
+
+}
+
+function del_attr(id,obj)
+
+{
+
+	var url = "{:U('item_diu/delete_attr')}";
+
+    $.get(url+"&attr_id="+id, function(data){
+
+		if(data==1){
+
+		    $(obj).parent().parent().remove();
+
+		};
+
+    });
+
+}
+
+$("#J_add_link").live('click',function(){
+
+	$("#Link_form").append('<span><input name="link_type[]"  class="input-text" value="直达链接" > ：<input type="text" name="link_url[]"  value="" class="input-text"/>&nbsp;&nbsp;<input type="button" value=" - " id="J_del_link"/><br><br></span>');
+
+});
+
+$("#J_del_link").live('click',function(){
+
+	$(this).parent().remove();
+
+});
+
+
+
+</script>
+
+<table id="next_upload_file" style="display:none;">
+
+<tbody class="uplode_file">
+
+   <tr>
+
+      <th width="100"><a href="javascript:void(0);" onclick="del_file_box(this);" class="blue"><img src="__STATIC__/css/admin/bgimg/tv-collapsable.gif" /></a>上传文件 :</th>
+
+      <td><input type="file" name="imgs[]"><!--<input type="text" size="40" name="img_usbs" placeholder="远程图片地址" class="input-text" value="">--></td>
+
+   </tr>
+
+</tbody>
+
+</table>
+
+<table id="hidden_attr" style="display:none;">
+
+<tbody class="add_item_attr">
+
+<tr>
+
+    <th width="200">
+
+    <a href="javascript:void(0);" class="blue" onclick="del_attrs(this);"><img src="__STATIC__/css/admin/bgimg/tv-collapsable.gif" /></a>属性名 :<input type="text" name="attr[name][]" class="input-text" size="20">
+
+    </th>
+
+    <td>属性值 :<input type="text" name="attr[value][]" class="input-text" size="30"></td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<script src="__STATIC__/js/kindeditor/kindeditor.js"></script>
+
+<script>
+
+/*var editor;
+
+KindEditor.ready(function(K) {
+
+	editor = K.create('#content', {
+
+		uploadJson : '{:U("attachment/editer_upload")}',
+
+		fileManagerJson : '{:U("attachment/editer_manager")}',
+
+		allowFileManager : true
+
+	});
+
+	K('#info_form').bind('submit', function() {
+
+		editor.sync();
+
+	});
+
+});*/
+
+</script>
+
+<link rel="stylesheet" href="__STATIC__/js/calendar/calendar-blue.css"/>
+
+<script src="__STATIC__/js/calendar/calendar.js"></script>
+
+<script src="/js/car1.6/iscroll-zoom.js"></script>
+
+<script src="/js/car1.6/hammer.js"></script>
+
+<script src="/js/car1.6/lrz.all.bundle.js"></script>
+
+<script src="/js/car1.6/PhotoClip.js"></script>
+
+<script>
+
+	var pc = new PhotoClip('#clipArea', {
+		size: [200, 200],
+		outputSize: [600, 600],
+		//adaptive: ['60%', '80%'],
+		file: '#file',
+		view: '#view',
+		ok: '#clipBtn',
+		//img: 'img/mm.jpg',
+		loadStart: function() {
+			console.log('开始读取照片');
+		},
+		loadComplete: function() {
+			console.log('照片读取完成');
+		},
+		done: function(dataURL) {
+			$('#clipBtn').html('保存中....');
+
+			$.post('/index.php?m=item&a=uploadimg1',{data:dataURL},function(result){
+
+				if(result.status ==1){
+
+					$('#clipBtn').html('裁剪');
+
+					$('#spimg').attr('src',result.data);
+
+					$('#img').val(result.data);
+
+					$('#car').hide();
+
+				}
+
+			},'json');
+		},
+		fail: function(msg) {
+			alert(msg);
+		}
+	});
+	$('#J_img_d').click('change',function () {
+		var content = ue.getContent(); 
+		var pattern =/<img src=\"(.*?)\"/;
+		var imgs=pattern.exec(content);
+		if(imgs !=null && imgs[1].substring(0,13)== "/ueditor/php/"){
+		pc.load(imgs[1]);
+		$('#car').show();
+		}
+		else{
+			$.get('/ueditor/php/controller.php?action=catchimage&source[]='+imgs[1],{},function(result){
+
+				if(result.state =="SUCCESS"){
+					img=result.list[0].url;
+					pc.load(img);
+					$('#car').show();
+
+				}
+				else{
+					alert("找不到图片");
+					$('#car').hide();
+				}
+
+			},'json');
+		
+		}
+		
+
+	});
+
+	$("#spimg").click(function(){
+
+	$("#J_img").trigger("click");
+
+});
+	$('#J_img_close').click('change',function () {
+
+		$('#car').hide();
+
+	});
+
+	$('#J_img').live('change',function () {
+
+		$('#car').show();
+
+	});
+
+	$("#J_img").live('change',function () {
+
+	ajaxFileUpload();
+
+});
+
+var PINER = {
+    root: "__ROOT__",
+    uid: "<?php echo $visitor['id'];?>", 
+    async_sendmail: "<?php echo $async_sendmail;?>",
+    config: {
+        wall_distance: "<?php echo C('pin_wall_distance');?>",
+        wall_spage_max: "<?php echo C('pin_wall_spage_max');?>"
+    },
+    //URL
+    url: {}
+};
+
+function ajaxFileUpload() {
+
+
+	$.ajaxFileUpload
+
+	(
+
+		{
+
+			url: PINER.root + '/?m=item&a=uploadimg', //用于文件上传的服务器端请求地址
+
+			secureuri: false, //是否需要安全协议，一般设置为false
+
+			fileElementId: 'J_img', //文件上传域的ID
+
+			dataType: 'json', //返回值类型 一般设置为json
+
+			success: function (result, status)  //服务器成功响应处理函数
+
+			{
+
+				if(result.status =='1'){
+					pc.load(result.data);
+
+					
+
+				}
+
+			},
+
+			error: function (data, status, e)//服务器响应失败处理函数
+
+			{
+
+				tips(e,0);
+
+			}
+
+		}
+
+	)
+
+	return false;
+
+}
+
+/*Calendar.setup({
+
+	inputField : "add_time",
+
+	ifFormat   : "%Y-%m-%d %H:%M",
+
+	showsTime  : true,
+
+	timeFormat : "24"
+
+});*/
+
+$(document).ready(function(){
+
+$("#edui1").css("z-index","100")
+
+})
+
+</script>
+
+<script src="/js/function_item_aedt.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<include file="public:head" />
+<script src="/static/js/wap/tab.js" type="text/javascript"></script>
+</head>
+
+<body style="background:#f5f5f5;">
+<nav class="w_h2">
+<a href="{:U('wap/space/index', array('uid'=>$item['uid']))}" title="{$item.uname}" class="w_h2_r"><img src="/static/images/wap/w_fz.png" title="{$item.uname}" alt="{$item.uname}"/></a>
+<em>{$item.uname}</em>
+<a href="javascript:history.go(-1);" title="返回" class="w_h2_l"><img src="/static/images/wap/w_t_lef.png" title="返回" alt="返回"/></a>
+<h2>文章内容</h2>
+</nav>
+<div class="w_center">
+  <div class="w_bjtjy">
+   <h2>{$item.title}</h2>
+   <div class="w_bjtjy_1">
+    <img src="{:avatar($item['uid'], 48)}" title="{$item.uname}" alt="{$item.uname}" /><span>{$item.uname}</span>|<span>{$item.add_time|fdate}</span>
+   </div>
+   <div class="w_bjtjy_2">
+	 <p>{$item.info}</p>
+   </div>
+   
+   <div class="w_bjtjy_4">
+     <span class="z_submit w_bjtjy_41" data="{$item.id}"><img src="/static/images/wap/w_dzz.png" title="点赞" alt="点赞"/><em id="zan">{$item.zan}</em></span>
+     <span class="J_fav w_bjtjy_42" data-id="{$item.id}" data-xid="3"><img src="/static/images/wap/w_scc.png" title="收藏" alt="收藏"/>收藏</span>
+   </div>
+  </div>
+  <div class="w_xzzr3">
+     <h3>猜您喜欢</h3>
+     <ul  id="con_zk_1">
+	 <volist name="maylike_list" id="mval">
+	 <volist name="mval['list']" id="mitem">
+     <if condition="$mitem['num'] lt 6">
+      <li>
+       <a href="{:U('wap/item/index', array('id'=>$mitem['id']))}" title="{$mitem.title}">
+        <div class="w_zk_img">
+         <img src="{:attach($mitem['img'],'item')}" title="{$mitem.title}" alt="{$mitem.title}"/>
+        </div>
+        <address><span>{$mitem.add_time|fdate}</span>{$mitem.orig_name}</address>
+        <h2>{$mitem.title}</h2>
+        <div class="w_jg"><em></em></div>
+        </a>
+      </li>
+      </if>
+	 </volist>
+     </volist>
+    </ul>
+  </div>  
+  <a name="pl"></a>
+  <include file="public:comment" /> 
+  <include file="public:footer" />
+<script src="/static/js/wap/pl.js"></script>
+<script>
+$(function(){
+	//商品点赞
+	$(".z_submit").click(function(){
+		$.get("/index.php?g=wap&m=ajax&a=zan&t=article",{id:$(this).attr("data")},function(result){
+			if(result.status==1){
+				$("#zan").html(result.data);
+				weui.Loading.success("点赞成功");
+			}else{
+				weui.Loading.error(result.msg);
+			}
+		},'json')
+	});
+	//详细页收藏商品
+	$(".J_fav").click(function(){
+		if(PINER.uid==""){
+			window.location="{:U('wap/user/login')}";
+			return false;
+		}
+		var obj=$(this);
+		$.post("/index.php?g=wap&m=ajax&a=setlikes",{id:obj.attr("data-id"),xid:obj.attr("data-xid")},function(result){
+			if(result.status==1){
+				weui.Loading.success(result.msg);
+			}else{
+				weui.Loading.error(result.msg);
+			}
+		},'json');
+	});
+})
+</script>
+</div>
+</body>
+</html>

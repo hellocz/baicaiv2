@@ -1,0 +1,208 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<include file="public:head" />
+<style>
+.w_fbgl li.w_fb_3 .w_gl1{ width:33%; height:30px; padding:0% 0%; color:#acacac !important; border:0; font-size:1em;}
+.J_cate_select{ margin-right:10px;}
+</style>
+</head>
+<body style="background:#f3f7f7;">
+<nav class="w_h2">
+<a href="{:U('wap/index/index')}" title="首页" class="w_h2_r"><img src="/static/images/wap/w_fz.png" title="首页" alt="首页"/></a>
+<em>{$visitor.username}</em>
+<a href="javascript:history.go(-1);" title="返回" class="w_h2_l"><img src="/static/images/wap/w_t_lef.png" title="返回" alt="返回"/></a>
+<h2>商品信息</h2>
+</nav>
+<div class="w_center">
+  <div class="w_fbgl">
+   <form id="info_form" action="{:u('wap/item/edit')}" method="post" enctype="multipart/form-data" onSubmit="javascript:return tijiao();">
+   <ul>
+     <li class="w_fb_1"><input type="text" name="title" placeholder="商品名称" value="{$item.title}" class="w_gl1" id="title" /></li>
+     <li class="w_fb_2">
+      <a href="javascript:;" title="">
+      <input type="file" name="J_img" id="J_img" class="w_xj1" >
+	  <input type="hidden" name="img" id="img" value="{$item['img']}"/>
+      <img src="<if condition="$item['img'] neq '' ">{:attach($item['img'],"item")}<else/>/static/images/wap/w_jj.png</if>" title="上传图片" alt="上传图片" id="btn_img" />
+      </a>
+     </li>
+     <li class="w_fb_3">
+     <?php 
+	   $item_cate = M("item_cate")->where('pid=0 and status=1')->select();
+       $pid = M("item_cate")->where("id=$item[cate_id] and status=1")->getField('pid');
+	   if($pid!=0){
+	   	$s_pid = M("item_cate")->where("id=$pid and status=1")->getField("pid");
+		$item_s = M("item_cate")->where("pid=$pid and status=1")->select();
+		if($s_pid!=0){
+			$b_pid = M("item_cate")->where("id=$s_pid and status=1")->getField("pid");
+			$item_b = M("item_cate")->where("pid=$s_pid and status=1")->select();
+		}
+	   }else{
+	   	$item_cate = M("item_cate")->where("pid=0 and status=1")->select();
+	   }
+	   ?>
+       <label>商品分类：</label>
+       <if condition="$item_cate">
+          <select class="w_bl_se1 J_cate_select" >
+		  <option value="0" selected="selected">--请选择--</option>
+		  <volist name="item_cate" id="k">
+            <option value="{$k.id}" <if condition="$k['id'] eq $s_pid or $k['id'] eq $item['cate_id']">selected</if>>{$k.name}</option>
+          </volist>
+          </select>
+		</if>
+       <if condition="$item_b">
+          <select class="w_bl_se1 J_cate_select" >
+		  <option value="0" selected="selected">--请选择--</option>
+		  <volist name="item_b" id="k">
+            <option value="{$k.id}" <if condition="$k.id eq $pid">selected</if>>{$k.name}</option>
+          </volist>
+          </select>
+		</if>
+		<if condition="$item_s">
+          <select class="w_bl_se1 J_cate_select" >
+		  <option value="0" selected="selected">--请选择--</option>
+		  <volist name="item_s" id="k">
+            <option value="{$k.id}" <if condition="$k.id eq $item['cate_id']">selected</if>>{$k.name}</option>
+          </volist>
+          </select>
+		</if>
+         <input type="hidden" name="cate_id" id="J_cate" value="<if condition="$item['cate_id']">{$item['cate_id']}<else/>0</if>">
+     </li>
+     <li class="w_fb_1"><input type="text" name="price" placeholder="商品价格" value="{$item.price}" class="w_gl1" id="price" /></li>
+     <li class="w_fb_3"><input type="text" name="express" placeholder="运费" value="{$item.express}" class="w_gl1" id="express" style="padding:1% 2%;" /><label style="margin-left:10px;"><input type="checkbox" value="1" name="ispost" id="ispost" <if condition="$item.ispost eq 1">checked</if> >可直邮</label></li>
+     <volist name="item['go_link']" id="r">
+     <li class="w_fb_3">
+     <a href="javascript:void(0);" onclick="del_attr(this);"><img src="__STATIC__/css/admin/bgimg/tv-collapsable.gif" /></a>
+     链接类型：<input type="text" name="link_type[]" value="{$r.name}" class="w_gl1" />
+     链接地址：<input type="text" name="link_url[]" value="{$r.link}" class="w_gl1" />
+     </li>
+     </volist>
+     <li class="w_fb_3" id="item_attr">
+     <a href="javascript:void(0);" onclick="add_attr();"><img src="__STATIC__/css/admin/bgimg/tv-expandable.gif" /></a>
+     链接类型：<input type="text" name="link_type[]" class="w_gl1" />
+     链接地址：<input type="text" name="link_url[]" class="w_gl1" />
+     </li>
+     
+     <li class="w_fb_4">
+       <textarea name="content">{$item.content}</textarea>
+     </li> 
+     <li class="w_fb_5">
+     <input type="submit" value="发布爆料" class="w_fbss" style="width:47%;" />
+     <input type="submit" value="保存草稿" class="J_cg w_fbss" style="width:47%; margin-left:6%;" />
+     </li>
+     <input type="hidden" name="status" id="status" value="0"/>
+	 <input type="hidden" name="id"  id="id" value="{$item.id}"/>
+     <input type="hidden" name="url" value="{$item['url']}"/>
+   </ul>
+   </form>
+  </div>
+</div>
+
+<script src="/static/js/wap/weui.min.js"></script>
+<link href="/static/js/wap/weui.css" type="text/css" rel="stylesheet"/>
+<script src="/js/ajaxfileupload.js" type="text/javascript"></script>
+<script>
+function add_attr()
+{
+    $("#hidden_attr .w_fb_3").clone().insertAfter($("#item_attr:last"));
+}
+function del_attr(obj)
+{
+	$(obj).parent().remove();
+}
+$(".J_cg").click(function(){
+	$("#status").val(2);
+});
+$("#btn_img").click(function(){
+	$("#J_img").trigger("click");
+});
+$(document).on('change','#J_img',function () {
+	ajaxFileUpload();
+});
+function ajaxFileUpload() {
+	$('#btn_img').attr('src', '/images/bcloading.gif');
+	$.ajaxFileUpload
+	(
+		{
+			url: '/?g=wap&m=item&a=uploadimg', //用于文件上传的服务器端请求地址
+			secureuri: false, //是否需要安全协议，一般设置为false
+			fileElementId: 'J_img', //文件上传域的ID
+			dataType: 'json', //返回值类型 一般设置为json
+			success: function (result, status)  //服务器成功响应处理函数
+			{
+				if(result.status =='1'){
+					$('#btn_img').attr('src', result.data);
+					$('#img').val(result.data);
+				}
+			},
+			error: function (data, status, e)//服务器响应失败处理函数
+			{
+				weui.Loading.error("上传图片失败");
+			}
+		}
+	)
+	return false;
+}
+
+$(document).on("change",".J_cate_select",function(){
+	var _this=$(this);
+	var _pid=$(this).val();
+	var uri="/?g=admin&m=item_cate&a=ajax_getchilds&type=0";
+	var index = $(".J_cate_select").index(this);
+	if(_pid != ''){
+		$('.J_cate_select:gt('+index+')').remove();
+		$.get(uri, {id:_pid}, function(result){
+			if(result.status == '1'){
+				var _childs = $('<select class="J_cate_select mr10" data-pid="'+_pid+'"><option value="">--请选择--</option></select>')
+				for(var i=0; i<result.data.length; i++){
+					$('<option value="'+result.data[i].id+'">'+result.data[i].name+'</option>').appendTo(_childs);
+				}
+				_childs.insertAfter(_this);
+			}
+		},'json');
+		$('#J_cate').val(_pid);
+	}else{
+		$('#J_cate').val(_this.attr('data-pid'));
+	}
+})
+
+function tijiao(){
+	if($("#img").val()==""){
+		weui.Loading.error("请选择图片");
+		return false;
+	}
+	if($("#title").val()==""){
+		weui.Loading.error("标题不能为空");
+		return false;
+	}
+	if($("#cate_id").val()=="0"){
+		weui.Loading.error("请选择文章分类");
+		return false;
+	}
+	if($("#price").val()==""){ weui.Loading.error("价格不能为空");return false;}
+	if(isNaN($("#price").val())){ weui.Loading.error("价格请输入数字");return false;}
+	if(isNaN($("#express").val())){ weui.Loading.error("运费请输入数字");return false;}
+	$("#info_form").submit();
+}
+
+var is_confirm=true;
+// 关闭窗口时弹出确认提示
+$(window).bind('beforeunload', function(){
+    // 只有在标识变量is_confirm不为false时，才弹出确认提示
+    if(window.is_confirm !== false)
+        return "您有未保存的内容，您确定关闭吗？";
+});
+// 提交表单时，不弹出确认提示框
+$('form').bind('submit', function(){
+    is_confirm = false;  
+});
+</script>
+<div id="hidden_attr" style="display:none;">
+     <li class="w_fb_3">
+     <a href="javascript:void(0);" onclick="del_attr(this);"><img src="__STATIC__/css/admin/bgimg/tv-collapsable.gif" /></a>
+     链接类型：<input type="text" name="link_type[]" class="w_gl1" />
+     链接地址：<input type="text" name="link_url[]" class="w_gl1" />
+     </li>
+     </div>
+</body>
+</html>

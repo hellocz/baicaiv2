@@ -1,0 +1,9 @@
+    <div id="banner">
+         <ul>
+		 <volist name="ad_list" id="ad">
+            <li><img src="<if condition="$ad['is_url']==1">{$ad.content}<else/>__UPLOAD__/advert/{$ad.content}</if>"></li>
+		 </volist>
+         </ul>
+            <div id="banner_left"><a href="javascript:jumpLeft()"></a></div>
+           <div id="banner_right"><a href="javascript:jumpRight()"></a></div>
+    </div>

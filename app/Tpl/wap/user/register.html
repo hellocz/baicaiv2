@@ -1,0 +1,242 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+
+<include file="public:head" />
+
+</head>
+
+
+
+<body style="background:#f5f5f5;">
+
+<nav class="w_h2">
+
+<a href="{:U('wap/index/index')}" title="首页" class="w_h2_r"><img src="/static/images/wap/w_fz.png" title="首页" alt="首页"/></a>
+
+<a href="javascript:history.go(-1);" title="返回" class="w_h2_l"><img src="/static/images/wap/w_t_lef.png" title="返回" alt="返回"/></a>
+
+<h2>账户注册</h2>
+
+</nav>
+
+<div class="w_center">
+
+  <div class="w_zc">
+
+    <ul>
+
+      <form id="J_register_form" action="{:U('wap/user/register')}" method="post">
+
+      <li class="w_zc_1"><input type="text" placeholder="用户名" class="w_zc_in4" name="username" id="J_username"/></li>
+
+      <li class="w_zc_1"><input type="password" placeholder="设置密码" class="w_zc_in4" name="password" id="J_password"/></li>
+
+	  <li class="w_zc_1"><input type="text" placeholder="设置邮箱" class="w_zc_in4" name="email" id="J_email"/></li>
+
+	  <li class="w_zc_1"><div class="sj"><img src="{:U('captcha/'.time())}" id="J_captcha_img"  alt="{:L('captcha')}" data-url="{:U('captcha/js_rand')}"></div>
+
+	  <input type="text" placeholder="验证码" class="w_zc_in3" name="captcha" id="J_captcha"/></li>
+
+	  <li class="w_zc_2"><input type="button" value="提交" class="w_hqyz" id="J_regsub"/></li>
+
+      <li class="w_zc_2"><a href="" title="用户注册协议">注册即视为同意《<i>用户注册协议</i>》</a></li>
+
+	  <input tabindex="1" type="hidden" value="1" name="agreement" id="agreement"> 
+
+	  </form>
+
+    </ul>
+
+  </div>
+
+</div>
+
+<script src="/static/js/wap/function.js"></script>
+
+
+
+<script>
+
+var PINER = {
+
+    root: "__ROOT__",
+
+    uid: "<?php echo $visitor['id'];?>", 
+
+    async_sendmail: "<?php echo $async_sendmail;?>",
+
+    config: {
+
+        wall_distance: "<?php echo C('pin_wall_distance');?>",
+
+        wall_spage_max: "<?php echo C('pin_wall_spage_max');?>"
+
+    },
+
+    //URL
+
+    url: {}
+
+};
+
+//语言项目
+
+var lang = {};
+
+lang.please_input = "请输入";lang.username = "用户名";lang.password = "密码";lang.wait = "请稍后......";lang.email = "邮件地址";lang.email_tip = "请填写正确的常用邮箱，以便找回密码";lang.email_format_error = "邮件格式不正确";lang.email_exists = "电子邮件地址已经被使用";lang.username_tip = "最多20个字符，中文算两个字符";lang.username_exists = "这昵称太热门了，被别人抢走啦，换一个吧";lang.password_tip = "20个字符，数字、字母或者符号";lang.password_too_short = "密码太短啦，至少要6位哦";lang.password_too_long = "密码太长";lang.repassword_tip = "这里要重复输入一次密码";lang.repassword_empty = "请重复输入一次密码";lang.passwords_not_match = "两次输入的密码不一致";lang.captcha_tip = "输入图片中的字符";lang.captcha_empty = "请输入验证码";
+
+
+
+$(function(){
+
+	var u=$("#J_username"),p=$("#J_password"),em=$("#J_email"),c=$("#J_captcha"),ag=$("#agreement");
+
+	$("#J_regsub").click(function(){
+
+		if(u.val()==""){
+
+			weui.Loading.error(lang.please_input+lang.username);return false;
+
+		}
+
+		if(p.val()==""){
+
+			weui.Loading.error(lang.please_input+lang.password);return false;
+
+		}
+
+		if(em.val()==""){
+
+			weui.Loading.error(lang.please_input+lang.email);return false;
+
+		}
+
+		if(c.val()==""){
+
+			weui.Loading.error(lang.captcha_empty);return false;
+
+		}
+
+		$("#J_register_form").submit();
+
+	});
+
+	u.blur(function(){checkusername()});
+
+	p.blur(function(){checkpassword()});
+
+	em.blur(function(){checkemail()});
+
+	$('#J_captcha_img').click(function(){
+
+		var timenow = new Date().getTime(),
+
+		url = $(this).attr('data-url').replace(/js_rand/g,timenow);
+
+		$(this).attr("src", url);
+
+	});
+
+	function checkusername(){
+
+		if(u.val()==""){
+
+			weui.Loading.error(lang.please_input+lang.username);
+
+			return false;
+
+		}
+
+		$.get("{:U('wap/user/ajax_check')}",{type:'username',J_username:u.val()},function(result){
+
+			if(result.status=='0'){
+
+				weui.Loading.error(lang.username_exists);
+
+			}
+
+		},'json');
+
+	}
+
+	function checkpassword(){
+
+		var pv=p.val();
+
+		if(pv==""){
+
+			weui.Loading.error(lang.please_input+lang.password);
+
+			return false;
+
+		}
+
+		if(pv.length<6){
+
+			weui.Loading.error(lang.password_too_short);
+
+			return false;
+
+		}
+
+		if(pv.length>20){
+
+			weui.Loading.error(lang.password_too_long);
+
+			return false;
+
+		}
+
+	}
+
+	function checkemail(){
+
+		var ev=em.val();
+
+		if(ev==""){
+
+			weui.Loading.error(lang.please_input+lang.email);
+
+			return false;
+
+		}
+
+		if(!valid_email(ev)){
+
+			weui.Loading.error(lang.email_format_error);
+
+			return false;
+
+		}
+
+		$.get("{:U('wap/user/ajax_check')}",{type:"email",J_email:ev},function(res){
+
+			if(res.status=="0"){
+
+				weui.Loading.error(lang.email_exists);
+
+			}
+
+		});
+
+	}
+
+	function valid_email(val){
+
+		var myreg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+
+		return myreg.test(val); 
+
+	}
+
+});
+
+</script>
+
+</body>
+
+</html>
+

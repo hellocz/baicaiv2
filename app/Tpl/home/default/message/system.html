@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<include file="public:head" />
+
+<link rel="stylesheet" type="text/css" href="/static/css/default/user.css" />
+
+<link rel="stylesheet" type="text/css" href="/static/css/default/base.css" />
+
+</head>
+
+
+
+<body style="background:#f5f5f5">
+
+<include file="public:header" />
+
+<div class="w_gezx_ce"> 
+
+  <div class="w_ger">
+
+    <include file="user:center_left" />
+
+	<div class="w_xxzx">
+
+	 <h2>消息中心</h2> 
+
+    <div class="w_xxzx_t">
+           <span class="w_xxzx_t_s"  id="xxx2" onclick="window.location='{:U('message/system')}'">系统提醒</span>   
+
+        <span  id="xxx1" onclick="window.location='{:U('message/index')}'">菜友消息</span>
+    </div>
+
+	<div class="mes_friendly">
+
+		<if condition="$system_list neq ''">
+
+            <ul class="system">
+
+                <volist name="system_list" id="val">
+
+                <li>
+
+                    <p class="sys_text clr6 fl">{$val.info}</p>
+
+                    <a href="javascript:" class="sys_time fr xx_ss"  data-id = "{$val.id}"><span  style="margin-left: 10px;">删除</span></a>
+
+                    <span class="sys_time fr">{$val.add_time|fdate}</span>
+
+
+
+                </li>
+
+                </volist>
+
+            </ul>
+
+            <div class="w_pag">{$page_bar}</div>
+
+            <else/>
+
+            <p class="mt20">{:L('no_system_notic')}</p>
+
+       </if>
+
+	</div>
+
+	</div>	
+
+	</div>
+
+  </div>
+
+<script>
+
+    $('.xx_ss').click(function(){
+
+        $.get(PINER.root + '/message-del-mid-' + $(this).data('id'),function(result){
+
+            if(result.status==1){
+
+                location.reload();
+
+            }else{
+
+                tips(result.msg,0);
+
+            }
+
+        },'json');
+
+    })
+
+</script>
+
+<include file="public:footer" />
+
+</body>
+
+</html>
+

@@ -1,0 +1,66 @@
+		<if condition="$dss eq lb">
+		<volist name="item_list" id="r">
+         <li class="w_f2_nr1_1">
+          <a href="{:U('item/index',array('id'=>$r['id']))}" title="{$r.title}" target="_blank"><img src="<if condition="$r['img']==''">/images/nopic.jpg<else/>{:attach($r['img'],'item')}</if>" title="{$r.title}" alt="{$r.title}"/></a>
+          <h2><a href="{:U('item/index',array('id'=>$r['id']))}" title="{$r.title}" target="_blank">{$r.title}<br/><em style="display:none">￥{$r.price}</em></a></h2>
+          <p class="w_p1"><if condition="$r['uid']!=0"><span><a href="{:U('space/index',array('uid'=>$r['uid']))}" title="{$r.uname}"><img src="{:avatar($r['id'],24)}" title="{$r.username}" alt="{$r.username}" class="ava"/> {$r.uname}</a></span></if><span>{$r['add_time']|date='Y-m-d h:i:s',###}</span></p>
+          <p><a href="{:U('item/index',array('id'=>$r['id']))}" title="{$r.title}" target="_blank">{$r.intro}</a></p>
+          <div class="w_f2nr1_b">
+          <div class="w_f2nr1_le"><a href="javascript:;" title="赞" class="w_z_1 Jz_submit" data="{$r.id}"  data-t="item">{$r.zan}</a><a href="javascript:;" title="{$r.title}"  class="w_z_2 Jl_likes" data-id="{$r.id}" data-xid="1">{$r.likes}</a><a href="{:U('item/index', array('id'=>$r['id']))}" title="{$r.title}"  class="w_z_3" target="_blank">{$r.comments}</a></div><div class="w_f2nr1_rig"><a href="{:U('orig/show',array('id'=>$r['orig_id']))}" class="w_dj1">{:getly($r['orig_id'])}</a>
+		  <div class="w_zzj_1">
+				<?php $llink = unserialize($r['go_link']);$lc = count($llink);?>
+				<volist name="llink" id="rm" key="j">
+			    <if condition="$j eq 1"><a href="__ROOT__/?m=item&a=tgo&to={:base64_encode($rm['link'])}" title="{$rm.title}" class="w_zdlj_a" target="_blank" rel="nofollow" ><i class="<if condition="$lc gt 1">w_down<else/>w_right</if>"></i>{$rm.name}</a></if>
+				</volist>
+				<if condition="$lc gt 1">
+                <ul>
+				<volist name="llink" id="rm">
+                <li><a href="__ROOT__/?m=item&a=tgo&to={:base64_encode($rm['link'])}" target="_blank" rel="nofollow"  title="{$rm.title}">{$rm.name}</a></li>
+                </volist>
+              </ul>
+			  </if>
+			</div>
+			</div></div>
+         </li>
+        </volist>
+	   <else/>
+		   <volist name="item_list" id="r">
+           <li <if condition="$i%3 eq 1">class="no_left"</if>>
+             <a href="{:U('item/index',array('id'=>$r['id']))}" title="{$r.title}" target="_blank"><img src="<if condition="$r['img']==''">/images/nopic.jpg<else/>{:attach($r['img'],'item')}</if>" title="{$r.title}" alt="{$r.title}"/></a>
+             <h2> <a href="{:U('item/index',array('id'=>$r['id']))}" title="{$r.title}" target="_blank">{$r.title|msubstr=0,30,''}</a></h2><div class="clear"></div>
+             <p class="w_p1"><if condition="$r['uid']!=0"><span><a href="{:U('space/index',array('uid'=>$r['uid']))}" title="{$r.uname}"><img src="{:avatar($r['id'],24)}" title="{$r.username}" alt="{$r.username}" class="ava"/> {$r.uname}</a></span></if><a href="{:U('orig/show',array('id'=>$r['orig_id']))}">{:getly($r['orig_id'])}</a></p>
+             <p  style="height:24px">{$r['add_time']|date='Y-m-d h:i:s',###}</p>
+             <div class="w_nr3_div">
+              <div class="w_zzj_1">
+				<?php $llink = unserialize($r['go_link']);$lc = count($llink);?>
+				<volist name="llink" id="rm" key="j">
+			    <if condition="$j eq 1"><a href="__ROOT__/?m=item&a=tgo&to={:base64_encode($rm['link'])}" title="{$rm.title}" class="w_zdlj_a"><i class="<if condition="$lc gt 1">w_down<else/>w_right</if>"></i>{$rm.name}</a></if>
+				</volist>
+				<if condition="$lc gt 1">
+                <ul>
+				<volist name="llink" id="rm" key="jj">
+                <li><a href="__ROOT__/?m=item&a=tgo&to={:base64_encode($rm['link'])}" target="_blank" rel="nofollow"  title="{$rm.title}">{$rm.name}</a></li>
+                </volist>
+              </ul>
+			  </if>
+			</div>
+              <div class="w_f2nr1_le"><a href="javascript:;" title="赞" class="w_z_1 Jz_submit" data="{$r.id}"  data-t="item">{$r.zan}</a><a href="javascript:;" title="{$r.title}"  class="w_z_2 Jl_likes" data-id="{$r.id}" data-xid="1">{$r.likes}</a><a href="{:U('item/index', array('id'=>$r['id']))}" title="{$r.title}"  class="w_z_3" target="_blank">{$r.comments}</a></div>
+             </div>
+           </li>
+           </volist>
+	   </if>
+	   <script>
+	   $(document).ready(function(e) {
+             $(".w_zzj_1").hover(
+				  function () {
+					$(this).children("ul").show();
+					$(this).find("i").addClass("w_up").removeClass("w_down");
+				  },
+				  function () {
+					$(this).children("ul").hide("");
+					$(this).find("i").addClass("w_down").removeClass("w_up");
+				  }
+				); 
+
+           }) 
+	   </script>

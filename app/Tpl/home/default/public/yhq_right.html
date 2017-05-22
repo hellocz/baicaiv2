@@ -1,0 +1,44 @@
+<div class="w_r5">
+     <h2>热门优惠劵</h2>
+     <ul>
+	 <?php
+      $hot_tick = M("tick")->where("start_time < NOW()")->order("yl desc,id desc")->limit(6)->select();
+      $count=count($hot_tick);
+      for($i=0;$i<$count;$i++){
+      	$new_time[$i]['time']=strtotime($hot_tick[$i]['end_time']);
+        if($new_time[$i]['time']> time()){
+        	$hot_tickA[$i]['id']=$hot_tick[$i]['id'];
+            $hot_tickA[$i]['name']=$hot_tick[$i]['name'];
+            $hot_tickA[$i]['orig_id']=$hot_tick[$i]['orig_id'];
+            $hot_tickA[$i]['start_time']=$hot_tick[$i]['start_time'];
+            $hot_tickA[$i]['end_time']=$hot_tick[$i]['end_time'];
+            $hot_tickA[$i]['new_time']=strtotime($hot_tick[$i]['end_time']);
+            $hot_tickA[$i]['time']=time();
+            $hot_tickA[$i]['intro']=$hot_tick[$i]['intro'];
+            $hot_tickA[$i]['status']=$hot_tick[$i]['status'];
+            $hot_tickA[$i]['yl']=$hot_tick[$i]['yl'];
+            $hot_tickA[$i]['sy']=$hot_tick[$i]['sy'];
+            $v[$i]['je']=$hot_tick[$i]['je'];
+            $hot_tickA[$i]['dhjf']=$hot_tick[$i]['dhjf'];
+            $hot_tickA[$i]['ordid']=$hot_tick[$i]['ordid'];
+            $hot_tickA[$i]['ljdz']=$hot_tick[$i]['ljdz'];
+            $hot_tickA[$i]['xl']=$hot_tick[$i]['xl'];
+            	
+        }else{
+        	continue;
+        }
+      }
+     ?>
+	  <volist name="hot_tickA" id="r">
+       <li>
+         <a href="{:U('tick/show',array('id'=>$r['id']))}" title="{$r['name']}">
+         <img src="{:orig_img($r['orig_id'])}" title="{$r['name']}" alt="{$r['name']}"/>
+         <p>{$r['name']}</p>
+         </a>
+           <span>已领：{$r['yl']}件</span>
+         <div><a href="{:U('tick/show',array('id'=>$r['id']))}" title="领取">领取</a></div>
+       </li>
+	   </volist>
+     </ul>
+     </div>
+	 

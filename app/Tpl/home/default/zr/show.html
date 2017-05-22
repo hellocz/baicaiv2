@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<include file="public:head" />
+</head>
+
+<body style="background:#f5f5f5">
+<include file="public:header" />
+<div class="w_center">
+  <div class="w_cen_lef">
+    <div class="w_zh_dq">
+	  <a href="/" title="首页">首页</a>><a href="{:U('zr/index')}" title="转让">转让</a>><a href="{:U('zr/index',array('id'=>$cate['id']))}" title="{$cate['name']}"  class="w_zh_dq_1">{$cate['name']}</a>
+	</div>
+	 <div class="w_zrxx">
+       <h1>{$info.title}</h1>
+       <div class="w_zrxx_1">
+      <div class="w_zrxx_1_l">
+       <img src="{:attach($info['img'],'zr')}" title="{$info.title}" alt="{$info.title}"/>
+      </div>
+      <div class="w_zrxx_1_r">
+       <div class="w_zrxx_1_r1">
+           <a href="<if condition="$info['uid'] eq '0'">javascript:;<else/>{:U('space/index', array('uid'=>$info['uid']))}</if>" title="{$info.uname}"><img src="{:avatar($info['uid'], 48)}" title="{$info['uname']}" alt="{$info['uname']}"/>
+           <b>{$info['uname']}</b></a><br/>
+           发布时间：<i>{$info.add_time|fdate}</i>
+           <a href="javascript:;" title="黄牛举报" class="J_jb w_gbhm" data-id="{$info.id}" data-xid='2'>黄牛举报</a>
+       </div>
+       <div class="w_zrxx_1_r2">
+       <span>市场价：<i>¥{$info.mark_price}</i></span><br/>
+       <span>转让价：<em>¥{$info.price}</em></span>
+           <if condition="$info['status'] eq 3">交易已关闭<else/><span>联系：<em>{$info.tel}</em></span></if>
+       </div>
+	   <volist name="attr" id="r">
+       <div class="w_zrxx_1_r4">
+       {$r.attr_name}：<span class="w_dddd">{$r.attr_value}</span>
+       </div>
+	   </volist>
+      </div>
+     </div>
+      <div class="w_xq1">
+      <div class="w_had">
+      <span class="w_had_dq" id="wt1" onclick="setTab('wt',1,2,'w_had_dq')">产品介绍</span>
+      <span id="wt2" onclick="setTab('wt',2,2,'w_had_dq')">商品评论（{$info.comments}）</span>             
+    </div>
+      <div class="w_xq1_d_l" id="con_wt_1" style="display: block;">
+        {$info.content}
+      </div>
+    <div class="w_xq1_d_l" id="con_wt_2" style="display: none;">
+        <include file="public:comment" />
+    </div>    
+     </div>
+     <div class="w_spxx_4">
+       <!--<div class="w_spxx_4_l">
+         <p>上一篇：<if condition="$pre"><a href="{:U('zr/show',array('id'=>$pre['id']))}" title="{$pre['title']}">{$pre['title']}</a><else/>无</if></p>
+         <p>下一篇：<if condition="$next"><a href="{:U('zr/show',array('id'=>$next['id']))}" title="{$next['title']}">{$next['title']}</a><else/>无</if></p>
+       </div>-->
+       <div class="w_spxx_4_r">
+		 <a href="javascript:;" class="z_submit" data="{$info.id}"><img src="/images/w_dzz_1.jpg"/></a><span>已有<i id="s_zan" style="color:red">{$info.zan}</i>人点赞</span>
+         <a href="javascript:;" class="<notempty name="visitor">{:islikes($info['id'],2,$visitor['id'])} <else/>sz_11</notempty> J_likes" data-id="{$info.id}" data-xid="2">{$info.likes}</a>
+         <a href="" title=""  class="sz_12">{$info.comments}</a>
+         <a href="javascript:;" class="T_share" data-id="{$info.id}" title="分享+">分享+</a>
+       </div>
+      </div>
+     <div class="w_spxx_5">
+       {:R('advert/index', array(13), 'Widget')}
+      </div>
+     <div class="w_sppxx_6">
+       <h2>其他闲置转让</h2>
+       <div class="w_gn_f1">
+      
+       <div onmouseup="StopUp_1()" class="LeftBotton1" onmousedown="GoUp_1()" onmouseout="StopUp_1()"></div>
+      <div class="Cont1" id="Cont_1">
+        <div class="ScrCont">
+          <div id="List1_1">
+            <!-- 图片列表 begin -->
+			<volist name="other" id="r">
+            <div class="box3">
+            <a href="{:U('zr/show',array('id'=>$r['id']))}" title="{$r.title}" target="_blank">
+			  <img src="{:attach($r['img'],'zr')}" title="{$r.title}" alt="{$r.title}"/><br/>
+			 {$r.title}<br/><em>{$r.intro}</em>
+			  </a>
+            </div>
+            </volist>
+            <!-- 图片列表 end -->
+          </div>
+          <div id="List2_1"></div>
+
+      </div>
+      
+    </div>
+	<div onmouseup="ISL_StopDown_1()" class="RightBotton1" onmousedown="ISL_GoDown_1()" onmouseout="ISL_StopDown_1()"></div>
+      <script type="text/javascript" src="js/rollpic.js"></script>
+	 </div>
+      </div>
+    </div> 
+  </div>
+  <div class="w_cen_rig ">
+  <include file="public:ls_right" />
+  <include file="public:zt_right" />
+  </div>
+</div>
+<include file="public:footer" />
+<script>var t="zr";</script>
+<script src="/js/function.js"></script>
+<script src="/static/js/lhg/lhgdialog.min.js?self=true&skin=idialog" type="text/javascript"></script>
+</body>
+</html>

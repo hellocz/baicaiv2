@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<include file="public:head" />
+</head>
+
+<body style="background:#f5f5f5">
+<include file="public:header" />
+<div class="w_bl_bd">
+    <div class="w_zh_dq1">
+	  <a href="/" title="首页">首页</a> > {$strpos}
+	  <a style="float:right">共<font color="#FF0000">{$count}</font>条记录</a>
+	</div>
+    <div class="w_dhxx" >
+      <ul id="J_waterfall" data-uri="__ROOT__/?m=book&a=cate_ajax&cid={$cate_info.id}&sort={$sort}&min_price={$min_price}&max_price={$max_price}&p={$p}">
+	  <include file="public:waterfall" />
+	  </ul>
+	<div class="w_pag" id="J_wall_page">{$page_bar}</div>
+	</div>   
+</div>
+<include file="public:footer" />
+<script src="/js/function.js"></script>
+<script src="/static/js/lhg/lhgdialog.min.js?self=true&skin=idialog" type="text/javascript"></script>
+</body>
+</html>

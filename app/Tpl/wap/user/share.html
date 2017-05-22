@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<include file="public:head" />
+<style>
+.J_del_art{ width:6% !important;}
+</style>
+</head>
+<body style="background:#f5f5f5;">
+<include file="public:head1" />
+<div class="w_center">
+  <div class="w_cxp">
+   <a href="{:U('wap/user/share',array('t'=>'gn'))}" title="国内" <if condition="$t eq 'gn'">class="w_cxp_t"</if>>国内</a>
+   <a href="{:U('wap/user/share',array('t'=>'ht'))}" title="海外陶" <if condition="$t eq 'ht'">class="w_cxp_t"</if>>海外陶</a>
+   <a href="{:U('wap/user/share',array('t'=>'best'))}" title="精品汇" <if condition="$t eq 'best'">class="w_cxp_t"</if>>精品汇</a>
+   <a href="{:U('wap/user/share',array('t'=>'sd'))}" title="晒单" <if condition="$t eq 'sd'">class="w_cxp_t"</if>>晒单</a>
+   <a href="{:U('wap/user/share',array('t'=>'gl'))}" title="攻略" <if condition="$t eq 'gl'">class="w_cxp_t"</if>>攻略</a>
+   <a href="{:U('wap/user/share',array('t'=>'zr'))}" title="转让" <if condition="$t eq 'zr'">class="w_cxp_t"</if>>转让</a>                                       
+  </div>
+  <div class="w_djzk">
+    
+    <ul id="mores">
+      <if condition="$t eq 'gn' or $t eq 'ht' or $t eq 'best'">
+      <volist name="list" id="item">
+      <li>
+        <a href="{:U('wap/item/index',array('id'=>$item['id']))}" title="{$item['title']}">
+        <div class="w_zk_img">
+         <img src="{:attach($item['img'],'item')}" title="{$item['title']}" alt="{$item['title']}"/>
+        </div>
+        <address><span>{$item['add_time']|fdate}</span>{$item['orig_id']|getly}</address>
+        <h2>{$item['title']}</h2>
+        </a>
+        <div class="w_jg"><em data-dm="{$item['dm']}" class="J_del_fx">删除</em>
+        <span><i class="icons icon_comment"></i>{$item['comments']}</span></div>
+        
+      </li>
+      </volist>
+      
+      <elseif condition="$t eq 'sd' or $t eq 'gl'"/>
+      <volist name="list" id="item">
+      <li>
+       <a href="{:U('wap/article/show',array('id'=>$item['id']))}" title="{$item['title']}">
+        <div class="w_zk_img">
+         <img src="{:attach($item['img'],'article')}" title="{$item['title']}" alt="{$item['title']}"/>
+        </div>
+        <address><span>{$item['add_time']|fdate}</span>{$item['sc']}</address>
+        <h2>{$item['title']}</h2>
+        </a>
+        <div class="w_jg"><em data-dm="{$item['dm']}" class="J_del_fx">删除</em>
+        <span><i class="icons icon_comment"></i>{$item['comments']}</span></div>
+        
+      </li>
+      </volist>
+      
+      <elseif condition="$t eq 'zr'"/>
+      <volist name="list" id="item">
+      <li>
+       <a href="{:U('wap/zr/show',array('id'=>$item['id']))}" title="{$item['title']}">
+        <div class="w_zk_img">
+         <img src="{:attach($item['img'],'zr')}" title="{$item['title']}" alt="{$item['title']}"/>
+        </div>
+        <address><span>{$item['add_time']|fdate}</span>{$item['title']}</address>
+        <h2>{$item['intro']}</h2>
+        </a>
+        <div class="w_jg"><em>￥{$item['price']}</em><div class="J_del_fx w_gbjy" data-dm="{$item['dm']}" style="margin-left:10px;">删除</div></div>
+      </li>
+      </volist>
+      </if>
+    </ul>
+    <if condition="$pagesize lt $num[$t]"><div class="clear"></div>
+    <div id="more" class="btn_getmore" ><a href="javascript:;" title="加载更多">加载更多</a></div></if>
+    <div id="Loading" style="display: none;text-align:center">加载中...</div>
+    <input type="hidden" id="page" value="2"/>
+  </div>
+   <include file="public:footer" />
+   <script src="/static/js/wap/weui.min.js"></script>
+   <link href="/static/js/wap/weui.css" type="text/css" rel="stylesheet"/>
+   <script>
+$(document).ready(function(){
+	$("#more").click(function(){
+		var more_id=$("#page").val(),l=$("#Loading"),g=$("#more");
+		l.show();g.hide();
+		$.ajax({
+		   type:"GET",
+		   url: "/wap-user-share-t-{$t}",
+		   data: "more=more&p="+more_id,
+		   success: function(msg){
+			   if(msg){
+				   $("#page").val(parseInt(more_id)+1);
+				   $("#mores").append(msg);
+				   g.show();l.hide();
+			   }else{
+				   weui.Loading.error("已经到最后一页了");
+				   $(".btn_getmore").hide();
+				   l.hide();
+			   }
+		   }
+		});
+	})
+	/*删除分享*/
+	$("#mores").on('click','.J_del_fx',function(){
+		var obj=$(this);
+		$.get(PINER.root+"/?g=wap&m=user&a=del_fx",{dm:obj.attr('data-dm')},function(result){
+			if(result.status==1){
+				obj.parents("li").remove();
+				weui.Loading.success(result.msg);
+			}else{
+				weui.Loading.error(result.msg);
+			}
+		},'json');
+	});
+});
+
+</script>
+</div>
+</body>
+</html>

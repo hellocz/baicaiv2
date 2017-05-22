@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<include file="public:head" />
+</head>
+<body style="background:#f5f5f5;">
+<include file="public:head1" />
+<div class="w_center">
+  <div class="w_hygl">
+     <div class="w_hygl_h">
+       <span onclick="window.location='wap-user-myfollow'" class="w_gz_t">我关注的</span>
+       <span onclick="window.location='wap-user-fans'">关注我的</span>
+     </div>
+     <ul class="w_gz_nr"  id="mores">
+       <volist name="user_list" id="val">
+       <li>
+        <a href="javascript:;" title="取消关注" class="J_unfo qxgz" data-id="{$val.id}">取消关注</a>
+        <a href="{:U('wap/space/index', array('uid'=>$val['id']))}" title="{$val.username}" >
+        <img src="{:avatar($val['id'], 48)}" title="{$val.username}" alt="{$val.username}"/>
+        <h2>{$val.username}</h2></a>
+        <div><span>爆料：<i>{$val['shares']}</i></span><em>|</em><span>评论：<i>{$val['score']}</i></span></div> 
+       </li>
+       </volist>
+     </ul>
+     <if condition="$pagesize lt $count"><div class="clear"></div>
+    <div id="more" class="btn_getmore" ><a href="javascript:;" title="加载更多">加载更多</a></div></if>
+    <div id="Loading" style="display: none;text-align:center">加载中...</div>
+    <input type="hidden" id="page" value="2"/>
+  </div>
+   <include file="public:footer" />
+   <script src="/static/js/wap/weui.min.js"></script>
+   <link href="/static/js/wap/weui.css" type="text/css" rel="stylesheet"/>
+   <script>
+$(document).ready(function(){
+	$("#more").click(function(){
+		var more_id=$("#page").val(),l=$("#Loading"),g=$("#more");
+		l.show();g.hide();
+		$.ajax({
+		   type:"GET",
+		   url: "/wap-user-myfollow",
+		   data: "more=more&p="+more_id,
+		   success: function(msg){
+			   if(msg){
+				   $("#page").val(parseInt(more_id)+1);
+				   $("#mores").append(msg);
+				   g.show();l.hide();
+			   }else{
+				   weui.Loading.error("已经到最后一页了");
+				   $(".btn_getmore").hide();
+				   l.hide();
+			   }
+		   }
+		});
+	})
+	$("#mores").on('click','.J_unfo',function(){
+		var obj=$(this);
+		var uid=obj.attr('data-id');
+		$.get(PINER.root+ '/?g=wap&m=user&a=unfollow',{uid:uid},function(data){
+			if(data.status==0){
+				weui.Loading.error(data.msg);
+			}else{
+				weui.Loading.success(data.msg);
+				obj.parent("li").remove();
+			}
+		},'json');
+	});
+});
+
+</script>
+</div>
+</body>
+</html>

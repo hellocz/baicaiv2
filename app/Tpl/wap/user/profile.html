@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<include file="public:head" />
+<style>
+.xiala{ padding:2% 0; border-bottom:1px solid #ccc; float:left; width:100%;}
+.xiala label{ margin-right:25px;}
+</style>
+</head>
+<body style="background:#f5f5f5;">
+<include file="public:head1" />
+<div class="w_center">
+  <div class="w_zhm">
+    <ul>
+      <li><a href="javascript:;" title="头像"><span>
+          <label>
+          <input type="file" name="avatar" id="avatar" style="display:none;">
+          <img src="{:avatar($info['id'],200)}" title="{$info.username}" alt="{$info.username}" class="J_avatar" />
+          </label>
+      </span>头像</a></li>
+      <li><a href="javascript:;" title="用户名"><span>{$info.username}</span>用户名</a></li>
+      <form id="J_basic_form" action="{:U('wap/user/profile')}" method="post">
+      <li onClick="click_a('sex')"><a href="javascript:;" title="性别"><span><if condition="$info['gender'] eq '0'">女<elseif condition="$info['gender'] eq '1'"/>男</if></span>性别</a></li>
+      <li id="sex" style="display:none;"><span class="xiala">
+          <label><input name="gender" value="0" type="radio" <if condition="$info['gender'] eq '0'">checked</if>>女</label>
+          <label><input name="gender" value="1" type="radio" <if condition="$info['gender'] eq '1'">checked</if>>男</label>
+          </span>
+      </li>
+      <li onClick="click_a('birth')"><a href="javascript:;" title="出生日期"><span>{$info.byear}-{$info.bmonth}-{$info.bday}</span>出生日期</a></li>
+      <li id="birth" style="display:none;"><span class="xiala">
+          <input name="birthday" id="J_birthday" readonly type="text" value="{$info.byear}-{$info.bmonth}-{$info.bday}" style="padding:4px; width:30%;" />
+          </span>
+      </li>
+      </form>
+    </ul>
+    
+    <div class="w_bl"><a href="javascript:document.getElementById('J_basic_form').submit();">修改资料</a></div>
+    
+    <div class="w_zhm1"><a href="{:U('wap/user/password')}" title="账户安全">账户安全</a></div>
+ </div>
+<script src="/static/js/wap/weui.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/js/calendar/calendar-blue.css"/>
+<script src="/static/js/calendar/calendar.js"></script>
+<link href="/static/js/wap/weui.css" type="text/css" rel="stylesheet"/>
+<script src="/js/ajaxfileupload.js" type="text/javascript"></script>
+<script src="/static/js/minicity.js"></script>
+<script>
+$('#J_birthday')[0] && Calendar.setup({
+	inputField : "J_birthday",
+	ifFormat   : "%Y-%m-%d",
+	showsTime  : false,
+	timeFormat : "24"
+});
+
+function click_a(divDisplay)
+{
+     if(document.getElementById(divDisplay).style.display != "block")
+     {
+         document.getElementById(divDisplay).style.display = "block";
+     }
+     else
+     {
+         document.getElementById(divDisplay).style.display = "none";
+     }
+}
+ 
+$(document).on('change','#avatar',function () {
+	ajaxFileUpload();
+});
+function ajaxFileUpload() {
+	$.ajaxFileUpload
+	(
+		{
+			url: '/?g=wap&m=user&a=upload_avatar', //用于文件上传的服务器端请求地址
+			secureuri: false, //是否需要安全协议，一般设置为false
+			fileElementId: 'avatar', //文件上传域的ID
+			dataType: 'json', //返回值类型 一般设置为json
+			success: function (result, status)  //服务器成功响应处理函数
+			{
+				if(result.status =='1'){
+					$('.J_avatar').attr('src', result.data);
+				}
+			},
+			error: function (data, status, e)//服务器响应失败处理函数
+			{
+				weui.Loading.error("图片上传失败");
+			}
+		}
+	)
+	return false;
+}
+</script>
+</div>
+</body>
+</html>

@@ -1,0 +1,299 @@
+﻿      <link rel="stylesheet" type="text/css" href="/css/jquery.sinaEmotion.css" />
+	  <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
+	  <script type="text/javascript" src="/js/jquery.sinaEmotion.js"></script>
+	  <a name="comments"></a>
+	  <div class="w_spxx_7">
+        <textarea readonly id="J_cmt_content" name="content"  class="emotion"></textarea>
+         <span id="J_login">需要您<a href="javascript:;" id="J_lo_btn">登录</a>后才可以发起讨论</span>
+         <i id="face" style="line-height: 25px;  height: 25px;  display: block;  width: 100px; cursor:pointer"><img src="http://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/5c/huanglianwx_thumb.gif" style="vertical-align: middle;"/>表情</i><input type="button" id="J_cmt_submit" data-id="{$item.id}" value="发表评论" class="w_fbpl"/>
+		 <input type="hidden" name="itemid" id="itemid" value="{$itemid}"/><input type="hidden" name="xid" id="xid" value="{$xid}"/>
+      </div>
+	  <?php 
+	   //第一页评论不使用AJAX利于SEO	   
+        $comment_mod = M('comment');		
+        $pagesize = 4;
+        $map = array('itemid' => $itemid,'xid'=>$xid,'status'=>1);
+		$count = $comment_mod->where($map)->count('id');
+        $pager = new Page($count, $pagesize);
+		$pager->path = "ajax/comment_list";
+		$pager->parameter ="itemid=$itemid&xid=$xid";
+        $pager_bar = $pager->jshow();        
+		//联合查询
+		$sql = "select * from ((select * from try_comment where itemid=$itemid and xid=$xid and status=1 order by id desc limit 3) union (select * from try_comment where itemid=$itemid and xid=$xid and status=1  and id not in(select id from (select * from try_comment where itemid=$itemid and xid=$xid and status=1 order by id desc limit 3) as foo) order by id desc)) as t limit $pager->firstRow , $pager->listRows ";
+        $cmt_list = M()->query($sql);
+        foreach($cmt_list as $key=>$v){
+            $cmt_list[$key]['list']=M()->query("select * from try_comment where status=1 and pid='".$v['id']."' order by id asc");
+        }
+
+        $hot_list=M()->query("select * from try_comment where itemid=$itemid and xid=$xid and status=1 order by zan desc,id desc limit 5");
+        foreach($cmt_list as $key=>$v){
+            $hot_list[$key]['list']=M()->query("select * from try_comment where status=1 and pid='".$v['id']."' order by id asc");
+        }
+        $hot_list=M()->query("select * from try_comment where itemid=$itemid and xid=$xid and status=1 order by zan desc,id desc limit 5");
+        foreach($hot_list as $key=>$v){
+           $hot_list[$key]['list']=M()->query("select * from try_comment where status=1 and pid='".$v['id']."' order by id asc");
+        }
+	  ?>
+
+<div style=" clear:both;"></div>
+      
+ <style>
+ a{ text-decoration:none;}
+.ly_ba{ width:100%; margin-top:20px; padding-bottom:5px; height:auto; display:inline-table; border-bottom:1px dashed #CCC;}
+.ly_tx_a{ width:15%; height:auto;  float:left; text-align:left; background:#fff; }
+.ly_tx_a img{ border-radius:24px;}
+.ly_tx_a p{ font-size:12px;}
+
+.lr_ra{ width:85%; float: left; height:auto;  }
+
+.ly_ba_lr{ width:100%; float: left;  height:auto;  padding:0;}
+.ly_ba_lr p{ float:left; line-height:26px; font-size:14px;  margin-top:0px;}
+.ly_ba_lr em{ width:250px; height:26px; line-height:26px; text-align:right; padding-right:10px; display:block; float:right; font-style:normal; font-size:12px;}
+
+.yl_ba_hf{ width:100%; float:left; }
+.yl_ba_hf ul{ float:right; width:210px; height:30px; background:#fff; border:none;}
+.yl_ba_hf ul li{ float:left; text-align: center; width:70px; height:30px; line-height:30px; display: block; padding:0; border:none;}
+.yl_ba_hf ul li img{ width:16px; height:16px;}
+.yl_ba_hf ul li a{ text-decoration:none; font-size:12px; background:#fff; color:#F00; }
+
+.gly_pl{ float:left; font-size:12px; }
+.gly_pl span{  float:left;}
+.gly_pl input{  }
+
+
+.hflr_a{ width:100%; float:left; background:#fcfcfc; display:block; margin-top:8px; padding-top:10px;}
+.hflr_b{ width:100%; float:left; background:#fcfcfc; display:block; margin-top:8px; padding-top:10px;}
+.lh_a1{ width:100%; float:left;}
+.lh_a1 .hf_zr{ float:left; }
+.lh_a1  p{ float:left;  font-size:14px; padding-left:30px;}
+.lh_a1 .hf_zr img{ width:24px; height:24px; border-radius:12px; float:left; margin-left:10px;}
+.lh_a1 .hf_zr span{ margin-top:0px; float:left;}
+.lh_a1 .lrhf{ padding-right:13px;}
+.lh_a1 .lrhf div{ float:right; font-size:12px;}
+.lh_a1 .lrhf div span{ margin-right:10px;}
+
+.hfzk_b{ display:none;}
+
+  .black_overlay{  display: none;  position: absolute; top:200%;     left: 0%;  width: 100%;  height: 100%;  
+   z-index:1001;  -moz-opacity: 0.8;  opacity:.80;  filter: alpha(opacity=80);  }  
+  .white_content {  display: none;  position: absolute;  top: 130%;  left: 35%;  width: 16%;  height: 20%;  padding: 16px;
+  border:1px #CCCCCC solid;    background-color: white;  z-index:1002;  overflow: auto;  } 
+
+  
+    .black_overlay_a{  display: none;  position: absolute;  top:200%;  left: 0%;  width: 100%;  height: 100%;  
+   z-index:1001;  -moz-opacity: 0.8;  opacity:.80;  filter: alpha(opacity=80);  }  
+  .white_content_a {  display: none;  position: absolute;  top: 130%;  left: 35%;  width: 16%;  height: 15%;  padding: 16px;   border:1px #CCCCCC solid;   
+  background-color: white;  z-index:1002;  overflow: auto;  } 
+  
+    .black_overlay_b{  display: none;  position: absolute;  top:200%;  left: 0%;  width: 100%;  height: 100%;  
+    z-index:1001;  -moz-opacity: 0.8;  opacity:.80;  filter: alpha(opacity=80);  }  
+  .white_content_b {  display: none;  position: absolute;  top: 130%;  left: 35%;  width: 16%;  height: 15%;  padding: 16px;   border:1px #CCCCCC solid;  
+  background-color: white;  z-index:1002;  overflow: auto;  } 
+  
+  
+    .black_overlay_c{  display: none;  position: absolute;  top:200%;  left: 0%;  width: 100%;  height: 100%;  
+  z-index:1001;  -moz-opacity: 0.8;  opacity:.80;  filter: alpha(opacity=80);  }  
+  .white_content_c {  display: none;  position: absolute;  top: 130%;  left: 35%;  width: 16%;  height: 15%;  padding: 16px;   border:1px #CCCCCC solid;  
+  background-color: white;  z-index:1002;  overflow: auto;  } 
+  
+  .white_content a{ float:right; margin-bottom:20px;}
+    .white_content_a a{ float:right; margin-bottom:20px;}
+	  .white_content_b a{ float:right; margin-bottom:20px;}
+	    .white_content_c a{ float:right; margin-bottom:20px;}
+		
+.jf_qd input{ background:#3dc399; border:none; color:#fff; line-height:26px; padding: 0 10px;}
+		
+ </style>     
+      
+      <div class="w_spxx_8">
+      <h3>最热评论</h3>
+      <volist name="hot_list" id="val">
+      <div class="ly_ba">
+          <div class="ly_tx_a">
+             <img src="{:avatar($val['uid'], 48)}" height="48" width="48" />
+             <p>用户名</p>
+          </div>
+         <div class="lr_ra">
+                  <div class="ly_ba_lr"><p class="J_pl_i">{$val.info}</p><em>{$val.add_time|fdate}</em></div>
+                  <div class="yl_ba_hf">
+                     <div class="gly_pl">
+                         <if condition="$val['pingyu']"><span><strong>管理员评论：</strong>{$val['pingyu']}</span></if>  &nbsp; &nbsp; &nbsp; &nbsp;
+             <if condition="$visitor['is_bj'] eq 1">
+             <a style="background:#f90; text-align:center; color:#fff; padding:2px 5px; " href="javascript:void(0)" onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block';document.getElementById('id').value='{$val.id}';document.getElementById('uid').value='{$val.uid}';">+</a>
+             <div id="light" class="white_content">
+              <a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">
+              关闭</a>
+              <br /><br />
+              <hr />
+              <br />
+                 <form action="{:U('ajax/bj_comment')}" method="post">
+                     <table width="96%" border="0">
+                         <tr>
+                             <td width="20%">积分</td>
+                             <td width="80%"><input style=" width:90%;" name="jf" type="text" /></td>
+                         </tr>
+                         <tr>
+                             <td width="20%">财富</td>
+                             <td width="80%"><input style=" width:90%;" name="cf" type="text" /></td>
+                         </tr>
+                         <tr>
+                             <td width="20%">贡献</td>
+                             <td width="80%"><input style=" width:90%;" name="gx" type="text" /></td>
+                         </tr>
+                         <tr>
+                             <td width="20%">评语</td>
+                             <td width="80%"><input style=" width:90%;" name="pingyu" type="text" value="感谢您的精彩回复！"/></td>
+                         </tr>
+                         <input type="hidden" id="id" name="id" value="">
+                         <input type="hidden" id="uid" name="uid" value="">
+                         <tr>
+                             <td colspan="2" style="text-align:left; padding-left:20%; padding-top:20px;" class="jf_qd">&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value=" 确 定 " />&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" value=" 重 填 " /></td>
+                         </tr>
+                     </table>
+                     </form>
+             </div>
+              <div id="fade" class="black_overlay">
+              </div>
+                   &nbsp;
+             </if>
+             </div>
+                     <ul>
+                         <if condition="$visitor['is_bj'] eq 1"><li><a href="{:U('ajax/sc_comment',array('id'=>$val['id'],'uid'=>$val['uid']))}" title="删除">删除</a></li></if>
+                         <li><if condition="$val['jf']"><img src="/images/jf1_pic.png" alt="积分" />积分<a href="" >+{$val['jf']}</a></if></li>
+                         <li class="hfzk_a">收起</li>
+                         <li class="hfzk_a1" style="display:none;">展开</li>
+                         <li class="J_hf1" data-id="{$val.id}">回复</li>
+                     </ul>
+                  </div>
+             <if condition="$val['list']">
+             <div class="hflr_a">
+                      <volist name="val['list']" id="r">
+                          <div class="lh_a1">
+                              <div class="hf_zr"> <img src="{:avatar($r['uid'], 48)}" /><span>{$r.uname}</span></div> <p class="J_pl_i">{$r.info}</p>
+                              <div class="lrhf"><div><span>{$r.add_time|fdate}</span><a href="javascript:;" class="J_hf" data-id="{$r.id}" title="回复">回复</a></div></div>
+                          </div>
+                      </volist>
+                  </div>
+                 </if>
+              </div>
+      </div>
+      </volist>
+          <script type="text/javascript">
+              $(document).ready(function(){
+                  $(".hfzk_a").click(function(){
+                      $(".hfzk_a ").css('display','none');
+                      $(".hfzk_a1").css('display','block');
+                      $(".hflr_a").toggle(200);
+                  });
+
+                  $(".hfzk_a1").click(function(){
+                      $(".hfzk_a1 ").css('display','none');
+                      $(".hfzk_a").css('display','block');
+                      $(".hflr_a").toggle(200);
+                  });
+
+
+              });
+          </script>
+<div style=" clear:both;"></div>
+<br /> <br />
+      <h3>最新评论</h3>
+      <div id="J_cmt_list">
+      <volist name="cmt_list" id="val">
+      <div class="ly_ba">
+      
+          <div class="ly_tx_a">
+             <img src="{:avatar($val['uid'], 48)}" height="48" width="48" />
+             <p>{$val.uname}</p>
+          </div>
+
+         <div class="lr_ra">
+                  <div class="ly_ba_lr"><p class="J_pl_i">{$val.info}</p><em>{$val.add_time|fdate}</em></div>
+                  <div class="yl_ba_hf">
+                     <div class="gly_pl">
+                         <if condition="$val['pingyu']"><span><strong>管理员评论：</strong>{$val['pingyu']}</span></if>&nbsp; &nbsp; &nbsp; &nbsp;
+                         <if condition="$visitor['is_bj'] eq 1">
+                         <a style="  background:#f90; text-align:center; color:#fff; padding:2px 5px; " href="javascript:void(0)" onclick="document.getElementById('light_a').style.display='block';document.getElementById('fade_a').style.display='block';document.getElementById('id').value='{$val.id}';document.getElementById('uid').value='{$val.uid}';">+</a>
+                       <div id="light_a" class="white_content_a">
+                        11设置积分
+                        <a href="javascript:void(0)" onclick="document.getElementById('light_a').style.display='none';document.getElementById('fade_a').style.display='none'">
+                        关闭</a>
+                         <br /><br />
+                      <hr />
+                      <br />
+                      <form action="{:U('ajax/bj_comment')}" method="post">
+                      <table width="96%" border="0">
+                        <tr>
+                          <td width="10%">12321积分</td>
+                          <td width="90%"><input style=" width:90%;" name="jf" type="text" /></td>
+                        </tr>
+                          <tr>
+                              <td width="10%">评语</td>
+                              <td width="90%"><input style=" width:90%;" name="pingyu" type="text" /></td>
+                          </tr>
+                          <input type="hidden" id="id" name="id" value="">
+                          <input type="hidden" id="uid" name="uid" value="">
+                        <tr>
+                          <td colspan="2" style="text-align:left; padding-left:20%; padding-top:20px;" class="jf_qd">&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value=" 确 定 " />&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" value=" 重 填 " /></td>
+                        </tr>
+                      </table>
+                      </form>
+                       </div>
+                        <div id="fade_a" class="black_overlay_a"> 
+                        </div>
+                        &nbsp;
+                         </if>
+                     </div>
+                     <ul>
+                         <if condition="$visitor['is_bj'] eq 1"><li><a href="{:U('ajax/sc_comment',array('id'=>$val['id'],'uid'=>$val['uid']))}" title="删除">删除</a></li></if>
+                         <li><if condition="$val['jf']"><img src="/images/jf1_pic.png" alt="积分" />积分<a href="" >+{$val['jf']}</a></if></li>
+                         <li class="hfzk_b">收起</li>
+                         <li class="hfzk_b1" style="display:none;">展开</li>
+                         <li class="J_hf1" data-id="{$val.id}">回复</li>
+                     </ul>
+                  </div>
+
+             <if condition="$val['list']">
+                  <div class="hflr_b">
+                      <volist name="val['list']" id="r">
+                          <div class="lh_a1">
+                              <div class="hf_zr"> <img src="{:avatar($r['uid'], 48)}" /><span>{$r.uname}</span></div> <p class="J_pl_i">{$r.info}</p>
+                              <div class="lrhf"><div><span>{$r.add_time|fdate}</span><a href="javascript:;" class="J_hf" data-id="{$r.id}" title="回复">回复</a></div></div>
+                          </div>
+                      </volist>
+                  </div>
+             </if>
+              </div>
+      
+      </div>
+      </volist>
+      </div>
+          <script type="text/javascript">
+              $(document).ready(function(){
+                  $(".hfzk_b").click(function(){
+                      $(".hfzk_b ").css('display','none');
+                      $(".hfzk_b1").css('display','block');
+                      $(".hflr_b").toggle(200);
+                  });
+
+                  $(".hfzk_b1").click(function(){
+                      $(".hfzk_b1 ").css('display','none');
+                      $(".hfzk_b").css('display','block');
+                      $(".hflr_b").toggle(200);
+                  });
+              });
+          </script>
+	  <div class="clear"></div>
+	  <div class="w_pag" id="J_cmt_page" style="margin-bottom:20px">{$pager_bar}</div> 
+      </div> 
+	 <script type="text/javascript">
+	 $(window).load(function(){
+		// 绑定表情
+		$('#face').SinaEmotion($('.emotion'));
+		// 测试本地解析
+		$(".J_pl_i").each(function(){
+			$(this).html(AnalyticEmotion($(this).html()));
+		});
+	 });
+	</script>
+	<style>.w_pag a{cursor:pointer}</style>

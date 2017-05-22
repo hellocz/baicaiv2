@@ -1,0 +1,88 @@
+<volist name="item_list" id="r" >
+           <div class="fpGridBox grid">
+            <div class="fpItem">
+                  <div>
+                     <div>
+                        <div class="itemImageAndName">
+                        <?php $time = time()-60*10;?>
+                                <if condition="$r['add_time'] gt $time"><span class="newtag">NEW</span></if>
+                                <div class="itemImageLink">
+                                   <div class="imageContainer">
+                                      <a href="{:U('bitem/index',array('id'=>$r['id'],'isbao'=>1))}" title="{$r.title}" target="_blank"><img src="<if condition="$r['img']==''">/images/nopic.jpg<else/>{:attach($r['img'],'item')}!newthumb</if>" title="{$r.title}" alt="{$r.title}"/></a>
+                                  </div>
+                                 <a class="itemStore"  href="{:U('orig/show',array('id'=>$r['orig_id']))}" title="{:getly($r['orig_id'])}">{:getly($r['orig_id'])}</a>
+                                 <a class="itemTitle" href="{:U('bitem/index',array('id'=>$r['id'],'isbao'=>1))}" title="{$r.title}" target="_blank">{$r.title}<em style="color:red;">{$r.price}</em></a>
+                                </div>
+                         </div>
+                   <div class="itemInfoLine">
+                             <div class="avatarBox">
+                                   <img src="{:avatar($r['uid'],'')}" title="{$r.uname}" alt="{$r.uname}" class="ava"/>
+                             </div>
+             <div class="itemPrice  ">{$r['add_time']|mdate}</div>
+                          </div>
+                          <div class="itemBottomRow">
+                                <div class="likes">
+                                  <div class="w_f2nr1_le"><a href="javascript:void(0)" onclick="jz_submit_click(this)" title="赞" class="w_z_1 Jz_submit" data="{$r.id}"  data-t="item_diu">{$r.zan}</a></div>
+                                </div>
+                               
+
+                <?php $llink = unserialize($r['go_link']);$lc = count($llink);?>
+
+                <volist name="llink" id="rm" key="j">
+
+                             <if condition="$j eq 1"><a   <if condition="($tab eq 'isbao') AND ($r['orig_id'] eq 3)"> isconvert="1" href="{$rm['link']}"<else/> href="__ROOT__/?m=item&a=tgo&to={:shortUrl($rm['link'])}" </if> title="{$rm.title}"  target="_blank" rel="nofollow" > <div class="comments">{$rm.name}</div></a>
+                             </if>
+
+                </volist>
+
+                
+
+                            </div>
+                         </div>
+                        </div>
+                        </div>
+                        </div>
+              </volist>
+
+         </ul>
+
+       </div> 
+
+
+     <script>
+
+     $(document).ready(function(e) {
+
+             $(".w_zzj_1").hover(
+
+          function () {
+
+          $(this).children("ul").show();
+
+          $(this).find("i").addClass("w_up").removeClass("w_down");
+
+          },
+
+          function () {
+
+          $(this).children("ul").hide("");
+
+          $(this).find("i").addClass("w_down").removeClass("w_up");
+
+          }
+
+        ); 
+
+       $(".w_p1 .w_dj1").each(function(){
+
+         if($(this).html()==""){
+
+           $(this).hide();
+
+         }
+
+       })
+
+        }) 
+
+     </script>

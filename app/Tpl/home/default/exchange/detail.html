@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<include file="public:head" />
+
+<link rel="stylesheet" type="text/css" href="/static/css/default/style.css" />
+
+<link rel="stylesheet" type="text/css" href="/static/css/default/base.css" />
+
+<link rel="stylesheet" type="text/css" href="/static/css/default/exchange.css" />
+
+</head>
+
+
+
+<body style="background:#f5f5f5">
+
+<include file="public:header" />
+
+<div class="w_center">
+
+  <div class="w_cen_lef">
+
+    <div class="w_zh_dq">
+
+	  <a href="/" title="首页">首页</a>><a href="{:U('exchange/index')}" title="礼品兑换">礼品兑换</a>><a  class="w_zh_dq_1">兑换详情</a>
+
+	</div>
+
+	 <div class="w_zrxx">
+
+       <h1>{$item.title}</h1>
+
+       <div class="w_zrxx_1">
+
+      <div class="w_zrxx_1_l">
+
+       <img src="{:attach(str_replace('_s.'.array_pop(explode('.', $item['img'])), '_b.'.array_pop(explode('.', $item['img'])), $item['img']), 'score_item')}" title="{$item.title}" alt="{$item.title}"/>
+
+      </div>
+
+      <div class="w_zrxx_1_r">
+
+       <div class="w_zrxx_1_r2" style="margin-top:0px">
+
+       <span>{:L('surplus_stock')}：<em>{$item.stock}</em></span><br/>
+
+       <span>{:L('buy_num')}：<em>{$item.buy_num}</em></span><br/>
+
+       <span>{:L('user_num')}：<em>{$item.user_num}</em></span><br/>
+
+	   <span>所需金币：<em>{$item.coin}</em></span><br/>
+
+	   <span>{:L('ec_number')}：<input type="text" id="J_num_{$item.id}" class="input_text_number" value="1" size="4"></span><br/>
+
+       </div>
+
+       <div class="w_zrxx_1_r3">
+
+       <a href="javascript:;" id="J_ec_btn" title="立即兑换" data-id="{$item.id}" data-num="#J_num_{$item.id}" class="w_dha">立即兑换</a>
+
+       </div>
+
+      </div>
+
+     </div>
+
+      <div class="w_xq1">
+
+      <div class="w_had">
+
+      <span class="w_had_dq" id="wt1" onclick="setTab('wt',1,2,'w_had_dq')">兑换须知</span>
+
+      <span id="wt2" onclick="setTab('wt',2,2,'w_had_dq')">兑换记录</span>             
+
+    </div>
+
+
+
+      <div class="w_xq1_d_l" id="con_wt_1" style="display: block;">
+
+        {$item.desc}
+
+      </div>
+
+    <div class="w_xq1_d_l" id="con_wt_2" style="display: none;">
+
+       <table cellpadding="0" cellspacing="0" class="w_dtxq_tb">
+
+	    <tr>
+
+		  <td class="w_dtxq_tb_1">兑换用户 </td>
+
+		  <td class="w_dtxq_tb_2">兑换时间</td>
+
+		  <td class="w_dtxq_tb_3">状态</td>
+
+		</tr>
+
+		<volist name="list" id="r">
+
+		<tr>
+
+		  <td class="w_dtxq_tb_1">{$r.uname}</td>
+
+		  <td class="w_dtxq_tb_2">{$r.add_time|fdate}</td>
+
+		  <td class="w_dtxq_tb_3"><if condition="$r['status'] eq 0">处理中<else/>已完成</if></td>
+
+		</tr>
+
+		</volist>
+
+	  </table>
+
+	   <div class="w_pag">{$pagebar}</div>
+
+    </div>
+
+     </div>
+
+   </div> 
+
+  </div>
+
+  <div class="w_cen_rig ">
+
+    <include file="public:yhq_right" />
+
+	<include file="public:zt_right" />
+
+  </div>
+
+</div>
+
+<include file="public:footer" />
+
+<script src="/static/js/lhg/lhgdialog.min.js?self=true&skin=idialog" type="text/javascript"></script>
+
+<script src="/js/jquery.form.js" type="text/javascript"></script>
+
+<script src="/js/function.js" type="text/javascript"></script>
+
+<script>
+
+$("#J_ec_btn").on('click', function(){
+
+	if(!confirm('兑换该物品需{$item.coin}金币，请确定？')){
+
+		return false;
+
+	}
+
+	if("" == PINER.uid){
+
+		$.get("index.php?m=user&a=login",function(res){opdg(res.data,524,262,'用户登录');},'json');
+
+		return false;
+
+	}
+
+	var id = $(this).attr('data-id'),
+
+	num_input = $(this).attr('data-num'),
+
+	num = $(num_input).val();
+
+	$.get(PINER.root + '/?m=exchange&a=ec', {id:id, num:num}, function(result){
+
+		if(result.status == 1){
+
+			$(".tip-c").html(result.msg);
+
+			$('.tipbox').show().addClass("tip-success");
+
+			setTimeout("$('.tipbox').hide();", 2000); 
+
+		}else if(result.status == 2){
+
+			opdg(result.data,450,253,"填写收货地址");
+
+			$('#J_daddress_form').ajaxForm(
+
+				 function(result){
+
+					result = eval("("+result+")");
+
+					if(result.status == 1){
+
+						$(".tip-c").html(result.msg);
+
+						$('.tipbox').show().addClass("tip-success");
+
+						window.location.reload();
+
+					} else {
+
+						$(".tip-c").html(result.msg);
+
+						$('.tipbox').show().addClass("tip-error");
+
+						setTimeout("$('.tipbox').hide();", 2000);
+
+					}	
+
+				}
+
+			); 
+
+		}else{
+
+			$(".tip-c").html(result.msg);
+
+			$('.tipbox').show().addClass("tip-error");
+
+			setTimeout("$('.tipbox').hide();", 2000);
+
+		}
+
+	},'json');
+
+});
+
+</script>
+
+</body>
+
+</html>
+

@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<include file="public:head" />
+</head>
+<body style="background:#f3f7f7;">
+<nav class="w_h2">
+<a href="{:U('wap/index/index')}" title="首页" class="w_h2_r"><img src="/static/images/wap/w_fz.png" title="首页" alt="首页"/></a>
+<em>{$visitor.username}</em>
+<a href="javascript:history.go(-1);" title="返回" class="w_h2_l"><img src="/static/images/wap/w_t_lef.png" title="返回" alt="返回"/></a>
+<h2>{$user.username}</h2>
+</nav>
+<div class="w_center">
+  <div class="w_gzhy">
+   <div class="w_gzhy_1">
+     <div class="w_gzhy1_l">
+       <img src="{:avatar($uid,48)}" title="{$user.username}" alt="{$user.username}"/><br/><i>LV.{$user.grade}</i>
+     </div>
+     <div class="w_gzhy1_c">
+      <p>{$user.username}</p>
+      <p>
+         <img src="<if condition="$xz['share_num'] gt 100">/images/w_xzz_1.png<else/>/images/w_xzz_1_n.png</if>" title="爆料达人" alt="爆料达人"/>
+         <img src="<if condition="$xz['bao_num'] gt 100">/images/w_xzz_2.png<else/>/images/w_xzz_2_n.png</if>" title="分享达人" alt="分享达人"/>
+	     <img src="<if condition="$xz['sign'] gt 200">/images/w_xzz_3.png<else/>/images/w_xzz_3_n.png</if>" title="签到达人" alt="签到达人"/>
+	     <img src="<if condition="$xz['gl_num'] gt 200">/images/w_xzz_4.png<else/>/images/w_xzz_4_n.png</if>" title="攻略达人" alt="攻略达人"/>
+	     <img src="<if condition="$xz['cm_num'] gt 200">/images/w_xzz_5.png<else/>/images/w_xzz_5_n.png</if>" title="评论达人" alt="评论达人"/>
+	     <img src="<if condition="$xz['sd_num'] gt 200">/images/w_xzz_6.png<else/>/images/w_xzz_6_n.png</if>" title="晒单达人" alt="晒单达人"/>
+      </p>
+      <p><span>积分：</span>{$user.score}</p>
+     </div>
+     <div class="w_gzhy1_r">
+     <if condition="$user.follow eq 0">
+     <a href="javascript:;" title="我要关注" class="J_fo" data-id="{$user.id}">我要关注</a>
+     <else/>
+     <a href="javascript:;" title="取消关注" class="J_unfo" data-id="{$user.id}">取消关注</a>
+     </if>
+     </div>
+   </div>
+   <div class="w_gzhy_2">
+     <a href="javascript:;" title="粉丝：31136">粉丝：{$user.fans}</a>
+     <a href="javascript:;" title="文章：31136">文章：{$user.shares}</a>
+     <a href="javascript:;" title="评论：31136" class="nor">评论：{$user.score}</a>
+   </div>
+  </div>
+  <ul class="list list_preferential" id="mores">
+    <volist name="item_list" id="r">
+    <li> 
+      <a href="{:U('wap/item/index',array('id'=>$r['id']))}" title="{$r.title}">
+      <div class="image_wrap">
+        <div class="image"><img src="{:attach($r['img'],'item')}" alt="{$r.title}" title="{$r.title}"/></div>
+      </div>
+      <address>
+      <span>{$r.add_time|fdate}</span>{:getly($r['orig_id'])}
+      </address>
+      <h2>{$r.title}</h2>
+      <div class="tips"><span><i class="icons icon_comment"></i>{$r.comments}</span></div>
+      </a>
+    </li>
+    </volist>
+  </ul>
+     <if condition="$pagesize lt $count"><div class="clear"></div>
+    <div id="more" class="btn_getmore" ><a href="javascript:;" title="加载更多">加载更多</a></div></if>
+    <div id="Loading" style="display: none;text-align:center">加载中...</div>
+    <input type="hidden" id="page" value="2"/>
+  
+   <include file="public:footer" />
+   <script src="/static/js/wap/weui.min.js"></script>
+   <link href="/static/js/wap/weui.css" type="text/css" rel="stylesheet"/>
+   <script>
+$(document).ready(function(){
+	$("#more").click(function(){
+		var more_id=$("#page").val(),l=$("#Loading"),g=$("#more");
+		l.show();g.hide();
+		$.ajax({
+		   type:"GET",
+		   url: "/wap-space-index-uid-{$user.id}",
+		   data: "more=more&p="+more_id,
+		   success: function(msg){
+			   if(msg){
+				   $("#page").val(parseInt(more_id)+1);
+				   $("#mores").append(msg);
+				   g.show();l.hide();
+			   }else{
+				   weui.Loading.error("已经到最后一页了");
+				   $(".btn_getmore").hide();
+				   l.hide();
+			   }
+		   }
+		});
+	})
+	/*关注*/
+	$(document).on('click','.J_fo',function(){
+		var obj=$(this);
+		var uid=obj.attr('data-id');
+		$.get(PINER.root+ '/?g=wap&m=user&a=follow',{uid:uid},function(data){
+			if(data.status==0){
+				weui.Loading.error(data.msg);
+			}else{
+				weui.Loading.success(data.msg);
+				obj.removeClass("J_fo");
+				obj.addClass("J_unfo");
+				obj.html("取消关注");
+			}
+		},'json');
+	});
+	/*取消关注*/
+	$(document).on('click','.J_unfo',function(){
+		var obj=$(this);
+		var uid=obj.attr('data-id');
+		$.get(PINER.root+ '/?g=wap&m=user&a=unfollow',{uid:uid},function(data){
+			if(data.status==0){
+				weui.Loading.error(data.msg); 
+			}else{
+				weui.Loading.success(data.msg);
+				obj.removeClass("J_unfo");
+				obj.addClass("J_fo");
+				obj.html("我要关注");
+				//obj.parent("li").remove();
+			}
+		},'json');
+	});
+});
+
+</script>
+</div>
+</body>
+</html>

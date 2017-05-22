@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<include file="public:head" />
+<script src="/static/js/wap/tab.js" type="text/javascript"></script>
+</head>
+<body style="background:#f5f5f5;">
+<include file="public:head1" />
+<div class="w_center">
+ <div class="w_xzzr1">
+     <div class="w_xzzr1_1"><img src="{:attach($info['img'],'zr')}" title="{$info.title}" alt="{$info.title}" /></div>
+     <h2>{$info.title}</h2>
+     <ul>
+       <li>市场价：<i>¥{$info.mark_price}</i></li>
+       <li>转让价：<em>¥{$info.price}</em></li>
+       <volist name="attr" id="r">
+       <li>{$r.attr_name}： {$r.attr_value}</li>
+       </volist>
+       <li>联系：<a href="<if condition="$info['uid'] eq '0'">javascript:;<else/>{:U('wap/space/index', array('uid'=>$info['uid']))}</if>" title="{$info.uname}">{$info.tel}</a>{$info['uname']}</li>
+     </ul>
+  </div>
+  <div class="w_xzzr2">
+     <h2>详细说明</h2><br/>
+     {$info.content}
+  </div>
+  <div class="w_xzzr3">
+     <h3>其他闲置转让</h3>
+     <ul>
+      <volist name="other" id="r">
+      <li>
+       <a href="" title="{$r.title}">
+        <div class="w_zk_img">
+         <img src="{:attach($r['img'],'zr')}" title="{$r.title}" alt="{$r.title}"/>
+        </div>
+        <address><span>{$r.add_time|fdate}</span>{$r.title}</address>
+        <h2>{$r.intro}</h2>
+        <div class="w_jg"><em>￥{$r.price}</em></div>
+        </a>
+      </li>
+      </volist>
+    </ul>
+  </div>  
+  <include file="public:comment" />
+  <include file="public:footer" />
+  <script src="/static/js/wap/pl.js"></script>
+</div>
+</body>
+</html>

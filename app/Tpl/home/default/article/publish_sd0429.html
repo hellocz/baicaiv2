@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<include file="public:head" />
+	<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
+	<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"> </script>
+	<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+</head>
+
+<body style="background:#f5f5f5">
+<include file="public:header" />
+<div class="w_bl_bd">
+  <div class="w_bl">
+  <h2>发布晒单</h2>
+  <table class="w_fbgl">
+  <form id="info_form" action="{:u('article/insert')}" method="post" enctype="multipart/form-data">
+  <input type="hidden" name="cate_id" value="10"/>
+  <tr  height="60px">
+	  <td  class="w_fbgl_1"><em>*</em> 晒单标题：</td>
+	  <td>
+	   <input type="text" id="title" name="title" value="" class="w_gl_in1"/>
+	  </td>
+	</tr>
+	<tr  height="40px">
+	  <td  class="w_fbgl_1"><em>*</em>购物商城：</td>
+	  <td>
+		<input type="text" id="sc" name="sc" value="" class="w_gl_in1"/>
+	  </td>
+	</tr>
+    <tr  height="170px">
+	  <td class="w_fbgl_1"><em>*</em>商品图片：</td>
+	  <td>
+	     <div class="w_tp_bd">
+          <div class="w_tpk"><img src="/images/jia_pic.png" id="btn_img"/></div>
+          <p style="color:#646464;">从下方的图片中选择一张图片作为封面图片，或者从本地上传，请选择不带水印的图片，谢谢！</p>
+          <p style="color:#999999;">支持小于300k格式为jpg、jpeg、png的图片，截图请注意隐藏个人信息</p>
+          <div class="w_cczx">
+            <em>上传照片</em>
+			<input type="file" name="J_img" id="J_img" class="w_bl_in2" >
+			<input type="hidden" name="img" id="img" value=""/>
+          </div>
+         </div>
+	  </td>
+	</tr>
+	<tr  height="120px">
+	  <td  class="w_fbgl_1"><em>*</em>  商品评分：</td>
+	  <td>
+	   <div class="w_5x">
+         <ul>
+           <li><span>商品质量</span><i></i><div class="w_5x_b"><img src="/images/star.png"/>&nbsp;&nbsp;<img src="/images/star.png"/>&nbsp;&nbsp;<img src="/images/star.png"/>&nbsp;&nbsp;<img src="/images/star.png"/>&nbsp;&nbsp;<img src="/images/star.png"/><input type="hidden" class="g" name="g_zl" value="5"/></div></li>
+           <li><span>配送服务</span><i></i><div class="w_5x_b"><img src="/images/star.png"/>&nbsp;&nbsp;<img src="/images/star.png"/>&nbsp;&nbsp;<img src="/images/star.png"/>&nbsp;&nbsp;<img src="/images/star.png"/>&nbsp;&nbsp;<img src="/images/star.png"/><input type="hidden" class="g" name="g_fw" value="5"/></div></li>
+           <li><span>客户服务</span><i></i><div class="w_5x_b"><img src="/images/star.png"/>&nbsp;&nbsp;<img src="/images/star.png"/>&nbsp;&nbsp;<img src="/images/star.png"/>&nbsp;&nbsp;<img src="/images/star.png"/>&nbsp;&nbsp;<img src="/images/star.png"/><input type="hidden" class="g" name="g_kh" value="5"/></div></li>
+         </ul>
+       </div>
+	  </td>
+	</tr>
+	<tr  height="200px">
+	  <td colspan="2">
+        <p style="color:#646464;">晒单必须上传三张以上的清晰大图，否则将不能通过审核。</p>
+      <div class="w_tbamx">
+		  <script id="info" type="text/plain" style="width:782px;height:228px;"></script>
+		  <!--<textarea name="info" id="info" style="width: 762px; height: 228px; visibility: hidden; resize: none; display: none;"></textarea>--></div>
+      </td>
+	</tr>
+	<tr>
+	  <td colspan="2">
+	  <input type="submit" value="发布" class="w_gl_in2" style="margin-top: 68px;" />
+	  <input type="button" value="保存草稿" class="J_cg w_gl_in3" style="margin-top: 68px;" />
+	  <input type="hidden" name="status" value="0"/>
+	 </td>
+	</tr>
+	</form>
+  </table>
+ </div>
+ </div>
+<include file="public:footer" />
+<script src="/js/function.js" type="text/javascript"></script>
+<script src="/js/ajaxfileupload.js" type="text/javascript"></script>
+<script src="/static/js/kindeditor/kindeditor-min.js"></script>
+<script>
+$(".J_cg").click(function(){
+	$("input[name='status']").val(2);
+	$("#info_form").submit();
+});
+$("#btn_img").click(function(){
+	$("#J_img").trigger("click");
+});
+$("#J_img").live('change',function () {
+	ajaxFileUpload();
+});
+function ajaxFileUpload() {
+	$('#btn_img').attr('src', '/images/bcloading.gif');	
+	$.ajaxFileUpload
+	(
+		{
+			url: PINER.root + '/?m=article&a=uploadimg', //用于文件上传的服务器端请求地址
+			secureuri: false, //是否需要安全协议，一般设置为false
+			fileElementId: 'J_img', //文件上传域的ID
+			dataType: 'json', //返回值类型 一般设置为json
+			success: function (result, status)  //服务器成功响应处理函数
+			{
+				if(result.status =='1'){
+					$('#btn_img').attr('src', result.data);
+					$('#img').val(result.data);
+				}
+			},
+			error: function (data, status, e)//服务器响应失败处理函数
+			{
+				$(".tip-c").html(e);
+				$('.tipbox').show().removeClass('tip-success').addClass("tip-error");
+				setTimeout("$('.tipbox').hide();", 2000); 
+			}
+		}
+	)
+	return false;
+}
+$(".w_5x_b img").hover(function(){
+	var index=$(".w_5x_b").index($(this).parent());
+	var k=$(".w_5x_b:eq("+index+") img").index(this);
+	for(var i=0;i<5;i++){
+		if(i<=k){
+			$(".w_5x_b:eq("+index+") img:eq("+i+")").attr("src","/images/star.png");
+		}else{
+			$(".w_5x_b:eq("+index+") img:eq("+i+")").attr("src","/images/star_1.png");
+		}
+	}	
+},function(){});
+$(function(){
+	$("form").submit(function(){
+		if($("#title").val()==""){tips("标题不能为空",'0');return false;}
+		if($("#orig_id").val()=="0"){tips("请选择购物商城",'0');return false;}
+		if($("#img").val()==""){tips("请选择图片",'0');return false;}
+	});
+})
+var editor;
+KindEditor.ready(function(K) {
+	editor = K.create('#info', {
+		uploadJson : '/index.php?g=admin&m=attachment&a=editer_upload',
+		fileManagerJson : '/index.php?g=admin&m=attachment&a=editer_manager',
+		allowFileManager : true,
+		items:['undo','redo','bold','fontsize','forecolor','emoticons','link','unlink', 'image','multiimage','media']
+	});
+	K('#info_form').bind('submit', function() {
+		editor.sync();
+	});
+});
+var is_confirm=true;
+// 关闭窗口时弹出确认提示
+$(window).bind('beforeunload', function(){
+    // 只有在标识变量is_confirm不为false时，才弹出确认提示
+    if(window.is_confirm !== false)
+        return "您有未保存的内容，您确定关闭吗？";
+});
+// 提交表单时，不弹出确认提示框
+$('form').bind('submit', function(){
+    is_confirm = false;  
+});
+var ue = UE.getEditor('info');
+</script>
+</body>
+</html>

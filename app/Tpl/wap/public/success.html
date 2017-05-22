@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+<include file="public:head" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<script src="/static/js/wap/weui.min.js"></script>
+<link href="/static/js/wap/weui.css" type="text/css" rel="stylesheet"/>
+<script language="javascript">
+var PINER = {
+    root: "__ROOT__",
+    uid: "<?php echo $visitor['id'];?>", 
+    async_sendmail: "<?php echo $async_sendmail;?>",
+    config: {
+        wall_distance: "<?php echo C('pin_wall_distance');?>",
+        wall_spage_max: "<?php echo C('pin_wall_spage_max');?>"
+    },
+    //URL
+    url: {}
+};
+weui.alert("{$message}","{:L('message_title')}",function(){
+	location.href='{$jumpUrl}';
+});
+setTimeout("location.href='{$jumpUrl}';",{$waitSecond}*1000);
+</script>
+</body>
+</html>

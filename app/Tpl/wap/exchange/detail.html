@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<include file="public:head" />
+<script src="/static/js/wap/jquery-1.11.0.min.js" type="text/javascript"></script>
+<script src="/static/js/wap/tab.js" type="text/javascript"></script>
+<style>
+.tipbox{height:54px;line-height:54px;position:fixed;display:none; margin-left:15%;}
+.tipbox .tip-l{float:left;width:45px;height:54px;background-image:url(/images/tip_layer.png);background-repeat:no-repeat;background-position:-5px 0;}
+.tipbox .tip-c{float:left;height:54px;line-height:52px;padding:0 10px 0 5px; background-image:url(/images/tip_layer.png);background-repeat:repeat-x;background-position:0 -161px;}
+.tipbox .tip-r{float:left;width:5px;height:54px;background-image:url(/images/tip_layer.png);background-repeat:no-repeat;background-position:0 0;}
+.tip-success .tip-l{background-position:-6px 0;}
+.tip-alert .tip-l{background-position:-6px -54px;}
+.tip-error .tip-l{background-position:-6px -108px;}
+</style>
+</head>
+<body style="background:#f3f7f7;">
+<include file="public:head1" />
+<div class="w_center">
+<div class="w_djxq">
+    <div class="w_djlogo">
+    <img src="{:attach(str_replace('_s.'.array_pop(explode('.', $item['img'])), '_b.'.array_pop(explode('.', $item['img'])), $item['img']), 'score_item')}"  title="{$item.title}" alt="{$item.title}" />
+    </div>
+    <div class="tipbox">
+    <div class="tip-l"></div>
+    <div class="tip-c"></div>
+    <div class="tip-r"></div>
+  </div>
+    <h2>{$item.title}</h2>
+    <p>所需金币：{$item.coin}</p>
+    <p>剩余数量：总计<em>{$item.stock}</em>件; 已领<em>{$item.buy_num}</em>件; 每人限兑<em>{$item.user_num}</em>件</p>
+    <p>兑换数量：<input type="text" id="J_num_{$item.id}" value="1" size="4"></p>
+    <a href="javascript:;" id="J_ec_btn" data-id="{$item.id}" data-num="#J_num_{$item.id}" title="立即兑换">立即兑换</a>
+  </div>
+  
+  <div class="w_yhxq">
+    <div class="w_yhxq_t"><span  class="w_yhxq_t1" id="yhxq1" onclick="setTab('yhxq',1,2,'w_yhxq_t1')">兑换须知</span>|<span id="yhxq2" onclick="setTab('yhxq',2,2,'w_yhxq_t1')">兑换记录</span></div>
+    <div class="w_yhxq_n" style="display:" id="con_yhxq_1">
+      {$item.desc}
+    </div>
+     <div class="w_yhxq_n" style="display:none"  id="con_yhxq_2">
+      <table cellpadding="0" cellspacing="0" class="w_dtxq_tb">
+	    <tbody id="mores"><tr>
+		  <td class="w_dtxq_tb_1">兑换用户 </td>
+		  <td class="w_dtxq_tb_2">兑换时间</td>
+		  <td class="w_dtxq_tb_3">状态</td>
+		</tr>
+		<volist name="list" id="r">
+        <tr>
+		  <td class="w_dtxq_tb_1">{$r.uname}</td>
+		  <td class="w_dtxq_tb_2">{$r.add_time|fdate}</td>
+		  <td class="w_dtxq_tb_3"><if condition="$r['status'] eq 0">处理中<else/>已完成</if></td>
+		</tr>
+        </volist>
+	  </tbody></table>
+      <if condition="$pagesize lt $count"><div class="clear"></div>
+      <div id="more" class="btn_getmore" ><a href="javascript:;" title="加载更多">加载更多</a></div></if>
+      <div id="Loading" style="display: none;text-align:center">加载中...</div>
+      <input type="hidden" id="page" value="2"/>
+    </div>
+  </div>
+   <include file="public:footer" />
+   <script src="/static/js/lhg/lhgdialog.min.js?self=true&skin=idialog" type="text/javascript"></script>
+   <script src="/js/jquery.form.js" type="text/javascript"></script>
+   <script src="/static/js/wap/weui.min.js"></script>
+   <link href="/static/js/wap/weui.css" type="text/css" rel="stylesheet"/>
+  <script>
+  $("#J_ec_btn").click(function(){
+	
+	if(!confirm('兑换该物品需{$item.coin}金币，请确定？')){
+		return false;
+	}
+	if("" == PINER.uid){
+		window.location="{:U('wap/user/login')}";
+		return false;
+	}
+	var id = $(this).attr('data-id'),
+	num_input = $(this).attr('data-num'),
+	num = $(num_input).val();
+	$.get(PINER.root + '/?g=wap&m=exchange&a=ec', {id:id, num:num}, function(result){
+		if(result.status == 1){
+			weui.Loading.success(result.msg);
+		}else if(result.status == 2){
+			opdg(result.data,450,253,"填写收货地址");
+			$('#J_daddress_form').ajaxForm(
+				 function(result){
+					result = eval("("+result+")");
+					if(result.status == 1){
+						weui.Loading.success(result.msg);
+						window.location.reload();
+					} else {
+						weui.Loading.error(result.msg);
+					}	
+				}
+			); 
+		}else{
+			weui.Loading.error(result.msg);
+		}
+	},'json');
+});
+function opdg(content,w,h,title){  
+	var dg = new $.dialog({id:'selectorder',title:title, lock:true,content:content,width:w,height:h,background:'#000',opacity:1,max: false, min: false,resize:false});    
+}
+//加载更多
+$(document).ready(function(){
+	$("#more").click(function(){
+		var more_id=$("#page").val(),l=$("#Loading"),g=$("#more");
+		l.show();g.hide();
+		$.ajax({
+		   type:"GET",
+		   url: "/wap-exchange-detail-id-{$item.id}",
+		   data: "more=more&p="+more_id,
+		   success: function(msg){
+			   if(msg){
+				   $("#page").val(parseInt(more_id)+1);
+				   $("#mores").append(msg);
+				   g.show();l.hide();
+			   }else{
+				   weui.Loading.error("已经到最后一页了");
+				   $(".btn_getmore").hide();l.hide();
+			   }
+		   }
+		});
+	})
+});
+</script>
+</div>
+</body>
+</html>

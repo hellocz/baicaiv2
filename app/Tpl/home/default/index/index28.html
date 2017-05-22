@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<include file="public:head" />
+<link rel="stylesheet" type="text/css" href="/static/css/default/style.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/default/base.css" />
+<script src="/js/jquery.SuperSlide.2.1.1.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="/static/css/default/main.css" type="text/css"> 
+
+<script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript"> var zhiyou_open = 1; </script>
+<script type="text/javascript" src="/js/userbase.1.0.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+
+<!--[if lt IE 9]>
+<script src="http://www.smzdm.com/resources/public/js/html5.js?v=2016041103"></script>
+<link rel="stylesheet" href="http://res.smzdm.com/resources/public/css/ieHack.css" type="text/css" />
+<![endif]-->
+
+
+
+<!--[if IE 7]>
+<style type=”text/css”>
+.blFormBox .wantItem{position: initial;}
+</style>
+<![endif]-->
+
+</head>
+<body style="background:#f5f5f5">
+<include file="public:header" />
+<!--focus start-->
+{:R('advert/index', array(1), 'Widget')}
+<!--focus end-->
+<!--banner end-->
+<include file="public:daohan" />
+<div class="w_center">
+  <div class="w_cen_lef">
+	   <div class="w_sy_f1">
+	   <ul>
+	     <h2>热门活动</h2>
+		 <volist name="hd" id="r">
+		 <li>>><a href="{$r.hdurl}" title="{$r.hdname}"  rel="nofollow" target="_blank" <if condition="$r['is_color'] eq 1">style="color:#3dc399;"</if>>{$r.hdname}
+             <if condition="$r['is_status'] eq 1"><img src="/images/hot.png" /><elseif condition="$r['is_status'] eq 2"/><img src="/images/new.png" /></if></a>
+         </li>
+		 </volist>
+	   </ul>
+	   <div class="clear"></div>
+	 </div>
+	  <div class="txtScroll-top">
+			<div class="bd">
+			   <em>置顶</em>
+				<ul class="infoList">
+				<volist name="thd" id="r">
+					<li><a href="{$r.hdurl}"  rel="nofollow" target="_blank" title="{$r.hdname}">{$r.hdname}</a></li>
+				</volist>
+				</ul>
+			</div>
+		</div>
+		<script id="jsID" type="text/javascript">
+		 var ary = location.href.split("&");
+		jQuery(".txtScroll-top").slide({titCell:".hd ul",mainCell:".bd ul",autoPage:true,effect:"top",autoPlay:true,vis:1});
+		</script>
+     <div class="w_f2">
+       <div class="w_sy_ha">
+         <div class="w_sh_r"><a href="{$cc_url}" title="橱窗模式" <if condition="$dss=='cc'">class="w_sh_1i"<else/>class="w_sh_1"</if>><i></i></a><em>|</em><a href="{$lb_url}" title="列表模式"  <if condition="$dss=='lb'">class="w_sh_2i"<else/>class="w_sh_2"</if>><i></i></a></div>
+         <a href="{:U('index/index',array('type'=>isnice))}"><span <if condition="$tab eq 'isnice'">class="w_sy_s"</if>  id="sy1" >编辑推荐<if condition="$tab eq 'isnice'"><i></i></if></span></a><a href="{:U('index/index',array('type'=>isbao))}"><span <if condition="$tab eq 'isbao'">class="w_sy_s"</if> id="sy2">网友爆料<if condition="$tab eq 'isbao'"><i></i></if></span></a>            
+       </div>
+		<include file="public:item_list" />
+		<div class="w_pag" id="J_page">{$pagebar}</div>
+     </div>
+  </div>
+  <div class="w_cen_rig">
+    <div class="w_r1">
+      <div class="w_r1_1"><a href="javascript:;" title="签到领积分" class="w_r1_1_1" id="J_sign">签到领积分</a><a href="{:U('exchange/index')}" title="积分兑换" class="w_r1_1_2">积分兑换</a></div>
+      <p><a href="{:U('page/index',array('id'=>6))}" title="积分规则说明">积分规则说明</a></p>
+      <div class="w_w_r1_2">
+        <h2>关注我们，获取最新动态</h2>
+        <a href="http://weibo.com/baicaio" target="_blank" title="微博"><img src="images/w_gz_1.png" title="微博" alt="微博"/></a>
+        <a href="" title="微信" class="l_wx_a">
+		 <img src="/images/w_gz_2.png" title="微信" alt="微信"/>
+		 <div class="l_wx">
+		   <img src="images/w_erm.jpg" title="白菜哦" alt="白菜哦"/>
+		 </div>
+		</a>
+		<script>
+		$(document).ready(function(e) {
+             $(".l_wx_a").hover(
+				  function () {
+					$(this).children(".l_wx").show();
+				  },
+				  function () {
+					$(this).children(".l_wx").hide("");
+				  }
+				); 
+           }) 
+		</script>
+        <a href="/rss" title="订阅"><img src="/images/w_gz_3.png" title="订阅" alt="订阅"/></a>
+        <a href="javascript:AddFavorite(window.location.href,document.title)" title="收藏"><img src="/images/w_gz_4.png" title="收藏" alt="收藏"/></a>
+      </div>
+    </div>
+    <div class="w_r2">{:R('advert/index', array(10), 'Widget')}</div>
+    <div class="w_r3">
+       <h2>积分排名</h2>
+       <div class="w_r3_1"><span class="w_r3_1_bd" id="tt1" onmouseover="setTab('tt',1,2,'w_r3_1_bd')">今日排名</span><span  id="tt2" onmouseover="setTab('tt',2,2,'w_r3_1_bd')">全部排名</span></div>
+       <ul id="con_tt_1">
+	    <volist name="pm1" id="r">
+         <li><a href="{:U('space/index',array('uid'=>$r['id']))}" class="J_card" data-uid="{$r['id']}">
+             <img src="{:avatar($r['uid'],64)}" title="{$r.uname}" alt="{$r.uname}"/>
+             <p>{$r.uname}</p></a>
+             <p>积分 : {$r.num}</p>
+             <span class="J_follow_bar" data-id="{$r.uid}">
+             <if condition="$r['follow'] eq 1">
+			 <span class="fo_u_ok">已关注</span><a href="javascript:;" class="J_unfo_u green">取消</a>
+			 <else/>
+             <div class="J_fo_btn w_r3_d">关注</div>
+			 </if>
+			 </span>			 
+         </li>
+        </volist>
+       </ul>
+       <ul style="display:none" id="con_tt_2">
+	   <volist name="pma" id="r">
+         <li><a href="{:U('space/index',array('uid'=>$r['id']))}" class="J_card" data-uid="{$r['id']}">
+             <img src="{:avatar($r['id'],64)}" title="{$r.username}" alt="{$r.username}"/>
+             <p>{$r.username}</p></a>
+             <p>积分 : {$r.score}</p>
+			 <span class="J_follow_bar" data-id="{$r.id}">
+			 <if condition="$r['follow'] eq 1">
+			 <span class="fo_u_ok">已关注</span><a href="javascript:;" class="J_unfo_u green">取消</a>
+			 <else/>
+             <div class="J_fo_btn w_r3_d">关注</div>
+			 </if>
+			 </span>
+         </li>
+		</volist>
+       </ul>
+    </div>
+    
+    
+    
+    <div class="w_r_tab">
+        <h2>热门白菜榜</h2>
+        
+        
+              <div class="rightPanel beyondHide">
+              
+                <ul class="tab_nav" id="tabNav2">
+                    <li class="tab_faxian_li current_item"><h3>小时榜</h3></li>
+                    <li class="tab_faxian_li"><h3>24小时榜</h3></li>
+                    <!--
+                    <li class="more"><a href="" target="_blank">更多 &gt;</a></li> 
+                    -->    
+                </ul>
+                
+                <div class="tab_info_con" style="display: block;">
+                    <ul class="ninePicBox">
+                        <volist name="hour_list" id="r">
+                        <li <if condition="!($i%3)">class="gogo"</if>>
+                            <a href="{:U('item/index',array('id'=>$r['id']))}" title="{$r.title}" target="_blank">
+                                <img src="<if condition="$r['img']==''">/images/nopic.jpg<else/>{:attach($r['img'],'item')}</if>" alt="{$r.title}" style="width:94px; height:94px;">
+                                <div class="tabCon">
+                                    <p>{$r.title|msubstr=0,16,""}</p>
+                                    <span><if condition="$r['price'] gt 0">{$r.price}</if></span>
+                                </div>
+                            </a>
+                        </li>
+                        </volist>
+                    </ul>
+                 </div>
+                 
+                <div class="tab_info_con" style="display: none;">
+                    <ul class="ninePicBox">
+                        <volist name="day_list" id="r">
+                            <li <if condition="!($i%3)">class="gogo"</if>>
+                            <a href="{:U('item/index',array('id'=>$r['id']))}" title="{$r.title}" target="_blank">
+                                <img src="<if condition="$r['img']==''">/images/nopic.jpg<else/>{:attach($r['img'],'item')}</if>" alt="{$r.title}" style="width:94px; height:94px;">
+                                <div class="tabCon">
+                                    <p>{$r.title|msubstr=0,16,""}</p>
+                                    <span><if condition="$r['price'] gt 0">{$r.price}</if></span>
+                                </div>
+                            </a>
+                            </li>
+                        </volist>
+                    </ul>
+                </div>
+              
+              </div>
+    </div>
+    
+    
+     <div class="w_r4">{:R('advert/index', array(2), 'Widget')}</div>
+      <include file="public:yhq_right" />
+	  <include file="public:zt_right_index" />
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.flexslider').flexslider({
+		directionNav: true,
+		pauseOnAction: false
+	});
+});
+var page={$p};
+var para='{$tab}';
+var pagesize=18;
+var pageend={$p}+3;
+//右边滚动
+$(window).scroll(function () {
+	if ($(document).scrollTop() > 2297 ){  //判断滚动条是否滚动了***PX
+		if($(document).scrollTop()<$(document).height()-$(window).height()-220){
+			$(".w_r6").css({"position":"fixed", "top":"0", "z-index":"800", "left":"50%", "margin-left":"300px","margin-top":0});
+		}else{
+			$(".w_r6").css({"position":"fixed", "bottom":"230px", "z-index":"800", "left":"50%", "margin-left":"300px","margin-top":0,'top':""});
+		}
+	}else
+		$(".w_r6").css({"position":"static", "top":"0", "z-index":"800", "right":"0", "margin-left":"0",'margin-top':0});
+});
+function AddFavorite(sURL, sTitle) {
+	sURL = encodeURI(sURL);
+	try {
+		window.external.addFavorite(sURL, sTitle);
+	} catch (e) {
+		try {
+			window.sidebar.addPanel(sTitle, sURL, "");
+		} catch (e) {
+			alert("加入收藏失败，请使用Ctrl+D进行添加,或手动在浏览器里进行设置.");
+		}
+	}
+}
+</script>
+<include file="public:footer_index" />
+<script>var t="item";</script>
+<script src="/static/js/lhg/lhgdialog.min.js?self=true&skin=idialog" type="text/javascript"></script>
+<script src="/js/function.js"></script>
+<script src="/js/pbl.js"></script>
+</body>
+</html>

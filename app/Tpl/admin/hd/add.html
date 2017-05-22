@@ -1,0 +1,39 @@
+<include file="public:header" />
+<!--添加商品-->
+<div class="subnav">
+    <h1 class="title_2 line_x">添加热门活动</h1>
+</div>
+<form id="info_form" action="{:u('hd/add')}" method="post" enctype="multipart/form-data">
+<div class="pad_lr_10">
+	<div class="col_tab">
+		<div class="J_panes">
+        <div class="content_list pad_10">
+		<table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+            <tr>
+				<th>活动名称 :</th>
+				<td><input type="text" name="hdname" id="hdname" class="input-text" size="60"></td>
+			</tr>
+			<tr>
+				<th>活动链接 :</th>
+				<td><input type="text" name="hdurl" id="hdurl" class="input-text" size="60"></td>
+			</tr>
+			<tr>
+				<th>排序 :</th>
+				<td><input type="text" name="order"  class="input-text" size="20" value="0">*越小越靠前</td>
+			</tr>
+			<tr>
+				<th>是否推荐 :</th>
+				<td><input type="checkbox" name="istop" id="istop" value="1" class="input-text" ></td>
+			</tr>
+		</table>
+		</div>
+        </div>
+		
+		<div class="mt10"><input type="submit" value="{:L('submit')}" class="btn btn_submit"></div>
+	</div>
+</div>
+<input type="hidden" name="menuid"  value="{$menuid}"/>
+</form>
+<include file="public:footer" />
+</body>
+</html>

@@ -1,0 +1,358 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<include file="public:head" />
+<style>
+#J_img_con li{cursor:pointer}
+.e_imgs{position:absolute; bottom:0px; right:0; width:14px; height:14px; background:#3dc399; color:#fff; display:block; border-radius:14px; font-size:14px; text-align:center; line-height:13px;}
+</style>
+</head>
+<body style="background:#f5f5f5">
+<include file="public:header" />
+<div class="w_bl_bd">
+  <div class="w_bl">
+  <h2>编辑转让</h2>
+   <div class="w_b1_nr">
+   <form id="info_form" action="{:U('zr/edit')}" method="post" enctype="multipart/form-data">
+    <table cellpadding="0" cellspacing="0" class="w_bl_tb">
+      <tr height="60px">
+       <td class="td1"><em>*</em>转让标题：</td>
+       <td><input type="text" name="title" id="title" value="{$zr.title}" class="w_bl_in1"/></td>
+      </tr>
+      <tr  height="40px">
+       <td  class="td1"><em>*</em>商品分类：</td>
+       <td>
+          <select class="w_bl_se1" name="cate_id" id="cate_id">
+            <option value="0">选择分类</option>
+			<volist name="cate_list" id="item">
+            <option value="{$item.id}" <if condition="$zr['cate_id'] eq $item['id'] ">selected</if>>{$item.name}</option>
+			</volist>
+          </select>
+       </td>
+      </tr>      
+      <tr  height="170px">
+       <td  class="td1"><em>*</em>实物图片：</td>
+       <td class="td2">
+         <div class="w_tp_bd">
+          <div class="w_tpk"><img src="<if condition="$zr['img'] neq '' ">{:attach($zr['img'],"zr")}<else/>/images/jia_pic.png</if>" id="btn_img"/></div>
+          <p style="color:#323232;">实物图片也作为封面图片，请选择不带水印的图片，谢谢！</p>
+          <p style="color:#999999;">支持小于300k格式为jpg、jpeg、png的图片，截图请注意隐藏个人信息</p>
+		  <!--<div class="l_5xt">
+		    <ul id="J_img_con">
+			<volist name="zr['imgs']" id="rm">
+			<li style="position:relative;"><img src="{:attach($rm,'zr')}"/><input type="hidden" name="imgs[]" value="{$rm}"/><em class="e_imgs" data-url="{:attach($rm,'zr')}">-</em></li>
+			</volist>
+			</ul>
+		  </div>-->
+          <div class="w_cczx">
+            <em>上传照片</em>
+            <input type="file" name="J_img" id="J_img" class="w_bl_in2" >
+			<input type="hidden" name="img" id="img" value="{$zr['img']}"/>
+          </div>
+         </div>
+       </td>
+      </tr>
+		<tr  height="170px">
+			<td  class="td1"><em>*</em>订单截图：</td>
+			<td class="td2">
+				<div class="w_tp_bd">
+					<div class="w_tpk"><img src="<if condition="$zr['img1'] neq '' ">{:attach($zr['img1'],"zr")}<else/>/images/jia_pic.png</if>" id="btn_img1"/></div>
+					<p style="color:#323232;">请上传一张购买时的订单截图，请选择不带水印的图片，谢谢！</p>
+					<p style="color:#999999;">支持小于300k格式为jpg、jpeg、png的图片，截图请注意隐藏个人信息</p>
+					<!--<div class="l_5xt">
+                      <ul id="J_img_con">
+                      <volist name="zr['imgs']" id="rm">
+                      <li style="position:relative;"><img src="{:attach($rm,'zr')}"/><input type="hidden" name="imgs[]" value="{$rm}"/><em class="e_imgs" data-url="{:attach($rm,'zr')}">-</em></li>
+                      </volist>
+                      </ul>
+                    </div>-->
+					<div class="w_cczx">
+						<em>上传照片</em>
+						<input type="file" name="J_img1" id="J_img1" class="w_bl_in2" >
+						<input type="hidden" name="img1" id="img1" value="{$zr['img1']}"/>
+					</div>
+				</div>
+			</td>
+		</tr>
+		<tr  height="60px">
+			<td  class="td1"><em>*</em>转让价格：</td>
+			<td><input type="text" name="price" id="price" value="{$zr['price']}" class="w_bl_in3"/> &nbsp;&nbsp;市场价：<input type="text" name="mark_price" id="mark_price" value="{$zr['mark_price']}" class="w_bl_in3"/></td>
+		</tr>
+		<tr  height="60px">
+			<td  class="td1"><em>*</em>联系方式：</td>
+			<td><input type="text" name="tel" id="tel" value="{$zr['tel']}" placeholder="请注明QQ/微信/邮箱等详细联系方式" class="w_bl_in5" style="width: 250px;" /></td>
+		</tr>
+	  <tr>
+       <td  class="td1"><em></em>属性：</td>
+       <td>
+        <table width="100%" cellpadding="2" cellspacing="1" class="table_form" id="item_attr">
+			<tbody class="add_item_attr">
+			<volist name="attr" id="r">
+			<tr>
+                <th width="300">
+                <a href="javascript:void(0);" class="J_da blue" data-id="{$r['id']}"><img src="__STATIC__/css/admin/bgimg/tv-collapsable.gif" /></a> 属性名：<input type="text"  disabled="disabled"   class="w_bl_in5" size="20" value="{$r['attr_name']}">
+                </th>
+                <td> 属性值：<input type="text" disabled="disabled" class="w_bl_in5" size="30" value="{$r['attr_value']}"></td>
+            </tr>
+			</volist>
+            <tr>
+                <th width="300">
+                <a href="javascript:void(0);" class="blue" onclick="add_attr();"><img src="__STATIC__/css/admin/bgimg/tv-expandable.gif" /></a> 属性名：<input type="text" name="attr[name][]" class="w_bl_in5" size="20">
+                </th>
+                <td> 属性值：<input type="text" name="attr[value][]" class="w_bl_in5" size="30"></td>
+            </tr>
+            </tbody>
+		</table>
+       </td>
+      </tr>
+      <tr>
+       <td colspan="2">
+
+			 <script id="content" name="content" type="text/plain" style="width:782px;height:228px;">{$zr['content']}</script>
+			 <!--<textarea name="content" id="content" style="width: 762px; height: 228px; visibility: hidden; resize: none; display: none;">{$zr['content']}</textarea>-->
+       </td>
+      </tr>
+      <tr>
+       <td colspan="2" class="td3">
+		   <input type="submit" value="发布" class="w_gl_in2" style="margin-top: 68px;" />
+		   <input type="button" value="保存草稿" class="J_cg w_gl_in3" style="margin-top: 68px;" />
+	   </td>
+      </tr>
+    </table>
+	<input type="hidden" name="id" value="{$zr.id}"/>
+	<input type="hidden" name="status" value="0"/>
+	</form>
+   </div> 
+  </div>
+ </div>
+<style>
+	#clipArea {
+		margin: 20px;
+		height: 300px;}
+	#car{
+		display: block;
+		left: 50%;
+		top: 50%;
+		width: 600px;
+		height: 300px;
+		position: fixed;
+		margin-left: -300px;
+		margin-top: -150px;
+		display: none;
+		z-index: 999;
+	}
+</style>
+<div id="car">
+	<div id="clipArea"></div>
+	<button id="clipBtn">裁剪</button>
+	<p class="clipArea_tips"><span>*</span>滑动鼠标滑轮，可进行裁剪区域缩放。</p>
+</div>
+
+<include file="public:footer" />
+<script src="/js/function.js" type="text/javascript"></script>
+<script src="/js/ajaxfileupload.js" type="text/javascript"></script>
+<script src="/static/js/kindeditor/kindeditor-min.js"></script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+<script src="/js/car/iscroll-zoom.js"></script>
+<script src="/js/car/hammer.js"></script>
+<script src="/js/car/lrz.all.bundle.js"></script>
+<script src="/js/car/jquery.photoClip.js"></script>
+<script>
+
+	var clipArea = new bjj.PhotoClip("#clipArea", {
+		size: [200, 200],
+		outputSize: [200, 200],
+		file: "#J_img",
+		source: "/images/jia_pic.png",
+		//view: "#view",
+		ok: "#clipBtn",
+		loadStart: function() {
+			console.log("照片读取中");
+		},
+		loadComplete: function() {
+			console.log("照片读取完成");
+		},
+		clipFinish: function(dataURL) {
+			$('#clipBtn').html('保存中....');
+			$.post('/index.php?m=article&a=uploadimg1',{data:dataURL},function(result){
+				if(result.status ==1){
+					$('#clipBtn').html('裁剪');
+					$('#btn_img').attr('src', result.data);
+					$('#img').val(result.data);
+					$('#car').hide();
+				}
+			},'json')
+		}
+	});
+
+	$('#J_img').on('change',function () {
+		$('#car').show();
+	});
+	var ue = UE.getEditor('content');
+$(".e_imgs").live("click",function(){
+	var obj=$(this);
+	var img_b = obj.parent().siblings("li:eq(0)").find("input").val();
+	$.get("/index.php?m=zr&a=delimg",{url:$(this).attr("data-url")},function(res){
+		if(res.status==1){
+			$('#btn_img').attr('src', obj.parent().siblings("li:eq(0)").find("img").attr("src"));
+			$('#img').val(img_b);
+			obj.parent().remove();
+			tips(res.msg,1);
+		}else{
+			tips(res.msg,0);
+		}
+	},'json');
+});
+$(".J_cg").click(function(){
+	$("input[name='status']").val(2);
+	$("#info_form").submit();
+});
+function add_attr()
+{
+    $("#hidden_attr .add_item_attr").clone().insertAfter($("#item_attr .add_item_attr:last"));
+}
+function del_attr(obj)
+{
+	$(obj).parent().parent().remove();
+}
+$(".J_da").live("click",function(){
+	var obj=$(this);
+	$.get("/index.php?m=zr&a=delattr",{id:obj.attr("data-id")},function(res){
+		if(res.status==1){
+			obj.parent().parent().remove();
+			tips(tip.msg,1);
+		}else{
+			tips(tip.msg,0);
+		}
+	},'json');
+});
+
+$("#btn_img").click(function(){
+	$("#J_img").trigger("click");
+});
+$(function(){
+	$("form").submit(function(){
+		if($("#title").val()==""){tips("标题不能为空",'0');return false;}
+		if($("#cate_id").val()=="0"){tips("请选择商品分类",'0');return false;}
+		if($("#img").val()==""){tips("请选择实物图片",'0');return false;}
+		if($("#img1").val()==""){tips("请选择订单截图",'0');return false;}
+		if($("#price").val()==""){tips("价格不能为空",'0');return false;}
+		if(isNaN($("#price").val())){tips("价格请输入数字",'0');return false;}
+		if(isNaN($("#mark_price").val())){tips("市场价格请输入数字",'0');return false;}
+		if($("#cname").val()==""){tips("联系人不能为空",'0');return false;}
+		if($("#tel").val()==""){tips("联系电话不能为空",'0');return false;}
+		if(!ismobile($("#tel").val())){tips("联系电话格式不正确","0");return false;}
+		return true;
+	});
+})
+/*$("#J_img").live('change',function () {
+	ajaxFileUpload();
+});*/
+function ajaxFileUpload() {
+	$('#btn_img').attr('src', '/images/bcloading.gif');
+	$.ajaxFileUpload
+	(
+		{
+			url: PINER.root + '/?m=zr&a=uploadimg', //用于文件上传的服务器端请求地址
+			secureuri: false, //是否需要安全协议，一般设置为false
+			fileElementId: 'J_img', //文件上传域的ID
+			dataType: 'json', //返回值类型 一般设置为json
+			success: function (result, status)  //服务器成功响应处理函数
+			{
+				if(result.status =='1'){
+					$('#btn_img').attr('src', result.data);
+					$("#J_img_con").append("<li style='position:relative;'><img src='"+result.data+"'/><input type='hidden' name='imgs[]' value='"+result.data+"'/><em class='e_imgs' data-url='"+result.data+"'>-</em></li>");
+					$('#img').val(result.data);
+				}
+			},
+			error: function (data, status, e)//服务器响应失败处理函数
+			{
+				tips(e);
+			}
+		}
+	)
+	return false;
+}
+function ismobile(str){
+	var myreg = /^(1[0-9]{10})$/; 
+	if(!myreg.test(str)) 
+	{ 
+		return false; 
+	}else{
+		return true;
+	}
+} 
+$("#J_img_con li img").live("click",function(){
+	$("#img").val($(this).attr("src"));
+	$("#btn_img").attr("src",$(this).attr("src"));
+});
+/*var editor;
+KindEditor.ready(function(K) {
+	editor = K.create('#content', {
+		uploadJson : '/index.php?g=admin&m=attachment&a=editer_upload',
+		fileManagerJson : '/index.php?g=admin&m=attachment&a=editer_manager',
+		allowFileManager : true,
+		items:['undo','redo','bold','fontsize','forecolor','emoticons','link','unlink', 'image','multiimage','media']
+	});
+	K('#info_form').bind('submit', function() {
+		editor.sync();
+	});
+});*/
+var is_confirm=true;
+// 关闭窗口时弹出确认提示
+$(window).bind('beforeunload', function(){
+    // 只有在标识变量is_confirm不为false时，才弹出确认提示
+    if(window.is_confirm !== false)
+        return "您有未保存的内容，您确定关闭吗？";
+});
+// 提交表单时，不弹出确认提示框
+$('form').bind('submit', function(){
+    is_confirm = false;  
+});
+$("#btn_img1").click(function(){
+	$("#J_img1").trigger("click");
+});
+$("#J_img1").live('change',function () {
+	ajaxFileUpload1();
+});
+function ajaxFileUpload1() {
+	$('#btn_img1').attr('src', '/images/bcloading.gif');
+	$.ajaxFileUpload
+	(
+			{
+				url: PINER.root + '/?m=zr&a=uploadimg1', //用于文件上传的服务器端请求地址
+				secureuri: false, //是否需要安全协议，一般设置为false
+				fileElementId: 'J_img1', //文件上传域的ID
+				dataType: 'json', //返回值类型 一般设置为json
+				success: function (result, status)  //服务器成功响应处理函数
+				{
+					if(result.status =='1'){
+						$('#btn_img1').attr('src',result.data);
+						//$("#J_img_con").append("<li><img src='"+result.data+"'/><input type='hidden' name='imgs[]' value='"+result.data+"'/></li>");
+						$('#img1').val(result.data);
+					}
+				},
+				error: function (data, status, e)//服务器响应失败处理函数
+				{
+					tips(e);
+				}
+			}
+	)
+	return false;
+}
+</script>
+<table id="hidden_attr" style="display:none;">
+<tbody class="add_item_attr">
+<tr>
+    <th width="300">
+    <a href="javascript:void(0);" class="blue" onclick="del_attr(this);"><img src="__STATIC__/css/admin/bgimg/tv-collapsable.gif" /></a>属性名：<input type="text" name="attr[name][]" class="w_bl_in5" size="20">
+    </th>
+    <td>属性值：<input type="text" name="attr[value][]" class="w_bl_in5" size="30"></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

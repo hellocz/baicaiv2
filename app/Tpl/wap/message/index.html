@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<include file="public:head" />
+<style>
+.J_del_art{ width:6% !important;}
+#mores h2{ color:#999;}
+#mores h2 a{ color:#333;}
+</style>
+</head>
+<body style="background:#f5f5f5;">
+<include file="public:head1" />
+<div class="w_center">
+  <div class="w_pl_t">
+    <a href="{:U('wap/message/target')}" title="发私信">发私信</a>
+    <span onclick="window.location='wap-message-index'" class="w_pljc">菜友消息</span>
+    <span onclick="window.location='wap-message-system'" >系统提醒</span>
+  </div>
+  <div class="w_djzk">
+    <ul id="mores">
+      <volist name="talk_list" id="talk">
+      <li>
+       <a href="{:U('wap/space/index', array('uid'=>$talk['ta_id']))}" title="{$talk.ta_name}">
+        <div class="w_zk_img">
+         <img src="{:avatar($talk['ta_id'], 48)}" title="{$talk.ta_name}" alt="{$talk.ta_name}"/>
+        </div>
+        <address><span>{$talk.add_time|fdate}</span>{$talk.ta_name}</address>
+       </a>
+        <h2>
+            <if condition="$talk['from_id'] eq $visitor['id']">{:L('i_to_h')}:<else/>{:L('h_to_i')}:</if>
+            <a href="{:U('wap/message/talk', array('ftid'=>$talk['ftid']))}">{$talk.info}</a>
+        </h2>
+        <div class="w_jg"><div class="w_gbjy" onclick="window.location='wap-message-talk-ftid-{$talk['ftid']}'" style="margin-left:10px; width:110px;">{:sprintf(L('see_all_talk'),$talk['num'])}</div></div>
+      </li>
+      </volist>
+    </ul>
+  
+    <if condition="$pagesize lt $count"><div class="clear"></div>
+    <div id="more" class="btn_getmore" ><a href="javascript:;" title="加载更多">加载更多</a></div></if>
+    <div id="Loading" style="display: none;text-align:center">加载中...</div>
+    <input type="hidden" id="page" value="2"/>
+  </div>
+   <include file="public:footer" />
+   <script src="/static/js/wap/weui.min.js"></script>
+   <link href="/static/js/wap/weui.css" type="text/css" rel="stylesheet"/>
+   <script>
+$(document).ready(function(){
+	$("#more").click(function(){
+		var more_id=$("#page").val(),l=$("#Loading"),g=$("#more");
+		l.show();g.hide();
+		$.ajax({
+		   type:"GET",
+		   url: "/wap-message-index",
+		   data: "more=more&p="+more_id,
+		   success: function(msg){
+			   if(msg){
+				   $("#page").val(parseInt(more_id)+1);
+				   $("#mores").append(msg);
+				   g.show();l.hide();
+			   }else{
+				   weui.Loading.error("已经到最后一页了");
+				   $(".btn_getmore").hide();
+				   l.hide();
+			   }
+		   }
+		});
+	})
+});
+
+</script>
+</div>
+</body>
+</html>

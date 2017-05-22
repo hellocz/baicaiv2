@@ -1,0 +1,20 @@
+<div class="pad_lr_10">
+    <form action="{:U('tick/dao',array('id'=>$id))}" method="post" id="info_form" enctype="multipart/form-data">
+    <table width="100%" cellspacing="0" class="table_form">
+        <tr>
+            <th width="100">导入方式 :</th>
+            <td>
+                <label>导入文件</label>
+            </td>
+        </tr>
+        <tr id="J_file">
+            <th>导入文件 :</th>
+            <td><input type="file" name="file" /></td>
+        </tr>
+        <tr>
+            <th></th>
+            <td><a href="data/xls_tpl/yhj.xls" style="color:#5252f2">下载模板</a></td>
+        </tr>
+    </table>
+    </form>
+</div>

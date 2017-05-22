@@ -1,0 +1,66 @@
+<html>
+<head>
+<style>
+.win_wrap{background-color:#fbfbfb;font-size:12px;color:#333;}
+.win_tit{font-size:14px;color:#333;padding:12px 20px 0}
+.win_close{position:absolute!important;top:12px;right:12px;z-index:60}
+.win_con{padding:20px;clear:both}
+h3{font-size:14px}
+h4{font-size:14px}
+.s_con{padding:15px 0;font-size:14px}
+.red{color:#F55D5A!important}
+.blue{color:#0DACDF!important}
+.mb_bo{height:34px;line-height:34px;padding:0 20px;font-size:14px;font-weight:800;background: #FD6600;}
+.mdb_btn{color:#fff;display:inline-block;text-align:center;}
+</style>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script src="/js/jquery.zclip.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="nj_overlay_wrap win_wrap">
+	<div class="win_tit" style="display: none;">
+	</div>
+	<div class="win_con clearfix">
+		<h3 class="red">分享优惠信息，得贡献值，兑换精美礼品！</h3>
+		<if condition="$islogin eq 'n'"><p class="gray9">登录之后才能获取贡献值哦，<a href="javascript:;" id="share_login">立即登录</a></p></if>
+		<div class="row1">
+			<h4>方法一：</h4>
+			<p>
+				复制该网页链接，粘贴到自己的博客、微博，或者直接发送给QQ好友。
+			</p>
+			<div class="s_con blue">
+				{$item.title}
+			</div>
+			<span id="copypar1444639926196" style="display: inline-block; position: relative;"><a href="javascript:;" class="mdb_btn mb_bo" id="copy">复制链接</a>
+			</span>
+		</div>
+		<div class="row2">
+			<h4>方法二：</h4>
+			<p class="mb10">
+				一键分享到以下网站，同样可以获得贡献值！
+			</p>
+			<div class="bdsharebuttonbox" ><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_more" data-cmd="more"></a></div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">window._bd_share_config={
+"common":{"bdSnsKey":{},"bdText":"{$item.title}",'bdDesc':'',"bdUrl":"{$url}","bdMini":"2","bdMiniList":false,"bdPic":"{$item['img']}","bdStyle":"0","bdSize":"32"},"share":{}
+};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+
+$(document).ready(function(){
+    $('#copy').zclip({
+        path : '/js/ZeroClipboard.swf',
+        copy : "{$item.title}"+"{$url}",
+		//复制成功 
+		afterCopy: function(){
+			window.parent.window.tips('复制成功',1); 
+			frameElement.api.close();			
+		} 
+    });
+	$("#share_login").click(function(){
+		window.parent.window.location='{:U('user/login')}'
+	});
+});
+</script>
+</body>
+</html>

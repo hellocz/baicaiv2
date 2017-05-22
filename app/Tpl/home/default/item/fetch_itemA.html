@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<include file="public:head" />
+<style>
+.J_cate_select{margin-right:10px;}
+#J_img_con li{cursor:pointer}
+.e_imgs{position:absolute; bottom:0px; right:0; width:14px; height:14px; background:#3dc399; color:#fff; display:block; border-radius:14px; font-size:14px; text-align:center; line-height:13px;}
+</style>
+</head>
+
+<body style="background:#f5f5f5">
+<include file="public:header" />
+<div class="w_bl_bd">
+  <div class="w_bl">
+  <h2>欢迎爆料</h2>
+   <div class="w_b1_nr">
+   <h4>商品信息</h4>
+   <div>地址：</div>
+   <form id="info_form" action="{:u('item/publish_item')}" method="post" enctype="multipart/form-data">
+   <div class="w_tppp" style="display: none;"><a href="{:U('item/share_item')}" title="取消爆料">取消爆料</a><input type="text" name="url" value="{$item['url']}" class="J_url"/></div>
+    <table cellpadding="0" cellspacing="0" class="w_bl_tb">
+      <tr>
+       <td class="td1"><em>*</em>商品名称：</td>
+       <td><input type="text" name="title" value="{$item.title}" id="title" class="J_title w_bl_in1"/></td>
+      </tr>
+      <tr>
+       <td  class="td1"><em>*</em>商品图片：</td>
+       <td class="td2">
+         <div class="w_tp_bd">
+          <div class="w_tpk"><img id="btn_img" src="<if condition="$item['img'] neq '' ">{$item['img']}<else/>/images/jia_pic.png</if>"/>
+		  </div>
+          <p style="color:#ff2f2f;">从下方的图片中选择一张图片作为封面图片，或者从本地上传，请选择不带水印的图片，谢谢！</p>
+          <p style="color:#999999;">支持小于300k格式为jpg、jpeg、png的图片，截图请注意隐藏个人信息</p>
+		  <div class="l_5xt">
+		    <ul id="J_img_con">
+			<volist name="item['imgs']" id="rm">
+			<li style="position:relative;"><img src="{$rm.url}"/><input type="hidden" name="imgs[]" value="{$rm.url}"/> <em class="e_imgs" data-id="{$rm.id}">-</em></li>
+			</volist>
+			</ul>
+		  </div>
+          <div class="w_cczx">
+            <em>上传照片</em>
+		  <input type="hidden" name="img" value="{$item['img']}" id="img"/>
+		  <input type="file" name="J_img" id="J_img" class="w_bl_in2" 
+		  >
+          </div>
+         </div>
+       </td>
+      </tr>
+      <tr>
+       <td  class="td1"><em>*</em>商品分类：</td>
+       <td>
+          <select class="w_bl_se1 J_cate_select" >
+		  <option value="0" selected="selected">--请选择--</option>
+		  <volist name="item_cate" id="k">
+            <option value="{$k.id}">{$k.name}</option>
+          </volist>
+          </select>
+		  <input type="hidden" name="cate_id" id="J_cate" value="0">
+       </td>
+      </tr>
+      <tr>
+       <td  class="td1"><em>*</em>商品价格：</td>	
+       <td><input type="text" name="price" id="price" value="{$item.price}" class="w_bl_in3"/></td>
+      </tr>
+      <!--<tr>
+       <td  class="td1">运费：</td>
+       <td><input type="text" name="express" id="express" value="" class="w_bl_in5"/> &nbsp;&nbsp;<label><input type="checkbox" value="1" name="ispost" id="ispost" >可直邮</label></td>
+      </tr>
+	  <tr>
+       <td class="td1">链接：</td>
+       <td id="Link_form">
+	   <span>
+	   <input type="text" name="link_type[]" value="" class="w_bl_in5"/>
+	   &nbsp;&nbsp;
+	   <input type="text" name="link_url[]"  value="" class="w_bl_in5"/>&nbsp;<input type="button" value=" + " id="J_add_link"/></span>	   
+	   </td>
+      </tr>-->
+      <tr>
+       <td colspan="2"><div class="w_tbamx">
+		   <script id="content" name="content" type="text/plain" style="width:782px;height:300px;"></script>
+		   <!--<textarea name="content" id="content" style="width: 762px; height: 228px; visibility: hidden; resize: none; display: none;"></textarea>--></div></td>
+      </tr>
+      <tr>
+       <td colspan="2" class="td3">
+		   <input type="submit" id="J_submit" value="提 交" class="w_gl_in2" style="margin-top: 135px;" />
+		   <!-- <input type="button" value="保存草稿" class="J_cg w_gl_in3"> -->
+	   </td>
+      </tr>
+    </table>
+	<input type="hidden" name="status" id="status" value="0"/>
+	<input type="hidden" name="id" id="id" value="0"/>
+	</form>
+   </div> 
+  </div>
+ </div>
+<include file="public:footer" />
+<script src="/js/function.js"></script>
+<!--<script src="/static/js/kindeditor/kindeditor-min.js"></script>-->
+<script src="/js/ajaxfileupload.js" type="text/javascript"></script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script>
+	var ue = UE.getEditor('content');
+$(".e_imgs").live("click",function(){
+	var obj=$(this);
+	$.get("/index.php?m=item&a=delimg",{id:$(this).attr("data-id"),url:$(this).siblings("input").val()},function(res){
+		if(res.status==1){
+			$('#btn_img').attr('src', obj.parent().siblings("li:eq(0)").find("img").attr("src"));
+			$('#img').val(obj.parent().siblings("li:eq(0)").find("img").attr("src"));
+			obj.parent().remove();
+			tips(res.msg,1);
+		}else{
+			tips(res.msg,0);
+		}
+	},'json');
+});
+$(".J_cg").click(function(){
+	$("input[name='status']").val(2);
+	$("#info_form").submit();
+});
+$("#btn_img").click(function(){
+	$("#J_img").trigger("click");
+});
+$("#J_img").live('change',function () {
+	ajaxFileUpload();
+});
+function ajaxFileUpload() {
+	$('#btn_img').attr('src', '/images/bcloading.gif');
+	$.ajaxFileUpload
+	(
+		{
+			url: PINER.root + '/?m=item&a=uploadimg', //用于文件上传的服务器端请求地址
+			secureuri: false, //是否需要安全协议，一般设置为false
+			fileElementId: 'J_img', //文件上传域的ID
+			dataType: 'json', //返回值类型 一般设置为json
+			success: function (result, status)  //服务器成功响应处理函数
+			{
+				if(result.status =='1'){
+					$('#btn_img').attr('src',result.data);
+					$("#J_img_con").append("<li style='position:relative;'><img src='"+result.data+"'/><input type='hidden' name='imgs[]' value='"+result.data+"'/> <em class='e_imgs'>-</em></li>");
+					$('#img').val(result.data);
+				}
+			},
+			error: function (data, status, e)//服务器响应失败处理函数
+			{
+				tips(e,0);
+			}
+		}
+	)
+	return false;
+}
+$(function(){
+	$("form").submit(function(){
+		if($("input[name='status']").val()!=2)
+		{
+			if($("#img").val()==""){tips("请选择图片",'0');return false;}
+			if($("#title").val()==""){tips("标题不能为空",'0');return false;}
+			if($("#J_cate").val()=="0"){tips("请选择分类",'0');return false;}
+			if($("#price").val()==""){tips("请输入价格",'0');return false;}
+		}
+	});
+})
+$(".J_cate_select").die('change').live("change",function(){
+	var _this=$(this);
+	var _pid=$(this).val();
+	var uri="/?m=item&a=ajax_getchilds&type=0";
+	var index = $(".J_cate_select").index(this);
+	if(_pid != ''){
+		$('.J_cate_select:gt('+index+')').remove();
+		$.get(uri, {id:_pid}, function(result){
+			if(result.status == '1'){
+				var _childs = $('<select class="J_cate_select mr10" data-pid="'+_pid+'"><option value="">--请选择--</option></select>')
+				for(var i=0; i<result.data.length; i++){
+					$('<option value="'+result.data[i].id+'">'+result.data[i].name+'</option>').appendTo(_childs);
+				}
+				_childs.insertAfter(_this);
+			}
+		},'json');
+		$('#J_cate').val(_pid);
+	}else{
+		$('#J_cate').val(_this.attr('data-pid'));
+	}
+})
+$("#J_add_link").live('click',function(){
+	$("#Link_form").append('<span><br><br><input type="text" name="link_type[]" value="" class="w_bl_in5"/></select>&nbsp;&nbsp;&nbsp;<input type="text" name="link_url[]"  value="" class="w_bl_in5"/>&nbsp;&nbsp;<input type="button" value=" - " id="J_del_link"/></span>');
+});
+$("#J_del_link").live('click',function(){
+	$(this).parent().remove();
+});
+$("#J_img_con li img").live("click",function(){
+	$("#img").val($(this).attr("src"));
+	$("#btn_img").attr("src",$(this).attr("src"));
+});
+var is_confirm=true;
+// 关闭窗口时弹出确认提示
+$(window).bind('beforeunload', function(){
+    // 只有在标识变量is_confirm不为false时，才弹出确认提示
+    if(window.is_confirm !== false)
+        return "您有未保存的内容，您确定关闭吗？";
+});
+// 提交表单时，不弹出确认提示框
+$('form').bind('submit', function(){
+    is_confirm = false;  
+});
+</script>
+<script src="/js/publish_item_cg.js"></script>
+</body>
+</html>

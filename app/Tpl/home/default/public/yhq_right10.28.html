@@ -1,0 +1,17 @@
+<div class="w_r5">
+     <h2>热门优惠劵</h2>
+     <ul>
+	 <?php $hot_tick = M("tick")->where(" start_time > NOW() and end_time<date_add(NOW(), interval 1 day)")->order("yl desc,id desc")->limit(6)->select();?>
+	  <volist name="hot_tick" id="r">
+       <li>
+         <a href="{:U('tick/show',array('id'=>$r['id']))}" title="{$r['name']}">
+         <img src="{:orig_img($r['orig_id'])}" title="{$r['name']}" alt="{$r['name']}"/>
+         <p>{$r['name']}</p>
+         </a>
+           <span>已领：{$r['yl']}件</span>
+         <div><a href="{:U('tick/show',array('id'=>$r['id']))}" title="领取">领取</a></div>
+       </li>
+	   </volist>
+     </ul>
+     </div>
+	 

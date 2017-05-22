@@ -1,0 +1,14 @@
+<include file="public:header" />
+<!--添加商品-->
+<div class="subnav">
+    <h1 class="title_2 line_x">导入商品</h1>
+</div>
+<form id="info_form" action="{:u('item/nine_instal')}" method="post" enctype="multipart/form-data">
+<input type="file" name="file">
+<input type="hidden" name="menuid"  value="{$menuid}"/>
+    <input type="submit" value="导入">
+
+</form>
+
+</body>
+</html>

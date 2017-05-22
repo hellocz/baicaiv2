@@ -1,0 +1,166 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<include file="public:head" />
+<style>
+.J_del_art{ width:6% !important;}
+</style>
+</head>
+<body style="background:#f5f5f5;">
+<include file="public:head1" />
+<div class="w_center">
+  <div class="w_yh_4d">
+   <a href="{:U('wap/user/grade',array('t'=>'exp'))}" title="经验" <if condition="$t eq 'exp'">class="w_yh_4d_t"</if>>经验</a>
+   <a href="{:U('wap/user/grade',array('t'=>'score'))}" title="积分" <if condition="$t eq 'score'">class="w_yh_4d_t"</if>>积分</a>
+   <a href="{:U('wap/user/grade',array('t'=>'offer'))}" title="贡献值" <if condition="$t eq 'offer'">class="w_yh_4d_t"</if>>贡献值</a>
+   <a href="{:U('wap/user/grade',array('t'=>'coin'))}" title="财富" <if condition="$t eq 'coin'">class="w_yh_4d_t"</if>>财富</a>
+   <a href="{:U('wap/user/grade',array('t'=>'xz'))}" title="勋章" <if condition="$t eq 'xz'">class="w_yh_4d_t"</if>>勋章</a>
+  </div>
+  <div>
+  <if condition="$t eq 'exp'">
+  <div class="w_lf_1">
+    <div class="w_lf_11">您现在的等级是 : LV.{$user.grade}</div>
+    <div class="w_lf_12">当前经验：<br/>
+     <div class="w_lf_121"><span style="width:{$user.w}%"></span>{$user.w}%</div><em>{$user['exp']}/{$user['next_grade']['max']}</em>
+    </div>
+    <div class="w_lf_13">还有{$user['lft']}点经验就可以升到下一级</div>
+  </div>
+  <div class="w_lf_2" id="mores">
+   <dl class="w_lf_2t">
+    <dd>提醒内容</dd>
+    <dd>经验变更</dd>
+    <dd>时间</dd>
+   </dl>
+   <volist name="jy_list" id="item">
+       <dl class="w_lf_2n">
+        <dd>{$lang[$item['action']]}</dd>
+        <dd>{$item.exp}</dd>
+        <dd>{$item.add_time|date="Y-m-d H:i:s",###}</dd>
+       </dl>
+   </volist>
+  </div>
+  <elseif condition="$t eq 'score'"/>
+  <div class="w_lf_1">
+    <div class="w_lf_11">您现在的等级是 : LV.{$user.grade}</div>
+    <div class="w_lf_12">当前积分：{$user.score}</div>
+  </div>
+  <div class="w_lf_2" id="mores">
+   <dl class="w_lf_2t">
+    <dd>提醒内容</dd>
+    <dd>积分变更</dd>
+    <dd>时间</dd>
+   </dl>
+   <volist name="jf_list" id="item">
+       <dl class="w_lf_2n">
+        <dd>{$lang[$item['action']]}</dd>
+        <dd>{$item.score}</dd>
+        <dd>{$item.add_time|date="Y-m-d H:i:s",###}</dd>
+       </dl>
+   </volist>
+  <elseif condition="$t eq 'offer'"/>
+  <div class="w_lf_1">
+    <div class="w_lf_11">您现在的等级是 : LV.{$user.grade}</div>
+    <div class="w_lf_12">当前贡献值：{$user.offer}</div>
+  </div>
+  <div class="w_lf_2" id="mores">
+   <dl class="w_lf_2t">
+    <dd>提醒内容</dd>
+    <dd>贡献值变更</dd>
+    <dd>时间</dd>
+   </dl>
+   <volist name="of_list" id="item">
+       <dl class="w_lf_2n">
+        <dd>{$lang[$item['action']]}</dd>
+        <dd>{$item.offer}</dd>
+        <dd>{$item.add_time|date="Y-m-d H:i:s",###}</dd>
+       </dl>
+   </volist>
+  <elseif condition="$t eq 'coin'"/>
+  <div class="w_lf_1">
+    <div class="w_lf_11">您现在的等级是 : LV.{$user.grade}</div>
+    <div class="w_lf_12">当前金币：{$user.coin}</div>
+  </div>
+  <div class="w_lf_2" id="mores">
+   <dl class="w_lf_2t">
+    <dd>提醒内容</dd>
+    <dd>财富变更</dd>
+    <dd>时间</dd>
+   </dl>
+   <volist name="jb_list" id="item">
+       <dl class="w_lf_2n">
+        <dd>{$lang[$item['action']]}</dd>
+        <dd>{$item.coin}</dd>
+        <dd>{$item.add_time|date="Y-m-d H:i:s",###}</dd>
+       </dl>
+   </volist>
+  <elseif condition="$t eq 'xz'"/>
+     <div class="w_xz">
+       <a href="javascript:;" title="分享达人">
+        <img src="<if condition="$xz['share_num'] gt 100">/images/w_xzz_1.png<else/>/images/w_xzz_1_n.png</if>" title="分享达人" alt="分享达人"/><br/>分享达人
+       </a>
+       <a href="javascript:;" title="爆料达人">
+	   <img src="<if condition="$xz['bao_num'] gt 100">/images/w_xzz_2.png<else/>/images/w_xzz_2_n.png</if>" title="爆料达人" alt="爆料达人"/><br/>爆料达人
+       </a>
+       <a href="javascript:;" title="签到达人">
+	   <img src="<if condition="$xz['sign'] gt 200">/images/w_xzz_3.png<else/>/images/w_xzz_3_n.png</if>" title="签到达人" alt="签到达人"/><br/>签到达人
+       </a>
+       <a href="javascript:;" title="攻略达人">
+	   <img src="<if condition="$xz['gl_num'] gt 10">/images/w_xzz_4.png<else/>/images/w_xzz_4_n.png</if>" title="攻略达人" alt="攻略达人"/><br/>攻略达人
+       </a>
+       <a href="javascript:;" title="评论达人">
+	   <img src="<if condition="$xz['cm_num'] gt 500">/images/w_xzz_5.png<else/>/images/w_xzz_5_n.png</if>" title="评论达人" alt="评论达人"/><br/>评论达人
+       </a>
+       <a href="javascript:;" title="晒单达人">
+	   <img src="<if condition="$xz['sd_num'] gt 20">/images/w_xzz_6.png<else/>/images/w_xzz_6_n.png</if>" title="晒单达人" alt="晒单达人"/><br/>晒单达人
+       </a>
+     </div>
+  </if>
+    
+  </div>
+  <if condition="$pagesize lt $count"><div class="clear"></div>
+    <div id="more" class="btn_getmore" ><a href="javascript:;" title="加载更多">加载更多</a></div></if>
+    <div id="Loading" style="display: none;text-align:center">加载中...</div>
+    <input type="hidden" id="page" value="2"/>
+   <include file="public:footer" />
+   <script src="/static/js/wap/weui.min.js"></script>
+   <link href="/static/js/wap/weui.css" type="text/css" rel="stylesheet"/>
+   <script>
+$(document).ready(function(){
+	$("#more").click(function(){
+		var more_id=$("#page").val(),l=$("#Loading"),g=$("#more");
+		l.show();g.hide();
+		$.ajax({
+		   type:"GET",
+		   url: "/wap-user-grade-t-{$t}",
+		   data: "more=more&p="+more_id,
+		   success: function(msg){
+			   if(msg){
+				   $("#page").val(parseInt(more_id)+1);
+				   $("#mores").append(msg);
+				   g.show();l.hide();
+			   }else{
+				   weui.Loading.error("已经到最后一页了");
+				   $(".btn_getmore").hide();
+				   l.hide();
+			   }
+		   }
+		});
+	})
+	/*删除分享*/
+	$("#mores").on('click','.J_del_fx',function(){
+		var obj=$(this);
+		$.get(PINER.root+"/?g=wap&m=user&a=del_fx",{dm:obj.attr('data-dm')},function(result){
+			if(result.status==1){
+				obj.parents("li").remove();
+				weui.Loading.success(result.msg);
+			}else{
+				weui.Loading.error(result.msg);
+			}
+		},'json');
+	});
+});
+
+</script>
+</div>
+</body>
+</html>

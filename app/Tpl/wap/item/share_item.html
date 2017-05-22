@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<include file="public:head" />
+</head>
+<body style="background:#f3f7f7;">
+<nav class="w_h2">
+<a href="{:U('wap/index/index')}" title="首页" class="w_h2_r"><img src="/static/images/wap/w_fz.png" title="首页" alt="首页"/></a>
+<em>{$visitor.username}</em>
+<a href="javascript:history.go(-1);" title="返回" class="w_h2_l"><img src="/static/images/wap/w_t_lef.png" title="返回" alt="返回"/></a>
+<h2>我的爆料</h2>
+</nav>
+<div class="w_center">
+  <div class="w_bl">
+  <form action="{:U('wap/item/fetch_item')}" id="share_item" method="post">
+    <b>商品链接</b><br/>
+    <p><input type="text" placeholder="请在此处填写商品购买链接或活动地址" name="url" id="url" class="w_in1"/></p>
+    <a href="javascript:tijiao();" title="提交爆料" class="w_wybl">提交爆料</a>
+  </form>
+  </div>
+  <script src="/static/js/wap/weui.min.js"></script>
+<link href="/static/js/wap/weui.css" type="text/css" rel="stylesheet"/>
+<script>
+function isURL(str){
+	return /([\w-]+\.)+[\w-]+.([^a-z])(\/[\w-.\/?%&=]*)?|[a-zA-Z0-9\-\.][\w-]+.([^a-z])(\/[\w-.\/?%&=]*)?/i.test(str) ? !0 : !1
+}
+function tijiao(){
+	var si_url = $("#url").val();
+	
+	if(!isURL(si_url)){
+		weui.Loading.error("请输入正确的网址");
+	}else{
+		$("#share_item").submit();
+	}
+}
+</script>
+</div>
+</body>
+</html>

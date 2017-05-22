@@ -1,0 +1,15 @@
+<!--slider-->
+  <div id="slider" class="owl-carousel">
+  <volist name="ad_list" id="ad">
+    <div > <a href="{:U('wap/advert/tgo', array('id'=>$ad['id']))}"  class="openapp_banner" ><img src="__UPLOAD__/advert/{$ad.content}" alt="{$ad.name}" title="{$ad.name}" /></a> </div>
+  </volist>
+  </div>
+  <script>
+    $(function() {
+		$("#slider").owlCarousel({
+			singleItem:true,
+			autoPlay:true
+		});
+	});
+  </script>
+  <!--slider end-->

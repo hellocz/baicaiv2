@@ -1,0 +1,168 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+
+<include file="public:head" />
+
+</head>
+
+
+
+<body style="background:#f5f5f5;">
+
+<nav class="w_h2">
+
+<a href="{:U('wap/index/index')}" title="首页" class="w_h2_r"><img src="/static/images/wap/w_fz.png" title="首页" alt="首页"/></a>
+
+<a href="javascript:history.go(-1);" title="返回" class="w_h2_l"><img src="/static/images/wap/w_t_lef.png" title="返回" alt="返回"/></a>
+
+<h2>{$cate_info.name}</h2>
+
+</nav>
+
+<div class="w_center">
+
+  <div class="w_sd">
+
+    <ul>
+
+      <li>
+
+        <a href="{:U('wap/book/index')}" title="商品分类">
+
+         <img src="/static/images/wap/3d_1.png"/><br/>商品分类
+
+        </a>
+
+      </li>
+
+      <li><a href="javascript:;" id="J_sign" title="每日签到">
+
+          <img src="/static/images/wap/3d_2.png"/><br/>每日签到
+
+          </a>
+
+      </li>
+
+      <li><a href="{:U('wap/user/index')}" title="我的白菜">
+
+          <img src="/static/images/wap/3d_3.png"/><br/>我的白菜
+
+          </a>
+
+      </li>
+
+    </ul>
+
+  </div>
+
+  <div class="clear"></div>
+
+ <div class="w_glzl">
+
+  <div id="m_search" class="p_lr"><form action="{:U('wap/search/index')}" method="get" class="clearfix">
+
+       <input type="text fl" class="text" name="q" placeholder="快速搜索你想要的商品" value=""><button class="btn fr" type="submit"></button> 
+
+  </form></div>
+
+  <ul class="list list_preferential" id="Items">
+
+  <include file="public:item_list" />
+
+  </ul>
+
+  <div class="clear"></div>
+
+  <div id="Gtmore" class="btn_getmore" ><a href="javascript:;" id="Get" onClick="return false;">加载更多</a></div>
+
+  <div id="Loading" style="display: none;text-align:center">加载中...</div>
+
+  <input type="hidden" id="page" value="2"/>
+
+  <input type="hidden" id="cid" value="{$cate_info['id']}"/>
+
+</div>
+
+<include file="public:footer" />
+
+<script src="/static/js/wap/weui.min.js"></script>
+
+<link href="/static/js/wap/weui.css" type="text/css" rel="stylesheet"/>
+
+<script>
+
+$("#Get").click(function(){
+
+	getmore();
+
+});
+
+//签到
+
+$("#J_sign").click(function(){
+
+	if(PINER.uid==""){
+
+		window.location="{:U('wap/user/login')}";
+
+		return false;
+
+	}
+
+	$.get(PINER.root+'/?g=wap&m=user&a=sign',function(result){
+
+		if(result.status==0){
+
+			weui.Loading.error(result.msg);
+
+		}else{
+
+			weui.Loading.success(result.msg);
+
+		}
+
+	},'json');
+
+});
+
+function getmore(){
+
+	var cid=$("#cid").val(),page=$("#page").val(),l=$("#Loading"),g=$("#Gtmore"),I=$("#Items");
+
+	l.show();g.hide();
+
+	$.get('{:U("wap/book/cate_ajax")}',{cid:cid,p:page},
+
+	function(res){
+
+		if(res.data.isfull==0){
+
+			weui.Loading.error("已经到最后一页了");
+
+			l.hide();
+
+		}else{
+
+			I.append(res.data.html);
+
+			$("#page").val(parseInt(page)+1);
+
+			g.show();l.hide();
+
+		}
+
+	},'json');
+
+	
+
+}
+
+</script>
+
+</body>
+
+</html>
+

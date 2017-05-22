@@ -1,0 +1,29 @@
+		<volist name="user_list" id="item">
+
+		  <li>
+
+		   <a href="{:U('space/index',array('uid'=>$item['id']))}">
+
+		   <img src="{:avatar($item['id'],32)}" title="{$item['username']}" alt="{$item['username']}"/>
+
+		   <p>{$item['username']}</p></a>
+
+		   <p><em>{$item['shares']}条</em></p>
+
+		   <span class="J_follow_bar" data-id="{$item.id}">
+
+		    <if condition="$item['follow'] eq 1">
+
+			 <span class="fo_u_ok">已关注</span><a href="javascript:;" class="J_unfo_u green">取消</a>
+
+			 <else/>
+
+			 <div class="J_fo_btn w_r3_d">关注</div>
+
+			 </if>
+
+		   </span>
+
+		  </li>
+
+		</volist>

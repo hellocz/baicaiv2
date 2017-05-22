@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<include file="public:head" />
+
+</head>
+
+
+
+<body style="background:#f5f5f5">
+
+<include file="public:header" />
+
+<div class="w_center">
+
+  <div class="w_cen_lef">
+
+    <div class="w_zh_dq">
+
+	  <a href="/" title="首页">首页</a>>{$strpos}
+
+	</div>
+
+    <div class="w_spxx_bd">
+
+    <div class="w_spxx_1">
+
+      <h2>{$item.title}</h2>
+
+      <div class="w_xxbq"><span>标签：</span>
+
+	    <volist name="item['tag_list']" id="tag">
+
+		<a href="{:U('book/index', array('tag'=>urlencode($tag)))}" target="_blank">{$tag}</a>
+
+		</volist><br/><span>{$item.add_time|fdate}</span></div>
+
+		<div class="content">
+
+		{$item.content}	
+
+		</div>
+
+	</div>
+
+      <div class="w_spxx_3">
+
+       <em>注意：</em>优惠信息有时效性和地域性，如果看到价格变化或者已经无货请点击 : <a href="javascript:;" class="J_jb " data-id="{$item.id}" data-xid='1'>无货举报</a><br>希望大家发扬网络共享精神，如果发现了优质商品特价，欢迎<a href="{:U('item/share_item')}" title="爆料">点此爆料</a>，以便及时分享给广大菜油，谢绝商家广告。
+
+      </div>
+
+      <div class="w_spxx_4">
+
+       <div class="w_spxx_4_l">
+
+         <p>上一篇：<if condition="$pre"><a href="{:U('item/index',array('id'=>$pre['id']))}" title="{$pre['title']}">{$pre['title']|msubstr=0,35}</a><else/>无</if></p>
+
+         <p>下一篇：<if condition="$next"><a href="{:U('item/index',array('id'=>$next['id']))}" title="{$next['title']}">{$next['title']|msubstr=0,35}</a><else/>无</if></p>
+
+       </div>
+
+       <div class="w_spxx_4_r">
+
+         <a href="javascript:;" class="z_submit" data="{$item.id}"><img src="/images/w_dzz_1.jpg"/></a><span>已有<i id="s_zan" style="color:red">{$item.zan}</i>人点赞</span>
+
+         <a href="javascript:;" class="<notempty name="visitor">{:islikes($item['id'],1,$visitor['id'])} <else/>sz_11</notempty> J_likes" data-id="{$item.id}" data-xid="1">{$item.likes}</a>
+
+         <a href="javascript:;" class="sz_12">{$item.comments}</a>
+
+         <a href="javascript:;" id="T_share" data-id="{$item.id}" title="分享+">分享+</a>		 
+
+       </div>
+
+      </div>
+
+      <div class="w_spxx_5">
+
+      {:R('advert/index', array(13), 'Widget')}
+
+      </div>
+
+      <div class="w_sppxx_6">
+
+       <h2>您可能还喜欢</h2>
+
+       <div class="w_gn_f1">      
+
+       <div onmouseup="StopUp_1()" class="LeftBotton1" onmousedown="GoUp_1()" onmouseout="StopUp_1()"></div>
+
+      <div class="Cont1" id="Cont_1">
+
+        <div class="ScrCont">
+
+          <div id="List1_1">
+
+            <!-- 图片列表 begin -->
+
+			<volist name="maylike_list" id="mval">
+
+			<volist name="mval['list']" id="mitem">
+
+           <div class="box3">
+
+            <a href="{:U('item/index', array('id'=>$mitem['id']))}" title="{$mitem.title}" target="_blank">
+
+			  <img src="{$mitem['img']}" title="{$mitem.title}" alt="{$mitem.title}"/><br/>
+
+			  {$mitem.title|msubstr=0,38}
+
+			  </a>
+
+            </div>
+
+           </volist>
+
+           </volist>
+
+            <!-- 图片列表 end -->
+
+          </div>
+
+          <div id="List2_1"></div>
+
+      </div>
+
+    </div>
+
+	<div onmouseup="ISL_StopDown_1()" class="RightBotton1" onmousedown="ISL_GoDown_1()" onmouseout="ISL_StopDown_1()"></div>
+
+      <script type="text/javascript" src="/js/rollpic.js"></script>
+
+	 </div>
+
+      </div>
+
+      <include file="public:comment" /> 
+
+    </div>
+
+  </div>
+
+  <div class="w_cen_rig ">
+
+     <div class="w_rr1">
+
+      <a href="javascript:;" title="无货举报" class="J_jb w_whjb" data-id="{$item.id}" data-xid='1'>无货举报</a><br/>
+
+      <if condition="$item['uid'] neq 0"><div class="w_bjrr"><img src="{:avatar($item['uid'], 48)}"/><span>爆料人：<a href="{:U('space/index', array('uid'=>$item['uid']))}" class="J_card n" data-uid="{$item.uid}" target="_blank">{$item.uname}</a></span></div></if>
+
+	   <if condition="$item['go_link']">
+
+		<script>
+
+		$(document).ready(function() {
+
+			 $(".w_zdlj").hover(
+
+				  function () {
+
+					$(this).children(".w_zdlj ul").show();					
+
+				  },
+
+				  function () {
+
+					$(this).children(".w_zdlj ul").hide("");
+
+				  }
+
+				); 
+
+		
+
+		   }) 
+
+		</script>
+
+	 <div class="w_wybj"><a href="{:U("item/share_item")}" title="我要爆料">我要爆料</a></div>
+
+	 <div class="w_zj">
+
+        <div class="w_zdlj">
+
+		  <volist name="item['go_link']" id="r" >
+
+		  <if condition="$i==1">	 
+
+          <a href="__ROOT__/?m=item&a=tgo&to={:base64_encode($r['link'])}" rel="nofollow" target="_blank"  title="{$item.title}" class="w_zdlj_a"><if condition="count($item['go_link']) gt 1"><i class="w_down"></i></if>{$r.name}</a>
+
+		  </if>
+
+		  </volist>		 
+
+          <if condition="count($item['go_link']) gt 1">
+
+		  <ul>
+
+		   <volist name="item['go_link']" id="r" >
+
+            <li><a href="__ROOT__/?m=item&a=tgo&to={:base64_encode($r['link'])}" target="_blank" rel="nofollow"  title="{$item.title}">{$r.name}</a></li>
+
+			</volist>
+
+          </ul>
+
+		  </if>
+
+        </div>
+
+      </div>
+
+	   </if>
+
+     </div>
+
+     <include file="public:yhq_right" />
+
+	 <include file="public:zt_right" />
+
+  </div>
+
+</div>   
+
+<include file="public:footer" />
+
+<script>var t="item";</script>
+
+<script src="/js/function.js"></script>
+
+<script src="/static/js/lhg/lhgdialog.min.js?self=true&skin=idialog" type="text/javascript"></script>
+
+</body>
+
+</html>
+

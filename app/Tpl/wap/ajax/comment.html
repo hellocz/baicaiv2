@@ -1,0 +1,7 @@
+<volist name="cmt_list" id="val">
+ <li>
+  <div class="w_by1"><span>{$val.add_time|fdate}</span><em>{$val.uname}</em> <if condition="$val['pid'] neq 0">回复 <em><i style="color:#0DACDF">@{:get_uname($val['uid'])}：</i></em></if><i style="display:none">{$val.lc}楼</i></div>
+  <div class="w_by3 J_pl_i">{$val.info}</div>
+  <div class="w_by4"><a href="javascript:;" class="w_dred J_zan" data-id="{$val.id}">顶（<i>{$val.zan}</i>）</a><a href="javascript:;" class="J_hf" data-id="{$val.id}" title="回复">回复</a></div>
+ </li>
+</volist>

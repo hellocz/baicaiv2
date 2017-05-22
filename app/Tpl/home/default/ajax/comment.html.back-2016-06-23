@@ -1,0 +1,86 @@
+<volist name="cmt_list" id="val">
+	<div class="ly_ba">
+
+		<div class="ly_tx_a">
+			<img src="{:avatar($val['uid'], 48)}" height="48" width="48" />
+			<p>{$val.uname}</p>
+		</div>
+
+		<div class="lr_ra">
+			<div class="ly_ba_lr"><p class="J_pl_i">{$val.info}</p><em>{$val.add_time|fdate}</em></div>
+			<div class="yl_ba_hf">
+				<div class="gly_pl">
+					<if condition="$val['pingyu']"><span><strong>管理员评论：</strong>{$val['pingyu']}</span></if>&nbsp; &nbsp; &nbsp; &nbsp;
+					<if condition="$visitor['is_bj'] eq 1">
+<!-- 						<a style="  background:#f90; text-align:center; color:#fff; padding:2px 5px; " href="javascript:void(0)" onclick="document.getElementById('light_a').style.display='block';document.getElementById('fade_a').style.display='block';document.getElementById('id').value='{$val.id}';document.getElementById('uid').value='{$val.uid}';">+</a> -->
+						<div id="light_a" class="white_content_a">
+							设置积分
+							<a href="javascript:void(0)" onclick="document.getElementById('light_a').style.display='none';document.getElementById('fade_a').style.display='none'">
+								关闭</a>
+							<br /><br />
+							<hr />
+							<br />
+							<form action="{:U('ajax/bj_comment')}" method="post">
+								<table width="96%" border="0">
+									<tr>
+										<td width="10%">积分</td>
+										<td width="90%"><input style=" width:90%;" name="jf" type="text" /></td>
+									</tr>
+									<tr>
+										<td width="10%">评语</td>
+										<td width="90%"><input style=" width:90%;" name="pingyu" type="text" /></td>
+									</tr>
+									<input type="hidden" id="id" name="id" value="">
+									<input type="hidden" id="uid" name="uid" value="">
+									<tr>
+										<td colspan="2" style="text-align:left; padding-left:20%; padding-top:20px;" class="jf_qd">&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value=" 确 定 " />&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" value=" 重 填 " /></td>
+									</tr>
+								</table>
+							</form>
+						</div>
+						<div id="fade_a" class="black_overlay_a">
+						</div>
+						&nbsp;
+					</if>
+				</div>
+				<ul>
+					<if condition="$visitor['is_bj'] eq 1"><li><a href="{:U('ajax/sc_comment',array('id'=>$val['id'],'uid'=>$val['uid']))}" title="删除">删除</a></li></if>
+					<if condition="$visitor['is_bj'] eq 1"><li>
+						<a href="javascript:void(0)" onclick="document.getElementById('light_a').style.display='block';document.getElementById('fade_a').style.display='block';document.getElementById('id').value='{$val.id}';document.getElementById('uid').value='{$val.uid}';">管理</a>
+					</li></if>
+					<if condition="$val['jf']"><li><img src="/images/jf1_pic.png" alt="积分" />积分<a href="" >+{$val['jf']}</a></li></if>
+					<li class="hfzk_b">收起</li>
+					<li class="hfzk_b1" style="display:none;">展开</li>
+					<li class="J_hf1" data-id="{$val.id}">回复</li>
+				</ul>
+			</div>
+
+			<if condition="$val['list']">
+				<div class="hflr_b">
+					<volist name="val['list']" id="r">
+						<div class="lh_a1">
+							<div class="hf_zr"> <img src="{:avatar($r['uid'], 48)}" /><span>{$r.uname}</span></div> <p class="J_pl_i">{$r.info}</p>
+							<div class="lrhf"><div><span>{$r.add_time|fdate}</span><a href="javascript:;" class="J_hf" data-id="{$r.id}" title="回复">回复</a></div></div>
+						</div>
+					</volist>
+				</div>
+			</if>
+		</div>
+
+	</div>
+</volist>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".hfzk_b").click(function(){
+			$(".hfzk_b ").css('display','none');
+			$(".hfzk_b1").css('display','block');
+			$(".hflr_b").toggle(200);
+		});
+
+		$(".hfzk_b1").click(function(){
+			$(".hfzk_b1 ").css('display','none');
+			$(".hfzk_b").css('display','block');
+			$(".hflr_b").toggle(200);
+		});
+	});
+</script>

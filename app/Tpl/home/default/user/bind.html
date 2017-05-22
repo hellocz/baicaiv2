@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<include file="public:head" />
+<link rel="stylesheet" type="text/css" href="/static/css/default/user.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/default/base.css" />
+</head>
+
+<body style="background:#f5f5f5">
+<include file="public:header" />
+<div class="w_gezx_ce"> 
+  <div class="w_ger">
+    <include file="user:center_left" />
+	<div class="w_xxzx">
+	<div class="setting_box fl">
+		<div id="setting_form" class="account_bind">
+			<div class="account_bind_title">{:L('bind_title')}</div>
+			<ul class="bind_logo">
+				<volist name="oauth_list" id="val">
+				<li>
+					<div class="icon"><img src="__STATIC__/images/oauth/{$val.code}/bind.png" /></div>
+					<div class="bind_web" style="height:70px;">
+						<p class="unbind">{$val.name} <if condition="$val.isbind eq 1">{:L('binded')}{$val.name}<else/>({:L('nobind')})</if></p>
+						<if condition="$val.isbind eq 1">
+						<p class="mt5"><a href="{:U('oauth/index', array('type'=>'unbind', 'mod'=>$val['code']))}" class="clr6">{:L('unbind')}</a></p>
+						<else/>
+						<p class="bind_result"><a href="{:U('oauth/index', array('type'=>'bind', 'mod'=>$val['code']))}" class="btn">{:L('gobind')}</a></p>
+						</if>
+					</div>
+				</li>
+				</volist>
+			</ul>
+		</div>
+    </div>
+	</div>	
+	</div>
+  </div>
+<include file="public:footer" />
+</body>
+</html>

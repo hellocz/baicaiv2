@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<include file="public:head" />
+</head>
+<body style="background:#f5f5f5">
+<include file="public:header" />
+<div class="w_gezx_ce"> 
+  <div class="w_ger">
+    <include file="user:center_left" />
+	<div class="w_yhdj">
+	 <h2>用户等级</h2> 
+	   <div class="w_yhdj_h">
+	     <a href="{:U('user/grade',array('t'=>'score'))}"><span <if condition="$t eq 'score'">class="w_yhdj_h_1"</if> id="gx1" >积分</span></a>
+		 <a href="{:U('user/grade',array('t'=>'exp'))}"><span <if condition="$t eq 'exp'">class="w_yhdj_h_1"</if> id="gx1" >经验值</span></a>
+		 <a href="{:U('user/grade',array('t'=>'offer'))}"><span <if condition="$t eq 'offer'">class="w_yhdj_h_1"</if> id="gx2" >贡献值</span></a>
+		 <a href="{:U('user/grade',array('t'=>'coin'))}"><span <if condition="$t eq 'coin'">class="w_yhdj_h_1"</if> id="gx3" >财富</span></a>
+		 <a href="{:U('user/grade',array('t'=>'xz'))}"><span <if condition="$t eq 'xz'">class="w_yhdj_h_1"</if> id="gx4" >勋章</span></a>                    
+	   </div>
+	   <if condition="$t eq 'score'">
+	   <div  id="con_gx_1">
+	    <div class="w_dlzf">
+	     您现在的等级是 : LV.{$user.grade}<br/>
+		 当前积分：{$user.score}
+	   </div>
+	   <table cellpadding="0" cellspacing="0" class="w_djgx">
+	     <tr class="w_tr_1">
+		   <td class="w_dj_td1">提醒内容</td>
+		   <td class="w_dj_td2">积分变更</td>
+		   <td class="w_dj_td3">时间</td>
+		 </tr>
+		 <volist name="jf_list" id="item">
+		  <tr>
+		   <td class="w_dj_td1">{$lang[$item['action']]}</td>
+		   <td class="w_dj_td2">{$item.score}</td>
+		   <td class="w_dj_td3">{$item.add_time|date="Y-m-d H:i:s",###}</td>
+		 </tr>
+		 </volist>
+	   </table>
+	   <div class="w_pag">{$jf_page_bar}</div>
+	   </div>
+	   <elseif condition="$t eq 'exp'"/>
+	   <div  id="con_gx_1">
+	    <div class="w_dlzf">
+	     您现在的等级是 : LV.{$user.grade}<br/>
+		 <div class="w_dlttt"><span>当前经验值：</span><div class="w_szt"><div class="w_szt_1" style="width:{$user.w}%"></div><div class="w_szt_2"></div></div><span>{$user['exp']}/{$user['next_grade']['min']}</span></div>
+		 <p>还有{$user['lft']}点经验值就可以升到下一级</p>
+	   </div>
+	   <table cellpadding="0" cellspacing="0" class="w_djgx">
+	     <tr class="w_tr_1">
+		   <td class="w_dj_td1">内容</td>
+		   <td class="w_dj_td2">经验变更</td>
+		   <td class="w_dj_td3">时间</td>
+		 </tr>
+		 <volist name="jy_list" id="item">
+		  <tr>
+		   <td class="w_dj_td1">{$lang[$item['action']]}</td>
+		   <td class="w_dj_td2">{$item.exp}</td>
+		   <td class="w_dj_td3">{$item.add_time|date="Y-m-d H:i:s",###}</td>
+		 </tr>
+		 </volist>
+	   </table>
+	   <div class="w_pag">{$jy_page_bar}</div>
+	   </div>
+	   <elseif condition="$t eq 'offer'"/>
+	   <div   id="con_gx_2">
+	   <div class="w_dlzf" >
+	     您现在的等级是 : LV.{$user.grade}<br/>
+		 当前贡献值：{$user['offer']}
+	   </div>
+	    <table cellpadding="0" cellspacing="0" class="w_djgx">
+	     <tr class="w_tr_1">
+		   <td class="w_dj_td1">提醒内容</td>
+		   <td class="w_dj_td2">贡献值变更</td>
+		   <td class="w_dj_td3">时间</td>
+		 </tr>
+		 <volist name="of_list" id="item">
+		  <tr>
+		   <td class="w_dj_td1">{$lang[$item['action']]}</td>
+		   <td class="w_dj_td2">{$item.offer}</td>
+		   <td class="w_dj_td3">{$item.add_time|date="Y-m-d H:i:s",###}</td>
+		 </tr>
+		 </volist>		  
+	   </table>
+	   <div class="w_pag">{$of_page_bar}</div>
+	   </div>
+	   <elseif condition="$t eq 'coin'"/>
+       <div  id="con_gx_3">
+	   <div class="w_dlzf" >
+	     您现在的等级是 : LV.{$user.grade}<br/>
+		 当前金币：{$user.coin}
+	   </div>
+	    <table cellpadding="0" cellspacing="0" class="w_djgx">
+	     <tr class="w_tr_1">
+		   <td class="w_dj_td1">提醒内容</td>
+		   <td class="w_dj_td2">财富变更</td>
+		   <td class="w_dj_td3">时间</td>
+		 </tr>
+		 <volist name="jb_list" id="item">
+		  <tr>
+		   <td class="w_dj_td1">{$lang[$item['action']]}</td>
+		   <td class="w_dj_td2">{$item.coin}</td>
+		   <td class="w_dj_td3">{$item.add_time|date="Y-m-d H:i:s",###}</td>
+		 </tr>
+		 </volist>	
+	   </table>
+	   </div>
+	   <elseif condition="$t eq 'xz'"/>
+	   <div  id="con_gx_4" class="w_xzzz"> 
+	   <img src="<if condition="$xz['share_num'] gt 100">/images/w_xzz_1.png<else/>/images/w_xzz_1_n.png</if>" title="分享达人" alt="分享达人"/>
+	   <img src="<if condition="$xz['bao_num'] gt 100">/images/w_xzz_2.png<else/>/images/w_xzz_2_n.png</if>" title="爆料达人" alt="爆料达人"/>
+	   <img src="<if condition="$xz['sign'] gt 200">/images/w_xzz_3.png<else/>/images/w_xzz_3_n.png</if>" title="签到达人" alt="签到达人"/>
+	   <img src="<if condition="$xz['gl_num'] gt 10">/images/w_xzz_4.png<else/>/images/w_xzz_4_n.png</if>" title="攻略达人" alt="攻略达人"/>
+	   <img src="<if condition="$xz['cm_num'] gt 500">/images/w_xzz_5.png<else/>/images/w_xzz_5_n.png</if>" title="评论达人" alt="评论达人"/>
+	   <img src="<if condition="$xz['sd_num'] gt 20">/images/w_xzz_6.png<else/>/images/w_xzz_6_n.png</if>" title="晒单达人" alt="晒单达人"/>
+	   </div>
+	   </if>
+	</div>
+	</div>
+  </div>
+<include file="public:footer" />
+</body>
+</html>

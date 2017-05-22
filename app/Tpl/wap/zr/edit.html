@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<include file="public:head" />
+<style>
+.w_fbgl li.w_fb_3 .w_gl1{ width:33%; height:30px; padding:0% 0%; color:#acacac !important; border:0; font-size:1em;}
+</style>
+</head>
+<body style="background:#f3f7f7;">
+<nav class="w_h2">
+<a href="{:U('wap/index/index')}" title="首页" class="w_h2_r"><img src="/static/images/wap/w_fz.png" title="首页" alt="首页"/></a>
+<em>{$visitor.username}</em>
+<a href="javascript:history.go(-1);" title="返回" class="w_h2_l"><img src="/static/images/wap/w_t_lef.png" title="返回" alt="返回"/></a>
+<h2>发布转让</h2>
+</nav>
+<div class="w_center">
+  <div class="w_fbgl">
+   <form id="info_form" action="{:u('wap/zr/edit')}" method="post" enctype="multipart/form-data" onSubmit="javascript:return tijiao();">
+   <ul>
+     <li class="w_fb_1"><input type="text" name="title" placeholder="转让标题" value="{$zr.title}" class="w_gl1" id="title" /></li>
+     <li class="w_fb_2">
+      <a href="javascript:;" title="">
+      <input type="file" name="J_img" id="J_img" class="w_xj1" >
+	  <input type="hidden" name="img" id="img" value="{$zr['img']}"/>
+      <img src="<if condition="$zr['img'] neq '' ">{:attach($zr['img'],"zr")}<else/>/static/images/wap/w_jj.png</if>" title="上传图片" alt="上传图片" id="btn_img" />
+      </a>
+     </li>
+     <li class="w_fb_3">
+       <label>商品类别：</label>
+         <select name="cate_id" id="cate_id">
+            <option value="0">选择分类</option>
+			<volist name="cate_list" id="item">
+            <option value="{$item.id}" <if condition="$zr['cate_id'] eq $item['id'] ">selected</if>>{$item.name}</option>
+			</volist>
+         </select>
+     </li>
+     <li class="w_fb_1"><input type="text" name="price" placeholder="转让价格" value="{$zr['price']}" class="w_gl1" id="price" /></li>
+     <li class="w_fb_1"><input type="text" name="mark_price" placeholder="市场价" value="{$zr['mark_price']}" class="w_gl1" id="mark_price" /></li>
+     <li class="w_fb_1"><input type="text" name="cname" placeholder="联系人" value="{$zr['cname']}" class="w_gl1" id="cname" /></li>
+     <li class="w_fb_1"><input type="text" name="tel" placeholder="联系电话" value="{$zr['tel']}" class="w_gl1" id="tel" /></li>
+     <volist name="attr" id="r">
+     <li class="w_fb_3" id="item_attr">
+     <a href="javascript:void(0);" class="J_da" data-id="{$r['id']}"><img src="__STATIC__/css/admin/bgimg/tv-collapsable.gif" /></a>
+     属性名：<input type="text" disabled="disabled" class="w_gl1" value="{$r['attr_name']}" />
+     属性值：<input type="text" disabled="disabled" class="w_gl1" value="{$r['attr_value']}" />
+     </li>
+     </volist>
+     <li class="w_fb_3" id="item_attr">
+     <a href="javascript:void(0);" onclick="add_attr();"><img src="__STATIC__/css/admin/bgimg/tv-expandable.gif" /></a>
+     属性名：<input type="text" name="attr[name][]" class="w_gl1" />
+     属性值：<input type="text" name="attr[value][]" class="w_gl1" />
+     </li>
+     
+     <li class="w_fb_4">
+       <textarea name="content">{$zr['content']}</textarea>
+     </li> 
+     <li class="w_fb_5">
+     <input type="submit" value="发布转让" class="w_fbss" style="width:47%;" />
+     <input type="submit" value="保存草稿" class="J_cg w_fbss" style="width:47%; margin-left:6%;" />
+     <input type="hidden" name="status" id="status" value="0" />
+     <input type="hidden" name="id" value="{$zr.id}"/>
+     </li>
+   </ul>
+   </form>
+  </div>
+</div>
+
+<script src="/static/js/wap/weui.min.js"></script>
+<link href="/static/js/wap/weui.css" type="text/css" rel="stylesheet"/>
+<script src="/js/ajaxfileupload.js" type="text/javascript"></script>
+<script>
+function add_attr()
+{
+    $("#hidden_attr .w_fb_3").clone().insertAfter($("#item_attr:last"));
+}
+function del_attr(obj)
+{
+	$(obj).parent().remove();
+}
+$(".J_cg").click(function(){
+	$("#status").val(2);
+});
+$("#btn_img").click(function(){
+	$("#J_img").trigger("click");
+});
+$(document).on('change','#J_img',function () {
+	ajaxFileUpload();
+});
+$(document).on("click",".J_da",function(){
+	var obj=$(this);
+	$.get("/index.php?g=wap&m=zr&a=delattr",{id:obj.attr("data-id")},function(res){
+		if(res.status==1){
+			obj.parent().remove();
+			weui.Loading.success(res.msg);
+		}else{
+			weui.Loading.error(res.msg);
+		}
+	},'json');
+});
+function ajaxFileUpload() {
+	$.ajaxFileUpload
+	(
+		{
+			url: '/?g=wap&m=zr&a=uploadimg', //用于文件上传的服务器端请求地址
+			secureuri: false, //是否需要安全协议，一般设置为false
+			fileElementId: 'J_img', //文件上传域的ID
+			dataType: 'json', //返回值类型 一般设置为json
+			success: function (result, status)  //服务器成功响应处理函数
+			{
+				if(result.status =='1'){
+					$('#btn_img').attr('src', '/data/upload/zr/'+result.data);
+					$('#img').val(result.data);
+				}
+			},
+			error: function (data, status, e)//服务器响应失败处理函数
+			{
+				weui.Loading.error("上传图片失败");
+			}
+		}
+	)
+	return false;
+}
+function ismobile(str){
+	var myreg = /^(1[0-9]{10})$/; 
+	if(!myreg.test(str)) 
+	{ 
+		return false; 
+	}else{
+		return true;
+	}
+}
+function tijiao(){
+	if($("#img").val()==""){
+		weui.Loading.error("请选择图片");
+		return false;
+	}
+	if($("#title").val()==""){
+		weui.Loading.error("标题不能为空");
+		return false;
+	}
+	if($("#cate_id").val()=="0"){
+		weui.Loading.error("请选择文章分类");
+		return false;
+	}
+	if($("#price").val()==""){ weui.Loading.error("价格不能为空");return false;}
+	if(isNaN($("#price").val())){ weui.Loading.error("价格请输入数字");return false;}
+	if(isNaN($("#mark_price").val())){ weui.Loading.error("市场价格请输入数字");return false;}
+	if($("#cname").val()==""){ weui.Loading.error("联系人不能为空");return false;}
+	if(!ismobile($("#tel").val())){ weui.Loading.error("联系电话格式不正确");return false;}
+	$("#info_form").submit();
+}
+	
+</script>
+<div id="hidden_attr" style="display:none;">
+     <li class="w_fb_3">
+     <a href="javascript:void(0);" onclick="del_attr(this);"><img src="__STATIC__/css/admin/bgimg/tv-collapsable.gif" /></a>
+     属性名：<input type="text" name="attr[name][]" class="w_gl1" />
+     属性值：<input type="text" name="attr[value][]" class="w_gl1" />
+     </li>
+     </div>
+</body>
+</html>

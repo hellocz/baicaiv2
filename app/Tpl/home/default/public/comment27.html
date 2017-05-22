@@ -1,0 +1,188 @@
+      <link rel="stylesheet" type="text/css" href="/css/jquery.sinaEmotion.css" />
+	  <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
+	  <script type="text/javascript" src="/js/jquery.sinaEmotion.js"></script>
+	  <a name="comments"></a>
+	  <div class="w_spxx_7">
+        <textarea readonly id="J_cmt_content" name="content"  class="emotion"></textarea>
+         <span id="J_login">需要您<a href="javascript:;" id="J_lo_btn">登录</a>后才可以发起讨论</span>
+         <i id="face" style="line-height: 25px;  height: 25px;  display: block;  width: 100px; cursor:pointer"><img src="http://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/5c/huanglianwx_thumb.gif" style="vertical-align: middle;"/>表情</i><input type="button" id="J_cmt_submit" data-id="{$item.id}" value="发表评论" class="w_fbpl"/>
+		 <input type="hidden" name="itemid" id="itemid" value="{$itemid}"/><input type="hidden" name="xid" id="xid" value="{$xid}"/>
+      </div>
+	  <?php 
+	   //第一页评论不使用AJAX利于SEO	   
+        $comment_mod = M('comment');		
+        $pagesize = 4;
+        $map = array('itemid' => $itemid,'xid'=>$xid,'status'=>1);
+		$count = $comment_mod->where($map)->count('id');
+        $pager = new Page($count, $pagesize);
+		$pager->path = "ajax/comment_list";
+		$pager->parameter ="itemid=$itemid&xid=$xid";
+        $pager_bar = $pager->jshow();        
+		//联合查询
+		$sql = "select * from ((select * from try_comment where itemid=$itemid and xid=$xid and status=1 order by zan desc,id desc limit 3) union (select * from try_comment where itemid=$itemid and xid=$xid and status=1  and id not in(select id from (select * from try_comment where itemid=$itemid and xid=$xid and status=1 order by zan desc, id desc limit 3) as foo) order by id desc)) as t limit $pager->firstRow , $pager->listRows ";
+        $cmt_list = M()->query($sql);
+	  ?>
+
+<div style=" clear:both;"></div>
+      
+ <style>
+ a{ text-decoration:none;}
+.ly_ba{ width:100%; margin-top:20px; padding-bottom:5px; height:auto; display:inline-table; border-bottom:1px dashed #CCC;}
+.ly_tx_a{ width:15%; height:auto;  float:left; text-align:left; background:#fff; }
+.ly_tx_a img{ border-radius:24px;}
+.ly_tx_a p{ font-size:12px;}
+
+.lr_ra{ width:85%; float: left; height:auto;  }
+
+.ly_ba_lr{ width:100%; float: left;  height:auto;  padding:0;}
+.ly_ba_lr p{ float:left; line-height:26px; font-size:14px;  margin-top:0px;}
+.ly_ba_lr em{ width:250px; height:26px; line-height:26px; text-align:right; padding-right:10px; display:block; float:right; font-style:normal; font-size:12px;}
+
+.yl_ba_hf{ width:100%; float:left; }
+.yl_ba_hf ul{ float:right; width:50px; height:30px; background:#fff; border:none;}
+.yl_ba_hf ul li{ float:left; text-align: center; width:50px; height:30px; line-height:30px; display: block; padding:0; border:none;}
+.yl_ba_hf ul li a{ text-decoration:none; font-size:12px; background:#fff; }
+
+.hflr_a{ width:100%; float:left; background:#fcfcfc; display:block; margin-top:8px; padding-top:10px;}
+.hflr_b{ width:100%; float:left; background:#fcfcfc; display:block; margin-top:8px; padding-top:10px;}
+.lh_a1{ width:100%; float:left;}
+.lh_a1 .hf_zr{ float:left; }
+.lh_a1  p{ float:left;  font-size:14px; padding-left:30px;}
+.lh_a1 .hf_zr img{ width:24px; height:24px; border-radius:12px; float:left; margin-left:10px;}
+.lh_a1 .hf_zr span{ margin-top:0px; float:left;}
+.lh_a1 .lrhf{ padding-right:13px;}
+.lh_a1 .lrhf div{ float:right; font-size:12px;}
+.lh_a1 .lrhf div span{ margin-right:10px;}
+ </style>     
+      
+      <div class="w_spxx_8">
+      
+      <h3>最热评论</h3>
+      
+      <div class="ly_ba">
+      
+          <div class="ly_tx_a">
+             <img src="/images/default_48.jpg" />
+             <p>用户名</p>
+          </div>
+      
+         <div class="lr_ra">
+                  <div class="ly_ba_lr"><p>我的留言内容</p><em>2016年04月08日 16:52</em></div>
+                  
+                  <div class="yl_ba_hf">
+                     <ul>
+                     <!--
+                         <li><a href="" >举报</a></li>
+                         <li><a href="" >顶(0)</a></li>
+                         <li><a href="" >@ta</a></li>
+                         -->
+                         <li class="hfzk_a">回复</li>
+                     </ul>
+                  </div>
+                  
+                  <div class="hflr_a">
+                      <div class="lh_a1">
+                         <div class="hf_zr"> <img src="/images/default_48.jpg" /><span>用户名一</span></div> <p>回复留言内容</p>
+                         <div class="lrhf"><div><span>2016-4-25 14:29</span><a href="" title="" >回复</a></div></div>
+                      </div>
+                      
+                      <div class="lh_a1">
+                         <div class="hf_zr"> <img src="/images/default_48.jpg" /><span>用户名一</span></div> <p>回复留言内容</p>
+                         <div class="lrhf"><div><span>2016-4-25 14:29</span><a href="" title="" >回复</a></div></div>
+                      </div>
+                  </div>
+                  
+                  <script type="text/javascript">
+                  $(document).ready(function(){
+                    $(".hfzk_a").click(function(){
+                    $(".hflr_a").toggle(200);
+                    });
+                  });
+                  </script>
+                  
+              </div>
+      
+      </div>
+
+<div style=" clear:both;"></div>
+<br /> <br />
+      <h3>最新评论</h3>
+      
+      <div class="ly_ba">
+      
+          <div class="ly_tx_a">
+             <img src="/images/default_48.jpg" />
+             <p>用户名</p>
+          </div>
+      
+         <div class="lr_ra">
+                  <div class="ly_ba_lr"><p>我的留言内容</p><em>2016年04月08日 16:52</em></div>
+                  
+                  <div class="yl_ba_hf">
+                     <ul>
+                     <!--
+                         <li><a href="" >举报</a></li>
+                         <li><a href="" >顶(0)</a></li>
+                         <li><a href="" >@ta</a></li>
+                         -->
+                         <li class="hfzk_b">回复</li>
+                     </ul>
+                  </div>
+                  
+                  <div class="hflr_b">
+                      <div class="lh_a1">
+                         <div class="hf_zr"> <img src="/images/default_48.jpg" /><span>用户名一</span></div> <p>回复留言内容</p>
+                         <div class="lrhf"><div><span>2016-4-25 14:29</span><a href="" title="" >回复</a></div></div>
+                      </div>
+                      
+                      <div class="lh_a1">
+                         <div class="hf_zr"> <img src="/images/default_48.jpg" /><span>用户名一</span></div> <p>回复留言内容</p>
+                         <div class="lrhf"><div><span>2016-4-25 14:29</span><a href="" title="" >回复</a></div></div>
+                      </div>
+                  </div>
+                  
+                  <script type="text/javascript">
+                  $(document).ready(function(){
+                    $(".hfzk_b").click(function(){
+                    $(".hflr_b").toggle(200);
+                    });
+                  });
+                  </script>
+                  
+              </div>
+      
+      </div>      
+      <!--
+      <ul id="J_cmt_list">
+       <volist name="cmt_list" id="val">
+        <li>
+        
+          <div class="w_spxx8_l">
+            <img src="{:avatar($val['uid'], 48)}"/><br/>
+            {$val.uname}<br/>
+            <em style="display:none">{$val.lc}楼</em>
+          </div>
+          
+          <div class="w_spxx8_r">
+            <h2><span>{$val.add_time|fdate}</span><if condition="$val['pid'] neq 0">回复 <a href="{:U('space/index',array('uid'=>$val['uid']))}"><i style="color:#0DACDF">@{:get_uname($val['uid'])}：</i></a></if> <i class="J_pl_i">{$val.info}</i></h2>
+             <div class="w_r_hfp2"><span><a href="javascript:;" class="J_jbc" data-id="{$val['id']}" data-xid="4" title="举报">举报</a></span><a href="javascript:;" class="w_dd1 J_zan" data-id="{$val.id}">顶（<i>{$val.zan}</i>）</a><a href="{:U('message/write',array('to_id'=>$val['uid']))}" title="@ta">@ta</a><a href="javascript:;" class="J_hf" data-id="{$val.id}" title="回复">回复</a></div>	
+          </div>
+          
+        </li>
+        </volist>
+      </ul>
+      -->
+	  <div class="clear"></div>
+	  <div class="w_pag" id="J_cmt_page" style="margin-bottom:20px">{$pager_bar}</div> 
+      </div> 
+	 <script type="text/javascript">
+	 $(window).load(function(){
+		// 绑定表情
+		$('#face').SinaEmotion($('.emotion'));
+		// 测试本地解析
+		$(".J_pl_i").each(function(){
+			$(this).html(AnalyticEmotion($(this).html()));
+		});
+	 });
+	</script>
+	<style>.w_pag a{cursor:pointer}</style>

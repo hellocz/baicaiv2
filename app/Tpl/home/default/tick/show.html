@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<include file="public:head" />
+<link rel="stylesheet" type="text/css" href="/static/css/default/style.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/default/base.css" />
+</head>
+
+<body style="background:#f5f5f5">
+<include file="public:header" />
+<div class="w_center">
+  <div class="w_cen_lef">
+    <div class="w_zh_dq">
+	  <a href="/" title="首页">首页</a>><a href="{:U('exchange/index')}" title="积分兑换">积分兑换</a>><a href="{:U('tick/index')}" title="优惠劵">优惠劵</a>><a class="w_zh_dq_1">{$orig.name}</a>
+	</div>
+	<div class="w_dtxq_1">
+	  <div class="w_dtxq_1s">
+	   <img src="{:attach($orig['img_url'],'item_orig')}" title="{$orig.name}" alt="{$orig.name}" class="w_dtxq_1st"/>
+	   <h2>{$info.name}</h2>
+	   <p>兑换条件：{$info.dhjf}积分</p>
+		  <if condition="$info['xl'] gt 0 ">
+		  <p>限领：{$info.xl}件</p>
+			  </if>
+	   <p>剩余数量：总计<em>{$info.zj}</em>件; 已领<em>{$info.yl}</em>件; 剩余<em>{$info.sy}</em>件</p>
+	  </div>
+	  <dl>
+	   <dt>兑换品介绍：</dt>
+	   <dd>{$info.intro}</dd>	   
+	  </dl>
+	  <div class="clear"></div>
+	  <a href="javascript:;" id="J_dh" title="立即兑换" data_id="{$info.id}" class="w_dha">立即兑换</a>
+		<a href="{$info.ljdz}" title="立即兑换" target="_blank"  class="w_dha" style="margin-left: 50px;">去使用</a>
+	</div>
+	<div class="w_dtxq_2">
+	  <h2>领取记录</h2>
+	  <table cellpadding="0" cellspacing="0" class="w_dtxq_tb">
+	    <tr>
+		  <td class="w_dtxq_tb_1">领取人 </td>
+		  <td class="w_dtxq_tb_2">领取时间券码</td>
+		  <td class="w_dtxq_tb_3">券码/密码</td>
+		</tr>
+		<volist name="lq" id="r">
+		<tr>
+		  <td class="w_dtxq_tb_1">{$r.uname}</td>
+		  <td class="w_dtxq_tb_2">{$r.get_time|fdate}</td>
+		  <td class="w_dtxq_tb_3"><if condition="$r['gk'] eq 0">领取24小时后公开<else/><a data_id="{$r.tk_id}" class="J_gk" title=" 已公开(点击查看)">已公开(点击查看)</a></if></td>
+		</tr>
+		</volist>
+	  </table>
+	   <div class="w_pag">{$pagebar}</div>
+	</div>
+	
+  </div>
+  <div class="w_cen_rig ">
+    <include file="public:yhq_right" />
+    <include file="public:zt_right" />
+  </div>
+</div>
+<include file="public:footer" />
+<script src="/static/js/lhg/lhgdialog.min.js?self=true&skin=idialog" type="text/javascript"></script>
+<script>
+$(function(){
+	$("#J_dh").click(function(){
+		$.get("{:U('tick/tkdh')}",{id:$(this).attr('data_id')},function(data){
+			//未登录
+			if(data.status==0){
+				$.get("index.php?m=user&a=login",function(res){
+					opdg(res.data,524,262,'用户登录');
+				},'json');
+			}else if(data.status==1){
+				$(".tip-c").html(data.msg);
+				$('.tipbox').show().addClass("tip-error");
+				setTimeout("$('.tipbox').hide();", 2000);  
+			}else if(data.status==2){
+				$(".tip-c").html(data.msg);
+				$('.tipbox').show().addClass("tip-success");
+				setTimeout("$('.tipbox').hide();", 2000); 
+			}
+		},'json');
+	});
+	$(".J_gk").click(function(){
+		var tk_id = $(this).attr("data_id");
+		var obj = $(this);
+		$.get("{:U('tick/gettk')}",{tk_id:tk_id},function(data){
+			data = eval("("+data+")");
+			if(data.status==1){
+				obj.parent().html(data.data);
+			}
+		});
+	});
+});
+function opdg(content,w,h,title){  
+	var dg = new $.dialog({id:'selectorder',title:title, lock:true,content:content,width:w,height:h,background:'#000',opacity:1,max: false, min: false,resize:false});    
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<include file="public:head" />
+</head>
+<body style="background:#f3f7f7;">
+<nav class="w_h2">
+<a href="{:U('wap/index/index')}" title="首页" class="w_h2_r"><img src="/static/images/wap/w_fz.png" title="首页" alt="首页"/></a>
+<em>{$visitor.username}</em>
+<a href="javascript:history.go(-1);" title="返回" class="w_h2_l"><img src="/static/images/wap/w_t_lef.png" title="返回" alt="返回"/></a>
+<h2>个人中心</h2>
+</nav>
+<div class="w_center">
+  <div class="w_grzx">
+    <div class="w_td1">
+       <h2>
+         <img src="{:avatar($info['id'],'32')}" title="{$info.username}" alt="{$info.username}"/><br/><em>{$info.username}</em>
+       </h2>
+       <div class="w_td1_t">
+        <a href="{:U('wap/user/fans')}" title="粉丝">
+         <i>{$info.fans}</i><br/>粉丝
+        </a>
+        <a href="{:U('wap/user/publish')}" title="爆料">
+         <i>{$info.shares}</i><br/>爆料
+        </a>
+        <a href="{:U('wap/user/share')}" title="攻略" class="nor">
+         <i>{$info.s_a}</i><br/>分享
+        </a>
+       </div>
+    </div>
+    <ul>
+      <li  class="w_gr_l1"><a href="{:U('wap/message/index')}" title="我的消息">我的消息</a></li>
+      <li  class="w_gr_l1"><a href="{:U('wap/user/comments')}" title="我的评论">我的评论</a></li>
+      <li  class="w_gr_l1"><a href="{:U('wap/user/likes')}" title="我的收藏">我的收藏</a></li>
+      <li  class="w_gr_l1"><a href="{:U('wap/user/publish')}" title="我的文章">我的文章</a></li>
+      <li  class="w_gr_l1"><a href="{:U('wap/user/myfollow')}" title="好友管理">好友管理</a></li>
+      <li  class="w_gr_l1"><a href="{:U('wap/user/tick')}" title="我的优惠劵">我的优惠劵</a></li>
+      <li  class="w_gr_l1"><a href="{:U('wap/score/index')}" title="积分兑换">积分兑换</a></li>
+      <li  class="w_gr_l1"><a href="{:U('wap/user/grade')}" title="用户等级">用户等级</a></li>
+      <li  class="w_gr_l1"><a href="{:U('wap/user/profile')}" title="我的账户">我的账户</a></li>
+      <li  class="w_gr_l1"><a href="{:U('wap/user/address')}" title="收货地址">收货地址</a></li>
+      <li class="w_gr_l3"><a href="{:U('wap/user/logout')}" title="退出">退出</a></li>
+      
+    </ul>
+  </div>
+   <include file="public:footer" />
+</div>
+</body>
+</html>

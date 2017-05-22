@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+
+<include file="public:head" />
+
+</head>
+
+
+
+<body style="background:#f5f5f5;">
+
+<nav class="w_h2">
+
+<a href="{:U('wap/index/index')}" title="首页" class="w_h2_r"><img src="/static/images/wap/w_fz.png" title="首页" alt="首页"/></a>
+
+<a href="javascript:history.go(-1);" title="返回" class="w_h2_l"><img src="/static/images/wap/w_t_lef.png" title="返回" alt="返回"/></a>
+
+<h2>补充信息</h2>
+
+</nav>
+
+<div class="w_center">
+
+<div class="w_center">
+
+  <div class="w_zc">
+
+    <ul>
+
+      <form id="J_register_form" action="{:U('wap/user/register')}" method="post">
+
+      <li class="w_zc_1"><input type="text" placeholder="{:L('username')}" class="w_zc_in4" name="username" id="J_username" value="{:urldecode($user_bind_info['pin_user_name'])}" /></li>
+
+       <li class="w_zc_1"><input type="text" placeholder="{:L('email')}" class="w_zc_in4" name="email" id="J_email"/></li>
+
+      <li class="w_zc_1"><input type="password" placeholder="{:L('password')}" class="w_zc_in4" name="password" id="J_password"/></li>
+
+     <li class="w_zc_1"><input type="password" placeholder="{:L('confirm_password')}" class="w_zc_in4" name="repassword" id="J_repassword"/></li>
+
+      <li class="w_zc_2">
+
+                        <input type="submit" value="{:L('ok')}"  class="w_hqyz"></li>
+<input type="hidden" name="type" value="bind">
+      <li class="w_zc_2"><a href="" title="用户注册协议">注册即视为同意《<i>用户注册协议</i>》</a></li>
+
+      <input tabindex="1" type="hidden" value="1" name="agreement" id="agreement"> 
+
+      </form>
+
+    </ul>
+
+  </div>
+
+</div>
+<script src="/static/js/wap/function.js"></script>
+
+
+
+</body>
+
+</html>
+

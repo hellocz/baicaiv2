@@ -1,0 +1,98 @@
+<volist name="item_list" id="item">
+
+	<li class="J_item wall_item" style="position:relative">
+
+		 <a href="{:U('item/index', array('id'=>$item['id']))}" title="{$item.title}" target="_blank"><img src="<if condition="$item['img']==''">/images/nopic.jpg<else/> <if condition="preg_match('/img.baicaio.com/',$item['img'])">{:attach($item['img'],'item')}!thumb270<else/>{:attach($item['img'],'item')}</if></if>" title="{$item.title}" alt="{$item.title}" class="J_img J_decode_img"/></a>
+
+		 <h2 style="word-wrap: break-word;"><a href="{:U('item/index', array('id'=>$item['id']))}" title="{$item.title}" target="_blank"><div class="title" style="overflow: hidden;height: 44px;line-height: 22px;font-size: 14px">{$item.title}</div>
+		 </a>
+		 <div style="color:#d62222;overflow:hidden; height: 20px">{$item.price} </div>
+
+		 
+
+			<span style="height: 25px; position: absolute;top: 245px;right: 0;padding: 0 20px;background: rgba(255,255,255,0.7);"><a href="{:U('orig/show',array('id'=>$item['orig_id']))}" title="{:getly($item['orig_id'])}">{:getly($item['orig_id'])}</a></span> 
+
+
+
+		 </h2>
+
+		 <div class="clear"></div>
+
+		 
+
+		<!-- 
+
+		 <p class="w_p1" style="height:24px;"><span><a href="{:U('space/index', array('uid'=>$item['uid']))}"  target="_blank" data-uid="{$item['uid']}" class="J_card"><img src="{:avatar($r['id'],24)}" title="{$item.username}" alt="{$item.username}" class="ava"/> {$item.uname}</a></span><a href="{:U('orig/show',array('id'=>$item['orig_id']))}" title="{:getly($item['orig_id'])}">{:getly($item['orig_id'])}</a></p>-->
+
+		 
+
+			
+
+		 
+
+		 <p style="height:24px">{$item['add_time']|mdate}</p>
+
+		 <div class="w_nr3_div">
+
+		  <div class="w_zzj_1">
+
+				<?php $llink = unserialize($item['go_link']);$lc = count($llink);?>
+
+				<volist name="llink" id="rm" key="j">
+
+			    <if condition="$j eq 1"><a href="__ROOT__/?m=item&a=tgo&to={:shortUrl($rm['link'])}" title="{$rm.title}" class="w_zdlj_a" target="_blank" rel="nofollow" ><i class="<if condition="$lc gt 1">w_down<else/>w_right</if>"></i>{$rm.name}</a></if>
+
+				</volist>
+
+				<if condition="$lc gt 1">
+
+                <ul>
+
+				<volist name="llink" id="rm" key="m">
+
+                <li><a href="__ROOT__/?m=item&a=tgo&to={:shortUrl($rm['link'])}" target="_blank" rel="nofollow"  title="{$rm.title}" >{$rm.name}</a></li>
+
+                </volist>
+
+              </ul>
+
+			  </if>
+
+			</div>
+
+		  <div class="w_f2nr1_le"><a href="javascript:void(0)" onclick="jz_submit_click(this)" title="赞" class="w_z_1 Jz_submit" data="{$item.id}"  data-t="item">{$item.zan}</a><a href="javascript:;" title="{$item.title}"  class="w_z_2 Jl_likes" data-id="{$item.id}" data-xid="1">{$item.likes}</a><a href="{:U('item/index', array('id'=>$item['id']))}" title="{$item.title}"  class="w_z_3" target="_blank">{$item.comments}</a></div>
+
+		 </div>
+
+	   </li>
+
+</volist>
+
+<script>
+
+$(document).ready(function(e) {
+
+ $(".w_zzj_1").hover(
+
+	  function () {
+
+		$(this).find("i").addClass("w_up").removeClass("w_down");
+
+		$(this).children("ul").show();					
+
+	  },
+
+	  function () {
+
+		$(this).find("i").addClass("w_down").removeClass("w_up");
+
+		$(this).children("ul").hide("");
+
+	  }
+
+	); 
+
+}) 
+
+</script>
+

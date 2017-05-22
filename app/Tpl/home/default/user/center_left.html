@@ -1,0 +1,10 @@
+ <div class="w_her_l">
+	<volist name="user_menu_list" id="menu">
+      <dl>
+        <dt>{$menu.text}</dt>
+		<volist name="menu['submenu']" id="smenu">
+        <dd <if condition="$user_menu_curr eq $key">class="w_dd_dq"</if>><a href="{$smenu.url}" title="{$smenu.text}">{$smenu.text}</a></dd>
+		</volist>
+      </dl>
+	</volist>
+    </div>

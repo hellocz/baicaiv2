@@ -1,0 +1,166 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<include file="public:head" />
+
+</head>
+<body style="background:#f3f7f7;">
+<nav class="w_h2">
+<a href="{:U('wap/index/index')}" title="首页" class="w_h2_r"><img src="/static/images/wap/w_fz.png" title="首页" alt="首页"/></a>
+<em>{$visitor.username}</em>
+<a href="javascript:history.go(-1);" title="返回" class="w_h2_l"><img src="/static/images/wap/w_t_lef.png" title="返回" alt="返回"/></a>
+<h2>我要晒单</h2>
+</nav>
+<div class="w_center">
+  <div class="w_fbgl">
+   <form id="info_form" action="{:u('wap/article/edit')}" method="post" enctype="multipart/form-data" onSubmit="javascript:return tijiao();">
+   <ul>
+     <input type="hidden" name="cate_id" value="10"/>
+     <li class="w_fb_1"><input type="text" name="title" placeholder="晒单标题" value="{$item.title}" class="w_gl1" id="title" /></li>
+     <li class="w_fb_1"><input type="text" name="sc" placeholder="购物商城" value="{$item.sc}" class="w_gl1" id="sc" /></li>
+     <li class="w_fb_2">
+      <a href="javascript:;" title="上传图片">
+      <input type="file" name="J_img" id="J_img" class="w_xj1" >
+	  <input type="hidden" name="img" id="img" value="{$item.img}"/>
+      <img src="<if condition="$item['img'] eq ''">/static/images/wap/w_jj.png<else/>{:attach($item['img'],'article')}</if>" title="上传图片" alt="上传图片" id="btn_img" />
+      </a>
+     </li>
+     <li>商品评分</li>
+     <li><span>商品质量满意度：</span>
+        <div class="xingx">
+        <img src="/images/star_1.png" />
+        <img src="/images/star_1.png" />
+        <img src="/images/star_1.png" />
+        <img src="/images/star_1.png" />
+        <img src="/images/star_1.png" />
+        <input type="hidden" value="{$item.g_zl}" name="g_zl" />
+        </div>
+     </li>
+     <li><span>配送服务满意度：</span>
+        <div class="xingx">
+        <img src="/images/star_1.png" />
+        <img src="/images/star_1.png" />
+        <img src="/images/star_1.png" />
+        <img src="/images/star_1.png" />
+        <img src="/images/star_1.png" />
+         <input type="hidden" value="{$item.g_fw}" name="g_fw" />
+        </div>
+     </li>
+     <li><span>客户服务满意度：</span>
+        <div class="xingx">
+        <img src="/images/star_1.png" />
+        <img src="/images/star_1.png" />
+        <img src="/images/star_1.png" />
+        <img src="/images/star_1.png" />
+        <img src="/images/star_1.png" />
+         <input type="hidden" value="{$item.g_kh}" name="g_kh" />
+        </div>
+     </li>
+     <li class="w_fb_4">
+       <textarea name="info" placeholder="发表内容">{$item.info}</textarea>
+     </li> 
+     <li class="w_fb_5">
+     <input type="hidden" name="id" value="{$item.id}"/>
+	 <input type="hidden" name="t" value="{$t}"/>
+     <input type="submit" value="发布晒单" class="w_fbss" style="width:47%;" />
+     <input type="submit" value="保存草稿" class="J_cg w_fbss" style="width:47%; margin-left:6%;" />
+     <input type="hidden" name="status" id="status" value="0" />
+     </li>
+   </ul>
+   </form>
+  </div>
+</div>
+<!--<script src="/js/jquery.js"></script>-->
+<script src="/static/js/wap/weui.min.js"></script>
+<link href="/static/js/wap/weui.css" type="text/css" rel="stylesheet"/>
+<script src="/js/ajaxfileupload.js" type="text/javascript"></script>
+<script>
+$(".J_cg").click(function(){
+	$("#status").val(2);
+});
+
+//显示星星
+var g_zl={$item.g_zl},g_fw={$item.g_fw},g_kh={$item.g_kh};
+for(var i=0;i<g_zl;i++){
+	$(".xingx:eq(0) img:eq("+i+")").attr("src","/images/star.png");
+}
+for(var i=0;i<g_fw;i++){
+	$(".xingx:eq(1) img:eq("+i+")").attr("src","/images/star.png");
+}
+for(var i=0;i<g_kh;i++){
+	$(".xingx:eq(2) img:eq("+i+")").attr("src","/images/star.png");
+}
+
+$("#btn_img").click(function(){
+	$("#J_img").trigger("click");
+});
+$(document).on('change','#J_img',function () {
+	ajaxFileUpload();
+});
+function ajaxFileUpload() {
+	$('#btn_img').attr('src', '/images/bcloading.gif');
+	$.ajaxFileUpload
+	(
+		{
+			url: '/?g=wap&m=article&a=uploadimg', //用于文件上传的服务器端请求地址
+			secureuri: false, //是否需要安全协议，一般设置为false
+			fileElementId: 'J_img', //文件上传域的ID
+			dataType: 'json', //返回值类型 一般设置为json
+			success: function (result, status)  //服务器成功响应处理函数
+			{
+				if(result.status =='1'){
+					$('#btn_img').attr('src', '/data/upload/article/'+result.data);
+					$('#img').val(result.data);
+				}
+			},
+			error: function (data, status, e)//服务器响应失败处理函数
+			{
+				weui.Loading.error("上传图片失败");
+			}
+		}
+	)
+	return false;
+}
+function tijiao(){
+	if($("#img").val()==""){
+		weui.Loading.error("请选择图片");
+		return false;
+	}
+	if($("#title").val()==""){
+		weui.Loading.error("标题不能为空");
+		return false;
+	}
+	if($("#cate_id").val()=="0"){
+		weui.Loading.error("请选择文章分类");
+		return false;
+	}
+	$("#info_form").submit();
+}
+
+$(".xingx img").click(function(){
+	var index=$(".xingx").index($(this).parent());
+	var k=$(".xingx:eq("+index+") img").index(this);
+	for(var i=0;i<5;i++){
+		if(i<=k){
+			$(".xingx:eq("+index+") img:eq("+i+")").attr("src","/images/star.png");
+			$(".xingx:eq("+index+") input").val(i+1);
+		}else{
+			$(".xingx:eq("+index+") img:eq("+i+")").attr("src","/images/star_1.png");
+		}
+	}	
+});
+
+var is_confirm=true;
+// 关闭窗口时弹出确认提示
+$(window).bind('beforeunload', function(){
+    // 只有在标识变量is_confirm不为false时，才弹出确认提示
+    if(window.is_confirm !== false)
+        return "您有未保存的内容，您确定关闭吗？";
+});
+// 提交表单时，不弹出确认提示框
+$('form').bind('submit', function(){
+    is_confirm = false;  
+});	
+</script>
+</body>
+</html>

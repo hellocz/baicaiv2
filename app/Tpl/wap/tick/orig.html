@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<include file="public:head" />
+</head>
+<body style="background:#f3f7f7;">
+<include file="public:head1" />
+<div class="w_center">
+  <div class="w_djxq">
+    <div class="w_djlogo">
+    <img src="{:attach($info['img_url'],'item_orig')}"  title="{$info.name}" alt="{$info.name}" />
+    </div>
+    <h2>{$info.name}</h2>
+    <p>{$info.intro}</p>
+    <a href="http://{$info.url}" title="去逛逛">去逛逛</a>
+  </div>
+  <div class="w_xz1">
+   <div class="w_xz1h">可用优惠劵
+   </div>
+    <ul id="mores">
+      <volist name="list" id="r">
+      <li>
+        <a href="{:U('wap/tick/show',array('id'=>$r['id']))}" title="{$r.name}">
+        <div class="w_ljlq">立即领取</div>
+         <div class="w_yhj_n_img">
+           <img src="{:attach($info['img_url'],'item_orig')}" title="{$r.name}" alt="{$r.name}" />
+         </div>
+        <h2>{$r.name}</h2>
+        <p>有效时间：{$r.end_time}</p>
+       </a>
+      </li>
+    </volist>
+    </ul>
+    <if condition="$pagesize lt $count"><div class="clear"></div>
+    <div id="more" class="btn_getmore" ><a href="javascript:;" title="加载更多">加载更多</a></div></if>
+    <div id="Loading" style="display: none;text-align:center">加载中...</div>
+    <input type="hidden" id="page" value="2"/>
+   </div>
+   <include file="public:footer" />
+   <script src="/static/js/wap/weui.min.js"></script>
+   <link href="/static/js/wap/weui.css" type="text/css" rel="stylesheet"/>
+   <script>
+$(document).ready(function(){
+	$("#more").click(function(){
+		var more_id=$("#page").val(),l=$("#Loading"),g=$("#more");
+		l.show();g.hide();
+		$.ajax({
+		   type:"GET",
+		   url: "/wap-tick-orig-id-{$id}",
+		   data: "more=more&p="+more_id,
+		   success: function(msg){
+			   if(msg){
+				   $("#page").val(parseInt(more_id)+1);
+				   $("#mores").append(msg);
+				   g.show();l.hide();
+			   }else{
+				   weui.Loading.error("已经到最后一页了");
+				   $(".btn_getmore").hide();l.hide();
+			   }
+		   }
+		});
+	})
+	
+	});
+</script>
+</div>
+</body>
+</html>

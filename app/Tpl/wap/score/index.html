@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<include file="public:head" />
+</head>
+<body style="background:#f5f5f5;">
+<include file="public:head1" />
+<div class="w_center">
+  <div class="w_dhjl">
+     <div class="w_dhjl_h">
+       <a href="{:U('wap/exchange/index')}" title="我要去兑换" class="w_wydh" >我要去兑换</a>
+       <span class="w_ss">兑换记录</span>
+     </div>
+     <div class="w_dh_nr">
+      <ul id="mores">
+        <volist name="order_list" id="val">
+        <li>
+         <a href="{:U('wap/exchange/detail', array('id'=>$val['item_id']))}" title="{$val.item_name}">
+            <img src="{:score_item_img($val['item_id'])}" alt="{$val.item_name}" title="{$val.item_name}" />
+            <h2><span>{$val.add_time|fdate}</span>{$val.item_name}</h2>
+            <p><if condition="$val['status'] eq 1">{:L('order_status_1')}<else/>{:L('order_status_0')}</if></p>
+            <p>{$val.order_coin}金币</p>
+        </a>    
+        </li>
+        </volist>
+      </ul>
+     
+    <if condition="$pagesize lt $count"><div class="clear"></div>
+    <div id="more" class="btn_getmore" ><a href="javascript:;" title="加载更多">加载更多</a></div></if>
+    <div id="Loading" style="display: none;text-align:center">加载中...</div>
+    <input type="hidden" id="page" value="2"/>
+  </div>
+   <include file="public:footer" />
+   <script src="/static/js/wap/weui.min.js"></script>
+   <link href="/static/js/wap/weui.css" type="text/css" rel="stylesheet"/>
+   <script>
+$(document).ready(function(){
+	$("#more").click(function(){
+		var more_id=$("#page").val(),l=$("#Loading"),g=$("#more");
+		l.show();g.hide();
+		$.ajax({
+		   type:"GET",
+		   url: "/wap-score-index",
+		   data: "more=more&p="+more_id,
+		   success: function(msg){
+			   if(msg){
+				   $("#page").val(parseInt(more_id)+1);
+				   $("#mores").append(msg);
+				   g.show();l.hide();
+			   }else{
+				   weui.Loading.error("已经到最后一页了");
+				   $(".btn_getmore").hide();
+				   l.hide();
+			   }
+		   }
+		});
+	})
+});
+
+</script>
+</div>
+</body>
+</html>

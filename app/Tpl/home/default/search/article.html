@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <include file="public:head" />
+</head>
+
+<body style="background:#f5f5f5">
+<include file="public:header" />
+<div class="w_bl_bd">
+
+    <div class="fl_xx_a">
+        <!-- searchReslut_nav -->
+        <ul >
+            <li <if condition="$tp=='' and $isbest != 1">class="dq_a"</if>><a  href="{:U('search/index',array('q'=>$strpos1))}">综合({$zh_count})</a></li>
+            <li <if condition="$tp=='0'">class="dq_a"</if>><a href="{:U('search/index',array('q'=>$strpos1,'tp'=>0))}">国内({$gn_count})</a></li>
+            <li <if condition="$tp=='1'">class="dq_a"</if>><a href="{:U('search/index',array('q'=>$strpos1,'tp'=>1))}">海淘({$gw_count})</a></li>
+            <li <if condition="$isbest=='1'">class="dq_a"</if>><a href="{:U('search/index',array('q'=>$strpos1,'isbest'=>1))}">精品汇({$jp_count})</a></li>
+            <li <if condition="$tp=='10'">class="dq_a"</if>><a href="{:U('search/index',array('q'=>$strpos1,'t'=>article,'tp'=>10))}">晒单({$sd_count})</a></li>
+            <li <if condition="$tp=='9'">class="dq_a"</if>><a href="{:U('search/index',array('q'=>$strpos1,'t'=>article,'tp'=>9))}">攻略({$gl_count})</a></li>
+        </ul>
+        <!-- searchReslut_nav end-->
+
+    </div>
+
+
+    <div class="xzxl_a">
+        <select class="dropdown" tabindex="7" onChange="if(value!=''){window.location.href=this.options[this.selectedIndex].value;}else{return(false);}">
+            <option value="{:U('search/index',array('q'=>$strpos1,'tp'=>$tp,'t'=>article,'day'=>$day))}" <if condition="$sort=='hot'">selected="selected"</if>>综合排序</option>
+            <option value="{:U('search/index',array('q'=>$strpos1,'tp'=>$tp,'t'=>article,'sort'=>'new','day'=>$day))}" <if condition="$sort=='new'">selected="selected"</if>>按时间排序</option>
+        </select>
+        <select class="dropdown" tabindex="7" onChange="if(value!=''){window.location.href=this.options[this.selectedIndex].value;}else{return(false);}">
+            <option value="{:U('search/index',array('q'=>$strpos1,'tp'=>$tp,'t'=>article,'sort'=>$sort,'day'=>'0'))}" <if condition="$day=='0'">selected="selected"</if>>时间不限</option>
+            <option value="{:U('search/index',array('q'=>$strpos1,'tp'=>$tp,'t'=>article,'sort'=>$sort,'day'=>'7'))}" <if condition="$day=='7'">selected="selected"</if>>一周内</option>
+            <option value="{:U('search/index',array('q'=>$strpos1,'tp'=>$tp,'t'=>article,'sort'=>$sort,'day'=>'30'))}" <if condition="$day=='30'">selected="selected"</if>>一月内</option>
+            <option value="{:U('search/index',array('q'=>$strpos1,'tp'=>$tp,'t'=>article,'sort'=>$sort,'day'=>'365'))}" <if condition="$day=='365'">selected="selected"</if>>一年内</option>
+        </select>
+
+        <span>为您找到相关结果约{$count}个</span>
+    </div>
+
+    <notempty name="ss_cate">
+        <div class="xgfl_a">
+            <ul>
+                <li>相关分类：</li>
+                <volist name="ss_cate" id="r">
+                    <li><a href="{:U('book/cate', array('cid'=>$r['id']))}" />{$r.name}</a></li>
+                </volist>
+            </ul>
+        </div>
+    </notempty>
+
+    <div class="w_dhxx" >
+        <ul id="J_waterfall">
+            <volist name="article_list" id="r">
+                <li>
+                    <a href="{:U('article/show',array('id'=>$r['id']))}" title="{$r.title}" target="_blank"><img src="<if condition="$r['img'] eq ''">images/nopic.jpg<else/>{:attach($r['img'],'article')}</if>" title="{$r.title}" alt="{$r.title}"/></a>
+                    <h2><a href="{:U('article/show',array('id'=>$r['id']))}" title="{$r.title}" target="_blank">{$r.title}<br/><em>{$r.otitle}</em></a></h2>
+
+                    <div class="w_gllb_1_d"> <div class="w_gllb_1_d1"><a href="{:U('space/index', array('uid'=>$r['uid']))}" title="{$r.uname}" data-uid="{$r['uid']}" class="J_card"><img src="{:avatar($r['uid'], 48)}" title="{$r.uname}" alt="{$r.uname}"/></a><a href="{:U('space/index', array('uid'=>$r['uid']))}" title="{$r.uname}" data-uid="{$r['uid']}" class="J_card">{$r.uname}</a><span>{$r['add_time']|fdate}</span></div><div class="w_gllb_1_d2"><a href="{:U('article/show',array('id'=>$r['id']))}" title="{$r.title}" class="w_z_1" target="_blank">{$r.zan}</a><a href="" title=""  class="w_z_2">{$r.likes}</a><a href="" title=""  class="w_z_3">{$r.comments}</a></div></div>
+                </li>
+            </volist>
+        </ul>
+        <div class="w_pag" id="J_wall_page">{$page_bar}</div>
+    </div>
+</div>
+<include file="public:footer" />
+</body>
+</html>

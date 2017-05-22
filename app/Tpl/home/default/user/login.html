@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<include file="public:head" />
+<link rel="stylesheet" type="text/css" href="/static/css/default/base.css" />
+<style>
+.onShow, .onFocus, .onError, .onCorrect, .onLoad, .onTime{float:left;}
+.onError{display:block;}
+</style>
+</head>
+
+<body style="background:#f5f5f5">
+<include file="public:header" />
+<div class="w_bl_bd">
+  <div class="w_bl">
+  <h2>登陆</h2>
+  <div class="w_dl_bd">
+    <div class="w_dl_lef">
+      <ul>
+	  <form id="J_login_form" action="{:U('user/login')}" method="post">
+        <li class="w_dl_l1"><img src="/images/w_dl1.png"/><input type="text" placeholder="用户名" class="w_dl_1" name="username" id="J_name"/></li>
+        <li class="w_dl_l1"><img src="/images/w_dl2.png"/><input type="password" placeholder="密码" class="w_dl_1" name="password" id="J_pass"/></li>
+        <li style="display:none"><input type="text" placeholder="验证码" class="w_dl_2" name="captcha" id="J_captcha"/><div class="w_yzm"><img src="{:U('captcha/'.time())}" id="J_captcha_img"  alt="{:L('captcha')}" data-url="{:U('captcha/js_rand')}"></div><a href="javascript:;" id="J_captcha_change" class="w_hyz">{:L('change_captcha')}</a></li>
+        <li class="w_dl_l2"><a href="{:U('findpwd/index')}" title="忘记密码 ?" class="w_wjmm">忘记密码 ?</a><input type="checkbox" name="remember"  class="w_dl_3"/><label>自动登陆</label></li>
+        <li><input type="submit" value="登   录" class="w_dl_4"/></li>
+        <li class="w_dl_l3">第三方账号登录：</li>
+        <li class="w_dl_l4">
+		<volist name="oauth_list" id="val">
+		<a href="{:U('oauth/index', array('mod'=>$val['code']))}" class="login_bg weibo_login"><img src="__STATIC__/images/oauth/{$val.code}/icon.png" />{$val.name}</a>
+		</volist>
+		</li>
+      </form>
+	  </ul>
+	</div>
+    <div class="w_dl_rig">
+    还不是白菜哦会员 ?<a href="{:U('user/register')}" title="快速注册">快速注册</a><br/><em></em>
+    </div>
+  </div>
+  </div>
+ </div>
+<include file="public:footer" />
+<script src="/static/js/jquery/plugins/formvalidator.js"></script>
+<script>
+//语言项目
+var lang = {};
+lang.please_input = "请输入";lang.username = "用户名";lang.password = "密码";
+$.formValidator.initConfig({formid:"J_login_form",autotip:true});
+$('#J_name').formValidator({onshow:' ', onfocus:lang.please_input+lang.username, oncorrect: ' '}).inputValidator({min:1,onerror:lang.please_input+lang.username});
+$('#J_pass').formValidator({onshow:' ', onfocus:lang.please_input+lang.password, oncorrect: ' '}).inputValidator({min:1,onerror:lang.please_input+lang.password});
+</script>
+</body>
+</html>

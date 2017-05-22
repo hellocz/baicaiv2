@@ -1,0 +1,7 @@
+
+      <li>
+       <div class="w_scx"><a href="javascript:;" class="J_ml_del" data-mid="{$info.id}" title="删除">删除</a></div>
+       <div>{$info.add_time|fdate}</div>
+       <p><if condition="$info['from_id'] eq $visitor['id']">{:L('i')}<else/>Ta</if> : {$info.info}</p>
+      </li>
+      

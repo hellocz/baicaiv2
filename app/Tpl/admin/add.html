@@ -1,0 +1,80 @@
+<!--添加商品来源分类-->
+<div class="dialog_content">
+	<form id="info_form" name="info_form" action="{:u('tick/add')}" method="post">
+	<table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+		<tr>
+			<th width="100">优惠券名称 :</th>
+			<td><input type="text" name="name" id="name" class="input-text" size="30"></td>
+		</tr>
+		<tr>
+			<th>金额2 :</th>
+			<td>
+			<input type="text" name="je" id="je" class="input-text" size="30" value="{$info.je}">
+			</td>
+		</tr>
+		<tr>
+			<th>兑换积分 :</th>
+			<td>
+			<input type="text" name="dhjf" id="dhjf" class="input-text" size="30">
+			</td>
+		</tr>
+		<tr>
+			<th>商城 :</th>
+			<td>
+				<select name="orig_id">
+                <?php $orig_list =M()->query('SELECT *,fristPinyin(name) as t FROM `try_item_orig` WHERE 1 order by t');?>
+				<volist name="orig_list" id="r">
+				<option value="{$r.id}">{$r.name}</option>
+				</volist>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<th>链接地址 :</th>
+			<td>
+				<input type="text" name="ljdz"  class="input-text" size="30" value="">
+			</td>
+		</tr>
+		<tr>
+			<th>限领 :</th>
+			<td>
+				<input type="text" name="xl" class="input-text" size="15" value="">*0不做限制
+			</td>
+		</tr>
+		<tr>
+			<th>描述 :</th>
+			<td>
+			<textarea name="intro" id="intro" style="width:80%;height:50px;"></textarea>
+			</td>
+		</tr>
+		<tr>
+			<th>开始时间 :</th>
+			<td>
+               <input type="text" name="start_time" id="start_time" class="input-text fl mr10" size="30" placeholder="">
+			</td>
+		</tr>
+		<tr>
+			<th>结束时间 :</th>
+			<td>
+               <input type="text" name="end_time" id="end_time" class="input-text fl mr10" size="30" placeholder="">
+			</td>
+		</tr>
+	</table>
+	</form>
+</div>
+<link rel="stylesheet" type="text/css" href="__STATIC__/js/calendar/calendar-blue.css"/>
+<script src="__STATIC__/js/calendar/calendar.js"></script>
+<script>
+Calendar.setup({
+	inputField : "start_time",
+	ifFormat   : "%Y-%m-%d",
+	showsTime  : false,
+	timeFormat : "24"
+});
+Calendar.setup({
+	inputField : "end_time",
+	ifFormat   : "%Y-%m-%d",
+	showsTime  : false,
+	timeFormat : "24"
+});
+</script>

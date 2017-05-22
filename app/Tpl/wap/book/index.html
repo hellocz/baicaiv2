@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<include file="public:head" />
+</head>
+<body style="background:#f3f7f7;">
+<nav class="w_h2">
+<a href="{:U('wap/index/index')}" title="首页" class="w_h2_r"><img src="/static/images/wap/w_fz.png" title="首页" alt="首页"/></a>
+<a href="javascript:history.go(-1);" title="返回" class="w_h2_l"><img src="/static/images/wap/w_t_lef.png" title="返回" alt="返回"/></a>
+<h2>商品分类</h2>
+</nav>
+<div class="w_center">
+    <div class="w_scfl">
+	<?php $item_cate = M("item_cate")->where('pid=0 and status=1')->select();?>
+	<volist name="item_cate" id="val">
+		<?php $item_scate = M("item_cate")->where("pid=$val[id] and status=1")->select();?>
+      <dl>
+        <dt class="w_fl_{$i}" onclick="window.location='{:U('wap/book/cate', array('cid'=>$val['id']))}'">
+          <h3>{$val['name']}</h3>
+          <p>
+		  <volist name="item_scate" id="s" key="n">
+		  <if condition ="$n lt 5" >{$s['name']}/</if>
+		  </volist>
+		  </p>
+        </dt>
+        <dd>
+		<volist name="item_scate" id="s" key="n">
+         <a href="{:U('wap/book/cate', array('cid'=>$s['id']))}" title="{$s['name']}">{$s['name']}</a>
+		</volist>
+        </dd>
+      </dl>
+	 </volist>
+    </div>
+    <include file="public:footer" />
+</div>
+<script>
+$(".w_scfl dt").click(function(){
+	$(this).siblings("dd").fadeToggle(100);		
+});
+</script>
+</body>
+</html>

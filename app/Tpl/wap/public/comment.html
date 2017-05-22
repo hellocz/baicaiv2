@@ -1,0 +1,46 @@
+<link rel="stylesheet" type="text/css" href="/css/jquery.sinaEmotion.css" />
+<script type="text/javascript" src="/js/jquery.sinaEmotion.js"></script>
+<div class="w_xzzr4">
+    <h3>全部评论</h3>
+    <div class="w_xzzr4_1">
+      <textarea readonly id="J_cmt_content" name="content"  class="emotion"></textarea>
+      <div id="J_login">需要您<a href="javascript:;" title="登录" id="J_lo_btn">登录</a>后才可以发起讨论</div>
+	  <i id="face" style="line-height: 25px;  height: 25px;  display: block;  width: 100px; cursor:pointer"><img src="http://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/5c/huanglianwx_thumb.gif" style="vertical-align: middle;">表情</i>
+	  <input type="hidden" name="itemid" id="itemid" value="{$itemid}"/><input type="hidden" name="xid" id="xid" value="{$xid}"/>
+      <input type="button" value="发表评论" class="w_bt1" id="J_cmt_submit" data-id="{$item.id}"/>
+    </div>
+	<?php 
+	   //第一页评论不使用AJAX利于SEO	   
+        $comment_mod = M('comment');		
+        $pagesize = 4;
+        $map = array('itemid' => $itemid,'xid'=>$xid,'status'=>1);
+		$count = $comment_mod->where($map)->count('id');
+        $pager = new Page($count, $pagesize);
+		$pager->path = "wap/ajax/comment_list";
+		$pager->parameter ="itemid=$itemid&xid=$xid";
+        $pager_bar = $pager->jshow();        
+		//联合查询
+		$sql = "select * from ((select * from try_comment where itemid=$itemid and xid=$xid and status=1 order by zan desc,id desc limit 3) union (select * from try_comment where itemid=$itemid and xid=$xid and status=1  and id not in(select id from (select * from try_comment where itemid=$itemid and xid=$xid and status=1 order by zan desc, id desc limit 3) as foo) order by id desc)) as t limit $pager->firstRow , $pager->listRows ";		
+        $cmt_list = M()->query($sql);
+	  ?>
+    <ul class="w_by" id="J_cmt_list">
+		<volist name="cmt_list" id="val">
+		 <li>
+		  <div class="w_by1"><span>{$val.add_time|fdate}</span><em>{$val.uname}</em> <if condition="$val['pid'] neq 0">回复 <em><i style="color:#0DACDF">@{:get_uname($val['uid'])}：</i></em></if><i style="display:none">{$val.lc}楼</i></div>
+		  <div class="w_by3 J_pl_i">{$val.info}</div>
+		  <div class="w_by4"><a href="javascript:;" class="w_dred J_zan" data-id="{$val.id}">顶（<i>{$val.zan}</i>）</a><a href="javascript:;" class="J_hf" data-id="{$val.id}" title="回复">回复</a></div>
+		 </li>
+        </volist>
+    </ul>
+    <div class="w_pag" id="J_cmt_page">{$pager_bar}</div>
+  </div>
+  <script type="text/javascript">
+	 $(window).load(function(){
+		// 绑定表情
+		$('#face').SinaEmotion($('.emotion'));
+		// 测试本地解析
+		$(".J_pl_i").each(function(){
+			$(this).html(AnalyticEmotion($(this).html()));
+		});
+	 });
+	</script>

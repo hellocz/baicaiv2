@@ -1,0 +1,14 @@
+<empty name="user_list">
+<p>{:L('no_such_this_user')}</p>
+<else/>
+    <ul>
+      <volist name="user_list" id="val">
+       <li>
+         <a href="{:U('wap/message/write', array('to_id'=>$val['id']))}" title="{$val.username}">
+           <img src="{:avatar($val['id'], 64)}" title="{$val.username}" alt="{$val.username}"/><br/>
+           {$val.username}
+         </a>
+       </li>
+      </volist>
+     </ul>
+</empty>

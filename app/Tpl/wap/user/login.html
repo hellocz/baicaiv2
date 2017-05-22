@@ -1,0 +1,172 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+
+<include file="public:head" />
+
+</head>
+
+
+
+<body style="background:#f5f5f5;">
+
+<nav class="w_h2">
+
+<a href="{:U('wap/index/index')}" title="首页" class="w_h2_r"><img src="/static/images/wap/w_fz.png" title="首页" alt="首页"/></a>
+
+<a href="javascript:history.go(-1);" title="返回" class="w_h2_l"><img src="/static/images/wap/w_t_lef.png" title="返回" alt="返回"/></a>
+
+<h2>账户登录</h2>
+
+</nav>
+
+<div class="w_center">
+
+ <div class="w_dl">
+
+   <ul>
+
+   <form id="J_login_form" action="{:U('wap/user/login')}" method="post" >
+
+     <li  class="w_dl_t1">
+
+       <input type="text" placeholder="用户名" class="w_dl_1" name="username" id="J_name"/>
+
+     </li>
+
+     <li  class="w_dl_t1">
+
+       <input type="password" placeholder="密码" class="w_dl_1" name="password" id="J_pass"/>
+
+     </li>
+
+     <li class="w_dl_t2">
+
+      <input  type="checkbox" name="remember" id="remember"/><label>一个月内免登录</label>
+
+     </li>
+
+     <li class="w_dl_t2">
+
+      <input type="button" value="登录" class="w_bott" id="J_login"/>
+
+	  <input type="hidden" name="ret_url" id="ret_url" value="{$ret_url}"/>
+
+     </li>
+
+     <li class="w_dl_t2">
+
+     <a href="{:U('wap/findpwd/index')}" title="找回密码" class="w_di_r">找回密码</a>
+
+      <a href="{:U('wap/user/register')}" title="免费注册" class="w_di_l">免费注册</a>
+
+     </li>
+
+     <li class="w_dl_t3" style="display:block;">
+
+      <b>其他登录方式</b><br/>
+   
+      <a href="{:U('home/oauth/index', array('mod'=>'qq','type'=>'login_m'))}" title="qq"><img src="/static/images/wap/w_dl_1.png" title="qq" alt="qq"/></a>
+
+      <a href="{:U('oauth/index', array('mod'=>'sina'))}" title="微博"><img src="/static/images/wap/w_dl_2.png" title="微博" alt="微博"/></a>
+
+ <!--   <a href="" title="支付宝"><img src="/static/images/wap/w_dl_3.png" title="支付宝" alt="支付宝"/></a> -->
+
+     </li>
+
+	</form>
+
+   </ul>
+
+ </div>
+
+</div>
+
+<script src="/static/js/wap/weui.min.js"></script>
+
+<link href="/static/js/wap/weui.css" type="text/css" rel="stylesheet"/>
+
+<script>
+
+var PINER = {
+
+    root: "__ROOT__",
+
+    uid: "<?php echo $visitor['id'];?>", 
+
+    async_sendmail: "<?php echo $async_sendmail;?>",
+
+    config: {
+
+        wall_distance: "<?php echo C('pin_wall_distance');?>",
+
+        wall_spage_max: "<?php echo C('pin_wall_spage_max');?>"
+
+    },
+
+    //URL
+
+    url: {}
+
+};
+
+//语言项目
+
+var lang = {};
+
+lang.please_input = "请输入";lang.username = "用户名";lang.password = "密码";
+
+$("#J_login").click(function(){
+
+	var u=$("#J_name"),p=$("#J_pass"),r=$("#remember"),ru=$("#ret_url");
+
+	if(u.val()==""){
+
+		weui.Loading.error(lang.please_input+lang.username);
+
+		return false;
+
+	}
+
+	if(p.val()==""){
+
+		weui.Loading.error(lang.please_input+lang.password);
+
+		return false;
+
+	}
+
+	$.post("{:U('wap/user/login')}",{username:u.val(),password:p.val(),remember:r.val(),ret_url:ru.val()},function(res){
+
+		if(res.status==1){
+
+			weui.Loading.success("登录成功");
+
+			if(ru.val()!=""){
+
+				window.location=ru.val();
+
+			}else{
+
+				window.location="{:U('wap/user/index')}";
+
+			}
+
+		}else{
+
+			weui.Loading.error(res.msg);
+
+		}
+
+	},'json');
+
+});
+
+</script>
+
+</body>
+
+</html>
+

@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<include file="public:head" />
+<link rel="stylesheet" type="text/css" href="/static/css/default/style.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/default/base.css" />
+</head>
+
+<body style="background:#f5f5f5">
+<include file="public:header" />
+<div class="w_center">
+  <div class="w_cen_lef">
+
+	  <div class="w_gn_jbj">
+		  <div class="w_gn_jbj_t">
+			  <span>共<i>{$count}</i>件相关商品</span>
+			  <b>通过筛选您可以获得更准确的结果</b>
+			  <ul>
+				  <if condition="$cate">
+					  <li><a href="{$cate_url}" title="{$cate}">{$cate}</a><a href="{$cate_url}" title="{$cate}" class="w_gnsc_x">x</a></li>
+				  </if>
+			  </ul>
+		  </div>
+		  <div class="w_gn_jbj_n">
+			  <b>分类筛选：</b>
+			  <?php
+		$cate_id = M()->query("SELECT c.* from try_article as a,try_article_cate as c where a.cate_id=c.id and c.pid=$bcid GROUP BY c.id");
+			  ?>
+			  <ul id="cateid" style="height:27px; overflow:hidden" >
+				  <if condition="$cate_id">
+				  <volist name="cate_id" id="r">
+					  <li><a href="{:U('article/index',array('id'=>$r['id']))}" title="{$r.name}">{$r.name}</a></li>
+				  </volist>
+				  <else/>
+					  <li>暂无分类</li>
+				  </if>
+			  </ul>
+			  <span class="w_zq_more" onclick="show($('#cateid'));" data="0">更多</span>
+		  </div>
+	  </div>
+
+	<div class="w_gllb">
+	   <div class="w_gllb_h">
+	     <a href="{:U('article/index',array('id'=>$id,'isbest'=>'1'))}"><span <if condition="$tab eq '1'">class="w_gllb_h_1"</if>  id="gl1" >精华</span></a><a href="{:U('article/index',array('id'=>$id))}"><span <if condition="$tab eq '2'">class="w_gllb_h_1"</if> id="gl2" >全部</span></a> 
+	    <a class="innergototobuybtn" isconvert="1" href="https://detail.tmall.com/item.htm?id=550043214620" target="_blank" onmousedown="xlog('3988034','ingobuy')" style="background-color: rgb(93, 185, 91);">
+		<span class="innergototobuyword">直达链接&nbsp;&gt;</span>
+	</a>
+	<a isconvert="1" target="_blank" href="https://uland.taobao.com/coupon/edetail?e=jXlAYupT0DJt3vqbdXnGlu%2B6wc%2F43l4tMnw6cTBQvWwTJdgBbMuyNrcZelJt%2BzjyuVpoJh2tAbEeodngVZHuLP%2BDcf5KDll%2BoZxtn6WBSdqWCrV6aqNWsa%2BjMz5VrFSF%2Bzl4iXHllFQZBEXkebesVMPxI3h%2Bhwu6&amp;pid=mm_26322749_4094016_66006518&amp;af=1"><b>15元优惠券</b></a>		        
+	   </div>
+	</div>
+
+    <include file="public:article_list" />
+    <div class="w_pag">{$pagebar}</div>
+  </div>
+  <div class="w_cen_rig ">
+    <if condition="$bcid eq '9'">
+     <include file="public:gl_right" />
+	<else/>
+	 <include file="public:sd_right" />
+	</if>
+	<include file="public:zt_right" />
+  </div>
+</div>  
+<include file="public:footer" />
+<script src="/js/function.js"></script>
+<!--右边banner条部分js-->
+<script> 
+  var count=index=0;
+   count=$("#banner li").length;
+  $("#banner li:gt(0)").hide();
+  var t=null;
+  var s=null;  
+   function jumpLeft(){
+	   if( index<=0) index=count;
+	   index--;
+	   $("#banner li").eq(index).fadeIn(1000).siblings().fadeOut(1000);
+	   };
+	     function jumpRight(){
+			  index++;
+	   if( index>=count) index=0;
+	   $("#banner li").eq(index).fadeIn(1000).siblings().fadeOut(1000);
+	   };
+
+
+    	    //让图片自动轮播
+    	     	    function autPlay(){
+		s=setInterval( function(){
+			index++;
+			if(index>=count){ index=0;}
+			$("#banner li").eq(index).fadeIn(1000).siblings().fadeOut(1000);
+			},4000);
+	}
+			autPlay();
+			$("#banner").hover(
+			function(){
+				clearInterval(s);
+				$("#banner_left").show();
+    	    	$("#banner_right").show();
+				},
+			function(){
+				autPlay();
+				$("#banner_left").hide();
+    	    	$("#banner_right").hide();
+				}
+			);    
+    	    
+    	    //鼠标移到图片上去图片停止轮播,移出来继续轮播
+  function show(obj){
+	  if($(this).attr('data')==0){
+		  obj.css('height','auto');
+		  $(this).attr('data','1');
+	  }else{
+		  obj.css('height','27px');
+		  $(this).attr('data','0');
+	  }
+  }
+</script>
+<script type="text/javascript">
+    (function(win,doc){
+        var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0];
+        if (!win.alimamatk_show) {
+            s.charset = "gbk";
+            s.async = true;
+            s.src = "https://alimama.alicdn.com/tkapi.js";
+            h.insertBefore(s, h.firstChild);
+        };
+        var o = {
+            pid: "mm_27883119_3410238_86058298",/*推广单元ID，用于区分不同的推广渠道*/
+            appkey: "",/*通过TOP平台申请的appkey，设置后引导成交会关联appkey*/
+            unid: "",/*自定义统计字段*/
+            type: "click" /* click 组件的入口标志 （使用click组件必设）*/
+        };
+        win.alimamatk_onload = win.alimamatk_onload || [];
+        win.alimamatk_onload.push(o);
+    })(window,document);
+</script>
+</body>
+</html>

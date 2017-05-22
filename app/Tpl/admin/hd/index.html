@@ -1,0 +1,44 @@
+<include file="public:header" />
+<!--商品来源-->
+<div class="subnav">
+<div class="content_menu ib_a blue line_x">
+<a href="{:U('hd/index')}" class="on"><em>活动管理</em> </a> <span>|</span> <a href="{:U('hd/add')}"><em>添加活动</em> </a>
+</div>
+</div>
+<div class="pad_lr_10" >
+    <div class="J_tablelist table_list" data-acturi="{:U('hd/ajax_edit')}">
+	<table width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th width="25"><input type="checkbox" id="checkall_t" class="J_checkall"></th>
+                <th width="40"><span tdtype="order_by" fieldname="id">ID</span></th>
+                <th align="center" >排序</th>
+				<th align="center" >活动名称</th>
+				<th align="center" >活动链接</th>
+                <th align="center" width="80">是否推荐</th> 
+                <th width="120">{:L('operations_manage')}</th>
+            </tr>
+        </thead>
+    	<tbody>
+            <volist name="list" id="val" >
+            <tr>
+                <td align="center">
+                <input type="checkbox" class="J_checkitem" value="{$val.id}"></td>
+                <td align="center">{$val.id}</td>
+                <td align="center">{$val.order_s}</td>
+				<td align="center">{$val.hdname}</td>
+				<td align="center">{$val.hdurl}</td>
+                <td align="center"><if condition="$val['istop'] eq 1">是<else/>否</if></td>
+                <td align="center">
+					<a href="{:U('hd/edit', array('id'=>$val['id']))}" data-title="{:L('edit')} - {$val.hdname}"  data-id="edit" data-acttype="ajax" data-width="500" data-height="140">{:L('edit')}</a> | 
+                    <a href="javascript:;" class="J_confirmurl" data-acttype="ajax" data-uri="{:U('hd/delete', array('id'=>$val['id']))}" data-msg="{:sprintf(L('confirm_delete_one'),$val['hdname'])}">{:L('delete')}</a>
+					</td>
+            </tr>
+            </volist>
+    	</tbody>
+    </table>
+    </div>
+</div>
+<include file="public:footer" />
+</body>
+</html>

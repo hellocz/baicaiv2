@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<include file="public:head" />
+<style>
+.J_del_art{ width:6% !important;}
+#mores h2{ color:#999;}
+#mores h2 a{ color:#333;}
+.faxx{ width:100%; float:left; line-height:300%; background:#fff; margin-top:2%;}
+.faxx .pub_txt{ border: 1px solid #BBBBBB; border-radius: 3px 3px 3px 3px; color: #333333; height: 38px;line-height: 16px; margin-top: 0; padding: 5px; resize: none; width: 70%;}
+</style>
+</head>
+<body style="background:#f5f5f5;">
+<include file="public:head1" />
+<div class="w_center">
+  <div class="w_pl_t">
+    <a href="{:U('wap/message/index')}" title="返回私信列表">返回私信列表</a>
+    <span>{:sprintf(L('talk_with_title'),$ta_name)}</span>
+  </div>
+  
+  <div class="faxx">
+    <img src="{:avatar($visitor['id'], 48)}" style="margin:2%;">
+    <textarea id="J_msg_content" class="pub_txt"></textarea>
+    <div class="w_gbjy" id="J_msg_send" data-toid="{$ta_id}">确定</div>
+  </div>
+  
+  <div class="w_grxx">
+     <ul id="mores"></ul>
+  </div>
+   <include file="public:footer" />
+   <script src="/static/js/wap/weui.min.js"></script>
+   <link href="/static/js/wap/weui.css" type="text/css" rel="stylesheet"/>
+   <script>
+$(document).ready(function(){
+	$(".w_center").on('click','#J_msg_send',function(){
+		var to_id = $(this).attr('data-toid'),
+			content = $('#J_msg_content').val();
+		$.ajax({
+			url: PINER.root + '/?g=wap&m=message&a=publish',
+			type: 'POST',
+			data: {
+				to_id: to_id,
+				content: content
+			},
+			dataType: 'json',
+			success: function(result){
+				if(result.status == 1){
+					//列表动态添加
+					$('#mores').prepend(result.data);
+					$('#J_msg_content').val('');
+				}else{
+					weui.Loading.error(result.msg);
+				}
+			}
+		});
+	});
+	/*单个删除*/
+	$("#mores").on('click','.J_ml_del',function(){
+		var obj=$(this);
+		$.get(PINER.root+"/?g=wap&m=message&a=del",{mid:obj.attr('data-mid')},function(result){
+			if(result.status==1){
+				obj.parents("li").remove();
+				weui.Loading.success(result.msg);
+			}else{
+				weui.Loading.error(result.msg);
+			}
+		},'json');
+	});
+});
+
+</script>
+</div>
+</body>
+</html>

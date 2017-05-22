@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<include file="public:head" />
+<link rel="stylesheet" type="text/css" href="/static/css/default/style.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/default/base.css" />
+</head>
+
+<body style="background:#f5f5f5">
+<include file="public:header" />
+<div class="w_gezx_ce">
+  <div class="w_ger">
+    <include file="user:center_left" />
+    <div class="w_ger_c">
+     <h2>好友分享</h2>
+     <div class="w_ger_ch">
+	 <?php
+	 $arr=array('0'=>array('0'=>'','1'=>'全部'),'1'=>array('0'=>'jp','1'=>'精品汇'),'2'=>array('0'=>'sd','1'=>'晒单'),'3'=>array('0'=>'gl','1'=>'攻略'),'4'=>array('0'=>'zr','1'=>'转让'),'5'=>array('0'=>'gn','1'=>'国内爆料'),'6'=>array('0'=>'ht','1'=>'海淘爆料'));
+	 ?>
+	 <volist name="arr" id="r">
+       <a href="{:U('user/index',array('type'=>$r[0]))}"><span <if condition="$r[0] eq $type">class="w_qb_1"</if>>{$r[1]}</span></a>
+	 </volist>
+     </div>
+     <ul>
+	 <volist name="list" id="item">
+       <li>
+         <a href="{:U('item/index',array('id'=>$item['id']))}" title="{$item['title']}"><img src="{$item.img}" title="{$item['title']}" alt="{$item['title']}" class="w_dtw"/></a>
+         <h2><a href="{:U('item/index',array('id'=>$item['id']))}" title="{$item['title']}">{$item['title']}</a></h2>
+         <div class="w_hy_zl"><span><img src="{:avatar($item['uid'],'32')}" alt="{$item['uname']}" title="{$item['uname']}"/></span><span>{$item['uname']}</span><span>{$item.add_time|fdate}</span><span>{:getcate($item['cate_id'])}</span><span><a href="javascript:;" title="{$item['comments']}">{$item['comments']}条评论</a></span></div>
+         <p>{$item.intro}</p>
+         <div class="w_moer"><a href="{:U('item/index',array('id'=>$item['id']))}" title="查看详情">查看详情</a></div>
+       </li>
+	  </volist>
+     </ul>
+      <div class="w_pag">{$pagebar}</div>
+    </div>
+    <div class="w_ger_r">
+      <div class="w_ger_r1">
+        <img src="{:avatar($info['id'],'32')}" title="" alt=""/>
+        <p>LV.{$info.grade}</p>
+        <span class="w_sp11">
+         <h2>{$info.username}</h2>
+         积分：<em>{$info.score}</em><br/>
+         财富：<em>{$info.coin}</em><br/>
+         贡献：<em>{$info.offer}</em>
+		 </span>
+		 <span class="w_sp12">
+		 <a href="{:U('user/myfollow')}" title="粉丝">
+		  <i>{$info.follows}</i><br/>
+		  粉丝
+		 </a>
+		 <a href="{:U('user/publish')}" title="爆料">
+		  <i>{$info.shares}</i><br/>
+		  爆料
+		 </a>
+		 <a href="{:U('user/share')}" title="分享" class="no_border_rgt">
+		  <i>{$info.s_a}</i><br/>
+		  分享
+		 </a>
+		 </span>
+		 <div>
+        </div>
+      </div>
+	  <div class="w_bldr">
+	    <h2>爆料达人</h2>
+		<ul class="u_con">
+		<volist name="user_list" id="item">
+		  <li>
+		   <a href="{:U('space/index',array('uid'=>$item['id']))}">
+		   <img src="{:avatar($item['id'],32)}" title="{$item['username']}" alt="{$item['username']}"/>
+		   <p>{$item['username']}</p></a>
+		   <p><em>{$item['shares']}条</em></p>
+		   <span class="J_follow_bar" data-id="{$item.id}">
+		    <if condition="$item['follow'] eq 1">
+			 <span class="fo_u_ok">已关注</span><a href="javascript:;" class="J_unfo_u green">取消</a>
+			 <else/>
+			 <div class="J_fo_btn w_r3_d">关注</div>
+			 </if>
+		   </span>
+		  </li>
+		</volist>
+		</ul>
+		<div class="w_hyp">
+		  <a href="javascript:;" class="J_chg" title="换一批" data-id="1">换一批</a>
+		</div>
+	  </div>
+    </div>
+  </div>
+</div>
+<include file="public:footer" />
+<script src="/js/function.js"></script>
+<script>
+$(function(){
+	$(".J_chg").click(function(){
+		var id=$(this).attr('data-id');
+		$.get(PINER.root+"/?m=user&a=getu",{p:id},function(data){
+			if(data.status==0){
+				$(".tip-c").html(data.msg);
+				$('.tipbox').show().removeClass('tip-success').addClass("tip-error");
+				setTimeout("$('.tipbox').hide();", 2000);  
+			}else{
+				$('.u_con').html(data.data);
+				$(".J_chg").attr('data-id',parseInt(id)+1);
+			}
+		},'json');
+	});
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!--banner-->
+<!--focus start-->
+<div class="focus" id="focus">
+	<div id="focus_m" class="focus_m">
+		<ul>
+			<volist name="ad_list" id="ad">
+			<a href="{:U('advert/tgo', array('id'=>$ad['id']))}" hidefocus="true">
+			<li style="background:url(<if condition="$ad['is_url']==1">{$ad.content}<else/>__UPLOAD__/advert/{$ad.content}</if>) center 0 no-repeat #288cc0;"></li>
+            </a>
+			</volist>
+		</ul>
+	</div>	
+</div>
+<!--focus end-->
+<script type="text/javascript" src="/js/script.js"></script>
+<!--banner end-->
