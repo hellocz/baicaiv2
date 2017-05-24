@@ -179,7 +179,7 @@
 
         				<volist name="llink" id="rm" key="j">
 
-            			           <if condition="$j eq 1"><a   <if condition="($tab eq 'isbao') AND ($r['orig_id'] eq 3)"> isconvert="1" href="{$rm['link']}"<else/> href="__ROOT__/?m=item&a=tgo&to={:shortUrl($rm['link'])}" </if> title="{$rm.title}"  target="_blank" rel="nofollow" > <div class="comments">{$rm.name}</div></a>
+            			           <if condition="$j eq 1"><a   <if condition="$r['orig_id'] eq 3"> isconvert="1" href="{$rm['link']}"<else/> href="__ROOT__/?m=item&a=tgo&to={:shortUrl($rm['link'])}" </if> title="{$rm.title}"  target="_blank" rel="nofollow" > <div class="comments">{$rm.name}</div></a>
                              </if>
 
         				</volist>
