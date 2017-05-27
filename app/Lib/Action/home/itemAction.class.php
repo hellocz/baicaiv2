@@ -84,7 +84,7 @@ class itemAction extends frontendAction {
         foreach($arr[1] as $key=>$v){
             if(strpos($v, "baicaio.com") == false){
             $url= '/?m=item&a=tgo&to='.shortUrl($v);
-            $item['content']= str_replace($v,$url,$item['content']);
+            $item['content']= $this->str_replace_once($v,$url,$item['content']);
         }
         }
         
@@ -130,6 +130,16 @@ class itemAction extends frontendAction {
         $this->display();
     }
 
+  function str_replace_once($needle, $replace, $haystack) {
+      // Looks for the first occurence of $needle in $haystack
+      // and replaces it with $replace.
+      $pos = strpos($haystack, $needle);
+      if ($pos === false) {
+          // Nothing found
+          return $haystack;
+      }
+      return substr_replace($haystack, $replace, $pos, strlen($needle));
+  }
     /**
      * 点击去购买
      */

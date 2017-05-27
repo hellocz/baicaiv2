@@ -86,7 +86,8 @@
        <div class="w_sy_ha">
          <div class="w_sh_r"><a href="{$cc_url}" title="橱窗模式" <if condition="$dss=='cc'">class="w_sh_1i"<else/>class="w_sh_1"</if>><i></i></a><em>|</em><a href="{$lb_url}" title="列表模式" <if condition="$dss=='lb'">class="w_sh_2i"<else/>class="w_sh_2"</if>><i></i></a>		 
 		 </div>
-         <a href="{:U('book/gny',array('tp'=>$tp,'isnice'=>1,'ispost'=>$ispost,'dss'=>'lb'))}"><span <if condition="$tab eq 'isnice'">class="w_sy_s"</if> id="sy1" >编辑推荐<i></i></span></a><a href="{:U('book/gny',array('tp'=>$tp,'isbao'=>1,'dss'=>'cc','ispost'=>$ispost))}"><span <if condition="$tab eq 'isbao'">class="w_sy_s"</if> id="sy2">网友爆料</span></a>
+         <a href="{:U('book/gny',array('tp'=>$tp,'isnice'=>1,'ispost'=>$ispost,'dss'=>'lb'))}"><span <if condition="$tab eq 'isnice'">class="w_sy_s"</if> id="sy1" >编辑推荐<i></i></span></a>
+         <!--<a href="{:U('book/gny',array('tp'=>$tp,'isbao'=>1,'dss'=>'cc','ispost'=>$ispost))}"><span <if condition="$tab eq 'isbao'">class="w_sy_s"</if> id="sy2">网友爆料</span></a>-->
 		 <div class="w_kzy"><input type="checkbox" <if condition="$ispost eq '1'">checked</if> onclick="window.location='{$post_url}'"/><label>可直邮</label></div>  
        </div>
 	   <include file="public:item_list" />

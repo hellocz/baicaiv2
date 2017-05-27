@@ -172,25 +172,25 @@ class bookAction extends frontendAction {
 			$isnice = 1;
 		}
 		if($isnice==1){
-			$where .=" and i.isnice=1 ";
-			$order =" i.add_time desc";
+			$where .=" and isnice=1 ";
+			$order =" add_time desc";
 			$tab = "isnice";
 		}
 		if($isbao==1){
-			$where .=" and i.isbao=1 ";
-			$order =" i.add_time desc";
+			$where .=" and isbao=1 ";
+			$order =" add_time desc";
 			$tab = "isbao";
 		}
 		if($ispost==1){
-			$where .= " and i.ispost=1 ";
+			$where .= " and ispost=1 ";
 		}
 		if($orig_id){
-			$where .= " and i.orig_id=$orig_id ";
+			$where .= " and orig_id=$orig_id ";
 		}else{
 			$orig_id=0;
 		}
 		if($cateid){
-			$where .= " and i.cate_id=$cateid ";
+			$where .= " and cate_id=$cateid ";
 		}else{
 			$cateid=0;
 		}
@@ -200,16 +200,38 @@ class bookAction extends frontendAction {
 		$spage_size = C('pin_wall_spage_size'); //每次加载个数
         $spage_max = C('pin_wall_spage_max'); //每页加载次数
         //$page_size = $spage_size * $spage_max; //每页显示个数
-		$page_size=8;
+		$page_size=18;
 		$item_orig = M("item_orig");
 		$count =1000;// $item_orig->where($db_pre."item_orig.ismy='$tp' and i.status=1 and i.add_time<$time ".$where)->join('inner join ' . $db_pre."item i ON i.orig_id=".$db_pre."item_orig.id")->count();
 		$pager = $this->_pager($count, $page_size);
-                            $field = 'i.id,i.uid,i.uname,i.title,i.intro,i.img,i.price,i.likes,i.intro,i.content,i.comments,i.comments_cache,i.add_time,i.orig_id,i.url,i.go_link,i.zan';
-        $item_list = $item_orig->where($db_pre."item_orig.ismy='$tp' and i.status=1 and i.add_time<$time ".$where)->join('inner join ' . $db_pre . 'item i ON i.orig_id = ' . $db_pre . 'item_orig.id')->field($field)->order($order)->limit($pager->firstRow . ',' . $page_size)->select();
+                            $field = 'id,uid,uname,title,intro,img,price,likes,content,comments,comments_cache,add_time,orig_id,url,go_link,zan,hits';
+
+        $orig_ids = $item_orig->where("ismy='$tp'")->field("distinct id")->select();
+       foreach($orig_ids as $key=>$val){
+
+          if($str==""){
+
+            $str=$val['id'];
+
+          }else{
+
+            $str.=",".$val['id'];
+
+          }
+
+       }
+
+        //$orig = M("item_orig")->where("id in(".$str.") and ismy='$tp'")->limit(20)->select();
+          $item_list = M("item")->where("orig_id in (".$str.")   and status=1 and add_time<$time ".$where)->field($field)->order($order)->limit($pager->firstRow . ',' . $page_size)->select();
+      //  $item_list = $item_orig->where($db_pre."item_orig.ismy='$tp' and i.status=1 and i.add_time<$time ".$where)->join('inner join ' . $db_pre . 'item i ON i.orig_id = ' . $db_pre . 'item_orig.id')->field($field)->order($order)->limit($pager->firstRow . ',' . $page_size)->select();
 		
 		foreach ($item_list as $key => $val) {
             isset($val['comments_cache']) && $item_list[$key]['comment_list'] = unserialize($val['comments_cache']);
         }
+        foreach($item_list as $key=>$val){
+                
+        $item_list[$key]['zan'] = $item_list[$key]['zan']   +intval($item_list[$key]['hits'] /10);
+            }
 		$this->assign('item_list', $item_list);//print_r($item_list);exit;
 		//当前页码
         $p = $this->_get('p', 'intval', 1);

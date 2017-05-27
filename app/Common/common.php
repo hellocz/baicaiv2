@@ -476,4 +476,12 @@ function getHTTPS($url) {
 	curl_close($ch);
 	return mb_convert_encoding($result, 'utf-8', 'GBK,UTF-8,ASCII');
 }
+function get_result($state = 10001, $data , $msg="请求成功"){
+    $result  = [
+        'state' => $state,
+        'msg'   =>  $msg,
+        'data'  =>  $data,
+   ];
+    return json_encode($result);
+}
 ?>
