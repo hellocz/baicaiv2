@@ -177,9 +177,9 @@ class shopAction extends userbaseAction
         $time_day = $time - 86400;
 
         if($data['type'] == 1){
-            $list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_hour and $time ORDER BY hits desc,add_time desc LIMIT 9");
+            $list=M()->query("SELECT id,title,img,price,add_time from try_item  WHERE add_time between $time_hour and $time ORDER BY hits desc,add_time desc LIMIT 9");
         }else{
-            $list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_day and $time ORDER BY hits desc,add_time desc LIMIT 9");
+            $list=M()->query("SELECT id,title,img,price,add_time from try_item  WHERE add_time between $time_day and $time ORDER BY hits desc,add_time desc LIMIT 9");
         }
 
         foreach ($list as $key => &$val) {

@@ -41,7 +41,6 @@ class itemAction extends frontendAction {
         $item_tag_mod = M('item_tag');
         $db_pre = C('DB_PREFIX');
         $item_tag_table = $db_pre . 'item_tag';
-        $maylike_list = array_slice($item['tag_list'], 0, 3, true);
 		$i=1;
         foreach ($maylike_list as $key => $val) {
             $maylike_list[$key] = array('name' => $val);
@@ -63,10 +62,16 @@ class itemAction extends frontendAction {
         $cmt_list = $item_comment_mod->where($map)->order('id DESC')->limit($pager->firstRow . ',' . $pager->listRows)->select();
         $item_mod->where(array('id' => $id))->setInc('hits'); //点击量
 		//凑单品等链接
-		$item['go_link']=unserialize($item['go_link']);		
+		$item['go_link']=unserialize($item['go_link']);	
+        $time = time();
+        $time_day = $time - 86400;
+
+        //小时榜和24小时榜
+        $day_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_day and $time ORDER BY hits desc,add_time desc LIMIT 4");
+        $this->assign('day_list',$day_list);
+
         $this->assign('item', $item);
         $this->assign('orig', $orig);
-        $this->assign('maylike_list', $maylike_list);
         $this->assign('img_list', $img_list);
         $this->assign('cmt_list', $cmt_list);
         $this->assign('page_bar', $pager_bar);

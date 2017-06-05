@@ -78,6 +78,10 @@ class origAction extends frontendAction {
         $pager = $this->_pager($count, $page_size);
         $time=time();
         $list = M("item")->where("orig_id='$id' and status=1 and add_time<$time and ds_time < $time ")->limit($pager->firstRow . ',' . $page_size)->order("id desc")->select();
+        foreach($list as $key=>$val){
+				
+		$list[$key]['zan'] = $list[$key]['zan']   +intval($list[$key]['hits'] /10);
+			}
         $this->assign('list', $list);
         //µ±Ç°Ò³Âë
         $p = $this->_get('p', 'intval', 1);
