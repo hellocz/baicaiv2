@@ -874,8 +874,17 @@ function ajaxFileUpload() {
 
 }
 
-	function ajx(){
+function sleep(numberMillis) { 
+var now = new Date(); 
+var exitTime = now.getTime() + numberMillis; 
+while (true) { 
+now = new Date(); 
+if (now.getTime() > exitTime) 
+return; 
+} 
+}
 
+	function ajx(){
 	if($('#J_cate_id').val()== 0){
 
 		  alert("请选择所属分类！");
@@ -883,6 +892,14 @@ function ajaxFileUpload() {
 		}else if($('#img').val()==''){
 
 		  alert("请上传商品图片！");
+
+		}else if($('#J_title').val()==''){
+
+		  alert("请填写商品名称");
+
+		}else if($('#id').val()=='0'){
+
+		  alert("id 正在创建,请隔2秒重新再試");
 
 		}else{
 
@@ -939,6 +956,14 @@ function ajaxFileUpload() {
 		}else if($('#J_img').val()=='' && $('#img').val()==''){
 
 		  alert("请上传商品图片！");
+
+		}else if($('#J_title').val()==''){
+
+		  alert("请填写商品名称");
+
+		}else if($('#id').val()=='0'){
+
+		  alert("id 正在创建,请隔2秒重新再試");
 
 		}else{
 

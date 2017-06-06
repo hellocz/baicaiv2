@@ -230,7 +230,12 @@
 
 
 
-    <div class="w_r_tab">
+   
+
+
+     <div class="w_r4">{:R('advert/index', array(2), 'Widget')}</div>
+      <include file="public:yhq_right" />
+       <div class="w_r_tab">
         <h2>热门白菜榜</h2>
 
 
@@ -280,10 +285,6 @@
 
               </div>
     </div>
-
-
-     <div class="w_r4">{:R('advert/index', array(2), 'Widget')}</div>
-      <include file="public:yhq_right" />
       <include file="public:zt_right_index" />
   </div>
 </div>
@@ -298,8 +299,8 @@
         // Dock the header to the top of the window when scrolled past the banner.
         // This is the default behavior.
 
-$('.w_r_tab').scrollFix({startTop:".w_r5",zIndex:1000,distanceTop:60});
-        $('.w_r7').scrollFix({startTop:".w_r5",zIndex:1000,distanceTop:480});
+$('.w_r_tab').scrollFix(60,"top");
+        $('.w_r7').scrollFix(480,"top");
         });
 </script>
 <script type="text/javascript">
