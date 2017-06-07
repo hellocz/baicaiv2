@@ -246,7 +246,7 @@ $(function(){
 		opdg("url:/index.php?m=ajax&a=share&id="+$(this).attr("data-id")+"&t="+t,480,450,'用户分享');
 	});
 	//显示名片
-	$(".J_card").on({
+/*	$(".J_card").on({
 		mouseover: function(){
 			layer_html='<div id="J_card_layer" class="user_card"><div id="J_card_info"></div><div class="J_card_arrow card_arrow"></div></div>';
 			loading_html='<div class="card_info"><p class="card_loading">正在获取用户信息</p></div><div class="card_toolbar"></div>';
@@ -315,6 +315,7 @@ $(function(){
 			}, 500);
 		}
 	});	
+	*/
 });
 
 function tips(msg,st){

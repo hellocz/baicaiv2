@@ -369,10 +369,13 @@ class ajaxAction extends frontendAction {
 				$data['xid']=$xid;
 				$data['item_id']=$id;
 				$data['add_time']=$time;
+				$ip = getip();
+				$data['host_ip']=$ip;
+				$data['win_score']=0;
 				//插入
 				M('share')->add($data);
 				//最高奖励3次
-				$start=strtotime(date('Y-m-d',$time));
+				/*$start=strtotime(date('Y-m-d',$time));
 				$end = strtotime(date('Y-m-d',$time))+24*3600;
 				$count = M("share")->where("add_time>$start and $end>add_time and uid=$user[id]")->count();
 				if($count<=3){
@@ -380,6 +383,7 @@ class ajaxAction extends frontendAction {
 					//积分日志
 					set_score_log(array('id'=>$user['id'],'username'=>$user['username']),'share',10,1,1,10);
 				}
+				*/
 			}
 			$this->assign('url',$site_url.U("ajax/g_share",array('tg'=>$dm)));
 			$this->assign('islogin','y');
@@ -400,16 +404,30 @@ class ajaxAction extends frontendAction {
 		}
 		$ip = getip();
 		$myip = cookie("share_".$m."_".$info['item_id']);
-		if($myip!=$ip){//不相同IP则加1
+		var_dump($myip . $ip . $info['host_ip']);
+		if($myip!=$ip && $info['host_ip']!=$ip){//不相同IP则加1 且不能是发帖人ip
 			cookie("share_".$m."_".$info['item_id'],$ip);
 			M("share")->where("dm='$tg'")->setInc("hits");
 			//查询一天贡献值
 			$time=time();
 			$start=strtotime(date('Y-m-d',$time));
 			$end = strtotime(date('Y-m-d',$time))+24*3600;
+			$user = M("user")->where("id=$info[uid]")->find();
+			$share_count = M("share")->where("add_time>$start and $end>add_time and uid=$user[id] and win_score=1")->count();
 			$count = M("score_log")->where("add_time>$start and $end>add_time and uid=$info[uid] and action='hit_share'")->count();
+
+			//最高奖励3次
+			if($share_count<3 && $count<=90 && $info['win_score']==0){
+				M("user")->where("id=$user[id]")->setField(array("score"=>$user['score']+10,"coin"=>$user['coin']+1,"offer"=>$user['offer']+1,"exp"=>$user['exp']+10));
+					//积分日志
+				set_score_log(array('id'=>$user['id'],'username'=>$user['username']),'share',10,1,1,10);
+				$info['win_score']=1;
+				M('share')->save($info);
+				$count = M("score_log")->where("add_time>$start and $end>add_time and uid=$info[uid] and action='hit_share'")->count();
+				}
+
+
 			if($count<100){
-				$user = M("user")->where("id=$info[uid]")->find();
 				M("user")->where("id=$info[uid]")->setField(array("coin"=>$user['coin']+1,"offer"=>$user['offer']+1));
 				//积分日志
 				set_score_log(array('id'=>$info['uid'],'username'=>get_uname($info['uid'])),'hit_share','',1,1,'');

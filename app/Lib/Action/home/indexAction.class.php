@@ -38,10 +38,10 @@ class indexAction extends frontendAction {
 		$count = 1000; //$mod->where("status=1 and add_time<$time ".$where)->count();
 		$pager = $this->_pager($count,$pagesize);
 		if($tab =="isnice"){
-		$list = $mod->where("status=1 and add_time<$time and ds_time < $time ".$where)->limit($pager->firstRow.",".$pager->listRows)->order($order)->select();
+		$list = $mod->where("status=1 and add_time<$time ".$where)->limit($pager->firstRow.",".$pager->listRows)->order($order)->select();
 		}
 		else{
-		$list = M("item_diu")->where("status=1 and add_time<$time and ds_time < $time")->limit($pager->firstRow.",".$pager->listRows)->order($order)->select();	
+		$list = M("item_diu")->where("status=1 and add_time<$time ")->limit($pager->firstRow.",".$pager->listRows)->order($order)->select();	
 		}
 		/*
         foreach ($list as $key=>$val) {
@@ -127,7 +127,6 @@ class indexAction extends frontendAction {
 		$day_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_day and $time ORDER BY hits desc,add_time desc LIMIT 9");
 		$this->assign('hour_list',$hour_list);
 		$this->assign('day_list',$day_list);
-
         $this->display();
     }
 }
