@@ -280,6 +280,15 @@ class bookAction extends frontendAction {
 		}
 		//可直邮
 		if($ispost==1){$cispost=0;}else{$cispost=1;}
+        $time = time();
+        $time_hour = $time - 3600;
+        $time_day = $time - 86400;
+
+        //小时榜和24小时榜
+        $hour_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_hour and $time ORDER BY hits desc LIMIT 9");
+        $day_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_day and $time ORDER BY hits desc LIMIT 9");
+        $this->assign('hour_list',$hour_list);
+        $this->assign('day_list',$day_list);
 		$this->assign("lb_url",U('book/gny',array('tp'=>$tp,'tab'=>$tab,'dss'=>'lb',"$tab"=>'1',"ispost"=>$ispost)));
 		$this->assign("cc_url",U('book/gny',array('tp'=>$tp,'tab'=>$tab,'dss'=>'cc',"$tab"=>'1',"ispost"=>$ispost)));
 		$this->assign("post_url",U('book/gny',array('tp'=>$tp,'tab'=>$tab,'dss'=>$dss,"$tab"=>1,"ispost"=>$cispost)));

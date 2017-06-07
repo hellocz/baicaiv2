@@ -10,6 +10,13 @@
 
 <link rel="stylesheet" type="text/css" href="/static/css/default/base.css" />
 
+<link rel="stylesheet" href="/static/css/default/main.css" type="text/css">
+<link rel="alternate" type="application/rss+xml" href="http://www.baicaio.com/rss" title="RSS" />
+<script type="text/javascript"> var zhiyou_open = 1; </script>
+ <script type="text/javascript" src="/js/userbase.1.0.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="/js/jquery.SuperSlide.2.1.1.js"></script>
+
 </head>
 
 <body style="background:#f5f5f5">
@@ -250,13 +257,62 @@
     <div class="w_r4">{:R('advert/index', array(2), 'Widget')}</div>
 
     <include file="public:yhq_right" />
+    <div class="w_r_tab">
+        <h2>热门白菜榜</h2>
 
+
+              <div class="rightPanel beyondHide">
+
+                <ul class="tab_nav" id="tabNav2">
+                    <li class="tab_faxian_li current_item"><h3>小时榜</h3></li>
+                    <li class="tab_faxian_li"><h3>24小时榜</h3></li>
+                    <!--
+                    <li class="more"><a href="" target="_blank">更多 &gt;</a></li>
+                    -->
+                </ul>
+
+                <div class="tab_info_con" style="display: block;">
+                    <ul class="ninePicBox">
+                        <volist name="hour_list" id="r">
+                        <li class="re_pic" <if condition="!($i%3)">class="gogo"</if>>
+                            <if condition="$i lt 4"><img class="re_tt" src="/images/tz_{$i}.png" /></if>
+                            <a href="{:U('item/index',array('id'=>$r['id']))}" title="{$r.title}" target="_blank">
+                                 <img src="<if condition="$r['img']==''">/images/nopic.jpg<else/> <if condition="preg_match('/img.baicaio.com/',$r['img'])">{:attach($r['img'],'item')}!thumb94<else/>{:attach($r['img'],'item')}</if></if>" alt="{$r.title}" style="width:94px; height:94px;">
+                                <div class="tabCon" style="z-index:999999;">
+                                    <p>{$r.title|msubstr=0,16,""}</p>
+                                    <span>{$r.price}</span>
+                                </div>
+                            </a>
+                        </li>
+                        </volist>
+                    </ul>
+                 </div>
+
+                <div class="tab_info_con" style="display: none;">
+                    <ul class="ninePicBox">
+                        <volist name="day_list" id="r">
+                            <li class="re_pic" <if condition="!($i%3)">class="gogo"</if>>
+                            <if condition="$i lt 4"><img class="re_tt" src="/images/tz_{$i}.png" /></if>
+                            <a href="{:U('item/index',array('id'=>$r['id']))}" title="{$r.title}" target="_blank">
+                                 <img src="<if condition="$r['img']==''">/images/nopic.jpg<else/> <if condition="preg_match('/img.baicaio.com/',$r['img'])">{:attach($r['img'],'item')}!thumb94<else/>{:attach($r['img'],'item')}</if></if>" style="width:94px; height:94px;">
+                                <div class="tabCon" style="z-index:999999;">
+                                    <p>{$r.title|msubstr=0,16,""}</p>
+                                    <span>{$r.price}</span>
+                                </div>
+                            </a>
+                            </li>
+                        </volist>
+                    </ul>
+                </div>
+
+              </div>
+    </div>
     <include file="public:zt_right" />
 
   </div>
 
 </div>
-
+<script type="text/javascript" src="/js/scrollfix.min.js"></script>
 <script type="text/javascript">
 
 $(document).ready(function(){
@@ -268,6 +324,9 @@ $(document).ready(function(){
 		pauseOnAction: false
 
 	});
+
+        $('.w_r_tab').scrollFix(60,"top");
+        $('.w_r7').scrollFix(480,"top");
 
 });
 

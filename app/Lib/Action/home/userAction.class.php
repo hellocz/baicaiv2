@@ -14,6 +14,22 @@ class userAction extends userbaseAction {
 		//获取关注好友
 		$wsql = "select follow_uid from try_user_follow where uid=$uid";
 		$hsql = "select id from try_item_orig where ismy=$";
+        $user_follow_uids = M("user_follow")->where("uid=12")->field("follow_uid")->select();
+        $user_follow_count = count($user_follow_uids);
+        if($user_follow_count!=0){
+       foreach($user_follow_uids as $key=>$val){
+
+          if($str==""){
+
+            $str=$val['follow_uid'];
+
+          }else{
+
+            $str.=",".$val['follow_uid'];
+
+          }
+
+       }
 		switch($type){
 			case "jp":$tsql=" isbest=1 ";break;
 			case "gn":$tsql=" orig_id in(select id from try_item_orig where ismy=0) ";break;
@@ -24,18 +40,19 @@ class userAction extends userbaseAction {
 			case "":break;
 		}
 		if($type=="jp"||$type=="gn"||$type=="ht"){
-			$sqlc="select count(*) as num from try_item where $tsql and uid in($wsql) and status=1 ";
-			$sql = "select * from try_item where $tsql and uid in($wsql) and status=1 order by isbest desc,id desc ";
+			$sqlc="select count(*) as num from try_item where $tsql and uid in(".$str.") and status=1 ";
+			$sql = "select * from try_item where $tsql and uid in(".$str.") and status=1 order by isbest desc ";
 		}elseif($type=="sd"||$type=="gl"){
-			$sqlc="select count(*) as num from try_article where $tsql and uid in($wsql)  and status=1 ";
-			$sql = "select * from try_article where $tsql and uid in($wsql)  and status=1 order by isbest desc,id desc ";
+			$sqlc="select count(*) as num from try_article where $tsql and uid in(".$str.")  and status=1 ";
+			$sql = "select * from try_article where $tsql and uid in(".$str.")  and status=1 order by isbest desc ";
 		}elseif($type=="zr"){//转让
-			$sqlc="select count(*) as num from try_zr where uid in($wsql) and status=1";
-			$sql = "select * from try_zr where uid in($wsql) and status=1 order by id desc";
+			$sqlc="select count(*) as num from try_zr where uid in(".$str.") and status=1";
+			$sql = "select * from try_zr where uid in(".$str.") and status=1 order by id desc";
 		}else{
-			$sqlc="select count(*) as num from try_item where uid in($wsql) and status=1 ";
-			$sql="select * from try_item where uid in($wsql) and status=1 order by isbest desc,id desc ";
+			$sqlc="select count(*) as num from try_item where uid in(".$str.") and status=1 ";
+			$sql="select * from try_item where uid in(".$str.") and status=1 order by isbest desc ";
 		}
+
 		$mod = M();
 		$pagesize=3;
 		$allc = $mod->query($sqlc);
@@ -43,6 +60,13 @@ class userAction extends userbaseAction {
 		$pager=$this->_pager($count,$pagesize);
 		$sql = $sql." limit ".$pager->firstRow.",".$pager->listRows;
 		$list = $mod->query($sql);
+        }
+        else{
+            $list="";
+            $pagesize=3;
+            $count=0;
+            $pager=$this->_pager($count,$pagesize);
+        }
 		$this->assign('list',$list);
 		$this->assign('pagebar',$pager->fshow());
 		$this->assign('type',$type);
