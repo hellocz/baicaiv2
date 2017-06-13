@@ -172,6 +172,46 @@ class messageAction extends userbaseAction {
         }
     }
 
+        /**
+     * 发布
+     */
+    public function report_bug() {
+        $uid= $this->visitor->info['id'];
+        foreach ($_POST as $key=>$val) {
+            $_POST[$key] = Input::deleteHtmlTags($val);
+        }
+        $to_id = $this->_post('to_id', 'intval');
+        $content = $this->_post('content', 'trim');
+        if (!$content) {
+            $this->ajaxReturn(0, L('message_content_empty'));
+        }
+        $to_name = M('user')->where(array('id'=>$to_id))->getField('username');
+        $ftid = $this->visitor->info['id'] + $to_id;
+        $data = array(
+            'ftid' => $ftid,
+            'from_id' => $this->visitor->info['id'],
+            'from_name' => $this->visitor->info['username'],
+            'to_id' => $to_id,
+            'to_name' => $to_name,
+            'info' => $content,
+        );
+        $message_mod = D('message');
+        $info = $message_mod->create($data);
+        $info['id'] = $message_mod->add();
+        if ($info['id']) {
+            //提示接收者
+            D('user_msgtip')->add_tip($to_id, 3);
+            M("user")->where("id=$uid")->setInc("score",1);
+            //积分日志
+            set_score_log(array('id'=>$uid,'username'=>$this->visitor->info['username']),'report_bug',1,'','','');
+            $this->assign('info', $info);
+            $resp = $this->fetch('list_unit');
+            $this->ajaxReturn(1, L('send_message_success'), $resp);
+        } else {
+            $this->ajaxReturn(0, L('illegal_parameters'));
+        }
+    }
+
     /**
      * 删除短信
      */

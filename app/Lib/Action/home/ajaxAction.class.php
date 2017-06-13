@@ -404,7 +404,6 @@ class ajaxAction extends frontendAction {
 		}
 		$ip = getip();
 		$myip = cookie("share_".$m."_".$info['item_id']);
-		var_dump($myip . $ip . $info['host_ip']);
 		if($myip!=$ip && $info['host_ip']!=$ip){//不相同IP则加1 且不能是发帖人ip
 			cookie("share_".$m."_".$info['item_id'],$ip);
 			M("share")->where("dm='$tg'")->setInc("hits");
@@ -417,20 +416,20 @@ class ajaxAction extends frontendAction {
 			$count = M("score_log")->where("add_time>$start and $end>add_time and uid=$info[uid] and action='hit_share'")->count();
 
 			//最高奖励3次
-			if($share_count<3 && $count<=90 && $info['win_score']==0){
+			if($info['hits'] >3 && $share_count<3 && $count<=90 && $info['win_score']==0){
 				M("user")->where("id=$user[id]")->setField(array("score"=>$user['score']+10,"coin"=>$user['coin']+1,"offer"=>$user['offer']+1,"exp"=>$user['exp']+10));
 					//积分日志
-				set_score_log(array('id'=>$user['id'],'username'=>$user['username']),'share',10,1,1,10);
+				set_score_log(array('id'=>$user['id'],'username'=>$user['username']),'share' .$myip .'|' . $ip . '|' . $info['host_ip'],10,1,1,10);
 				$info['win_score']=1;
 				M('share')->save($info);
 				$count = M("score_log")->where("add_time>$start and $end>add_time and uid=$info[uid] and action='hit_share'")->count();
 				}
 
 
-			if($count<100){
+			if($info['hits'] >3 && $count<100){
 				M("user")->where("id=$info[uid]")->setField(array("coin"=>$user['coin']+1,"offer"=>$user['offer']+1));
 				//积分日志
-				set_score_log(array('id'=>$info['uid'],'username'=>get_uname($info['uid'])),'hit_share','',1,1,'');
+				set_score_log(array('id'=>$info['uid'],'username'=>get_uname($info['uid'])),'hit_share'.$myip .'|' . $ip . '|' . $info['host_ip'],'',1,1,'');
 			}
 		}
 		$_SESSION['tg']=$tg;

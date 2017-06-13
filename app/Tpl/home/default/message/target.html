@@ -1,59 +1,118 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<include file="public:head" />
-<link rel="stylesheet" type="text/css" href="/static/css/default/user.css" />
-<link rel="stylesheet" type="text/css" href="/static/css/default/base.css" />
-</head>
-
-<body style="background:#f5f5f5">
-<include file="public:header" />
-<div class="w_gezx_ce"> 
-  <div class="w_ger">
-    <include file="user:center_left" />
-	<div class="w_xxzx">
-	 <h2>消息中心</h2> 
-    <div class="w_xxzx_t"></div>
-	<div class="mes_friendly">
-		<h4>{:L('recent_contacts')}</h4>
-		<ul class="list_name">
-			<volist name="last_user" id="val">
-			<li>
-				<a href="{:U('message/write', array('to_id'=>$val['uid']))}"><img src="{:avatar($val['uid'], 64)}" class="fl r3">{$val.uname}</a>
-			</li>
-			</volist>
-		</ul>
-	</div>
-	<div class="mes_friendly">
-		<h4>{:L('other_contacts')}</h4>
-		<div class="search_n">
-			<input type="text" id="J_search_uname" class="fl r5">
-			<a href="javascript:;" id="J_search_target" class="btn fl ml5">{:L('search')}</a>
-		</div>
-		<div id="J_search_list"></div>
-	</div>
-	</div>	
-	</div>
-  </div>
-<include file="public:footer" />
-<script>
-$('#J_search_target').live('click', function(){
- var search_uname = $('#J_search_uname').val();
- $.ajax({
-	 url: PINER.root + '/?m=message&a=search_target',
-	 type: 'POST',
-	 data: {
-		 search_uname: search_uname
-	 },
-	 dataType: 'json',
-	 success: function(result){
-		 if(result.status == 1){
-			 //列表动态添加
-			 $('#J_search_list').html(result.data);
-		 }
-	 }
- });
-});
-</script>
-</body>
-</html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<include file="public:head" />
+
+<link rel="stylesheet" type="text/css" href="/static/css/default/user.css" />
+
+<link rel="stylesheet" type="text/css" href="/static/css/default/base.css" />
+
+</head>
+
+
+
+<body style="background:#f5f5f5">
+
+<include file="public:header" />
+
+<div class="w_gezx_ce"> 
+
+  <div class="w_ger">
+
+    <include file="user:center_left" />
+
+	<div class="w_xxzx">
+
+	 <h2>消息中心</h2> 
+
+    <div class="w_xxzx_t"></div>
+
+	<div class="mes_friendly">
+
+		<h4>{:L('recent_contacts')}</h4>
+
+		<ul class="list_name">
+
+			<volist name="last_user" id="val">
+
+			<li>
+
+				<a href="{:U('message/write', array('to_id'=>$val['uid']))}"><img src="{:avatar($val['uid'], 64)}" class="fl r3">{$val.uname}</a>
+
+			</li>
+
+			</volist>
+
+		</ul>
+
+	</div>
+
+	<div class="mes_friendly">
+
+		<h4>{:L('other_contacts')}</h4>
+
+		<div class="search_n">
+
+			<input type="text" id="J_search_uname" class="fl r5">
+
+			<a href="javascript:;" id="J_search_target" class="btn fl ml5">{:L('search')}</a>
+
+		</div>
+
+		<div id="J_search_list"></div>
+
+	</div>
+
+	</div>	
+
+	</div>
+
+  </div>
+
+<include file="public:footer" />
+
+<script>
+
+$('#J_search_target').on('click', function(){
+
+ var search_uname = $('#J_search_uname').val();
+
+ $.ajax({
+
+	 url: PINER.root + '/?m=message&a=search_target',
+
+	 type: 'POST',
+
+	 data: {
+
+		 search_uname: search_uname
+
+	 },
+
+	 dataType: 'json',
+
+	 success: function(result){
+
+		 if(result.status == 1){
+
+			 //列表动态添加
+
+			 $('#J_search_list').html(result.data);
+
+		 }
+
+	 }
+
+ });
+
+});
+
+</script>
+
+</body>
+
+</html>
+

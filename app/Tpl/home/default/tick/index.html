@@ -1,56 +1,110 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<include file="public:head" />
-</head>
-
-<body style="background:#f5f5f5">
-<include file="public:header" />
-<div class="w_center">
-  <div class="w_cen_lef">
-    <div class="w_zh_dq">
-	  <a href="/" title="首页">首页</a>><a href="{:U('exchange/index')}" title="积分兑换">积分兑换</a>><a href="{:U('tick/index')}" title="优惠劵" class="w_zh_dq_1">优惠劵</a>
-	</div>
-    <div class="w_yhj1">
-     <ul>
-	 <volist name="orig_list" id="item">
-       <li>
-         <a href="{:U('tick/orig',array('id'=>$item['id']))}" title="{$item['name']}">
-           <img src="<if condition="$item['img_url']">{:attach($item['img_url'],item_orig)}<else/>/images/nopic.jpg</if>" title="{$item['name']}" alt="{$item['name']}"/><br/>
-           {$item['name']}
-         </a>
-       </li>
-     </volist>
-     </ul>
-    </div>
-	<div class="w_azm">按字母检索：
-	<a href="{:U('tick/index')}" title="全部" <if condition="$tp eq ''">class="w_rqb"</if>>全部</a>
-	   <?php $plist = M("cosler")->select();?>
-	   <volist name="plist" id="r">
-       <a href="{:U('tick/index',array('tp'=>$r['fPY']))}" title="{$r['fPY']}" <if condition="$tp eq $r['fPY']">class="w_rqb"</if>>{$r['fPY']}</a>
-	   </volist>
-	   </div>
-	<div  class="w_yhj2">
-     <ul>
-	 <volist name="list" id="r">
-       <li <if condition="$i%2 eq 1">class="no_left"</if>>
-         <a href="{:U('tick/show',array('id'=>$r['id']))}" title=""><img src="{:attach($r['img'],'item_orig')}" title="{$r.name}" alt="{$r.name}"/></a>
-         <h2><a href="{:U('tick/show',array('id'=>$r['id']))}" title="{$r.name}">{$r.name}</a></h2>
-         <p>还剩：{$r.days}天, 已领：{$r.yl}张, <br/>剩余：{$r.sy}张</p>
-         <div><a href="{:U('tick/show',array('id'=>$r['id']))}" title="立即领取">立即领取</a></div>
-       </li>
-      </volist>
-     </ul>
-    </div>
-	<if condition="$page">
-    <div class="w_pag">{$pagebar}</div>
-	</if>
-  </div>
-  <div class="w_cen_rig ">
-    <include file="public:yhq_right" />
-	<include file="public:zt_right" />
-  </div>
-</div>
-<include file="public:footer" />
-</body>
-</html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<include file="public:head" />
+
+</head>
+
+
+
+<body style="background:#f5f5f5">
+
+<include file="public:header" />
+
+<div class="w_center">
+
+  <div class="w_cen_lef">
+
+    <div class="w_zh_dq">
+
+	  <a href="/" title="首页">首页</a>><a href="{:U('exchange/index')}" title="积分兑换">积分兑换</a>><a href="{:U('tick/index')}" title="优惠劵" class="w_zh_dq_1">优惠劵</a>
+
+	</div>
+
+    <div class="w_yhj1">
+
+     <ul>
+
+	 <volist name="orig_list" id="item">
+
+       <li>
+
+         <a href="{:U('tick/orig',array('id'=>$item['id']))}" title="{$item['name']}">
+
+           <img src="<if condition="$item['img_url']">{:attach($item['img_url'],item_orig)}<else/>/images/nopic.jpg</if>" title="{$item['name']}" alt="{$item['name']}"/><br/>
+
+           {$item['name']}
+
+         </a>
+
+       </li>
+
+     </volist>
+
+     </ul>
+
+    </div>
+
+	<div class="w_azm">按字母检索：
+
+	<a href="{:U('tick/index')}" title="全部" <if condition="$tp eq ''">class="w_rqb"</if>>全部</a>
+
+	   <?php $plist = M("cosler")->select();?>
+
+	   <volist name="plist" id="r">
+
+       <a href="{:U('tick/index',array('tp'=>$r['fPY']))}" title="{$r['fPY']}" <if condition="$tp eq $r['fPY']">class="w_rqb"</if>>{$r['fPY']}</a>
+
+	   </volist>
+
+	   </div>
+
+	<div  class="w_yhj2">
+
+     <ul>
+
+	 <volist name="list" id="r">
+
+       <li <if condition="$i%2 eq 1">class="no_left"</if>>
+
+         <a href="{:U('tick/show',array('id'=>$r['id']))}" title=""><img src="{:attach($r['img'],'item_orig')}" title="{$r.name}" alt="{$r.name}"/></a>
+
+         <h2><a href="{:U('tick/show',array('id'=>$r['id']))}" title="{$r.name}">{$r.name}</a></h2>
+
+         <p>还剩：{$r.days}天, 已领：{$r.yl}张, <br/>剩余：{$r.sy}张</p>
+
+         <div><a href="{:U('tick/show',array('id'=>$r['id']))}" title="立即领取">立即领取</a></div>
+
+       </li>
+
+      </volist>
+
+     </ul>
+
+    </div>
+
+
+    <div class="w_pag">{$pagebar}</div>
+
+
+  </div>
+
+  <div class="w_cen_rig ">
+
+    <include file="public:yhq_right" />
+
+	<include file="public:zt_right" />
+
+  </div>
+
+</div>
+
+<include file="public:footer" />
+
+</body>
+
+</html>
+

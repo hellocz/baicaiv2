@@ -30,7 +30,7 @@ pre{white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;whit
 .tdu:hover{ text-decoration: underline;}
 
 /*圆角*/
-.r3 {border-radius:3px;} .r5 {border-radius:5px;} .r10 {border-radius:10px;}
+.r3 {border-radius:3px;max-height: 64px;max-width: 64px;} .r5 {border-radius:5px;} .r10 {border-radius:10px;}
 .rt3 {border-radius: 3px 3px 0 0;} .rt5 {border-radius: 5px 5px 0 0;} .rt10 {border-radius: 10px 10px 0 0;}
 .rb3 {border-radius: 0 0 3px 3px;} .rb5 {border-radius: 0 0 5px 5px;}
 .rl3 {border-radius:3px 0 0 3px;} .rl5 {border-radius:5px 0 0 5px;}

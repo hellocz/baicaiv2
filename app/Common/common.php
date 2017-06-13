@@ -88,10 +88,11 @@ function todaytime() {
 function mdate($time = NULL) {
 	$text = '';
 	$time = $time === NULL || $time > time() ? time() : intval($time);
+	$date = strtotime(date('Ymd'));
 	$t = time() - $time; //时间差 （秒）
 	$y = date('Y', $time)-date('Y', time());//是否跨年
 	switch($t){
-		case $t < 60 * 60 * 24:
+		case $t < time() - $date:
 			$text =date('H:i', $time);; // 一天内
 			break;
 		case $t < 60 * 60 * 24 * 365&&$y==0:
@@ -178,7 +179,6 @@ function avatar($uid, $size) {
     $avatar_dir = avatar_dir($uid);
     //$avatar_file = $avatar_dir . md5($uid) . "_{$size}.jpg";
     $avatar_file = $avatar_dir . md5($uid) . ".jpg";
-
     if (!fopen(IMG_ROOT_PATH . '/' . C('pin_attach_path') . 'avatar/' . $avatar_file,"r")) {
         $avatar_file = "default_{$size}.jpg";
 		return __ROOT__.'/' . C('pin_attach_path') . 'avatar/' . $avatar_file;

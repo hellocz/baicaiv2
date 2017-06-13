@@ -59,19 +59,53 @@ class spaceAction extends frontendAction {
         $gl_count = $amod->where("status=1 and add_time<$time and uid='".$uid."' and (cate_id=9 or cate_id in(select id from try_article_cate where pid=9))")->count();
         $sd_count = $amod->where("status=1 and add_time<$time and uid='".$uid."' and (cate_id=10 or cate_id in(select id from try_article_cate where pid=10))")->count();
         $zr_count = M("zr")->where("uid='".$uid."' and (status=1 or status=4)")->count();
-        $co=$mod->query("select count(*) as c from __TABLE__ as i left join try_item_orig as o ON o.id=i.orig_id where i.uid='$uid' and o.ismy=0");
-        $gn_count=$co[0]['c'];
-        $cy=$mod->query("select count(*) as c from __TABLE__ as i left join try_item_orig as o ON o.id=i.orig_id where i.uid='$uid' and o.ismy=1");
-        $gy_count=$cy[0]['c'];
-        $best_count=$mod->where("uid='".$uid."' and isbest=1")->count();
+        $item_orig = M("item_orig");
+        $orig_ids_gn = $item_orig->where("ismy=0")->field("distinct id")->select();
+       foreach($orig_ids_gn as $key=>$val){
+
+          if($str_gn==""){
+
+            $str_gn=$val['id'];
+
+          }else{
+
+            $str_gn.=",".$val['id'];
+
+          }
+
+       }
+       $orig_ids_gy = $item_orig->where("ismy=1")->field("distinct id")->select();
+       foreach($orig_ids_gy as $key=>$val){
+
+          if($str_gy==""){
+
+            $str_gy=$val['id'];
+
+          }else{
+
+            $str_gy.=",".$val['id'];
+
+          }
+
+       }
+     //   $co=$mod->query("select count(*) as c from __TABLE__ as i left join try_item_orig as o ON o.id=i.orig_id where i.uid='$uid' and o.ismy=0");
+     //   $gn_count=$co[0]['c'];
+        $gn_count = $mod->where("uid='$uid' and orig_id in (".$str_gn.")" )->count();
+     //   $cy=$mod->query("select count(*) as c from __TABLE__ as i left join try_item_orig as o ON o.id=i.orig_id where i.uid='$uid' and o.ismy=1");
+     //   $gy_count=$cy[0]['c'];
+        $gy_count = $mod->where("uid='$uid' and orig_id in (".$str_gy.")" )->count();
+        $best_count=$mod->where("uid='$uid' and isbest=1")->count();
 		//$count = $mod->where($where)->join($join)->count();
         if($t == "best"){
             $pager = $this->_pager($best_count,$pagesize);
             $list=$mod->where("uid='".$uid."' and isbest=1")->select();
         }elseif($t == 'gn' || $t == 'ht'){
             $count= $t == 'gn' ? $gn_count : $gy_count;
+            $str= $t == 'gn' ? $str_gn : $str_gy;
             $pager = $this->_pager($count,$pagesize);
-            $list = $mod->query("select i.* from __TABLE__ as i left join try_item_orig as o ON o.id=i.orig_id where i.uid='$uid' and o.ismy=$ismy order by i.isbest,i.ordid,i.id desc limit ".$pager->firstRow.",".$pager->listRows);
+            $field = 'id,uid,uname,title,intro,img,price,likes,content,comments,comments_cache,add_time,orig_id,url,go_link,zan,hits';
+          //  $list = $mod->query("select i.* from __TABLE__ as i left join try_item_orig as o ON o.id=i.orig_id where i.uid='$uid' and o.ismy=$ismy order by i.isbest,i.ordid,i.id desc limit ".$pager->firstRow.",".$pager->listRows);
+            $list = $mod->where("uid='$uid' and orig_id in (".$str.")" )->field($field)->order(" add_time desc")->limit($pager->firstRow . ',' . $pager->listRows)->select();
         }elseif($t == 'sd'){
             $pager = $this->_pager($sd_count,$pagesize);
             $a_list=$amod->where("status=1 and add_time<$time and uid='".$uid."' and (cate_id=10 or cate_id in(select id from try_article_cate where pid=10))")->select();
@@ -123,9 +157,9 @@ class spaceAction extends frontendAction {
 		$this->assign("follow",$follow);
 		$this->assign('fans',$fans);
 		//分享排行
-		$fx_i_list=M()->query("select l.uid,sum(l.offer) as num,u.username,u.score  from try_score_log as l left join try_user as u on u.id=l.uid where l.action like '%share%' group by l.uid order by num desc");
+		$fx_i_list=M()->query("select l.uid,sum(l.offer) as num,u.username,u.score  from try_score_log as l left join try_user as u on u.id=l.uid where l.action like '%share%' group by l.uid order by num desc limit 0,4");
 		//签到排行	
-		$qd_i_list=M()->query("select l.uid,sum(l.score) as num,u.username,u.score  from try_score_log as l left join try_user as u on u.id=l.uid where l.action='sign' group by l.uid order by num desc");
+		$qd_i_list=M()->query("select l.uid,sum(l.score) as num,u.username,u.score  from try_score_log as l left join try_user as u on u.id=l.uid where l.action='sign' group by l.uid order by num desc limit 0,4");
 		//是否关注
 		if(!$this->visitor->is_login){
 			foreach($qd_i_list as $key=>$val){

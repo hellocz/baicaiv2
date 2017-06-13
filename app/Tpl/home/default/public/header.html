@@ -46,13 +46,14 @@
        <div class="w_h_l4 w1"><a href="{:U('book/gny',array('tp'=>'1'))}" <if condition="$tp eq '1'">style="color: #3dc399;"</if>  title="海淘">海淘</a></div>
        <div class="w_h_l5 w1"><a href="{:U('book/index',array('tag'=>'9.9包邮'))}" title="9.9包邮" <if condition="$bcid==='best'">style="color: #3dc399;"</if>>9.9包邮</a></div>
        <div class="w_h_l6 w1"><a href="{:U('article/index',array('id'=>10))}" <if condition="$bcid eq 10">style="color: #3dc399;"</if> title="晒单">晒单</a></div>
-       <div class="w_h_l7 w1"><a href="{:U('article/index',array('id'=>9))}"  <if condition="$bcid eq 9">style="color: #3dc399;"</if> title="攻略">攻略</a></div>
+       <div class="w_h_l7 w1"><a href="{:U('book/baicai')}" style="color: #d62222;"  <if condition="$tp eq '2'">style="color: #d62222;"</if> title="白菜">白菜</a></div>
        <div class="w_h_l8 w1">
           <a href="javascript:;" title="其他" class="w_h_18_a">其他</a>
           <div class="w_xs2">
           <i class="w_xsj"></i>
           <ul>
         <!--    <li><a href="{:U('zr/index')}" title="闲置转让">闲置转让</a></li>-->
+            <li><a href="{:U('article/index',array('id'=>9))}"  title="攻略">攻略</a></li>
             <li><a href="{:U('tick/index')}" title="优惠劵">优惠劵</a></li>
             <li><a href="{:U('exchange/index')}" title="礼品兑换">礼品兑换</a></li>
             <li><a href="{:U('orig/index')}" title="商城导航">商城导航</a></li>

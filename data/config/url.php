@@ -92,6 +92,8 @@ return array(
             '/^topics\/oversea-guide\/p(\d+)$/' => 'article/index?id=9&p=:1',
             '/^shaidan\/$/' => 'article/index?id=10',
             '/^shaidan\/p(\d+)$/' => 'article/index?id=10&p=:1',
+            '/^baicai\/$/' => 'book/baicai',
+            '/^baicai\/p(\d+)$/' => 'book/baicai?p=:1',
             '/^ec\/$/' => 'exchange/index',
             '/^ec\/p(\d+)$/' => 'exchange/index?p=:1',
             '/^space$/' => 'space/index',

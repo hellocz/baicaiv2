@@ -295,6 +295,65 @@ class bookAction extends frontendAction {
 		$this->assign('ispost',$ispost);
 		$this->display($disp);
 	}
+
+    public function baicai(){
+        $order =" add_time desc";
+        $time=time();
+        $time_one_day=$time -86400;
+        $db_pre = C('DB_PREFIX');
+        $spage_size = C('pin_wall_spage_size'); //每次加载个数
+        $spage_max = C('pin_wall_spage_max'); //每页加载次数
+        //$page_size = $spage_size * $spage_max; //每页显示个数
+        $page_size=18;
+        $count =1000;
+        $pager = $this->_pager($count, $page_size);
+        $field = 'id,uid,uname,title,intro,img,price,likes,content,comments,comments_cache,add_time,orig_id,url,go_link,zan,hits';
+        $item_list = M("item")->where(" status=1 and add_time<$time and (title like '%白菜%' or title like '%神价格%' or title like '%手快有%' or title like '%手慢无%' or title like '%bug价%') ")->field($field)->order($order)->limit($pager->firstRow . ',' . $page_size)->select();
+        
+        foreach ($item_list as $key => $val) {
+            isset($val['comments_cache']) && $item_list[$key]['comment_list'] = unserialize($val['comments_cache']);
+        }
+        foreach($item_list as $key=>$val){
+        $item_list[$key]['zan'] = $item_list[$key]['zan']   +intval($item_list[$key]['hits'] /10);
+            }
+        $this->assign('item_list', $item_list);//print_r($item_list);exit;
+        //当前页码
+        $p = $this->_get('p', 'intval', 1);
+        $this->assign('p', $p);
+        $this->assign('page_bar', $pager->fshow());
+        
+        //热门置顶
+        $hot_list =  M("item")->where("status=1 and add_time<$time and add_time >$time_one_day  and (title like '%白菜%' or title like '%神价格%' or title like '%手快有%' or title like '%手慢无%' or title like '%bug价%')")->field('id ,title, img')->order(' hits desc ')->limit(10)->select();
+        $this->assign("hot_list",$hot_list);
+        //SEO
+            $this->_config_seo(C('pin_seo_config.cate'), array(
+            'cate_name' => '白菜',
+            'seo_title' => $cate_info['seo_title'],
+            'seo_keywords' => $cate_info['seo_keys'],
+            'seo_description' => $cate_info['seo_desc'],
+            ));
+        //表现形式
+        $dss =$this->_get("dss","trim");
+        $dss = empty($dss)?"lb":$dss;
+        $this->assign("dss",$dss);
+        
+        //可直邮
+        $time = time();
+        $time_hour = $time - 3600;
+        $time_day = $time - 86400;
+
+        //小时榜和24小时榜
+        $hour_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_hour and $time ORDER BY hits desc LIMIT 9");
+        $day_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_day and $time ORDER BY hits desc LIMIT 9");
+        $this->assign('hour_list',$hour_list);
+        $this->assign('day_list',$day_list);
+        $this->assign("lb_url",U('book/baicai',array('dss'=>'lb',)));
+        $this->assign("cc_url",U('book/baicai',array('dss'=>'cc')));
+        $this->assign('tp',2);
+        $this->assign('ispost',$ispost);
+        $this->display($disp);
+    }
+
 	public function best(){		
 		$db_pre = C('DB_PREFIX');
         $orig_id = $this->_get('origid','intval');
