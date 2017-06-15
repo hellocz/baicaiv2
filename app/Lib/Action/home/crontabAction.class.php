@@ -22,7 +22,7 @@ class crontabAction extends frontendAction {
         $items= M(item)->field('id,title,img,content,price')->where($map)->select();
         $oauth = new oauth('sina');
         foreach ($items as $item) {
-        $status = $item['title'] . $item['price'] ."|" .substr(strip_tags($item['content']),0,240) . "http://www.baicaio.com/item/".$item['id']. ".html";
+        $status = strip_tags($item['title']) . $item['price'] ."|" .substr(strip_tags($item['content']),0,240) . "http://www.baicaio.com/item/".$item['id']. ".html";
         $url = $item['img'];
         $oauth->uploaddocument($status,$url);
         } 

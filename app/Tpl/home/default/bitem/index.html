@@ -67,13 +67,13 @@
       <div class="w_spxx_3">
        <em>注意：</em>优惠信息有时效性和地域性，如果看到价格变化或者已经无货请点击 : <a href="javascript:;" class="J_jb " data-id="{$item.id}" data-xid='1'>无货举报</a><br>希望大家发扬网络共享精神，如果发现了优质商品特价，欢迎<a href="{:U('item/share_item')}" title="爆料">点此爆料</a>，以便及时分享给广大菜油，谢绝商家广告。
       </div>
-      <!--<div class="w_spxx_4">
+      <div class="w_spxx_4">
        <div class="w_spxx_4_l">
-         <p>上一篇：<if condition="$pre"><a href="{:U('item/index',array('id'=>$pre['id']))}" title="{$pre['title']}">{$pre['title']|msubstr=0,35}</a><else/>无</if></p>
-         <p>下一篇：<if condition="$next"><a href="{:U('item/index',array('id'=>$next['id']))}" title="{$next['title']}">{$next['title']|msubstr=0,35}</a><else/>无</if></p>
+         <p>上一篇：<if condition="$pre"><a href="{:U('bitem/index',array('id'=>$pre['id'],'isbao'=>1))}" title="{$pre['title']}">{$pre['title']}</a><else/>无</if></p>
+         <p>下一篇：<if condition="$next"><a href="{:U('bitem/index',array('id'=>$next['id'],'isbao'=>1))}" title="{$next['title']}">{$next['title']}</a><else/>无</if></p>
        </div>
        
-      </div>-->
+      </div>
       <div class="w_spxx_5">
       {:R('advert/index', array(13), 'Widget')}
       </div>

@@ -113,10 +113,10 @@ class bitemAction extends frontendAction {
             $strpos = getpos($item['cate_id'],'');
         }
         $this->assign("strpos",$strpos);
-        /*$pre = $item_mod->where("id<$id and status=1")->field("id,title")->find();
-        $next = $item_mod->where("id>$id and status=1")->field("id,title")->find();
+        $pre = $item_mod_diu->where("id<$id and status=1")->field("id,title")->order(" id desc")->find();
+        $next = $item_mod_diu->where("id>$id and status=1")->field("id,title")->find();
         $this->assign("pre",$pre);
-        $this->assign("next",$next);*/
+        $this->assign("next",$next);
         //评论
         $this->assign('xid',1);
         $this->assign('itemid',$id);    
