@@ -27,13 +27,13 @@ input,label { vertical-align:middle; font-family:"Microsoft YaHei";}
 
 .w_head_bd{ width:100%; float:left; background:#fff;box-shadow: 0 1px 7px rgba(0,0,0,.4);padding:11px 0; height:46px; line-height:46px; border-bottom:1px solid #eaeaea; font-size:14px;  color:#646464; font-family:"Microsoft YaHei";}
 .w_head{ width:1200px; margin:0 auto;}
-.w_hea_le{ float:left; width:1006px;}
+.w_hea_le{ float:left; width:960px;}
 .w_logo{ width:159px; height:46px; margin-right:15px;}
 .w_logo img{ width:159px; height:46px;}
 .w_hea_le a{ color:#646464;}
 .w_hea_le a:hover{ color:#3dc399;}
 
-.w_h_l1,.w_h_l3,.w_h_l4,.w_h_l5,.w_h_l6,.w_h_l7,.w_h_l2,.w_h_l8,.w_h_l9{width: 65px; !important; text-align:center;} 
+.w_h_l1,.w_h_l3,.w_h_l4,.w_h_l5,.w_h_l6,.w_h_l7,.w_h_l2,.w_h_l8,.w_h_l9{margin-left: 26px; !important; text-align:center;} 
 
 .w1{ float:left;}
 .w_hea_rig{  float:right; color:#646464;}
@@ -1739,6 +1739,7 @@ input{ border-radius:3px;}
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
 .w_h_l8{
     width: auto !important;
 }
