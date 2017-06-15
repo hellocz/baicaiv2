@@ -1597,7 +1597,7 @@ a{ text-decoration:none;}
 
 
 .re_pic{ position:relative;}
-img.re_tt{ width:40px; height:40px; position:absolute; top:1px; left:0px; z-index:999;}
+img.re_tt{ width:40px; height:40px; position:absolute; top:1px; left:0px; z-index:1;}
 
 .tabCon{ z-index:999999;}
 
