@@ -317,8 +317,16 @@ class itemAction extends backendAction {
 			}else{
 				$data['ispost']=0;
 			}
+                                        if($_POST['isnice']){
+                                            $data['isnice']=1;
+                                        }else{
+                                                if(!$_POST['isbao']){
+                                             $data['isnice']=1;
+                                                }
+                                                    else
+                                            $data['isnice']=0;
+                                        }
 			
-			$data['isnice']=1;
 			
 			/*if($_POST['isbest'])$data['isbest']=$this->_post('isbest','intval');
 			if($_POST['ishot'])$data['ishot']=$this->_post('ishot','intval');
@@ -453,6 +461,31 @@ class itemAction extends backendAction {
             }
           //  file_put_contents($file_name, 'img123'.$data['img'].'img123', FILE_APPEND);
             $this->_mod->where(array('id'=>$item_id))->save($data);
+             if($_POST['isbao']){
+            $item = $this->_mod->where(array('id'=>$item_id))->find();
+            $diu_item['diu_id']= $item['id'];
+            $diu_item['orig_id'] = $item['orig_id'];
+            $diu_item['cate_id'] = $item['cate_id'];
+            $diu_item['uid'] = $item['uid'];
+            $diu_item['uname'] = $item['uname'];
+            $diu_item['status'] = $item['status'];
+            $diu_item['isbao'] = $item['isbao'];
+            $diu_item['zan'] = rand(0,5);
+            if($data['add_time']==0){
+                  $diu_item['add_time'] = time();
+            }
+            else{
+                $diu_item['add_time'] = $item['add_time'];
+            }
+            
+            $diu_item['url'] = $item['url'];
+            $diu_item['go_link'] = $item['go_link'];
+            $diu_item['img'] = $item['img'];
+            $diu_item['title'] = $item['title'];
+            $diu_item['content'] = $item['content'];
+            $diu_item['intro'] = $item['intro'];
+            M("item_diu")->add($diu_item);
+        }
              if($data['status'] == '1' ){
     //              $oauth = new oauth('sina');
     //              $status = substr(strip_tags($data['content']),0,300) . $data['price'] ."http://www.baicaio.com/item/".$data['id']. ".html";
@@ -717,6 +750,33 @@ class itemAction extends backendAction {
 
 		if($item){
 			if(false !== M("item")->save($datas)){
+                                            $item = M("item")->where(array('id'=>$id))->find();
+                                            if($item['isbao']==1){
+                                                
+                                                $diu_item['diu_id']= $item['id'];
+                                                $diu_item['orig_id'] = $item['orig_id'];
+                                                $diu_item['cate_id'] = $item['cate_id'];
+                                                $diu_item['uid'] = $item['uid'];
+                                                $diu_item['uname'] = $item['uname'];
+                                                $diu_item['status'] = $item['status'];
+                                                $diu_item['isbao'] = $item['isbao'];
+                                                $diu_item['zan'] = rand(0,5);
+                                                if($data['add_time']==0){
+                                                      $diu_item['add_time'] = time();
+                                                }
+                                                else{
+                                                    $diu_item['add_time'] = $item['add_time'];
+                                                }
+                                                
+                                                $diu_item['url'] = $item['url'];
+                                                $diu_item['go_link'] = $item['go_link'];
+                                                $diu_item['img'] = $item['img'];
+                                                $diu_item['title'] = $item['title'];
+                                                $diu_item['content'] = $item['content'];
+                                                $diu_item['intro'] = $item['intro'];
+                                                M("item_diu")->add($diu_item);
+                                            }
+
 				if($item['uid']>0){
 					$user = M('user')->where("id=$item[uid]")->find();
 					//设置积分

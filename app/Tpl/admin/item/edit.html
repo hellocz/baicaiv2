@@ -204,11 +204,12 @@
 
 				<label><input type="checkbox" value="{$info['istop']}" name="istop" id="istop"  <if condition="$info['istop'] eq 1">checked</if>>置顶</label> &nbsp;&nbsp;
 
-				<label><input type="checkbox" value="{$info['isbao']}" name="isbao" id="isbao" disabled <if condition="$info['isbao'] eq 1">checked</if>>网友爆料</label>
+				<label><input type="checkbox" value="{$info['isbao']}" name="isbao" id="isbao" disabled <if condition="$info['isbao'] eq 1">checked</if>>
+					<input type="hidden" name="isbao" value="{$info['isbao']}"/>网友爆料</label>
 
 				&nbsp;&nbsp;
 
-				<label><input type="checkbox" value="{$info['isnice']}" name="isnice" id="isnice"  <if condition="$info['isnice'] eq 1">checked</if>>推荐</label>
+				<label><input type="checkbox" value="<if condition="($info['isnice'] eq 1) OR ($info['isbao'] eq 0)">1<else/>0</if>" name="isnice" id="isnice"  <if condition="($info['isnice'] eq 1) OR ($info['isbao'] eq 0)">checked</if>>推荐</label>
 
 					<label><input type="checkbox" value="{$info['ispost']}" name="ispost" id="ispost"  <if condition="$info['ispost'] eq 1">checked</if>>可直邮</label>
 

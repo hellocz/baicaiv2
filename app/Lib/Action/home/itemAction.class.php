@@ -663,6 +663,7 @@ function get_photo($url,$file_num,$savefile='ueditor/php/upload/image/')
             $this->error('您发表的内容有非法字符');
         }
         $item = $item_mod->create();
+        $item['img'] =  $this->get_photo( $item['img'],0);
         $item['intro'] = $this->_post('title', 'trim');
         $item['info'] = Input::deleteHtmlTags($item['info']);
         $item['uid'] = $this->visitor->info['id'];
@@ -681,6 +682,7 @@ function get_photo($url,$file_num,$savefile='ueditor/php/upload/image/')
             $arr[]=array('name'=>$val,'link'=>$link_url[$key]); 
         }
         $item['go_link']=serialize($arr);
+
         foreach($_POST['imgs'] as $key=>$val){
             $item['imgs'][$key]['url']=$val;
         }

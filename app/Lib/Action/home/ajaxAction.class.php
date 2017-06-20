@@ -339,8 +339,91 @@ class ajaxAction extends frontendAction {
 			$this->ajaxReturn(0,'');
 		}
 	}
-	//分享
+
+		//分享
 	public function share(){
+		$id=$this->_get('id','intval');
+		$t = $this->_get("t","trim");
+		$mod=M($t);
+		$item = $mod->where("id=$id")->find();
+		$item['img']=attach($item['img'],"$t");
+		$site_url = C('pin_site_url');
+		if(false === strpos($item['img'], 'http://')){
+			$item['img']=$site_url.$item['img'];
+		}
+		$this->assign('item',$item);		
+		switch($t){
+			case "item":$xid=1;break;
+			case "zr":$xid=2;break;
+			case "article":$xid=3;break;
+		}
+		//添加到分享表
+		if($this->visitor->is_login){ 
+			$user = $this->visitor->get();
+			if($s_info = M('share')->where("xid=$xid and item_id=$id and uid=$user[id]")->find()){
+				$dm = $s_info['dm'];
+			}else{
+				$time=time();
+				$dm =$this->getRandomString(10);		
+				$data['dm']=$dm;
+				$data['uid']=$user['id'];
+				$data['xid']=$xid;
+				$data['item_id']=$id;
+				$data['add_time']=$time;
+				//插入
+				M('share')->add($data);
+				//最高奖励3次
+				/*
+				$start=strtotime(date('Y-m-d',$time));
+				$end = strtotime(date('Y-m-d',$time))+24*3600;
+				$count = M("share")->where("add_time>$start and $end>add_time and uid=$user[id]")->count();
+				if($count<=3){
+					M("user")->where("id=$user[id]")->setField(array("score"=>$user['score']+10,"coin"=>$user['coin']+1,"offer"=>$user['offer']+1,"exp"=>$user['exp']+10));
+					//积分日志
+					set_score_log(array('id'=>$user['id'],'username'=>$user['username']),'share',10,1,1,10);
+				}
+				*/
+			}
+			$this->assign('url',$site_url.U("ajax/g_share",array('tg'=>$dm)));
+			$this->assign('islogin','y');
+		}else{
+			$this->assign('url',$site_url."/$t/$id.html");
+			$this->assign('islogin','n');
+		}		
+		$this->display();
+	}
+	public function g_share(){
+		$tg = $this->_get('tg','trim');
+		$info = M('share')->where("dm='$tg'")->find();
+		!$info&&$this->_404();
+		switch($info['xid']){
+			case "1":$m="item";$a='index';break;
+			case "2":$m="zr";$a='show';break;
+			case "3":$m="article";$a='show';break;
+		}
+		$ip = getip();
+		$myip = cookie("share_".$m."_".$info['item_id']);
+		if($myip!=$ip){//不相同IP则加1
+			cookie("share_".$m."_".$info['item_id'],$ip);
+			M("share")->where("dm='$tg'")->setInc("hits");
+			//查询一天贡献值
+			$time=time();
+			$start=strtotime(date('Y-m-d',$time));
+			$end = strtotime(date('Y-m-d',$time))+24*3600;
+			$count = M("score_log")->where("add_time>$start and $end>add_time and uid=$info[uid] and action='hit_share'")->count();
+			if($count<100){
+				$user = M("user")->where("id=$info[uid]")->find();
+				M("user")->where("id=$info[uid]")->setField(array("coin"=>$user['coin']+1,"offer"=>$user['offer']+1));
+				//积分日志
+				set_score_log(array('id'=>$info['uid'],'username'=>get_uname($info['uid'])),'hit_share','',1,1,'');
+			}
+		}
+		$_SESSION['tg']=$tg;
+		$this->redirect("$m/$a",array('id'=>$info['item_id']));
+	}
+
+	//分享
+	public function share1(){
 		$id=$this->_get('id','intval');
 		$t = $this->_get("t","trim");
 		$mod=M($t);
@@ -393,7 +476,7 @@ class ajaxAction extends frontendAction {
 		}		
 		$this->display();
 	}
-	public function g_share(){
+	public function g_share1(){
 		$tg = $this->_get('tg','trim');
 		$info = M('share')->where("dm='$tg'")->find();
 		!$info&&$this->_404();

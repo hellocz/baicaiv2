@@ -68,8 +68,9 @@ class itemcollect {
         }
         //获取京东商品信息
         if(strpos($url, "item.jd.com")){
-            preg_match('/<img data-img="1" width="350" height="350"[^>]* src="([^"]*)"[^>]*>/', $html, $img);
-            preg_match_all('/<li><img[^>]* data-url=\'([^\']*)\' data-img=\'1\' width=\'50\' height=\'50\'>/', $html, $imgs);
+            //preg_match('/<img data-img="1" width="350" height="350"[^>]* src="([^"]*)"[^>]*>/', $html, $img);
+            preg_match('/<img id="spec-img"[^>]* data-origin="([^"]*)"[^>]*>/', $html, $img);
+            preg_match_all('/<img[^>]* data-url=\'([^\']*)\' data-img=\'1\' width=\'54\' height=\'54\'>/', $html, $imgs);
 
             $imgs_value = array();
             for($i=0;$i<count($imgs[1]);$i++){
@@ -81,12 +82,12 @@ class itemcollect {
                 //$imgs_array["id"] = $i+1;
                 array_push($imgs_value, $imgs_array);
             }
-            preg_match('/<h1>(.*?)<\/h1>/i', $html, $title);
+            preg_match('/<img id="spec-img"[^>]* alt="([^"]*)"[^>]*>/', $html, $title);
             $title[1] = mb_convert_encoding($title[1], 'UTF-8', 'GBK,UTF-8,ASCII');
         }
 
         $r["price"] = $price[1];//获取金额
-        if(false !==strpos($img[1], "http:") && false !==strpos($img[1], "https:") &&false !==strpos($img[1], "base64"))
+        if(false ==strpos($img[1], "http:") && false ==strpos($img[1], "https:") &&false ==strpos($img[1], "base64"))
             $img_url = "http:" . $img[1];
         else
             $img_url = $img[1];
