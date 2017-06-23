@@ -101,7 +101,7 @@ return array(
         'confirm_unfollow' => '确定要取消关注么？',
         'wait' => '请稍后......',
     ),
-	
+	 'verify_code_error' => '验证码错误',
 	'operation_success' => '操作成功',
     'operation_failure' => '操作失败',
 	//文章

@@ -71,14 +71,19 @@ class exchangeAction extends frontendAction {
         $item_mod = M('score_item');
         $user_mod = M('user');
         $order_mod = D('score_order');
-        $uid = $this->visitor->info['id'];
+         $uid = $this->visitor->info['id'];
         $uname = $this->visitor->info['username'];
+        $mobile = M("user")->field('mobile')->find($uid);
+        if($mobile['mobile'] ==""){
+            $this->ajaxReturn(0, '没有绑定手机号' . $mobile['mobile'] );
+        }
+       
         $item = $item_mod->find($id);
         !$item && $this->ajaxReturn(0, L('invalid_item'));
         !$item['stock'] && $this->ajaxReturn(0, L('no_stock'));
         //金币够不
         $user_coin = $user_mod->where(array('id'=>$uid))->getField('coin');
-        $user_coin < $item['coin'] && $this->ajaxReturn(0, '没有足够的金币');
+        $user_coin < $item['coin'] && $this->ajaxReturn(0, '没有足够的金币' );
         //限额
         $eced_num = $order_mod->where(array('uid'=>$uid, 'item_id'=>$item['id']))->sum('item_num');
         if ($item['user_num'] && $eced_num + $num > $item['user_num']) {

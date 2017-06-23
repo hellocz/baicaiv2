@@ -112,7 +112,7 @@ class itemAction extends frontendAction {
         $this->assign("strpos",$strpos);
         $add_time = intval($item['add_time']);
         $time = time();
-        $pre = $item_mod->where("add_time<$add_time and status=1")->field("id,title")->order("add_time desc")->find();
+        $pre = $item_mod->where("add_time<$add_time and status=1")->field("id,title")->order("add_time desc,id desc")->find();
         $next = $item_mod->where("add_time>$add_time and add_time <$time and status=1")->field("id,title")->find();
         $this->assign("pre",$pre);
         $this->assign("next",$next);

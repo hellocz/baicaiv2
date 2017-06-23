@@ -43,6 +43,7 @@ class userbaseAction extends frontendAction {
                 'text' => '账户设置',
                 'submenu' => array(
                     'profile' => array('text'=>'个人资料', 'url'=>U('user/profile')),
+                     'phone_bind' => array('text'=>'手机绑定', 'url'=>U('user/phone_bind')),
 					'bind' => array('text'=>'安全设置', 'url'=>U('user/bind')),
 					'password' => array('text'=>'修改密码', 'url'=>U('user/password')),
 					'address' => array('text'=>'收货地址', 'url'=>U('user/address')),

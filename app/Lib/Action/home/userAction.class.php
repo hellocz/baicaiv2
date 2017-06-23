@@ -326,6 +326,54 @@ class userAction extends userbaseAction {
         $this->assign("page_seo",set_seo('基本信息修改'));
         $this->display();
     }
+    /**
+    * 绑定手机号
+    */
+     public function phone_bind() {
+        if( IS_POST ){
+            foreach ($_POST as $key=>$val) {
+                $_POST[$key] = Input::deleteHtmlTags($val);
+            }
+
+            $verify_code = $this->_post('phone_verify', 'trim');
+             if(session('phone_verify') != md5($verify_code)){
+                $this->error(L('verify_code_error'));
+            }
+            $data['mobile']=$this->_post('mobile','trim');
+            if (false !== M('user')->where(array('id'=>$this->visitor->info['id']))->save($data)) {
+                $msg = array('status'=>1, 'info'=>L('edit_success'));
+            }else{
+                $msg = array('status'=>0, 'info'=>L('edit_failed'));
+            }
+            $this->assign('msg', $msg);
+        }
+        $info = $this->visitor->get();
+        $this->assign('info', $info);
+        $this->assign("page_seo",set_seo('手机号绑定'));
+        $this->display();
+    }
+
+      /**
+    * 发送手机验证码
+    */
+     public function phone_send() {
+        $data['phone'] = $this->_post('mobile','trim');
+        include_once LIB_PATH . 'Pinlib/ChuanglanSmsHelper/ChuanglanSmsApi1.php';
+        $clapi  = new ChuanglanSmsApi();
+        $code = String::randString(4, 1);
+        session('phone_verify',md5($code));
+        $result = $clapi->sendSMS($data['phone'], '【白菜哦】菜友您好，您的验证码是'. $code  .",请勿向任何人提供此验证码.");
+
+        if(!is_null(json_decode($result))){
+            $output=json_decode($result,true);
+            if(isset($output['code'])  && $output['code']=='0'){
+                $msg= '短信发送成功！';
+            }else{
+                 $msg= $output['errorMsg'];
+            }
+        }
+        $this->ajaxReturn(1,  $msg, "123");
+    }
 
     /**
      * 修改头像
