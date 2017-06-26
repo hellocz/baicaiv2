@@ -46,6 +46,7 @@ class itemAction extends frontendAction {
         
         
         //可能还喜欢
+        /*
         $item_tag_mod = M('item_tag');
         $db_pre = C('DB_PREFIX');
         $item_tag_table = $db_pre . 'item_tag';
@@ -56,6 +57,7 @@ class itemAction extends frontendAction {
             $maylike_list[$key]['list'] = $item_mod->field("id,img,intro,title")->where('tag_cache like "%'.$val.'%"')->order('add_time desc,id desc')->limit(8)->select();
             
         }
+        */
     
         $is_hot = $item_mod->field("id,img,intro,price,title")->where('ishot=1 AND status=1')->order('add_time desc,id desc')->limit(8)->select();
         

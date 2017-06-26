@@ -114,25 +114,7 @@
 	    <b>商城筛选：</b>
 
 		<?php
-
-	   $orig_id = M("item")->field("distinct orig_id")->select();
-
-	   foreach($orig_id as $key=>$val){
-
-	   	  if($str==""){
-
-		  	$str=$val['orig_id'];
-
-		  }else{
-
-		  	$str.=",".$val['orig_id'];
-
-		  }
-
-	   }
-
-	   	$orig = M("item_orig")->where("id in(".$str.") and ismy='$tp'")->limit(20)->select();
-
+	   	$orig = M("item_orig")->where("ismy='$tp'")->order("ordid")->select();
 	   ?>
 
 		<ul style="height:27px; overflow:hidden" id="daohan">
