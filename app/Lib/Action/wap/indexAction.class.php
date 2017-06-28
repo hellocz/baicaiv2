@@ -22,6 +22,7 @@ class indexAction extends frontendAction {
 		$list = $mod->where("status=1 and add_time<$time ".$where)->limit($pager->firstRow.",".$pager->listRows)->order($order)->select();
 		foreach($list as $key=>$val){
 			$list[$key]['orig_name']=getly($val['orig_id']);
+			$list[$key]['zan'] = $list[$key]['zan']   +intval($list[$key]['hits'] /10);
 		}
 		/*
         foreach ($list as $key=>$val) {

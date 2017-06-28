@@ -421,7 +421,10 @@ padding-left: 6px;
 }
 .icons{ width:16px; height:16px; display:block; float:left;}
 .icon_comment{ background:url(/static/images/wap/w_ly.png) no-repeat center; background-size:16px auto;}
-
+.icon_zan {
+	background: url(/images/w_dz_1.png) no-repeat center;
+	background-size: 16px auto;
+}
 .owl-carousel .owl-wrapper:after {
 	content:".";
 	display:block;
