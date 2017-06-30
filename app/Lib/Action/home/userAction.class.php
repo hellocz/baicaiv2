@@ -312,7 +312,6 @@ class userAction extends userbaseAction {
             $data['bday'] = $birthday[2];
 			$data['realname']=$this->_post('realname','trim');
 			$data['zipcode']=$this->_post('zipcode','trim');
-			$data['mobile']=$this->_post('mobile','trim');
 			$data['address']=$this->_post('address','trim');
             if (false !== M('user')->where(array('id'=>$this->visitor->info['id']))->save($data)) {
                 $msg = array('status'=>1, 'info'=>L('edit_success'));
