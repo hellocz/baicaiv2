@@ -77,6 +77,19 @@ function stripslashes_deep($value) {
 
     return $value;
 }
+function sortByAddTime($a, $b) {
+
+if ($a['add_time'] == $b['add_time']) {
+
+return 0;
+
+} else {
+
+return ($a['add_time'] < $b['add_time']) ? 1 : -1;
+
+}
+}
+
 function sbbtime($time){
 	if($time>time())return true;
 	return false;

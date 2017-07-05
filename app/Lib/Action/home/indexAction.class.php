@@ -54,10 +54,23 @@ class indexAction extends frontendAction {
 		*/
 		/*echo "<pre>";
 		var_dump($list);*/
+		$article_begin_time =0;
+		$article_end_time =0;
 		foreach($list as $key=>$val){
-				
+				if($article_end_time==0){
+					$article_end_time = $list[$key]['add_time'];
+				}
 		$list[$key]['zan'] = $list[$key]['zan']   +intval($list[$key]['hits'] /10);
+		$article_begin_time =$list[$key]['add_time'];
 			}
+		if(p<1){
+			$article_end_time=time();
+		}
+		$article_list = M("article")->where("add_time > $article_begin_time and add_time < $article_end_time and status=4")->select();
+		if(count($article_list)>=1){
+		$list = array_merge($list, $article_list); 
+		usort($list, 'sortByAddTime');
+		}
 		$this->assign('item_list',$list);
 		$this->assign('pagebar',$pager->fshow());
 		$p = $this->_get("p",'intval');

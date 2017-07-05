@@ -63,9 +63,6 @@ class articleAction extends backendAction
             'status'  => $status,
             'keyword' => $keyword,
         ));
-        if($status == 0){
-            $map['status'] = 0;
-        }
         return $map;
     }
 
@@ -120,27 +117,10 @@ class articleAction extends backendAction
     }
 
     protected function _before_update($data) {
-        if (!empty($_FILES['img']['name'])) {
-            $art_add_time = date('ym/d/');
-            //删除原图
-            $old_img = $this->_mod->where(array('id'=>$data['id']))->getField('img');
-            $old_img = $this->_get_imgdir() . $old_img;
-            is_file($old_img) && @unlink($old_img);
-            //上传新图
-            $result = $this->_upload($_FILES['img'], 'article/' . $art_add_time);
-            if ($result['error']) {
-                $this->error($result['info']);
-            } else {
-                $ext = array_pop(explode('.', $result['info'][0]['savename']));
-                $data['img'] = get_rout_img($art_add_time .'/'. str_replace('.' . $ext, '.' . $ext, $result['info'][0]['savename']),'article');
-            }
-        } else {
-            unset($data['img']);
-        }
 		//如果是管理员发表的则直接通过
 		$item_uid=M("article")->where("id=$data[id]")->getField("uid");
 		//if($item_uid==0){
-			$data['status']=1;
+		//	$data['status']=1;
 		$data['add_time']=strtotime($_POST['add_time']);
         return $data;
     }

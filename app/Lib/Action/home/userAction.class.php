@@ -884,79 +884,81 @@ class userAction extends userbaseAction {
 		$item_mod=M('item');
 		$article_mod = M('article');
 		$zr_mod=M("zr");
-		$num['gn']=$item_mod->where("o.ismy=0 and try_item.uid='$user[id]' and try_item.status=1")->join("try_item_orig o ON o.id=try_item.orig_id")->count();
-		$num['ht']=$item_mod->where("o.ismy=1 and try_item.uid='$user[id]' and try_item.status=1")->join("try_item_orig o ON o.id=try_item.orig_id")->count();
-		$num['best']=$item_mod->where(" isbest=1 and uid='$user[id]' and try_item.status=1")->count();
-		$num['zr']=$zr_mod->where("uid='$user[id]' and (status=1 or status=4)")->count();
-		$num['sd']=$article_mod->where("uid=$user[id] and cate_id=10 and status=1")->count();
-		$num['gl']=$article_mod->where("uid=$user[id] and cate_id in(select id from try_article_cate where pid=9 or id=9) and status=1")->count();
-		$num['icg']=$item_mod->where("status=2 and uid='$user[id]'")->count();
-		$num['ids']=$item_mod->where("status=0 and uid='$user[id]'")->count();
-        $num['ith']=$item_mod->where("status=3 and uid='$user[id]'")->count();
-		$num['zcg']=$zr_mod->where("status=2 and uid='$user[id]'")->count();
-		$num['zds']=$zr_mod->where("status=0 and uid='$user[id]'")->count();
-        $num['zth']=$zr_mod->where("status=3 and uid='$user[id]'")->count();
-		$num['scg']=$article_mod->where("status=2 and uid=$user[id] and cate_id=10")->count();
-		$num['sds']=$article_mod->where("status=0 and uid=$user[id] and cate_id=10")->count();
-        $num['sth']=$article_mod->where("status=3 and uid=$user[id] and cate_id=10")->count();
-		$num['gcg']=$article_mod->where("uid=$user[id] and cate_id in(select id from try_article_cate where pid=9 or id=9) and status=2")->count();
-		$num['gds']=$article_mod->where("uid=$user[id] and cate_id in(select id from try_article_cate where pid=9 or id=9) and status=0")->count();
-        $num['gth']=$article_mod->where("uid=$user[id] and cate_id in(select id from try_article_cate where pid=9 or id=9) and status=3")->count();
 		$pagesize=5;
 		$pager=$this->_pager($num[$t],$pagesize);
 		switch($t){
 			case "gn":
+                                                    $num['gn']=$item_mod->where("try_item.uid='$user[id]' and o.ismy=0 and  try_item.status=1")->join("try_item_orig o ON o.id=try_item.orig_id")->count();
 				$list = $item_mod->where("o.ismy=0 and try_item.uid='$user[id]' and try_item.status=1")->join("try_item_orig o ON o.id=try_item.orig_id")->field("try_item.id,try_item.title,try_item.img,try_item.intro,try_item.price")->order('try_item.add_time desc,try_item.id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
+                
 				break;
 			case "ht":
+                                                    $num['ht']=$item_mod->where("o.ismy=1 and try_item.uid='$user[id]' and try_item.status=1")->join("try_item_orig o ON o.id=try_item.orig_id")->count();
 				$list = $item_mod->where("o.ismy=1 and try_item.uid='$user[id]' and try_item.status=1")->join("try_item_orig o ON o.id=try_item.orig_id")->field("try_item.id,try_item.title,try_item.img,try_item.intro,try_item.price")->order('try_item.add_time desc,try_item.id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
 				break;
 			case "best":
+                                                    $num['best']=$item_mod->where(" isbest=1 and uid='$user[id]' and try_item.status=1")->count();
 				$list = $item_mod->where("isbest=1 and uid='$user[id]' and try_item.status=1")->field("try_item.id,try_item.title,try_item.img,try_item.intro,try_item.price")->order('try_item.add_time desc,try_item.id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
 				break;
 			case "zr":
+                                                    $num['zr']=$zr_mod->where("uid='$user[id]' and (status=1 or status=4)")->count();
 				$list = $zr_mod->where("uid='$user[id]' and (status=1 or status=4)")->order('add_time desc,id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
 				break;
 			case "sd":
+                                                    $num['sd']=$article_mod->where("uid=$user[id] and cate_id=10 and status=1")->count();
 				$list=$article_mod->where("uid=$user[id] and cate_id=10 and status=1")->field("id,title,comments,intro,img")->order('add_time desc,id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
 				break;
 			case "gl":
+                                                    $num['gl']=$article_mod->where("uid=$user[id] and cate_id in(select id from try_article_cate where pid=9 or id=9) and status=1")->count();
 				$list=$article_mod->where("uid=$user[id] and cate_id in(select id from try_article_cate where pid=9 or id=9) and status=1")->field("id,title,comments,intro,img")->order('add_time desc,id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
 				break;
 			case "icg"://草稿
+                                                    $num['icg']=$item_mod->where("status=2 and uid='$user[id]'")->count();
 				$list=$item_mod->where("status=2 and uid='$user[id]'")->order('add_time desc,id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
 				break;
 			case "ids"://待审商品
+                                                    $num['ids']=$item_mod->where("status=0 and uid='$user[id]'")->count();
 				$list=$item_mod->where("status=0 and uid='$user[id]'")->order('add_time desc,id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
 				break;
             case "ith"://退回商品
+                $num['ith']=$item_mod->where("status=3 and uid='$user[id]'")->count();
                 $list=$item_mod->where("status=3 and uid='$user[id]'")->order('add_time desc,id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
                 break;
 			case "zcg"://转让草稿
+                                                    $num['zcg']=$zr_mod->where("status=2 and uid='$user[id]'")->count();
 				$list=$zr_mod->where("status=2 and uid='$user[id]'")->order('add_time desc,id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
 				break;
 			case "zds"://待审转让
+                                                    $num['zds']=$zr_mod->where("status=0 and uid='$user[id]'")->count();
 				$list=$zr_mod->where("status=0 and uid='$user[id]'")->order('add_time desc,id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
 				break;
             case "zth"://退回转让
+
+                $num['zth']=$zr_mod->where("status=3 and uid='$user[id]'")->count();
                 $list=$zr_mod->where("status=3 and uid='$user[id]'")->order('add_time desc,id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
                 break;
 			case "scg"://晒单草稿
+            $num['scg']=$article_mod->where("status=2 and uid=$user[id] and cate_id=10")->count();
 				$list=$article_mod->where("status=2 and uid=$user[id] and cate_id=10")->field("id,title,comments,intro,img")->order('add_time desc,id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
 				break;
 			case "sds"://晒单待审
+            $num['sds']=$article_mod->where("status=0 and uid=$user[id] and cate_id=10")->count();
 				$list=$article_mod->where("status=0 and uid=$user[id] and cate_id=10")->field("id,title,comments,intro,img")->order('add_time desc,id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
 				break;
             case "sth"://晒单退回
+            $num['sth']=$article_mod->where("status=3 and uid=$user[id] and cate_id=10")->count();
                 $list=$article_mod->where("status=3 and uid=$user[id] and cate_id=10")->field("id,title,comments,intro,img")->order('add_time desc,id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
                 break;
 			case "gcg"://攻略草稿
+            $num['gcg']=$article_mod->where("uid=$user[id] and cate_id in(select id from try_article_cate where pid=9 or id=9) and status=2")->count();
 				$list=$article_mod->where("uid=$user[id] and cate_id in(select id from try_article_cate where pid=9 or id=9) and status=2")->order('add_time desc,id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
 				break;
 			case "gds"://攻略待审
+        $num['gds']=$article_mod->where("uid=$user[id] and cate_id in(select id from try_article_cate where pid=9 or id=9) and status=0")->count();
 				$list=$article_mod->where("uid=$user[id] and cate_id in(select id from try_article_cate where pid=9 or id=9) and status=0")->order('add_time desc,id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
 				break;
             case "gth"://攻略退回
+        $num['gth']=$article_mod->where("uid=$user[id] and cate_id in(select id from try_article_cate where pid=9 or id=9) and status=3")->count();
                 $list=$article_mod->where("uid=$user[id] and cate_id in(select id from try_article_cate where pid=9 or id=9) and status=3")->order('add_time desc,id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
                 break;
 		}

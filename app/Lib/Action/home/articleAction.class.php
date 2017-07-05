@@ -17,7 +17,7 @@ class articleAction extends frontendAction {
 		$spage_size = C('pin_wall_spage_size'); //每次加载个数
 		$start=($p-1)*$spage_size;
 		$time=time();
-		$where['status']="1";
+		$where['status']=array('in','1,4');
 		$where['add_time']=array('lt',$time);
 		$where['_string']=" cate_id=$cate_id or cate_id in(select id from try_article_cate where pid=$cate_id) ";
 
@@ -54,7 +54,11 @@ class articleAction extends frontendAction {
 		$id=$this->_get("id","intval");
 		!$id && $this->_404();
 		$model = M("article");
-		$item = $model->where("id=$id and status=1")->find();
+		$time=time();
+		$where['status']=array('in','1,4');
+		$where['add_time']=array('lt',$time);
+		$where['id']=$id;
+		$item = $model->where($where)->find();
 		!$item&&$this->error('文章内容不存在或未通过审核');
 		//标签
         $item['tag_list'] = explode(" ",$item['tags']);
@@ -96,7 +100,7 @@ class articleAction extends frontendAction {
 	public function publish(){
 		$user = $this->visitor->get();
 		!$user && $this->redirect('user/login');
-		($user['exp'] < 51) && $this->error('您的等级还不够，需要升到 2 级才能发布信息！');
+//		($user['exp'] < 51) && $this->error('您的等级还不够，需要升到 2 级才能发布信息！');
 
 		$t = $this->_get('t',"trim");
 		!$t && $this->_404();
@@ -119,11 +123,11 @@ class articleAction extends frontendAction {
 		}
 		$user = $this->visitor->get();
 		!$user && $this->redirect('user/login');
-		($user['exp'] < 51) && $this->error('您的等级还不够，需要升到 2 级才能发布信息！');
+//		($user['exp'] < 51) && $this->error('您的等级还不够，需要升到 2 级才能发布信息！');
 		$data['uid']=$user['id'];
 		$data['uname']=$user['username'];
 		$data['author']=$user['username'];		
-		$data['intro']=msubstr(strip_tags($data['info']),0,250);
+		$data['intro']=msubstr(strip_tags($data['info']),0,130);
 		if($data['status']!=2){$data['status']=0;}
 		if($data['tags']==""){
 			$data['tags'] = D('tag')->get_tags_by_title($data['title']);
@@ -188,8 +192,8 @@ class articleAction extends frontendAction {
 		!$id&&$this->_404();
 		$t = $this->_request('t','trim');
 		!$t && $this->_404();
-		if($t=='scg' || $t=='sth'){$t='sd';}
-		if($t=='gcg' || $t=='gth'){$t='gl';}
+		if($t=='scg' || $t=='sth' || $t=='sds'){$t='sd';}
+		if($t=='gcg' || $t=='gth' || $t=='gds'){$t='gl';}
 		$mod = D("article");
 		if(IS_POST){
 			if (false === $data = $mod->create()) {

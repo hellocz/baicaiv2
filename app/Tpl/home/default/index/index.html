@@ -67,45 +67,45 @@
 </head>
 <body style="background:#f5f5f5"><include file="public:header" />
 
-<!--focus start
-<div id="slideBox" class="slideBox">
-<?php  $adv_list = M("ad")->where('status=1 AND board_id=1')->select(); $advCount = M("ad")->where('status=1 AND board_id=1')->count(); ?>
-	<div class="hd">
-		<ul>
-		<?php
-			$html.='';
-			for($i=0;$i<$advCount;$i++){
-                                                            $j=$i+1;
-				$html.="<li>".$j."</li>";
-			}
-			echo $html;
-		?>
-		</ul>
-	</div>
-	<div class="bd">
-		<ul>
-		<?php
-			$htmlA.='';
-			for($j=0;$j<=$advCount;$j++){	
-				 $htmlA.="<li><a href='".$adv_list[$j][url]."' target='_blank' alt='".$adv_list[$j][name]."'><img src='".$adv_list[$j][content]."' /></a></li>";
-			}
-			echo $htmlA;
-		 ?>
-		</ul>
-	</div>
-</div>
 
-<div id="slideBox" class="slideBox" style="display: block;background:rgba(0, 0, 0, 0) url('http://img.baicaio.com/data/upload/advert/1703/03/58b9042532ccd.jpg') repeat scroll center center;">
-    <a href="mailto:br@baicaio.com" target="_blank"><h2 style="">广告位出租--请发邮件到:br@baicaio.com</h2></a>
-</div>
--->
+
 <!--focus end-->	
 
 <!--banner end-->
 <include file="public:daohan" />
+ 
+ <!--
+<div id="slideBox" class="slideBox">
+<?php  $adv_list = M("ad")->where('status=1 AND board_id=1')->select(); $advCount = M("ad")->where('status=1 AND board_id=1')->count(); ?>
+    <div class="hd">
+        <ul>
+        <?php
+            $html.='';
+            for($i=0;$i<$advCount;$i++){
+                                                            $j=$i+1;
+                $html.="<li>".$j."</li>";
+            }
+            echo $html;
+        ?>
+        </ul>
+    </div>
+    <div class="bd">
+        <ul>
+        <?php
+            $htmlA.='';
+            for($j=0;$j<=$advCount;$j++){   
+                 $htmlA.="<li><a href='".$adv_list[$j][url]."' target='_blank' alt='".$adv_list[$j][name]."'><img src='".$adv_list[$j][content]."' /></a></li>";
+            }
+            echo $htmlA;
+         ?>
+        </ul>
+    </div>
+</div>
+-->
 <div class="w_center">
   <div class="w_cen_lef">
        <div class="w_sy_f1">
+         {:R('advert/index', array(17), 'Widget')}
        <ul>
          <h2>热门活动</h2>
          <volist name="hd" id="r">

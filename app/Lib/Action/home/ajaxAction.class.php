@@ -102,7 +102,7 @@ class ajaxAction extends frontendAction {
 			case "2":$item_mod=M("zr");break;
 			case "3":$item_mod=M("article");break;
 		}
-        $item = $item_mod->where(array('id' => $data['itemid'], 'status' => '1'))->find();
+        $item = $item_mod->where(array('id' => $data['itemid']))->find();
         !$item && $this->ajaxReturn(0, L('invalid_object'));
 		$data['lc']=intval($item['comments'])+1;
         //写入评论

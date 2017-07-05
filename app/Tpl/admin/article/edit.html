@@ -98,13 +98,24 @@
 
 						<th>{:L('article_img')} :</th>
 
-						<td>
+                        <td>
+				<div class="w_tpk">
+				<img id="spimg" src="<if condition="$info['img'] neq '' && $info['img']!='http:' ">{$info['img']}<else/>/images/jia_pic.png</if>"/>
 
-                        <notempty name="info['img']"><span class="attachment_icon J_attachment_icon" file-type="image" file-rel="{:attach($info['img'],'article')}"><img src="{:attach($info['img'],'article')}" width="100" height="100" /></span><br /></notempty>
+		  </div>
+		   <div style="margin-top:90px">    <p style="color:#999999;">支持小于300k格式为jpg、jpeg、png的图片，截图请注意商品显示完全</p></div>
+		   <div class="w_cczx">
 
-                        <input type="file" name="img" class="input-text"  style="width:200px;" />
+            			<em>上传照片</em>
+  		<input type="hidden" name="img" value="{$info['img']}" id="img"/>
 
-                        </td>
+		  <input type="file" name="J_img" id="J_img" class="w_bl_in2" />
+		<!--		<input type="file" name="img"  id="img" class="w_bl_in2" />
+				<input type="text" size="40" name="img_usb"   placeholder="远程图片地址" class="input-text" value=""> </td>
+ -->
+ 			</div>
+ 			<input style="top:15px;left: 15px;"  type="button" name="J_img_d" class="btn" id="J_img_d"   value="选取第一张" />
+ 			</td>
 
 		 			</tr>
 
@@ -119,6 +130,8 @@
 							<label><input type="radio" name="status" class="radio_style" value="0" <if condition="$info.status eq '0'">checked="checked"</if>> {:L('no')}</label>&nbsp;&nbsp;
 
 							<label><input type="radio" name="status" class="radio_style" value="3" <if condition="$info.status eq '3'">checked="checked"</if>> 退回</label>
+
+							<label><input type="radio" name="status" class="radio_style" value="4" <if condition="$info.status eq '4'">checked="checked"</if>> 同时发布到首页</label>
 
 						</td>
 
@@ -313,10 +326,54 @@
 </form>
 
 <include file="public:footer" />
+<style>
+
+	#clipArea {
+
+		margin: 20px;
+
+		height: 300px;}
+
+	#car{
+
+		display: block;
+
+		left: 50%;
+
+		top: 50%;
+
+		width: 600px;
+
+		height: 300px;
+
+		position: fixed;
+
+		margin-left: -300px;
+
+		margin-top: -150px;
+
+		display: none;
+
+            z-index: 999;
+
+	}
+
+</style>
+<div id="car">
+
+	<div id="clipArea"></div>
+
+	<button id="clipBtn">裁剪</button>
+
+	<button id="J_img_close">关闭</button>
+
+	<p class="clipArea_tips"><span>*</span>滑动鼠标滑轮，可进行裁剪区域缩放。</p>
+
+</div>
+
 
 <script src="__STATIC__/js/jquery/plugins/colorpicker.js"></script>
 
-<script src="__STATIC__/js/kindeditor/kindeditor-min.js"></script>
 
 <script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
 
@@ -421,10 +478,152 @@ $(function() {
 </script>
 
 <link rel="stylesheet" href="__STATIC__/js/calendar/calendar-blue.css"/>
-
+<script src="/js/ajaxfileupload.js" type="text/javascript"></script>
 <script src="__STATIC__/js/calendar/calendar.js"></script>
+<script src="/js/car1.6/iscroll-zoom.js"></script>
+
+<script src="/js/car1.6/hammer.js"></script>
+
+<script src="/js/car1.6/lrz.all.bundle.js"></script>
+
+<script src="/js/car1.6/PhotoClip.js"></script>
 
 <script>
+
+	var pc = new PhotoClip('#clipArea', {
+		size: [200, 200],
+		outputSize: [600, 600],
+		//adaptive: ['60%', '80%'],
+		file: '#file',
+		view: '#view',
+		ok: '#clipBtn',
+		//img: 'img/mm.jpg',
+		loadStart: function() {
+			console.log('开始读取照片');
+		},
+		loadComplete: function() {
+			console.log('照片读取完成');
+		},
+		done: function(dataURL) {
+			$('#clipBtn').html('保存中....');
+
+			$.post('/index.php?m=article&a=uploadimg1',{data:dataURL},function(result){
+
+				if(result.status ==1){
+
+					$('#clipBtn').html('裁剪');
+
+					$('#spimg').attr('src',result.data);
+
+					$('#img').val(result.data);
+
+					$('#car').hide();
+
+				}
+
+			},'json');
+		},
+		fail: function(msg) {
+			alert(msg);
+		}
+	});
+	$('#J_img_d').click('change',function () {
+		var content = ue.getContent(); 
+		var pattern =/<img(.*?)src=\"(.*?)\"/;
+		var imgs=pattern.exec(content);
+		if(imgs !=null && imgs[2].substring(0,13)== "/ueditor/php/"){
+		pc.load(imgs[2]);
+		$('#car').show();
+		}
+		else{
+			$.get('/ueditor/php/controller.php?action=catchimage&transfer=1&source[]='+imgs[2],{},function(result){
+
+				if(result.state =="SUCCESS"){
+					img=result.list[0].url;
+					pc.load(img);
+					$('#car').show();
+
+				}
+				else{
+					alert("找不到图片");
+					$('#car').hide();
+				}
+
+			},'json');
+		
+		}
+		
+
+	});
+
+	$("#spimg").click(function(){
+
+	$("#J_img").trigger("click");
+
+});
+	$('#J_img_close').click('change',function () {
+
+		$('#car').hide();
+
+	});
+
+	$('#J_img').live('change',function () {
+
+		$('#car').show();
+
+	});
+
+	$("#J_img").live('change',function () {
+
+	ajaxFileUpload();
+
+});
+
+	function ajaxFileUpload() {
+
+
+	$.ajaxFileUpload
+
+	(
+
+		{
+
+			url: PINER.root + '/?m=article&a=uploadimg', //用于文件上传的服务器端请求地址
+
+			secureuri: false, //是否需要安全协议，一般设置为false
+
+			fileElementId: 'J_img', //文件上传域的ID
+
+			dataType: 'json', //返回值类型 一般设置为json
+
+			success: function (result, status)  //服务器成功响应处理函数
+
+			{
+
+				if(result.status =='1'){
+					pc.load(result.data);
+
+					
+
+				}
+
+			},
+
+			error: function (data, status, e)//服务器响应失败处理函数
+
+			{
+
+				tips(e,0);
+
+			}
+
+		}
+
+	)
+
+	return false;
+
+}
 
 Calendar.setup({
 
@@ -437,6 +636,18 @@ Calendar.setup({
 	timeFormat : "24"
 
 });
+
+var PINER = {
+    root: "__ROOT__",
+    uid: "<?php echo $visitor['id'];?>", 
+    async_sendmail: "<?php echo $async_sendmail;?>",
+    config: {
+        wall_distance: "<?php echo C('pin_wall_distance');?>",
+        wall_spage_max: "<?php echo C('pin_wall_spage_max');?>"
+    },
+    //URL
+    url: {}
+};
 
 </script>
 

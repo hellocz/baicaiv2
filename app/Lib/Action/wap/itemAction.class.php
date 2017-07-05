@@ -67,8 +67,8 @@ class itemAction extends frontendAction {
         $time_day = $time - 86400;
 
         //小时榜和24小时榜
-        $day_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_day and $time ORDER BY hits desc,add_time desc LIMIT 4");
-        $this->assign('day_list',$day_list);
+   //     $day_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_day and $time ORDER BY hits desc,add_time desc LIMIT 4");
+    //    $this->assign('day_list',$day_list);
 
         $this->assign('item', $item);
         $this->assign('orig', $orig);
@@ -90,8 +90,8 @@ class itemAction extends frontendAction {
 			$strpos = getpos($item['cate_id'],'');
 		}
 		$this->assign("strpos",$strpos);
-		$pre = $item_mod->where("id<$id and status=1")->field("id,title")->find();
-		$next = $item_mod->where("id>$id and status=1")->field("id,title")->find();
+//		$pre = $item_mod->where("id<$id and status=1")->field("id,title")->find();
+//		$next = $item_mod->where("id>$id and status=1")->field("id,title")->find();
 		$this->assign("pre",$pre);
 		$this->assign("next",$next);
 		//评论

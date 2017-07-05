@@ -59,6 +59,8 @@ padding: 2px;
 
        <span>{:L('user_num')}：<em>{$item.user_num}</em></span><br/>
 
+ 	<span>所需积分：<em>{$item.score}</em></span><br/>
+
 	   <span>所需金币：<em>{$item.coin}</em></span><br/>
 
 	   <span>{:L('ec_number')}：<input type="text" id="J_num_{$item.id}" class="input_text_number" value="1" size="4"></span><br/>
@@ -67,10 +69,10 @@ padding: 2px;
 
        <div class="w_zrxx_1_r3">
 
-       <a href="javascript:;" id="J_ec_btn" title="立即兑换" data-id="{$item.id}" data-num="#J_num_{$item.id}" class="w_dha">立即兑换</a>
+       <a href="javascript:;" id="J_ec_btn" title="立即兑换" data-id="{$item.id}" data-num="#J_num_{$item.id}" class="w_dha">立即兑换</a><a style="left:20px;position: relative;" href="{:U('user/phone_bind')}"  title="绑定手机号"  class="w_dha">绑定手机号</a>
        </div>
        <div class="w_zrxx_1_r3">
-       <a href="{:U('user/phone_bind')}"  title="绑定手机号"  class="w_dha">绑定手机号</a>
+       
 
        </div>
 
