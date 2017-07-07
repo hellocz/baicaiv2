@@ -21,6 +21,24 @@ class ajaxAction extends frontendAction {
 			$this->ajaxReturn(1, '',$data['zan']);
 		}
     }
+     public function vote() {//对晒单投票
+		$id = $_REQUEST['id'];
+		$t = $_REQUEST['t'];
+		$ip = trim(getip());
+		$myip = trim(cookie("ip"));
+		$vote = trim(cookie("vote".$t.$id));
+		if($ip==$myip&&$vote==1){//已点赞
+			$this->ajaxReturn(0, '您已经投过票了！');
+		}else{
+			cookie("ip",$ip);
+			cookie("vote".$t.$id,1);
+			$data['vote']=M($t)->where("id=$id")->getField("vote");
+			$data['vote']+=1;
+			$data['id']=$id;
+			$r=M($t)->save($data);
+			$this->ajaxReturn(1, '',$data['vote']);
+		}
+    }
 	public function setlikes(){//收藏商品
 		!$this->visitor->is_login && $this->ajaxReturn(0, '请登录！');
 		$user = $this->visitor->get();

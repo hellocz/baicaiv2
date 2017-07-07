@@ -41,6 +41,17 @@ class itemAction extends frontendAction {
         $orig = M('item_orig')->field('name,img')->find($item['orig_id']);
         //商品相册
         $img_list = M('item_img')->field('url')->where(array('item_id' => $id))->order('ordid')->select();
+
+        $vote =M("vote")->where(array('item_id'=>$id))->find();
+        if($vote && $vote['article_list'] != ""){
+          $vote_tag =1;
+           $this->assign('vote_tag', $vote_tag);
+          $where['id']=array('in',$vote['article_list']);
+          $where['status']=array('in','1,4');
+          $article_list = M('article') -> where($where)->order('vote desc')->select();
+          $this->assign('article_list',$article_list);
+        }
+
         //标签
         $item['tag_list'] = unserialize($item['tag_cache']);
         
@@ -666,7 +677,7 @@ function get_photo($url,$file_num,$savefile='ueditor/php/upload/image/')
         }
         $item = $item_mod->create();
         $item['img'] =  $this->get_photo( $item['img'],0);
-        $item['intro'] = $this->_post('title', 'trim');
+        //$item['intro'] = $this->_post('title', 'trim');
         $item['info'] = Input::deleteHtmlTags($item['info']);
         $item['uid'] = $this->visitor->info['id'];
         $item['uname'] = $this->visitor->info['username'];

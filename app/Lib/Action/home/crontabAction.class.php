@@ -1,4 +1,6 @@
 <?php
+require LIB_PATH . 'Pinlib/autoload.php';
+       use JPush\Client  as JPush;
 
 class crontabAction extends frontendAction {
 
@@ -27,6 +29,22 @@ class crontabAction extends frontendAction {
         $oauth->uploaddocument($status,$url);
         } 
 
+    }
+
+  public function baicai_push() {
+       $app_key="7c7de5f8d6948b005eb91a50";
+       $master_secret="bb7352129924918f7d53f144";
+       $client = new JPush($app_key, $master_secret);
+        $pusher = $client->push();
+        $pusher->setPlatform('all');
+        $pusher->addAllAudience();
+        $pusher->setNotificationAlert('Hello, baicaio push.');
+        try {
+            $pusher->send();
+        } catch (JPushException $e) {
+            // try something else here
+            print $e;
+        }
     }
 
    

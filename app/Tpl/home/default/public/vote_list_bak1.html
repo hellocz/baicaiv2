@@ -1,0 +1,239 @@
+
+<style type="text/css">
+ .fpItem {
+    position: relative;
+}
+ .itemImageAndName {
+    cursor: pointer;
+    font-family: "Open Sans Semibold","Open Sans",Arial,sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    height: 218px;
+    padding: 10px 10px 7px;
+    position: relative;
+}
+ .fpGridBox {
+    background-color: #fff;
+    border-color: #c7c7c7;
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px 1px 3px;
+     color: #999;
+    float: left;
+    margin-bottom: 10px;
+    margin-right: 5px;
+    overflow: hidden;
+    width: 158px;
+}
+.itemImageAndName {
+    cursor: pointer;
+    font-family: "Open Sans Semibold","Open Sans",Arial,sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    height: 218px;
+    padding: 10px 10px 7px;
+    position: relative;
+}
+.itemImageAndName {
+    cursor: pointer;
+    font-family: "Open Sans Semibold","Open Sans",Arial,sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+}
+.imageContainer {
+    display: table-cell;
+    height: 133px;
+    vertical-align: middle;
+    width: 180px;
+}
+ .grid .fpItem .itemImageAndName img {
+    border: medium none;
+    display: block;
+    margin: 0 auto;
+    max-height: 125px;
+    max-width: 125px;
+}
+.itemPrice {
+    font-family: "Open Sans Bold", "Open Sans", Arial, sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    color: #76b14c;
+    font-size: 15px;
+    max-width: 100px;
+    line-height: 18px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+ .avatarBox {
+    position: absolute;
+    right: 10px;
+}
+.fpItem .itemInfoLine {
+    border-top: 1px solid #e5e5e5;
+    color: #999;
+    display: block;
+    height: 25px;
+    padding: 6px 10px 0 10px;
+    position: relative;
+}
+ a.itemStore {
+    font-family: arial,sans-serif;
+    font-weight: 500;
+    font-style: italic;
+    color: #999;
+    display: inline-block;
+    font-size: 11px;
+    padding: 0 2px 4px 0;
+    max-width: 130px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+ .itemTitle {
+    display: block;
+    overflow: hidden;
+    font-family: arial, sans-serif;
+    font-weight: 400;
+}
+ .itemTitle {
+    line-height: 15px !important;
+    height: 60px;
+    color: #0072bc;
+}
+ .itemBottomRow {
+    background-color: #fcfcfc;
+    color: #c7c7c7;
+    border-radius: 0 0 4px 4px;
+    border-top: 1px solid #d6d6d6;
+    height: 37px;
+}
+.likes {
+    border-right: 1px solid #d6d6d6;
+    padding: 10px;
+    position: relative;
+    float: left;
+}
+.comments {
+    border-right: 1px solid #d6d6d6;
+    padding: 10px;
+    overflow: hidden;
+    text-align: center;
+}
+.w_zdlj_a{
+    border-radius: 4px;
+    color: #646464;
+    float: right;
+    padding-right: 10px;
+    text-align: center;
+}
+.newtag{
+    background-color: #3DC399;
+    float: left;
+    height: 20px;
+    left: -30px;
+    position: absolute;
+    text-align: center;
+    transform: rotate(-45deg);
+    width: 100px;
+}
+.itemBottomRow .comments:hover{background: #3dc399;color: #fff;text-decoration: none !important;}
+
+</style>
+       <div class="w_nr3">
+<?php 
+$vote_list = M("article")->where('(status=1 or  status =4) ')->order('add_time desc')->select();
+?>
+         <ul id="C_drc">
+	<volist name="vote_list" id="r" >
+           <div class="fpGridBox grid">
+            <div class="fpItem">
+                  <div>
+                     <div>
+                        <div class="itemImageAndName">
+                        <?php $time = time()-60*10;?>
+                                <if condition="$r['add_time'] gt $time"><span class="newtag">NEW</span></if>
+                                <div class="itemImageLink">
+                                   <div class="imageContainer">
+                                      <a href="{:U('article/show',array('id'=>$r['id'],'isbao'=>1))}" title="{$r.title}" target="_blank"><img src="<if condition="$r['img']==''">/images/nopic.jpg<else/>{:attach($r['img'],'item')}!newthumb</if>" title="{$r.title}" alt="{$r.title}"/></a>
+                                  </div>
+                                 <a class="itemStore" style="font-size: 11px !important"   title="{$r.sc}">{$r.sc}</a>
+                                 <a class="itemTitle" style="font-size: 12px !important ;line-height: 15px !important;"  href="{:U('bitem/index',array('id'=>$r['id'],'isbao'=>1))}" title="{$r.title}" target="_blank">{$r.title}<em style="color:red;">{$r.price}</em></a>
+                                </div>
+                         </div>
+	                 <div class="itemInfoLine">
+                             <div class="avatarBox">
+                                   <img src="{:avatar($r['uid'],'')}" title="{$r.uname}" alt="{$r.uname}" class="ava"/>
+                             </div>
+			       <div class="itemPrice  ">{$r['add_time']|mdate}</div>
+                          </div>
+                          <div class="itemBottomRow">
+                                <div class="likes">
+                                  <div class="w_f2nr1_le"><a href="javascript:void(0)" onclick="jz_submit_click(this)" title="赞" class="w_z_1 Jz_submit" data="{$r.id}"  data-t="item_diu">{$r.zan}</a></div>
+                                </div>
+                               
+
+        				<?php $llink = unserialize($r['go_link']);$lc = count($llink);?>
+
+        				<volist name="llink" id="rm" key="j">
+
+            			           <if condition="$j eq 1"><a   <if condition="$r['orig_id'] eq 3"> isconvert="1" href="{$rm['link']}"<else/> href="__ROOT__/?m=item&a=tgo&to={:shortUrl($rm['link'])}" </if> title="{$rm.title}"  target="_blank" rel="nofollow" > <div class="comments">{$rm.name}</div></a>
+                             </if>
+
+        				</volist>
+
+        				
+
+                            </div>
+                         </div>
+                        </div>
+                        </div>
+                        </div>
+              </volist>
+
+         </ul>
+
+       </div> 
+
+
+	   <script>
+
+	   $(document).ready(function(e) {
+
+             $(".w_zzj_1").hover(
+
+				  function () {
+
+					$(this).children("ul").show();
+
+					$(this).find("i").addClass("w_up").removeClass("w_down");
+
+				  },
+
+				  function () {
+
+					$(this).children("ul").hide("");
+
+					$(this).find("i").addClass("w_down").removeClass("w_up");
+
+				  }
+
+				); 
+
+			 $(".w_p1 .w_dj1").each(function(){
+
+				 if($(this).html()==""){
+
+					 $(this).hide();
+
+				 }
+
+			 })
+
+        }) 
+
+	   </script>

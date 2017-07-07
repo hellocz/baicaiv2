@@ -32,7 +32,9 @@
 
 	  <if condition="$t eq 'zr' or $t eq 'zcg' or $t eq 'zds' or $t eq 'zth'"><a href="{:U('user/publish',array('t'=>'zcg'))}" title="草稿">草稿</a>  <a href="{:U('user/publish',array('t'=>'zds'))}" title="待审">待审</a> <a href="{:U('user/publish',array('t'=>'zth'))}" title="退回">退回</a> <a href="{:U('zr/publish')}" style="background:#3dc399 ;color:#fff">我要转让</a></if>
 
-	  <if condition="$t eq 'sd' or $t eq 'scg' or $t eq 'sds' or $t eq 'sth'"><a href="{:U('user/publish',array('t'=>'scg'))}" title="草稿">草稿</a>  <a href="{:U('user/publish',array('t'=>'sds'))}" title="待审">待审</a> <a href="{:U('user/publish',array('t'=>'sth'))}" title="退回">退回</a> <a href="{:U('article/publish',array('t'=>'sd'))}" style="background:#3dc399 ;color:#fff">我要晒单</a></if>
+	  <if condition="$t eq 'sd' or $t eq 'scg' or $t eq 'sds' or $t eq 'sth'">
+    <!--<a href="{:U('user/publish',array('t'=>'scg'))}" title="草稿">草稿</a>  <a href="{:U('user/publish',array('t'=>'sds'))}" title="待审">待审</a> <a href="{:U('user/publish',array('t'=>'sth'))}" title="退回">退回</a> -->
+    <a href="{:U('article/publish',array('t'=>'sd'))}" style="background:#3dc399 ;color:#fff">我要晒单</a></if>
 
 	  <if condition="$t eq 'gl' or $t eq 'gcg' or $t eq 'gds' or $t eq 'gth'"><a href="{:U('user/publish',array('t'=>'gcg'))}" title="草稿">草稿</a>  <a href="{:U('user/publish',array('t'=>'gds'))}" title="待审">待审</a> <a href="{:U('user/publish',array('t'=>'gth'))}" title="退回">退回</a> <a href="{:U('article/publish',array('t'=>'gl'))}" style="background:#3dc399 ;color:#fff">发布攻略</a></if>
 
@@ -192,9 +194,11 @@
 
             <dt  class="w_wdg_1l_1">标题</dt>
 
-            <dd  class="w_wdg_1l_2">回复数</dd>
+            <dd  class="w_wdg_1l_2">状态</dd>
 
-            <dd  class="w_wdg_1l_3">操作</dd>
+            <dd  class="w_wdg_1l_3">回复数</dd>
+
+            <dt  class="w_wdg_1l_4">操作</dt>
 
           </dl>
 
@@ -206,14 +210,15 @@
 
               <a href="{:U('article/show',array('id'=>$item['id']))}" title="{$item.title}"><img src="{:attach($item['img'],'article')}" title="{$item.title}" alt="{$item.title}"/></a>
 
-              <p><a href="{:U('article/show',array('id'=>$item['id']))}" title="{$item.title}">{$item.title|msubstr=0,28,false}<br/>{$item.intro|msubstr=0,28,false}</a></p>
+              <p><a href="{:U('article/show',array('id'=>$item['id']))}" title="{$item.title}">{$item.title|msubstr=0,28,false}<br/>{$item.intro|msubstr=0,20,false}</a></p>
 
             </dt>
 
-            <dd  class="w_wdg_12_2">{$item.comments}条</dd>
+            <dd  class="w_wdg_12_2"><if condition="$item['status'] eq 0">待审核<elseif condition="$item['status'] eq 2" />草稿<elseif condition="$item['status'] eq 3" />退回<else/>审核通过</if></dd>
 
-            <dd  class="w_wdg_12_3"><a href="javascript:;" title="删除" data-url="{:U('user/del_article',array('id'=>$item['id']))}" class="J_del_art w_sc_a">删除</a></dd>
+            <dd  class="w_wdg_12_3">{$item.comments}条</dd>
 
+           <dd  class="w_wdg_12_4"><a href="{:U('article/edit',array('t'=>$t,'id'=>$item['id']))}" title="编辑">编辑</a>|<a href="javascript:;" title="删除" data-url="{:U('user/del_article',array('id'=>$item['id']))}" class="J_del_art w_sc_a">删除</a></dd>
           </dl>
 
 		  </volist>

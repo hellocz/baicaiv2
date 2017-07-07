@@ -172,9 +172,9 @@
 						<th>操作：</th>
 
 						<td>
-
+<!--
 							<if condition="$info['status'] eq '0'"><a href="javascript:;" class="J_showdialog" data-uri="/?g=admin&m=article&a=set_score&id={$info.id}" data-title="设置积分信息" data-id="edit" data-acttype="ajax" data-width="300" data-height="140" title="审核">审核</a> | </if>
-
+-->
 							<a href="javascript:void(0);" class="J_confirmurl" data-uri="{:u('item/delete', array('id'=>$info['id']))}" data-msg="{:sprintf(L('confirm_delete_one'),$info['title'])}">{:L('delete')}</a>
 
 						</td>

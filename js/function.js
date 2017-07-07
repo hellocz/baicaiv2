@@ -341,3 +341,19 @@ function jz_submit_click(obj){
 			}
 		},'json')
 	}
+function vote_submit_click(obj){
+		var obj=$(obj);
+		//if(obj.attr("voted") ==0){
+		//	obj.attr("voted",1);
+		$.get("/index.php?m=ajax&a=vote",{id:$(obj).attr("data"),t:$(obj).attr("data-t")},function(result){
+			if(result.status==1){
+				obj.parent().prev().html(parseInt(obj.parent().prev().html())+1);
+			}else{
+				tips(result.msg,0);
+			}
+		},'json')
+		//}
+		//else{
+		//	tips("不能重复投票！",0);
+		//}
+	}

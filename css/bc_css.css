@@ -957,12 +957,12 @@ input,label { vertical-align:middle; font-family:"Microsoft YaHei";}
 
 .w_wdgl{ width:100%; float:left; margin-top:20px;}
 .w_wdg_1l{ width:96%; padding-left:4%; background:#ececec; line-height:40px; height:40px; font-size:14px; color:#646464;}
-.w_wdg_1l_1{ width:500px; float:left;}
+.w_wdg_1l_1{ width:45%; float:left;}
 .w_wdg_1l_2{ width:200px; float:left; text-align:center;}
 .w_wdg_1l_3{ width:200px;  float:left; text-align:center;}
 
 .w_wdg_12{ width:100%; border-bottom:1px dashed #ececec; line-height:40px; height:80px; font-size:14px; color:#646464; padding:20px 0; float:left;}
-.w_wdg_12_1{ width:500px; float:left; margin-left:40px;}
+.w_wdg_12_1{ width:45%; float:left; }
 .w_wdg_12_1 img{ width:100px; height:80px; border:1px solid #dfdfdf; margin-right:30px; float:left; display:inline;}
 .w_wdg_12_1 a{ color:#323232;}
 .w_wdg_12_2{ width:200px; float:left; text-align:center; display:inline; _width:120px;}

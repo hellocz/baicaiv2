@@ -99,6 +99,11 @@ class backendAction extends baseAction
                 $x = $mod->where('id ='.$data['id'])->find();
                  $sb = $data['score']-$x['score'];
             }
+             if($this->_name == 'article'){
+                $score_article  = "publish_article" . $data['id'];
+                $x = $mod->where('id ='.$data['id'])->find();
+                $score_log = M('score_log')->where("action='$score_article'")->find();
+            }
             if (false !== $mod->save($data)) {
                 if($sb!=0){
                     set_score_log(array('id'=>$x['id'],'username'=>$x['username']),'ssbx',$sb,'','','');
@@ -112,6 +117,30 @@ class backendAction extends baseAction
                     $xc['add_time']=time();
                     $xc['info'] ='小编修改了你的积分:'.$sb;
                     M('message')->add($xc);
+                }
+                if($score_article && false == $score_log && ($data['status'] == 1 || $data['status'] == 4)){
+                    $user = M('user')->where('id='.$x['uid'])->find();
+                    $score = 40;
+                    $coin = 100;
+                    $offer = 100;
+                    $exp = 100;
+                     set_score($user,$score,$coin,$offer,$exp);
+                    //积分日志
+                    $xc = array();
+                    $xc['ftid']=$x['uid'];
+                    $xc['to_id']=$x['uid'];
+                    $xc['to_name']=$x['uname'];
+                    $xc['from_id']=0;
+                    $xc['from_name']='tryine';
+                    $xc['add_time']=time();
+                    if($data['cate_id'] ==10){
+                        $xc['info'] ='您的晒单>>'.$data['title'].'通过审核，感谢您的爆料,系统给您奖励积分：'.$score.'，金币：'.$coin.'，贡献值：'.$offer.'，经验：'.$exp.'.';
+                    }else{
+                        $xc['info'] ='您的攻略>>'.$data['title'].'通过审核，感谢您的爆料,系统给您奖励积分：'.$score.'，金币：'.$coin.'，贡献值：'.$offer.'，经验：'.$exp.'.';
+                    }
+
+                    M('message')->add($xc);
+                    set_score_log($user,$score_article,"$score","$coin","$offer","$exp");
                 }
                 if( method_exists($this, '_after_update')){
                     $id = $data['id'];

@@ -45,7 +45,7 @@ class itemModel extends Model
             }
             $item['intro'] = $check_result['content'];
         } else {
-            $item['intro'] = msubstr(strip_tags($item['content']),0,130);
+        //    $item['intro'] = msubstr(strip_tags($item['content']),0,130);
         }
 
         //标签
