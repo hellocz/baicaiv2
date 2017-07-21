@@ -222,7 +222,17 @@
           </div>
       
        </div>
-      
+      <script type="text/javascript" src="/js/scrollfix.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        // Dock the header to the top of the window when scrolled past the banner.
+        // This is the default behavior.
+
+//$('.w_r_tab').scrollFix(60,"top");
+        $('.item_advert').scrollFix(60,"top");
+        });
+</script>
       
       <script type="text/javascript">
       $(".mr_frbox").slide({

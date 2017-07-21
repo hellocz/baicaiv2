@@ -128,7 +128,7 @@ input,label { vertical-align:middle; font-family:"Microsoft YaHei";}
 
 
 .w_center{ width:1200px; margin:0 auto;}
-.w_cen_lef{ width:868px; float:left; font-family:"Microsoft YaHei";}
+.w_cen_lef{ width:870px; float:left; font-family:"Microsoft YaHei";}
 .w_f1{ width:100%; float:left; margin-top:41px;}
 .w_f1_lef{ width:250px; padding:16px; background:#fff; box-shadow: 2px 2px 5px rgba(0,0,0,.1); float:left;}
 .w_f1_lef h2{ color:#323232; font-size:16px; padding-bottom:10px; font-weight:normal;}
@@ -164,7 +164,7 @@ input,label { vertical-align:middle; font-family:"Microsoft YaHei";}
 .w_f1_rig p a em{ color:#55dfb4; margin-right:25px; float:left; height:79px;}
 
 
-.w_f2{ width:100%; float:left; margin-top:41px;}
+.w_f2{ width:100%; float:left; margin-top:30px;}
 
 
 .w_sy_ha{ width:828px; float:left; height:40px; background:#fff; box-shadow: 2px 2px 5px rgba(0,0,0,.1); line-height:40px; padding:0 20px 3px 20px; position:relative;}
@@ -185,7 +185,7 @@ input,label { vertical-align:middle; font-family:"Microsoft YaHei";}
 .w_sy_ha span i{ background:url(../images/w_tj_2.png) no-repeat; width:8px; height:10px; display:block; position:absolute; right:5px; top:15px;}
 
 .w_f2_nr1{ width:100%; float:left;}
-.w_f2_nr1_1{ width:828px; float:left; padding:20px; margin-top:30px; line-height:24px;  background:#fff; box-shadow: 2px 2px 5px rgba(0,0,0,.1); height:208px; position:relative;}
+.w_f2_nr1_1{ width:828px; float:left; padding:20px; margin-top:30px; line-height:24px;  background:#fff; box-shadow: 2px 2px 5px rgba(0,0,0,.1); height:208px; position:relative;overflow: hidden;}
 .w_f2_nr1_1 img{ width:208px; height:208px; margin-right:19px; float:left;}
 .w_f2_nr1_1 img.ava{ margin-right:5px; }
 .w_f2_nr1_1 h2{font-weight:normal;font-size: 20px;      line-height: 30px;    padding-bottom: 10px;}
@@ -235,7 +235,7 @@ input,label { vertical-align:middle; font-family:"Microsoft YaHei";}
 .w_pag a:hover{ background:#3dc399; color:#fff !important;}
 
 .w_cen_rig{ width:300px; float:right; font-family:"Microsoft YaHei";}
-.w_r1{ width:260px; background:#fff; box-shadow: 2px 2px 5px rgba(0,0,0,.1);  float:left; padding:20px;   margin-top:41px;}
+.w_r1{ width:260px; background:#fff; box-shadow: 2px 2px 5px rgba(0,0,0,.1);  float:left; padding:20px;   margin-top:30px;}
 .w_r1_1{ width:100%; float:left; font-size:12px;}
 .w_r1_1_1{ float:left; width:60px; height:48px; line-height:48px; background:url(../images/w_dl_1.png) no-repeat 12px center #3dc399; padding:0 16px 0 50px; color:#fff; border-radius:5px;}
 .w_r1_1_2{ float:right; width:50px; height:48px; line-height:48px; background:url(../images/w_dl_2.png) no-repeat 12px center #5db5ff; padding:0 16px 0 50px; color:#fff; border-radius:5px;}
@@ -339,7 +339,7 @@ input,label { vertical-align:middle; font-family:"Microsoft YaHei";}
 
 /*w_nr3*/
 .w_nr3{width:100%; float:left;}
-.w_nr3 li{ width:270px; float:left; background:#fff; box-shadow: 2px 2px 5px rgba(0,0,0,.1); line-height:200%; margin:30px 0 0 28px; display:inline;position: relative;height:427px !important;}
+.w_nr3 li{ width:270px; float:left; background:#fff; box-shadow: 2px 2px 5px rgba(0,0,0,.1); line-height:200%; margin:30px 0 0 28px; display:inline;position: relative;height:427px !important;overflow: hidden;}
 .w_nr3 li img{ width:270px; float:left; height:270px; margin-bottom:10px;border-radius: 0;margin-right: 5px;}
 .w_nr3 li h2{ font-weight:bold; padding:0px 20px 5px 20px; width:230px; float:left;height: 60px;line-height: 20px;}
 .w_nr3 li h2 a{color: #333; font-size:14px;line-height: 20px;}
@@ -1200,7 +1200,7 @@ a{ text-decoration:none;}
 /*首页热门活动*/
 .w_sy_f1{width: 100%;
     float: left;
-    margin-top: 41px; font-size:14px; line-height:200%; background:#fff;box-shadow: 2px 2px 5px rgba(0,0,0,.1);}
+    margin-top: 30px; font-size:14px; line-height:200%; background:#fff;box-shadow: 2px 2px 5px rgba(0,0,0,.1);}
 .w_sy_f1 ul{ padding:20px  10px 20px 10px; height:95px;}
 .w_sy_f1 h2{ font-weight:normal; color:#000; font-size:15px;}
 .w_sy_f1 li{ width:33%; float:left; color:#555; margin-bottom:10px; }
@@ -1208,7 +1208,7 @@ a{ text-decoration:none;}
 .w_sy_f1 li:hover a{ color:#3dc399;}
 .w_sy_f1 li a img{ width:25px; height:25px; position:absolute; top:-18px; right:-15px;}
 
-.txtScroll-top{ overflow:hidden; position:relative; /* border:1px solid #ccc;*/ height:40px; line-height:40px; width:100%; margin-top:41px; background:#fff; float:left;box-shadow: 2px 2px 5px rgba(0,0,0,.1);}
+.txtScroll-top{ overflow:hidden; position:relative; /* border:1px solid #ccc;*/ height:40px; line-height:40px; width:100%; margin-top:30px; background:#fff; float:left;box-shadow: 2px 2px 5px rgba(0,0,0,.1);}
 .txtScroll-top .bd{ padding:0 10px;}
 .txtScroll-top .bd em{ background:#3dc399; color:#fff; padding:0px 15px; border-radius:5px; height:30px; line-height:30px; margin-top:5px; font-size:13px; margin-right:10px;cursor:pointer; float:left;}
 .txtScroll-top .tempWrap{ margin-left:60px !important;}
@@ -1810,6 +1810,7 @@ input{ border-radius:3px;}
     color: #646464;
     font-size: 14px;
     line-height: 24px;
+    height: 72px;overflow: hidden;
 }
 
 .w_r3 li a.J_card{
@@ -2132,7 +2133,7 @@ input{ border-radius:3px;}
 .w_f2_nr1_1 .zf_lista{display:block;float:left;}
 .w_f2_nr1_1 .zf_listit{float:left;width:600px;}
 /* 本例子css */
-.slideBox{ width:100%; height:130px; overflow:hidden; position:relative; display: none; }
+.slideBox{ width:100%; overflow:hidden; position:relative; display: block; }
 .slideBox .bd{ position:relative; height:100%; z-index:0;   }
 .slideBox .bd li{zoom:1; vertical-align:middle; }
 .slideBox .bd img{ width:100%; height:130px; display:block;  }

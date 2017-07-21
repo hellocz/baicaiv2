@@ -28,27 +28,27 @@
 
 	  <em>	  
 
-	  <if condition="$t eq 'gn' or $t eq 'ht' or $t eq 'best' or $t eq 'ids' or $t eq 'icg' or $t eq 'ith'"><a href="{:U('user/publish',array('t'=>'icg'))}" title="草稿（{$num['icg']}）">草稿<i>（{$num['icg']}）</i></a>  <a href="{:U('user/publish',array('t'=>'ids'))}" title="待审（{$num['ids']}）">待审<i>（{$num['ids']}）</i></a> <a href="{:U('user/publish',array('t'=>'ith'))}" title="退回（{$num['ith']}）">退回<i>（{$num['ith']}）</i></a> <a href="{:U('item/share_item')}" style="background:#3dc399 ;color:#fff">我要爆料</a></if>
+	  <if condition="$t eq 'gn' or $t eq 'ht' or $t eq 'best' or $t eq 'ids' or $t eq 'icg' or $t eq 'ith'"><a href="{:U('user/publish',array('t'=>'icg'))}" title="草稿">草稿</a>  <a href="{:U('user/publish',array('t'=>'ids'))}" title="待审">待审</a> <a href="{:U('user/publish',array('t'=>'ith'))}" title="退回">退回</a> <a href="{:U('item/share_item')}" style="background:#3dc399 ;color:#fff">我要爆料</a></if>
 
-	  <if condition="$t eq 'zr' or $t eq 'zcg' or $t eq 'zds' or $t eq 'zth'"><a href="{:U('user/publish',array('t'=>'zcg'))}" title="草稿（{$num['zcg']}）">草稿<i>（{$num['zcg']}）</i></a>  <a href="{:U('user/publish',array('t'=>'zds'))}" title="待审（{$num['zds']}）">待审<i>（{$num['zds']}）</i></a> <a href="{:U('user/publish',array('t'=>'zth'))}" title="退回（{$num['zth']}）">退回<i>（{$num['zth']}）</i></a> <a href="{:U('zr/publish')}" style="background:#3dc399 ;color:#fff">我要转让</a></if>
+	  <if condition="$t eq 'zr' or $t eq 'zcg' or $t eq 'zds' or $t eq 'zth'"><a href="{:U('user/publish',array('t'=>'zcg'))}" title="草稿">草稿</a>  <a href="{:U('user/publish',array('t'=>'zds'))}" title="待审">待审</a> <a href="{:U('user/publish',array('t'=>'zth'))}" title="退回">退回</a> <a href="{:U('zr/publish')}" style="background:#3dc399 ;color:#fff">我要转让</a></if>
 
-	  <if condition="$t eq 'sd' or $t eq 'scg' or $t eq 'sds' or $t eq 'sth'"><a href="{:U('user/publish',array('t'=>'scg'))}" title="草稿（{$num['scg']}）">草稿<i>（{$num['scg']}）</i></a>  <a href="{:U('user/publish',array('t'=>'sds'))}" title="待审（{$num['sds']}）">待审<i>（{$num['sds']}）</i></a> <a href="{:U('user/publish',array('t'=>'sth'))}" title="退回（{$num['sth']}）">退回<i>（{$num['sth']}）</i></a> <a href="{:U('article/publish',array('t'=>'sd'))}" style="background:#3dc399 ;color:#fff">我要晒单</a></if>
+	  <if condition="$t eq 'sd' or $t eq 'scg' or $t eq 'sds' or $t eq 'sth'"><a href="{:U('user/publish',array('t'=>'scg'))}" title="草稿">草稿</a>  <a href="{:U('user/publish',array('t'=>'sds'))}" title="待审">待审</a> <a href="{:U('user/publish',array('t'=>'sth'))}" title="退回">退回</a> <a href="{:U('article/publish',array('t'=>'sd'))}" style="background:#3dc399 ;color:#fff">我要晒单</a></if>
 
-	  <if condition="$t eq 'gl' or $t eq 'gcg' or $t eq 'gds' or $t eq 'gth'"><a href="{:U('user/publish',array('t'=>'gcg'))}" title="草稿（{$num['gcg']}）">草稿<i>（{$num['gcg']}）</i></a>  <a href="{:U('user/publish',array('t'=>'gds'))}" title="待审（{$num['gds']}）">待审<i>（{$num['gds']}）</i></a> <a href="{:U('user/publish',array('t'=>'gth'))}" title="退回（{$num['gth']}）">退回<i>（{$num['gth']}）</i></a> <a href="{:U('article/publish',array('t'=>'gl'))}" style="background:#3dc399 ;color:#fff">发布攻略</a></if>
+	  <if condition="$t eq 'gl' or $t eq 'gcg' or $t eq 'gds' or $t eq 'gth'"><a href="{:U('user/publish',array('t'=>'gcg'))}" title="草稿">草稿</a>  <a href="{:U('user/publish',array('t'=>'gds'))}" title="待审">待审</a> <a href="{:U('user/publish',array('t'=>'gth'))}" title="退回">退回</a> <a href="{:U('article/publish',array('t'=>'gl'))}" style="background:#3dc399 ;color:#fff">发布攻略</a></if>
 
 	  </em>
 
-      <span <if condition="$t eq 'gn' or $t eq 'ids' or $t eq 'icg' or $t eq 'ith'">class="w_wz_h1_s"</if> ><a href="{:U('user/publish',array('t'=>'gn'))}" title="国内">国内（{$num['gn']}）</a></span>
+      <span <if condition="$t eq 'gn' or $t eq 'ids' or $t eq 'icg' or $t eq 'ith'">class="w_wz_h1_s"</if> ><a href="{:U('user/publish',array('t'=>'gn'))}" title="国内">国内</a></span>
 
-      <span <if condition="$t eq 'ht'">class="w_wz_h1_s"</if> ><a href="{:U('user/publish',array('t'=>'ht'))}" title="海淘">海淘（{$num['ht']}）</a></span>
+      <span <if condition="$t eq 'ht'">class="w_wz_h1_s"</if> ><a href="{:U('user/publish',array('t'=>'ht'))}" title="海淘">海淘</a></span>
 
-	  <span <if condition="$t eq 'best'">class="w_wz_h1_s"</if>><a href="{:U('user/publish',array('t'=>'best'))}" title="精品汇">精品汇（{$num['best']}）</a></span>
+	  <span <if condition="$t eq 'best'">class="w_wz_h1_s"</if>><a href="{:U('user/publish',array('t'=>'best'))}" title="精品汇">精品汇</a></span>
 
-      <span <if condition="$t eq 'zr' or $t eq 'zcg' or $t eq 'zds' or $t eq 'zth'">class="w_wz_h1_s"</if>><a href="{:U('user/publish',array('t'=>'zr'))}" title="转让">转让（{$num['zr']}）</a></span>
+      <span <if condition="$t eq 'zr' or $t eq 'zcg' or $t eq 'zds' or $t eq 'zth'">class="w_wz_h1_s"</if>><a href="{:U('user/publish',array('t'=>'zr'))}" title="转让">转让</a></span>
 
-	  <span <if condition="$t eq 'sd' or $t eq 'scg' or $t eq 'sds' or $t eq 'sth'">class="w_wz_h1_s"</if>><a href="{:U('user/publish',array('t'=>'sd'))}" title="晒单">晒单（{$num['sd']}）</a></span>
+	  <span <if condition="$t eq 'sd' or $t eq 'scg' or $t eq 'sds' or $t eq 'sth'">class="w_wz_h1_s"</if>><a href="{:U('user/publish',array('t'=>'sd'))}" title="晒单">晒单</a></span>
 
-	  <span <if condition="$t eq 'gl' or $t eq 'gcg' or $t eq 'gds' or $t eq 'gth'">class="w_wz_h1_s"</if>><a href="{:U('user/publish',array('t'=>'gl'))}" title="攻略">攻略（{$num['gl']}）</a></span>
+	  <span <if condition="$t eq 'gl' or $t eq 'gcg' or $t eq 'gds' or $t eq 'gth'">class="w_wz_h1_s"</if>><a href="{:U('user/publish',array('t'=>'gl'))}" title="攻略">攻略</a></span>
 
      </div>
 

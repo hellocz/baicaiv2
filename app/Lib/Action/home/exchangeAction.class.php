@@ -82,14 +82,18 @@ class exchangeAction extends frontendAction {
         !$item && $this->ajaxReturn(0, L('invalid_item'));
         !$item['stock'] && $this->ajaxReturn(0, L('no_stock'));
         //金币够不
-        $user_coin = $user_mod->where(array('id'=>$uid))->getField('coin');
-        $user_coin < $item['coin'] && $this->ajaxReturn(0, '没有足够的金币' );
+        $order_coin = $num * $item['coin'];
+        $order_score = $num * $item['score'];
+
+        $user_cf = $user_mod->where(array('id'=>$uid))->field('coin,score')->find();
+        $user_cf['coin'] < $order_coin && $this->ajaxReturn(0, '没有足够的金币' );
+        $user_cf['score'] < $order_score && $this->ajaxReturn(0, '没有足够的积分' );
         //限额
         $eced_num = $order_mod->where(array('uid'=>$uid, 'item_id'=>$item['id']))->sum('item_num');
         if ($item['user_num'] && $eced_num + $num > $item['user_num']) {
             $this->ajaxReturn(0, sprintf(L('ec_user_maxnum'), $item['user_num']));
         }
-        $order_coin = $num * $item['coin'];
+
         $data = array(
             'uid' => $uid,
             'uname' => $uname,
@@ -97,6 +101,7 @@ class exchangeAction extends frontendAction {
             'item_name' => $item['title'],
             'item_num' => $num,
             'order_coin' => $order_coin,
+            'order_score' => $order_score,
         );
         if (false === $order_mod->create($data)) {
             $this->ajaxReturn(0, L('ec_failed'));
@@ -104,12 +109,14 @@ class exchangeAction extends frontendAction {
         $order_id = $order_mod->add();
         //扣除用户积分并记录日志
         $user_mod->where(array('id'=>$uid))->setDec('coin', $order_coin);
+         $user_mod->where(array('id'=>$uid))->setDec('score', $order_score);
         $score_log_mod = D('score_log');
         $score_log_mod->create(array(
             'uid' => $uid,
             'uname' => $uname,
             'action' => 'exchange',
             'coin' => $order_coin*-1,
+            'score' => $order_score*-1,
         ));
         $score_log_mod->add();
 

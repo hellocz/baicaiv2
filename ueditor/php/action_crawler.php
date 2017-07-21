@@ -24,6 +24,8 @@ if (isset($_POST[$fieldName])) {
 } else {
     $source = $_GET[$fieldName];
 }
+$transfer = $_GET['transfer'];
+if($transfer == "1"){
 foreach ($source as $imgUrl) {
     $item = new Uploader($imgUrl, $config, "remote");
     $info = $item->getFileInfo();
@@ -36,7 +38,7 @@ foreach ($source as $imgUrl) {
         "source" => htmlspecialchars($imgUrl)
     ));
 }
-
+}
 /* 返回抓取数据 */
 return json_encode(array(
     'state'=> count($list) ? 'SUCCESS':'ERROR',

@@ -64,13 +64,13 @@
 
 	   <div class="w_gzxq_r2">
 
-	    <a>关注 : {$user.follows}</a>|<a >粉丝：{$user.fans} </a>|<a >爆料：{$user.shares}</a>
+	    <span><if condition="$user.intro or $user.intro !==''">{$user.intro}<else/>这家伙很懒，什么都没有留下.</if></span>
 
 	   </div>
 
 	   <div class="w_gzxq_r3">
 
-	   <b>积分：{$user.score}&nbsp;&nbsp;贡献值：{$user.offer}&nbsp;&nbsp;经验值：{$user.exp} </b>
+	   <b>关注 : {$user.follows}&nbsp;&nbsp;粉丝：{$user.fans} &nbsp;&nbsp;爆料：{$user.shares}&nbsp;&nbsp;积分：{$user.score}&nbsp;&nbsp;贡献值：{$user.offer}&nbsp;&nbsp;经验值：{$user.exp} </b>
 
 	   </div>
 

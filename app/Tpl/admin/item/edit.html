@@ -81,6 +81,7 @@
  -->
  			</div>
  			<input style="top:15px;left: 15px;"  type="button" name="J_img_d" class="btn" id="J_img_d"   value="选取第一张" />
+ 			</td>
  			</tr>
 
 			<tr>
@@ -969,14 +970,14 @@ KindEditor.ready(function(K) {
 	});
 	$('#J_img_d').click('change',function () {
 		var content = ue.getContent(); 
-		var pattern =/<img src=\"(.*?)\"/;
+		var pattern =/<img(.*?)src=\"(.*?)\"/;
 		var imgs=pattern.exec(content);
-		if(imgs !=null && imgs[1].substring(0,13)== "/ueditor/php/"){
-		pc.load(imgs[1]);
+		if(imgs !=null && imgs[2].substring(0,13)== "/ueditor/php/"){
+		pc.load(imgs[2]);
 		$('#car').show();
 		}
 		else{
-			$.get('/ueditor/php/controller.php?action=catchimage&source[]='+imgs[1],{},function(result){
+			$.get('/ueditor/php/controller.php?action=catchimage&transfer=1&source[]='+imgs[2],{},function(result){
 
 				if(result.state =="SUCCESS"){
 					img=result.list[0].url;

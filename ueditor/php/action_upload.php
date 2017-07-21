@@ -70,7 +70,6 @@ $upyun = new UpYun($bucketname, $username, $password);
 
 try {
     $uri = strstr($info["url"], "upload");
-
     if (file_exists($uri)) {
         $opts = array(
             UpYun::CONTENT_MD5 => md5(file_get_contents($uri))
