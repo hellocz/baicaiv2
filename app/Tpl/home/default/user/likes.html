@@ -25,10 +25,14 @@
 	 <h2>我的收藏</h2> 
 
      <div class="w_wz_h1">
+     <!--
+,'2'=>array('best','精品汇')
+,'5'=>array('zr','转让')
+     -->
 
 	 <?php 
 
-	 $menus = array("0"=>array('gn','国内'),'1'=>array('ht','海淘'),'2'=>array('best','精品汇'),'3'=>array('sd','晒单'),'4'=>array('gl','攻略'),'5'=>array('zr','转让'));
+	 $menus = array("0"=>array('gn','国内'),'1'=>array('ht','海淘'),'3'=>array('sd','晒单'),'4'=>array('gl','攻略'));
 
 	 ?>
 
@@ -60,8 +64,8 @@
 
               <a href="{$item.url}" title="{$item.title}"><img src="{$item.img}" title="{$item.title}" alt="{$item.title}"/></a>
 
-              <p><a href="{$item.url}" title="{$item.title}">{$item.title|msubstr=0,26,false}<br/>{$item.intro|msubstr=0,26,false}</a></p>
-
+<!--              <p><a href="{$item.url}" title="{$item.title}">{$item.title|msubstr=0,26,false}<br/>{$item.intro|msubstr=0,26,false}</a></p>-->
+				<p><a href="{$item.url}" title="{$item.title}">{$item.title}<br/></a></p>
             </dt>
 
             <dd  class="w_wdg_12_2">{$item.comments}条</dd>
