@@ -43,12 +43,18 @@ class shopAction extends userbaseAction
             $where .= ' and cate_id != 342';
         }
 
+        if(!empty($data['orig_id'])){
+            $where .= ' and orig_id = '.$data['orig_id'];
+        }
+
         if(!empty($data['key'])){
             $where .= " and title like '%".$data['key']."%'";
         }
-
+        if(!empty($data['isbao'])){
+            $where .= " and isbao = 1";
+        }
 //        $field = 'i.id,i.uid,i.uname,i.title,i.intro,i.img,i.price,i.likes,i.intro,i.content,i.comments,i.comments_cache,i.add_time,i.orig_id,i.url,i.go_link,i.zan';
-        $field = 'name,i.id,i.title,i.img,i.price,i.likes,i.add_time,i.zan,i.go_link';
+        $field = 'name,i.id,i.title,i.img,i.price,i.comments,i.likes,i.add_time,i.zan,i.go_link';
         $item_list = $item_orig
             ->where($where." and i.status=1 and i.add_time<$time ")
             ->join($db_pre . 'item i ON i.orig_id = ' . $db_pre . 'item_orig.id')
@@ -70,6 +76,47 @@ class shopAction extends userbaseAction
         }
         echo get_result($code,$item_list);return ;
 
+    }
+
+    //获取置顶商品
+    public function shoplisttop($data)
+    {
+        $db_pre = C('DB_PREFIX');
+        $item_orig = M("item_orig");
+        $where = 'istop = 1';
+        $time = time();
+        $field = 'name,i.id,i.title,i.img,i.price,i.comments,i.likes,i.add_time,i.zan,i.go_link';
+        $item_list = $item_orig
+            ->where($where." and i.status=1 and i.add_time<$time ")
+            ->join($db_pre . 'item i ON i.orig_id = ' . $db_pre . 'item_orig.id')
+            ->field($field)
+            ->order("i.add_time desc, i.id desc")
+            ->select();
+
+        foreach ($item_list as $key => &$val) {
+            if(!isset($val['shopid'])){
+                $val['shopid'] = $val['id'];
+                unset($val['id']);
+            }
+            $val['go_link'] = array_shift(unserialize($val['go_link']));
+        }
+        $code = 10001;
+        if(count($item_list) < 1){
+            $code = 10002;
+        }
+        echo get_result($code,$item_list);return ;
+    }
+
+
+    public function getorig($data)
+    {
+        $item_mod = M('item_orig');
+        $item = $item_mod->field('id,img,name,url')->select();
+        $code = 10001;
+        if(count($item) < 1){
+            $code = 10002;
+        }
+        echo get_result($code,$item);return ;
     }
 
     /**
@@ -124,7 +171,7 @@ class shopAction extends userbaseAction
     public function shopitem($data) {
         $id = $data['shopid'];
         $item_mod = M('item');
-        $item = $item_mod->field('orig_id,title,img,intro,price,zan,likes,comments,add_time,content,status,go_link')->where(array('id' => $id))->find();
+        $item = $item_mod->field('tag_cache,orig_id,title,img,intro,price,zan,likes,comments,add_time,content,status,go_link')->where(array('id' => $id))->find();
         if(!$item){
             echo get_result(20001,[], "商品不存在");return ;
         }
@@ -137,11 +184,21 @@ class shopAction extends userbaseAction
         }
 
         //来源
-        $orig = M('item_orig')->field('name,img')->find($item['orig_id']);
+        $orig = M('item_orig')->field('id,name,img')->find($item['orig_id']);
+        $like = M('likes')->where(['uid'=>$data['userid'],'itemid'=>$id])->field('itemid')->find();
+        $item['mylike'] = 0;
 
+        if($like){
+            $item['mylike'] = 1;
+        }
         $go_link = unserialize($item['go_link']);
-
+        $item['fenxiang'] = 'http://www.baicaio.com/item/'.$id.'.html';
         $item['go_link'] = array_shift($go_link);
+        $tag_caches = unserialize($item['tag_cache']);
+        $item['tag_cache'] = '';
+        foreach ($tag_caches as $tag_cache){
+            $item['tag_cache'] .= $tag_cache.' ';
+        }
         $item['orig'] = $orig;
         unset($item['orig_id']);
         echo get_result(10001,$item);
@@ -154,10 +211,10 @@ class shopAction extends userbaseAction
 
         $item_comment_mod = M('comment');
         $page = $data['page'] * 10;
-        $pagesize = $data['pagesize'];
+        $pagesize = 10;
         $map = array('itemid' => $data['shopid']);
 
-        $cmt_list = $item_comment_mod->where($map)->order('id DESC')->limit($page - 10, $pagesize)->select();
+        $cmt_list = $item_comment_mod->where($map)->field('id,uid,uname,info,add_time,zan,lc')->order('id DESC')->limit($page - 10, $pagesize)->select();
 
         $code = 10001;
         if(count($cmt_list) < 1){
@@ -173,13 +230,14 @@ class shopAction extends userbaseAction
 
 
         $time = time();
+   //     $time = 1495596278;
         $time_hour = $time - 3600;
         $time_day = $time - 86400;
 
         if($data['type'] == 1){
-            $list=M()->query("SELECT id,title,img,price,add_time from try_item  WHERE add_time between $time_hour and $time ORDER BY hits desc,add_time desc LIMIT 9");
+            $list=M()->query("SELECT id,title,img,price,go_link,comments,likes,add_time,zan from try_item  WHERE add_time between $time_hour and $time ORDER BY hits desc,add_time desc LIMIT 9");
         }else{
-            $list=M()->query("SELECT id,title,img,price,add_time from try_item  WHERE add_time between $time_day and $time ORDER BY hits desc,add_time desc LIMIT 9");
+            $list=M()->query("SELECT id,title,img,price,go_link,comments,likes,add_time,zan from try_item  WHERE add_time between $time_day and $time ORDER BY hits desc,add_time desc LIMIT 9");
         }
 
         foreach ($list as $key => &$val) {
@@ -207,5 +265,85 @@ class shopAction extends userbaseAction
         }
         echo get_result($code,$result);return ;
     }
+
+    //获取商品信息
+    public function fetch_item($data) {
+        $url = $data['url'];
+       //获取商品信息
+        $itemcollect = new itemcollect();
+        $info = $itemcollect->url_parse($url);
+        if(!empty($info)){
+            $info['url'] = $url;
+        }
+
+        $encode = mb_detect_encoding($info['title'], array("ASCII",'UTF-8',"GB2312","GBK",'BIG5'));
+        if($encode != 'UTF-8'){
+            $info['title'] = mb_convert_encoding($info['title'], 'UTF-8', $encode);
+        }
+        $info['item_cate']=M("item_cate")->where("pid=0")->select();
+
+        echo get_result(10001,$info);return ;
+    }
+
+    //发布商品
+    public function publish_item($data) {
+        $user = M("user")->where("id=".$data['userid'])->find();
+        if($user['exp'] < 51){
+            echo get_result(10001,"您的等级还不够，需要升到 2 级才能发布信息！");return ;
+        }
+        $item_mod = D('item');
+        //过滤字符
+        $kill_word = C("pin_kill_word");
+        $kill_word = explode(",",$kill_word);
+        if(in_array($data['content'],$kill_word)||in_array($data['title'],$kill_word)){
+            echo get_result(10001,"您发表的内容有非法字符！");return ;
+        }
+        $item = $item_mod->create();
+        $item['title'] = $data['title'];
+        $item['info'] = Input::deleteHtmlTags($data['content']);
+        $item['uid'] = $data['userid'];
+        $item['price'] = $data['price'];
+        $item['uname'] = get_uname($data['userid']);
+        $item['isbao'] = '1';
+        $item['source'] = '1';
+//        $status = $data['status'];
+//        if($status!=2){$status=0;}
+        $item['status'] = 0;
+
+        //添加凑单品，活动入口链接
+        $arr[] = array('name'=>'直达链接','link'=>$data['url']);
+        if(empty($data["link_type"])){
+            $link_type=$data["link_type"];
+            $link_url =$data["link_url"];
+            foreach($link_type as $key=>$val){
+                $arr[]=array('name'=>$val,'link'=>$link_url[$key]);
+            }
+        }
+
+        $item['go_link']=serialize($arr);
+        foreach($data['imgs'] as $key=>$val){
+            $item['imgs'][$key]['url']=$val;
+        }
+//        if($data['ispost'] == 1){
+            $item['ispost'] =1;
+//        }
+        //添加商品
+        $result = $item_mod->publish($item);
+        if ($result) {
+            //发布商品钩子
+            $tag_arg = array('uid' => $item['uid'], 'uname' => $item['uname'], 'action' => 'pubitem');
+            tag('pubitem_end', $tag_arg);
+            if($status == 2){
+                echo get_result(10001,"保存草稿成功！");return ;
+            }else{
+                echo get_result(10001,"感谢您的爆料，我们会尽快审核，请关注短消息通知！");return ;
+            }
+
+        } else {
+            echo get_result(10001,$item_mod->getError());return ;
+        }
+    }
+
+
 
 }
