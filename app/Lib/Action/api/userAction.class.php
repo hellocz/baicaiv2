@@ -408,6 +408,40 @@ class userAction extends userbaseAction
                 ->select();
 
         }
+
+        foreach($list as $key=>$val){
+            if($list[$key]['action'] == "register"){
+               $list[$key]['action'] = "注册";
+            }
+            elseif($list[$key]['action'] == "login"){
+               $list[$key]['action'] = "登陆";
+            }
+            elseif($list[$key]['action'] == "sign"){
+               $list[$key]['action'] = "签到";
+            }
+            elseif($list[$key]['action'] == "shixin"){
+               $list[$key]['action'] = "私信";
+            }
+            elseif($list[$key]['action'] == "exchange"){
+               $list[$key]['action'] = "兑换";
+            }
+            elseif($list[$key]['action'] == "upload_avator"){
+               $list[$key]['action'] = "更新照片";
+            }
+            elseif($list[$key]['action'] == "comment" OR $list[$key]['action'] == "comment1"){
+               $list[$key]['action'] = "评论";
+            }
+            elseif($list[$key]['action'] == "publish_item"){
+               $list[$key]['action'] = "爆料";
+            }
+            elseif($list[$key]['action'] == "hit_share"){
+               $list[$key]['action'] = "点击分享";
+            }
+            elseif($list[$key]['action'] == "share"){
+               $list[$key]['action'] = "分享";
+            }
+            }
+
         $code = 10001;
         if(count($list) < 1){
             $code = 10002;
