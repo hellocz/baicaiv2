@@ -1,39 +1,80 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<include file="public:head" />
-</head>
-
-<body style="background:#f5f5f5">
-<include file="public:header" />
-<div class="w_bl_bd">
- <div class="w_zh_dq1">
-	  <a href="/" title="首页">首页</a>><a href="{:U('exchange/index')}" title="礼品兑换" class="w_zh_dq1_1">礼品兑换</a> 
-	</div>
-  <div class="w_jszx_1">
-    <div class="w_jszx_h">
-	<a href="{:U('exchange/index')}" ><span <if condition="$cid eq ''">class="w_js_qd"</if>>全部</span></a>
-	<pin:scoreitem type="cate" return="cate_list">
-	<volist name="cate_list" id="cate">
-	<a href="{:U('exchange/index',array('cid'=>$cate['id']))}" title="{$cate.name}"> <span <if condition="$cid eq $cate['id']">class="w_js_qd"</if>>{$cate.name}</span></a>
-	</volist>
-	</pin:scoreitem>
-	</div>
-    <ul   id="con_jszx_1" >
-	  <volist name="item_list" id="item">
-      <li>
-       <a href="{:U('exchange/detail', array('id'=>$item['id']))}" title="{$item.title}">
-         <img src="{:attach($item['img'], 'score_item')}" title="{$item.title}" alt="{$item.title}"/><br/>
-         <h2>{$item.title}</h2>
-         <p>金币 {$item.coin}</p>
-         <p>剩余 {$item.stock} 件</p>
-       </a>
-      </li>
-	  </volist>
-    </ul>
-     <div class="w_pag">{$page_bar}</div>
-  </div>  
-</div>
-<include file="public:footer" />
-</body>
-</html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<include file="public:head" />
+
+</head>
+
+
+
+<body style="background:#f5f5f5">
+
+<include file="public:header" />
+
+<div class="w_bl_bd">
+
+ <div class="w_zh_dq1">
+
+	  <a href="/" title="首页">首页</a>><a href="{:U('exchange/index')}" title="礼品兑换" class="w_zh_dq1_1">礼品兑换</a> 
+
+	</div>
+
+  <div class="w_jszx_1">
+
+    <div class="w_jszx_h">
+
+	<a href="{:U('exchange/index')}" ><span <if condition="$cid eq ''">class="w_js_qd"</if>>全部</span></a>
+
+	<pin:scoreitem type="cate" return="cate_list">
+
+	<volist name="cate_list" id="cate">
+
+	<a href="{:U('exchange/index',array('cid'=>$cate['id']))}" title="{$cate.name}"> <span <if condition="$cid eq $cate['id']">class="w_js_qd"</if>>{$cate.name}</span></a>
+
+	</volist>
+
+	</pin:scoreitem>
+
+	</div>
+
+    <ul   id="con_jszx_1" >
+
+	  <volist name="item_list" id="item">
+
+      <li>
+
+       <a href="{:U('exchange/detail', array('id'=>$item['id']))}" title="{$item.title}">
+
+         <img src="{:attach($item['img'], 'score_item')}" title="{$item.title}" alt="{$item.title}"/><br/>
+
+         <h2>{$item.title}</h2>
+
+         <p>金币 {$item.coin}</p>
+
+         <p>积分 {$item.score}</p>
+
+         <p>剩余 {$item.stock} 件</p>
+
+       </a>
+
+      </li>
+
+	  </volist>
+
+    </ul>
+
+     <div class="w_pag">{$page_bar}</div>
+
+  </div>  
+
+</div>
+
+<include file="public:footer" />
+
+</body>
+
+</html>
+

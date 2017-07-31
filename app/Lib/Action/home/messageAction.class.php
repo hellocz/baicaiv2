@@ -39,6 +39,8 @@ class messageAction extends userbaseAction {
             }
             D('user_msgtip')->clear_tip($uid, 3);
         }
+         $index_count=M('message')->where("to_id='".$uid."' and ck_status=0 and from_id >0")->count();
+        $this->assign('index_count',$index_count);
         $this->assign('count', $count);
         $this->_curr_menu('message');
         $this->_config_seo();
@@ -275,6 +277,8 @@ class messageAction extends userbaseAction {
         D('user_msgtip')->clear_tip($uid, 4);
         M()->query("update try_message set ck_status=1 where from_id=0 AND to_id='".$uid."'");//更新消息查看状态
         $_SESSION['user_info']['message']=M('message')->where("to_id='".$uid."' and ck_status=0")->count();
+        $index_count=M('message')->where("to_id='".$uid."' and ck_status=0 and from_id >0")->count();
+        $this->assign('index_count',$index_count);
         $this->assign('system_list', $system_list);
         $this->assign('page_bar', $pager->fshow());
 		$this->_curr_menu('message');

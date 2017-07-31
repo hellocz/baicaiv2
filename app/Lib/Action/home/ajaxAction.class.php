@@ -189,11 +189,11 @@ class ajaxAction extends frontendAction {
 		$data['add_time'] = time();
         //验证评论对象
 		switch($data['xid']){
-			case "1":$item_mod=M("item");break;
-			case "2":$item_mod=M("zr");break;
-			case "3":$item_mod=M("article");break;
+			case "1":$item_mod=M("item");$item_url =U('item/index',array('id'=>$data['itemid'])); break;
+			case "2":$item_mod=M("zr");$item_url =U('zr/index',array('id'=>$data['itemid'])); break;
+			case "3":$item_mod=M("article");$item_url =U('article/show',array('id'=>$data['itemid']));break;
 		}
-        $item = $item_mod->where(array('id' => $data['itemid'], 'status' => '1'))->find();
+        $item = $item_mod->where(array('id' => $data['itemid']))->find();
         !$item && $this->ajaxReturn(0, L('invalid_object'));
 		$data['lc']=intval($item['comments'])+1;
 		$data['pid']=$id;
@@ -218,6 +218,29 @@ class ajaxAction extends frontendAction {
 			$xc['add_time']=time();
 			$xc['info'] ='感谢您的回复,系统给您奖励积分：1，经验：1.';
 			M('message')->add($xc);
+
+			$pcomment=M("comment")->where(array('id' => $id))->find();
+			$xc1 = array();
+			$xc1['ftid']=$id;
+			$xc1['to_id']=$pcomment['uid'];
+			$xc1['to_name']=$pcomment['uname'];
+			$xc1['from_id']=0;
+			$xc1['from_name']='tryine';
+			$xc1['add_time']=time();
+			$xc1['info'] =$this->visitor->info['username'] ."在>> <a href='" . $item_url . "'>".$item['title']."</a> 回复了您的评论";
+			M('message')->add($xc1);
+
+			if($data['xid'] == 3){
+			$xc2 = array();
+			$xc2['ftid']=$id;
+			$xc2['to_id']=$item['uid'];
+			$xc2['to_name']=$item['uname'];
+			$xc2['from_id']=0;
+			$xc2['from_name']='tryine';
+			$xc2['add_time']=time();
+			$xc2['info'] =$this->visitor->info['username'] ."在您的晒单>> <a href='" . $item_url . "'>".$item['title']."</a>里做了评论 ";
+			M('message')->add($xc2);
+			}
             $this->assign('data', array(
                     'uid' => $data['uid'],
                     'uname' => $data['uname'],
@@ -260,7 +283,7 @@ class ajaxAction extends frontendAction {
 			$order ='id desc';
 			$by ='';
 		}
-        $item = $item_mod->where(array('id' => $itemid, 'status' => '1'))->count('id');
+        $item = $item_mod->where(array('id' => $itemid))->count('id');
         !$item && $this->ajaxReturn(0, L('invalid_object'));
         $comment_mod = M('comment');
         $pagesize = 5;
