@@ -350,6 +350,54 @@ class userAction extends userbaseAction
         }
     }
 
+    //创建推送tag
+
+    public function notify_tag_create($data){
+        $userid = $data['userid'];
+        $tag = $data['tag'];
+        $notify_tag = M("notify_tag");
+        $result = $notify_tag->add(array(
+            'uid' => $userid,
+            'tag' => $tag
+            ));
+        if ($result) {
+                echo get_result(10001, '新增成功!');
+            } else {
+                echo get_result(10001, '新增失败!');
+            }
+    }
+
+     //查询某个用户下面所有推送tag
+
+    public function notify_tag_byuser($data){
+        $userid = $data['userid'];
+        $notify_tag = M("notify_tag");
+        $list = $notify_tag->where(array('userid'=>$userid))->select();
+       $code = 10001;
+        if(count($list) < 1){
+            $code = 10002;
+        }
+        echo get_result($code,$list);return ;
+    }
+
+    //更新推送tag
+
+    public function notify_tag_modify($data){
+        $tag['id'] = $data['id'];
+        $tag['tag'] = $data['tag'];
+        $notify_tag = M("notify_tag");
+        $notify_tag->save($tag);
+        echo get_result(10001, '更新成功!');
+    }
+
+     //删除推送tag
+
+    public function notify_tag_del($data){
+        $notify_tag = M("notify_tag");
+        $notify_tag->where(array("id"=>$data['id']))->delete();
+        echo get_result(10001,'删除成功!');
+    }
+
     //查询收货地址
     public function getaddress($data)
     {
