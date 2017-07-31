@@ -54,7 +54,7 @@ class shopAction extends userbaseAction
             $where .= " and isbao = 1";
         }
 //        $field = 'i.id,i.uid,i.uname,i.title,i.intro,i.img,i.price,i.likes,i.intro,i.content,i.comments,i.comments_cache,i.add_time,i.orig_id,i.url,i.go_link,i.zan';
-        $field = 'name,i.id,i.title,i.img,i.price,i.comments,i.likes,i.add_time,i.zan,i.go_link';
+        $field = 'name,i.id,i.title,i.img,i.price,i.comments,i.likes,i.add_time,i.zan,i.go_link,i.hits';
         $item_list = $item_orig
             ->where($where." and i.status=1 and i.add_time<$time ")
             ->join($db_pre . 'item i ON i.orig_id = ' . $db_pre . 'item_orig.id')
@@ -68,6 +68,7 @@ class shopAction extends userbaseAction
                 $val['shopid'] = $val['id'];
                 unset($val['id']);
             }
+            $item_list[$key]['zan'] = $item_list[$key]['zan']   +intval($item_list[$key]['hits'] /10);
             $val['go_link'] = array_shift(unserialize($val['go_link']));
         }
         $code = 10001;
@@ -85,7 +86,7 @@ class shopAction extends userbaseAction
         $item_orig = M("item_orig");
         $where = 'istop = 1';
         $time = time();
-        $field = 'name,i.id,i.title,i.img,i.price,i.comments,i.likes,i.add_time,i.zan,i.go_link';
+        $field = 'name,i.id,i.title,i.img,i.price,i.comments,i.likes,i.add_time,i.zan,i.go_link,i.hits';
         $item_list = $item_orig
             ->where($where." and i.status=1 and i.add_time<$time ")
             ->join($db_pre . 'item i ON i.orig_id = ' . $db_pre . 'item_orig.id')
@@ -98,6 +99,7 @@ class shopAction extends userbaseAction
                 $val['shopid'] = $val['id'];
                 unset($val['id']);
             }
+            $item_list[$key]['zan'] = $item_list[$key]['zan']   +intval($item_list[$key]['hits'] /10);
             $val['go_link'] = array_shift(unserialize($val['go_link']));
         }
         $code = 10001;
@@ -141,7 +143,7 @@ class shopAction extends userbaseAction
         }
         $item_mod = M('item');
         //查询字段
-        $field = $db_pre . 'item.id,cate_id,title,'.$db_pre . 'item.img,price,likes,add_time,zan,go_link,'.$db_pre.'item_orig.name';
+        $field = $db_pre . 'item.id,cate_id,title,'.$db_pre . 'item.img,price,likes,add_time,zan,go_link,hits,'.$db_pre.'item_orig.name';
         $item_list = $item_mod->join($db_pre . 'item_orig ON ' . $db_pre . 'item.orig_id = '.$db_pre . 'item_orig.id')
                             ->field($field)
                             ->where($where)
@@ -154,6 +156,7 @@ class shopAction extends userbaseAction
                 $val['shopid'] = $val['id'];
                 unset($val['id']);
             }
+            $item_list[$key]['zan'] = $item_list[$key]['zan']   +intval($item_list[$key]['hits'] /10);
             $val['go_link'] = array_shift(unserialize($val['go_link']));
         }
         $code = 10001;
@@ -171,7 +174,8 @@ class shopAction extends userbaseAction
     public function shopitem($data) {
         $id = $data['shopid'];
         $item_mod = M('item');
-        $item = $item_mod->field('tag_cache,orig_id,title,img,intro,price,zan,likes,comments,add_time,content,status,go_link')->where(array('id' => $id))->find();
+        $item = $item_mod->field('tag_cache,orig_id,title,img,intro,price,zan,likes,comments,add_time,content,status,go_link,hits')->where(array('id' => $id))->find();
+        $item['zan'] =  $item['zan'] + intval($item['hits'] /10);
         if(!$item){
             echo get_result(20001,[], "商品不存在");return ;
         }
@@ -235,9 +239,9 @@ class shopAction extends userbaseAction
         $time_day = $time - 86400;
 
         if($data['type'] == 1){
-            $list=M()->query("SELECT id,title,img,price,go_link,comments,likes,add_time,zan from try_item  WHERE add_time between $time_hour and $time ORDER BY hits desc,add_time desc LIMIT 9");
+            $list=M()->query("SELECT id,title,img,price,go_link,comments,likes,add_time,zan,hits from try_item  WHERE add_time between $time_hour and $time ORDER BY hits desc,add_time desc LIMIT 9");
         }else{
-            $list=M()->query("SELECT id,title,img,price,go_link,comments,likes,add_time,zan from try_item  WHERE add_time between $time_day and $time ORDER BY hits desc,add_time desc LIMIT 9");
+            $list=M()->query("SELECT id,title,img,price,go_link,comments,likes,add_time,zan,hits from try_item  WHERE add_time between $time_day and $time ORDER BY hits desc,add_time desc LIMIT 9");
         }
 
         foreach ($list as $key => &$val) {
@@ -246,6 +250,7 @@ class shopAction extends userbaseAction
                 unset($val['id']);
             }
             $val['go_link'] = array_shift(unserialize($val['go_link']));
+            $list[$key]['zan'] = $list[$key]['zan']   +intval($list[$key]['hits'] /10);
         }
         $code = 10001;
         if(count($list) < 1){
