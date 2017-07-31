@@ -1,90 +1,180 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<include file="public:head" />
-</head>
-
-<body style="background:#f5f5f5">
-<include file="public:header" />
-<div class="w_gezx_ce"> 
-  <div class="w_ger">
-    <include file="user:center_left" />
-	<div class="w_wz">
-	 <h2>我的分享</h2> 
-    <div class="w_wz_h1">
-      <span <if condition="$t eq 'gn'">class="w_wz_h1_s"</if> ><a href="{:U('user/share',array('t'=>'gn'))}" title="国内">国内（{$num['gn']}）</a></span>
-      <span <if condition="$t eq 'ht'">class="w_wz_h1_s"</if> ><a href="{:U('user/share',array('t'=>'ht'))}" title="海淘">海淘（{$num['ht']}）</a></span>
-	  <span <if condition="$t eq 'best'">class="w_wz_h1_s"</if>><a href="{:U('user/share',array('t'=>'best'))}" title="精品汇">精品汇（{$num['best']}）</a></span>
-      <span <if condition="$t eq 'zr'">class="w_wz_h1_s"</if>><a href="{:U('user/share',array('t'=>'zr'))}" title="转让">转让（{$num['zr']}）</a></span>
-	  <span <if condition="$t eq 'sd'">class="w_wz_h1_s"</if>><a href="{:U('user/share',array('t'=>'sd'))}" title="晒单">晒单（{$num['sd']}）</a></span>
-	  <span <if condition="$t eq 'gl'">class="w_wz_h1_s"</if>><a href="{:U('user/share',array('t'=>'gl'))}" title="攻略">攻略（{$num['gl']}）</a></span>
-     </div>
-	 <if condition="$t eq 'gn' or $t eq 'ht' or $t eq 'best'">
-     <div class="w_wz_nr" style="display:block;"  id="con_bl_1">
-       <ul>
-	   <volist name="list" id="item">
-          <li>
-           <a href="{:U('item/index',array('id'=>$item['id']))}" title="{$item['title']}"><img src="{:attach($item['img'],'item')}" title="{$item['title']}" alt="{$item['title']}"/></a>
-           <h2><a href="{:U('item/index',array('id'=>$item['id']))}" title="{$item['title']}">{$item['title']|msubstr=0,20}</a></h2>
-          </li>
-		</volist>
-       </ul>
-     </div>
-	 <elseif condition="$t eq 'zr'"/>
-     <div class="w_wdgl" id="con_bl_2">
-          <dl  class="w_wdg_1l">
-            <dt  class="w_wdg_1l_1">标题</dt>
-            <dd  class="w_wdg_1l_2">回复数</dd>
-            <dd  class="w_wdg_1l_3">操作</dd>
-          </dl>
-		  <volist name="list" id="item">
-          <dl  class="w_wdg_12">
-            <dt class="w_wdg_12_1">
-              <a href="{:U('zr/show',array('id'=>$item['id']))}" title="{$item['title']}"><img src="{:attach($item['img'],'zr')}" title="{$item['title']}" alt="{$item['title']}"/></a>
-              <p><a href="{:U('zr/show',array('id'=>$item['id']))}" title="{$item['title']}">{$item['title']|msubstr=0,34,false}<br/>{$item['intro']|msubstr=0,38,false}</a></p>
-            </dt>
-            <dd  class="w_wdg_12_2">{$item.comments}条</dd>
-            <dd  class="w_wdg_12_3"><a href="javascript:;" title="删除" data-url="{:U('user/del_share',array('dm'=>$item['dm']))}" class="J_del_share w_sc_a" data-id="{$item['id']}">删除</a></dd>
-          </dl>
-		  </volist>
-     </div>
-	 <elseif condition="$t eq 'sd' or $t eq 'gl'"/>
-	 <div class="w_wdgl">
-          <dl  class="w_wdg_1l">
-            <dt  class="w_wdg_1l_1">标题</dt>
-            <dd  class="w_wdg_1l_2">回复数</dd>
-            <dd  class="w_wdg_1l_3">操作</dd>
-          </dl>
-		  <volist name="list" id="item">
-          <dl  class="w_wdg_12">
-            <dt  class="w_wdg_12_1">
-              <a href="{:U('article/show',array('id'=>$item['id']))}" title="{$item.title}"><img src="{:attach($item['img'],'article')}" title="{$item.title}" alt="{$item.title}"/></a>
-              <p><a href="{:U('article/show',array('id'=>$item['id']))}" title="{$item.title}">{$item.title|msubstr=0,28,false}<br/>{$item.intro|msubstr=0,28,false}</a></p>
-            </dt>
-            <dd  class="w_wdg_12_2">{$item.comments}条</dd>
-            <dd  class="w_wdg_12_3"><a href="javascript:;" title="删除" data-url="{:U('user/del_share',array('dm'=>$item['dm']))}" class="J_del_share w_sc_a">删除</a></dd>
-          </dl>
-		  </volist>
-     </div>
-     </if>
-	 <div class="w_pag">{$page_bar}</div>
-	</div>
-	</div>
-</div>
-<include file="public:footer" />
-<script src="/js/function.js"></script>
-<script>
-$(".J_del_share").live('click',function(){
-	var obj=$(this);
-	$.get(obj.attr("data-url"),function(result){
-		if(result.status==1){
-			obj.parents('.w_wdg_12').remove();
-			tips(result.msg,1);
-		}else{
-			tips(result.msg,0);
-		}
-	},'json');
-});
-</script>
-</body>
-</html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<include file="public:head" />
+
+</head>
+
+
+
+<body style="background:#f5f5f5">
+
+<include file="public:header" />
+
+<div class="w_gezx_ce"> 
+
+  <div class="w_ger">
+
+    <include file="user:center_left" />
+
+	<div class="w_wz">
+
+	 <h2>我的分享</h2> 
+
+    <div class="w_wz_h1">
+
+      <span <if condition="$t eq 'gn'">class="w_wz_h1_s"</if> ><a href="{:U('user/share',array('t'=>'gn'))}" title="国内">国内（{$num['gn']}）</a></span>
+
+      <span <if condition="$t eq 'ht'">class="w_wz_h1_s"</if> ><a href="{:U('user/share',array('t'=>'ht'))}" title="海淘">海淘（{$num['ht']}）</a></span>
+<!--
+	  <span <if condition="$t eq 'best'">class="w_wz_h1_s"</if>><a href="{:U('user/share',array('t'=>'best'))}" title="精品汇">精品汇（{$num['best']}）</a></span>
+
+      <span <if condition="$t eq 'zr'">class="w_wz_h1_s"</if>><a href="{:U('user/share',array('t'=>'zr'))}" title="转让">转让（{$num['zr']}）</a></span>
+-->
+	  <span <if condition="$t eq 'sd'">class="w_wz_h1_s"</if>><a href="{:U('user/share',array('t'=>'sd'))}" title="晒单">晒单（{$num['sd']}）</a></span>
+
+	  <span <if condition="$t eq 'gl'">class="w_wz_h1_s"</if>><a href="{:U('user/share',array('t'=>'gl'))}" title="攻略">攻略（{$num['gl']}）</a></span>
+
+     </div>
+
+	 <if condition="$t eq 'gn' or $t eq 'ht' or $t eq 'best'">
+
+     <div class="w_wz_nr" style="display:block;"  id="con_bl_1">
+
+       <ul>
+
+	   <volist name="list" id="item">
+
+          <li>
+
+           <a href="{:U('item/index',array('id'=>$item['id']))}" title="{$item['title']}"><img src="{:attach($item['img'],'item')}" title="{$item['title']}" alt="{$item['title']}"/></a>
+
+           <h2><a href="{:U('item/index',array('id'=>$item['id']))}" title="{$item['title']}">{$item['title']|msubstr=0,20}</a></h2>
+
+          </li>
+
+		</volist>
+
+       </ul>
+
+     </div>
+
+	 <elseif condition="$t eq 'zr'"/>
+
+     <div class="w_wdgl" id="con_bl_2">
+
+          <dl  class="w_wdg_1l">
+
+            <dt  class="w_wdg_1l_1">标题</dt>
+
+            <dd  class="w_wdg_1l_2">回复数</dd>
+
+            <dd  class="w_wdg_1l_3">操作</dd>
+
+          </dl>
+
+		  <volist name="list" id="item">
+
+          <dl  class="w_wdg_12">
+
+            <dt class="w_wdg_12_1">
+
+              <a href="{:U('zr/show',array('id'=>$item['id']))}" title="{$item['title']}"><img src="{:attach($item['img'],'zr')}" title="{$item['title']}" alt="{$item['title']}"/></a>
+
+              <p><a href="{:U('zr/show',array('id'=>$item['id']))}" title="{$item['title']}">{$item['title']|msubstr=0,34,false}<br/>{$item['intro']|msubstr=0,38,false}</a></p>
+
+            </dt>
+
+            <dd  class="w_wdg_12_2">{$item.comments}条</dd>
+
+            <dd  class="w_wdg_12_3"><a href="javascript:;" title="删除" data-url="{:U('user/del_share',array('dm'=>$item['dm']))}" class="J_del_share w_sc_a" data-id="{$item['id']}">删除</a></dd>
+
+          </dl>
+
+		  </volist>
+
+     </div>
+
+	 <elseif condition="$t eq 'sd' or $t eq 'gl'"/>
+
+	 <div class="w_wdgl">
+
+          <dl  class="w_wdg_1l">
+
+            <dt  class="w_wdg_1l_1">标题</dt>
+
+            <dd  class="w_wdg_1l_2">回复数</dd>
+
+            <dd  class="w_wdg_1l_3">操作</dd>
+
+          </dl>
+
+		  <volist name="list" id="item">
+
+          <dl  class="w_wdg_12">
+
+            <dt  class="w_wdg_12_1">
+
+              <a href="{:U('article/show',array('id'=>$item['id']))}" title="{$item.title}"><img src="{:attach($item['img'],'article')}" title="{$item.title}" alt="{$item.title}"/></a>
+
+              <p><a href="{:U('article/show',array('id'=>$item['id']))}" title="{$item.title}">{$item.title|msubstr=0,28,false}<br/>{$item.intro|msubstr=0,28,false}</a></p>
+
+            </dt>
+
+            <dd  class="w_wdg_12_2">{$item.comments}条</dd>
+
+            <dd  class="w_wdg_12_3"><a href="javascript:;" title="删除" data-url="{:U('user/del_share',array('dm'=>$item['dm']))}" class="J_del_share w_sc_a">删除</a></dd>
+
+          </dl>
+
+		  </volist>
+
+     </div>
+
+     </if>
+
+	 <div class="w_pag">{$page_bar}</div>
+
+	</div>
+
+	</div>
+
+</div>
+
+<include file="public:footer" />
+
+<script src="/js/function.js"></script>
+
+<script>
+
+$(".J_del_share").live('click',function(){
+
+	var obj=$(this);
+
+	$.get(obj.attr("data-url"),function(result){
+
+		if(result.status==1){
+
+			obj.parents('.w_wdg_12').remove();
+
+			tips(result.msg,1);
+
+		}else{
+
+			tips(result.msg,0);
+
+		}
+
+	},'json');
+
+});
+
+</script>
+
+</body>
+
+</html>
+

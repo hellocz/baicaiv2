@@ -1003,28 +1003,28 @@ class userAction extends userbaseAction {
 		$pager = $this->_pager($num[$t],$pagesize);
 		switch($t){
 			case "gn":
-				$list = $mod->where("try_likes.xid=1 and o.ismy=0 and try_likes.uid=$user[id] ")->join("try_item i on i.id=try_likes.itemid")->join("try_item_orig o on o.id=i.orig_id")->field("i.id,i.title,i.img,i.comments,i.intro")->limit($pager->firstRow.",".$pager->listRows)->select();
+				$list = $mod->where("try_likes.xid=1 and o.ismy=0 and try_likes.uid=$user[id] ")->join("try_item i on i.id=try_likes.itemid")->join("try_item_orig o on o.id=i.orig_id")->order("i.add_time desc")->field("i.id,i.title,i.img,i.comments,i.intro")->limit($pager->firstRow.",".$pager->listRows)->select();
 				foreach($list as $key=>$val){
 					$list[$key]['url'] = U('item/index',array("id"=>$val['id']));
 				}
 				$xid = 1;
 				break;
 			case "ht":
-				$list = $mod->where("try_likes.xid=1 and o.ismy=1 and try_likes.uid=$user[id] ")->join("try_item i on i.id=try_likes.itemid")->join("try_item_orig o on o.id=i.orig_id")->field("i.id,i.title,i.img,i.comments,i.intro")->limit($pager->firstRow.",".$pager->listRows)->select();
+				$list = $mod->where("try_likes.xid=1 and o.ismy=1 and try_likes.uid=$user[id] ")->join("try_item i on i.id=try_likes.itemid")->join("try_item_orig o on o.id=i.orig_id")->order("i.add_time desc")->field("i.id,i.title,i.img,i.comments,i.intro")->limit($pager->firstRow.",".$pager->listRows)->select();
 				foreach($list as $key=>$val){
 					$list[$key]['url'] = U('item/index',array("id"=>$val['id']));
 				}
 				$xid = 1;
 				break;
 			case "best":
-				$list = $mod->where("try_likes.xid=1 and i.isbest=1   and try_likes.uid=$user[id] ")->join("try_item i on i.id=try_likes.itemid")->field("i.id,i.title,i.img,i.comments,i.intro")->limit($pager->firstRow.",".$pager->listRows)->select();
+				$list = $mod->where("try_likes.xid=1 and i.isbest=1   and try_likes.uid=$user[id] ")->join("try_item i on i.id=try_likes.itemid")->order("i.add_time desc")->field("i.id,i.title,i.img,i.comments,i.intro")->limit($pager->firstRow.",".$pager->listRows)->select();
 				foreach($list as $key=>$val){
 					$list[$key]['url'] = U('item/index',array("id"=>$val['id']));
 				}
 				$xid = 1;
 				break;
 			case "sd":
-				$list = $mod->where("try_likes.xid=3 and a.cate_id=10 and try_likes.uid=$user[id] ")->join("try_article a on a.id=try_likes.itemid")->field("a.id,a.title,a.img,a.comments,a.intro")->limit($pager->firstRow.",".$pager->listRows)->select();
+				$list = $mod->where("try_likes.xid=3 and a.cate_id=10 and try_likes.uid=$user[id] ")->join("try_article a on a.id=try_likes.itemid")->order("a.add_time desc")->field("a.id,a.title,a.img,a.comments,a.intro")->limit($pager->firstRow.",".$pager->listRows)->select();
 				foreach($list as $key=>$val){
 					$list[$key]['img']=attach($val['img'],'article');
 					$list[$key]['url'] = U('article/show',array("id"=>$val['id']));
@@ -1032,7 +1032,7 @@ class userAction extends userbaseAction {
 				$xid = 3;
 				break;
 			case "gl":
-				$list = $mod->where("try_likes.xid=3 and try_likes.uid=$user[id] and a.cate_id in(select id from try_article_cate where pid=9 or id=9)")->join("try_article a on a.id=try_likes.itemid")->field("a.id,a.title,a.img,a.comments,a.intro")->limit($pager->firstRow.",".$pager->listRows)->select();
+				$list = $mod->where("try_likes.xid=3 and try_likes.uid=$user[id] and a.cate_id in(select id from try_article_cate where pid=9 or id=9)")->join("try_article a on a.id=try_likes.itemid")->order("a.add_time desc")->field("a.id,a.title,a.img,a.comments,a.intro")->limit($pager->firstRow.",".$pager->listRows)->select();
 				foreach($list as $key=>$val){
 					$list[$key]['img']=attach($val['img'],'article');
 					$list[$key]['url'] = U('article/show',array("id"=>$val['id']));

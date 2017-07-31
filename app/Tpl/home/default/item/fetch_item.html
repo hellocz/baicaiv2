@@ -13,7 +13,35 @@
 #J_img_con li{cursor:pointer}
 
 .e_imgs{position:absolute; bottom:0px; right:0; width:14px; height:14px; background:#3dc399; color:#fff; display:block; border-radius:14px; font-size:14px; text-align:center; line-height:13px;}
-
+#J_img_close{
+    width: 80px;
+    height: 50px;
+    line-height: 50px;
+    background: #3dc399;
+    border: 1px solid #c0e9dd;
+    font-size: 20px;
+    text-align: center;
+    color: #fff;
+    font-family: "Microsoft YaHei";
+    margin: 0 auto;
+    display: block;
+}
+#clipBtn{
+    width: 358px;
+    height: 50px;
+    line-height: 50px;
+    background: #3dc399;
+    border: 1px solid #c0e9dd;
+    font-size: 20px;
+    text-align: center;
+    color: #fff;
+    font-family: "Microsoft YaHei";
+    margin: 0 auto;
+    display: block;
+    position:relative;
+    float: left;
+    left: 50px;
+}
 </style>
 
 </head>
@@ -228,6 +256,7 @@
 
 	}
 
+
 </style>
 
 <div id="car">
@@ -235,6 +264,8 @@
 	<div id="clipArea"></div>
 
 	<button id="clipBtn">裁剪</button>
+
+	<button id="J_img_close">关闭</button>
 
 	<p class="clipArea_tips"><span>*</span>滑动鼠标滑轮，可进行裁剪区域缩放。</p>
 
@@ -336,7 +367,7 @@
 
 
 
-$(".e_imgs").live("click",function(){
+$(".e_imgs").on("click",function(){
 
 	var obj=$(this);
 
@@ -375,6 +406,12 @@ $("#btn_img").click(function(){
 	$("#J_img").trigger("click");
 
 });
+
+$('#J_img_close').click('change',function () {
+
+		$('#car').hide();
+
+	});
 
 /*$("#J_img").live('change',function () {
 
