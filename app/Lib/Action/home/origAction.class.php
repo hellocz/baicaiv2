@@ -77,7 +77,7 @@ class origAction extends frontendAction {
         $page_size = 16; //每页显示个数
         $pager = $this->_pager($count, $page_size);
         $time=time();
-        $list = M("item")->where("orig_id='$id' and status=1 and add_time<$time and ds_time < $time ")->limit($pager->firstRow . ',' . $page_size)->order("id desc")->select();
+        $list = M("item")->where("orig_id='$id' and status=1 and add_time<$time and ds_time < $time ")->limit($pager->firstRow . ',' . $page_size)->order("add_time desc")->select();
         foreach($list as $key=>$val){
 				
 		$list[$key]['zan'] = $list[$key]['zan']   +intval($list[$key]['hits'] /10);
