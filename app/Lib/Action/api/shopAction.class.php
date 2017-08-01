@@ -50,11 +50,18 @@ class shopAction extends userbaseAction
         if(!empty($data['key'])){
             $where .= " and title like '%".$data['key']."%'";
         }
-        if(!empty($data['isbao'])){
-            $where .= " and isbao = 1";
-        }
+       
 //        $field = 'i.id,i.uid,i.uname,i.title,i.intro,i.img,i.price,i.likes,i.intro,i.content,i.comments,i.comments_cache,i.add_time,i.orig_id,i.url,i.go_link,i.zan';
         $field = 'name,i.id,i.title,i.img,i.price,i.comments,i.likes,i.add_time,i.zan,i.go_link,i.hits';
+         if(!empty($data['isbao'])){
+           $item_list = $item_orig
+            ->where($where." and i.status=1 and i.add_time<$time ")
+            ->join($db_pre . 'item_diu i ON i.orig_id = ' . $db_pre . 'item_orig.id')
+            ->field($field)
+            ->order("i.add_time desc, i.id desc")
+            ->limit($page-10, $data['pagesize'])
+            ->select();
+        }else{
         $item_list = $item_orig
             ->where($where." and i.status=1 and i.add_time<$time ")
             ->join($db_pre . 'item i ON i.orig_id = ' . $db_pre . 'item_orig.id')
@@ -62,7 +69,7 @@ class shopAction extends userbaseAction
             ->order("i.add_time desc, i.id desc")
             ->limit($page-10, $data['pagesize'])
             ->select();
-
+        }
         foreach ($item_list as $key => &$val) {
             if(!isset($val['shopid'])){
                 $val['shopid'] = $val['id'];
@@ -197,6 +204,46 @@ class shopAction extends userbaseAction
         }
         $go_link = unserialize($item['go_link']);
         $item['fenxiang'] = 'http://www.baicaio.com/item/'.$id.'.html';
+        $item['go_link'] = array_shift($go_link);
+        $tag_caches = unserialize($item['tag_cache']);
+        $item['tag_cache'] = '';
+        foreach ($tag_caches as $tag_cache){
+            $item['tag_cache'] .= $tag_cache.' ';
+        }
+        $item['orig'] = $orig;
+        unset($item['orig_id']);
+        echo get_result(10001,$item);
+    }
+
+     /**
+     * 商品详细页
+     */
+    public function shopbitem($data) {
+        $id = $data['shopid'];
+        $item_mod = M('item_diu');
+        $item = $item_mod->field('tag_cache,orig_id,title,img,intro,price,zan,likes,comments,add_time,content,status,go_link,hits')->where(array('id' => $id))->find();
+        $item['zan'] =  $item['zan'] + intval($item['hits'] /10);
+        if(!$item){
+            echo get_result(20001,[], "商品不存在");return ;
+        }
+
+        if($item['status']==0){
+            echo get_result(20001,[], "该信息未通过审核");return ;
+        }
+        if($item['add_time']>time()){
+            echo get_result(20001,[], "该信息暂未发布");return ;
+        }
+
+        //来源
+        $orig = M('item_orig')->field('id,name,img')->find($item['orig_id']);
+        $like = M('likes')->where(['uid'=>$data['userid'],'itemid'=>$id])->field('itemid')->find();
+        $item['mylike'] = 0;
+
+        if($like){
+            $item['mylike'] = 1;
+        }
+        $go_link = unserialize($item['go_link']);
+        $item['fenxiang'] = 'http://www.baicaio.com/bao/'.$id.'.html';
         $item['go_link'] = array_shift($go_link);
         $tag_caches = unserialize($item['tag_cache']);
         $item['tag_cache'] = '';
