@@ -253,6 +253,44 @@ class itemAction extends backendAction {
         }
     }
 
+    public function refresh_tag(){
+        $begin = $this->_get('begin', 'intval');
+        $length  = 500;
+        echo "begin is " . $begin . " length is " .$length . "<br>"; 
+
+        $items = M("item")->field("id,tag_cache") ->limit($begin,$length)->select();
+
+        !$items && $this->success(L('operation_success'));
+        foreach ($items as $item) {
+            $tag_list = unserialize($item['tag_cache']);
+                if ($tag_list) {
+                $item_tag_arr = $tag_cache = array();
+                $tag_mod = M('tag');
+                foreach ($tag_list as $_tag_name) {
+                    $tag_id = $tag_mod->where(array('name'=>$_tag_name))->getField('id');
+                    !$tag_id && $tag_id = $tag_mod->add(array('name' => $_tag_name)); //标签入库
+                    $item_tag_arr[] = array('item_id'=>$item['id'], 'tag_id'=>$tag_id);
+                    $tag_cache[$tag_id] = $_tag_name;
+                }
+                if ($item_tag_arr) {
+                    $item_tag = M('item_tag');
+                    //清除关系
+                    $item_tag->where(array('item_id'=>$item['id']))->delete();
+                    //商品标签关联
+                    $item_tag->addAll($item_tag_arr);
+                    $data['tag_cache'] = serialize($tag_cache);
+                    M("item")->where(array('id'=>$item['id']))->save($data);
+                }
+            }
+        }
+        $begin = $begin+$length;
+        $this->assign("begin",$begin);
+        $this->assign("length",$length);
+        $this->display();
+   //    $this->redirect("item/refresh_tag",$arrayName = array('begin' =>$begin ,'length'=>$length));
+
+    }
+
     public function edit() {	
         if (IS_POST) {	
             //获取数据
@@ -311,6 +349,12 @@ class itemAction extends backendAction {
 			}else{
 				$data['istop']=0;
 			}
+
+                                        if($_POST['isoriginal']){
+                                            $data['isoriginal']=1;
+                                        }else{
+                                            $data['isoriginal']=0;
+                                        }
 			
 			if($_POST['ispost']){
 				$data['ispost']=1;
@@ -461,6 +505,23 @@ class itemAction extends backendAction {
             }
           //  file_put_contents($file_name, 'img123'.$data['img'].'img123', FILE_APPEND);
             $this->_mod->where(array('id'=>$item_id))->save($data);
+             if($_POST['article_list']){
+                $vote = M("vote")->where(array('item_id'=>$item_id))->find();
+                if($vote){
+                    $vote['article_list'] = $_POST['article_list'];
+                    M("vote")->where(array('item_id'=>$item_id))->save($vote);
+                }
+                else{
+                        M('vote')->add(array('item_id'=>$item_id,"xid"=>3,"article_list"=>$_POST['article_list']));
+                }
+             }
+             else{
+                $vote = M("vote")->where(array('item_id'=>$item_id))->find();
+                if($vote){
+                   $vote['article_list'] = $_POST['article_list'];
+                    M("vote")->where(array('item_id'=>$item_id))->save($vote);
+                }
+             }
              if($_POST['isbao']){
             $item = $this->_mod->where(array('id'=>$item_id))->find();
             $diu_item['diu_id']= $item['id'];
@@ -517,6 +578,8 @@ class itemAction extends backendAction {
         } else {
             $id = $this->_get('id','intval');
             $item = $this->_mod->where(array('id'=>$id))->find();
+            $vote =M("vote")->where(array('item_id'=>$id))->find();
+            $this->assign('article_list', $vote['article_list']);
            // print_r($item);exit;
             //分类
             $spid = $this->_cate_mod->where(array('id'=>$item['cate_id']))->getField('spid');
@@ -1008,6 +1071,17 @@ class itemAction extends backendAction {
              }
              else{
                   $result['convert_url'] =  $url;
+             }
+        }
+         elseif (strcmp($host,'www.kaixinbao.com')==0 || strcmp($host,'u.kaixinbao.com')==0){
+            $result['id'] =942;
+            $pattern = '/lvyou-baoxian\/((\d){6,}).shtml/';
+           $pattern_num = preg_match($pattern,$parsed_url['path'],$pattern_result);
+             if($pattern_num!=0){
+                  $result['convert_url'] = "http://u.kaixinbao.com/link?aid=" . $pattern_result[1] . "&cpsUserId=a105930&cpsUserSource=8_swpt";
+             }
+             else{
+                 $result['convert_url'] = $url;
              }
         }
         else{
