@@ -20,47 +20,47 @@
 
     <include file="user:center_left" />
 
-	<div class="w_wz">
+  <div class="w_wz">
 
-	 <h2>我的文章</h2> 
+   <h2>我的文章</h2> 
 
     <div class="w_wz_h1">
 
-	  <em>	  
+    <em>    
 
-	  <if condition="$t eq 'gn' or $t eq 'ht' or $t eq 'best' or $t eq 'ids' or $t eq 'icg' or $t eq 'ith'"><a href="{:U('user/publish',array('t'=>'icg'))}" title="草稿">草稿</a>  <a href="{:U('user/publish',array('t'=>'ids'))}" title="待审">待审</a> <a href="{:U('user/publish',array('t'=>'ith'))}" title="退回">退回</a> <a href="{:U('item/share_item')}" style="background:#3dc399 ;color:#fff">我要爆料</a></if>
+    <if condition="$t eq 'gn' or $t eq 'ht' or $t eq 'best' or $t eq 'ids' or $t eq 'icg' or $t eq 'ith'"><a href="{:U('user/publish',array('t'=>'icg'))}" title="草稿">草稿</a>  <a href="{:U('user/publish',array('t'=>'ids'))}" title="待审">待审</a> <a href="{:U('user/publish',array('t'=>'ith'))}" title="退回">退回</a> <a href="{:U('item/share_item')}" style="background:#3dc399 ;color:#fff">我要爆料</a></if>
 
-	  <if condition="$t eq 'zr' or $t eq 'zcg' or $t eq 'zds' or $t eq 'zth'"><a href="{:U('user/publish',array('t'=>'zcg'))}" title="草稿">草稿</a>  <a href="{:U('user/publish',array('t'=>'zds'))}" title="待审">待审</a> <a href="{:U('user/publish',array('t'=>'zth'))}" title="退回">退回</a> <a href="{:U('zr/publish')}" style="background:#3dc399 ;color:#fff">我要转让</a></if>
+    <if condition="$t eq 'zr' or $t eq 'zcg' or $t eq 'zds' or $t eq 'zth'"><a href="{:U('user/publish',array('t'=>'zcg'))}" title="草稿">草稿</a>  <a href="{:U('user/publish',array('t'=>'zds'))}" title="待审">待审</a> <a href="{:U('user/publish',array('t'=>'zth'))}" title="退回">退回</a> <a href="{:U('zr/publish')}" style="background:#3dc399 ;color:#fff">我要转让</a></if>
 
-	  <if condition="$t eq 'sd' or $t eq 'scg' or $t eq 'sds' or $t eq 'sth'">
+    <if condition="$t eq 'sd' or $t eq 'scg' or $t eq 'sds' or $t eq 'sth'">
     <!--<a href="{:U('user/publish',array('t'=>'scg'))}" title="草稿">草稿</a>  <a href="{:U('user/publish',array('t'=>'sds'))}" title="待审">待审</a> <a href="{:U('user/publish',array('t'=>'sth'))}" title="退回">退回</a> -->
     <a href="{:U('article/publish',array('t'=>'sd'))}" style="background:#3dc399 ;color:#fff">我要晒单</a></if>
 
-	  <if condition="$t eq 'gl' or $t eq 'gcg' or $t eq 'gds' or $t eq 'gth'"><a href="{:U('user/publish',array('t'=>'gcg'))}" title="草稿">草稿</a>  <a href="{:U('user/publish',array('t'=>'gds'))}" title="待审">待审</a> <a href="{:U('user/publish',array('t'=>'gth'))}" title="退回">退回</a> <a href="{:U('article/publish',array('t'=>'gl'))}" style="background:#3dc399 ;color:#fff">发布攻略</a></if>
+    <if condition="$t eq 'gl' or $t eq 'gcg' or $t eq 'gds' or $t eq 'gth'"><a href="{:U('user/publish',array('t'=>'gcg'))}" title="草稿">草稿</a>  <a href="{:U('user/publish',array('t'=>'gds'))}" title="待审">待审</a> <a href="{:U('user/publish',array('t'=>'gth'))}" title="退回">退回</a> <a href="{:U('article/publish',array('t'=>'gl'))}" style="background:#3dc399 ;color:#fff">发布攻略</a></if>
 
-	  </em>
+    </em>
 
       <span <if condition="$t eq 'gn' or $t eq 'ids' or $t eq 'icg' or $t eq 'ith'">class="w_wz_h1_s"</if> ><a href="{:U('user/publish',array('t'=>'gn'))}" title="国内">国内</a></span>
-
-      <span <if condition="$t eq 'ht'">class="w_wz_h1_s"</if> ><a href="{:U('user/publish',array('t'=>'ht'))}" title="海淘">海淘</a></span>
 <!--
-	  <span <if condition="$t eq 'best'">class="w_wz_h1_s"</if>><a href="{:U('user/publish',array('t'=>'best'))}" title="精品汇">精品汇</a></span>
+      <span <if condition="$t eq 'ht'">class="w_wz_h1_s"</if> ><a href="{:U('user/publish',array('t'=>'ht'))}" title="海淘">海淘</a></span>
 
-      <span <if condition="$t eq 'zr' or $t eq 'zcg' or $t eq 'zds' or $t eq 'zth'">class="w_wz_h1_s"</if>><a href="{:U('user/publish',array('t'=>'zr'))}" title="转让">转让</a></span>
+    <span <if condition="$t eq 'best'">class="w_wz_h1_s"</if>><a href="{:U('user/publish',array('t'=>'best'))}" title="精品汇">精品汇</a></span>
 -->
-	  <span <if condition="$t eq 'sd' or $t eq 'scg' or $t eq 'sds' or $t eq 'sth'">class="w_wz_h1_s"</if>><a href="{:U('user/publish',array('t'=>'sd'))}" title="晒单">晒单</a></span>
+      <span <if condition="$t eq 'zr' or $t eq 'zcg' or $t eq 'zds' or $t eq 'zth'">class="w_wz_h1_s"</if>><a href="{:U('user/publish',array('t'=>'zr'))}" title="转让">转让</a></span>
 
-	  <span <if condition="$t eq 'gl' or $t eq 'gcg' or $t eq 'gds' or $t eq 'gth'">class="w_wz_h1_s"</if>><a href="{:U('user/publish',array('t'=>'gl'))}" title="攻略">攻略</a></span>
+    <span <if condition="$t eq 'sd' or $t eq 'scg' or $t eq 'sds' or $t eq 'sth'">class="w_wz_h1_s"</if>><a href="{:U('user/publish',array('t'=>'sd'))}" title="晒单">晒单</a></span>
+
+    <span <if condition="$t eq 'gl' or $t eq 'gcg' or $t eq 'gds' or $t eq 'gth'">class="w_wz_h1_s"</if>><a href="{:U('user/publish',array('t'=>'gl'))}" title="攻略">攻略</a></span>
 
      </div>
 
-	 <if condition="$t eq 'gn' or $t eq 'ht' or $t eq 'best'">
+   <if condition="$t eq 'gn' or $t eq 'ht' or $t eq 'best'">
 
      <div class="w_wz_nr" style="display:block;"  id="con_bl_1">
 
        <ul>
 
-	   <volist name="list" id="item">
+     <volist name="list" id="item">
 
           <li>
 
@@ -76,19 +76,19 @@
 
           </li>
 
-		</volist>
+    </volist>
 
        </ul>
 
      </div>
 
-	 <elseif condition="$t eq 'icg' or $t eq 'ids' or $t eq 'ith'"/>
+   <elseif condition="$t eq 'icg' or $t eq 'ids' or $t eq 'ith'"/>
 
-	 <div class="w_wz_nr" style="display:block;"  id="con_bl_1">
+   <div class="w_wz_nr" style="display:block;"  id="con_bl_1">
 
        <ul>
 
-	   <volist name="list" id="item">
+     <volist name="list" id="item">
 
           <li>
 
@@ -108,13 +108,13 @@
 
           </li>
 
-		</volist>
+    </volist>
 
        </ul>
 
      </div>
 
-	 <elseif condition="$t eq 'zr'"/>
+   <elseif condition="$t eq 'zr'"/>
 
      <div class="w_wdgl" id="con_bl_2">
 
@@ -128,7 +128,7 @@
 
           </dl>
 
-		  <volist name="list" id="item">
+      <volist name="list" id="item">
 
           <dl  class="w_wdg_12">
 
@@ -146,11 +146,11 @@
 
           </dl>
 
-		  </volist>
+      </volist>
 
      </div>
 
-	 <elseif condition="$t eq 'zcg' or $t eq 'zds' or $t eq 'zth'"/>
+   <elseif condition="$t eq 'zcg' or $t eq 'zds' or $t eq 'zth'"/>
 
      <div class="w_wdgl" id="con_bl_2">
 
@@ -164,7 +164,7 @@
 
           </dl>
 
-		  <volist name="list" id="item">
+      <volist name="list" id="item">
 
           <dl  class="w_wdg_12">
 
@@ -182,13 +182,13 @@
 
           </dl>
 
-		  </volist>
+      </volist>
 
      </div>
 
-	 <elseif condition="$t eq 'sd' or $t eq 'gl'"/>
+   <elseif condition="$t eq 'sd' or $t eq 'gl'"/>
 
-	 <div class="w_wdgl">
+   <div class="w_wdgl">
 
           <dl  class="w_wdg_1l">
 
@@ -202,7 +202,7 @@
 
           </dl>
 
-		  <volist name="list" id="item">
+      <volist name="list" id="item">
 
           <dl  class="w_wdg_12">
 
@@ -221,13 +221,13 @@
            <dd  class="w_wdg_12_4"><a href="{:U('article/edit',array('t'=>$t,'id'=>$item['id']))}" title="编辑">编辑</a>|<a href="javascript:;" title="删除" data-url="{:U('user/del_article',array('id'=>$item['id']))}" class="J_del_art w_sc_a">删除</a></dd>
           </dl>
 
-		  </volist>
+      </volist>
 
      </div>
 
-	  <elseif condition="$t eq 'scg' or $t eq 'sds' or $t eq 'sth' or $t eq 'gcg' or $t eq 'gds' or $t eq 'gth'"/>
+    <elseif condition="$t eq 'scg' or $t eq 'sds' or $t eq 'sth' or $t eq 'gcg' or $t eq 'gds' or $t eq 'gth'"/>
 
-	 <div class="w_wdgl">
+   <div class="w_wdgl">
 
           <dl  class="w_wdg_1l">
 
@@ -239,7 +239,7 @@
 
           </dl>
 
-		  <volist name="list" id="item">
+      <volist name="list" id="item">
 
           <dl  class="w_wdg_12">
 
@@ -257,17 +257,17 @@
 
           </dl>
 
-		  </volist>
+      </volist>
 
      </div>
 
      </if>
 
-	 <div class="w_pag">{$page_bar}</div>
+   <div class="w_pag">{$page_bar}</div>
 
-	</div>
+  </div>
 
-	</div>
+  </div>
 
 </div>
 
@@ -276,86 +276,45 @@
 <script src="/js/function.js"></script>
 
 <script>
-
 $(".J_del_zr").on('click',function(){
-
-	var obj=$(this);
-
-	$.get(PINER.root+"/?m=user&a=del_zr",{id:$(this).attr('data-id')},function(result){
-
-		if(result.status==1){
-
-			obj.parents('.w_wdg_12').remove();
-
-			tips(result.msg,1);
-
-		}else{
-
-			tips(result.msg,0);
-
-		}
-
-	},'json');
-
+  var obj=$(this);
+  $.get(PINER.root+"/?m=user&a=del_zr",{id:$(this).attr('data-id')},function(result){
+    if(result.status==1){
+      obj.parents('.w_wdg_12').remove();
+      tips(result.msg,1);
+    }else{
+      tips(result.msg,0);
+    }
+  },'json');
 });
-
 $(".J_del_art").on('click',function(){
-
-	var obj=$(this);
-
-	$.get($(this).attr("data-url"),function(result){
-
-		if(result.status==1){
-
-			obj.parents('.w_wdg_12').remove();
-
-			tips(result.msg,1);
-
-		}else{
-
-			tips(result.msg,0);
-
-		}
-
-	},'json');
-
+  var obj=$(this);
+  $.get($(this).attr("data-url"),function(result){
+    if(result.status==1){
+      obj.parents('.w_wdg_12').remove();
+      tips(result.msg,1);
+    }else{
+      tips(result.msg,0);
+    }
+  },'json');
 });
-
-
-
 /*关闭交易*/
-
 $(".J_close_zr").on('click',function(){
-
     var obj=$(this);
-
     $.get(PINER.root+"/?m=user&a=close_zr",{id:$(this).attr('data-id')},function(result){
-
         if(result.status==1){
-
             obj.html("开启交易");
-
             tips(result.msg,1);
-
         }else if(result.status==2){
-
             obj.html("关闭交易");
-
             tips(result.msg,1);
-
         }else{
-
             tips(result.msg,0);
-
         }
-
     },'json');
-
 });
-
 </script>
 
 </body>
 
 </html>
-

@@ -1,6 +1,9 @@
-<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <title><?php echo ($page_seo["title"]); ?></title>
@@ -29,10 +32,14 @@
 
 <script type="text/javascript" src="/js/jquery.flexslider-min.js"></script>
 
-
-</head>
-
-<body style="background:#f5f5f5">
+
+
+</head>
+
+
+
+<body style="background:#f5f5f5">
+
 <div class="w_head_bd">
    <div class="w_head">
      <div class="w_hea_le">
@@ -138,69 +145,127 @@
    </div>
 </div>
 <div class="clear"></div>
-
-<div class="w_gezx_ce"> 
-  <div class="w_ger">
+
+
+<div class="w_gezx_ce"> 
+
+  <div class="w_ger">
+
      <div class="w_her_l">
 	<?php if(is_array($user_menu_list)): $i = 0; $__LIST__ = $user_menu_list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$menu): $mod = ($i % 2 );++$i;?><dl>
         <dt><?php echo ($menu["text"]); ?></dt>
 		<?php if(is_array($menu['submenu'])): $i = 0; $__LIST__ = $menu['submenu'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$smenu): $mod = ($i % 2 );++$i;?><dd <?php if($user_menu_curr == $key): ?>class="w_dd_dq"<?php endif; ?>><a href="<?php echo ($smenu["url"]); ?>" title="<?php echo ($smenu["text"]); ?>"><?php echo ($smenu["text"]); ?></a></dd><?php endforeach; endif; else: echo "" ;endif; ?>
       </dl><?php endforeach; endif; else: echo "" ;endif; ?>
-    </div>
-	<div class="w_wz">
-	 <h2>我的分享</h2> 
-    <div class="w_wz_h1">
-      <span <?php if($t == 'gn'): ?>class="w_wz_h1_s"<?php endif; ?> ><a href="<?php echo U('user/share',array('t'=>'gn'));?>" title="国内">国内（<?php echo ($num['gn']); ?>）</a></span>
-      <span <?php if($t == 'ht'): ?>class="w_wz_h1_s"<?php endif; ?> ><a href="<?php echo U('user/share',array('t'=>'ht'));?>" title="海淘">海淘（<?php echo ($num['ht']); ?>）</a></span>
-	  <span <?php if($t == 'best'): ?>class="w_wz_h1_s"<?php endif; ?>><a href="<?php echo U('user/share',array('t'=>'best'));?>" title="精品汇">精品汇（<?php echo ($num['best']); ?>）</a></span>
-      <span <?php if($t == 'zr'): ?>class="w_wz_h1_s"<?php endif; ?>><a href="<?php echo U('user/share',array('t'=>'zr'));?>" title="转让">转让（<?php echo ($num['zr']); ?>）</a></span>
-	  <span <?php if($t == 'sd'): ?>class="w_wz_h1_s"<?php endif; ?>><a href="<?php echo U('user/share',array('t'=>'sd'));?>" title="晒单">晒单（<?php echo ($num['sd']); ?>）</a></span>
-	  <span <?php if($t == 'gl'): ?>class="w_wz_h1_s"<?php endif; ?>><a href="<?php echo U('user/share',array('t'=>'gl'));?>" title="攻略">攻略（<?php echo ($num['gl']); ?>）</a></span>
-     </div>
-	 <?php if($t == 'gn' or $t == 'ht' or $t == 'best'): ?><div class="w_wz_nr" style="display:block;"  id="con_bl_1">
-       <ul>
-	   <?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$item): $mod = ($i % 2 );++$i;?><li>
-           <a href="<?php echo U('item/index',array('id'=>$item['id']));?>" title="<?php echo ($item['title']); ?>"><img src="<?php echo attach($item['img'],'item');?>" title="<?php echo ($item['title']); ?>" alt="<?php echo ($item['title']); ?>"/></a>
-           <h2><a href="<?php echo U('item/index',array('id'=>$item['id']));?>" title="<?php echo ($item['title']); ?>"><?php echo (msubstr($item['title'],0,20)); ?></a></h2>
-          </li><?php endforeach; endif; else: echo "" ;endif; ?>
-       </ul>
-     </div>
-	 <?php elseif($t == 'zr'): ?>
-     <div class="w_wdgl" id="con_bl_2">
-          <dl  class="w_wdg_1l">
-            <dt  class="w_wdg_1l_1">标题</dt>
-            <dd  class="w_wdg_1l_2">回复数</dd>
-            <dd  class="w_wdg_1l_3">操作</dd>
-          </dl>
-		  <?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$item): $mod = ($i % 2 );++$i;?><dl  class="w_wdg_12">
-            <dt class="w_wdg_12_1">
-              <a href="<?php echo U('zr/show',array('id'=>$item['id']));?>" title="<?php echo ($item['title']); ?>"><img src="<?php echo attach($item['img'],'zr');?>" title="<?php echo ($item['title']); ?>" alt="<?php echo ($item['title']); ?>"/></a>
-              <p><a href="<?php echo U('zr/show',array('id'=>$item['id']));?>" title="<?php echo ($item['title']); ?>"><?php echo (msubstr($item['title'],0,34,false)); ?><br/><?php echo (msubstr($item['intro'],0,38,false)); ?></a></p>
-            </dt>
-            <dd  class="w_wdg_12_2"><?php echo ($item["comments"]); ?>条</dd>
-            <dd  class="w_wdg_12_3"><a href="javascript:;" title="删除" data-url="<?php echo U('user/del_share',array('dm'=>$item['dm']));?>" class="J_del_share w_sc_a" data-id="<?php echo ($item['id']); ?>">删除</a></dd>
-          </dl><?php endforeach; endif; else: echo "" ;endif; ?>
-     </div>
-	 <?php elseif($t == 'sd' or $t == 'gl'): ?>
-	 <div class="w_wdgl">
-          <dl  class="w_wdg_1l">
-            <dt  class="w_wdg_1l_1">标题</dt>
-            <dd  class="w_wdg_1l_2">回复数</dd>
-            <dd  class="w_wdg_1l_3">操作</dd>
-          </dl>
-		  <?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$item): $mod = ($i % 2 );++$i;?><dl  class="w_wdg_12">
-            <dt  class="w_wdg_12_1">
-              <a href="<?php echo U('article/show',array('id'=>$item['id']));?>" title="<?php echo ($item["title"]); ?>"><img src="<?php echo attach($item['img'],'article');?>" title="<?php echo ($item["title"]); ?>" alt="<?php echo ($item["title"]); ?>"/></a>
-              <p><a href="<?php echo U('article/show',array('id'=>$item['id']));?>" title="<?php echo ($item["title"]); ?>"><?php echo (msubstr($item["title"],0,28,false)); ?><br/><?php echo (msubstr($item["intro"],0,28,false)); ?></a></p>
-            </dt>
-            <dd  class="w_wdg_12_2"><?php echo ($item["comments"]); ?>条</dd>
-            <dd  class="w_wdg_12_3"><a href="javascript:;" title="删除" data-url="<?php echo U('user/del_share',array('dm'=>$item['dm']));?>" class="J_del_share w_sc_a">删除</a></dd>
-          </dl><?php endforeach; endif; else: echo "" ;endif; ?>
-     </div><?php endif; ?>
-	 <div class="w_pag"><?php echo ($page_bar); ?></div>
-	</div>
-	</div>
-</div>
+    </div>
+
+	<div class="w_wz">
+
+	 <h2>我的分享</h2> 
+
+    <div class="w_wz_h1">
+
+      <span <?php if($t == 'gn'): ?>class="w_wz_h1_s"<?php endif; ?> ><a href="<?php echo U('user/share',array('t'=>'gn'));?>" title="国内">国内（<?php echo ($num['gn']); ?>）</a></span>
+
+      <span <?php if($t == 'ht'): ?>class="w_wz_h1_s"<?php endif; ?> ><a href="<?php echo U('user/share',array('t'=>'ht'));?>" title="海淘">海淘（<?php echo ($num['ht']); ?>）</a></span>
+<!--
+	  <span <?php if($t == 'best'): ?>class="w_wz_h1_s"<?php endif; ?>><a href="<?php echo U('user/share',array('t'=>'best'));?>" title="精品汇">精品汇（<?php echo ($num['best']); ?>）</a></span>
+
+      <span <?php if($t == 'zr'): ?>class="w_wz_h1_s"<?php endif; ?>><a href="<?php echo U('user/share',array('t'=>'zr'));?>" title="转让">转让（<?php echo ($num['zr']); ?>）</a></span>
+-->
+	  <span <?php if($t == 'sd'): ?>class="w_wz_h1_s"<?php endif; ?>><a href="<?php echo U('user/share',array('t'=>'sd'));?>" title="晒单">晒单（<?php echo ($num['sd']); ?>）</a></span>
+
+	  <span <?php if($t == 'gl'): ?>class="w_wz_h1_s"<?php endif; ?>><a href="<?php echo U('user/share',array('t'=>'gl'));?>" title="攻略">攻略（<?php echo ($num['gl']); ?>）</a></span>
+
+     </div>
+
+	 <?php if($t == 'gn' or $t == 'ht' or $t == 'best'): ?><div class="w_wz_nr" style="display:block;"  id="con_bl_1">
+
+       <ul>
+
+	   <?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$item): $mod = ($i % 2 );++$i;?><li>
+
+           <a href="<?php echo U('item/index',array('id'=>$item['id']));?>" title="<?php echo ($item['title']); ?>"><img src="<?php echo attach($item['img'],'item');?>" title="<?php echo ($item['title']); ?>" alt="<?php echo ($item['title']); ?>"/></a>
+
+           <h2><a href="<?php echo U('item/index',array('id'=>$item['id']));?>" title="<?php echo ($item['title']); ?>"><?php echo (msubstr($item['title'],0,20)); ?></a></h2>
+
+          </li><?php endforeach; endif; else: echo "" ;endif; ?>
+
+       </ul>
+
+     </div>
+
+	 <?php elseif($t == 'zr'): ?>
+
+     <div class="w_wdgl" id="con_bl_2">
+
+          <dl  class="w_wdg_1l">
+
+            <dt  class="w_wdg_1l_1">标题</dt>
+
+            <dd  class="w_wdg_1l_2">回复数</dd>
+
+            <dd  class="w_wdg_1l_3">操作</dd>
+
+          </dl>
+
+		  <?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$item): $mod = ($i % 2 );++$i;?><dl  class="w_wdg_12">
+
+            <dt class="w_wdg_12_1">
+
+              <a href="<?php echo U('zr/show',array('id'=>$item['id']));?>" title="<?php echo ($item['title']); ?>"><img src="<?php echo attach($item['img'],'zr');?>" title="<?php echo ($item['title']); ?>" alt="<?php echo ($item['title']); ?>"/></a>
+
+              <p><a href="<?php echo U('zr/show',array('id'=>$item['id']));?>" title="<?php echo ($item['title']); ?>"><?php echo (msubstr($item['title'],0,34,false)); ?><br/><?php echo (msubstr($item['intro'],0,38,false)); ?></a></p>
+
+            </dt>
+
+            <dd  class="w_wdg_12_2"><?php echo ($item["comments"]); ?>条</dd>
+
+            <dd  class="w_wdg_12_3"><a href="javascript:;" title="删除" data-url="<?php echo U('user/del_share',array('dm'=>$item['dm']));?>" class="J_del_share w_sc_a" data-id="<?php echo ($item['id']); ?>">删除</a></dd>
+
+          </dl><?php endforeach; endif; else: echo "" ;endif; ?>
+
+     </div>
+
+	 <?php elseif($t == 'sd' or $t == 'gl'): ?>
+
+	 <div class="w_wdgl">
+
+          <dl  class="w_wdg_1l">
+
+            <dt  class="w_wdg_1l_1">标题</dt>
+
+            <dd  class="w_wdg_1l_2">回复数</dd>
+
+            <dd  class="w_wdg_1l_3">操作</dd>
+
+          </dl>
+
+		  <?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$item): $mod = ($i % 2 );++$i;?><dl  class="w_wdg_12">
+
+            <dt  class="w_wdg_12_1">
+
+              <a href="<?php echo U('article/show',array('id'=>$item['id']));?>" title="<?php echo ($item["title"]); ?>"><img src="<?php echo attach($item['img'],'article');?>" title="<?php echo ($item["title"]); ?>" alt="<?php echo ($item["title"]); ?>"/></a>
+
+              <p><a href="<?php echo U('article/show',array('id'=>$item['id']));?>" title="<?php echo ($item["title"]); ?>"><?php echo (msubstr($item["title"],0,28,false)); ?><br/><?php echo (msubstr($item["intro"],0,28,false)); ?></a></p>
+
+            </dt>
+
+            <dd  class="w_wdg_12_2"><?php echo ($item["comments"]); ?>条</dd>
+
+            <dd  class="w_wdg_12_3"><a href="javascript:;" title="删除" data-url="<?php echo U('user/del_share',array('dm'=>$item['dm']));?>" class="J_del_share w_sc_a">删除</a></dd>
+
+          </dl><?php endforeach; endif; else: echo "" ;endif; ?>
+
+     </div><?php endif; ?>
+
+	 <div class="w_pag"><?php echo ($page_bar); ?></div>
+
+	</div>
+
+	</div>
+
+</div>
+
 <div class="clear"></div>
 <!--bottom-->
 <div class="w_bot_bd">
@@ -308,7 +373,7 @@ var PINER = {
 };
 
 var t = null;
-/*
+
 t = setInterval(function(){
     if(PINER.uid==""){
         return false;
@@ -321,25 +386,41 @@ t = setInterval(function(){
     },'json');
 
 },10000);
-*/
+
 $('.sxs .gb').click(function(){
     $('.sxs').hide();
 })
 </script>
-
-<script src="/js/function.js"></script>
-<script>
-$(".J_del_share").live('click',function(){
-	var obj=$(this);
-	$.get(obj.attr("data-url"),function(result){
-		if(result.status==1){
-			obj.parents('.w_wdg_12').remove();
-			tips(result.msg,1);
-		}else{
-			tips(result.msg,0);
-		}
-	},'json');
-});
-</script>
-</body>
+
+
+<script src="/js/function.js"></script>
+
+<script>
+
+$(".J_del_share").live('click',function(){
+
+	var obj=$(this);
+
+	$.get(obj.attr("data-url"),function(result){
+
+		if(result.status==1){
+
+			obj.parents('.w_wdg_12').remove();
+
+			tips(result.msg,1);
+
+		}else{
+
+			tips(result.msg,0);
+
+		}
+
+	},'json');
+
+});
+
+</script>
+
+</body>
+
 </html>

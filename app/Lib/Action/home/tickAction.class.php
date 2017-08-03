@@ -6,7 +6,7 @@ class tickAction extends frontendAction {
 		$mod_orig=M("item_orig");
 		$mod = M('tick');
 		//获取所有有优惠券的购物平台
-		$arr_list = $mod_orig->where("id in(select distinct orig_id from try_tick where DATEDIFF(now() ,start_time)>0 and DATEDIFF(end_time,now())>0 )")->order("ordid asc,id asc")->select();
+		$arr_list = $mod_orig->where("id in(select distinct orig_id from try_tick where DATEDIFF(now() ,start_time)>-1 and DATEDIFF(end_time,now())>0 )")->order("ordid asc,id asc")->select();
 		$orig_list=array();
 		foreach($arr_list as $key=>$val){
 			$orig_list[$val['id']]=$val;
@@ -15,16 +15,16 @@ class tickAction extends frontendAction {
 		//获取所有的优惠券
 		$pagesize=8;
 		if($tp){
-			$num = M()->query("select count(*) as num from try_tick as t,try_item_orig as o,try_cosler c where CONV( HEX( LEFT( CONVERT( o.name  USING gbk ) , 1 ) ) , 16, 10 ) BETWEEN c.cBegin AND c.cEnd AND c.fPY = '$tp' and t.orig_id=o.id and DATEDIFF(now() ,t.start_time)>0 and DATEDIFF(t.end_time,now())>0");
+			$num = M()->query("select count(*) as num from try_tick as t,try_item_orig as o,try_cosler c where CONV( HEX( LEFT( CONVERT( o.name  USING gbk ) , 1 ) ) , 16, 10 ) BETWEEN c.cBegin AND c.cEnd AND c.fPY = '$tp' and t.orig_id=o.id and DATEDIFF(now() ,t.start_time)>-1 and DATEDIFF(t.end_time,now())>0");
 			$count=$num[0]['num'];
 		}else{
-			$count = $mod->where("DATEDIFF(now() ,start_time)>0 and DATEDIFF(end_time,now())>0")->count();
+			$count = $mod->where("DATEDIFF(now() ,start_time)>-1 and DATEDIFF(end_time,now())>0")->count();
 		}
 		$pager = $this->_pager($count,$pagesize);
 		if($tp){
-			$list = M()->query("select t.* from try_tick as t,try_item_orig as o,try_cosler c where CONV( HEX( LEFT( CONVERT( o.name  USING gbk ) , 1 ) ) , 16, 10 ) BETWEEN c.cBegin AND c.cEnd AND c.fPY = '$tp' and t.orig_id=o.id and DATEDIFF(now() ,t.start_time)>0 and DATEDIFF(t.end_time,now())>0 order by ordid asc,id asc limit ".$pager->firstRow.",".$pager->listRows);
+			$list = M()->query("select t.* from try_tick as t,try_item_orig as o,try_cosler c where CONV( HEX( LEFT( CONVERT( o.name  USING gbk ) , 1 ) ) , 16, 10 ) BETWEEN c.cBegin AND c.cEnd AND c.fPY = '$tp' and t.orig_id=o.id and DATEDIFF(now() ,t.start_time)>-1 and DATEDIFF(t.end_time,now())>0 order by ordid asc,id asc limit ".$pager->firstRow.",".$pager->listRows);
 		}else{
-			$list = $mod->where("DATEDIFF(now() ,start_time)>0 and DATEDIFF(end_time,now())>0")->order("ordid asc,id asc")->limit($pager->firstRow.",".$pager->listRows)->select();
+			$list = $mod->where("DATEDIFF(now() ,start_time)>-1 and DATEDIFF(end_time,now())>0")->order("ordid asc,id asc")->limit($pager->firstRow.",".$pager->listRows)->select();
 		}
 		foreach($list as $key=>$val){
 			$list[$key]['days']=round(abs(strtotime($val['end_time'])-time())/3600/24);
