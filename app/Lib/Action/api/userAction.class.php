@@ -385,6 +385,7 @@ class userAction extends userbaseAction
     public function notify_tag_modify($data){
         $tag['id'] = $data['id'];
         $tag['tag'] = $data['tag'];
+        $tag['userid'] = $data['userid'];
         $notify_tag = M("notify_tag");
         $notify_tag->save($tag);
         echo get_result(10001, '更新成功!');
@@ -394,7 +395,7 @@ class userAction extends userbaseAction
 
     public function notify_tag_del($data){
         $notify_tag = M("notify_tag");
-        $notify_tag->where(array("id"=>$data['id']))->delete();
+        $notify_tag->where(array("id"=>$data['id'],"userid"=>$data['userid']))->delete();
         echo get_result(10001,'删除成功!');
     }
 

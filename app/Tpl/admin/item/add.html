@@ -92,11 +92,11 @@
 
 		  <input type="file" name="J_img" id="J_img" class="w_bl_in2"  />
 		  
-		<!--		<input type="file" name="img"  id="img" class="w_bl_in2" /
-				<input type="text" size="40" name="img_usb"   placeholder="远程图片地址" class="input-text" value="">
-> -->
+				<input type="file"  name="img"  id="img" class="w_bl_in2" style="display: none" /> 
+				
 		</div>
 		<input style="top:15px;left: 15px;"  type="button" name="J_img_d" class="btn" id="J_img_d"   value="选取第一张" />
+		<input type="text" size="40" id="R_img" name="img_usb"   placeholder="远程图片地址" class="input-text" value="">
 				 </td>
 
  			</tr>
@@ -903,7 +903,7 @@ return;
 
 		  alert("请选择所属分类！");
 
-		}else if($('#img').val()==''){
+		}else if($('#img').val()=='' && $('#R_img').val()==''){
 
 		  alert("请上传商品图片！");
 
@@ -967,7 +967,7 @@ return;
 
 		  alert("请选择所属分类！");
 
-		}else if($('#J_img').val()=='' && $('#img').val()==''){
+		}else if($('#J_img').val()=='' && $('#R_img').val()=='' && $('#img').val()==''){
 
 		  alert("请上传商品图片！");
 

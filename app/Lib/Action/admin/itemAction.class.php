@@ -303,7 +303,7 @@ class itemAction extends backendAction {
             }
             $item_img=M("item")->where("id=$data[id]")->getField("img");
             if(!$item_img){
-                if (empty($_FILES['img']['name']) && empty($_POST['img']) && empty($_FILES['J_img']['name']) ) {
+                if (empty($_FILES['img']['name']) && empty($_POST['img']) && empty($_POST['img_usb']) && empty($_FILES['J_img']['name']) ) {
                     IS_AJAX &&  $this->ajaxReturn(0,'请上传商品图片');
                     $this->error('请上传商品图片');
                 }
