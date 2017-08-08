@@ -1,0 +1,10 @@
+<a class="golink" href="{:U('item/refresh_tag',array('begin'=>$begin))}" >下一个任务从{$begin}开始,执行{$length}条记录</a>
+
+ <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+
+ <script type="text/javascript">
+ 	
+ 	$(document).ready(function(){
+	window.location.href=$(".golink").attr("href");
+ 	});
+ </script>
