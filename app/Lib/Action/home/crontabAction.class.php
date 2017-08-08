@@ -1,6 +1,6 @@
 <?php
-require LIB_PATH . 'Pinlib/autoload.php';
-       use JPush\Client  as JPush;
+//require LIB_PATH . 'Pinlib/autoload.php';
+ //      use JPush\Client  as JPush;
 
 class crontabAction extends frontendAction {
 
@@ -24,9 +24,9 @@ class crontabAction extends frontendAction {
         $items= M(item)->field('id,title,img,content,price')->where($map)->select();
         $oauth = new oauth('sina');
         foreach ($items as $item) {
-        $status = strip_tags($item['title']) . $item['price'] ."|" .substr(strip_tags($item['content']),0,240) . "http://www.baicaio.com/item/".$item['id']. ".html";
+        $status = strip_tags($item['title']) . $item['price'] ."|" .substr(strip_tags($item['content']),0,200) . "http://www.baicaio.com/item/".$item['id']. ".html";
         $url = $item['img'];
-        $oauth->uploaddocument($status,$url);
+        $oauth->uploaddocument($status . "http://www.baicaio.com/",$url);
         } 
 
     }
