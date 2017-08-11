@@ -310,6 +310,16 @@ class shopAction extends userbaseAction
 
     public function ad($data) {
         $ad_id = $data['adid'] ? $data['adid'] : 0;
+        $result = M('ad')->where(['id'=>$ad_id,'status'=>1])->field('content,url')->select();
+        $code = 10001;
+        if(count($result) < 1){
+            $code = 10002;
+        }
+        echo get_result($code,$result);return ;
+    }
+
+    public function adb($data) {
+        $ad_id = $data['adid'] ? $data['adid'] : 0;
         $result = M('ad')->where(['board_id'=>$ad_id,'status'=>1])->field('content,url')->select();
         $code = 10001;
         if(count($result) < 1){

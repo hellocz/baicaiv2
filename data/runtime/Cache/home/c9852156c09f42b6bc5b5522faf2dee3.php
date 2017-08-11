@@ -39,6 +39,32 @@
 
 <style>
   .w_dj1{margin-right: 10px;}
+  .form_quan_search{
+    border: 1px solid #dcdcdc;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  .text_search_quan {
+    border: 0 none;
+    color: #999;
+    height: 36px;
+    padding-left: 10px;
+    width: 1150px;
+}
+.quan_q, .quan_q a{
+  color: #666;
+}
+.quan_sort, .quan_sort a{
+  color: #666;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+.quan_sort .active{
+    color: #3DC3B2;
+    border-bottom: 2px solid #3DC3B2;
+    display: inline-block;
+    padding-bottom: 7px;
+}
 </style>
 
 <script type="text/javascript"> var zhiyou_open = 1; </script>
@@ -206,13 +232,13 @@ focus end-->
 </div>
 <div class="w_center">
   <div class="w_center">
-      <div class="txtScroll-top">
+      <div class="txtScroll-top" style="height: 80px">
             <div class="bd">
-               <em>置顶</em>
-                <form class="form_search" action="/bao-search" method="get">
+                <form class="form_quan_search" action="/quan" method="get">
                  <button type="submit" class="btn_search icon-search"><!--[if lt IE 8]>Go<![endif]--></button>
-                <input id="s" name="q" class="text_search" value="爆料专搜" onblur="if(this.value=='') {this.value='爆料专搜';this.style.color='#999';}" onfocus="if(this.value=='爆料专搜') {this.value='';this.style.color='#333';}" style="color: rgb(153, 153, 153);" _hover-ignore="1" type="search">
+                <input id="s" name="q" class="text_search_quan" value="搜券" onblur="if(this.value=='') {this.value='搜券';this.style.color='#999';}" onfocus="if(this.value=='搜券') {this.value='';this.style.color='#333';}" style="color: rgb(153, 153, 153);" _hover-ignore="1" type="search">
             </form>
+            <div class="quan_q"><a href="<?php echo U('quan/index',array('q'=>'帽子'));?>"> 帽子 </a> | <a href="<?php echo U('quan/index',array('q'=>'泳衣'));?>"> 泳衣 </a> | <a href="<?php echo U('quan/index',array('q'=>'拖鞋'));?>"> 拖鞋 </a> | <a href="<?php echo U('quan/index',array('q'=>'实木家具'));?>"> 实木家具 </a></div>
             </div>
         </div>
         <script id="jsID" type="text/javascript">
@@ -220,6 +246,7 @@ focus end-->
         jQuery(".txtScroll-top").slide({titCell:".hd ul",mainCell:".bd ul",autoPage:true,effect:"top",autoPlay:true,vis:1});
         </script>
      <div class="w_f2">
+     <div class="quan_sort"><a <?php if($s == 'v'): ?>class="active"<?php endif; ?> href="<?php echo U('quan/index',array('s'=>'v'));?>">卖得最好</a> | <a <?php if($s == 'p'): ?>class="active"<?php endif; ?> href="<?php echo U('quan/index',array('s'=>'p'));?>">价格最低</a> | <a  <?php if($s == 'c'): ?>class="active"<?php endif; ?> href="<?php echo U('quan/index',array('s'=>'c'));?>">优惠最大</a> | <a <?php if($s == 'z'): ?>class="active"<?php endif; ?> href="<?php echo U('quan/index',array('s'=>'z'));?>">折扣最高</a></div>
         
 <style type="text/css">
  .fpItem {
@@ -238,7 +265,6 @@ focus end-->
  .fpGridBox {
     background-color: #fff;
     border-color: #c7c7c7;
-    border-radius: 4px;
     border-style: solid;
     border-width: 1px 1px 3px;
      color: #999;
@@ -246,7 +272,7 @@ focus end-->
     margin-bottom: 10px;
     margin-right: 5px;
     overflow: hidden;
-    width: 163px;
+    width: 233px;
 }
 .itemImageAndName {
     cursor: pointer;
@@ -254,7 +280,7 @@ focus end-->
     font-size: 12px;
     font-style: normal;
     font-weight: 600;
-    height: 218px;
+    height: 250px;
     padding: 10px 10px 7px;
     position: relative;
 }
@@ -267,16 +293,16 @@ focus end-->
 }
 .imageContainer {
     display: table-cell;
-    height: 133px;
+    height: 210;
     vertical-align: middle;
-    width: 180px;
+    width: 210;
 }
  .grid .fpItem .itemImageAndName img {
     border: medium none;
     display: block;
     margin: 0 auto;
-    max-height: 125px;
-    max-width: 125px;
+    max-height: 210px;
+    max-width: 210px;
 }
 .itemPrice {
     font-family: "Open Sans Bold", "Open Sans", Arial, sans-serif;
@@ -291,7 +317,7 @@ focus end-->
     text-overflow: ellipsis;
     display: inline-block;
 }
- .avatarBox {
+ .goods-type {
     position: absolute;
     right: 10px;
 }
@@ -299,7 +325,7 @@ focus end-->
     border-top: 1px solid #e5e5e5;
     color: #999;
     display: block;
-    height: 25px;
+    height: 30px;
     padding: 6px 10px 0 10px;
     position: relative;
 }
@@ -324,15 +350,18 @@ focus end-->
 }
  .itemTitle {
     line-height: 15px;
-    height: 60px;
+    height: 30px;
     color: #0072bc;
+    position: absolute;
+    bottom: 10px;
 }
  .itemBottomRow {
-    background-color: #fcfcfc;
+    background: #3dc3b2 none repeat scroll 0 0;
     color: #c7c7c7;
-    border-radius: 0 0 4px 4px;
     border-top: 1px solid #d6d6d6;
-    height: 37px;
+    height: 50px;
+    margin: 0 auto;
+    position: relative;
 }
 .likes {
     border-right: 1px solid #d6d6d6;
@@ -340,11 +369,13 @@ focus end-->
     position: relative;
     float: left;
 }
-.comments {
-    border-right: 1px solid #d6d6d6;
+.coupon_tag {
+  
     padding: 10px;
     overflow: hidden;
     text-align: center;
+    width: 30px;
+    float: left;
 }
 .w_zdlj_a{
     border-radius: 4px;
@@ -363,7 +394,114 @@ focus end-->
     transform: rotate(-45deg);
     width: 100px;
 }
-.itemBottomRow .comments:hover{background: #3dc399;color: #fff;text-decoration: none !important;}
+.coupon b{
+    color: red;
+      font-family: "Microsoft Yahei";
+    font-size: 14px;
+}
+.coupon b i{
+    color: red;
+}
+.buy-price {
+    float: left;
+    color: white;
+    font: bold 30px/40px Arial;
+    padding-left: 15px;
+}
+.old-price {
+    float: left;
+    height: 30px;
+    margin: 10px 0 10px 10px;
+    text-align: left;
+}
+.old-price p {
+    color: white;
+    display: block;
+    height: 16px;
+    line-height: 16px;
+    margin: 0;
+    padding: 0;
+    text-decoration: line-through;
+}
+.old-price p i{
+    color: white;
+}
+.go-buy {
+    background: #FF435E none repeat scroll 0 0;
+    font-family: "Microsoft Yahei";
+    font-size: 16px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    width: 65px;
+    height: 30px;
+    padding: 10px 0 10px 10px;
+}
+ .go-buy a::before {
+    border-bottom: 25px solid transparent;
+    border-right: 12px solid #FF435E;
+    border-top: 25px solid transparent;
+    content: "";
+    display: block;
+    height: 0;
+    left: -12px;
+    position: absolute;
+    top: 0;
+    width: 0;
+}
+.old-price span {
+    color: #fff;
+    display: block;
+    font: 12px/12px "Microsoft Yahei";
+    height: 12px;
+}
+.coupon {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: #fff7fa none repeat scroll 0 0;
+    border-color: #ff0060 currentcolor;
+    border-image: none;
+    border-style: dotted none;
+    border-width: 1px medium;
+    color: #ff0060;
+    font: 12px/24px "Simsun";
+    height: 24px;
+    margin: 0;
+    padding: 0 8px;
+    position: absolute;
+    float: left;
+    text-align: center;
+}
+.inactive{
+    display: none;
+}
+.coupon em {
+    background: rgba(0, 0, 0, 0) url("img/cms_pc_img.png") no-repeat scroll -120px -79px;
+    height: 24px;
+    position: absolute;
+    top: 0;
+    width: 6px;
+}
+.coupon em.quan-left {
+    left: 0;
+}
+em.quan-right {
+    background-position-x: -136px;
+    right: 0;
+}
+.goods-type i.tmall {
+    background-position-x: -78px;
+}
+.goods-type i {
+    background: rgba(0, 0, 0, 0) url("img/cms_pc_img.png") no-repeat scroll 0 0;
+    float: right;
+    height: 16px;
+    margin-left: 5px;
+    width: 16px;
+    margin-top: 2px;
+}
 
 </style>
        <div class="w_nr3">
@@ -374,79 +512,42 @@ focus end-->
                   <div>
                      <div>
                         <div class="itemImageAndName">
-                        <?php $time = time()-60*10;?>
-                                <?php if($r['add_time'] > $time): ?><span class="newtag">NEW</span><?php endif; ?>
                                 <div class="itemImageLink">
                                    <div class="imageContainer">
-                                      <a href="<?php echo U('bitem/index',array('id'=>$r['id'],'isbao'=>1));?>" title="<?php echo ($r["title"]); ?>" target="_blank"><img src="<?php if($r['img']==''): ?>/images/nopic.jpg<?php else: echo attach($r['img'],'item');?>!newthumb<?php endif; ?>" title="<?php echo ($r["title"]); ?>" alt="<?php echo ($r["title"]); ?>"/></a>
+                                      <a  isconvert="1" href="<?php echo ($r["coupon_url"]); ?>" title="" target="_blank"><img src="<?php echo ($r["img"]); ?>" title="" alt="<?php echo ($r["title"]); ?>"/></a>
                                   </div>
-                                 <a class="itemStore"  href="<?php echo U('orig/show',array('id'=>$r['orig_id']));?>" title="<?php echo getly($r['orig_id']);?>"><?php echo getly($r['orig_id']);?></a>
-                                 <a class="itemTitle" href="<?php echo U('bitem/index',array('id'=>$r['id'],'isbao'=>1));?>" title="<?php echo ($r["title"]); ?>" target="_blank"><?php echo ($r["title"]); ?><em style="color:red;"><?php echo ($r["price"]); ?></em></a>
+                                 <a class="itemStore"  href="" title=""></a>
+                                 <a class="itemTitle"  isconvert="1" href="<?php echo ($r["coupon_url"]); ?>"  title="" target="_blank"><?php echo ($r["title"]); ?><em style="color:red;"></em></a>
                                 </div>
                          </div>
 	                 <div class="itemInfoLine">
-                             <div class="avatarBox">
-                                   <img src="<?php echo avatar($r['uid'],'');?>" title="<?php echo ($r["uname"]); ?>" alt="<?php echo ($r["uname"]); ?>" class="ava"/>
+                             <div class="goods-type">
+                                  <?php echo ($r["volume"]); ?> (30天销量)  <i class="tmall" title="天猫"></i>
                              </div>
-			       <div class="itemPrice  "><?php echo (mdate($r['add_time'])); ?></div>
+			       <div class="itemPrice"><span class="coupon"><em class="quan-left"></em>券<b><i>￥</i><?php echo ($r["coupon"]); ?></b><em class="quan-right"></em></span></div>
                           </div>
                           <div class="itemBottomRow">
-                                <div class="likes">
-                                  <div class="w_f2nr1_le"><a href="javascript:void(0)" onclick="jz_submit_click(this)" title="赞" class="w_z_1 Jz_submit" data="<?php echo ($r["id"]); ?>"  data-t="item_diu"><?php echo ($r["zan"]); ?></a></div>
-                                </div>
-                               
-
-        				<?php $llink = unserialize($r['go_link']);$lc = count($llink);?>
-
-        				<?php if(is_array($llink)): $j = 0; $__LIST__ = $llink;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$rm): $mod = ($j % 2 );++$j; if($j == 1): ?><a   <?php if($r['orig_id'] == 3): ?>isconvert="1" href="<?php echo ($rm['link']); ?>"<?php else: ?> href="__ROOT__/?m=item&a=tgo&to=<?php echo shortUrl($rm['link']);?>"<?php endif; ?> title="<?php echo ($rm["title"]); ?>"  target="_blank" rel="nofollow" > <div class="comments"><?php echo ($rm["name"]); ?></div></a><?php endif; endforeach; endif; else: echo "" ;endif; ?>
-
-        				
-
+                            <div class="buy-price"><?php echo ($r["price"]); ?></div>
+                            <div class="old-price">
+                                <p><i>￥</i><?php echo ($r["zk_final_price"]); ?></p>
+                                <span>券后价</span>
                             </div>
+                            <div class="go-buy"><a data-goodsid="536022462362" isconvert="1"  style="color:white" href="<?php echo ($r["coupon_url"]); ?>" target="_blank" _hover-ignore="1">去抢券</a>
+                        </div>
+                          <!--     <a   isconvert="1" href="<?php echo ($r['coupon_url']); ?>" title=""  target="_blank" rel="nofollow" > <div class="coupon"><?php echo ($r["coupon"]); ?>元 优惠券</div><div class="coupon_tag">领券</div></a>
+-->                            </div>
                          </div>
                         </div>
                         </div>
                         </div><?php endforeach; endif; else: echo "" ;endif; ?>
-
          </ul>
-
        </div> 
 
 
 	   <script>
 
 	   $(document).ready(function(e) {
-
-             $(".w_zzj_1").hover(
-
-				  function () {
-
-					$(this).children("ul").show();
-
-					$(this).find("i").addClass("w_up").removeClass("w_down");
-
-				  },
-
-				  function () {
-
-					$(this).children("ul").hide("");
-
-					$(this).find("i").addClass("w_down").removeClass("w_up");
-
-				  }
-
-				); 
-
-			 $(".w_p1 .w_dj1").each(function(){
-
-				 if($(this).html()==""){
-
-					 $(this).hide();
-
-				 }
-
-			 })
-
+        $('.fpGridBox').slice(20,).addClass("inactive");
         }) 
 
 	   </script>
@@ -468,11 +569,6 @@ $(document).ready(function(){
 
 
 
-
-var page=<?php echo ($p); ?>;
-var para='isbao';
-var pagesize=21;
-var pageend=<?php echo ($p); ?>+3;
 //右边滚动
 $(window).scroll(function () {
     if ($(document).scrollTop() > 2297 ){  //判断滚动条是否滚动了***PX
@@ -618,6 +714,6 @@ $('.sxs .gb').click(function(){
 
 <script>var t="item";</script>
 <script src="/static/js/lhg/lhgdialog.min.js?self=true&skin=idialog" type="text/javascript"></script>
-<script src="/js/pbl.js"></script>
+<script src="/js/pblq.js"></script>
 </body>
 </html>

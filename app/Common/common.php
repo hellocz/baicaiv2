@@ -89,6 +89,58 @@ return ($a['add_time'] < $b['add_time']) ? 1 : -1;
 
 }
 }
+ function sortByVolume($a, $b) {
+
+        if ($a['volume'] == $b['volume']) {
+
+        return 0;
+
+        } else {
+
+        return ( $a['volume'] < $b['volume']) ? 1 : -1;
+
+        }
+    }
+
+    function sortByCoupon($a, $b) {
+
+        if ($a['coupon'] == $b['coupon']) {
+
+        return 0;
+
+        } else {
+
+        return ( $a['coupon']< $b['coupon']) ? 1 : -1;
+
+        }
+    }
+
+    function sortByPrice($a, $b) {
+
+        if ( $a['price'] == $b['price']) {
+
+        return 0;
+
+        } else {
+
+        return ( $a['price'] > $b['price']) ? 1 : -1;
+
+        }
+    }
+
+    function sortByZK($a, $b) {
+
+        if ($a['price']/$a['zk_final_price'] == $b['price']/$b['zk_final_price'] ) {
+
+        return 0;
+
+        } else {
+
+        return ( $a['price']/$a['zk_final_price']  > $b['price']/$b['zk_final_price'] ) ? 1 : -1;
+
+        }
+    }
+
 
 function sbbtime($time){
 	if($time>time())return true;

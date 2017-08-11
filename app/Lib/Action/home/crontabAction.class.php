@@ -26,7 +26,7 @@ class crontabAction extends frontendAction {
         foreach ($items as $item) {
         $status = strip_tags($item['title']) . $item['price'] ."|" .substr(strip_tags($item['content']),0,200) . "http://www.baicaio.com/item/".$item['id']. ".html";
         $url = $item['img'];
-        $oauth->uploaddocument($status . "http://www.baicaio.com/",$url);
+        $oauth->uploaddocument($status,$url);
         } 
 
     }

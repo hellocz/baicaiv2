@@ -120,10 +120,10 @@ class backendAction extends baseAction
                 }
                 if($score_article && false == $score_log && ($data['status'] == 1 || $data['status'] == 4)){
                     $user = M('user')->where('id='.$x['uid'])->find();
-                    $score = 40;
-                    $coin = 100;
-                    $offer = 100;
-                    $exp = 100;
+                    $score = 20;
+                    $coin = 50;
+                    $offer = 50;
+                    $exp = 50;
                      set_score($user,$score,$coin,$offer,$exp);
                     //积分日志
                     $xc = array();

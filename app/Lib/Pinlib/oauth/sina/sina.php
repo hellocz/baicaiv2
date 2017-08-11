@@ -39,6 +39,7 @@ class sina_oauth
     //发布新信息
     public function uploadDoc($access_token,$status,$url) {
         $client = new SaeTClientV2($this->setting['app_key'], $this->setting['app_secret'], $access_token);
+        var_dump($this->setting['app_key']);
         $result=$client->share($status,$url);
         return $result;
     }

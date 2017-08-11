@@ -7,11 +7,13 @@ class TopClient
 
 	public $gatewayUrl = "http://gw.api.taobao.com/router/rest";
 
-	public $format = "xml";
+	public $format = "json";
 
 	public $connectTimeout;
 
 	public $readTimeout;
+
+	public $simplify = true;
 
 	/** 是否打开入参check**/
 	public $checkRequest = true;

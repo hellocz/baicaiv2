@@ -16,14 +16,12 @@ class mobileAction extends frontendAction {
             $c->appkey = "23232602";
             $c->secretKey = "a91ec4b0a09a93dd2c9e85d88665ef26";
             $req = new TbkDgItemCouponGetRequest;
-            $req->setAdzoneId("62294246");
+            $req->setAdzoneId("14718353");
            // $req->setPlatform(1);
             $req->setPageSize(100);
             $req->setQ("女装");
             $req->setPageNo(1);
             $resp = $c->execute($req);
             var_dump($resp);
-    }
-
-    
+    } 
 }
