@@ -367,6 +367,29 @@ class userAction extends userbaseAction
             }
     }
 
+      //查询某个用户的推送时段
+
+    public function push_range_byuser($data){
+        $userid = $data['userid'];
+        $user = M("user");
+        $list = $user->where(array('id'=>$userid))->field("push_range")->select();
+       $code = 10001;
+        if(count($list) < 1){
+            $code = 10002;
+        }
+        echo get_result($code,$list);return ;
+    }
+
+    //更新推送时段
+
+    public function push_range_modify($data){
+        $push_info['push_range'] = $data['push_range'];
+        $push_info['id'] = $data['userid'];
+        $user = M("user");
+        $user->save($push_info);
+        echo get_result(10001, '更新成功!');
+    }
+
      //查询某个用户下面所有推送tag
 
     public function notify_tag_byuser($data){

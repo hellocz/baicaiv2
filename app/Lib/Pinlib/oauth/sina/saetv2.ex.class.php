@@ -1085,7 +1085,7 @@ class SaeTClientV2
 		if ($rip) {
 			$params['rip'] = $rip;
 		}
-		return $this->oauth->post('statuses/share.json', $params, $with_media);
+		return $this->oauth->post('statuses/share', $params, $with_media);
 	}
 
 
