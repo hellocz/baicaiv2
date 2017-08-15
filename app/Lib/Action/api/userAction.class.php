@@ -206,6 +206,27 @@ class userAction extends userbaseAction
         echo get_result(10001,$info);
     }
 
+    public function mobilelogin($data)
+    {
+
+        $user = M('user')->where(array('mobile'=>$data['mobile'],'username'=>$data['mobile'],'email'=>$data['mobile'],'_logic'=>'OR'))->field('id,username,gender,score,password')->find();//查找用户
+        $passport = $this->_user_server();
+        $uid = $passport->auth($user['username'], $data['password']);
+
+        if ($uid){
+            $info = [
+                'userid'    =>  $user['id'],
+                'username'    =>  $user['username'],
+                'gender'    =>  $user['gender'],
+                'score'    =>  $user['score'],
+            ];
+        } else {
+            echo get_result(20001,'账号或密码错误');
+            return ;
+        }
+        echo get_result(10001,$info);
+    }
+
     public function getuserinfo($data)
     {
         $mod = M("user");

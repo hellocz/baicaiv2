@@ -93,11 +93,6 @@
 }
 </style>
 
-<script type="text/javascript"> var zhiyou_open = 1; </script>
-<script type="text/javascript" src="/js/userbase.1.0.min.js"></script>
-<script type="text/javascript" src="/js/main.js"></script>
-<script type="text/javascript" src="/js/jquery.SuperSlide.2.1.1.js"></script>
-
 <!--//首页轮播-->
 <script type="text/javascript">
   
