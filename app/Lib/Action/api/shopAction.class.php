@@ -347,6 +347,26 @@ class shopAction extends userbaseAction
         echo get_result(10001,$info);return ;
     }
 
+    public function uploadimg1($data){
+        //上传图片
+        $data = $data['base64'];
+        $data = substr(strstr($data,','),1);
+        $img=base64_decode($data);
+        $str = uniqid(mt_rand(),1);
+        $file = 'upload/'.md5($str).'.jpg';
+        $art_add_time = date('ym/d');
+        $upload_path = '/'.C('pin_attach_path') . 'item/'. $art_add_time.'/'.md5($str).'.jpg';
+        file_put_contents($file, $img);
+        $art_add_time = date('ym/d');
+        $upyun = new UpYun2('baicaiopic', '528', 'lzw123456');
+        $fh = fopen($file, 'rb');
+        $rsp = $upyun->writeFile($upload_path, $fh, True);   // 上传图片，自动创建目录
+        fclose($fh);
+        @unlink ($file);
+        $data = IMG_ROOT_PATH.'/data/upload/item/'. $art_add_time.'/'.md5($str).'.jpg';
+        echo get_result(10001,$data);return ;
+    }
+
     //发布商品
     public function publish_item($data) {
         $user = M("user")->where("id=".$data['userid'])->find();
@@ -368,10 +388,10 @@ class shopAction extends userbaseAction
         $item['uname'] = get_uname($data['userid']);
         $item['isbao'] = '1';
         $item['source'] = '1';
-//        $status = $data['status'];
-//        if($status!=2){$status=0;}
-        $item['status'] = 0;
-
+        $status = $data['status'];
+        if($status!=2){$status=0;}
+        $item['status'] = $status;
+        $item['img'] = $data['img'];
         //添加凑单品，活动入口链接
         $arr[] = array('name'=>'直达链接','link'=>$data['url']);
         if(empty($data["link_type"])){
@@ -384,8 +404,10 @@ class shopAction extends userbaseAction
 
         $item['go_link']=serialize($arr);
         foreach($data['imgs'] as $key=>$val){
-            $item['imgs'][$key]['url']=$val;
+            $item['imgs'][$key]['url']=$val['url'];
+
         }
+
 //        if($data['ispost'] == 1){
             $item['ispost'] =1;
 //        }
@@ -405,7 +427,6 @@ class shopAction extends userbaseAction
             echo get_result(10001,$item_mod->getError());return ;
         }
     }
-
 
 
 }
