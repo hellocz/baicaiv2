@@ -59,6 +59,7 @@ class quanAction extends frontendAction {
             usort($item_list, 'sortByVolume');
            }
            $this->assign("s",$s);
+           $this->assign("q",$q);
            $this->assign("item_list",$item_list);
           $this->_config_seo();
           $this->display();

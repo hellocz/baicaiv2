@@ -43,6 +43,7 @@
     border: 1px solid #dcdcdc;
     border-radius: 5px;
     margin-top: 10px;
+    display: none;
   }
   .text_search_quan {
     border: 0 none;
@@ -64,6 +65,31 @@
     border-bottom: 2px solid #3DC3B2;
     display: inline-block;
     padding-bottom: 7px;
+}
+
+.sq_text{
+  border: 2px solid #3DC399;
+    float: left;
+    height: 33px;
+    padding-left: 5px;
+    width: 1083px;
+    border-radius: 0px;
+    margin-top: 10px;
+}
+.sq_btn{
+    height: 37px;
+    overflow: hidden;
+    padding: 7px 30px;
+     background-color: #3DC399;
+    border: 0 none;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    float: right;
+    letter-spacing: 2px;
+    line-height: 21px;
+    border-radius: 0px;
+    margin-top: 10px;
 }
 </style>
 
@@ -234,10 +260,14 @@ focus end-->
   <div class="w_center">
       <div class="txtScroll-top" style="height: 80px">
             <div class="bd">
-                <form class="form_quan_search" action="/quan" method="get">
-                 <button type="submit" class="btn_search icon-search"><!--[if lt IE 8]>Go<![endif]--></button>
-                <input id="s" name="q" class="text_search_quan" value="搜券" onblur="if(this.value=='') {this.value='搜券';this.style.color='#999';}" onfocus="if(this.value=='搜券') {this.value='';this.style.color='#333';}" style="color: rgb(153, 153, 153);" _hover-ignore="1" type="search">
+                <!--<form class="form_quan_search" action="/quan" method="get">
+                 <button type="submit" class="btn_search icon-search"></button>
+                <input id="s" name="q" class="text_search_quan" value="<?php echo ($q); ?>" onblur="if(this.value=='') {this.value='搜券';this.style.color='#999';}" onfocus="if(this.value=='搜券') {this.value='';this.style.color='#333';}" style="color: rgb(153, 153, 153);" _hover-ignore="1" type="search">
             </form>
+            -->
+            <form action="quan">
+    <input class="sq_text" type="text" name="q" placeholder="好券 你来搜" value="<?php echo ($q); ?>"><input  class="sq_btn" type="submit" name="" value="搜券"></ins></form>
+
             <div class="quan_q"><a href="<?php echo U('quan/index',array('q'=>'帽子'));?>"> 帽子 </a> | <a href="<?php echo U('quan/index',array('q'=>'泳衣'));?>"> 泳衣 </a> | <a href="<?php echo U('quan/index',array('q'=>'拖鞋'));?>"> 拖鞋 </a> | <a href="<?php echo U('quan/index',array('q'=>'实木家具'));?>"> 实木家具 </a></div>
             </div>
         </div>
