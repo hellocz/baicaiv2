@@ -1075,7 +1075,7 @@ class itemAction extends backendAction {
         }
          elseif (strcmp($host,'www.kaixinbao.com')==0 || strcmp($host,'u.kaixinbao.com')==0){
             $result['id'] =942;
-            $pattern = '/lvyou-baoxian\/((\d){6,}).shtml/';
+            $pattern = '/-baoxian\/((\d){6,}).shtml/';
            $pattern_num = preg_match($pattern,$parsed_url['path'],$pattern_result);
              if($pattern_num!=0){
                   $result['convert_url'] = "http://u.kaixinbao.com/link?aid=" . $pattern_result[1] . "&cpsUserId=a105930&cpsUserSource=8_swpt";
