@@ -377,6 +377,11 @@ class userAction extends userbaseAction
         $userid = $data['userid'];
         $tag = $data['tag'];
         $notify_tag = M("notify_tag");
+        $list = $notify_tag->where(array('userid' =>$userid,'tag'=>$tag ))->select();
+        if(count($list)>0){
+            echo get_result(10001, '标签已存在!');
+        }
+        else{
         $result = $notify_tag->add(array(
             'uid' => $userid,
             'tag' => $tag
@@ -385,6 +390,7 @@ class userAction extends userbaseAction
                 echo get_result(10001, '新增成功!');
             } else {
                 echo get_result(10001, '新增失败!');
+            }
             }
     }
 
@@ -431,8 +437,14 @@ class userAction extends userbaseAction
         $tag['tag'] = $data['tag'];
         $tag['userid'] = $data['userid'];
         $notify_tag = M("notify_tag");
+        $list = $notify_tag->where(array('userid' =>$userid,'tag'=>$tag ))->select();
+        if(count($list)>0){
+            echo get_result(10001, '标签已存在!');
+        }
+        else{
         $notify_tag->save($tag);
         echo get_result(10001, '更新成功!');
+        }
     }
 
      //删除推送tag
@@ -449,8 +461,12 @@ class userAction extends userbaseAction
         $user_address_mod = M('user_address');
         $userid = $data['userid'];
         $address_list = $user_address_mod->where(array('uid'=>$userid))->field(['id','consignee','zip','mobile','address'])->select();
-
+        if(count($address_list) < 1){
+         echo get_result(10002,$address_list);
+        }
+        else{
         echo get_result(10001,$address_list);
+        }
     }
 
 
@@ -532,6 +548,12 @@ class userAction extends userbaseAction
             }
             elseif($list[$key]['action'] == "share"){
                $list[$key]['action'] = "分享";
+            }
+            elseif($list[$key]['action'] == "pubitem"){
+               $list[$key]['action'] = "发布分享";
+            }
+            elseif(strpos($list[$key]['action'],"publish_article")){
+               $list[$key]['action'] = "晒单";
             }
             }
 

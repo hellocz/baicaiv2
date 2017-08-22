@@ -38,6 +38,14 @@
 <link rel="alternate" type="application/rss+xml" href="http://www.baicaio.com/rss" title="RSS" />
 
 <style>
+@font-face {
+  font-family: 'iconfont';
+  src: url('//g.517cdn.com/PlugJavascriptJq/tamlliconfont/iconfont.eot');
+  src: url('//g.517cdn.com/PlugJavascriptJq/tamlliconfont/iconfont.eot?#iefix') format('embedded-opentype'),
+  url('//g.517cdn.com/PlugJavascriptJq/tamlliconfont/iconfont.woff') format('woff'),
+  url('//g.517cdn.com/PlugJavascriptJq/tamlliconfont/iconfont.ttf') format('truetype'),
+  url('//g.517cdn.com/PlugJavascriptJq/tamlliconfont/iconfont.svg#iconfont') format('svg');
+}
   .w_dj1{margin-right: 10px;}
   .form_quan_search{
     border: 1px solid #dcdcdc;
@@ -54,6 +62,8 @@
 }
 .quan_q, .quan_q a{
   color: #666;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 .quan_sort, .quan_sort a{
   color: #666;
@@ -91,7 +101,21 @@
     border-radius: 0px;
     margin-top: 10px;
 }
+.sq_jc{
+    color: #3DC399 !important; 
+    float: right;
+}
+.md_icon {
+    margin-right: 4px;
+    color: #3DC399;
+    font-family:"iconfont" !important;
+}
 </style>
+
+<script type="text/javascript"> var zhiyou_open = 1; </script>
+<script type="text/javascript" src="/js/userbase.1.0.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="/js/jquery.SuperSlide.2.1.1.js"></script>
 
 <!--//首页轮播-->
 <script type="text/javascript">
@@ -261,9 +285,11 @@ focus end-->
             </form>
             -->
             <form action="quan">
-    <input class="sq_text" type="text" name="q" placeholder="好券 你来搜" value="<?php echo ($q); ?>"><input  class="sq_btn" type="submit" name="" value="搜券"></ins></form>
+    <input class="sq_text" type="text" name="q" placeholder="汇集淘宝/天猫全站优惠券，支持关键词/标题全文检索" value="<?php echo ($q); ?>"><input  class="sq_btn" type="submit" name="" value="搜券"></ins></form>
 
-            <div class="quan_q"><a href="<?php echo U('quan/index',array('q'=>'帽子'));?>"> 帽子 </a> | <a href="<?php echo U('quan/index',array('q'=>'泳衣'));?>"> 泳衣 </a> | <a href="<?php echo U('quan/index',array('q'=>'拖鞋'));?>"> 拖鞋 </a> | <a href="<?php echo U('quan/index',array('q'=>'实木家具'));?>"> 实木家具 </a></div>
+            <div class="quan_q">
+            <?php if(is_array($quan_keys)): $i = 0; $__LIST__ = $quan_keys;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$r): $mod = ($i % 2 );++$i;?><a href="<?php echo U('quan/index',array('q'=>$r));?>"><?php echo ($r); ?></a><?php endforeach; endif; else: echo "" ;endif; ?>
+            <a  class="sq_jc" href="<?php echo U('item/index',array('id'=>272745));?>"><i class="md_icon">&#xe690;</i>找券教程</a></div>
             </div>
         </div>
         <script id="jsID" type="text/javascript">
@@ -527,6 +553,9 @@ em.quan-right {
     width: 16px;
     margin-top: 2px;
 }
+.taobao{
+    background: rgba(0, 0, 0, 0) url("img/taobao.png")!important ;
+}
 
 </style>
        <div class="w_nr3">
@@ -547,7 +576,7 @@ em.quan-right {
                          </div>
 	                 <div class="itemInfoLine">
                              <div class="goods-type">
-                                  <?php echo ($r["volume"]); ?> (30天销量)  <i class="tmall" title="天猫"></i>
+                                  月销量 <?php echo ($r["volume"]); if($r["user_type"] == 1): ?><i class="tmall" title="天猫"><?php else: ?><i class="taobao" title="淘宝"><?php endif; ?></i>
                              </div>
 			       <div class="itemPrice"><span class="coupon"><em class="quan-left"></em>券<b><i>￥</i><?php echo ($r["coupon"]); ?></b><em class="quan-right"></em></span></div>
                           </div>
@@ -647,7 +676,7 @@ function AddFavorite(sURL, sTitle) {
             h.insertBefore(s, h.firstChild);
         };
         var o = {
-            pid: "mm_27883119_3410238_93410083",/*推广单元ID，用于区分不同的推广渠道*/
+            pid: "mm_27883119_3410238_126588403",/*推广单元ID，用于区分不同的推广渠道*/
             appkey: "",/*通过TOP平台申请的appkey，设置后引导成交会关联appkey*/
             unid: "",/*自定义统计字段*/
             type: "click" /* click 组件的入口标志 （使用click组件必设）*/

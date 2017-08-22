@@ -292,8 +292,9 @@
                   $(this).addClass('active').siblings('a').removeClass('active');
 
                   var n = $(this).index();
+                  $('.J_pl_list').hide();
 
-                  $(".J_pl_list"+n).show().siblings('.J_pl_list').hide();
+                  $(".J_pl_list"+n).show();
 
               });
 
@@ -313,7 +314,7 @@
 
                           <img src="{:avatar($val['uid'], 48)}" height="48" width="48" />
 
-                          <em>
+                          <em></em>
 
                       </div>
 

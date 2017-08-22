@@ -14,6 +14,9 @@ class quanAction extends frontendAction {
         if (isset($coupon_sort)) {
             $s  || $s=$coupon_sort;
         }
+        if($s==""){
+          $s="v";
+        }
         cookie('coupon_sort',urlencode($s));
             include_once LIB_PATH . 'Pinlib/taobao/TopSdk.php';
             $c = new TopClient;
@@ -31,9 +34,13 @@ class quanAction extends frontendAction {
        //    var_dump($lists);
       //     header("Content-type: text/html; charset=utf8");
        //      var_dump($lists);
+       $quan_keywords = M('setting')->where("name = 'quan_keywords'")->field('data')->find();
+       $quan_keys = explode(',',$quan_keywords['data']);
            $item_list = array();
+
            foreach ($lists as $list) {
           $item['title'] = $list->title;
+          $item['user_type'] = intval($list->user_type);
           $item['img'] = $list->pict_url;
           $item['url'] = $list->item_url;
           $item['coupon_url'] = $list->coupon_click_url;
@@ -58,6 +65,7 @@ class quanAction extends frontendAction {
            else{
             usort($item_list, 'sortByVolume');
            }
+           $this->assign("quan_keys",$quan_keys);
            $this->assign("s",$s);
            $this->assign("q",$q);
            $this->assign("item_list",$item_list);

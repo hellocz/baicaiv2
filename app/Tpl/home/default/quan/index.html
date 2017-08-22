@@ -10,6 +10,14 @@
 <link rel="alternate" type="application/rss+xml" href="http://www.baicaio.com/rss" title="RSS" />
 
 <style>
+@font-face {
+  font-family: 'iconfont';
+  src: url('//g.517cdn.com/PlugJavascriptJq/tamlliconfont/iconfont.eot');
+  src: url('//g.517cdn.com/PlugJavascriptJq/tamlliconfont/iconfont.eot?#iefix') format('embedded-opentype'),
+  url('//g.517cdn.com/PlugJavascriptJq/tamlliconfont/iconfont.woff') format('woff'),
+  url('//g.517cdn.com/PlugJavascriptJq/tamlliconfont/iconfont.ttf') format('truetype'),
+  url('//g.517cdn.com/PlugJavascriptJq/tamlliconfont/iconfont.svg#iconfont') format('svg');
+}
   .w_dj1{margin-right: 10px;}
   .form_quan_search{
     border: 1px solid #dcdcdc;
@@ -26,6 +34,8 @@
 }
 .quan_q, .quan_q a{
   color: #666;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 .quan_sort, .quan_sort a{
   color: #666;
@@ -62,6 +72,15 @@
     line-height: 21px;
     border-radius: 0px;
     margin-top: 10px;
+}
+.sq_jc{
+    color: #3DC399 !important; 
+    float: right;
+}
+.md_icon {
+    margin-right: 4px;
+    color: #3DC399;
+    font-family:"iconfont" !important;
 }
 </style>
 
@@ -132,9 +151,13 @@ focus end-->
             </form>
             -->
             <form action="quan">
-    <input class="sq_text" type="text" name="q" placeholder="好券 你来搜" value="{$q}"><input  class="sq_btn" type="submit" name="" value="搜券"></ins></form>
+    <input class="sq_text" type="text" name="q" placeholder="汇集淘宝/天猫全站优惠券，支持关键词/标题全文检索" value="{$q}"><input  class="sq_btn" type="submit" name="" value="搜券"></ins></form>
 
-            <div class="quan_q"><a href="{:U('quan/index',array('q'=>'帽子'))}"> 帽子 </a> | <a href="{:U('quan/index',array('q'=>'泳衣'))}"> 泳衣 </a> | <a href="{:U('quan/index',array('q'=>'拖鞋'))}"> 拖鞋 </a> | <a href="{:U('quan/index',array('q'=>'实木家具'))}"> 实木家具 </a></div>
+            <div class="quan_q">
+            <volist name="quan_keys" id="r" >
+              <a href="{:U('quan/index',array('q'=>$r))}">{$r}</a>
+            </volist>
+            <a  class="sq_jc" href="{:U('item/index',array('id'=>272745))}"><i class="md_icon">&#xe690;</i>找券教程</a></div>
             </div>
         </div>
         <script id="jsID" type="text/javascript">
@@ -186,7 +209,7 @@ function AddFavorite(sURL, sTitle) {
     }
 }
 </script>
-<include file="public:footer_index" />
+<include file="public:footer_index_quan" />
 <script>var t="item";</script>
 <script src="/static/js/lhg/lhgdialog.min.js?self=true&skin=idialog" type="text/javascript"></script>
 <script src="/js/pblq.js"></script>

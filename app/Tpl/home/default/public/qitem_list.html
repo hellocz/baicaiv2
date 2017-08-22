@@ -253,6 +253,9 @@ em.quan-right {
     width: 16px;
     margin-top: 2px;
 }
+.taobao{
+    background: rgba(0, 0, 0, 0) url("img/taobao.png")!important ;
+}
 
 </style>
        <div class="w_nr3">
@@ -274,7 +277,7 @@ em.quan-right {
                          </div>
 	                 <div class="itemInfoLine">
                              <div class="goods-type">
-                                  {$r.volume} (30天销量)  <i class="tmall" title="天猫"></i>
+                                  月销量 {$r.volume}<if condition="$r.user_type eq 1"><i class="tmall" title="天猫"><else/><i class="taobao" title="淘宝"></if></i>
                              </div>
 			       <div class="itemPrice"><span class="coupon"><em class="quan-left"></em>券<b><i>￥</i>{$r.coupon}</b><em class="quan-right"></em></span></div>
                           </div>
