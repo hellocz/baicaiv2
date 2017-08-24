@@ -501,7 +501,7 @@ class userAction extends userbaseAction
     }
 
      //是否选中关注
-    public function is_notify_tag($data){
+    public function is_follow_tag($data){
         $notify_tag = M("notify_tag");
         $list = $notify_tag->where(array("tag"=>$data['tag'],'userid' =>$data['userid'],'f_sign'=>1))->select();
          if(count($list)>0){
