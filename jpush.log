@@ -1,1 +1,3 @@
 Send POST https://api.jpush.cn/v3/push, body:{"platform":"all","audience":"all","notification":{"alert":"Hello, baicaio push."},"options":{"sendno":33425,"apns_production":false}}, times:1
+Send POST https://api.jpush.cn/v3/push, body:{"platform":"all","audience":"all","notification":{"alert":"Hello, baicaio push."},"options":{"sendno":44277,"apns_production":false}}, times:1
+Send POST https://api.jpush.cn/v3/push, body:{"platform":"all","audience":"all","notification":{"alert":"Hello, baicaio push.","android":{"alert":"Hello android","title":"Hello","extras":{"type":"shop","data":"274055"}},"ios":{"alert":"Hello ios","sound":"sound","badge":"+1","extras":{"type":"shop","data":"274055"}}},"options":{"sendno":50619,"apns_production":false}}, times:1

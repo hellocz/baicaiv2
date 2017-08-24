@@ -72,9 +72,9 @@ class userAction extends userbaseAction
 
 //            }
 
-//            if ($data['password'] != $data['repassword']) {
-//                echo get_result(20001,[], "两次输入的密码不一致");return ;
-//            }
+           if ($data['password'] != $data['repassword']) {
+               echo get_result(20001,[], "两次输入的密码不一致");return ;
+           }
 
 //            //用户禁止
 //            $ipban_mod = D('ipban');
@@ -90,7 +90,7 @@ class userAction extends userbaseAction
             //注册
             $uid = $passport->register($data['username'], $data['password'], $data['email'], $data['gender']);
             if(!$uid){
-                echo get_result(20001,[],"注册失败");return ;
+                echo get_result(20001,[],$passport->get_error());return ;
             }
 
             //给用户加积分
@@ -374,22 +374,52 @@ class userAction extends userbaseAction
     //创建推送tag
 
     public function notify_tag_create($data){
-        $userid = $data['userid'];
-        $tag = $data['tag'];
+        $tag['userid'] = $data['userid'];
+        $tag['tag'] = $data['tag'];
         $notify_tag = M("notify_tag");
-        $list = $notify_tag->where(array('userid' =>$userid,'tag'=>$tag ))->select();
+        $list = $notify_tag->where(array('userid' => $tag['userid'],'tag'=> $tag['tag'] ))->select();
         if(count($list)>0){
-            echo get_result(10001, '标签已存在!');
+            $tag['p_sign'] = 1;
+            $notify_tag->save($tag);
+            echo get_result(10001, '设置推送成功!');
         }
         else{
         $result = $notify_tag->add(array(
-            'uid' => $userid,
-            'tag' => $tag
+            'uid' => $tag['userid'],
+            'tag' => $tag['tag'],
+            'p_sign' => 1,
+            'j_sign' => 1
             ));
         if ($result) {
-                echo get_result(10001, '新增成功!');
+                echo get_result(10001, '设置推送成功!');
             } else {
-                echo get_result(10001, '新增失败!');
+                echo get_result(10001, '设置推送失败!');
+            }
+            }
+    }
+
+        //创建关注tag
+
+    public function follow_tag_create($data){
+        $tag['userid'] = $data['userid'];
+        $tag['tag'] = $data['tag'];
+        $notify_tag = M("notify_tag");
+        $list = $notify_tag->where(array('userid' => $tag['userid'],'tag'=> $tag['tag'] ))->select();
+        if(count($list)>0){
+            $tag['f_sign'] = 1;
+            $notify_tag->save($tag);
+            echo get_result(10001, '设置关注成功!');
+        }
+        else{
+        $result = $notify_tag->add(array(
+            'uid' => $tag['userid'],
+            'tag' => $tag['tag'],
+            'f_sign' => 1
+            ));
+        if ($result) {
+                echo get_result(10001, '设置关注成功!');
+            } else {
+                echo get_result(10001, '设置关注失败!');
             }
             }
     }
@@ -423,7 +453,7 @@ class userAction extends userbaseAction
         $userid = $data['userid'];
         $notify_tag = M("notify_tag");
         $list = $notify_tag->where(array('userid'=>$userid))->select();
-       $code = 10001;
+        $code = 10001;
         if(count($list) < 1){
             $code = 10002;
         }
@@ -451,8 +481,43 @@ class userAction extends userbaseAction
 
     public function notify_tag_del($data){
         $notify_tag = M("notify_tag");
-        $notify_tag->where(array("id"=>$data['id'],"userid"=>$data['userid']))->delete();
-        echo get_result(10001,'删除成功!');
+        $tag['tag'] = $data['tag'];
+        $tag['userid'] = $data['userid'];
+        $tag['p_sign'] = 0;
+        $notify_tag->save($tag);
+        echo get_result(10001,'删除推送成功!');
+    }
+
+    //是否选中推送
+    public function is_notify_tag($data){
+        $notify_tag = M("notify_tag");
+        $list = $notify_tag->where(array("tag"=>$data['tag'],'userid' =>$data['userid'],'p_sign'=>1))->select();
+         if(count($list)>0){
+            echo get_result(10001, '已关注推送!');
+        }
+        else{
+            echo get_result(10002, '未关注推送!');
+        }
+    }
+
+     //是否选中关注
+    public function is_notify_tag($data){
+        $notify_tag = M("notify_tag");
+        $list = $notify_tag->where(array("tag"=>$data['tag'],'userid' =>$data['userid'],'f_sign'=>1))->select();
+         if(count($list)>0){
+            echo get_result(10001, '已关注!');
+        }
+        else{
+            echo get_result(10002, '未关注!');
+        }
+    }
+
+    //删除关注tag
+
+    public function follow_tag_del($data){
+        $notify_tag = M("notify_tag");
+        $notify_tag->where(array("tag"=>$data['tag'],"userid"=>$data['userid']))->delete();
+        echo get_result(10001,'删除关注成功!');
     }
 
     //查询收货地址
@@ -461,12 +526,12 @@ class userAction extends userbaseAction
         $user_address_mod = M('user_address');
         $userid = $data['userid'];
         $address_list = $user_address_mod->where(array('uid'=>$userid))->field(['id','consignee','zip','mobile','address'])->select();
-        if(count($address_list) < 1){
-         echo get_result(10002,$address_list);
+        if(!empty($address_list)){
+            echo get_result(10001,$address_list);
+            return ;
         }
-        else{
-        echo get_result(10001,$address_list);
-        }
+        echo get_result(10002);
+
     }
 
 
@@ -551,6 +616,9 @@ class userAction extends userbaseAction
             }
             elseif($list[$key]['action'] == "pubitem"){
                $list[$key]['action'] = "发布分享";
+            }
+            elseif($list[$key]['action'] == "ssbx"){
+               $list[$key]['action'] = "小编修改";
             }
             elseif(strpos($list[$key]['action'],"publish_article")){
                $list[$key]['action'] = "晒单";
@@ -1751,4 +1819,63 @@ class userAction extends userbaseAction
         $this->_mail_queue($user['email'], L('findpwd'), $mail_body);
         echo get_result();
     }
+    //回复
+    public function hf($data){
+        $info = array();
+        $id = $data['commentid'];
+        //查找上级评论xid 和itemid
+        $info=M("comment")->where("id=$id")->field("xid,itemid")->find();
+        $info['info'] = $data['content'];
+        if(empty($info['info'])){
+            echo get_result(20001,[], "没有评论内容");return ;
+        }
+        //敏感词处理
+        $check_result = D('badword')->check($info['info']);
+        switch ($check_result['code']) {
+            case 1: //禁用。直接返回
+                echo get_result(20001,[], "含义敏感词");return ;
+                break;
+            case 3: //需要审核
+                $info['status'] = 0;
+                break;
+        }
+        $info['info'] = $check_result['content'];
+        $info['uid'] = $data['userid'];
+        $info['uname'] = get_uname($data['userid']);
+        $info['add_time'] = time();
+        //验证评论对象
+        switch($info['xid']){
+            case "1":$item_mod=M("item");break;
+            case "2":$item_mod=M("zr");break;
+            case "3":$item_mod=M("article");break;
+        }
+        $item = $item_mod->where(array('id' => $info['itemid'], 'status' => '1'))->find();
+        $info['lc']=intval($item['comments'])+1;
+        $info['pid']=$id;
+        //写入评论
+        $comment_mod = D('comment');
+        if (false === $comment_mod->create($info)) {
+            echo get_result(20001,[], "评论失败");return ;
+        }
+        $comment_id = $comment_mod->add();
+        if ($comment_id) {
+            $item_mod->where(array('id'=>$info['itemid']))->setInc('comments');//评论数量加1
+            M("user")->where("id=".$info['uid'])->setInc("score");
+            //积分日志
+            set_score_log(array('id'=>$info['uid'],'username'=>$info['uname']),'comment',1,'','',1);
+            $xc = array();
+            $xc['ftid']=$info['uid'];
+            $xc['to_id']=$info['uid'];
+            $xc['to_name']=$info['uname'];
+            $xc['from_id']=0;
+            $xc['from_name']='tryine';
+            $xc['add_time']=time();
+            $xc['info'] ='感谢您的回复,系统给您奖励积分：1，经验：1.';
+            M('message')->add($xc);
+            echo get_result(10001,[], $xc['info']);return ;
+        } else {
+            echo get_result(20001,[], "评论失败");return ;
+        }
+    }
+
 }

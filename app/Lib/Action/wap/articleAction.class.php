@@ -20,7 +20,7 @@ class articleAction extends frontendAction {
 		$pagesize=8;
 		$start=($p-1)*$pagesize;
 		$time=time();
-		$where['status']="1";
+		$where['status']=array('in','1,4');
 		$where['add_time']=array('lt',$time);
 		$where['_string']=" cate_id=$cate_id or cate_id in(select id from try_article_cate where pid=$cate_id) ";
 		if($keywords){
@@ -29,7 +29,7 @@ class articleAction extends frontendAction {
 		}
 		$count = M("article")->where($where)->count();
 		$pager = $this->_pager($count, $page_size);
-		$article_list = M("article")->where($where)->order("isbest desc,id desc")->limit($start . ',' . $pagesize)->select();
+		$article_list = M("article")->where($where)->order("add_time desc")->limit($start . ',' . $pagesize)->select();
 		$this->assign("article_list",$article_list);
 		
 		if($more == 'more'){
@@ -67,7 +67,7 @@ class articleAction extends frontendAction {
 		$id=$this->_get("id","intval");
 		!$id && $this->_404();
 		$model = M("article");
-		$item = $model->where("id=$id and status=1")->find();
+		$item = $model->where("id=$id")->find();
 		!$item&&$this->error('文章内容不存在或未通过审核');
 		//标签
         $item['tag_list'] = explode(" ",$item['tags']);

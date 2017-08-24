@@ -148,10 +148,13 @@ class shopAction extends userbaseAction
         if(!empty($data['key'])){
             $where['title'] = array('like', '%' . $data['key'] . '%');
         }
+        $where['status'] = 1;
         $item_mod = M('item');
         //查询字段
-        $field = $db_pre . 'item.id,cate_id,title,'.$db_pre . 'item.img,price,likes,add_time,zan,go_link,hits,'.$db_pre.'item_orig.name';
-        $item_list = $item_mod->join($db_pre . 'item_orig ON ' . $db_pre . 'item.orig_id = '.$db_pre . 'item_orig.id')
+        $field = $db_pre . 'item.id,cate_id,title,'.$db_pre . 'item.img,price,likes,add_time,zan,go_link,'.$db_pre.'item_orig.name ';
+        $item_list = $item_mod->join($db_pre . 'item_orig ON ' . $db_pre . 'item.orig_id = '.$db_pre . 'item_orig.id 
+
+')
                             ->field($field)
                             ->where($where)
                             ->order('id DESC')
@@ -163,7 +166,6 @@ class shopAction extends userbaseAction
                 $val['shopid'] = $val['id'];
                 unset($val['id']);
             }
-            $item_list[$key]['zan'] = $item_list[$key]['zan']   +intval($item_list[$key]['hits'] /10);
             $val['go_link'] = array_shift(unserialize($val['go_link']));
         }
         $code = 10001;
@@ -174,6 +176,7 @@ class shopAction extends userbaseAction
 
 
     }
+
 
     /**
      * 商品详细页

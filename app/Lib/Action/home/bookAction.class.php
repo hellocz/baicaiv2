@@ -13,23 +13,33 @@ class bookAction extends frontendAction {
     /**
      * 逛宝贝首页
      */
-    public function index() {
+   public function index() {
         $hot_tags = explode(',', C('pin_hot_tags')); //热门标签
         $page_max = C('pin_book_page_max'); //发现页面最多显示页数
         $sort = $this->_get('sort', 'trim'); //排序
         $tag = $this->_get('tag', 'trim'); //当前标签
         $isnice = $this->_get('isnice','intval');
-	$time=time();
+    $time=time();
         $where = array();
-		$where['sh_time']=array('lt',$time);
+        $where['sh_time']=array('lt',$time);
         $pos   =   strpos($tag,   '-');      
         if($tag =="9-9包邮"){
             $tag ="9.9包邮";
         }
         if   ($pos   !==   false)   {   
        $tag = str_replace("-"," ", $tag);
-        } 
-        $tag && $where['tag_cache'] = array('like', "%$tag%");
+        }
+        $tag_id =  M("tag")->where(array('name'=>$tag))->getField('id'); 
+        $tag_id && $tag_items = M("item_tag")->where(array('tag_id'=>$tag_id))->field("item_id")->select();
+        foreach ($tag_items as $tag_item_id) {
+            if($str==""){
+                 $str=$tag_item_id['item_id'];
+            }
+            else{
+               $str.=",".$tag_item_id['item_id'];
+            }
+        }
+        $str && $where['id'] = array('in', $str);
         //排序：最热(hot)，最新(new)
         switch ($sort) {
             case 'hot':
@@ -38,18 +48,18 @@ class bookAction extends frontendAction {
             case 'new':
                 $order = 'id DESC';
                 break;
-			default:
-				$order = 'add_time DESC';
-				break;
+            default:
+                $order = 'add_time DESC';
+                break;
         }
-     	$this->waterfall($where, $order, '', $page_max);
+         $str &&$this->waterfall($where, $order, '', $page_max);
 
         $this->assign('hot_tags', $hot_tags);
         $this->assign('tag', $tag );
         $this->assign('sort', $sort);
         $this->_config_seo(C('pin_seo_config.book'), array('tag_name' => $tag)); //SEO
-		$strpos = ($tag)?"$tag":" 所有商品";
-		$this->assign('strpos',$strpos);
+        $strpos = ($tag)?"$tag":" 所有商品";
+        $this->assign('strpos',$strpos);
         $this->display();
     }
 
