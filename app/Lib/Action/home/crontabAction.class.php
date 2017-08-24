@@ -1,6 +1,6 @@
 <?php
-//require LIB_PATH . 'Pinlib/autoload.php';
- //      use JPush\Client  as JPush;
+require LIB_PATH . 'Pinlib/autoload.php';
+       use JPush\Client  as JPush;
 
 class crontabAction extends frontendAction {
 
@@ -38,7 +38,21 @@ class crontabAction extends frontendAction {
         $pusher = $client->push();
         $pusher->setPlatform('all');
         $pusher->addAllAudience();
-        $pusher->setNotificationAlert('Hello, baicaio push.');
+        $pusher->setNotificationAlert('Hello, baicaio push.') ->iosNotification('Hello ios', [
+      'sound' => 'sound',
+      'badge' => '+1',
+      'extras' => [
+        'type' => 'shop',
+        'data' => '274055'
+      ]
+    ])->androidNotification('Hello android', [
+      'title' => 'Hello',
+      'content_type' => 'text',
+      'extras' => [
+         'type' => 'shop',
+        'data' => '274055'
+      ]
+    ]);
         try {
             $pusher->send();
         } catch (JPushException $e) {
