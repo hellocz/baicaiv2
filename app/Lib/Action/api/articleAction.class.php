@@ -35,7 +35,7 @@ class articleAction extends userbaseAction
         $page = $data['page'] * 10;
 
         $time=time();
-        $where['status']="1";
+        $where['status']=array('in','1,4');
         if(!empty($data['key'])){
             $where['title'] = array('like', '%' . $data['key'] . '%');
         }
@@ -47,7 +47,7 @@ class articleAction extends userbaseAction
         $field = 'id,uid,title,author,img,intro,likes,add_time,comments,zan';
         $article_list = M("article")->where($where)
                                     ->field($field)
-                                    ->order("isbest desc,id desc")
+                                    ->order("add_time desc")
                                     ->limit($page-10, 10)
                                     ->select();
 
@@ -74,7 +74,7 @@ class articleAction extends userbaseAction
 
         $model = M("article");
         $field = 'tags,title,uid,author,img,intro,info,likes,zan,comments,add_time';
-        $item = $model->where("id=$id and status=1")->field($field)->find();
+        $item = $model->where("id=$id and ( status=1 or status=4 ) ")->field($field)->find();
         if(!$item){
             echo get_result(20001,[], "文章内容不存在或未通过审核");return ;
         }
@@ -83,7 +83,7 @@ class articleAction extends userbaseAction
         if($like){
             $item['mylike'] = 1;
         }
-        $item['fenxiang'] = 'http://www.baicaio.com/item/'.$id.'.html';
+        $item['fenxiang'] = 'http://www.baicaio.com/article/'.$id.'.html';
 
         echo get_result(10001,$item);
     }
