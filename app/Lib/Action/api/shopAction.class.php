@@ -86,6 +86,74 @@ class shopAction extends userbaseAction
 
     }
 
+     /**
+     * 商品列表
+     * @param $data
+     */
+    public function shoplist_g($data){
+        $page = $data['page'] * 10;
+        empty($data['pagesize']) && $data['pagesize'] = 10;
+        $time=time();
+        $db_pre = C('DB_PREFIX');
+
+        $q = $data['key'];
+
+        if (!empty($q)){
+                    $q_list=explode("|",$q);
+                    $q_info="";
+                    $search_content= Array();
+                    foreach($q_list as $key=>$r){
+              //          $and=$key == 0 ? "" : " or ";
+                  //      $q_info.="$or title like '%".$r."%' or intro like '%".$r."%' ";
+                  //      $q_info.="$and title like %".$r."% ";
+                   //     Array_push( $where['title'],'like',"%$r%");
+                   //     $where['title']=array('like',"%$r%");
+                        $search_content[$key] ="%$r%";
+                    }
+
+                    $where['title'] =array('like',$search_content,'OR');
+
+                    $where['status'] =1;
+ 
+                    $where['add_time'] =array('lt', $time);
+/*  
+                    if(count($q_list) ==1){
+
+                    $where1['tag_cache'] =array('like',$search_content,'AND');
+
+                    $where1['go_link'] =array('like',$search_content,'AND');
+                    }
+
+                    $where1['_logic'] = 'or';
+                    $where['_complex'] = $where1;
+     */           
+       }
+//        $field = 'i.id,i.uid,i.uname,i.title,i.intro,i.img,i.price,i.likes,i.intro,i.content,i.comments,i.comments_cache,i.add_time,i.orig_id,i.url,i.go_link,i.zan';
+        $field = 'id,title,img,price,comments,likes,add_time,zan,go_link,hits,orig_id';
+     
+        $item_list = M("item")
+            ->where($where)
+            ->field($field)
+            ->order("add_time desc")
+            ->limit($page-10, $data['pagesize'])
+            ->select();
+
+        foreach ($item_list as $key => &$val) {
+            if(!isset($val['shopid'])){
+                $val['shopid'] = $val['id'];
+                unset($val['id']);
+            }
+            $item_list[$key]['zan'] = $item_list[$key]['zan']   +intval($item_list[$key]['hits'] /10);
+            $val['go_link'] = array_shift(unserialize($val['go_link']));
+        }
+        $code = 10001;
+        if(count($item_list) < 1){
+            $code = 10002;
+        }
+        echo get_result($code,$item_list);return ;
+
+    }
+
     //获取置顶商品
     public function shoplisttop($data)
     {
