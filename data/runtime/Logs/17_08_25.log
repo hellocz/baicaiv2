@@ -1,0 +1,1835 @@
+[ 2017-08-25T09:52:38+08:00 ] 127.0.0.1 /jd_test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.017001s ]
+INFO: [ route_check ] --END-- [ RunTime:0.018001s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:-0.004000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.006001s ]
+INFO: Run load_lang Behavior [ RunTime:-0.015001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.016001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-0.030002s ]
+INFO: [ view_template ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-0.032002s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.020001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-0.052003s ]
+INFO: Run TokenBuild Behavior [ RunTime:-0.053003s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-0.054003s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-0.055003s ]
+INFO: Run content_replace Behavior [ RunTime:-0.056003s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.005001s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-0.057004s ]
+INFO: [ view_end ] --END-- [ RunTime:0.002000s ]
+
+[ 2017-08-25T09:52:52+08:00 ] 127.0.0.1 /item-jd_test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.001000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:-0.002000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.005000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.007000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.007000s ]
+
+[ 2017-08-25T09:54:31+08:00 ] 127.0.0.1 /item-jd_test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.001000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:-0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.001000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.003000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003000s ]
+
+[ 2017-08-25T09:58:23+08:00 ] 127.0.0.1 /item-jd_test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.000000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.015600s ]
+
+[ 2017-08-25T10:00:04+08:00 ] 127.0.0.1 /item-jd_test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.001000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:-0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.001000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003000s ]
+
+[ 2017-08-25T10:00:05+08:00 ] 127.0.0.1 /item-jd_test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.000000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-08-25T10:00:06+08:00 ] 127.0.0.1 /item-jd_test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.000000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-08-25T10:00:07+08:00 ] 127.0.0.1 /item-jd_test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.001000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:-0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.001000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.002001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004001s ]
+
+[ 2017-08-25T10:00:08+08:00 ] 127.0.0.1 /item-jd_test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.001000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:-0.002000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.003000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.004000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004000s ]
+
+[ 2017-08-25T10:00:08+08:00 ] 127.0.0.1 /item-jd_test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.001000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:-0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.001000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.003000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003000s ]
+
+[ 2017-08-25T10:00:09+08:00 ] 127.0.0.1 /item-jd_test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.001000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:-0.001001s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.001001s ]
+INFO: Run load_lang Behavior [ RunTime:-0.003001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003000s ]
+
+[ 2017-08-25T10:00:09+08:00 ] 127.0.0.1 /item-jd_test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.000000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-08-25T10:00:10+08:00 ] 127.0.0.1 /item-jd_test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.005000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.005000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.001000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.003000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.005001s ]
+
+[ 2017-08-25T10:00:10+08:00 ] 127.0.0.1 /item-jd_test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.000000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.015600s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.017600s ]
+
+[ 2017-08-25T10:03:11+08:00 ] 127.0.0.1 /item-jd_test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.001001s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001001s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:-0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.001000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.003000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.005000s ]
+
+[ 2017-08-25T10:05:32+08:00 ] 127.0.0.1 /item-jd_test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.000000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.015600s ]
+
+[ 2017-08-25T10:12:12+08:00 ] 127.0.0.1 /item-jd_test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.001000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:-0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.002000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.006000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.009000s ]
+
+[ 2017-08-25T10:28:14+08:00 ] 127.0.0.1 /item-jd_test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.001000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:-0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.002000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.003000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003000s ]
+
+[ 2017-08-25T10:28:20+08:00 ] 127.0.0.1 /item-jd_test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.001000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.001001s ]
+INFO: Run load_lang Behavior [ RunTime:-0.002001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003001s ]
+
+[ 2017-08-25T10:28:21+08:00 ] 127.0.0.1 /item-jd_test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.001000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.001000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003000s ]
+
+[ 2017-08-25T10:28:22+08:00 ] 127.0.0.1 /item-jd_test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.002000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.003000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:-0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.002000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.003000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003000s ]
+
+[ 2017-08-25T10:28:22+08:00 ] 127.0.0.1 /item-jd_test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.001000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:-0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.001000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003000s ]
+
+[ 2017-08-25T10:28:23+08:00 ] 127.0.0.1 /item-jd_test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.001000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:-0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.002000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.003000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004000s ]
+
+[ 2017-08-25T10:28:24+08:00 ] 127.0.0.1 /item-jd_test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.001000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.001000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003000s ]
+
+[ 2017-08-25T10:28:24+08:00 ] 127.0.0.1 /item-jd_test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.001000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.001000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003000s ]
+
+[ 2017-08-25T10:28:25+08:00 ] 127.0.0.1 /item-jd_test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.001000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+
+[ 2017-08-25T10:28:25+08:00 ] 127.0.0.1 /item-jd_test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.002000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.003000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:-0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.002000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.004000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004000s ]
+
+[ 2017-08-25T10:28:26+08:00 ] 127.0.0.1 /item-jd_test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.000000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.016600s ]
+
+[ 2017-08-25T10:28:27+08:00 ] 127.0.0.1 /item-jd_test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.001000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.002000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.001000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003000s ]
+
+[ 2017-08-25T10:28:27+08:00 ] 127.0.0.1 /item-jd_test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.001000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.001000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003000s ]
+
+[ 2017-08-25T10:28:28+08:00 ] 127.0.0.1 /item-jd_test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.001000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:-0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.002000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.004000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004000s ]
+
+[ 2017-08-25T10:52:11+08:00 ] 127.0.0.1 /
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003000s ]
+SQL: SHOW COLUMNS FROM `try_item` [ RunTime:0.010000s ]
+SQL: SELECT * FROM `try_item` WHERE status=1 and add_time<1503629530  and isnice=1  ORDER BY  add_time desc LIMIT 0,18   [ RunTime:0.023001s ]
+NOTIC: [8] Use of undefined constant p - assumed 'p' D:\phpStudy_new\WWW\baicai\app\Lib\Action\home\indexAction.class.php 第 66 行.
+SQL: SHOW COLUMNS FROM `try_article` [ RunTime:0.011001s ]
+SQL: SELECT * FROM `try_article` WHERE add_time > 1498100216 and add_time < 1503629530 and status=4  [ RunTime:0.003000s ]
+SQL: select distinct uid as id,uname,sum(score) as num from try_score_log where add_time>1503590400 and add_time<1503676800 group by uname order by num desc,uid asc limit 4 [ RunTime:0.007000s ]
+SQL: select distinct uid as id,uname,sum(score) as num from try_score_log where add_time>1501516800 and add_time<1503629530 group by uname order by num desc,uid asc limit 4 [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `try_user` [ RunTime:0.009001s ]
+SQL: SELECT `id`,`username`,`score` FROM `try_user` ORDER BY score desc,id asc LIMIT 4   [ RunTime:0.036002s ]
+SQL: SELECT * FROM `try_user` WHERE ( `id` = 192793 ) LIMIT 1   [ RunTime:0.003000s ]
+SQL: SHOW COLUMNS FROM `try_user_follow` [ RunTime:0.006001s ]
+SQL: SELECT * FROM `try_user_follow` WHERE uid=192793  [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: uid D:\phpStudy_new\WWW\baicai\app\Lib\Action\home\indexAction.class.php 第 101 行.
+NOTIC: [8] Undefined index: uid D:\phpStudy_new\WWW\baicai\app\Lib\Action\home\indexAction.class.php 第 101 行.
+NOTIC: [8] Undefined index: uid D:\phpStudy_new\WWW\baicai\app\Lib\Action\home\indexAction.class.php 第 101 行.
+NOTIC: [8] Undefined index: uid D:\phpStudy_new\WWW\baicai\app\Lib\Action\home\indexAction.class.php 第 101 行.
+NOTIC: [8] Undefined index: uid D:\phpStudy_new\WWW\baicai\app\Lib\Action\home\indexAction.class.php 第 101 行.
+SQL: SHOW COLUMNS FROM `try_hd` [ RunTime:0.006000s ]
+SQL: SELECT * FROM `try_hd` ORDER BY order_s asc,id desc LIMIT 8   [ RunTime:0.000000s ]
+SQL: SELECT * FROM `try_item` WHERE istop = 1 ORDER BY id desc LIMIT 8   [ RunTime:0.006001s ]
+SQL: SELECT id,title,img,price from try_item  WHERE add_time between 1503625930 and 1503629530 ORDER BY hits desc LIMIT 9 [ RunTime:0.001000s ]
+SQL: SELECT id,title,img,price from try_item  WHERE add_time between 1503543130 and 1503629530 ORDER BY hits desc LIMIT 9 [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.171067s ]
+INFO: [ view_template ] --END-- [ RunTime:0.004000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.192068s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.017001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.194068s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.019001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.195068s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.020001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.196068s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.021001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.198068s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.023001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.200068s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.025001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.202068s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.027001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.203069s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.028002s ]
+SQL: SHOW COLUMNS FROM `try_item_cate` [ RunTime:0.005000s ]
+SQL: SELECT * FROM `try_item_cate` WHERE pid=0 and is_index=1  [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_item_cate` WHERE pid=0 and status=1  [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: tp D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 175 行.
+NOTIC: [8] Undefined variable: tp D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 176 行.
+NOTIC: [8] Undefined variable: tp D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 178 行.
+NOTIC: [8] Undefined variable: strpos1 D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 197 行.
+SQL: SHOW COLUMNS FROM `try_item_orig` [ RunTime:0.007001s ]
+SQL: SELECT * FROM `try_item_orig` ORDER BY ordid asc LIMIT 12   [ RunTime:0.013001s ]
+SQL: SHOW COLUMNS FROM `try_ad` [ RunTime:0.006000s ]
+SQL: SELECT * FROM `try_ad` WHERE status=1 AND board_id=1  [ RunTime:0.002000s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `try_ad` WHERE status=1 AND board_id=1 LIMIT 1   [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: html D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 273 行.
+NOTIC: [8] Undefined variable: htmlA D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 279 行.
+NOTIC: [8] Use of undefined constant url - assumed 'url' D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 279 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 279 行.
+NOTIC: [8] Use of undefined constant content - assumed 'content' D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 279 行.
+NOTIC: [8] Use of undefined constant url - assumed 'url' D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 279 行.
+NOTIC: [8] Undefined offset: 1 D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 279 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 279 行.
+NOTIC: [8] Undefined offset: 1 D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 279 行.
+NOTIC: [8] Use of undefined constant content - assumed 'content' D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 279 行.
+NOTIC: [8] Undefined offset: 1 D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 279 行.
+SQL: SHOW COLUMNS FROM `try_adboard` [ RunTime:0.005001s ]
+SQL: SELECT * FROM `try_adboard` WHERE ( `id` = 17 ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `id`,`type`,`name`,`url`,`content`,`desc`,`extimg`,`extval` FROM `try_ad` WHERE ( `board_id` = 17 ) AND ( `start_time` <= 1503629530 ) AND ( `end_time` >= 1503629530 ) AND ( `status` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\phpStudy_new\WWW\baicai\app\Lib\Widget\advertWidget.class.php 第 22 行.
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.542088s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.367021s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-1.542088s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.003000s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.545088s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.546088s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.547088s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.548088s ]
+INFO: Run content_replace Behavior [ RunTime:-1.549088s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.005000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.550088s ]
+INFO: [ view_end ] --END-- [ RunTime:0.002001s ]
+NOTIC: [8] Use of undefined constant isnice - assumed 'isnice' D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 311 行.
+NOTIC: [8] Use of undefined constant isbao - assumed 'isbao' D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 311 行.
+NOTIC: [8] Use of undefined constant lb - assumed 'lb' D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 564 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SHOW COLUMNS FROM `try_go` [ RunTime:0.007001s ]
+SQL: SELECT * FROM `try_go` WHERE ( `show` = '2ymo51_ijq31g_r2fotq_yivd3w' ) LIMIT 1   [ RunTime:0.018001s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=2 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'od0par_5uyog2_ihgavt_f3l2cc' ) LIMIT 1   [ RunTime:0.007000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'q52ivt_zdbnpy_flmene_yq2qoz' ) LIMIT 1   [ RunTime:0.007000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+NOTIC: [8] Undefined index: price D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: go_link D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 589 行.
+NOTIC: [8] Undefined index: price D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: go_link D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 589 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=857 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=384 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = '0fvr3h_s5y2vd_n5cuf2_0tanns' ) LIMIT 1   [ RunTime:0.007001s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'k1bmml_av3vxy_d5iz50_uiw3yh' ) LIMIT 1   [ RunTime:0.006000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=366 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'cbjq4i_jd4f43_yuwepv_fwybwd' ) LIMIT 1   [ RunTime:0.008000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=506 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'aewhcb_gnctvn_ijuqsi_rsldh2' ) LIMIT 1   [ RunTime:0.006000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'rxu2re_3kjtzq_rz00ey_t22pe3' ) LIMIT 1   [ RunTime:0.006001s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=384 LIMIT 1   [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = '4sjpew_axsbq3_lyhdob_1buodt' ) LIMIT 1   [ RunTime:0.007000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'xe451k_udcpqc_bz3cha_zod1cf' ) LIMIT 1   [ RunTime:0.006000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'xe451k_udcpqc_bz3cha_zod1cf' ) LIMIT 1   [ RunTime:0.007001s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 595 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'lwi4of_rgxcqj_uj45vg_eawzy5' ) LIMIT 1   [ RunTime:0.007000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 595 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=5 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'iwnrjt_45rxeu_1d0sje_jz15sg' ) LIMIT 1   [ RunTime:0.006001s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=506 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'rtfb5u_0htzte_3rp5t4_1l05kx' ) LIMIT 1   [ RunTime:0.007000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=506 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = '24bptm_lw1f55_zww3gg_1u5iwl' ) LIMIT 1   [ RunTime:0.006000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=384 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'vd1hp4_lcbvuw_0wthuh_sudapj' ) LIMIT 1   [ RunTime:0.007000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'ywfxbw_dxv4ag_wvv5ln_w5wog0' ) LIMIT 1   [ RunTime:0.007001s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=362 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'wnuyt0_k4byg1_cjamj2_mnd5v4' ) LIMIT 1   [ RunTime:0.009001s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'so5324_amp1ph_lbf1en_2mi0sk' ) LIMIT 1   [ RunTime:0.007000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+NOTIC: [8] Undefined index: follow D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 758 行.
+NOTIC: [8] Undefined index: follow D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 771 行.
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/27/35f94626a3c8956ff4b1e837f3a8aff0.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/27/a5c1ecaadd6ace0e9222a1b20cf6f0b2.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/27/c60ddfa8f90de65944a328002b99c38c.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+NOTIC: [8] Undefined index: follow D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 771 行.
+SQL: SELECT * FROM `try_adboard` WHERE ( `id` = 2 ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `id`,`type`,`name`,`url`,`content`,`desc`,`extimg`,`extval` FROM `try_ad` WHERE ( `board_id` = 2 ) AND ( `start_time` <= 1503629531 ) AND ( `end_time` >= 1503629531 ) AND ( `status` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.466141s ]
+INFO: [ view_template ] --END-- [ RunTime:-1.291074s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-2.467141s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.922053s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-2.469141s ]
+INFO: Run TokenBuild Behavior [ RunTime:-2.470141s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-2.470141s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-2.470141s ]
+INFO: Run content_replace Behavior [ RunTime:-2.470141s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.919053s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-2.470141s ]
+INFO: [ view_end ] --END-- [ RunTime:-0.918052s ]
+SQL: SHOW COLUMNS FROM `try_tick` [ RunTime:0.004000s ]
+SQL: SELECT * FROM `try_tick` WHERE start_time < NOW() ORDER BY yl desc,id desc LIMIT 6   [ RunTime:0.001000s ]
+SQL: SELECT `img_url` FROM `try_item_orig` WHERE id=69 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `img_url` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_adboard` WHERE ( `id` = 10 ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `id`,`type`,`name`,`url`,`content`,`desc`,`extimg`,`extval` FROM `try_ad` WHERE ( `board_id` = 10 ) AND ( `start_time` <= 1503629531 ) AND ( `end_time` >= 1503629531 ) AND ( `status` = 1 ) ORDER BY ordid  [ RunTime:0.000000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.488142s ]
+INFO: [ view_template ] --END-- [ RunTime:-1.313075s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-2.488142s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.943054s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-2.493142s ]
+INFO: Run TokenBuild Behavior [ RunTime:-2.493142s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-2.493142s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-2.493142s ]
+INFO: Run content_replace Behavior [ RunTime:-2.493142s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.943054s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-2.493142s ]
+INFO: [ view_end ] --END-- [ RunTime:-0.941053s ]
+SQL: SELECT * FROM `try_adboard` WHERE ( `id` = 15 ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `id`,`type`,`name`,`url`,`content`,`desc`,`extimg`,`extval` FROM `try_ad` WHERE ( `board_id` = 15 ) AND ( `start_time` <= 1503629531 ) AND ( `end_time` >= 1503629531 ) AND ( `status` = 1 ) ORDER BY ordid  [ RunTime:0.000000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.496143s ]
+INFO: [ view_template ] --END-- [ RunTime:-1.321076s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-2.497143s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.952055s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-2.500143s ]
+INFO: Run TokenBuild Behavior [ RunTime:-2.500143s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-2.500143s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-2.500143s ]
+INFO: Run content_replace Behavior [ RunTime:-2.500143s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.950055s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-2.500143s ]
+INFO: [ view_end ] --END-- [ RunTime:-0.948054s ]
+SQL: SHOW COLUMNS FROM `try_flink` [ RunTime:0.005000s ]
+SQL: SELECT * FROM `try_flink` WHERE cate_id=1 and status=1  [ RunTime:0.001000s ]
+INFO: Run ParseTemplate Behavior [ RunTime:-2.500143s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.952055s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-2.514144s ]
+INFO: Run TokenBuild Behavior [ RunTime:-2.515144s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-2.515144s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-2.515144s ]
+INFO: Run content_replace Behavior [ RunTime:-2.515144s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.964056s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-2.515144s ]
+INFO: [ view_end ] --END-- [ RunTime:-0.963055s ]
+
+[ 2017-08-25T10:52:16+08:00 ] 127.0.0.1 /bao-index-type-isbao-dss-cc
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.002001s ]
+INFO: [ route_check ] --END-- [ RunTime:0.002001s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:-0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.002000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.004000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.005000s ]
+SQL: SHOW COLUMNS FROM `try_item_diu` [ RunTime:0.004000s ]
+SQL: SELECT * FROM `try_item_diu` WHERE status=1 and add_time<1503629534 and ds_time < 1503629534 ORDER BY  add_time desc LIMIT 0,21   [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.078061s ]
+INFO: [ view_template ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.083062s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.002000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.083062s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.003001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.084062s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.004001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.084062s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.004001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.085062s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.005001s ]
+SQL: SHOW COLUMNS FROM `try_item_cate` [ RunTime:0.005000s ]
+SQL: SELECT * FROM `try_item_cate` WHERE pid=0 and is_index=1  [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_item_cate` WHERE pid=0 and status=1  [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: tp D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 102 行.
+NOTIC: [8] Undefined variable: tp D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 103 行.
+NOTIC: [8] Undefined variable: bcid D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 104 行.
+NOTIC: [8] Undefined variable: tp D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 105 行.
+NOTIC: [8] Undefined variable: bcid D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 106 行.
+NOTIC: [8] Undefined variable: strpos1 D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 124 行.
+SQL: SHOW COLUMNS FROM `try_ad` [ RunTime:0.004000s ]
+SQL: SELECT * FROM `try_ad` WHERE status=1 AND board_id=1  [ RunTime:0.001000s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `try_ad` WHERE status=1 AND board_id=1 LIMIT 1   [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: html D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 181 行.
+NOTIC: [8] Undefined variable: htmlA D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 187 行.
+NOTIC: [8] Use of undefined constant url - assumed 'url' D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 187 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 187 行.
+NOTIC: [8] Use of undefined constant content - assumed 'content' D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 187 行.
+NOTIC: [8] Use of undefined constant url - assumed 'url' D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 187 行.
+NOTIC: [8] Undefined offset: 1 D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 187 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 187 行.
+NOTIC: [8] Undefined offset: 1 D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 187 行.
+NOTIC: [8] Use of undefined constant content - assumed 'content' D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 187 行.
+NOTIC: [8] Undefined offset: 1 D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 187 行.
+SQL: SHOW COLUMNS FROM `try_item_orig` [ RunTime:0.004000s ]
+SQL: SELECT * FROM `try_item_orig` ORDER BY ordid asc LIMIT 12   [ RunTime:0.004001s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=2 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=2 LIMIT 1   [ RunTime:0.001000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+SQL: SHOW COLUMNS FROM `try_go` [ RunTime:0.003000s ]
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'n1ehmq_fgggzc_ur20mt_qmtnnu' ) LIMIT 1   [ RunTime:0.007000s ]
+SQL: INSERT INTO `try_go` (`url`,`show`) VALUES ('https://www.amazon.cn/dp/B06W57HCKC?t=baicaiobl-23&tag=baicaiobl-23','n1ehmq_fgggzc_ur20mt_qmtnnu') [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.001001s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=2 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=2 LIMIT 1   [ RunTime:0.001000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = '1zkws2_b3q2e1_odsccy_nglpgw' ) LIMIT 1   [ RunTime:0.007000s ]
+SQL: INSERT INTO `try_go` (`url`,`show`) VALUES ('https://www.amazon.cn/dp/B0752DJ2FC?t=baicaiobl-23&tag=baicaiobl-23','1zkws2_b3q2e1_odsccy_nglpgw') [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.001000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.001000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=2 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=2 LIMIT 1   [ RunTime:0.001000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'kxgidl_tvmice_4mmrmy_oiby42' ) LIMIT 1   [ RunTime:0.007001s ]
+SQL: INSERT INTO `try_go` (`url`,`show`) VALUES ('https://www.amazon.cn/dp/B01M3S0DFR?t=baicaiobl-23&tag=baicaiobl-23','kxgidl_tvmice_4mmrmy_oiby42') [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'm2j151_af1ewc_k4o1e5_xo5tv0' ) LIMIT 1   [ RunTime:0.007000s ]
+SQL: INSERT INTO `try_go` (`url`,`show`) VALUES ('http://cps.yaoqing.com/yqtrack.php?sid=17986&aid=2352&euid=SS&t=https://item.jd.com/327115.html','m2j151_af1ewc_k4o1e5_xo5tv0') [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.001000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = '1bwbgq_ppfral_2p2csj_ag1a2v' ) LIMIT 1   [ RunTime:0.007001s ]
+SQL: INSERT INTO `try_go` (`url`,`show`) VALUES ('http://cps.yaoqing.com/yqtrack.php?sid=17986&aid=2352&euid=SS&t=https://item.jd.com/.html','1bwbgq_ppfral_2p2csj_ag1a2v') [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'v1l04b_5pmbzu_tfpwfd_qt2qic' ) LIMIT 1   [ RunTime:0.007001s ]
+SQL: INSERT INTO `try_go` (`url`,`show`) VALUES ('http://cps.yaoqing.com/yqtrack.php?sid=17986&aid=2352&euid=SS&t=https://item.jd.com/2946746.html','v1l04b_5pmbzu_tfpwfd_qt2qic') [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=2 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=2 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'b1mjve_mk2ysg_ewcsa5_ptizcg' ) LIMIT 1   [ RunTime:0.006000s ]
+SQL: INSERT INTO `try_go` (`url`,`show`) VALUES ('https://www.amazon.cn/dp/B00HFJTP2I?t=baicaiobl-23&tag=baicaiobl-23','b1mjve_mk2ysg_ewcsa5_ptizcg') [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = '1afbim_zse5vz_sjdkc3_amlgob' ) LIMIT 1   [ RunTime:0.008000s ]
+SQL: INSERT INTO `try_go` (`url`,`show`) VALUES ('http://cps.yaoqing.com/yqtrack.php?sid=17986&aid=2352&euid=SS&t=https://item.jd.com/2733848.html','1afbim_zse5vz_sjdkc3_amlgob') [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=2 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=2 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = '2kdyae_01ozog_yn0dwn_2ixjrr' ) LIMIT 1   [ RunTime:0.007000s ]
+SQL: INSERT INTO `try_go` (`url`,`show`) VALUES ('https://www.amazon.cn/dp/B008123ZA6?t=baicaiobl-23&tag=baicaiobl-23','2kdyae_01ozog_yn0dwn_2ixjrr') [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.001000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'bniu2m_s2njek_pdpspp_e1dglw' ) LIMIT 1   [ RunTime:0.007000s ]
+SQL: INSERT INTO `try_go` (`url`,`show`) VALUES ('http://cps.yaoqing.com/yqtrack.php?sid=17986&aid=2352&euid=SS&t=https://item.jd.com/852645.html','bniu2m_s2njek_pdpspp_e1dglw') [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = '1bwbgq_ppfral_2p2csj_ag1a2v' ) LIMIT 1   [ RunTime:0.011000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT * FROM `try_go` WHERE ( `show` = '2ymo51_ijq31g_r2fotq_yivd3w' ) LIMIT 1   [ RunTime:0.009001s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SHOW COLUMNS FROM `try_flink` [ RunTime:0.004000s ]
+SQL: SELECT * FROM `try_flink` WHERE cate_id=1 and status=1  [ RunTime:0.002000s ]
+INFO: Run ParseTemplate Behavior [ RunTime:-1.085062s ]
+INFO: [ view_parse ] --END-- [ RunTime:1.824105s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-2.904166s ]
+INFO: Run TokenBuild Behavior [ RunTime:-2.905166s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-2.906166s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-2.907166s ]
+INFO: Run content_replace Behavior [ RunTime:-2.907166s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.004000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-2.908166s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-08-25T10:52:26+08:00 ] 127.0.0.1 /bao/305.html
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.002000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.003000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:-0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.001000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004000s ]
+SQL: SHOW COLUMNS FROM `try_item` [ RunTime:0.005001s ]
+SQL: SHOW COLUMNS FROM `try_item_diu` [ RunTime:0.004000s ]
+SQL: SELECT `id`,`cate_id`,`title`,`uid`,`uname`,`intro`,`price`,`url`,`likes`,`comments`,`tag_cache`,`seo_title`,`seo_keys`,`seo_desc`,`add_time`,`content`,`zan`,`status`,`orig_id`,`go_link`,`ds_time`,`remark` FROM `try_item_diu` WHERE ( `id` = 305 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `try_admin` [ RunTime:0.005000s ]
+SQL: SELECT * FROM `try_admin` WHERE username = 'baoff' LIMIT 1   [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `try_item_orig` [ RunTime:0.003001s ]
+SQL: SELECT `name`,`img` FROM `try_item_orig` WHERE ( `id` = 358 ) LIMIT 1   [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `try_item_img` [ RunTime:0.005000s ]
+SQL: SELECT `url` FROM `try_item_img` WHERE ( `item_id` = 305 ) ORDER BY ordid  [ RunTime:0.002000s ]
+SQL: SHOW COLUMNS FROM `try_item_tag` [ RunTime:0.006000s ]
+NOTIC: [2] array_slice() expects parameter 1 to be array, boolean given D:\phpStudy_new\WWW\baicai\app\Lib\Action\home\bitemAction.class.php 第 52 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\phpStudy_new\WWW\baicai\app\Lib\Action\home\bitemAction.class.php 第 53 行.
+SQL: SELECT `id`,`img`,`intro`,`price`,`title` FROM `try_item` WHERE ishot=1 AND status=1 ORDER BY add_time desc,id desc LIMIT 8   [ RunTime:0.019001s ]
+SQL: SHOW COLUMNS FROM `try_item_comment` [ RunTime:0.007000s ]
+SQL: SELECT COUNT(id) AS tp_count FROM `try_item_comment` WHERE ( `item_id` = 305 ) LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_item_comment` WHERE ( `item_id` = 305 ) ORDER BY id DESC LIMIT 0,8   [ RunTime:0.000000s ]
+SQL: UPDATE `try_item_diu` SET `hits`=hits+1 WHERE ( `id` = 305 ) [ RunTime:0.006001s ]
+NOTIC: [2] implode(): Invalid arguments passed D:\phpStudy_new\WWW\baicai\app\Lib\Action\home\bitemAction.class.php 第 104 行.
+SQL: SHOW COLUMNS FROM `try_item_cate` [ RunTime:0.004000s ]
+SQL: SELECT `id`,`name`,`pid` FROM `try_item_cate` WHERE id=346 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `id`,`title` FROM `try_item_diu` WHERE id<305 and status=1 ORDER BY  id desc LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `id`,`title` FROM `try_item_diu` WHERE id>305 and status=1 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT id,title,img,price from try_item  WHERE add_time between 1503625946 and 1503629546 ORDER BY hits desc,add_time desc LIMIT 9 [ RunTime:0.001000s ]
+SQL: SELECT id,title,img,price from try_item  WHERE add_time between 1503543146 and 1503629546 ORDER BY hits desc,add_time desc LIMIT 9 [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.104063s ]
+INFO: [ view_template ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.109063s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.003000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.110063s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.004000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.111063s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.005000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.112063s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.006000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.114064s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.008001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.116064s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.010001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.117064s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.011001s ]
+SQL: SELECT * FROM `try_item_cate` WHERE pid=0 and is_index=1  [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_item_cate` WHERE pid=0 and status=1  [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: tp D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\0370d8a368b5f2445f136edacac50361.php 第 79 行.
+NOTIC: [8] Undefined variable: tp D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\0370d8a368b5f2445f136edacac50361.php 第 80 行.
+NOTIC: [8] Undefined variable: bcid D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\0370d8a368b5f2445f136edacac50361.php 第 81 行.
+NOTIC: [8] Undefined variable: tp D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\0370d8a368b5f2445f136edacac50361.php 第 82 行.
+NOTIC: [8] Undefined variable: bcid D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\0370d8a368b5f2445f136edacac50361.php 第 83 行.
+NOTIC: [8] Undefined variable: strpos1 D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\0370d8a368b5f2445f136edacac50361.php 第 101 行.
+NOTIC: [8] Use of undefined constant isbao - assumed 'isbao' D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\0370d8a368b5f2445f136edacac50361.php 第 154 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `try_go` [ RunTime:0.004000s ]
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'm2j151_af1ewc_k4o1e5_xo5tv0' ) LIMIT 1   [ RunTime:0.010000s ]
+SQL: SHOW COLUMNS FROM `try_adboard` [ RunTime:0.004000s ]
+SQL: SELECT * FROM `try_adboard` WHERE ( `id` = 13 ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `try_ad` [ RunTime:0.004000s ]
+SQL: SELECT `id`,`type`,`name`,`url`,`content`,`desc`,`extimg`,`extval` FROM `try_ad` WHERE ( `board_id` = 13 ) AND ( `start_time` <= 1503629546 ) AND ( `end_time` >= 1503629546 ) AND ( `status` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.444082s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.338019s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-1.445083s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.003000s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.448083s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.449083s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.449083s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.450083s ]
+INFO: Run content_replace Behavior [ RunTime:-1.450083s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.451083s ]
+INFO: [ view_end ] --END-- [ RunTime:0.000000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+SQL: SELECT * FROM `try_adboard` WHERE ( `id` = 15 ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `id`,`type`,`name`,`url`,`content`,`desc`,`extimg`,`extval` FROM `try_ad` WHERE ( `board_id` = 15 ) AND ( `start_time` <= 1503629546 ) AND ( `end_time` >= 1503629546 ) AND ( `status` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.653094s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.547031s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-1.655095s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.207012s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.660095s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.660095s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.660095s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.660095s ]
+INFO: Run content_replace Behavior [ RunTime:-1.660095s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.209012s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.661095s ]
+INFO: [ view_end ] --END-- [ RunTime:-0.210012s ]
+SQL: SELECT * FROM `try_item` WHERE status=1 ORDER BY ishot desc,id desc LIMIT 8   [ RunTime:0.002000s ]
+SQL: SHOW COLUMNS FROM `try_tick` [ RunTime:0.003000s ]
+SQL: SELECT * FROM `try_tick` WHERE start_time < NOW() ORDER BY yl desc,id desc LIMIT 6   [ RunTime:0.002000s ]
+SQL: SELECT `img_url` FROM `try_item_orig` WHERE id=69 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `img_url` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'm2j151_af1ewc_k4o1e5_xo5tv0' ) LIMIT 1   [ RunTime:0.007001s ]
+INFO: Run ParseTemplate Behavior [ RunTime:-1.661095s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.207012s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.744100s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.744100s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.744100s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.744100s ]
+INFO: Run content_replace Behavior [ RunTime:-1.744100s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.293017s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.744100s ]
+INFO: [ view_end ] --END-- [ RunTime:-0.293017s ]
+
+[ 2017-08-25T10:57:20+08:00 ] 127.0.0.1 /bao/310.html
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.007001s ]
+INFO: [ route_check ] --END-- [ RunTime:0.007001s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:-0.002000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.003000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.005000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.005000s ]
+SQL: SHOW COLUMNS FROM `try_item` [ RunTime:0.011001s ]
+SQL: SHOW COLUMNS FROM `try_item_diu` [ RunTime:0.006000s ]
+SQL: SELECT `id`,`cate_id`,`title`,`uid`,`uname`,`intro`,`price`,`url`,`likes`,`comments`,`tag_cache`,`seo_title`,`seo_keys`,`seo_desc`,`add_time`,`content`,`zan`,`status`,`orig_id`,`go_link`,`ds_time`,`remark` FROM `try_item_diu` WHERE ( `id` = 310 ) LIMIT 1   [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `try_admin` [ RunTime:0.004000s ]
+SQL: SELECT * FROM `try_admin` WHERE username = 'baoff' LIMIT 1   [ RunTime:0.002000s ]
+SQL: SHOW COLUMNS FROM `try_item_orig` [ RunTime:0.003001s ]
+SQL: SELECT `name`,`img` FROM `try_item_orig` WHERE ( `id` = 2 ) LIMIT 1   [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `try_item_img` [ RunTime:0.003000s ]
+SQL: SELECT `url` FROM `try_item_img` WHERE ( `item_id` = 310 ) ORDER BY ordid  [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `try_item_tag` [ RunTime:0.003000s ]
+NOTIC: [2] array_slice() expects parameter 1 to be array, boolean given D:\phpStudy_new\WWW\baicai\app\Lib\Action\home\bitemAction.class.php 第 52 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\phpStudy_new\WWW\baicai\app\Lib\Action\home\bitemAction.class.php 第 53 行.
+SQL: SELECT `id`,`img`,`intro`,`price`,`title` FROM `try_item` WHERE ishot=1 AND status=1 ORDER BY add_time desc,id desc LIMIT 8   [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `try_item_comment` [ RunTime:0.004000s ]
+SQL: SELECT COUNT(id) AS tp_count FROM `try_item_comment` WHERE ( `item_id` = 310 ) LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_item_comment` WHERE ( `item_id` = 310 ) ORDER BY id DESC LIMIT 0,8   [ RunTime:0.000000s ]
+SQL: UPDATE `try_item_diu` SET `hits`=hits+1 WHERE ( `id` = 310 ) [ RunTime:0.002000s ]
+NOTIC: [2] implode(): Invalid arguments passed D:\phpStudy_new\WWW\baicai\app\Lib\Action\home\bitemAction.class.php 第 104 行.
+SQL: SHOW COLUMNS FROM `try_item_cate` [ RunTime:0.004000s ]
+SQL: SELECT `id`,`name`,`pid` FROM `try_item_cate` WHERE id=346 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `id`,`title` FROM `try_item_diu` WHERE id<310 and status=1 ORDER BY  id desc LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `id`,`title` FROM `try_item_diu` WHERE id>310 and status=1 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT id,title,img,price from try_item  WHERE add_time between 1503626239 and 1503629839 ORDER BY hits desc,add_time desc LIMIT 9 [ RunTime:0.001000s ]
+SQL: SELECT id,title,img,price from try_item  WHERE add_time between 1503543439 and 1503629839 ORDER BY hits desc,add_time desc LIMIT 9 [ RunTime:0.000000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.980113s ]
+INFO: [ view_template ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.986113s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.004000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.988113s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.005000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.989114s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.007001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.990114s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.008001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.992114s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.010001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.994114s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.012001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.995114s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.013001s ]
+SQL: SELECT * FROM `try_item_cate` WHERE pid=0 and is_index=1  [ RunTime:0.001001s ]
+SQL: SELECT * FROM `try_item_cate` WHERE pid=0 and status=1  [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: tp D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\0370d8a368b5f2445f136edacac50361.php 第 79 行.
+NOTIC: [8] Undefined variable: tp D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\0370d8a368b5f2445f136edacac50361.php 第 80 行.
+NOTIC: [8] Undefined variable: bcid D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\0370d8a368b5f2445f136edacac50361.php 第 81 行.
+NOTIC: [8] Undefined variable: tp D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\0370d8a368b5f2445f136edacac50361.php 第 82 行.
+NOTIC: [8] Undefined variable: bcid D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\0370d8a368b5f2445f136edacac50361.php 第 83 行.
+NOTIC: [8] Undefined variable: strpos1 D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\0370d8a368b5f2445f136edacac50361.php 第 101 行.
+NOTIC: [8] Use of undefined constant isbao - assumed 'isbao' D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\0370d8a368b5f2445f136edacac50361.php 第 154 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=2 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=2 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `try_go` [ RunTime:0.002000s ]
+SQL: SELECT * FROM `try_go` WHERE ( `show` = '1zkws2_b3q2e1_odsccy_nglpgw' ) LIMIT 1   [ RunTime:0.008001s ]
+SQL: SHOW COLUMNS FROM `try_adboard` [ RunTime:0.003000s ]
+SQL: SELECT * FROM `try_adboard` WHERE ( `id` = 13 ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `try_ad` [ RunTime:0.004000s ]
+SQL: SELECT `id`,`type`,`name`,`url`,`content`,`desc`,`extimg`,`extval` FROM `try_ad` WHERE ( `board_id` = 13 ) AND ( `start_time` <= 1503629840 ) AND ( `end_time` >= 1503629840 ) AND ( `status` = 1 ) ORDER BY ordid  [ RunTime:0.000000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.476141s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.494028s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-2.477141s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.002001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-2.480142s ]
+INFO: Run TokenBuild Behavior [ RunTime:-2.480142s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-2.481142s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-2.481142s ]
+INFO: Run content_replace Behavior [ RunTime:-2.482142s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-2.482142s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+SQL: SELECT * FROM `try_adboard` WHERE ( `id` = 15 ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `id`,`type`,`name`,`url`,`content`,`desc`,`extimg`,`extval` FROM `try_ad` WHERE ( `board_id` = 15 ) AND ( `start_time` <= 1503629840 ) AND ( `end_time` >= 1503629840 ) AND ( `status` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.684153s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.702040s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-2.685153s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.206011s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-2.687153s ]
+INFO: Run TokenBuild Behavior [ RunTime:-2.687153s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-2.687153s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-2.687153s ]
+INFO: Run content_replace Behavior [ RunTime:-2.687153s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.205011s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-2.687153s ]
+INFO: [ view_end ] --END-- [ RunTime:-0.204011s ]
+SQL: SELECT * FROM `try_item` WHERE status=1 ORDER BY ishot desc,id desc LIMIT 8   [ RunTime:0.001001s ]
+SQL: SHOW COLUMNS FROM `try_tick` [ RunTime:0.004000s ]
+SQL: SELECT * FROM `try_tick` WHERE start_time < NOW() ORDER BY yl desc,id desc LIMIT 6   [ RunTime:0.001000s ]
+SQL: SELECT `img_url` FROM `try_item_orig` WHERE id=69 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `img_url` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_go` WHERE ( `show` = '1zkws2_b3q2e1_odsccy_nglpgw' ) LIMIT 1   [ RunTime:0.008000s ]
+INFO: Run ParseTemplate Behavior [ RunTime:-2.687153s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.206011s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-2.754157s ]
+INFO: Run TokenBuild Behavior [ RunTime:-2.754157s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-2.754157s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-2.754157s ]
+INFO: Run content_replace Behavior [ RunTime:-2.754157s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.272015s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-2.755157s ]
+INFO: [ view_end ] --END-- [ RunTime:-0.272015s ]
+
+[ 2017-08-25T11:13:35+08:00 ] 127.0.0.1 /bao/305.html
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.004000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.004000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:-0.001001s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.002001s ]
+INFO: Run load_lang Behavior [ RunTime:-0.004001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004000s ]
+SQL: SHOW COLUMNS FROM `try_item` [ RunTime:0.004000s ]
+SQL: SHOW COLUMNS FROM `try_item_diu` [ RunTime:0.006001s ]
+SQL: SELECT `id`,`cate_id`,`title`,`uid`,`uname`,`intro`,`price`,`url`,`likes`,`comments`,`tag_cache`,`seo_title`,`seo_keys`,`seo_desc`,`add_time`,`content`,`zan`,`status`,`orig_id`,`go_link`,`ds_time`,`remark` FROM `try_item_diu` WHERE ( `id` = 305 ) LIMIT 1   [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `try_admin` [ RunTime:0.004000s ]
+SQL: SELECT * FROM `try_admin` WHERE username = 'baoff' LIMIT 1   [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `try_item_orig` [ RunTime:0.003000s ]
+SQL: SELECT `name`,`img` FROM `try_item_orig` WHERE ( `id` = 358 ) LIMIT 1   [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `try_item_img` [ RunTime:0.002000s ]
+SQL: SELECT `url` FROM `try_item_img` WHERE ( `item_id` = 305 ) ORDER BY ordid  [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `try_item_tag` [ RunTime:0.004001s ]
+NOTIC: [2] array_slice() expects parameter 1 to be array, boolean given D:\phpStudy_new\WWW\baicai\app\Lib\Action\home\bitemAction.class.php 第 52 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\phpStudy_new\WWW\baicai\app\Lib\Action\home\bitemAction.class.php 第 53 行.
+SQL: SELECT `id`,`img`,`intro`,`price`,`title` FROM `try_item` WHERE ishot=1 AND status=1 ORDER BY add_time desc,id desc LIMIT 8   [ RunTime:0.006000s ]
+SQL: SHOW COLUMNS FROM `try_item_comment` [ RunTime:0.003000s ]
+SQL: SELECT COUNT(id) AS tp_count FROM `try_item_comment` WHERE ( `item_id` = 305 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT * FROM `try_item_comment` WHERE ( `item_id` = 305 ) ORDER BY id DESC LIMIT 0,8   [ RunTime:0.001000s ]
+SQL: UPDATE `try_item_diu` SET `hits`=hits+1 WHERE ( `id` = 305 ) [ RunTime:0.002000s ]
+NOTIC: [2] implode(): Invalid arguments passed D:\phpStudy_new\WWW\baicai\app\Lib\Action\home\bitemAction.class.php 第 104 行.
+SQL: SHOW COLUMNS FROM `try_item_cate` [ RunTime:0.004000s ]
+SQL: SELECT `id`,`name`,`pid` FROM `try_item_cate` WHERE id=346 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `id`,`title` FROM `try_item_diu` WHERE id<305 and status=1 ORDER BY  id desc LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `id`,`title` FROM `try_item_diu` WHERE id>305 and status=1 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT id,title,img,price from try_item  WHERE add_time between 1503627215 and 1503630815 ORDER BY hits desc,add_time desc LIMIT 9 [ RunTime:0.000000s ]
+SQL: SELECT id,title,img,price from try_item  WHERE add_time between 1503544415 and 1503630815 ORDER BY hits desc,add_time desc LIMIT 9 [ RunTime:0.000000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.319076s ]
+INFO: [ view_template ] --END-- [ RunTime:0.003000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.329076s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.007000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.331077s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.009001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.333077s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.011001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.335077s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.013001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.337077s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.015001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.339077s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.017001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.341077s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.019001s ]
+SQL: SELECT * FROM `try_item_cate` WHERE pid=0 and is_index=1  [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_item_cate` WHERE pid=0 and status=1  [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: tp D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\0370d8a368b5f2445f136edacac50361.php 第 79 行.
+NOTIC: [8] Undefined variable: tp D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\0370d8a368b5f2445f136edacac50361.php 第 80 行.
+NOTIC: [8] Undefined variable: bcid D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\0370d8a368b5f2445f136edacac50361.php 第 81 行.
+NOTIC: [8] Undefined variable: tp D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\0370d8a368b5f2445f136edacac50361.php 第 82 行.
+NOTIC: [8] Undefined variable: bcid D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\0370d8a368b5f2445f136edacac50361.php 第 83 行.
+NOTIC: [8] Undefined variable: strpos1 D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\0370d8a368b5f2445f136edacac50361.php 第 101 行.
+NOTIC: [8] Use of undefined constant isbao - assumed 'isbao' D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\0370d8a368b5f2445f136edacac50361.php 第 154 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `try_go` [ RunTime:0.003000s ]
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'm2j151_af1ewc_k4o1e5_xo5tv0' ) LIMIT 1   [ RunTime:0.024001s ]
+SQL: SHOW COLUMNS FROM `try_adboard` [ RunTime:0.006000s ]
+SQL: SELECT * FROM `try_adboard` WHERE ( `id` = 13 ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.003000s ]
+SQL: SHOW COLUMNS FROM `try_ad` [ RunTime:0.003000s ]
+SQL: SELECT `id`,`type`,`name`,`url`,`content`,`desc`,`extimg`,`extval` FROM `try_ad` WHERE ( `board_id` = 13 ) AND ( `start_time` <= 1503630815 ) AND ( `end_time` >= 1503630815 ) AND ( `status` = 1 ) ORDER BY ordid  [ RunTime:0.000000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.541089s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.219013s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-1.542089s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.005000s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.547089s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.549089s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.550089s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.550089s ]
+INFO: Run content_replace Behavior [ RunTime:-1.551089s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.005000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.553089s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+SQL: SELECT * FROM `try_adboard` WHERE ( `id` = 15 ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `id`,`type`,`name`,`url`,`content`,`desc`,`extimg`,`extval` FROM `try_ad` WHERE ( `board_id` = 15 ) AND ( `start_time` <= 1503630815 ) AND ( `end_time` >= 1503630815 ) AND ( `status` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.737100s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.415024s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-1.738100s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.191011s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.740100s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.740100s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.740100s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.740100s ]
+INFO: Run content_replace Behavior [ RunTime:-1.740100s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.188011s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.740100s ]
+INFO: [ view_end ] --END-- [ RunTime:-0.186011s ]
+SQL: SELECT * FROM `try_item` WHERE status=1 ORDER BY ishot desc,id desc LIMIT 8   [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `try_tick` [ RunTime:0.003000s ]
+SQL: SELECT * FROM `try_tick` WHERE start_time < NOW() ORDER BY yl desc,id desc LIMIT 6   [ RunTime:0.005000s ]
+SQL: SELECT `img_url` FROM `try_item_orig` WHERE id=69 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `img_url` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.001001s ]
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'm2j151_af1ewc_k4o1e5_xo5tv0' ) LIMIT 1   [ RunTime:0.008000s ]
+INFO: Run ParseTemplate Behavior [ RunTime:-1.740100s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.191011s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.816104s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.816104s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.816104s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.816104s ]
+INFO: Run content_replace Behavior [ RunTime:-1.816104s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.264015s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.816104s ]
+INFO: [ view_end ] --END-- [ RunTime:-0.262015s ]
+
+[ 2017-08-25T11:13:38+08:00 ] 127.0.0.1 /bao-index-type-isbao-dss-cc
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.001000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:-0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.001000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004000s ]
+SQL: SHOW COLUMNS FROM `try_item_diu` [ RunTime:0.014001s ]
+SQL: SELECT * FROM `try_item_diu` WHERE status=1 and add_time<1503630816 and ds_time < 1503630816 ORDER BY  add_time desc LIMIT 0,21   [ RunTime:0.002000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.440082s ]
+INFO: [ view_template ] --END-- [ RunTime:0.005000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.450083s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.006001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.451083s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.007001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.452083s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.008001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.454083s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.010001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.455083s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.011001s ]
+SQL: SHOW COLUMNS FROM `try_item_cate` [ RunTime:0.009000s ]
+SQL: SELECT * FROM `try_item_cate` WHERE pid=0 and is_index=1  [ RunTime:0.002000s ]
+SQL: SELECT * FROM `try_item_cate` WHERE pid=0 and status=1  [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: tp D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 102 行.
+NOTIC: [8] Undefined variable: tp D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 103 行.
+NOTIC: [8] Undefined variable: bcid D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 104 行.
+NOTIC: [8] Undefined variable: tp D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 105 行.
+NOTIC: [8] Undefined variable: bcid D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 106 行.
+NOTIC: [8] Undefined variable: strpos1 D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 124 行.
+SQL: SHOW COLUMNS FROM `try_ad` [ RunTime:0.004000s ]
+SQL: SELECT * FROM `try_ad` WHERE status=1 AND board_id=1  [ RunTime:0.001000s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `try_ad` WHERE status=1 AND board_id=1 LIMIT 1   [ RunTime:0.001001s ]
+NOTIC: [8] Undefined variable: html D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 181 行.
+NOTIC: [8] Undefined variable: htmlA D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 187 行.
+NOTIC: [8] Use of undefined constant url - assumed 'url' D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 187 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 187 行.
+NOTIC: [8] Use of undefined constant content - assumed 'content' D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 187 行.
+NOTIC: [8] Use of undefined constant url - assumed 'url' D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 187 行.
+NOTIC: [8] Undefined offset: 1 D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 187 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 187 行.
+NOTIC: [8] Undefined offset: 1 D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 187 行.
+NOTIC: [8] Use of undefined constant content - assumed 'content' D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 187 行.
+NOTIC: [8] Undefined offset: 1 D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 187 行.
+SQL: SHOW COLUMNS FROM `try_item_orig` [ RunTime:0.004000s ]
+SQL: SELECT * FROM `try_item_orig` ORDER BY ordid asc LIMIT 12   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=2 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=2 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+SQL: SHOW COLUMNS FROM `try_go` [ RunTime:0.003000s ]
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'n1ehmq_fgggzc_ur20mt_qmtnnu' ) LIMIT 1   [ RunTime:0.011001s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.001000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=2 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=2 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = '1zkws2_b3q2e1_odsccy_nglpgw' ) LIMIT 1   [ RunTime:0.006000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=2 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=2 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'kxgidl_tvmice_4mmrmy_oiby42' ) LIMIT 1   [ RunTime:0.008000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'm2j151_af1ewc_k4o1e5_xo5tv0' ) LIMIT 1   [ RunTime:0.008001s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = '1bwbgq_ppfral_2p2csj_ag1a2v' ) LIMIT 1   [ RunTime:0.007000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'v1l04b_5pmbzu_tfpwfd_qt2qic' ) LIMIT 1   [ RunTime:0.023002s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=2 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=2 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'b1mjve_mk2ysg_ewcsa5_ptizcg' ) LIMIT 1   [ RunTime:0.009001s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = '1afbim_zse5vz_sjdkc3_amlgob' ) LIMIT 1   [ RunTime:0.009001s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=2 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=2 LIMIT 1   [ RunTime:0.001000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = '2kdyae_01ozog_yn0dwn_2ixjrr' ) LIMIT 1   [ RunTime:0.008001s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'bniu2m_s2njek_pdpspp_e1dglw' ) LIMIT 1   [ RunTime:0.007000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = '1bwbgq_ppfral_2p2csj_ag1a2v' ) LIMIT 1   [ RunTime:0.008001s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/37/7fe09baeffe23e6a9f9cf081596a6b7a.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT * FROM `try_go` WHERE ( `show` = '2ymo51_ijq31g_r2fotq_yivd3w' ) LIMIT 1   [ RunTime:0.012001s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\e1ae863f9369962b0c5499544f11efd3.php 第 401 行.
+SQL: SHOW COLUMNS FROM `try_flink` [ RunTime:0.005000s ]
+SQL: SELECT * FROM `try_flink` WHERE cate_id=1 and status=1  [ RunTime:0.001000s ]
+INFO: Run ParseTemplate Behavior [ RunTime:-1.455083s ]
+INFO: [ view_parse ] --END-- [ RunTime:1.476085s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-2.920167s ]
+INFO: Run TokenBuild Behavior [ RunTime:-2.922167s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-2.924167s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-2.927167s ]
+INFO: Run content_replace Behavior [ RunTime:-2.930167s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.011000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-2.931167s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001001s ]
+
+[ 2017-08-25T13:08:26+08:00 ] 127.0.0.1 /index.php
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: HTTP_USER_AGENT D:\phpStudy_new\WWW\baicai\app\Lib\Action\home\indexAction.class.php 第 6 行.
+SQL: SHOW COLUMNS FROM `try_item` [ RunTime:0.000000s ]
+SQL: SELECT * FROM `try_item` WHERE status=1 and add_time<1503637705  and isnice=1  ORDER BY  add_time desc LIMIT 0,18   [ RunTime:0.000000s ]
+NOTIC: [8] Use of undefined constant p - assumed 'p' D:\phpStudy_new\WWW\baicai\app\Lib\Action\home\indexAction.class.php 第 66 行.
+SQL: SHOW COLUMNS FROM `try_article` [ RunTime:0.016601s ]
+SQL: SELECT * FROM `try_article` WHERE add_time > 1498100216 and add_time < 1503637705 and status=4  [ RunTime:0.000000s ]
+SQL: select distinct uid as id,uname,sum(score) as num from try_score_log where add_time>1503590400 and add_time<1503676800 group by uname order by num desc,uid asc limit 4 [ RunTime:0.000000s ]
+SQL: select distinct uid as id,uname,sum(score) as num from try_score_log where add_time>1501516800 and add_time<1503637705 group by uname order by num desc,uid asc limit 4 [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `try_user` [ RunTime:0.015600s ]
+SQL: SELECT `id`,`username`,`score` FROM `try_user` ORDER BY score desc,id asc LIMIT 4   [ RunTime:0.015600s ]
+SQL: SHOW COLUMNS FROM `try_hd` [ RunTime:0.015600s ]
+SQL: SELECT * FROM `try_hd` ORDER BY order_s asc,id desc LIMIT 8   [ RunTime:0.000000s ]
+SQL: SELECT * FROM `try_item` WHERE istop = 1 ORDER BY id desc LIMIT 8   [ RunTime:0.000000s ]
+SQL: SELECT id,title,img,price from try_item  WHERE add_time between 1503634105 and 1503637705 ORDER BY hits desc LIMIT 9 [ RunTime:0.000000s ]
+SQL: SELECT id,title,img,price from try_item  WHERE add_time between 1503551305 and 1503637705 ORDER BY hits desc LIMIT 9 [ RunTime:0.000000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.089804s ]
+INFO: [ view_template ] --END-- [ RunTime:0.000000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.105404s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.015600s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.105404s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.015600s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.105404s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.015600s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.105404s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.015600s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.105404s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.015600s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.105404s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.015600s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.105404s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.015600s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.105404s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.015600s ]
+SQL: SHOW COLUMNS FROM `try_item_cate` [ RunTime:0.000000s ]
+SQL: SELECT * FROM `try_item_cate` WHERE pid=0 and is_index=1  [ RunTime:0.000000s ]
+SQL: SELECT * FROM `try_item_cate` WHERE pid=0 and status=1  [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: tp D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 175 行.
+NOTIC: [8] Undefined variable: tp D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 176 行.
+NOTIC: [8] Undefined variable: tp D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 178 行.
+NOTIC: [8] Undefined variable: strpos1 D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 197 行.
+SQL: SHOW COLUMNS FROM `try_item_orig` [ RunTime:0.000000s ]
+SQL: SELECT * FROM `try_item_orig` ORDER BY ordid asc LIMIT 12   [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `try_ad` [ RunTime:0.015600s ]
+SQL: SELECT * FROM `try_ad` WHERE status=1 AND board_id=1  [ RunTime:0.000000s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `try_ad` WHERE status=1 AND board_id=1 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: html D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 273 行.
+NOTIC: [8] Undefined variable: htmlA D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 279 行.
+NOTIC: [8] Use of undefined constant url - assumed 'url' D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 279 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 279 行.
+NOTIC: [8] Use of undefined constant content - assumed 'content' D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 279 行.
+NOTIC: [8] Use of undefined constant url - assumed 'url' D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 279 行.
+NOTIC: [8] Undefined offset: 1 D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 279 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 279 行.
+NOTIC: [8] Undefined offset: 1 D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 279 行.
+NOTIC: [8] Use of undefined constant content - assumed 'content' D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 279 行.
+NOTIC: [8] Undefined offset: 1 D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 279 行.
+SQL: SHOW COLUMNS FROM `try_adboard` [ RunTime:0.015600s ]
+SQL: SELECT * FROM `try_adboard` WHERE ( `id` = 17 ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `id`,`type`,`name`,`url`,`content`,`desc`,`extimg`,`extval` FROM `try_ad` WHERE ( `board_id` = 17 ) AND ( `start_time` <= 1503637705 ) AND ( `end_time` >= 1503637705 ) AND ( `status` = 1 ) ORDER BY ordid  [ RunTime:0.000000s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\phpStudy_new\WWW\baicai\app\Lib\Widget\advertWidget.class.php 第 22 行.
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.246804s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.157000s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-1.246804s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.000000s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.246804s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.246804s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.246804s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.246804s ]
+INFO: Run content_replace Behavior [ RunTime:-1.262404s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.015600s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.262404s ]
+INFO: [ view_end ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Use of undefined constant isnice - assumed 'isnice' D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 311 行.
+NOTIC: [8] Use of undefined constant isbao - assumed 'isbao' D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 311 行.
+NOTIC: [8] Use of undefined constant lb - assumed 'lb' D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 564 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SHOW COLUMNS FROM `try_go` [ RunTime:0.015600s ]
+SQL: SELECT * FROM `try_go` WHERE ( `show` = '2ymo51_ijq31g_r2fotq_yivd3w' ) LIMIT 1   [ RunTime:0.015600s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=2 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'od0par_5uyog2_ihgavt_f3l2cc' ) LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'q52ivt_zdbnpy_flmene_yq2qoz' ) LIMIT 1   [ RunTime:0.015600s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+NOTIC: [8] Undefined index: price D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: go_link D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 589 行.
+NOTIC: [8] Undefined index: price D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: go_link D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 589 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=857 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=384 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = '0fvr3h_s5y2vd_n5cuf2_0tanns' ) LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'k1bmml_av3vxy_d5iz50_uiw3yh' ) LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=366 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'cbjq4i_jd4f43_yuwepv_fwybwd' ) LIMIT 1   [ RunTime:0.015600s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=506 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'aewhcb_gnctvn_ijuqsi_rsldh2' ) LIMIT 1   [ RunTime:0.015600s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'rxu2re_3kjtzq_rz00ey_t22pe3' ) LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=384 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = '4sjpew_axsbq3_lyhdob_1buodt' ) LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'xe451k_udcpqc_bz3cha_zod1cf' ) LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'xe451k_udcpqc_bz3cha_zod1cf' ) LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 595 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'lwi4of_rgxcqj_uj45vg_eawzy5' ) LIMIT 1   [ RunTime:0.015600s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 595 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=5 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'iwnrjt_45rxeu_1d0sje_jz15sg' ) LIMIT 1   [ RunTime:0.015600s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=506 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'rtfb5u_0htzte_3rp5t4_1l05kx' ) LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=506 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = '24bptm_lw1f55_zww3gg_1u5iwl' ) LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=384 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'vd1hp4_lcbvuw_0wthuh_sudapj' ) LIMIT 1   [ RunTime:0.015600s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'ywfxbw_dxv4ag_wvv5ln_w5wog0' ) LIMIT 1   [ RunTime:0.015600s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=362 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'wnuyt0_k4byg1_cjamj2_mnd5v4' ) LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 569 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 570 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 574 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 579 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+NOTIC: [8] Undefined index: sc D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 585 行.
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'so5324_amp1ph_lbf1en_2mi0sk' ) LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: title D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 591 行.
+NOTIC: [8] Undefined index: follow D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 758 行.
+NOTIC: [8] Undefined index: follow D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 771 行.
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/27/35f94626a3c8956ff4b1e837f3a8aff0.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+NOTIC: [8] Undefined index: follow D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 771 行.
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/27/a5c1ecaadd6ace0e9222a1b20cf6f0b2.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+NOTIC: [8] Undefined index: follow D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 771 行.
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/27/c60ddfa8f90de65944a328002b99c38c.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\phpStudy_new\WWW\baicai\app\Common\common.php 第 247 行.
+NOTIC: [8] Undefined index: follow D:\phpStudy_new\WWW\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 771 行.
+SQL: SELECT * FROM `try_adboard` WHERE ( `id` = 2 ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `id`,`type`,`name`,`url`,`content`,`desc`,`extimg`,`extval` FROM `try_ad` WHERE ( `board_id` = 2 ) AND ( `start_time` <= 1503637706 ) AND ( `end_time` >= 1503637706 ) AND ( `status` = 1 ) ORDER BY ordid  [ RunTime:0.000000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.437406s ]
+INFO: [ view_template ] --END-- [ RunTime:-1.347602s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-2.437406s ]
+INFO: [ view_parse ] --END-- [ RunTime:-1.190602s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-2.437406s ]
+INFO: Run TokenBuild Behavior [ RunTime:-2.437406s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-2.437406s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-2.437406s ]
+INFO: Run content_replace Behavior [ RunTime:-2.437406s ]
+INFO: [ view_filter ] --END-- [ RunTime:-1.175002s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-2.437406s ]
+INFO: [ view_end ] --END-- [ RunTime:-1.175002s ]
+SQL: SHOW COLUMNS FROM `try_tick` [ RunTime:0.000000s ]
+SQL: SELECT * FROM `try_tick` WHERE start_time < NOW() ORDER BY yl desc,id desc LIMIT 6   [ RunTime:0.000000s ]
+SQL: SELECT `img_url` FROM `try_item_orig` WHERE id=69 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `img_url` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT * FROM `try_adboard` WHERE ( `id` = 10 ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `id`,`type`,`name`,`url`,`content`,`desc`,`extimg`,`extval` FROM `try_ad` WHERE ( `board_id` = 10 ) AND ( `start_time` <= 1503637706 ) AND ( `end_time` >= 1503637706 ) AND ( `status` = 1 ) ORDER BY ordid  [ RunTime:0.000000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.453006s ]
+INFO: [ view_template ] --END-- [ RunTime:-1.363202s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-2.453006s ]
+INFO: [ view_parse ] --END-- [ RunTime:-1.206202s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-2.453006s ]
+INFO: Run TokenBuild Behavior [ RunTime:-2.453006s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-2.453006s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-2.453006s ]
+INFO: Run content_replace Behavior [ RunTime:-2.453006s ]
+INFO: [ view_filter ] --END-- [ RunTime:-1.190602s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-2.453006s ]
+INFO: [ view_end ] --END-- [ RunTime:-1.190602s ]
+SQL: SELECT * FROM `try_adboard` WHERE ( `id` = 15 ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `id`,`type`,`name`,`url`,`content`,`desc`,`extimg`,`extval` FROM `try_ad` WHERE ( `board_id` = 15 ) AND ( `start_time` <= 1503637706 ) AND ( `end_time` >= 1503637706 ) AND ( `status` = 1 ) ORDER BY ordid  [ RunTime:0.000000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.453006s ]
+INFO: [ view_template ] --END-- [ RunTime:-1.363202s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-2.453006s ]
+INFO: [ view_parse ] --END-- [ RunTime:-1.206202s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-2.468606s ]
+INFO: Run TokenBuild Behavior [ RunTime:-2.468606s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-2.468606s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-2.468606s ]
+INFO: Run content_replace Behavior [ RunTime:-2.468606s ]
+INFO: [ view_filter ] --END-- [ RunTime:-1.206202s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-2.468606s ]
+INFO: [ view_end ] --END-- [ RunTime:-1.206202s ]
+SQL: SHOW COLUMNS FROM `try_flink` [ RunTime:0.000000s ]
+SQL: SELECT * FROM `try_flink` WHERE cate_id=1 and status=1  [ RunTime:0.000000s ]
+INFO: Run ParseTemplate Behavior [ RunTime:-2.468606s ]
+INFO: [ view_parse ] --END-- [ RunTime:-1.206202s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-2.484206s ]
+INFO: Run TokenBuild Behavior [ RunTime:-2.484206s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-2.484206s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-2.484206s ]
+INFO: Run content_replace Behavior [ RunTime:-2.484206s ]
+INFO: [ view_filter ] --END-- [ RunTime:-1.221802s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-2.484206s ]
+INFO: [ view_end ] --END-- [ RunTime:-1.221802s ]
+

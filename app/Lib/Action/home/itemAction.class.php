@@ -283,6 +283,14 @@ class itemAction extends frontendAction {
         $this->assign('page_seo',set_seo('我要爆料'));
         $this->display();
     }
+
+    public function jd_test(){
+         //$diucollect = new simple_html_dom();
+        $diucollect =file_get_contents('http://guangdiu.com/go.php?id=4391815');
+        $pattern = '/(\d{6,}).html/';
+        $pattern_num = preg_match($pattern, $diucollect,$pattern_result);
+        var_dump($pattern_result[1]);
+    }
     public function fetch_diu(){
         $diucollect = new simple_html_dom();
         $diucollect->load_file('http://guangdiu.com/');
@@ -310,7 +318,7 @@ class itemAction extends frontendAction {
            foreach ( $rightlinks->find(".rightmallname") as $e) {
                 $diu_item['orig']=trim($e->text());
              }
-             if($diu_item['orig']=="亚马逊中国" || $diu_item['orig']=="天猫"){
+             if($diu_item['orig']=="亚马逊中国" || $diu_item['orig']=="天猫" || $diu_item['orig'] == "京东商城"){
                 if($diu_item['orig']=="天猫"){
                   $diu_item['orig'] = "天猫商城";
                 }
@@ -324,11 +332,20 @@ class itemAction extends frontendAction {
                   $diu_item['isbao'] =1;
                   $diu_item['zan']=rand(0,5);
                   $diu_item['add_time'] =time();
-                   foreach ( $rightlinks->find(".innergototobuybtn") as $e) {
-                        $diu_item['url'] = $this->converturl($e->href);
-                        $arr[0]=array('name'=>"直达链接",'link'=>$diu_item['url']);
-                        $diu_item['go_link'] =serialize($arr);
-                   }
+                     foreach ( $rightlinks->find(".innergototobuybtn") as $e) {
+                       if($diu_item['orig'] == "京东商城"){
+                          $diucollect =file_get_contents('http://guangdiu.com/' . $e->href);
+                          $pattern = '/(\d{6,}).html/';
+                          $pattern_num = preg_match($pattern, $diucollect,$pattern_result);
+                          $diu_item['url'] = $this->converturl("https://item.jd.com/" . $pattern_result[1] . ".html"); 
+                        //  var_dump($pattern_result[1]);
+                  }
+                  else{
+                          $diu_item['url'] = $this->converturl($e->href);
+                        }
+                          $arr[0]=array('name'=>"直达链接",'link'=>$diu_item['url']);
+                          $diu_item['go_link'] =serialize($arr);
+                     }
 
       /*
                    $itemcollect = new itemcollect();
@@ -421,7 +438,7 @@ class itemAction extends frontendAction {
          $result = array();
          $profile['us_amazon']="show00-20";
          $profile['ch_amazon']="baicaiobl-23";
-         $profile['sid']="SS";
+         $profile['sid']="baoliao";
          $profile['mm_pid']="mm_27883119_3410238_93410083";
 
 
