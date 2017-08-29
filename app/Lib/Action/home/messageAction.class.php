@@ -136,7 +136,7 @@ class messageAction extends userbaseAction {
      */
     public function publish() {
         $uid= $this->visitor->info['id'];
-        ( grade($uid) < 2) &&  $this->ajaxReturn(0, '您的等级还不够，需要升到 2 级才能发送私息！');
+  //      ( grade($uid) < 2) &&  $this->ajaxReturn(0, '您的等级还不够，需要升到 2 级才能发送私息！');
         $score = M('user')->where(array('id'=>$uid))->getField('score');
         ($score <2)&&  $this->ajaxReturn(0, '您的积分不够了');
         foreach ($_POST as $key=>$val) {

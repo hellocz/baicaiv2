@@ -1150,6 +1150,49 @@ class userAction extends userbaseAction
         echo get_result($code,$xx);return ;
     }
 
+    //系统消息
+    public function getmsg_user($data) {
+        $uid = $data['userid'];
+        $page = $data['page'] * 10;
+        $message_mod = M('message');
+        $pagesize = 10;
+        $map = array();
+        $map['from_id'] =array('NEQ','0');
+        $map['to_id'] = array('in', '0,'.$uid);
+        $xx = $message_mod->where($map)->limit($page-10, $pagesize)->field('id,add_time,info')->order("add_time desc")->select();
+
+        $code = 10001;
+        if(count($xx) < 1){
+            $code = 10002;
+        }
+        echo get_result($code,$xx);return ;
+    }
+
+    //系统消息
+    public function getmsg_userdetail($data) {
+
+        $ftid = $data['ftid'];
+        $uid = $data['userid'];
+        $message_mod = M('message');
+        $map = "ftid='".$ftid."' AND ((from_id = '".$uid."' AND status<>2) OR (to_id = '".$uid."' AND status<>3))";
+        //更新状态
+        $message_mod->where($map)->setField('status', 0);
+        //显示列表
+        $pagesize = 10;
+        $page = $data['page'] * $pagesize;
+        $count = $message_mod->where($map)->order('id DESC')->count('id');
+        $pager = $this->_pager($count, $pagesize);
+        $message_list = $message_mod->where($map)->order('id DESC')->limit($page-10,$pagesize)->select();
+
+        M()->query("update try_message set ck_status=1 where ftid='".$ftid."' AND to_id='".$uid."'");//更新消息查看状态
+
+        $code = 10001;
+        if(count($message_list) < 1){
+            $code = 10002;
+        }
+        echo get_result($code,$message_list);return ;
+    }
+
     //我的评论
     public function comments($data){
         $page = $data['page'] *10;
@@ -1713,9 +1756,9 @@ class userAction extends userbaseAction
      */
     public function msgpublish($data) {
         $uid= $data['userid'];
-        if( grade($uid) < 3){
-            echo get_result(10001,'您的等级还不够，需要升到 3 级才能发送私息！');return ;
-        }
+   //     if( grade($uid) < 3){
+   //         echo get_result(10001,'您的等级还不够，需要升到 3 级才能发送私息！');return ;
+   //     }
         $score = M('user')->where(array('id'=>$uid))->getField('score');
         if($score <2){
             echo get_result(10001,'您的积分不够了');return ;

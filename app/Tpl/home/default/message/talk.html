@@ -156,7 +156,7 @@ $('#J_msg_send').on('click', function(){
 
 //单个删除
 
-$('#J_msg_list').find('.J_ml_del').live('click', function(){
+$('#J_msg_list').find('.J_ml_del').on('click', function(){
 
 	var mid = $(this).attr('data-mid');
 
@@ -182,7 +182,7 @@ $('#J_msg_list').find('.J_ml_del').live('click', function(){
 
 //批量删除
 
-$('#J_ml_delall').live('click', function(){
+$('#J_ml_delall').on('click', function(){
 
 	if(!confirm(lang.confirm_del_talk)) return !1;
 
