@@ -481,9 +481,9 @@ class userAction extends userbaseAction
 
     public function notify_tag_del($data){
         $notify_tag = M("notify_tag");
-        $tag['tag'] = $data['tag'];
         $tag['userid'] = $data['userid'];
         $tag['p_sign'] = 0;
+        $tag['id'] = $data['id'];
         $notify_tag->save($tag);
         echo get_result(10001,'删除推送成功!');
     }
