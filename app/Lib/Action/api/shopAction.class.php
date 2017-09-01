@@ -334,10 +334,12 @@ class shopAction extends userbaseAction
         $item_comment_mod = M('comment');
         $page = $data['page'] * 10;
         $pagesize = 10;
-        $map = array('itemid' => $data['shopid']);
+        $map = array('itemid' => $data['shopid'],'xid' => $data['xid'],'status'=>1 , 'pid'=>0);
 
         $cmt_list = $item_comment_mod->where($map)->field('id,uid,uname,info,add_time,zan,lc')->order('id DESC')->limit($page - 10, $pagesize)->select();
-
+        foreach($cmt_list as $key=>$v){
+            $cmt_list[$key]['list']=M()->query("select id,uid,uname,info,add_time,zan,lc from try_comment where status=1 and pid='".$v['id']."' order by id asc");
+        }
         $code = 10001;
         if(count($cmt_list) < 1){
             $code = 10002;

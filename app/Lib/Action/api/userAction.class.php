@@ -377,23 +377,23 @@ class userAction extends userbaseAction
         $tag['userid'] = $data['userid'];
         $tag['tag'] = $data['tag'];
         $notify_tag = M("notify_tag");
-        $list = $notify_tag->where(array('userid' => $tag['userid'],'tag'=> $tag['tag'] ))->select();
+        $list = $notify_tag->where(array('userid' => $tag['userid'],'tag'=> $tag['tag'] ))->find();
         if(count($list)>0){
-            $tag['p_sign'] = 1;
-            $notify_tag->save($tag);
-            echo get_result(10001, '设置推送成功!');
+            $list['p_sign'] = 1;
+            $notify_tag->save($list);
+            echo get_result(10001, $list['id']);
         }
         else{
         $result = $notify_tag->add(array(
-            'uid' => $tag['userid'],
+            'userid' => $tag['userid'],
             'tag' => $tag['tag'],
             'p_sign' => 1,
-            'j_sign' => 1
+            'f_sign' => 1
             ));
         if ($result) {
-                echo get_result(10001, '设置推送成功!');
+                echo get_result(10001, $result);
             } else {
-                echo get_result(10001, '设置推送失败!');
+                echo get_result(20001, '设置推送失败!');
             }
             }
     }
@@ -404,22 +404,22 @@ class userAction extends userbaseAction
         $tag['userid'] = $data['userid'];
         $tag['tag'] = $data['tag'];
         $notify_tag = M("notify_tag");
-        $list = $notify_tag->where(array('userid' => $tag['userid'],'tag'=> $tag['tag'] ))->select();
+        $list = $notify_tag->where(array('userid' => $tag['userid'],'tag'=> $tag['tag'] ))->find();
         if(count($list)>0){
-            $tag['f_sign'] = 1;
-            $notify_tag->save($tag);
-            echo get_result(10001, '设置关注成功!');
+            $list['f_sign'] = 1;
+            $notify_tag->save($list);
+            echo get_result(10001, $list['id']);
         }
         else{
         $result = $notify_tag->add(array(
-            'uid' => $tag['userid'],
+            'userid' => $tag['userid'],
             'tag' => $tag['tag'],
             'f_sign' => 1
             ));
         if ($result) {
-                echo get_result(10001, '设置关注成功!');
+                echo get_result(10001, $result);
             } else {
-                echo get_result(10001, '设置关注失败!');
+                echo get_result(20001, '设置关注失败!');
             }
             }
     }

@@ -1100,6 +1100,9 @@ class itemAction extends backendAction {
                          elseif(stripos($orig_url, 'euid=SS') !==false){
                              $parsed_orig_query['euid']=$_SESSION['admin']['sid'];
                         }
+                        elseif(stripos($orig_url, 'customid=SS') !==false){
+                             $parsed_orig_query['customid']=$_SESSION['admin']['sid'];
+                        }
                         elseif(stripos($orig_url, 'u=SS') !==false){
                              $parsed_orig_query['u']=$_SESSION['admin']['sid'];
                         }
@@ -1115,6 +1118,9 @@ class itemAction extends backendAction {
 
                         if(isset($parsed_orig_query['url'])){
                             $parsed_orig_query['url'] = $url;
+                        }
+                        elseif(isset($parsed_orig_query['mpre'])){
+                            $parsed_orig_query['mpre'] = $url;
                         }
                         elseif(isset($parsed_orig_query['new'])){
                             $parsed_orig_query['new'] = $url;
