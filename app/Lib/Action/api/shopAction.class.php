@@ -279,7 +279,7 @@ class shopAction extends userbaseAction
         $tag_caches = unserialize($item['tag_cache']);
         $item['tag_cache'] = '';
         foreach ($tag_caches as $tag_cache){
-            $item['tag_cache'] .= $tag_cache.' ';
+            $item['tag_cache'] .= $tag_cache.'|';
         }
         $item['orig'] = $orig;
         unset($item['orig_id']);

@@ -72,9 +72,9 @@ class userAction extends userbaseAction
 
 //            }
 
-           if ($data['password'] != $data['repassword']) {
-               echo get_result(20001,[], "两次输入的密码不一致");return ;
-           }
+ //          if ($data['password'] != $data['repassword']) {
+ //              echo get_result(20001,[], "两次输入的密码不一致");return ;
+ //          }
 
 //            //用户禁止
 //            $ipban_mod = D('ipban');
@@ -152,6 +152,14 @@ class userAction extends userbaseAction
      */
     public function smscode($data) {
         //$code = '123456';
+
+        if($data['type'] == "register"){
+             $count = M('user')->where(['mobile'=>$data['mobile']])->count('id');
+             if($count >0) {
+                   echo get_result(20001, [], "手机号码已经被注册!");
+                   return;
+             }
+        }
         $code = rand('100000','999999');
         $msg = "您的短信验证码为".$code;
         file_get_contents("http://sms.253.com/msg/send?un=N2204759&pw=1w0Xqu5xC&phone=".$data['mobile']."&msg=$msg&rd=0");
@@ -620,7 +628,7 @@ class userAction extends userbaseAction
             elseif($list[$key]['action'] == "ssbx"){
                $list[$key]['action'] = "小编修改";
             }
-            elseif(strpos($list[$key]['action'],"publish_article")){
+            elseif(stristr($list[$key]['action'],"publish_article") !== false){
                $list[$key]['action'] = "晒单";
             }
             }
@@ -871,7 +879,8 @@ class userAction extends userbaseAction
     //积分兑换
     public function scorelist($data) {
 
-        $cid = $data['cid'];
+    //    $cid = $data['cid'];
+        $type = $data['type'];
         $sort_order = 'id DESC';
         $page = $data['page'] * 10;
         $pagesize = 10;
@@ -879,7 +888,7 @@ class userAction extends userbaseAction
             $where['title'] = array('like', '%' . $data['title'] . '%');
         }
         $where['status'] = 1;
-        $cid && $where['cate_id'] = $cid;
+        $type && $where['type'] = $type;
         $score_item = M('score_item');
         $item_list = $score_item->where($where)->field('title,coin,score,img,id')->order($sort_order)->limit($page-10, $pagesize)->select();
         $code = 10001;
@@ -1106,22 +1115,22 @@ class userAction extends userbaseAction
         $mod = M("likes");
         switch($t){
             case "gn":
-                $list = $mod->where("try_likes.uid = '$user[id]' and try_likes.xid=1 and o.ismy=0")->join("try_item i on i.id=try_likes.itemid")->join("try_item_orig o on o.id=i.orig_id")->field("i.id,i.title,i.img,i.comments,i.intro")->limit($page-10, $pagesize)->select();
+                $list = $mod->where("try_likes.uid = '$user[id]' and try_likes.xid=1 and o.ismy=0")->join("try_item i on i.id=try_likes.itemid")->join("try_item_orig o on o.id=i.orig_id")->field("i.id,i.title,i.img,i.comments,i.intro")->order("i.add_time desc")->limit($page-10, $pagesize)->select();
                 break;
             case "ht":
-                $list = $mod->where("try_likes.uid = '$user[id]' and try_likes.xid=1 and o.ismy=1")->join("try_item i on i.id=try_likes.itemid")->join("try_item_orig o on o.id=i.orig_id")->field("i.id,i.title,i.img,i.comments,i.intro")->limit($page-10, $pagesize)->select();
+                $list = $mod->where("try_likes.uid = '$user[id]' and try_likes.xid=1 and o.ismy=1")->join("try_item i on i.id=try_likes.itemid")->join("try_item_orig o on o.id=i.orig_id")->field("i.id,i.title,i.img,i.comments,i.intro")->order("i.add_time desc")->limit($page-10, $pagesize)->select();
                 break;
             case "best":
-                $list = $mod->where("try_likes.uid = '$user[id]' and try_likes.xid=1 and i.isbest=1")->join("try_item i on i.id=try_likes.itemid")->field("i.id,i.title,i.img,i.comments,i.intro")->limit($page-10, $pagesize)->select();
+                $list = $mod->where("try_likes.uid = '$user[id]' and try_likes.xid=1 and i.isbest=1")->join("try_item i on i.id=try_likes.itemid")->field("i.id,i.title,i.img,i.comments,i.intro")->order("i.add_time desc")->limit($page-10, $pagesize)->select();
                 break;
             case "sd":
-                $list = $mod->where("try_likes.uid = '$user[id]' and try_likes.xid=3 and a.cate_id=10")->join("try_article a on a.id=try_likes.itemid")->field("a.id,a.title,a.img,a.comments,a.intro")->limit($page-10, $pagesize)->select();
+                $list = $mod->where("try_likes.uid = '$user[id]' and try_likes.xid=3 and a.cate_id=10")->join("try_article a on a.id=try_likes.itemid")->field("a.id,a.title,a.img,a.comments,a.intro")->order("a.add_time desc")->limit($page-10, $pagesize)->select();
                 break;
             case "gl":
-                $list = $mod->where("try_likes.uid = '$user[id]' and try_likes.xid=3 and a.cate_id in(select id from try_article_cate where pid=9 or id=9)")->join("try_article a on a.id=try_likes.itemid")->field("a.id,a.title,a.img,a.comments,a.intro")->limit($page-10, $pagesize)->select();
+                $list = $mod->where("try_likes.uid = '$user[id]' and try_likes.xid=3 and a.cate_id in(select id from try_article_cate where pid=9 or id=9)")->join("try_article a on a.id=try_likes.itemid")->field("a.id,a.title,a.img,a.comments,a.intro")->order("a.add_time desc")->limit($page-10, $pagesize)->select();
                 break;
             case "zr":
-                $list = $mod->where("try_likes.uid = '$user[id]' and try_likes.xid=2")->join("try_zr z on z.id=try_likes.itemid")->field("z.id,z.title,z.img,z.comments,z.intro")->limit($page-10, $pagesize)->select();
+                $list = $mod->where("try_likes.uid = '$user[id]' and try_likes.xid=2")->join("try_zr z on z.id=try_likes.itemid")->field("z.id,z.title,z.img,z.comments,z.intro")->order("a.add_time desc")->limit($page-10, $pagesize)->select();
                 break;
 
         }
@@ -1801,6 +1810,12 @@ class userAction extends userbaseAction
      * 删除系统短信
      */
     public function msgdel($data) {
+
+        $message_mod = D('message');
+        $message_mod->user_delete($data['mid'], $data['userid']);
+        echo get_result(10001,'删除成功');return ;
+
+        /*
         $datas=array();
         $datas['mid'] = $data['mid'];
         $message_mod = D('ssb');
@@ -1812,6 +1827,7 @@ class userAction extends userbaseAction
         } else {
             echo get_result(10001,'删除失败');return ;
         }
+        */
     }
 
     /**
