@@ -32,8 +32,10 @@
 				<volist name="val['list']" id="r">
 
 					<div class="lh_a1">
-
-						<div class="hf_zr"> <img src="{:avatar($r['uid'], 48)}" /><span>{$r.uname}</span></div> <p class="J_pl_i">{$r.info}</p>
+					  <?php $infos=explode("|",$r['info']);  ?>
+            <div class="hf_zr"> <img src="{:avatar($r['uid'], 48)}" /><span>{$r.uname}</span></div> <p class="J_pl_i"><if condition="stripos($r['info'],'android') !==
+                          false "> {$infos[0]}</p><p class="J_pl_i">来自<a href="{:U('item/index',array('id'=>'275535'))}"  target="_blank"> android </a>客户端</p><elseif condition="stripos($r['info'],'iphone') !==
+                          false "/> {$infos[0]}</p><p class="J_pl_i">来自<a href="{:U('item/index',array('id'=>'275535'))}"  target="_blank"> iphone </a>客户端</p><else/>{$r.info}</p></if>
 
 						<div class="lrhf"><div><span>{$r.add_time|fdate}</span><a href="javascript:;" class="J_hf" data-id="{$r.id}" psid="{$val.id}" title="回复">回复</a></div></div>
 
