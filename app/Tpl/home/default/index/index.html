@@ -86,20 +86,12 @@
 }
 
 </style>
-<script type="text/javascript"> var zhiyou_open = 1; </script>
- <script type="text/javascript" src="/js/userbase.1.0.min.js"></script>
-<script type="text/javascript" src="/js/main.js"></script>
 <script type="text/javascript" src="/js/jquery.SuperSlide.2.1.1.js"></script>
 
 <!--//首页轮播-->
 <script type="text/javascript">
 	
 </script>
-<!--[if lt IE 9]>
-<script src="http://www.smzdm.com/resources/public/js/html5.js?v=2016041103"></script>
-<link rel="stylesheet" href="http://res.smzdm.com/resources/public/css/ieHack.css" type="text/css" />
-<![endif]-->
-
 
 
 <!--[if IE 7]>
@@ -285,22 +277,20 @@
       <include file="public:yhq_right" />
       <div class="w_r10" style="display: block;">{:R('advert/index', array(10), 'Widget')}</div>
        <div class="w_r_tab">
+
+
+       
+       
+
         <h2>热门白菜榜</h2>
 
 
               <div class="rightPanel beyondHide">
 
-                <ul class="tab_nav" id="tabNav2">
-                    <li class="tab_faxian_li current_item"><h3>小时榜</h3></li>
-                    <li class="tab_faxian_li"><h3>24小时榜</h3></li>
-                    <!--
-                    <li class="more"><a href="" target="_blank">更多 &gt;</a></li>
-                    -->
-                </ul>
 
-                <div class="tab_info_con" style="display: block;">
-                    <ul class="ninePicBox">
-                        <volist name="hour_list" id="r">
+                 <div class="w_r3_1" style="margin-bottom: 16px;"><span class="w_r3_1_bd " id="rm1" onmouseover="setTab('rm',1,2,'w_r3_1_bd')"><h3>小时榜</h3></span><span  id="rm2" onmouseover="setTab('rm',2,2,'w_r3_1_bd')"><h3>24小时榜</h3></span></div>
+       <ul id="con_rm_1" class="ninePicBox ">
+         <volist name="hour_list" id="r">
                         <li class="re_pic" <if condition="!($i%3)">class="gogo"</if>>
                             <if condition="$i lt 4"><img class="re_tt" src="/images/tz_{$i}.png" /></if>
                             <a href="{:U('item/index',array('id'=>$r['id']))}" title="{$r.title}" target="_blank">
@@ -312,11 +302,8 @@
                             </a>
                         </li>
                         </volist>
-                    </ul>
-                 </div>
-
-                <div class="tab_info_con" style="display: none;">
-                    <ul class="ninePicBox">
+       </ul>
+       <ul style="display:none"  id="con_rm_2" class="ninePicBox ">
                         <volist name="day_list" id="r">
                             <li class="re_pic" <if condition="!($i%3)">class="gogo"</if>>
                             <if condition="$i lt 4"><img class="re_tt" src="/images/tz_{$i}.png" /></if>
@@ -329,8 +316,8 @@
                             </a>
                             </li>
                         </volist>
-                    </ul>
-                </div>
+                        </volist>
+       </ul>
 
               </div>
     </div>

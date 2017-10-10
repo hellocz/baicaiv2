@@ -3,9 +3,6 @@
 <head>
 <include file="public:head" />
 <link rel="stylesheet" href="/static/css/default/main.css" type="text/css">
-<script type="text/javascript"> var zhiyou_open = 1; </script>
-<script type="text/javascript" src="/js/userbase.1.0.min.js"></script>
-<script type="text/javascript" src="/js/main.js"></script>
 <style type="text/css">
   .w_r_tab{
     margin-top: 30px;
@@ -100,21 +97,14 @@
 
               <div class="rightPanel beyondHide">
 
-                <ul class="tab_nav" id="tabNav2">
-                    <li class="tab_faxian_li current_item"><h3>小时榜</h3></li>
-                    <li class="tab_faxian_li"><h3>24小时榜</h3></li>
-                    <!--
-                    <li class="more"><a href="" target="_blank">更多 &gt;</a></li>
-                    -->
-                </ul>
 
-                <div class="tab_info_con" style="display: block;">
-                    <ul class="ninePicBox">
-                        <volist name="hour_list" id="r">
+                 <div class="w_r3_1" style="margin-bottom: 16px;"><span class="w_r3_1_bd " id="rm1" onmouseover="setTab('rm',1,2,'w_r3_1_bd')"><h3>小时榜</h3></span><span  id="rm2" onmouseover="setTab('rm',2,2,'w_r3_1_bd')"><h3>24小时榜</h3></span></div>
+       <ul id="con_rm_1" class="ninePicBox ">
+         <volist name="hour_list" id="r">
                         <li class="re_pic" <if condition="!($i%3)">class="gogo"</if>>
                             <if condition="$i lt 4"><img class="re_tt" src="/images/tz_{$i}.png" /></if>
                             <a href="{:U('item/index',array('id'=>$r['id']))}" title="{$r.title}" target="_blank">
-                               <img src="<if condition="$r['img']==''">/images/nopic.jpg<else/> <if condition="preg_match('/img.baicaio.com/',$r['img'])">{:attach($r['img'],'item')}!thumb94<else/>{:attach($r['img'],'item')}</if></if>" alt="{$r.title}" style="width:94px; height:94px;">
+                                 <img src="<if condition="$r['img']==''">/images/nopic.jpg<else/> <if condition="preg_match('/img.baicaio.com/',$r['img'])">{:attach($r['img'],'item')}!thumb94<else/>{:attach($r['img'],'item')}</if></if>" alt="{$r.title}" style="width:94px; height:94px;">
                                 <div class="tabCon" style="z-index:999999;">
                                     <p>{$r.title|msubstr=0,16,""}</p>
                                     <span>{$r.price}</span>
@@ -122,16 +112,13 @@
                             </a>
                         </li>
                         </volist>
-                    </ul>
-                 </div>
-
-                <div class="tab_info_con" style="display: none;">
-                    <ul class="ninePicBox">
+       </ul>
+       <ul style="display:none"  id="con_rm_2" class="ninePicBox ">
                         <volist name="day_list" id="r">
                             <li class="re_pic" <if condition="!($i%3)">class="gogo"</if>>
                             <if condition="$i lt 4"><img class="re_tt" src="/images/tz_{$i}.png" /></if>
                             <a href="{:U('item/index',array('id'=>$r['id']))}" title="{$r.title}" target="_blank">
-                                <img src="<if condition="$r['img']==''">/images/nopic.jpg<else/> <if condition="preg_match('/img.baicaio.com/',$r['img'])">{:attach($r['img'],'item')}!thumb94<else/>{:attach($r['img'],'item')}</if></if>" alt="{$r.title}" style="width:94px; height:94px;">
+                                 <img src="<if condition="$r['img']==''">/images/nopic.jpg<else/> <if condition="preg_match('/img.baicaio.com/',$r['img'])">{:attach($r['img'],'item')}!thumb94<else/>{:attach($r['img'],'item')}</if></if>" style="width:94px; height:94px;">
                                 <div class="tabCon" style="z-index:999999;">
                                     <p>{$r.title|msubstr=0,16,""}</p>
                                     <span>{$r.price}</span>
@@ -139,8 +126,8 @@
                             </a>
                             </li>
                         </volist>
-                    </ul>
-                </div>
+                        </volist>
+       </ul>
 
               </div>
     </div>
