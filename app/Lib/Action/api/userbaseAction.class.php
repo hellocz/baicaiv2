@@ -8,6 +8,10 @@
 */
 class userbaseAction extends frontendAction
 {
+
+//        public function _initialize(){
+       // parent::_initialize();
+  //  }
     /**
      * 连接用户中心
      */

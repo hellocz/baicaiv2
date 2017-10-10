@@ -102,20 +102,47 @@ class shopAction extends userbaseAction
                     $q_list=explode("|",$q);
                     $q_info="";
                     $search_content= Array();
+                    $search_tags= Array();
+                    $search_orig = Array();
                     foreach($q_list as $key=>$r){
               //          $and=$key == 0 ? "" : " or ";
                   //      $q_info.="$or title like '%".$r."%' or intro like '%".$r."%' ";
                   //      $q_info.="$and title like %".$r."% ";
                    //     Array_push( $where['title'],'like',"%$r%");
                    //     $where['title']=array('like',"%$r%");
+                        $tag_count = M('tag')->where(array("name"=>$r))->count("id");
+                        $orig = M('item_orig')->field('id')->where(array("name"=>$r))->find();
+                   //     var_dump($orig);
+                        
+                        if($tag_count > 0 || count($orig) > 0){
+                            if($tag_count > 0){
+                  //           var_dump($tag_count);
+                             $search_tags[$key] ="%$r%";}
+                             if(count($orig) > 0){
+                                array_push($search_orig,$orig['id']);
+                             }
+                        }
+                        else{
                         $search_content[$key] ="%$r%";
+                        }
                     }
+                   
+                    if(count($search_tags)>0){
+            $where1['tag_cache']=array('like',$search_tags,'OR');
+            }
+                if(count($search_content)>0){
+            $where1['title']=array('like',$search_content,'OR');}
+              if(count($search_orig)>0){
+            $where1['orig_id']=array('in',$search_orig);
+        }
+       
+            $where1['_logic'] = 'OR';
+             $where['_complex'] =  $where1;
 
-                    $where['title'] =array('like',$search_content,'OR');
+                 //   $where['title'] =array('like',$search_content,'OR');
 
-                    $where['status'] =1;
- 
-                    $where['add_time'] =array('lt', $time);
+                 
+             //         var_dump($where);
 /*  
                     if(count($q_list) ==1){
 
@@ -128,6 +155,15 @@ class shopAction extends userbaseAction
                     $where['_complex'] = $where1;
      */           
        }
+       else{
+        echo get_result(10002,[]);return ;
+       }
+
+
+          $where['status'] =1;
+ 
+          $where['add_time'] =array('lt', $time);
+
 //        $field = 'i.id,i.uid,i.uname,i.title,i.intro,i.img,i.price,i.likes,i.intro,i.content,i.comments,i.comments_cache,i.add_time,i.orig_id,i.url,i.go_link,i.zan';
         $field = 'id,title,img,price,comments,likes,add_time,zan,go_link,hits,orig_id';
      
@@ -143,6 +179,7 @@ class shopAction extends userbaseAction
                 $val['shopid'] = $val['id'];
                 unset($val['id']);
             }
+            $item_list[$key]['name'] = getly($item_list[$key]['orig_id']);
             $item_list[$key]['zan'] = $item_list[$key]['zan']   +intval($item_list[$key]['hits'] /10);
             $val['go_link'] = array_shift(unserialize($val['go_link']));
         }
@@ -251,7 +288,11 @@ class shopAction extends userbaseAction
      */
     public function shopitem($data) {
         $id = $data['shopid'];
-        $item_mod = M('item');
+        if($data['type'] == "bl"){
+            $item_mod = M('item_diu');
+        }
+        else{
+        $item_mod = M('item');}
         $item = $item_mod->field('tag_cache,orig_id,title,img,intro,price,zan,likes,comments,add_time,content,status,go_link,hits')->where(array('id' => $id))->find();
         $item['zan'] =  $item['zan'] + intval($item['hits'] /10);
         if(!$item){
@@ -274,7 +315,12 @@ class shopAction extends userbaseAction
             $item['mylike'] = 1;
         }
         $go_link = unserialize($item['go_link']);
+         if($data['type'] == "bl"){
+            $item['fenxiang'] = 'http://www.baicaio.com/bao/'.$id.'.html';
+        }
+        else{
         $item['fenxiang'] = 'http://www.baicaio.com/item/'.$id.'.html';
+        }
         $item['go_link'] = array_shift($go_link);
         $tag_caches = unserialize($item['tag_cache']);
         $item['tag_cache'] = '';
@@ -359,9 +405,9 @@ class shopAction extends userbaseAction
         $time_day = $time - 86400;
 
         if($data['type'] == 1){
-            $list=M()->query("SELECT id,title,img,price,go_link,comments,likes,add_time,zan,hits from try_item  WHERE add_time between $time_hour and $time ORDER BY hits desc,add_time desc LIMIT 9");
+            $list=M()->query("SELECT id,title,orig_id,img,price,go_link,comments,likes,add_time,zan,hits from try_item  WHERE add_time between $time_hour and $time ORDER BY hits desc LIMIT 9");
         }else{
-            $list=M()->query("SELECT id,title,img,price,go_link,comments,likes,add_time,zan,hits from try_item  WHERE add_time between $time_day and $time ORDER BY hits desc,add_time desc LIMIT 9");
+            $list=M()->query("SELECT id,title,img,orig_id,price,go_link,comments,likes,add_time,zan,hits from try_item  WHERE add_time between $time_day and $time ORDER BY hits desc LIMIT 9");
         }
 
         foreach ($list as $key => &$val) {
@@ -369,6 +415,7 @@ class shopAction extends userbaseAction
                 $val['shopid'] = $val['id'];
                 unset($val['id']);
             }
+            $list[$key]['name'] = getly($list[$key]['orig_id']);
             $val['go_link'] = array_shift(unserialize($val['go_link']));
             $list[$key]['zan'] = $list[$key]['zan']   +intval($list[$key]['hits'] /10);
         }

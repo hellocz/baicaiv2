@@ -218,20 +218,48 @@ class userAction extends userbaseAction
     {
 
         $user = M('user')->where(array('mobile'=>$data['mobile'],'username'=>$data['mobile'],'email'=>$data['mobile'],'_logic'=>'OR'))->field('id,username,gender,score,password')->find();//查找用户
-        $passport = $this->_user_server();
+	$passport = $this->_user_server();
         $uid = $passport->auth($user['username'], $data['password']);
-
-        if ($uid){
+        if($uid){
             $info = [
                 'userid'    =>  $user['id'],
                 'username'    =>  $user['username'],
                 'gender'    =>  $user['gender'],
                 'score'    =>  $user['score'],
             ];
-        } else {
-            echo get_result(20001,'账号或密码错误');
-            return ;
+            $notify_tag_count = M('notify_tag')->where(array("userid"=>$user['id']))->count('id');
+            if($notify_tag_count == 0){
+                $notify_tag = M('notify_tag');
+                $notify_tag->add(array(
+                'userid' => $user['id'],
+                'tag' => "白菜",
+                'p_sign' => 1,
+                'f_sign' => 1
+            ));
+                $notify_tag->add(array(
+                'userid' => $user['id'],
+                'tag' => "手快有",
+                'p_sign' => 1,
+                'f_sign' => 1
+            ));
+                $notify_tag->add(array(
+                'userid' => $user['id'],
+                'tag' => "神价格",
+                'p_sign' => 1,
+                'f_sign' => 1
+            ));
+                $notify_tag->add(array(
+                'userid' => $user['id'],
+                'tag' => "BUG",
+                'p_sign' => 1,
+                'f_sign' => 1
+            ));
+            }
         }
+	else{
+	 echo get_result(20001,'账号或密码错误','账号或密码错误');
+         return ;
+	} 
         echo get_result(10001,$info);
     }
 
@@ -880,7 +908,7 @@ class userAction extends userbaseAction
     public function scorelist($data) {
 
     //    $cid = $data['cid'];
-        $type = $data['type'];
+    //    $type = $data['type'];
         $sort_order = 'id DESC';
         $page = $data['page'] * 10;
         $pagesize = 10;
@@ -888,7 +916,9 @@ class userAction extends userbaseAction
             $where['title'] = array('like', '%' . $data['title'] . '%');
         }
         $where['status'] = 1;
-        $type && $where['type'] = $type;
+      if(!empty($data['type']) || $data['type']=="0"){
+        $where['type'] =$data['type'];
+    }
         $score_item = M('score_item');
         $item_list = $score_item->where($where)->field('title,coin,score,img,id')->order($sort_order)->limit($page-10, $pagesize)->select();
         $code = 10001;
@@ -1453,6 +1483,34 @@ class userAction extends userbaseAction
 
         $result = $bind->add(['uid'=>$data['userid'],'type'=>$data['type'],'keyid'=>$data['keyid'],'info'=>serialize($data['info'])]);
         if($result){
+             $notify_tag_count = M('notify_tag')->where(array("userid"=>$data['userid']))->count('id');
+            if($notify_tag_count == 0){
+                $notify_tag = M('notify_tag');
+                $notify_tag->add(array(
+                'userid' => $data['userid'],
+                'tag' => "白菜",
+                'p_sign' => 1,
+                'f_sign' => 1
+            ));
+                $notify_tag->add(array(
+                'userid' => $data['userid'],
+                'tag' => "手快有",
+                'p_sign' => 1,
+                'f_sign' => 1
+            ));
+                $notify_tag->add(array(
+                'userid' => $data['userid'],
+                'tag' => "神价格",
+                'p_sign' => 1,
+                'f_sign' => 1
+            ));
+                $notify_tag->add(array(
+                'userid' => $data['userid'],
+                'tag' => "BUG",
+                'p_sign' => 1,
+                'f_sign' => 1
+            ));
+            }
             echo get_result(10001,'绑定成功');return ;
         } else {
             echo get_result(10001,'绑定失败');return ;
@@ -1476,6 +1534,35 @@ class userAction extends userbaseAction
             'gender'    =>  $userinfo['gender'],
             'score'    =>  $userinfo['score'],
         ];
+
+        $notify_tag_count = M('notify_tag')->where(array("userid"=>$userinfo['id']))->count('id');
+            if($notify_tag_count == 0){
+                $notify_tag = M('notify_tag');
+                $notify_tag->add(array(
+                'userid' => $userinfo['id'],
+                'tag' => "白菜",
+                'p_sign' => 1,
+                'f_sign' => 1
+            ));
+                $notify_tag->add(array(
+                'userid' => $userinfo['id'],
+                'tag' => "手快有",
+                'p_sign' => 1,
+                'f_sign' => 1
+            ));
+                $notify_tag->add(array(
+                'userid' => $userinfo['id'],
+                'tag' => "神价格",
+                'p_sign' => 1,
+                'f_sign' => 1
+            ));
+                $notify_tag->add(array(
+                'userid' => $userinfo['id'],
+                'tag' => "BUG",
+                'p_sign' => 1,
+                'f_sign' => 1
+            ));
+            }
 
         //登陆
         echo get_result(10001,$info);
