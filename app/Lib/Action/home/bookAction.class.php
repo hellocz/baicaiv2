@@ -333,8 +333,8 @@ class bookAction extends frontendAction {
         $this->assign('page_bar', $pager->fshow());
         
         //热门置顶
-        $hot_list =  M("item")->where("status=1 and add_time<$time and add_time >$time_one_day  and (title like '%白菜%' or title like '%神价格%' or title like '%手快有%' or title like '%手慢无%' or title like '%bug价%')")->field('id ,title, img')->order(' hits desc ')->limit(10)->select();
-        $this->assign("hot_list",$hot_list);
+   //     $hot_list =  M("item")->where("status=1 and add_time<$time and add_time >$time_one_day  and (title like '%白菜%' or title like '%神价格%' or title like '%手快有%' or title like '%手慢无%' or title like '%bug价%')")->field('id ,title, img')->order(' hits desc ')->limit(10)->select();
+    //    $this->assign("hot_list",$hot_list);
         //SEO
             $this->_config_seo(C('pin_seo_config.cate'), array(
             'cate_name' => '白菜',

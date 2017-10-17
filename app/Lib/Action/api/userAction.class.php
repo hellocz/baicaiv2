@@ -268,11 +268,11 @@ class userAction extends userbaseAction
         $mod = M("user");
         //查询是否已签到
         $user = $mod->where("id=".$data['userid'])->find();
-        $time = time();
         $signtime=$user['sign_date'];
-        $ds=intval(($time-$signtime)/86400); //60s*60min*24h
+        $date = strtotime(date('Ymd'));
+        $ds=intval($date-$signtime); 
         $userinfo = [];
-        if($ds == 0) {
+        if($ds <= 0) {
             //已签到
             $userinfo['is_sign'] = 1;
         }else{
@@ -678,6 +678,7 @@ class userAction extends userbaseAction
         $user = $mod->where("id=".$data['userid'])->find();
         $time = time();
         $signtime=$user['sign_date'];
+        $date = strtotime(date('Ymd'));
         $ds=intval(($time-$signtime)/86400); //60s*60min*24h
         $data['id']=$user['id'];
         $data['sign_date']=$time;
@@ -690,7 +691,7 @@ class userAction extends userbaseAction
             //积分日志
             set_score_log($user,'sign',8,'','',8);
             echo get_result(10001,'您已连续签到1天，成功获取8个积分！');
-        }elseif($ds==0){//当天以签到
+        } elseif($signtime >= $date){//当天以签到
             echo get_result(10001,'您今天已签到');
         }else{//否则在原基础上+1
             $max_score = $user['sign_num']+8;

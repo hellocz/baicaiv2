@@ -53,7 +53,7 @@ class QqTOAuthV2 {
         }
     }
     function getOpenid($access_token) {
-        $graph_url = "https://graph.qq.com/oauth2.0/me?access_token=" . $access_token;
+        $graph_url = "https://graph.qq.com/oauth2.0/me?access_token=" . $access_token . "&unionid=1";
         $str  = file_get_contents($graph_url);
         if (strpos($str, "callback") !== false) {
             $lpos = strpos($str, "(");
@@ -66,7 +66,7 @@ class QqTOAuthV2 {
             echo "<h3>msg  :</h3>" . $user->error_description;
             exit;
         }
-        return $user->openid;
+        return $user->unionid;
     }
     function getUserInfo($access_token, $openid) {
         $get_user_info = "https://graph.qq.com/user/get_user_info?"
