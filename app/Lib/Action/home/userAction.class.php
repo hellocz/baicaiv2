@@ -122,6 +122,23 @@ class userAction extends userbaseAction {
             tag('login_end', $tag_arg);
             //同步登陆
 			$synlogin = $passport->synlogin($uid);
+
+            if (cookie('user_bind_info')) {
+                $user_bind_info = object_to_array(cookie('user_bind_info'));
+                $oauth = new oauth($user_bind_info['type']);
+                $bind_info = array(
+                    'pin_uid' => $uid,
+                    'keyid' => $user_bind_info['keyid'],
+                    'bind_info' => $user_bind_info['bind_info'],
+                );
+                $oauth->bindByData($bind_info);
+                //临时头像转换
+                $this->_save_avatar($uid, $user_bind_info['temp_avatar']);
+                //清理绑定COOKIE
+                cookie('user_bind_info', NULL);
+                $this->success(L('bind_successe').$username.$synlogin, U('user/index'));
+            }
+
             if (IS_AJAX) {
                 $this->ajaxReturn(1, L('login_successe').$synlogin);
             } else {
@@ -171,6 +188,17 @@ class userAction extends userbaseAction {
         $this->assign("page_seo",set_seo('用户绑定'));
         $this->display();
     }
+
+     /**
+     * 已存在用户绑定
+     */
+    public function bind_exist() {
+        $user_bind_info = object_to_array(cookie('user_bind_info'));
+        $this->assign('user_bind_info', $user_bind_info);
+        $this->assign("page_seo",set_seo('已存在用户绑定'));
+        $this->display();
+    }
+
 
     /**
     * 用户注册

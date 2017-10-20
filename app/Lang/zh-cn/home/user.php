@@ -22,6 +22,7 @@ return array(
     'username_length_error' => '用户名长度错误，应保持在20位之内',
     'username_exists' => '这昵称太热门了，被别人抢走啦，换一个吧',
     'register_successe' => '恭喜！您已完成注册',
+    'bind_successe' => '恭喜！您已完成绑定',
     'auth_failed' => '密码错误',
     'user_protected' => '该用户受保护',
     'invalid_user_name' => '无效的用户名',
@@ -78,6 +79,8 @@ return array(
     'gobind' => '去绑定',
 
     'binding_title' => '完善信息',
+
+    'bind_exist' => '绑定已有账号',
 
     'follow_invalid_user' => '请选择关注的用户',
     'follow_self_not_allow' => '不能关注您自己',
