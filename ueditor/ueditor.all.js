@@ -10770,7 +10770,7 @@ UE.plugins['autotypeset'] = function(){
  * ```javascript
  * editor.execCommand( 'autosubmit' );
  * ```
- */
+ 
 
 UE.plugin.register('autosubmit',function(){
     return {
@@ -10794,7 +10794,7 @@ UE.plugin.register('autosubmit',function(){
         }
     }
 });
-
+*/
 // plugins/background.js
 /**
  * 背景插件，为UEditor提供设置背景功能
@@ -11150,6 +11150,14 @@ UE.commands['insertimage'] = {
         }
 
         me.fireEvent('afterinsertimage', opt)
+    }
+};
+
+UE.commands['insertcard'] = {
+    execCommand:function (cmd, opt) {
+        var me = this;
+          me.execCommand('insertHtml',opt);
+
     }
 };
 
@@ -27675,6 +27683,7 @@ UE.ui = baidu.editor.ui = {};
         'help':'~/dialogs/help/help.html',
         'preview':'~/dialogs/preview/preview.html',
         'emotion':'~/dialogs/emotion/emotion.html',
+        'insertcard':'~/dialogs/insertcard/insertcard.html',
         'wordimage':'~/dialogs/wordimage/wordimage.html',
         'attachment':'~/dialogs/attachment/attachment.html',
         'insertframe':'~/dialogs/insertframe/insertframe.html',
@@ -27696,7 +27705,7 @@ UE.ui = baidu.editor.ui = {};
         'blockquote', 'pasteplain', 'pagebreak',
         'selectall', 'print','horizontal', 'removeformat', 'time', 'date', 'unlink',
         'insertparagraphbeforetable', 'insertrow', 'insertcol', 'mergeright', 'mergedown', 'deleterow',
-        'deletecol', 'splittorows', 'splittocols', 'splittocells', 'mergecells', 'deletetable', 'drafts'];
+        'deletecol', 'splittorows', 'splittocols', 'splittocells', 'mergecells', 'deletetable', 'drafts','insertcard'];
 
     for (var i = 0, ci; ci = btnCmds[i++];) {
         ci = ci.toLowerCase();
@@ -28422,6 +28431,23 @@ UE.ui = baidu.editor.ui = {};
     // 表情
     editorui["emotion"] = function (editor, iframeUrl) {
         var cmd = "emotion";
+        var ui = new editorui.MultiMenuPop({
+            title:editor.options.labelMap[cmd] || editor.getLang("labelMap." + cmd + "") || '',
+            editor:editor,
+            className:'edui-for-' + cmd,
+            iframeUrl:editor.ui.mapUrl(iframeUrl || (editor.options.iframeUrlMap || {})[cmd] || iframeUrlMap[cmd])
+        });
+        editorui.buttons[cmd] = ui;
+
+        editor.addListener('selectionchange', function () {
+            ui.setDisabled(editor.queryCommandState(cmd) == -1)
+        });
+        return ui;
+    };
+
+    // 表情
+    editorui["insertcard"] = function (editor, iframeUrl) {
+        var cmd = "insertcard";
         var ui = new editorui.MultiMenuPop({
             title:editor.options.labelMap[cmd] || editor.getLang("labelMap." + cmd + "") || '',
             editor:editor,

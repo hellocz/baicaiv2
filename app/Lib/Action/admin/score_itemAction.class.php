@@ -11,8 +11,8 @@ class score_itemAction extends backendAction
 
     public function _before_index() {
         //默认排序
-        $this->sort = 'ordid';
-        $this->order = 'ASC';
+        $this->sort = 'sign_date';
+        $this->order = 'desc';
 
         $res = $this->_cate_mod->field('id,name')->select();
         $cate_list = array();
@@ -43,6 +43,7 @@ class score_itemAction extends backendAction
     }
 
     protected function _before_insert($data) {
+        $data['sign_date']=strtotime($_POST['sign_date']);
         //上传图片
         if (!empty($_FILES['img']['name'])) {
             $time_dir = date('ym/d/');
@@ -64,6 +65,7 @@ class score_itemAction extends backendAction
     }
 
     protected function _before_update($data) {
+        $data['sign_date']=strtotime($_POST['sign_date']);
         if (!empty($_FILES['img']['name'])) {
             $time_dir = date('ym/d/');
             //删除原图
@@ -89,5 +91,39 @@ class score_itemAction extends backendAction
         }
 
         return $data;
+    }
+
+    public function get_latest_lottery(){
+     $filename = "http://f.apiplus.net/pl5-1.json";
+     $json_string = file_get_contents($filename);
+     $data = json_decode($json_string, true);
+     $lottery = $data['data'][0]['opencode'];
+     $lottery = str_replace(",","",$lottery);
+     $this->ajaxReturn(1,"最新福彩开奖号码",$lottery);        //打印文件的内容
+     
+    }
+
+    public function computer_lucky_num(){
+        $id = $this->_get('id');
+        $lottery = $this->_get('lottery', 'intavl');
+        $buy_num = $this->_get('buy_num', 'intavl');
+        if ($lottery == "" || $buy_num =="")
+           { $this->ajaxReturn(0, L('operation_failure'));}
+        $win = $lottery%$buy_num +1;
+
+        $order = M("score_order")->where(array('item_id'=>$id,'luckdraw_num'=>$win))->find();
+
+        $order['win'] = $win;
+
+        if($order['mobile'] == ''){
+            $order_addtion = M("score_order")->where(array('item_id'=>$id,'uname'=>$order['uname'],'mobile' !=''))->find();
+            $order['consignee'] = $order_addtion['consignee'];
+            $order['address'] = $order_addtion['address'];
+            $order['zip'] = $order_addtion['zip'];
+            $order['mobile'] = $order_addtion['mobile'];
+        }
+
+        $this->ajaxReturn(1,"中奖相关信息",$order); 
+
     }
 }

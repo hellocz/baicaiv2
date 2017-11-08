@@ -78,7 +78,7 @@ class itemAction extends frontendAction {
         $map = array('item_id' => $id);
         $count = $item_comment_mod->where($map)->count('id');
         $pager = $this->_pager($count, $pagesize);
-        $pager->path = 'comment_list';
+        $pager->path = 'ajax/comment_list';
         $pager_bar = $pager->fshow();
         $cmt_list = $item_comment_mod->where($map)->order('id DESC')->limit($pager->firstRow . ',' . $pager->listRows)->select();
         if($isbao==1){
@@ -109,8 +109,8 @@ class itemAction extends frontendAction {
         $this->assign('cmt_list', $cmt_list);
         $this->assign('page_bar', $pager_bar);
         $this->_config_seo(C('pin_seo_config.item'), array(
-            'item_title' => $item['title'],
-            'item_intro' => substr($item['content'],0,200),
+            'item_title' => trim($item['title'])  . trim($item['price']) . "_" . trim(getly($item['orig_id'])) . "优惠_" . "白菜哦",
+            'item_intro' => substr(strip_tags($item['content']),0,200),
             'item_tag' => implode(' ', $item['tag_list']),
             'user_name' => $item['uname'],
             'seo_title' => $item['seo_title'],
@@ -125,10 +125,10 @@ class itemAction extends frontendAction {
         $this->assign("strpos",$strpos);
         $add_time = intval($item['add_time']);
         $time = time();
-        $pre = $item_mod->where("add_time<$add_time and status=1")->field("id,title")->order("add_time desc,id desc")->find();
-        $next = $item_mod->where("add_time>$add_time and add_time <$time and status=1")->field("id,title")->find();
-        $this->assign("pre",$pre);
-        $this->assign("next",$next);
+     //   $pre = $item_mod->where("add_time<$add_time and status=1")->field("id,title")->order("add_time desc,id desc")->find();
+     //   $next = $item_mod->where("add_time>$add_time and add_time <$time and status=1")->field("id,title")->find();
+     //   $this->assign("pre",$pre);
+     //   $this->assign("next",$next);
         //评论
         $this->assign('xid',1);
         $this->assign('itemid',$id);    
@@ -387,6 +387,12 @@ class itemAction extends frontendAction {
                       }
                       elseif(strpos($href, "uland.taobao.com") !== false){
                           $e->href=$this->converturl($href);
+                      }
+                      elseif(strpos($href, "https://s.click.taobao.com/1D7zLZw") !== false){
+                           $e->href="https://s.click.taobao.com/e3rM4Zw";
+                      }
+                      elseif(strpos($href, "http://mo.m.taobao.com/union/1111yushou") !== false){
+                           $e->href="https://s.click.taobao.com/zOyM4Zw";
                       }
                       else{
                         $e->removeAttribute("href");
@@ -956,5 +962,21 @@ function get_photo($url,$file_num,$savefile='ueditor/php/upload/image/')
         } else {
             $this->ajaxReturn(0, L('operation_failure'));
         }
+    }
+
+    public function seo(){
+      $book['title'] = "{tag_name}怎么样_{tag_name}好不好_{tag_name}优惠信息_报价评测_{site_name}";
+      $book['keywords'] = "{tag_name},{site_name}";
+      $book['description'] = "{site_name}的{tag_name}信息汇总，提供特价促销资讯、每日价格行情比价，横向对比评测等，每篇文章都来自{site_name}专业编辑的良心推荐。";
+      
+      $orig['title'] = "精选{orig_name}促销汇总_好价推荐_{site_name}";
+      $orig['keywords'] = "{orig_name},优惠信息,促销活动";
+      $orig['description'] = "{site_name}关于{orig_name}的专题页，包含{orig_name}最新促销活动、优惠信息、优惠券、网友晒单评测等，导购就看{site_name}！";
+      
+
+      var_dump(serialize($orig));
+
+
+
     }
 }

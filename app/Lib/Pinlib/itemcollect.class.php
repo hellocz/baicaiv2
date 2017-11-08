@@ -68,7 +68,7 @@ class itemcollect {
         }
         //获取京东商品信息
         if(strpos($url, "item.jd.com")){
-            //preg_match('/<img data-img="1" width="350" height="350"[^>]* src="([^"]*)"[^>]*>/', $html, $img);
+            preg_match('/<span class="price[^>]+>[^<]*</', $html, $price);
             preg_match('/<img id="spec-img"[^>]* data-origin="([^"]*)"[^>]*>/', $html, $img);
             preg_match_all('/<img[^>]* data-url=\'([^\']*)\' data-img=\'1\' width=\'54\' height=\'54\'>/', $html, $imgs);
 

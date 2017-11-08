@@ -31,6 +31,21 @@ class crontabAction extends frontendAction {
 
     }
 
+    /**
+     * 商品详细页
+     */
+    public function update_lucky_num() {
+       
+      $score_list= M('score_order')->where("item_id=8")->order("add_time asc")->select();
+      $i=1;
+      foreach ($score_list as $score) {
+        $score['luckdraw_num'] = $i++;
+        M('score_order')->where(array('id'=>$score['id']))->save($score);
+      }
+      
+      echo $count;
+    }
+
     public function baicai_push_generator(){
       $time =time();
         $fivemin_before = $time -300;

@@ -1,0 +1,231 @@
+﻿.tm_bannerface{
+    font-family:Arial,"Microsoft YaHei","微软雅黑"; 
+}
+/* 大标题 */
+.tm_title{
+    padding:12px 0;
+    font-size:15px;
+    color:#fff;
+    text-align:center;
+}
+.tm_title1{
+    padding:30px 0;
+}
+.tm_title font{
+    padding:0 10px;
+    font-size:12px;
+    font-weight:700;
+    vertical-align:1px;
+}
+.tm_type{
+    display:inline-block;
+    margin:0 10px;
+    font-size:18px;
+    font-weight:700;
+    vertical-align:middle;
+}
+.arr_right{
+    background-image:url('https://i.huim.com/zhuanti/20161111/m_ico.png');
+    background-repeat:no-repeat;
+    background-size:85px 96px;    
+}
+.tm_tit_ic{
+    display:inline-block;
+    vertical-align:middle;
+    width:38px;
+    height:13px;
+    background-repeat:no-repeat;
+    background-size:38px auto;    
+}    
+.tm_tit_icl{
+    background-image:url('https://i.huim.com/zhuanti/20171111/1111_m_title_left.png');
+}
+.tm_tit_icr{
+    background-image:url('https://i.huim.com/zhuanti/20171111/1111_m_title_right.png');
+}
+
+/* 导航 */
+.tm_nav_area ul{
+    display:block;
+    display:-moz-box; 
+    display:-webkit-box; 
+    display:box;
+    height:40px;
+    background-color:#463f54;
+}
+.tm_nav_area li{
+    -moz-box-flex:1; 
+    -webkit-box-flex:1; 
+    box-flex:1;
+    height:40px; 
+    line-height:40px;
+    font-size:16px;
+    color:#fff;
+    text-align:center;
+}
+.tm_nav_area li.current{
+    background:#8c4dff;
+}
+.tm_nav_area li.current i{
+    display:inline-block;
+}
+.tm_nav_area li i{
+    display:none;
+    width:10px;
+    height:14px;
+    margin-right:3px;
+    vertical-align:-2px;
+    background-image:url('https://i.huim.com/zhuanti/20161111/ms_nav_ico.png');
+    background-repeat:no-repeat;
+    background-size:cover;
+}
+
+.tm_nav_area.fixed_nav{
+    position:fixed;
+    top:0;
+    width:100%;
+    z-index:10;
+    -webkit-overflow-scrolling: touch;
+}
+.tm_nav_spac{ height:40px; display:none;}
+.tm_activity ul{
+    width:1040px;
+}
+.tm_activity li{
+    float:left;
+    width:241px;
+    height:241px;
+    margin-right:12px;
+    margin-bottom:12px;
+    background-color:#ccc;
+}
+
+.timeline{
+    width:100%;
+    padding-left:8px; 
+    margin-bottom:5px;
+    box-sizing:border-box;
+}
+.timeline li{
+    float:left;
+    width:33.33%;  
+    padding-right:10px;
+    margin-bottom:4px;
+    box-sizing:border-box;
+}
+.timeline li a{
+    display:block;
+    padding:16px 0;
+     
+}
+.timeline li .time_line{
+    display:block;
+    margin:0 10px;
+    text-align:center;
+    height:18px;
+    line-height:18px;
+    background:#fff;
+    border-radius:18px;
+    font-size:12px;
+}
+.timeline li .line_name{
+    display:block;
+    padding-top:5px;
+    text-align:center;
+    color:#fff;
+    font-size:14px;
+}
+.timeline li{
+    position:relative;
+}
+.timeline li .bg{
+    position:absolute;
+    width:100%;
+    height:100%;
+    margin-right:5px;
+    background:rgba(0,0,0,0.7);
+ }
+
+/* 活动底部标识 */
+.bottom_pic{
+     margin:15px auto 10px;
+     width:85px;
+     height:24px;
+     background:url(https://i.huim.com/zhuanti/20171111/1111_m_logo.png) no-repeat top center;
+     background-size: cover; 
+}
+
+/* 商品列表 */
+.goods_list li{
+    float:left;
+    display:block;
+    margin-bottom:5px;
+    width:50%;
+    padding-right: 5px;
+    -webkit-box-sizing:border-box;
+    box-sizing:border-box;
+}
+.goods_list{
+    margin-left:5px;
+}
+.goods_list a{
+    display:block;
+    padding-bottom:5px;
+    background-color:#fff;
+    font-size:12px;
+}
+.goods_list img{
+    display:block;
+    width:100%;
+}  
+.goods_list .g_title{
+    color:#333;
+    line-height:22px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}     
+.goods_list .g_price{
+    font-size:13px;
+    color:#ff443f;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}   
+.goods_list .g_title,.goods_list .g_price{
+    margin:0 10px;
+    font-weight:700;
+}
+.goods_list .g_btn,.goods_btn{
+    margin:12px 10px 0;
+    text-align:center;
+    line-height:30px;
+    color:#fff;
+    border-radius:3px;
+}
+.goods_btn{
+    margin:0;
+}      
+.goods_list .g_btn span,.goods_btn span{
+    display: inline-block;
+    vertical-align:middle;
+}
+.goods_list .arr_right{
+    display: inline-block;
+    vertical-align:middle;
+    margin-left: 4px;
+    width: 3px;
+    height: 5px;
+    background: url(https://i.huim.com/zhuanti/20161111/m_ico.png) 0 -62px/85px 96px;;
+}
+.goods_box{
+    padding:10px 12px;
+    font-size:12px;
+}
+.goods_title,.goods_price{
+    margin-bottom:10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height:1.2;
+}

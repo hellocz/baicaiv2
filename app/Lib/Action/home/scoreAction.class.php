@@ -12,7 +12,7 @@ class scoreAction extends userbaseAction {
         $pagesize = 4;
         $count = $score_order_mod->where($map)->count('id');
         $pager = $this->_pager($count, $pagesize);
-        $order_list = $score_order_mod->field('id,order_sn,item_id,item_name,order_score,order_coin,status,add_time,remark')->where($map)->limit($pager->firstRow.','.$pager->listRows)->order('id DESC')->select();
+        $order_list = $score_order_mod->field('id,order_sn,item_id,item_name,order_score,order_coin,status,add_time,remark,luckdraw_num')->where($map)->limit($pager->firstRow.','.$pager->listRows)->order('id DESC')->select();
         $this->assign('order_list', $order_list);
         $this->assign('page_bar', $pager->fshow());
         $this->_curr_menu('order');

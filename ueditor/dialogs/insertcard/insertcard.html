@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="robots" content="noindex, nofollow"/>
+    <script type="text/javascript" src="../internal.js"></script>
+    <script type="text/javascript" src="../../third-party/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="emotion.css">
+    <style type="text/css">
+        .td_img{ width: 50px; }
+        .url{width:500px;}
+        .div_url span{height:34px;display:block; float: left;margin:1px 1px;text-align:center;line-height:34px;}
+        .img{ width:140px;height: 140px;}
+        .content_table {display: none}
+        td input{width: 334px;}
+    </style>
+</head>
+<body>
+<div>
+    <span>
+        插入卡片
+    </span>
+</div>
+<hr>
+<div class="div_url">
+    <span>
+        链接:
+    </span><textarea class="url" name="url" ></textarea>
+</div>
+<div >
+    <div id="res-for-url">
+        <form id="formres" class="formres" method="post" onkeydown="if(event.keyCode==13){return false;}">
+            <table class="content_table">
+                <tbody>
+                <tr>
+                    <td class="td_img" rowspan="4">
+                       <img src="" class="img">
+                    </td>
+                    <td>名称:</td>
+                    <td><input id="title" name="title" placeholder="必填"></td>
+                </tr>
+                <tr>
+                    <td>
+                        描述:
+                    </td>
+                    <td><input id="desc" name="desc" ></td>
+                </tr>
+                <tr>
+                    <td>
+                        价格:
+                    </td>
+                    <td><input id="price" name="price" placeholder="必填"></td>
+                </tr>
+                <tr>
+                    <td>
+                        商城:
+                    </td>
+                    <td><input id="shopping_name" name="shopping_name"></td>
+                </tr>
+                
+            </tbody></table>
+            <div class="before">
+                        <div class="not left">注：您输入的链接将以卡片的形式展示出来哦</div>
+                        <a id="btn2" class="button btn2">取消</a>
+                        <a id="btn1" onclick="getinfo();" class="button btn1">获取信息</a>
+                        <a id="btn3" onclick="insertcard();" style="display: none" class="button btn3">插入</a>
+                   </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+
+    function getinfo() {
+
+        $.post('/?g=admin&m=item&a=get_card',{url:$(".url").val()}, function(result){
+
+            if(result.status == 1){
+                $(".content_table").show();
+                $(".btn3").show();
+                if(result.data.url.convert_url !==""){
+                $(".url").val(result.data.url.convert_url);
+                $("#shopping_name").val(result.data.url.shopping_name);}
+                $(".img").attr('src',result.data.img); 
+                $("#title").val(result.data.title);
+                $("#desc").val(result.data.desc);
+                $("#price").val(result.data.price);
+            }
+
+        },"json");
+     
+}
+
+function insertcard(url,img,title,desc,price,shopping_name) {
+
+    var url = $(".url").val();
+    var img = $(".img").attr('src');
+    var title = $("#title").val();
+    var desc = $("#desc").val();
+    var price = $("#price").val();
+    var shopping_name = $("#shopping_name").val();
+
+    var content  = '<span class="embed-card main-site res_baicaio"><span class="embed-card-logo res_baicaio"><img class="res_baicaio" src="'+ img+'"></span><span class="embed-card-info  res_baicaio"><span class="card-name res_baicaio">'+title + '<strong class="price res_baicaio">' + price + '元</strong></span><span class="card-abstract res_baicaio">'+ desc + '</span><span class="card-controls res_baicaio"><span class="mall-data res_baicaio">' + shopping_name +'</span><a target="_blank" href="' + url + '"><span class="card-btn-deep res_baicaio">去购买</span></a></span></span></span>';
+
+                editor.execCommand( 'insertcard', content); 
+}
+</script>
+</body>
+</html>

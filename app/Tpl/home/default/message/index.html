@@ -9,6 +9,13 @@
 <css file="__STATIC__/css/default/user.css" />
 
 </head>
+<style type="text/css">
+  
+  .ml_content .ml_read {
+    color: #666666;
+    float: right;
+}
+</style>
 
 
 
@@ -68,7 +75,7 @@
 
                             </p>
 
-                            <a href="{:U('message/talk', array('ftid'=>$talk['ftid']))}" class="ml_all">{:sprintf(L('see_all_talk'),$talk['num'])}</a>
+                            <a href="{:U('message/talk', array('ftid'=>$talk['ftid']))}" class="<if condition="$talk['ck_status'] eq 0 && $talk['from_id'] neq $visitor['id']">ml_all<else/>ml_read</if>">{:sprintf(L('see_all_talk'),$talk['num'])}</a>
 
                         </div>
 

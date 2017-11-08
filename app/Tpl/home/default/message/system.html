@@ -44,7 +44,7 @@
 
                 <li>
 
-                    <p class="sys_text clr6 fl">{$val.info}</p>
+                    <p class="sys_text clr6 fl"><if condition="preg_match('/领取优惠券/',$val['info'])"><a href="{:U('user/tick')}">{$val.info}</a><else/>{$val.info}</if></p>
 
                     <a href="javascript:" class="sys_time fr xx_ss"  data-id = "{$val.id}"><span  style="margin-left: 10px;">删除</span></a>
 

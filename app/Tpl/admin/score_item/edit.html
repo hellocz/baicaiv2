@@ -83,6 +83,14 @@
 					</tr>-->
 					<tr>
 
+						<th>商品价格 :</th>
+
+						<td><input type="text" name="price" id="price" class="input-text" value="{$info.price}" size="10" onkeyup="this.value=this.value.replace(/[^0-9.]/g,'')" onafterpaste="this.value=this.value.replace(/[^0-9.]/g,'')"></td>
+
+					</tr>
+
+					<tr>
+
 						<th>所需积分 :</th>
 
 						<td><input type="text" name="score" id="score" class="input-text" value="{$info.score}" size="10" onkeyup="this.value=this.value.replace(/[^0-9.]/g,'')" onafterpaste="this.value=this.value.replace(/[^0-9.]/g,'')"></td>
@@ -114,9 +122,56 @@
 
 					<tr>
 
+						<th>已兑数量 :</th>
+
+						<td><input type="text" value="{$info.buy_num}" class="input-text buy_num" size="10" onkeyup="this.value=this.value.replace(/[^0-9.]/g,'')" onafterpaste="this.value=this.value.replace(/[^0-9.]/g,'')"></td>
+
+					</tr> 
+
+					<tr>
+
 						<th>排序值 :</th>
 
 						<td><input type="text" name="ordid" value="{$info.ordid}" id="ordid" class="input-text" size="10" onkeyup="this.value=this.value.replace(/[^0-9.]/g,'')" onafterpaste="this.value=this.value.replace(/[^0-9.]/g,'')"></td>
+
+					</tr>
+
+					<tr>
+
+						<th>结束时间 :</th>
+
+						<td>
+						<input type="text"   name="sign_date" id="sign_date" size="25" class="input-text" value="<if condition="$info['sign_date'] != 0 "> {$info.sign_date|date='Y-m-d H:i:s',###}<else/><?php echo  date('Y-m-d H:i:s',time());?> </if>"/>
+					</td>
+
+					</tr>
+
+					<tr>
+
+						<th><input type="button" value="福彩号码" id="get_lottery" name="" class="btn"> :</th>
+
+						<td>
+						<input type="text"   name="lottery" id="lottery" size="25" class="input-text" value="{$info.lottery}">
+						<input type="button" value="核对号码无误,计算中奖号码" id="jisuan" name="" class="btn">
+					</td>
+
+					</tr>
+
+					<tr>
+
+						<th>中奖号码 :</th>
+
+						<td><input type="text" name="win" id="win" value="{$info.win}" class="input-text" size="10" onkeyup="this.value=this.value.replace(/[^0-9.]/g,'')" onafterpaste="this.value=this.value.replace(/[^0-9.]/g,'')"></td>
+
+					</tr>
+
+					<tr>
+
+						<th>中奖用户 :</th>
+
+						<td><input type="text" name="win_user" id="win_user" value="{$info.win_user}" class="input-text" size="20">
+							<span id="address"></span>
+						</td>
 
 					</tr>
 
@@ -159,6 +214,41 @@
 <script src="__STATIC__/js/kindeditor/kindeditor.js"></script>
 
 <script type="text/javascript">
+	$("#get_lottery").click(function(){
+		$.getJSON('{:U("score_item/get_latest_lottery")}', function(result){
+
+			if(result.status == 1){
+				$('#lottery').val(result.data);
+
+			}else{
+
+				$.pinphp.tip("请求失败");
+
+			}
+
+		});
+	});
+
+	$("#jisuan").click(function(){
+		var lottery = $('#lottery').val();
+		var buy_num = $(".buy_num").val();
+		var id = $("#id").val();
+
+
+		$.getJSON('{:U("score_item/computer_lucky_num")}',{lottery:lottery,buy_num:buy_num,id:id}, function(result){
+
+					if(result.status == 1){
+						$('#win').val(result.data.win);
+						$('#win_user').val(result.data.uname);
+						$('#address').text(result.data.consignee + " " + result.data.address + " " + result.data.zip + " " +result.data.mobile);
+					}else{
+
+						$.pinphp.tip("请求失败");
+
+					}
+
+				});
+	});
 
 $('.J_cate_select').cate_select('请选择');
 

@@ -31,9 +31,9 @@
 	<pin:scoreitem type="cate" return="cate_list">
 
 	<volist name="cate_list" id="cate">
-
+<if condition="$cate['id'] neq '8'">
 	<a href="{:U('exchange/index',array('cid'=>$cate['id']))}" title="{$cate.name}"> <span <if condition="$cid eq $cate['id']">class="w_js_qd"</if>>{$cate.name}</span></a>
-
+</if>
 	</volist>
 
 	</pin:scoreitem>
@@ -52,11 +52,13 @@
 
          <h2>{$item.title}</h2>
 
-         <p>金币 {$item.coin}</p>
+         <p>金币: {$item.coin}</p>
 
-         <p>积分 {$item.score}</p>
+         <p>积分: {$item.score}</p>
 
-         <p>剩余 {$item.stock} 件</p>
+         <p>已兑: {$item.buy_num}</p>
+
+         <p>结束时间: {$item.sign_date|date='Y-m-d H:i:s',###}</p>
 
        </a>
 

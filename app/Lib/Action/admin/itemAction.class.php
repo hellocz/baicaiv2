@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 class itemAction extends backendAction {
     public function _initialize() {
         parent::_initialize();
@@ -252,6 +252,76 @@ class itemAction extends backendAction {
             $this->display();
         }
     }
+
+    public function get_card(){
+        $url = $this->_post('url', 'trim');
+        $url == '' && $this->error(L('please_input') . L('correct_itemurl'));
+        //获取商品信息
+        $itemcollect = new itemcollect();
+        $info = $itemcollect->url_parse($url);
+        if(!empty($info)){
+            $info['url'] = $this->converturl($url);
+        }
+
+        $encode = mb_detect_encoding($info['title'], array("ASCII",'UTF-8',"GB2312","GBK",'BIG5'));
+        if($encode != 'UTF-8'){
+            $info['title'] = mb_convert_encoding($info['title'], 'UTF-8', $encode);
+        }
+        $info['img'] = $this->get_photo($info['img'],0);
+        $info['encode'] = $encode;
+        $this->ajaxReturn(1,"商品信息",$info);
+    }
+
+    function get_photo($url,$file_num,$savefile='ueditor/php/upload/image/')   
+{     
+    $imgArr = array('gif','bmp','png','ico','jpg','jepg');  
+
+    $url = preg_replace('/\?.*/',"",$url);
+
+    $url = preg_replace('/https/','http',$url);
+  
+    if(!$url) return false;  
+    
+    if(!$filename) {     
+      $ext=strtolower(end(explode('.',$url)));     
+ //     if(!in_array($ext,$imgArr)) return false;  
+      $filename=time(). "_" .$file_num . '.'.$ext;     
+    } 
+    $savefile = $savefile . date("Ymd") . "/";    
+  
+    if(!is_dir($savefile)) mkdir($savefile, 0777);  
+    if(!is_readable($savefile)) chmod($savefile, 0777);  
+      
+    $filename = $savefile.$filename;  
+  
+    ob_start();     
+    readfile($url);     
+    $img = ob_get_contents();     
+   
+    ob_end_clean(); 
+
+    //  $img=base64_decode($img);
+        $str = uniqid(mt_rand(),1);
+
+        $file = 'upload/'.md5($str).'.jpg';
+        $art_add_time = date('ym/d');
+        $upload_path = '/'.C('pin_attach_path') . 'bao/'. $art_add_time.'/'.md5($str).'.jpg';
+        file_put_contents($file, $img);
+            $art_add_time = date('ym/d');
+            $upyun = new UpYun2('baicaiopic', '528', 'lzw123456');
+            $fh = fopen($file, 'rb');
+            $rsp = $upyun->writeFile($upload_path, $fh, True);   // 上传图片，自动创建目录
+            fclose($fh);
+        @unlink ($file);
+        $data = IMG_ROOT_PATH.'/data/upload/bao/'. $art_add_time.'/'.md5($str).'.jpg';
+    //$size = strlen($img);     
+    
+    //$fp2=@fopen($filename, "a");     
+   // fwrite($fp2,$img);     
+    //fclose($fp2);     
+    
+    return  $data;     
+ } 
 
     public function refresh_tag(){
         $begin = $this->_get('begin', 'intval');
@@ -1141,6 +1211,180 @@ class itemAction extends backendAction {
           }
         
         $this->ajaxReturn(1, L('operation_success'),  $result);
+    }
+
+    public function converturl($url) {
+     //   $url = $this->_get('url', 'trim');
+        $parsed_url = parse_url($url);
+        $host = $parsed_url['host'];
+         $result = array();
+        if (empty($host) or substr_count(strtolower($url),'http')>=2){
+              $result['convert_url'] =$url;
+              $result['id'] =-1;
+               $this->ajaxReturn(1, L('operation_success'),  $result);
+          }
+        if (strcmp($host,'www.amazon.com')==0){
+            $result['id'] =493;
+            $pattern = '/product\/(([a-zA-Z]|\d){10})/';
+           $pattern_num = preg_match($pattern,$parsed_url['path'],$pattern_result);
+             if($pattern_num!=0){
+                  $result['convert_url'] = 'https://www.amazon.com/dp/' . $pattern_result[1] . '?t=' . $_SESSION['admin']['us_amazon'] . '&tag=' . $_SESSION['admin']['us_amazon'];
+             }
+         else{
+           $pattern1 = '/dp\/(([a-zA-Z]|\d){10})/';
+           $pattern_num1 = preg_match($pattern1,$parsed_url['path'],$pattern_result);
+             if($pattern_num1!=0){
+                 $result['convert_url'] = 'https://www.amazon.com/dp/' . $pattern_result[1] . '?t=' . $_SESSION['admin']['us_amazon'] . '&tag=' . $_SESSION['admin']['us_amazon'];
+             }
+             else{
+                    $pattern2 = '/creativeASIN=(([a-zA-Z]|\d){10})/';
+                    $pattern_num2 = preg_match($pattern2, $url,$pattern_result);
+
+                 if($pattern_num2!=0){
+                     $result['convert_url'] = 'https://www.amazon.com/dp/' . $pattern_result[1] . '?t=' . $_SESSION['admin']['us_amazon'] . '&tag=' . $_SESSION['admin']['us_amazon'];
+                 }
+                 else{
+                    $result['convert_url'] =$url;
+                 }
+             }
+           }
+        }
+         elseif (strcmp($host,'www.amazon.cn')==0){
+            $result['id'] =2;
+            $pattern = '/product\/(([a-zA-Z]|\d){10})/';
+           $pattern_num = preg_match($pattern,$parsed_url['path'],$pattern_result);
+             if($pattern_num!=0){
+                  $result['convert_url'] = 'https://www.amazon.cn/dp/' . $pattern_result[1] . '?t=' . $_SESSION['admin']['ch_amazon'] . '&tag=' . $_SESSION['admin']['ch_amazon'];
+             }
+         else{
+           $pattern1 = '/dp\/(([a-zA-Z]|\d){10})/';
+           $pattern_num1 = preg_match($pattern1,$parsed_url['path'],$pattern_result);
+             if($pattern_num1!=0){
+                 $result['convert_url'] = 'https://www.amazon.cn/dp/' . $pattern_result[1] . '?t=' . $_SESSION['admin']['ch_amazon'] . '&tag=' . $_SESSION['admin']['ch_amazon'];
+             }
+             else{
+                    $pattern2 = '/creativeASIN=(([a-zA-Z]|\d){10})/';
+                    $pattern_num2 = preg_match($pattern2, $url,$pattern_result);
+
+                 if($pattern_num2!=0){
+                     $result['convert_url'] = 'https://www.amazon.cn/dp/' . $pattern_result[1] . '?t=' . $_SESSION['admin']['ch_amazon'] . '&tag=' . $_SESSION['admin']['ch_amazon'];
+                 }
+                 else{
+                    $result['convert_url'] =$url;
+                 }
+             }
+           }
+           
+        }
+        elseif (strcmp($host,'www.amazon.co.jp')==0){
+            $result['id'] =49;
+            $pattern = '/product\/(([a-zA-Z]|\d){10})/';
+           $pattern_num = preg_match($pattern,$parsed_url['path'],$pattern_result);
+             if($pattern_num!=0){
+                  $result['convert_url'] = 'http://count.chanet.com.cn/click.cgi?a=524082&d=381499&u=' . $_SESSION['admin']['sid'] . '&e=&url=https://www.amazon.co.jp/dp/'. $pattern_result[1] ;
+             }
+         else{
+           $pattern1 = '/dp\/(([a-zA-Z]|\d){10})/';
+           $pattern_num1 = preg_match($pattern1,$parsed_url['path'],$pattern_result);
+             if($pattern_num1!=0){
+                 $result['convert_url'] = 'http://count.chanet.com.cn/click.cgi?a=524082&d=381499&u=' . $_SESSION['admin']['sid'] . '&e=&url=https://www.amazon.co.jp/dp/'. $pattern_result[1] ;
+             }
+             else{
+                    $pattern2 = '/creativeASIN=(([a-zA-Z]|\d){10})/';
+                    $pattern_num2 = preg_match($pattern2, $url,$pattern_result);
+
+                 if($pattern_num2!=0){
+                     $result['convert_url'] = 'http://count.chanet.com.cn/click.cgi?a=524082&d=381499&u=' . $_SESSION['admin']['sid'] . '&e=&url=https://www.amazon.co.jp/dp/'. $pattern_result[1] ;
+                 }
+                 else{
+                    $result['convert_url'] =$url;
+                 }
+             }
+           }
+           
+        }elseif (strcmp($host,'uland.taobao.com')==0){
+            $result['id'] =3;
+            $parsed_orig_url = parse_url($url);
+             parse_str($parsed_orig_url['query'],$parsed_orig_query);
+             if(isset($parsed_orig_query['activityId']) &&isset($parsed_orig_query['itemId']) ){
+                 $result['convert_url'] =  "https://uland.taobao.com/coupon/edetail?activityId=" . $parsed_orig_query['activityId'] . "&itemId=" . $parsed_orig_query['itemId'] . "&pid=" . $_SESSION['admin']['mm_pid']. "&dx=1";
+             }
+             else{
+                  $result['convert_url'] =  $url;
+             }
+        }
+         elseif (strcmp($host,'www.kaixinbao.com')==0 || strcmp($host,'u.kaixinbao.com')==0){
+            $result['id'] =942;
+            $pattern = '/-baoxian\/((\d){6,}).shtml/';
+           $pattern_num = preg_match($pattern,$parsed_url['path'],$pattern_result);
+             if($pattern_num!=0){
+                  $result['convert_url'] = "http://u.kaixinbao.com/link?aid=" . $pattern_result[1] . "&cpsUserId=a105930&cpsUserSource=8_swpt";
+             }
+             else{
+                 $result['convert_url'] = $url;
+             }
+        }
+        else{
+               $origs = M('item_orig')->where("url like '%" . $host . "%'")->Field('url ,id')->select();
+                if(count($origs)!=0){
+                     $result['id'] =$origs[0]['id'];
+                     $orig_url = $origs[0]['url'];
+                     $parsed_orig_url = parse_url($orig_url);
+                      parse_str($parsed_orig_url['query'],$parsed_orig_query);
+                       if(stripos($orig_url, 'sid=SS') !==false){
+                             $parsed_orig_query['sid']=$_SESSION['admin']['sid'];
+                        }
+                        elseif(stripos($orig_url, 'sid=lh_m1nyfc__SS') !==false){
+                             $parsed_orig_query['sid']='lh_m1nyfc__' . $_SESSION['admin']['sid'];
+                        }
+                         elseif(stripos($orig_url, 'euid=SS') !==false){
+                             $parsed_orig_query['euid']=$_SESSION['admin']['sid'];
+                        }
+                        elseif(stripos($orig_url, 'customid=SS') !==false){
+                             $parsed_orig_query['customid']=$_SESSION['admin']['sid'];
+                        }
+                        elseif(stripos($orig_url, 'u=SS') !==false){
+                             $parsed_orig_query['u']=$_SESSION['admin']['sid'];
+                        }
+                         elseif(stripos($orig_url, 'e=SS') !==false){
+                             $parsed_orig_query['e']=$_SESSION['admin']['sid'];
+                        }
+                        elseif(stripos($orig_url, 'sid/SS/') !==false){
+                             $parsed_orig_url['path']=str_replace('sid/SS/','sid/' . $_SESSION['admin']['sid'] . '/',$parsed_orig_url['path']);
+                        }
+                        else{
+                             $parsed_orig_query['tag']=$_SESSION['admin']['sid'];
+                        }
+
+                        if(isset($parsed_orig_query['url'])){
+                            $parsed_orig_query['url'] = $url;
+                        }
+                        elseif(isset($parsed_orig_query['mpre'])){
+                            $parsed_orig_query['mpre'] = $url;
+                        }
+                        elseif(isset($parsed_orig_query['new'])){
+                            $parsed_orig_query['new'] = $url;
+                        }
+                        elseif(isset($parsed_orig_query['t'])){
+                            $parsed_orig_query['t'] = $url;
+                        }
+                        $parsed_orig_url['query'] = http_build_query($parsed_orig_query);
+                        $parsed_orig_url['query']= urldecode($parsed_orig_url['query']);
+                           $result['convert_url'] =   $this->http_build_url($parsed_orig_url);
+                }
+              
+        }
+        
+        if( count($result)==0){
+              $result['convert_url'] =$url;
+              $result['id'] =-1;
+              $result['shopping_name'] ="白菜哦";
+          }
+          else{
+             $result['shopping_name'] = getly($result['id']);
+          }
+        
+       return $result;
     }
 
     public function http_build_url($url_arr){

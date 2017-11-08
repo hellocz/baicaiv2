@@ -88,6 +88,7 @@ class origAction extends frontendAction {
         $this->assign('p', $p);
         $this->assign('page_bar', $pager->fshow());		
         $this->_config_seo();
+        $this->_config_seo(C('pin_seo_config.orig'), array('orig_name' => $orig_info['name']));
     	$this->display();
     }
 }

@@ -39,9 +39,12 @@ class shopAction extends userbaseAction
         }
         if(!empty($data['cid'])){
             $where .= ' and cate_id = '.$data['cid'];
-        }else{
+        }
+        /*
+        else{
             $where .= ' and cate_id != 342';
         }
+        */
 
         if(!empty($data['orig_id'])){
             $where .= ' and orig_id = '.$data['orig_id'];
@@ -246,9 +249,12 @@ class shopAction extends userbaseAction
         $db_pre = C('DB_PREFIX');
         if(!empty($data['cid'])){
             $where['cate_id'] = $data['cid'];
-        }else{
+        }
+        /*
+        else{
             $where['cate_id'] = array('neq','342');
         }
+        */
 
         if(!empty($data['key'])){
             $where['title'] = array('like', '%' . $data['key'] . '%');
@@ -293,7 +299,7 @@ class shopAction extends userbaseAction
         }
         else{
         $item_mod = M('item');}
-        $item = $item_mod->field('tag_cache,orig_id,title,img,intro,price,zan,likes,comments,add_time,content,status,go_link,hits')->where(array('id' => $id))->find();
+        $item = $item_mod->field('id,tag_cache,orig_id,title,img,intro,price,zan,likes,comments,add_time,content,status,go_link,hits')->where(array('id' => $id))->find();
         $item['zan'] =  $item['zan'] + intval($item['hits'] /10);
         if(!$item){
             echo get_result(20001,[], "商品不存在");return ;
@@ -319,7 +325,12 @@ class shopAction extends userbaseAction
             $item['fenxiang'] = 'http://www.baicaio.com/bao/'.$id.'.html';
         }
         else{
-        $item['fenxiang'] = 'http://www.baicaio.com/item/'.$id.'.html';
+            if($item['id'] == 287425 ){
+                $item['fenxiang'] = 'http://www.baicaio.com/hongbao.html?ff=fx';
+            }
+            else{
+                $item['fenxiang'] = 'http://www.baicaio.com/item/'.$id.'.html';
+            }
         }
         $item['go_link'] = array_shift($go_link);
         $tag_caches = unserialize($item['tag_cache']);

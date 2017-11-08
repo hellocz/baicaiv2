@@ -33,7 +33,7 @@ padding: 2px;
 
     <div class="w_zh_dq">
 
-	  <a href="/" title="首页">首页</a>><a href="{:U('exchange/index')}" title="礼品兑换">礼品兑换</a>><a  class="w_zh_dq_1">兑换详情</a>
+	  <a href="/" title="首页">首页</a>><a href="{:U('exchange/lucky')}" title="幸运抽奖">幸运抽奖</a>><a  class="w_zh_dq_1">兑换详情</a>
 
 	</div>
 
@@ -64,12 +64,15 @@ padding: 2px;
 	   <span>所需金币：<em>{$item.coin}</em></span><br/>
 
 	   <span>{:L('ec_number')}：<input type="text" id="J_num_{$item.id}" class="input_text_number" value="1" size="4"></span><br/>
-
+ <if condition="$item['sign_date'] neq '' "><span>开奖时间：{$item.sign_date|date='Y-m-d H:i:s',###}</span><br/></if>
        </div>
 
        <div class="w_zrxx_1_r3">
-
-       <a href="javascript:;" id="J_ec_btn" title="立即兑换" data-id="{$item.id}" data-num="#J_num_{$item.id}" class="w_dha">立即兑换</a><a style="left:20px;position: relative;" href="{:U('user/phone_bind')}"  title="绑定手机号"  class="w_dha">绑定手机号</a>
+       	<if condition="$expire eq 1">
+       <a href="javascript:;" title="已开奖" data-id="{$item.id}" data-num="#J_num_{$item.id}" style="background:gray;" class="w_dha">已开奖</a>
+       <else/><a href="javascript:;" id="J_ec_btn" title="立即兑换" data-id="{$item.id}" data-num="#J_num_{$item.id}" class="w_dha">立即兑换</a>
+   	</if>
+       <a style="left:20px;position: relative;" href="{:U('user/phone_bind')}"  title="绑定手机号"  class="w_dha">绑定手机号</a>
        </div>
        <div class="w_zrxx_1_r3">
        
@@ -84,21 +87,28 @@ padding: 2px;
 
       <div class="w_had">
 
-      <span class="w_had_dq" id="wt1" onclick="setTab('wt',1,2,'w_had_dq')">兑换须知</span>
 
-      <span id="wt2" onclick="setTab('wt',2,2,'w_had_dq')">兑换记录</span>             
+      <span  class="w_had_dq" id="wt2" >兑换须知</span>
+            
 
     </div>
 
+     
 
-
-      <div class="w_xq1_d_l" id="con_wt_1" style="display: block;">
+    <div class="w_xq1_d_l" id="con_wt_1" style="display: block;">
 
         {$item.desc}
 
       </div>
 
-    <div class="w_xq1_d_l" id="con_wt_2" style="display: none;">
+      <div class="w_had">
+
+      <span class="w_had_dq" id="wt1" >兑换记录</span> 
+            
+
+    </div>
+
+    <div class="w_xq1_d_l" id="con_wt_2" style="display: block;">
 
        <table cellpadding="0" cellspacing="0" class="w_dtxq_tb">
 
@@ -107,7 +117,9 @@ padding: 2px;
 		  <td class="w_dtxq_tb_1">兑换用户 </td>
 
 		  <td class="w_dtxq_tb_2">兑换时间</td>
-
+			<if condition="$item['cate_id'] eq 8">
+		  <td class="w_dtxq_tb_3">幸运号</td>
+			</if>
 		  <td class="w_dtxq_tb_3">状态</td>
 
 		</tr>
@@ -119,8 +131,10 @@ padding: 2px;
 		  <td class="w_dtxq_tb_1">{$r.uname}</td>
 
 		  <td class="w_dtxq_tb_2">{$r.add_time|fdate}</td>
-
-		  <td class="w_dtxq_tb_3"><if condition="$r['status'] eq 0">处理中<else/>已完成</if></td>
+			<if condition="$item['cate_id'] eq 8">
+		  <td class="w_dtxq_tb_3">{$r.luckdraw_num}</td>
+			</if>
+		  <td class="w_dtxq_tb_3"><if condition="$item['cate_id'] eq 8">{$r.zero_info} <else/><if condition="$r['status'] eq 0">处理中<else/>已完成</if></if></td>
 
 		</tr>
 
@@ -131,6 +145,12 @@ padding: 2px;
 	   <div class="w_pag">{$pagebar}</div>
 
     </div>
+
+
+
+      
+
+    
 
      </div>
 

@@ -84,6 +84,12 @@ class ajaxAction extends frontendAction {
 		$ed = strtotime(date('Y-m-d',strtotime('+1 day')));
 		//查询当天评论次数
 		$num = M("comment")->where("uid=".$this->visitor->info['id']." and add_time>$st and add_time<$ed ")->count();
+		$last_comment = M("comment")->where("uid=".$this->visitor->info['id'])->order("add_time desc")->find();
+		$last_comment['add_time']=intval($last_comment['add_time'])+30;
+
+		if(time() < $last_comment['add_time']){
+			$this->ajaxReturn(0, '评论需间隔30秒,请不要灌水哦!');
+		}
 		if($num>49){
 			$this->ajaxReturn(0, '您今天评论的次数已达上限');
 		}
@@ -281,7 +287,7 @@ class ajaxAction extends frontendAction {
 			$by ='zan';
 		}else{
 			$order ='id desc';
-			$by ='';
+			$by ='id';
 		}
         $item = $item_mod->where(array('id' => $itemid))->count('id');
         !$item && $this->ajaxReturn(0, L('invalid_object'));
@@ -291,7 +297,7 @@ class ajaxAction extends frontendAction {
         $count = $comment_mod->where($map)->count('id');
         $pager = $this->_pager($count, $pagesize);
         $pager->path = 'ajax/comment_list';
-		$pager->parameter ="itemid=$itemid&xid=$xid&order=$by";
+		$pager->parameter ="itemid=$itemid&xid=$xid";
 		$sql="select * from try_comment where itemid=$itemid and xid=$xid and status=1 and pid=0  order by $order  limit $pager->firstRow , $pager->listRows ";
         $cmt_list = M()->query($sql);
 		foreach($cmt_list as $key=>$v){

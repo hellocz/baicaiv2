@@ -86,20 +86,32 @@ class exchangeAction extends frontendAction {
         $item_mod = M('score_item');
         $user_mod = M('user');
         $order_mod = D('score_order');
-        $uid = $this->visitor->info['id'];
+         $uid = $this->visitor->info['id'];
         $uname = $this->visitor->info['username'];
+        $mobile = M("user")->field('mobile')->find($uid);
+        if($mobile['mobile'] ==""){
+            $this->ajaxReturn(0, '没有绑定手机号' . $mobile['mobile'] );
+        }
+       
         $item = $item_mod->find($id);
         !$item && $this->ajaxReturn(0, L('invalid_item'));
-        !$item['stock'] && $this->ajaxReturn(0, L('no_stock'));
+        $item['sign_date']<time() && $this->ajaxReturn(0,"抽奖已过期,不能再兑换,请关注其他抽奖商品");
+    !$item['stock'] && $this->ajaxReturn(0, L('no_stock'));
         //金币够不
-        $user_coin = $user_mod->where(array('id'=>$uid))->getField('coin');
-        $user_coin < $item['coin'] && $this->ajaxReturn(0, '没有足够的金币');
+        $order_coin = $num * $item['coin'];
+        $order_score = $num * $item['score'];
+
+        $user_cf = $user_mod->where(array('id'=>$uid))->field('coin,score')->find();
+        $user_cf['coin'] < $order_coin && $this->ajaxReturn(0, '没有足够的金币' );
+        $user_cf['score'] < $order_score && $this->ajaxReturn(0, '没有足够的积分' );
         //限额
         $eced_num = $order_mod->where(array('uid'=>$uid, 'item_id'=>$item['id']))->sum('item_num');
+
+        $luck_num = $order_mod->where(array('item_id'=>$item['id']))->sum('item_num');
         if ($item['user_num'] && $eced_num + $num > $item['user_num']) {
             $this->ajaxReturn(0, sprintf(L('ec_user_maxnum'), $item['user_num']));
         }
-        $order_coin = $num * $item['coin'];
+
         $data = array(
             'uid' => $uid,
             'uname' => $uname,
@@ -107,19 +119,37 @@ class exchangeAction extends frontendAction {
             'item_name' => $item['title'],
             'item_num' => $num,
             'order_coin' => $order_coin,
+            'order_score' => $order_score,
         );
+        if($item['cate_id'] == 8){
+            $data['order_coin'] = $item['coin'];
+            $data['order_score'] = $item['score'];
+            $data['item_num'] = 1;
+            for ($x=1; $x<=$num; $x++) {
+                 $data['luckdraw_num'] = ++$luck_num;
+                if (false === $order_mod->create($data)) {
+                    $this->ajaxReturn(0, L('ec_failed'));
+                }
+                $order_id = $order_mod->add();
+            } 
+        //    $this->ajaxReturn(0, '进入抽奖兑换');
+        }
+        else{
         if (false === $order_mod->create($data)) {
             $this->ajaxReturn(0, L('ec_failed'));
         }
         $order_id = $order_mod->add();
+        }
         //扣除用户积分并记录日志
         $user_mod->where(array('id'=>$uid))->setDec('coin', $order_coin);
+         $user_mod->where(array('id'=>$uid))->setDec('score', $order_score);
         $score_log_mod = D('score_log');
         $score_log_mod->create(array(
             'uid' => $uid,
             'uname' => $uname,
             'action' => 'exchange',
             'coin' => $order_coin*-1,
+            'score' => $order_score*-1,
         ));
         $score_log_mod->add();
 

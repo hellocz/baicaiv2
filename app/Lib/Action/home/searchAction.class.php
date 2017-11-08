@@ -92,9 +92,20 @@ class searchAction extends frontendAction {
 
                     if(count($q_list) ==1){
 
-                    $where1['tag_cache'] =array('like',$search_content,'AND');
-
-                    $where1['go_link'] =array('like',$search_content,'AND');
+                    $tag_id =  M("tag")->where(array('name'=>$q))->getField('id'); 
+                    $tag_id && $tag_items = M("item_tag")->where(array('tag_id'=>$tag_id))->field("item_id")->select();
+                    foreach ($tag_items as $tag_item_id) {
+                        if($str==""){
+                             $str=$tag_item_id['item_id'];
+                        }
+                        else{
+                           $str.=",".$tag_item_id['item_id'];
+                        }
+                    }
+                    $str && $where1['id'] = array('in', $str);
+                   // $where1['tag_cache'] =array('like',$tag_content,'AND');
+                    if(strlen($q) == 10){
+                    $where1['go_link'] =array('like',$search_content,'AND');}
                     }
 
                     $where1['_logic'] = 'or';

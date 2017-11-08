@@ -1,0 +1,232 @@
+﻿/* = Global pop
+----------------------------------------------------------------------*/
+#ui_layoutbg{
+    width:100%;
+    height:100%;
+    background:#000;
+    position:fixed;
+    _position:absolute;
+    top:0; 
+    left:0;
+    opacity:0.5;
+    z-index:100;
+    display:none;
+}
+.ui_popbox{ 
+    background:#fff; 
+    position:fixed; 
+    top:50%; 
+    left:50%; 
+    z-index:1001; 
+    -moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	border-radius: 8px;
+}
+/* = 关闭弹窗 
+----------------------------------------------------------------------*/
+.ui_popbox .popbox_close{
+    position:absolute;
+    display:inline-block;
+    z-index:101;
+    top:5px;
+    right:5px;
+    width:20px; 
+    height:20px; 
+    line-height:99em; 
+    overflow:hidden; 
+    outline:none;
+    background:url("http://appimg.huim.com/lingyuanchou/popclose_btn.png?abc=123123") no-repeat;
+	background-size:cover;
+}
+
+#gotop {    
+    position:fixed;
+    display:inline-block;
+    right:15px;
+    width:38px;
+    height:38px;
+    bottom:-40px;
+    background-image:url("https://i.huim.com/zhuanti/20171111/1111_m_btn_totop.png");
+    background-repeat:no-repeat;
+    background-size:38px auto;
+    z-index:9;
+    -webkit-transition: -webkit-transform 1s;
+    transition: transform 1s;
+}
+.gotop_show{
+    -webkit-transform:translateY(-65px);
+    -ms-transform:translateY(-65px);
+    -o-transform:translateY(-65px);
+    transform:translateY(-65px);
+}
+
+/* = Global pop
+----------------------------------------------------------------------*/
+#overlay{
+    width:100%;
+    height:100%;
+    background:#000;
+    position:fixed;
+    _position:absolute;
+    top:0; 
+    left:0;
+    opacity:0.2;
+    z-index:110;
+}
+
+.popbox{ 
+    background:#fff; 
+    position:fixed; 
+    top:50%; 
+    left:50%; 
+    z-index:1001; 
+    -moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	border-radius: 8px;
+	text-align:center;
+}
+.popbox_icon{
+    display:block;
+    padding:20px 0 10px 0;
+    width:100%;
+ }
+.resultok { 
+    width:100px; 
+    height:100px; 
+    margin:-70px 0 0 -50px;   
+    font-size:14px; 
+    font-weight:700; 
+    color:#fff; 
+    background: rgba(0,0,0,0.8);
+}
+.pop_promptbox{
+    min-width:80px;
+    padding:15px;
+    font-size:14px; 
+    font-weight:700; 
+    color:#fff; 
+    background: rgba(0,0,0,0.8);    
+}
+.pop_prompt{
+    width:90%;
+    height:110px;
+    margin:-80px 0 0 -45%; 
+ }
+.pop_prompt_text{
+    font-size:1.5rem; 
+    height:60px; 
+    line-height:60px;
+}
+.popbox_action{
+    height:50px;
+    line-height:50px;
+    border-top:1px solid #ebebeb;   
+    -moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box; 
+}
+.popbox_action a{
+    font-size:1.5rem; 
+    display:block;
+    color: #1282ff;
+}
+
+/* 关闭弹窗 */
+.popbox .popclose{ 
+    display:inline-block; 
+    float:right; 
+    margin:10px 10px 0 0; 
+    width:24px; 
+    height:24px; 
+    line-height:999em; 
+    overflow:hidden; 
+}
+
+.win_top{ 
+    padding:8px 5px 0 0; 
+    text-align:right; 
+}
+
+.win_top a{ 
+    display:inline-block; 
+    width:20px; 
+    height:19px; 
+    background-position:0px -433px;
+}
+
+.resultok .resultok_icon{ 
+    float:left; 
+    margin:20px 10px 0 20px; 
+    display:inline-block; 
+    width:35px; 
+    height:25px; 
+    background-position:0 -350px;
+}
+
+/* = 抽奖先绑定手机号
+----------------------------------------*/
+#show_updata_pop{    
+    width:80%;
+    min-width:200px;
+    height:180px;
+    margin:-120px 0 0 -40%;
+    background-color:#fff;
+}
+.show_updata_cot{
+
+}
+.show_updata_cot .up_title{
+    margin:15px 0 10px 0;
+    text-align:center;
+    font-size:20px;
+    color: #333;
+    font-weight:700;
+}
+.show_updata_cot .up_notice{
+    height:80px;
+    line-height:25px;    
+    text-align:center;
+    font-size:15px;
+    color: #333; 
+}
+.show_updata_cot .up_btn{
+    display:block;
+    height:46px;
+    line-height:46px;    
+    text-align:center;
+    font-size:18px;
+    color: #1699fe; 
+}
+/* 新的loading */
+@-webkit-keyframes rotate {0% {-webkit-transform: rotate(0deg) ; transform: rotate(0deg) ; } 50% {-webkit-transform: rotate(180deg); transform: rotate(180deg) ; } 100% {-webkit-transform: rotate(360deg) ; transform: rotate(360deg) ; } } @keyframes rotate {0% {-webkit-transform: rotate(0deg) ; transform: rotate(0deg) ; } 50% {-webkit-transform: rotate(180deg); transform: rotate(180deg); } 100% {-webkit-transform: rotate(360deg) ; transform: rotate(360deg) } }
+.loading_box{
+    display:none;
+    padding:10px 0;
+    text-align:center;
+}
+.loading_icon{
+    display: inline-block;
+    height: 25px;
+    width: 25px;
+    border-radius: 100%;
+    border: 2px solid #f95c68;
+    border-bottom-color: transparent;
+    background: transparent;
+    -webkit-animation: rotate 0.75s linear infinite;
+    animation: rotate 0.75s linear infinite;
+}
+.no_data{
+    display:none;
+    color:#b0afb3;
+    font-size:13px;
+    text-align:center;
+    line-height:45px;
+}
+.ct_loading{
+    background: url(https://i.huim.com/app/loading.gif) no-repeat center center/25px 25px;
+}
+.imgs_box{
+    padding-bottom: 100%;
+    height: 0;
+    overflow: hidden;
+}

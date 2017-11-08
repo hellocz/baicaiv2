@@ -185,7 +185,7 @@ input,label { vertical-align:middle; font-family:"Microsoft YaHei";}
 .w_sy_ha span i{ background:url(../images/w_tj_2.png) no-repeat; width:8px; height:10px; display:block; position:absolute; right:5px; top:15px;}
 
 .w_f2_nr1{ width:100%; float:left;}
-.w_f2_nr1_1{ width:828px; float:left; padding:20px; margin-top:30px; line-height:24px;  background:#fff; box-shadow: 2px 2px 5px rgba(0,0,0,.1); height:208px; position:relative;overflow: hidden;}
+.w_f2_nr1_1{ width:828px; float:left; padding:20px; margin-top:30px; line-height:24px;  background:#fff; box-shadow: 2px 2px 5px rgba(0,0,0,.1); height:208px; position:relative;}
 .w_f2_nr1_1 img{ width:208px; height:208px; margin-right:19px; float:left;}
 .w_f2_nr1_1 img.ava{ margin-right:5px; }
 .w_f2_nr1_1 h2{font-weight:normal;font-size: 20px;      line-height: 30px;    padding-bottom: 10px;}
@@ -527,11 +527,11 @@ input,label { vertical-align:middle; font-family:"Microsoft YaHei";}
 .w_dh_dl{ width:965px; background:#ececec; height:40px; line-height:40px; padding:0 0 0 10px; font-size:14px; color:#646464; }
 .w_dh_dl_1{ width:313px; float:left;}
 .w_dh_dl_2{ width:217px; float:left; text-align:center;}
-.w_dh_dl_3{ width:217px; float:left; text-align:center;}
+.w_dh_dl_3{ width:108px; float:left; text-align:center;}
 .w_dh_dl_4{ width:217px; float:left; text-align:center;}
 .w_dh_dl1_1{ width:313px; float:left;}
 .w_dh_dl1_2{ width:217px; float:left; text-align:center;}
-.w_dh_dl1_3{ width:217px; float:left; text-align:center;}
+.w_dh_dl1_3{ width:108px; float:left; text-align:center;}
 .w_dh_dl1_4{ width:217px; float:left; text-align:center;}
 .w_dh_dl1{ width:100%; border-bottom:1px dashed #ccc; padding:10px 0; font-size:12px; color:#646464; line-height:98px; float:left;}
 .w_dh_dl1_1 img{ width:98px; height:98px; border:1px solid #dddddd; float:left; margin-right:15px;}
@@ -1855,10 +1855,10 @@ input{ border-radius:3px;}
 .w_spxx_1 .content td,
 .w_spxx_1 .content tr,
 .w_spxx_1 .content th{
-    font-family: "微软雅黑" !important;
+    font-family: "微软雅黑" ;
     /*font-weight: normal !important;*/
-    font-size: 16px !important;
-    line-height: 2em !important;
+    font-size: 16px ;
+    line-height: 2em ;
     /*font-style: normal !important;
     color: #666 !important;*/
 }

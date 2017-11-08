@@ -41,7 +41,7 @@
 
               <p class="w_p1"><if condition="$r['sc']"><a  class="w_dj1">{$r.sc}</a><else/><a href="{:U('orig/show',array('id'=>$r['orig_id']))}" class="w_dj1">{:getly($r['orig_id'])}</a></if><if condition="$tab eq 'isbao'"><if condition="$r['uid'] neq 0"><span style="float:right"><a href="{:U('space/index', array('uid'=>$r['uid']))}" title="{$r.uname}" data-uid="{$r['uid']}" class="J_card"> <img src="{:avatar($r['uid'],'')}" title="{$r.username}" alt="{$r.username}" class="ava"/> {$r.uname}</a></span></if></if><span>{$r['add_time']|mdate}</span></p>
 
-              <p><if condition="$r['intro']">{$r.intro}<else/>{$r.content|strip_tags|msubstr=0,130}</if></p>
+              <p><if condition="$r['intro']">{$r.intro}<else/>{$r.content|strip_tags}</if></p>
 
               <div class="w_f2nr1_b">
 

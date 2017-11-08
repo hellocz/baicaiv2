@@ -126,7 +126,7 @@ $(function(){
 			}
 		});
 	});
-	$("#J_cmt_page a").on("click",function(){
+	$("body").delegate("#J_cmt_page a","click", function(){
 		var url = $(this).attr('url');
 		$.get(url, function(result){
 			if(result.status == 1){
@@ -138,7 +138,7 @@ $(function(){
 		},'json');
 		return false;
 	});
-	$("#J_cmt_page_hot a").on("click",function(){
+	$("body").delegate("#J_cmt_page_hot a","click", function(){
 		var url = $(this).attr('url');
 		$.get(url, function(result){
 			if(result.status == 1){

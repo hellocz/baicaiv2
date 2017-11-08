@@ -22,7 +22,11 @@ class baoAction extends frontendAction {
 		$p = $this->_get("p",'intval');
 		if($p<1){$p=1;}
 		$this->assign('p',$p);
-        		$this->_config_seo();
+        $this->_config_seo(array(
+            'title' => "{site_name}网友爆料_每日网购促销大全_优惠汇总",
+            'keywords' => "{site_name},网友爆料,优惠信息,网络购物",
+            'description' => "{site_name}网友爆料板块，全网促销优惠信息汇总，比主站推荐更快更全。"
+        ));
         		$this->display();
     }
      public function search() {

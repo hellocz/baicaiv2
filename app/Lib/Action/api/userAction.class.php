@@ -1645,6 +1645,9 @@ class userAction extends userbaseAction
         if(!$item){
             echo get_result(10001,"不存在的商品");return ;
         }
+        if($item['sign_date']<time()){
+            echo get_result(10001,"抽奖已过期,不能再兑换,请关注其他抽奖商品");return ;
+        }
         if(!$item['stock']){
             echo get_result(10001,"库存不足");return ;
         }
@@ -1660,6 +1663,8 @@ class userAction extends userbaseAction
         }
         //限额
         $eced_num = $order_mod->where(array('uid'=>$uid, 'item_id'=>$item['id']))->sum('item_num');
+
+        $luck_num = $order_mod->where(array('item_id'=>$item['id']))->sum('item_num');
         if ($item['user_num'] && $eced_num + $num > $item['user_num']) {
             echo get_result(10001,"兑换超出限制");return ;
         }
@@ -1690,15 +1695,29 @@ class userAction extends userbaseAction
             $data_create['mobile'] = $data['mobile'];
 
         }
-
-
+        if($item['cate_id'] == 8){
+            $data_create['order_coin'] = $item['coin'];
+            $data_create['order_score'] = $item['score'];
+            $data_create['item_num'] = 1;
+            for ($x=1; $x<=$num; $x++) {
+                 $data_create['luckdraw_num'] = ++$luck_num;
+                if (false === $order_mod->create($data_create)) {
+                    echo get_result(10001,"兑换失败");return ;
+                }
+                $order_id = $order_mod->add();
+            } 
+        //    $this->ajaxReturn(0, '进入抽奖兑换');
+        }
+        else{
         if (false === $order_mod->create($data_create)) {
-                echo get_result(10001,"兑换失败");return ;
+            echo get_result(10001,"兑换失败");return ;
         }
         $order_id = $order_mod->add();
+        }
         //扣除用户积分并记录日志
         $user_mod->where(array('id'=>$uid))->setDec('coin', $order_coin);
-        $score_log_mod = D('score_log');
+        $user_mod->where(array('id'=>$uid))->setDec('score', $order_score);
+ $score_log_mod = D('score_log');
         $score_log_mod->create(array(
             'uid' => $uid,
             'uname' => $uname,
@@ -2024,5 +2043,58 @@ class userAction extends userbaseAction
             echo get_result(20001,[], "评论失败");return ;
         }
     }
+
+    /**
+     * 我的抽奖
+     */
+    public function myluckys($data) {
+        $userid = $data['userid'];
+        empty($data['pagesize']) && $data['pagesize'] = 10;
+        $page = $data['page'] * $data['pagesize'];
+        $map['uid'] = $userid;
+        $score_order_mod = M('score_order');
+        $map['luckdraw_num'] = array('NEQ','');
+        $order_list = $score_order_mod->field('id,order_sn,item_id,item_name,order_score,order_coin,status,add_time,remark,luckdraw_num')->where($map)->limit($page-$data['pagesize'], $data['pagesize'])->order('id DESC')->select();
+         $code = 10001;
+         if(count($order_list) < 1){
+            $code = 10002;
+        }
+        echo get_result($code,$order_list);return ;
+    }
+
+    /**
+     * 抽奖详情页
+     */
+    public function lucky_list($data) {
+        $where['cate_id'] = 8;
+        $where['win'] = '';
+        empty($data['pagesize']) && $data['pagesize'] = 10;
+        $page = $data['page'] * $data['pagesize'];
+        $sort_order = 'sign_date DESC';
+        $score_item = M('score_item')->where($where)->order($sort_order)->limit($page-$data['pagesize'], $data['pagesize'])->select();
+         $code = 10001;
+         if(count($score_item) < 1){
+            $code = 10002;
+        }
+        echo get_result($code,$score_item);return ;
+    }
+
+    /**
+     * 往期抽奖详情页
+     */
+    public function lucky_list_past($data) {
+        $where['cate_id'] = 8;
+        $where['win'] = array('NEQ','');
+        empty($data['pagesize']) && $data['pagesize'] = 10;
+        $page = $data['page'] * $data['pagesize'];
+        $sort_order = 'sign_date DESC';
+        $score_item = M('score_item')->where($where)->order($sort_order)->limit($page-$data['pagesize'], $data['pagesize'])->select();
+        $code = 10001;
+        if(count($score_item) < 1){
+            $code = 10002;
+        }
+        echo get_result($code,$score_item);return ;
+    }
+
 
 }
