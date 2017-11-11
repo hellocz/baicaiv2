@@ -2055,6 +2055,12 @@ class userAction extends userbaseAction
         $score_order_mod = M('score_order');
         $map['luckdraw_num'] = array('NEQ','');
         $order_list = $score_order_mod->field('id,order_sn,item_id,item_name,order_score,order_coin,status,add_time,remark,luckdraw_num')->where($map)->limit($page-$data['pagesize'], $data['pagesize'])->order('id DESC')->select();
+
+        foreach($order_list as $key=>$val){
+            $score_item = M('score_item')->field('img')->where('id='.$order_list[$key]['item_id'])->find();
+        $order_list[$key]['img'] = $score_item['img'];
+            }
+
          $code = 10001;
          if(count($order_list) < 1){
             $code = 10002;

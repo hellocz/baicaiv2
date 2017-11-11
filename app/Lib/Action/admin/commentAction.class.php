@@ -11,6 +11,7 @@ class commentAction extends backendAction{
         //默认排序
         $this->sort = 'id';
         $this->order = 'desc';
+        $map = $this->_search();
 		$id = $this->_get("id","intval");
 		$id && $map['id']=$id;
 		//排序
@@ -63,4 +64,13 @@ class commentAction extends backendAction{
 		set_score_log($uinfo,"uncomments",-10,"","",'');
 		$this->ajaxReturn(1);
 	}
+
+   protected function _search() {
+        $map = array();
+        ($uname = $this->_request('uname', 'trim')) && $map['uname'] = array('like', '%'.$uname.'%');
+        $this->assign('search', array(
+            'uname' => $uname,
+        ));
+        return $map;
+    }
 }

@@ -33,13 +33,21 @@
         <div class="w_zdlj">
 		 <volist name="item['go_link']" id="r" >
 		  <if condition="$i==1">	
+        <if condition="stripos($r['link'],'tmall.com') !== false or stripos($r['link'],'taobao.com') !== false ">
+          <a href="{$r.link}" rel="nofollow" isconvert="1" target="_blank"  title="{$item.title}" class="w_zdlj_a" style="background:#3dc399;"><i class="w_down"></i>{$r.name}</a>
+        <else/>
 		  <a href="__ROOT__/?m=item&a=tgo&to={:shortUrl($r['link'])}" rel="nofollow" target="_blank"  title="{$item.title}" class="w_zdlj_a" style="background:#3dc399;"><i class="w_down"></i>{$r.name}</a>
-		  </if>
+		    </if>
+      </if>
 		  </volist>		 
           <if condition="count($item['go_link']) gt 1">
 		  <ul style="display: none;">
 		   <volist name="item['go_link']" id="r" >
+         <if condition="stripos($r['link'],'tmall.com') !== false or stripos($r['link'],'taobao.com') !== false ">
+          <a href="{$r.link}" rel="nofollow" isconvert="1" target="_blank"  title="{$item.title}" class="w_zdlj_a" style="background:#3dc399;"><i class="w_down"></i>{$r.name}</a>
+        <else/>
             <li><a href="__ROOT__/?m=item&a=tgo&to={:shortUrl($r['link'])}" target="_blank" rel="nofollow"  title="{$item.title}">{$r.name}</a></li>
+          </if>
 			</volist>
           </ul>
 		  </if>

@@ -40,8 +40,8 @@ class indexAction extends frontendAction {
 		if($tab =="isnice"){
 		$list = $mod->where("status=1 and add_time<$time ".$where)->limit($pager->firstRow.",".$pager->listRows)->order($order)->select();
 		
-		$hongbao_list = $mod->where("id=290392 ".$where)->order($order)->select();
-		if(count($hongbao_list)>0){
+		$hongbao_list = $mod->where("id=290392 or id=290618 ".$where)->order($order)->select();
+		if(count($hongbao_list)>0 && $time < 1510416000){
 		$list = array_merge($hongbao_list, $list); 
 		
 		}

@@ -95,7 +95,7 @@ class itemAction extends frontendAction {
         //$item['content']=preg_replace('/href=[\'|\"](\S+)[\'|\"]/i', "href='/?m=item&a=tgo1&to=".'${1}'."'", $item['content']);
         preg_match_all('/href=[\'|\"](\S+)[\'|\"]/i',$item['content'],$arr);
         foreach($arr[1] as $key=>$v){
-            if(strpos($v, "baicaio.com") == false){
+            if(strpos($v, "baicaio.com") == false  && strpos($v, "tmall.com") == false && strpos($v, "taobao.com") == false){
             $url= '/?m=item&a=tgo&to='.shortUrl($v);
             $item['content']= $this->str_replace_once($v,$url,$item['content']);
         }
