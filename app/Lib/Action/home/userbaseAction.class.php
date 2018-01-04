@@ -33,6 +33,7 @@ class userbaseAction extends frontendAction {
 					'comments'=>array('text'=>'我的评论','url'=>U('user/comments')),
 					'likes'=>array('text'=>'我的收藏','url'=>U('user/likes')),					
 					'message' => array('text'=>'我的消息', 'url'=>U('message/system')),
+                    'keysfollow' => array('text'=>'我的关注', 'url'=>U('user/keysfollow')),
 					'myfollow'=>array('text'=>'好友管理','url'=>U('user/myfollow')),
 					'tick'=>array('text'=>'我的优惠券','url'=>U('user/tick')),
 					'order' => array('text'=>'礼品兑换', 'url'=>U('score/index')),

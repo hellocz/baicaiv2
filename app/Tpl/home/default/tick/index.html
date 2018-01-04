@@ -59,6 +59,7 @@
        <a href="{:U('tick/index',array('tp'=>$r['fPY']))}" title="{$r['fPY']}" <if condition="$tp eq $r['fPY']">class="w_rqb"</if>>{$r['fPY']}</a>
 
 	   </volist>
+     <a style="float: right;" <if condition="$order eq '1'"> href="{:U('tick/index',array('order'=>0))}">按领取数量排序<else/> href="{:U('tick/index',array('order'=>1))}">按时间排序</if></a>
 
 	   </div>
 
@@ -70,13 +71,15 @@
 
        <li <if condition="$i%2 eq 1">class="no_left"</if>>
 
-         <a href="{:U('tick/show',array('id'=>$r['id']))}" title=""><img src="{:attach($r['img'],'item_orig')}" title="{$r.name}" alt="{$r.name}"/></a>
+         <a class="tick_img" href="{:U('tick/show',array('id'=>$r['id']))}" title=""><img src="{:attach($r['img'],'item_orig')}" title="{$r.name}" alt="{$r.name}"/></a>
 
-         <h2><a href="{:U('tick/show',array('id'=>$r['id']))}" title="{$r.name}">{$r.name}</a></h2>
+         <div class="quan_des">
+          <h2><a href="{:U('tick/show',array('id'=>$r['id']))}" title="{$r.name}">{$r.name}</a></h2>
 
          <p>还剩：{$r.days}天, 已领：{$r.yl}张, <br/>剩余：{$r.sy}张</p>
+         <div><a class="quan_get" href="{:U('tick/show',array('id'=>$r['id']))}" title="立即领取">立即领取</a></div>
+        </div>
 
-         <div><a href="{:U('tick/show',array('id'=>$r['id']))}" title="立即领取">立即领取</a></div>
 
        </li>
 

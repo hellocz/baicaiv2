@@ -40,7 +40,8 @@ class oauth {
             $user_info = M('user')->field('id,username,is_bj')->where(array('id' => $bind_user['uid']))->find();
             //登陆
             $this->_oauth_visitor()->assign_info($user_info);
-            return U('user/index');
+            return cookie('ret_url');
+          //  return U('user/index');
         } else {
             //处理用户名
             if (M('user')->where(array('username' => $user['keyname']))->count()) {

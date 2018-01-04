@@ -6,7 +6,13 @@
 
 <include file="public:head" />
 
+<style type="text/css">
+	.w_gn_jbj{
+		width: 1157px;
+	}
+</style>
 </head>
+
 
 
 
@@ -24,6 +30,60 @@
 
 	</div>
 
+	<div class="w_gn_jbj">
+
+	  <div class="w_gn_jbj_t">
+
+<!--	   <span>共<i>{$count}</i>件相关商品</span> -->
+
+	   <b>通过筛选您可以获得更准确的结果</b>
+
+	   <ul>
+
+	   <if condition="$origid!=0">
+
+	    <li><a href="{$orig_url}" title="{$orig}">{$orig}</a><a href="{$orig_url}" title="{$orig}" class="w_gnsc_x">x</a></li>
+
+	   </if>
+
+	   <if condition="$cateid!=0">
+
+		<li><a href="{$cate_url}" title="{$cate}">{$cate}</a><a href="{$cate_url}" title="{$cate}" class="w_gnsc_x">x</a></li>
+
+	   </if>
+
+	   </ul>
+
+	  </div>
+
+	 
+
+	  <div class="w_gn_jbj_n">
+
+	    <b>分类筛选：</b>
+
+		<?php
+
+		$cate_id = M("item_cate")->where("pid=0 and status=1")->order("ordid asc")->select();
+
+		?>
+
+		<ul id="cateid" style="height:27px; overflow:hidden" >
+
+		<volist name="cate_id" id="r">
+
+		<li><a href="{:U('book/cate',array('cid'=>$r['id']))}" title="{$r.name}">{$r.name}</a></li>
+
+		</volist>
+
+		</ul>
+
+		<span class="w_zq_more" onclick="show($('#cateid'));" data="0">更多</span>
+
+	  </div>
+
+	 </div>
+
 
 
     <div class="w_dhxx" >
@@ -39,6 +99,27 @@
 	</div>   
 
 </div>
+
+<script>
+function show(obj){
+
+	if($(this).attr('data')==0){
+
+		obj.css('height','auto');
+
+		$(this).attr('data','1');
+
+	}else{
+
+		obj.css('height','27px');
+
+		$(this).attr('data','0');
+
+	}
+
+}
+
+		</script>
 
 <include file="public:footer" />
 

@@ -308,15 +308,13 @@ function attach($attach, $type) {
 	if($attach==""){
 		return "/images/nopic.jpg";
 	}else{
-		if(false === strpos($attach, 'http://') && false === strpos($attach, 'base64')) {
-			//本地附件
-			return __ROOT__ . '/' . C('pin_attach_path') . $type . '/' . $attach;
-			//远程附件
-			//todo...
-		} else {
-			//URL链接
+		if(strpos($attach, 'http://') !== false || strpos($attach, 'https://') !== false || strpos($attach, 'base64') !== false){
 			return $attach;
 		}
+		else{
+			return __ROOT__ . '/' . C('pin_attach_path') . $type . '/' . $attach;
+		}
+		
 	}
 }
 function get_rout_img($attach,$type,$rout=IMG_ROOT_PATH){

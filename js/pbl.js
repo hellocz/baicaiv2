@@ -23,9 +23,13 @@
 		var scrollHeight = $(document).height();
 		var windowHeight = $(this).height();
 		if(pageend>=page||pageend==null){
-		if (scrollTop + windowHeight >= scrollHeight) {
+			$(".adsbygoogle").attr("info",scrollTop + "|" + windowHeight + "|" + scrollHeight);
+		if (scrollTop + windowHeight + 30 >= scrollHeight) {
+
+		if($(".w_gllb_1").css('display') == 'none'){
 				loadMeinv();//加载新图片
 				page=page+1;
+			}
 			}
 		}
 	})

@@ -118,7 +118,7 @@ $(function(){
 			success: function(result){
 				if(result.status == 1){
 					$("#J_cmt_content").val('');
-					tips('评论成功',1);
+					tips('感谢评论，积分+1',1);
 					$("#J_cmt_list").prepend(AnalyticEmotion(result.data));
 				}else{
 					tips(result.msg, 0);
@@ -153,7 +153,12 @@ $(function(){
 	$(".J_hf").on("click",function(){
 		var name = $(this).parents('.lrhf').siblings('.hf_zr').find('span').html();
 		$(".sbhf").remove();
-		$(this).parents('.lh_a1').append('<div class="w_spxx_7 sbhf" style="width: 700px;float: right;margin-top:10px"><textarea id="J_hf_content" name="content" style="width: 680px;height:60px;">回复 '+ name +':</textarea><input type="button" id="J_hf_submit" data-id="'+$(this).attr('data-id')+'"  psid="'+$(this).attr('psid')+'" value="回复" class="w_fbpl"></div>');
+		$(this).parents('.lh_a1').append('<div class="w_spxx_7 sbhf" style="width: 700px;float: right;margin-top:10px"><textarea id="J_hf_content" name="content" class="emotion" style="width: 680px;height:60px;">回复 '+ name +':</textarea><i id="face" style="line-height: 25px;  height: 25px;  display: block;  width: 100px; cursor:pointer"><img src="http://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/5c/huanglianwx_thumb.gif" style="vertical-align: middle;"/>表情</i><input type="button" id="J_hf_submit" data-id="'+$(this).attr('data-id')+'"  psid="'+$(this).attr('psid')+'" value="回复" class="w_fbpl"></div>');
+		$(this).parents('.lh_a1').find('#face').SinaEmotion($(this).parents('.lh_a1').find('.emotion'));
+		// 测试本地解析
+		$(this).parents('.lh_a1').find(".J_pl_i").each(function(){
+			$(this).html(AnalyticEmotion($(this).html()));
+		});
 		$("#J_hf_submit").on("click",function(){
 		if(PINER.uid==""){$.get("index.php?m=user&a=login",function(res){opdg(res.data,524,262,'用户登录');},'json');}
 		var id=$(this).attr("data-id"),content=$("#J_hf_content").val();
@@ -171,7 +176,12 @@ $(function(){
 	});
 	$(".J_hf1").on("click",function(){
 		$(".sbhf").remove();
-		$(this).parents('.yl_ba_hf').append('<div class="w_spxx_7 sbhf" style="width: 700px;float: right;margin-top:10px"><textarea id="J_hf_content" name="content" style="width: 680px;height:60px;"></textarea><input type="button" id="J_hf_submit" data-id="'+$(this).attr('data-id')+'" psid="'+$(this).attr('psid')+'" value="回复" class="w_fbpl"></div>');
+		$(this).parents('.yl_ba_hf').append('<div class="w_spxx_7 sbhf" style="width: 700px;float: right;margin-top:10px"><textarea id="J_hf_content" name="content" class="emotion" style="width: 680px;height:60px;"></textarea><i id="face" style="line-height: 25px;  height: 25px;  display: block;  width: 100px; cursor:pointer"><img src="http://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/5c/huanglianwx_thumb.gif" style="vertical-align: middle;"/>表情</i><input type="button" id="J_hf_submit" data-id="'+$(this).attr('data-id')+'" psid="'+$(this).attr('psid')+'" value="回复" class="w_fbpl"></div>');
+		$(this).parents('.yl_ba_hf').find('#face').SinaEmotion($(this).parents('.yl_ba_hf').find('.emotion'));
+		// 测试本地解析
+		$(this).parents('.yl_ba_hf').find(".J_pl_i").each(function(){
+			$(this).html(AnalyticEmotion($(this).html()));
+		});
 		$("#J_hf_submit").on("click",function(){
 		if(PINER.uid==""){$.get("index.php?m=user&a=login",function(res){opdg(res.data,524,262,'用户登录');},'json');}
 		var id=$(this).attr("data-id"),content=$("#J_hf_content").val();

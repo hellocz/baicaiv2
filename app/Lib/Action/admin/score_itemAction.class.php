@@ -115,8 +115,11 @@ class score_itemAction extends backendAction
 
         $order['win'] = $win;
 
-        if($order['mobile'] == ''){
-            $order_addtion = M("score_order")->where(array('item_id'=>$id,'uname'=>$order['uname'],'mobile' !=''))->find();
+        if($order['mobile'] == null){
+            $where['item_id'] = $id;
+            $where['uname'] = $order['uname'];
+            $where['mobile'] = array("NEQ",'');
+            $order_addtion = M("score_order")->where($where)->find();
             $order['consignee'] = $order_addtion['consignee'];
             $order['address'] = $order_addtion['address'];
             $order['zip'] = $order_addtion['zip'];

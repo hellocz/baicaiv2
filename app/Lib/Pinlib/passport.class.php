@@ -30,6 +30,10 @@ class passport
             $this->_error = $this->_us->get_error();
             return false;
         }
+        $list = M('user')->where('email = "' . $email . '"')->select();
+
+         $this->_error = $email . count($list) ;
+            return false;
         //添加到本地
         return $this->_local_add($add_data);
     }

@@ -17,64 +17,6 @@
 
       </div>
 
-	  <?php
-
-  //第一页评论不使用AJAX利于SEO
-
-      $comment_mod = M('comment');
-
-      $pagesize = 5;
-
-      $map = array('itemid' => $itemid,'xid'=>$xid,'status'=>1,'pid'=>0);
-
-      $count = $comment_mod->where($map)->count('id');
-
-      $pager = new Page($count, $pagesize);
-
-      $pager->path = "ajax/comment_list";
-
-      $pager->parameter ="itemid=$itemid&xid=$xid";
-
-      $pager_bar = $pager->jshow();
-
-      $pager_hot = new Page($count, $pagesize);
-
-      $pager_hot->path = "ajax/comment_list";
-
-      $pager_hot->parameter ="itemid=$itemid&xid=$xid&order=zan";
-
-      $pager_bar_hot = $pager_hot->jshow();
-
-	  $hot_list=M()->query("select * from try_comment where itemid=$itemid and xid=$xid and status=1  order by zan desc,id desc limit $pager_hot->firstRow , $pager_hot->listRows ");
-
-	  foreach($hot_list as $key=>$v){
-
-	  $hot_list[$key]['list1']=M()->query("select count(*) from try_comment where status=1 and pid='".$v['id']."' order by id asc");
-
-	  $hot_list[$key]['list']=M()->query("select * from try_comment where status=1 and pid='".$v['id']."' order by id asc");
-
-	  }
-
-
-
-
-
-      $sql = "select * from try_comment where itemid=$itemid and xid=$xid and status=1 and pid=0 order by id desc  limit $pager->firstRow , $pager->listRows ";
-
-      $cmt_list = M()->query($sql);
-
-      foreach($cmt_list as $key=>$v){
-
-      $cmt_list[$key]['list']=M()->query("select * from try_comment where status=1 and pid='".$v['id']."' order by id asc");
-
-      $cmt_list[$key]['list1']=M()->query("select count(*) from try_comment where status=1 and pid='".$v['id']."' order by id asc");
-
-
-
-      }
-
-	  ?>
-
 
 
 <div style=" clear:both;"></div>
@@ -283,7 +225,7 @@
 
       <div class="w_spxx_8">
 
-          <h3 class="J_pl_nav"><a class="" title="最热评论">最热评论</a><a title="最新评论" class="active">最新评论</a></h3>
+          <h3 class="J_pl_nav"><!--<a class="" title="最热评论">最热评论</a>--><a title="最新评论" class="active">最新评论</a></h3>
 
           <script>
 
@@ -322,8 +264,8 @@
 
                           <p class="ssb">{$val.uname}<span>LV.{:grade($val['uid'])}</span><em>{$val.add_time|fdate}</em></p>
                        <?php $infos=explode("|",$val['info']);  ?>
-                         <div class="ly_ba_lr"><p class="J_pl_i"><if condition="stripos($val['info'],'android') !==
-                          false "> {$infos[0]}</p></div><div class="ly_ba_lr"><p class="J_pl_i">来自<a href="{:U('item/index',array('id'=>'275535'))}"  target="_blank"> android </a>客户端</p></div><elseif condition="stripos($val['info'],'iphone') !==
+                         <div class="ly_ba_lr"><p class="J_pl_i"><if condition="stripos($val['info'],'|android') !==
+                          false "> {$infos[0]}</p></div><div class="ly_ba_lr"><p class="J_pl_i">来自<a href="{:U('item/index',array('id'=>'275535'))}"  target="_blank"> android </a>客户端</p></div><elseif condition="stripos($val['info'],'|iphone') !==
                           false "/> {$infos[0]}</p></div><div class="ly_ba_lr"><p class="J_pl_i">来自<a href="{:U('item/index',array('id'=>'275535'))}"  target="_blank"> iphone </a>客户端</p></div><else/>{$val.info}</p></div></if>
 
                           <div class="hflr_a hflr{$val.id}" id="hflr_a{$val.id}">
@@ -333,8 +275,8 @@
                                   <div class="lh_a1">
 
                                      <?php $infos=explode("|",$r['info']);  ?>
-            <div class="hf_zr"> <img src="{:avatar($r['uid'], 48)}" /><span>{$r.uname}</span></div> <p class="J_pl_i"><if condition="stripos($r['info'],'android') !==
-                          false "> {$infos[0]}</p><p class="J_pl_i">来自<a href="{:U('item/index',array('id'=>'275535'))}"  target="_blank"> android </a>客户端</p><elseif condition="stripos($r['info'],'iphone') !==
+            <div class="hf_zr"> <img src="{:avatar($r['uid'], 48)}" /><span>{$r.uname}</span></div> <p class="J_pl_i"><if condition="stripos($r['info'],'|android') !==
+                          false "> {$infos[0]}</p><p class="J_pl_i">来自<a href="{:U('item/index',array('id'=>'275535'))}"  target="_blank"> android </a>客户端</p><elseif condition="stripos($r['info'],'|iphone') !==
                           false "/> {$infos[0]}</p><p class="J_pl_i">来自<a href="{:U('item/index',array('id'=>'275535'))}"  target="_blank"> iphone </a>客户端</p><else/>{$r.info}</p></if>
 
 
@@ -350,8 +292,7 @@
 
                               <div class="gly_pl">
 
-                                  <if condition="$val['pingyu']"><span><strong>管理员评论：</strong>{$val['pingyu']}</span></if>  &nbsp; &nbsp; &nbsp; &nbsp;
-
+                                  <if condition="$val['pingyu']"><span><strong>管理员评论：</strong>{$val['pingyu']}</span></if>
                               </div>
 
                               <ul>
@@ -421,8 +362,8 @@
                           <p class="ssb">{$val.uname}<span>LV.{:grade($val['uid'])}</span><em>{$val.add_time|fdate}</em></p>
 
                         <?php $infos=explode("|",$val['info']);  ?>
-                         <div class="ly_ba_lr"><p class="J_pl_i"><if condition="stripos($val['info'],'android') !==
-                          false "> {$infos[0]}</p></div><div class="ly_ba_lr"><p class="J_pl_i">来自<a href="{:U('item/index',array('id'=>'275535'))}"  target="_blank"> android </a>客户端</p></div><elseif condition="stripos($val['info'],'iphone') !==
+                         <div class="ly_ba_lr"><p class="J_pl_i"><if condition="stripos($val['info'],'|android') !==
+                          false "> {$infos[0]}</p></div><div class="ly_ba_lr"><p class="J_pl_i">来自<a href="{:U('item/index',array('id'=>'275535'))}"  target="_blank"> android </a>客户端</p></div><elseif condition="stripos($val['info'],'|iphone') !==
                           false "/> {$infos[0]}</p></div><div class="ly_ba_lr"><p class="J_pl_i">来自<a href="{:U('item/index',array('id'=>'275535'))}"  target="_blank"> iphone </a>客户端</p></div><else/>{$val.info}</p></div></if>
                          <div class="hflr_b hflr{$val.id}" id="hflr_b{$val.id}">
 
@@ -430,8 +371,8 @@
 
                                   <div class="lh_a1">
                                    <?php $infos=explode("|",$r['info']);  ?>
-            <div class="hf_zr"> <img src="{:avatar($r['uid'], 48)}" /><span>{$r.uname}</span></div> <p class="J_pl_i"><if condition="stripos($r['info'],'android') !==
-                          false "> {$infos[0]}</p><p class="J_pl_i">来自<a href="{:U('item/index',array('id'=>'275535'))}"  target="_blank"> android </a>客户端</p><elseif condition="stripos($r['info'],'iphone') !==
+            <div class="hf_zr"> <img src="{:avatar($r['uid'], 48)}" /><span>{$r.uname}</span></div> <p class="J_pl_i"><if condition="stripos($r['info'],'|android') !==
+                          false "> {$infos[0]}</p><p class="J_pl_i">来自<a href="{:U('item/index',array('id'=>'275535'))}"  target="_blank"> android </a>客户端</p><elseif condition="stripos($r['info'],'|iphone') !==
                           false "/> {$infos[0]}</p><p class="J_pl_i">来自<a href="{:U('item/index',array('id'=>'275535'))}"  target="_blank"> iphone </a>客户端</p><else/>{$r.info}</p></if>
 
                                       <div class="lrhf"><div><span>{$r.add_time|fdate}</span><a href="javascript:;" class="J_hf" data-id="{$r.id}" psid="{$val.id}" title="回复">回复</a></div></div>
@@ -445,11 +386,7 @@
 
                               <div class="gly_pl">
 
-                                  <if condition="$val['pingyu']"><span><strong>管理员评论：</strong>{$val['pingyu']}</span></if>&nbsp; &nbsp; &nbsp; &nbsp;
-
-
-
-                              </div>
+                                  <if condition="$val['pingyu']"><span><strong>管理员评论：</strong>{$val['pingyu']}</span></if></div>
 
                               <ul>
 

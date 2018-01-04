@@ -1,5 +1,15 @@
 <!--编辑会员-->
 
+<?php 
+
+        $address = M('user_address');		
+
+        $map = array('uid' => $info['id']);
+		$address_info = $address->where($map)->order("id desc")->find();
+
+
+	  ?>
+
 <div class="dialog_content">
 
 	<form id="info_form" action="{:u('user/edit')}" method="post">
@@ -144,6 +154,12 @@
 
 			</td>
 
+		</tr>
+
+		<tr>
+			<th>地址 :</th>
+
+			<td>{$address_info.consignee}&nbsp;{$address_info.address}&nbsp;{$address_info.mobile}&nbsp;{$address_info.zip}</td>
 		</tr>
 
 	</table>

@@ -19,7 +19,7 @@ class indexAction extends frontendAction {
 			header("Location: /index.php?g=wap");
 		}
 		
-		
+		$p = $this->_get('p', 'intval', 1);
 		$type = $this->_get('type','trim');
 		$dss = $this->_get('dss','trim');
         //热门
@@ -38,13 +38,16 @@ class indexAction extends frontendAction {
 		$count = 1000; //$mod->where("status=1 and add_time<$time ".$where)->count();
 		$pager = $this->_pager($count,$pagesize);
 		if($tab =="isnice"){
+		if($p==1){
+		$front_list = $mod->where("status=1 and isfront=1 and add_time<$time ".$where)->limit($pager->firstRow.",".$pager->listRows)->order($order)->select();
+		}
 		$list = $mod->where("status=1 and add_time<$time ".$where)->limit($pager->firstRow.",".$pager->listRows)->order($order)->select();
 		
-		$hongbao_list = $mod->where("id=290392 or id=290618 ".$where)->order($order)->select();
-		if(count($hongbao_list)>0 && $time < 1510416000){
-		$list = array_merge($hongbao_list, $list); 
+	//	$hongbao_list = $mod->where("id=294298 ".$where)->order($order)->select();
+	//	if(count($hongbao_list)>0){
+	//	$list = array_merge($hongbao_list, $list); 
 		
-		}
+	//	}
 		// && $time < 1509465600
 		
 		}
@@ -71,7 +74,10 @@ class indexAction extends frontendAction {
 		$list[$key]['zan'] = $list[$key]['zan']   +intval($list[$key]['hits'] /10);
 		$article_begin_time =$list[$key]['add_time'];
 			}
-		if(p<1){
+		foreach($front_list as $key=>$val){
+		$front_list[$key]['zan'] = $front_list[$key]['zan']   +intval($front_list[$key]['hits'] /10);
+			}
+		if($p<1){
 			$article_end_time=time();
 		}
 		$article_list = M("article")->where("add_time > $article_begin_time and add_time < $article_end_time and status=4")->select();
@@ -80,8 +86,9 @@ class indexAction extends frontendAction {
 		usort($list, 'sortByAddTime');
 		}
 		$this->assign('item_list',$list);
+		$this->assign('front_list',$front_list);
 		$this->assign('pagebar',$pager->fshow());
-		$p = $this->_get("p",'intval');
+		
 		if($p<1){$p=1;}
 		$this->assign('p',$p);
 		//每天排名
@@ -146,6 +153,13 @@ class indexAction extends frontendAction {
 		//小时榜和24小时榜
 		$hour_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_hour and $time ORDER BY hits desc LIMIT 9");
 		$day_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_day and $time ORDER BY hits desc LIMIT 9");
+
+		$where1['cate_id']=9;
+		$where1['status']=1;
+		$article_list = M("article")->where($where1)->order("id desc")->limit(10)->select();
+		$this->assign("article_list",$article_list);
+		$this->assign("article_hide",1);
+
 		$this->assign('hour_list',$hour_list);
 		$this->assign('day_list',$day_list);
         $this->display();

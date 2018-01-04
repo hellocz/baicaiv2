@@ -30,6 +30,10 @@ class itemAction extends backendAction {
         //donothing;
         $data['status'] = 4;
         $data['add_time'] = 0;
+         require LIB_PATH . 'Pinlib/php/lib/XS.php';
+            $xs = new XS('baicai');
+            $index = $xs->index; 
+            $index->del($id);
         if (false !==   $this->_mod->where(array('id'=>$id))->save($data)) {
                 IS_AJAX && $this->ajaxReturn(1, L('operation_success'));
                 $this->success(L('operation_success'));
@@ -367,6 +371,12 @@ class itemAction extends backendAction {
             if (false === $data = $this->_mod->create()) {
                 $this->error($this->_mod->getError());
             }
+
+            if($_SESSION['admin']['role_id'] == 2 && $data['status'] == 1){
+                 IS_AJAX && $this->ajaxReturn(0,'已发布商品,请通知管理员修改!');
+                 $this->error('已发布商品,请通知管理员修改!');
+            }
+
             if( !$data['cate_id']||!trim($data['cate_id']) ){
                 IS_AJAX && $this->ajaxReturn(0,'请选择商品分类');
                 $this->error('请选择商品分类');
@@ -413,6 +423,12 @@ class itemAction extends backendAction {
 			}else{
 				$data['isbest']=0;
 			}
+
+            if($_POST['isfront']){
+                $data['isfront']=1;
+            }else{
+                $data['isfront']=0;
+            }
 			
 			if($_POST['istop']){
 				$data['istop']=1;
@@ -575,6 +591,22 @@ class itemAction extends backendAction {
             }
           //  file_put_contents($file_name, 'img123'.$data['img'].'img123', FILE_APPEND);
             $this->_mod->where(array('id'=>$item_id))->save($data);
+            //更新索引
+             require LIB_PATH . 'Pinlib/php/lib/XS.php';
+             $xs = new XS('baicai');
+             $index = $xs->index; 
+
+             if($data['status'] == '1' ){
+             $doc = new XSDocument;  
+             $xu_data = M("item")->where("id=$data[id]")->find();
+             $doc->setFields($xu_data);  
+            //更新到索引数据库中  
+            $index->update($doc);
+            }
+            else{
+                $index->del($data['id']);
+            }
+
              if($_POST['article_list']){
                 $vote = M("vote")->where(array('item_id'=>$item_id))->find();
                 if($vote){
@@ -640,7 +672,7 @@ class itemAction extends backendAction {
                 }
             }
             if($_POST['statusA']=='5' || $_POST['status']=='5' ){
-                $this->redirect('home-item/index', array('id' => $item_id), 1, '页面预览中...');
+                $this->redirect('home-item/index', array('id' => $item_id), 1, 'preview...');
             }
 
             IS_AJAX &&  $this->ajaxReturn(1,'添加成功');

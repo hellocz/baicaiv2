@@ -27,6 +27,7 @@ return array(
 			'/^topics\/spjy\/$/' => 'book/cate?cid=337',  //食品酒饮  
 			'/^topics\/zqzb\/$/' => 'book/cate?cid=341',  //杂七杂八  
 		    '/^topics\/notice\/$/' => 'book/cate?cid=342',//活动公告  
+            '/^topics\/finance\/$/' => 'book/cate?cid=349',//活动公告  
                                 '/^topics\/oversea-guide\/$/' =>'article/index?id=9',
 			//END
 			
@@ -62,6 +63,7 @@ return array(
             '/^wap\/topics\/spjy\/$/' => 'wap/book/cate?cid=337',  //食品酒饮  
             '/^wap\/topics\/zqzb\/$/' => 'wap/book/cate?cid=341',  //杂七杂八  
             '/^wap\/topics\/notice\/$/' => 'wap/book/cate?cid=342',//活动公告  
+            '/^wap\/topics\/finance\/$/' => 'wap/book/cate?cid=349',
              '/^wap\/topics\/oversea-guide\/$/' =>'wap/article/index?id=9',
             //END
             
@@ -86,7 +88,7 @@ return array(
             '/^zr\/c(\d+)$/' => 'zr/index?id=:1',
             '/^zr\/c(\d+)\/p(\d+)$/' => 'zr/index?id=:1&p=:2',
             '/^item\/(\d+).html$/' => 'item/index?id=:1',
-             '/^bao\/(\d+).html$/' => 'bitem/index?isbao=1&id=:1',
+            '/^bao\/(\d+).html$/' => 'bitem/index?isbao=1&id=:1',
             '/^tag\/(\S+)$/' => 'book/index?tag=:1',
             '/^p\/(\d+)\/tag\/(\S+)$/' => 'book/index?p=:1&tag=:2',
             '/^topics\/oversea-guide\/p(\d+)$/' => 'article/index?id=9&p=:1',

@@ -26,8 +26,9 @@ class default_passport
      * 注册新用户
      */
     public function register($username, $password, $email, $gender) {
+
         if (!$this->check_username($username)) {
-            $this->_error = L('username_exists');
+            $this->_error = L('username_exists') . $email . L('email_exists');
             return false;
         }
         if (!$this->check_email($email)) {
@@ -108,7 +109,7 @@ class default_passport
      * 检测用户邮箱唯一
      */
     public function check_email() {
-        if ($this->_user_mod->where(array('email'=>$email))->count('id')) {
+        if (M('user')->where(array('email'=>$email))->count('id') > 0) {
             return false;
         }
         return true;
@@ -118,7 +119,7 @@ class default_passport
      * 检测用户名唯一
      */
     public function check_username() {
-        if ($this->_user_mod->where(array('username'=>$username))->count('id')) {
+        if (M('user')->where(array('username'=>$username))->count('id') > 0) {
             return false;
         }
         return true;

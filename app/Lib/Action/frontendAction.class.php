@@ -94,17 +94,16 @@ class frontendAction extends baseAction {
      * 瀑布显示
      */
     public function waterfall($where = array(), $order = 'id DESC', $field = '', $page_max = '', $target = '') {
-		$time=time();
+        $time=time();
         $spage_size = C('pin_wall_spage_size'); //每次加载个数
         $spage_max = C('pin_wall_spage_max'); //每页加载次数
         $page_size = $spage_size * $spage_max; //每页显示个数
         $item_mod = M('item');
         $where_init = array('status'=>'1');
-		$where['add_time']=array('lt',$time);
+        $where['add_time']=array('lt',$time);
         $where = $where ? array_merge($where_init, $where) : $where_init;
-
-		//echo "<pre>";
-		//var_dump($where);
+        //echo "<pre>";
+        //var_dump($where);
         $count = $item_mod->where($where)->count('id');
         //控制最多显示多少页
         //if ($page_max && $count > $page_max * $page_size) {
@@ -116,29 +115,29 @@ class frontendAction extends baseAction {
         $pager = $this->_pager($count, $page_size);
         $target && $pager->path = $target;
         $item_list = $item_mod->field($field)->where($where)->order($order)->limit($pager->firstRow.','.$page_size)->select();
-	
+    
         foreach ($item_list as $key=>$val) {
             /*
-			if($val["sh_time"]>$val["ds_time"]){
-				$item_list[$key]['add_time']=$val["sh_time"];
-				
-			}else{
-				$item_list[$key]['add_time']=$val["ds_time"];
-				
-			}
+            if($val["sh_time"]>$val["ds_time"]){
+                $item_list[$key]['add_time']=$val["sh_time"];
+                
+            }else{
+                $item_list[$key]['add_time']=$val["ds_time"];
+                
+            }
             */
             $item_list[$key]['zan'] = $item_list[$key]['zan']   +intval($item_list[$key]['hits'] /10);
             isset($val['comments_cache']) && $item_list[$key]['comment_list'] = unserialize($val['comments_cache']);
-			$item_list[$key]['orig_name']=getly($val['orig_id']);
-        }		
-		
-	
+            $item_list[$key]['orig_name']=getly($val['orig_id']);
+        }       
+        
+    
         $this->assign('item_list', $item_list);
-		
-		/*echo "<pre>";
-		var_dump($item_list);*/
-		
-		
+        
+        /*echo "<pre>";
+        var_dump($item_list);*/
+        
+        
         //当前页码
         $p = $this->_get('p', 'intval', 1);
         $this->assign('p', $p);
@@ -152,10 +151,128 @@ class frontendAction extends baseAction {
         if ((count($item_list) + $page_size * ($p-1)) == $count) {
             $this->assign('show_page', 1);
         }
-		$this->assign("count",$count);
+        $this->assign("count",$count);
         
                             $this->assign("zh_count",$count);
     }
+
+
+    /**
+     * 瀑布显示
+     */
+    public function waterfall_xs($where = array(), $order = 'add_time DESC',$q, $field = '', $page_max = '', $target = '') {
+        $time=time();
+        $p = $this->_get('p', 'intval', 1);
+        
+
+        require LIB_PATH . 'Pinlib/php/lib/XS.php';
+        $xs = new XS('baicai');
+        $search = $xs->search;   //  获取搜索对象
+        $search->setLimit(20,20*($p-1)); 
+        $search->setSort('add_time',false);
+        //$search->setFuzzy(true);
+       // $search->addQueryTerm('title',$q,XS_CMD_QUERY_OP_OR);
+       // $search->addQueryTerm(,$q,XS_CMD_QUERY_OP_OR);
+       // $search->addQueryTerm('status','1',XS_CMD_QUERY_OP_AND);
+       // $search->addRange('status',2,null);
+        $search->setQuery($q);
+
+        $docs = $search->search();
+    //    $ss_cate = $search->getExpandedQuery($q);
+     //   var_dump( $ss_cate);
+     //   $this->assign('ss_cate', $ss_cate);
+        //$docs = $search->search();
+        $count = $search->count();
+        //echo "<pre>";
+        //var_dump($where);
+        //$count = $item_mod->where($where)->count('id');
+        //控制最多显示多少页
+        //if ($page_max && $count > $page_max * $page_size) {
+        //    $count = $page_max * $page_size;
+        //}
+        //查询字段
+        $field = 'id,uid,uname,orig_id,title,intro,img,price,likes,comments,comments_cache,url,zan,hits,go_link,add_time';
+        //分页
+        $item_mod = M('item');
+        $pager = $this->_pager($count, 20);
+        $target && $pager->path = $target;
+
+        foreach ($docs as $doc) {
+            if($str==""){
+                 $str=$doc->id;
+            }
+            else{
+               $str.=",".$doc->id;
+            }
+        }
+        $str && $where1['id'] = array('in', $str);
+        $item_list = $item_mod->field($field)->where($where1)->order($order)->select();
+    
+        //$prefix = "/usr/local/xunsearch";  
+        //加载XS.php，这步是必须的  
+        //require_once("$prefix/sdk/php/lib/XS.php");
+       /* 
+
+        $item_list = Array();
+        foreach ($docs as $doc) {
+
+            $item['title'] = $doc->title;
+            $item['img'] = $doc->img;
+            $item['id'] = $doc->id;
+            $item['price'] = $doc->price;
+            $item['add_time'] = $doc->add_time;
+            $item['zan'] = $doc->zan;
+            $item['hits'] = $doc->hits;
+            $item['comments_cache'] = $doc->comments_cache;
+            $item['orig_id'] = $doc->orig_id;
+            $item['go_link'] = $doc->go_link;
+            array_push($item_list,$item);
+            # code...
+        }
+*/
+        foreach ($item_list as $key=>$val) {
+            /*
+            if($val["sh_time"]>$val["ds_time"]){
+                $item_list[$key]['add_time']=$val["sh_time"];
+                
+            }else{
+                $item_list[$key]['add_time']=$val["ds_time"];
+                
+            }
+            */
+            $item_list[$key]['zan'] = $item_list[$key]['zan']   +intval($item_list[$key]['hits'] /10);
+            isset($val['comments_cache']) && $item_list[$key]['comment_list'] = unserialize($val['comments_cache']);
+            $item_list[$key]['orig_name']=getly($val['orig_id']);
+        }       
+        
+    
+        $this->assign('item_list', $item_list);
+        
+        /*echo "<pre>";
+        var_dump($item_list);*/
+        
+        
+        //当前页码
+        
+        $this->assign('p', $p);
+        //当前页面总数大于单次加载数才会执行动态加载
+        if (($count - ($p-1) * $page_size) > $spage_size) {
+            $this->assign('show_load', 1);
+        }
+        //总数大于单页数才显示分页
+        $count > $page_size && $this->assign('page_bar', $pager->fshow());
+        //最后一页分页处理
+        if ((count($item_list) + $page_size * ($p-1)) == $count) {
+            $this->assign('show_page', 1);
+        }
+        $this->assign("count",$count);
+        
+        $this->assign("zh_count",$count);
+        if($count == 0 ){
+            $this->waterfall($where, $order);
+        }
+    }
+
 
     /**
      * 瀑布加载
@@ -249,7 +366,19 @@ class frontendAction extends baseAction {
         //分页
         $pager = $this->_pager($count, $page_size);
         $target && $pager->path = $target;
-        $item_list = $item_mod->field($field)->where($where)->join($db_pre . 'item i ON i.orig_id = ' . $db_pre . 'item_orig.id')->order($order)->limit($pager->firstRow.','.$page_size)->select();
+       // $item_list = $item_mod->field($field)->where($where)->join($db_pre . 'item i ON i.orig_id = ' . $db_pre . 'item_orig.id')->order($order)->limit($pager->firstRow.','.$page_size)->select();
+        
+       // $prefix = "/usr/local/xunsearch";  
+        //加载XS.php，这步是必须的  
+        //require_once("$prefix/sdk/php/lib/XS.php");
+        //require_once("$prefix/sdk/php/lib/XS.php");
+        require LIB_PATH . 'Pinlib/php/lib/XS.php';
+
+        $xs = new XS('baicai');
+        $search = $xs->search;   //  获取搜索对象
+        $search->setLimit(20); 
+        $item_list = $search->setQuery("白菜哦")->search();
+        
         foreach ($item_list as $key=>$val) {
             isset($val['comments_cache']) && $item_list[$key]['comment_list'] = unserialize($val['comments_cache']);
         }

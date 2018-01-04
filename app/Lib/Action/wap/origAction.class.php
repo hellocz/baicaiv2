@@ -68,7 +68,10 @@ class origAction extends frontendAction {
 		$this->assign('count',$count);
 		$this->assign('pagesize',$pagesize);
         //$this->assign('page_bar', $pager->fshow());		
-        $this->_config_seo();
+        $page_seo['title'] = $orig_info['seo_title'];
+        $page_seo['keywords'] = $orig_info['seo_keys'];
+        $page_seo['description'] = $orig_info['seo_desc'];
+        $this->assign('page_seo', $page_seo);
     	$this->display();
     }
 }

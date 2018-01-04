@@ -1,11 +1,21 @@
-<!--矩形广告位-->
-<div id="slide">
-<volist name="ad_list" id="ad">
-	<div>{$ad.html}</div>
-</volist>
-<p id="slide_p">
-<volist name="ad_list" id="ad">
-<span <if condition="$i eq 1">class='cur'</if>></span>
-</volist>
-</p>
+<!--矩形广告位-->
+
+<div id="slide">
+
+<volist name="ad_list" id="ad">
+
+	<div>{$ad.html}</div>
+
+</volist>
+
+<p id="slide_p">
+
+<volist name="ad_list" id="ad">
+
+<span <if condition="$i eq 1">class='cur'</if>></span>
+
+</volist>
+
+</p>
+
 </div>

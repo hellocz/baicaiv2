@@ -49,6 +49,15 @@
         
 
         <div class="xzxl_a">
+          <label class="search_word">{$q}</label>
+          <input type="hidden" name="id" class="tagid" value="{$tagid}">
+          
+          <button <if condition="$psign=='1'" >style="display:none;" </if> class="ts">推送</button>
+          <button <if condition="$psign=='0'" >style="display:none;" </if> class="yts">取消推送</button>
+          <button <if condition="$fsign=='1'" >style="display:none;" </if> class="gz">关注</button>
+          <button <if condition="$fsign=='0'" >style="display:none;" </if> class="ygz">取消关注</button>
+
+          <!--
 
         <select class="dropdown" tabindex="7" onChange="if(value!=''){window.location.href=this.options[this.selectedIndex].value;}else{return(false);}">
 
@@ -70,7 +79,7 @@
 
         </select>
 
-        
+        -->
 
         <span>为您找到相关结果约{$count}个</span>
 
@@ -118,6 +127,84 @@
 <script src="/js/function.js"></script>
 
 <include file="public:footer" />
+<include file="public:baidu_js_push" />
+
+<script type="text/javascript">
+  
+  $(".ts").click(function(){
+    if(PINER.uid==""){
+     $.get("index.php?m=user&a=login",function(res){opdg(res.data,524,262,'用户登录');},'json');
+      return false;
+    };
+    $.post("/index.php?m=user&a=notify_tag_create",{userid:PINER.uid,tag:$(".search_word").text()},function(result){
+      if(result.status==1){
+        tips(result.msg,1);
+        $(".tagid").val(result.data);
+        $(".ts").hide();
+        $(".yts").show();
+        $(".gz").hide();
+        $(".ygz").show();
+      }else{
+        tips(result.msg,0);
+      }
+    },'json');
+  });
+  $(".yts").click(function(){
+    if(PINER.uid==""){
+     $.get("index.php?m=user&a=login",function(res){opdg(res.data,524,262,'用户登录');},'json');
+      return false;
+    };
+    $.post("/index.php?m=user&a=notify_tag_del",{userid:PINER.uid,tag:$(".search_word").text(),id:$(".tagid").val()},function(result){
+      if(result.status==1){
+        tips(result.msg,1);
+        $(".yts").hide();
+        $(".ts").show();
+
+      }else{
+        tips(result.msg,0);
+      }
+    },'json');
+  });
+  $(".gz").click(function(){
+    if(PINER.uid==""){
+     $.get("index.php?m=user&a=login",function(res){opdg(res.data,524,262,'用户登录');},'json');
+      return false;
+    };
+    $.post("/index.php?m=user&a=follow_tag_create",{userid:PINER.uid,tag:$(".search_word").text()},function(result){
+      if(result.status==1){
+        tips(result.msg,1);
+        $(".tagid").val(result.data);
+        $(".gz").hide();
+        $(".ygz").show();
+
+      }else{
+        tips(result.msg,0);
+      }
+    },'json');
+  });
+  $(".ygz").click(function(){
+    if(PINER.uid==""){
+     $.get("index.php?m=user&a=login",function(res){opdg(res.data,524,262,'用户登录');},'json');
+      return false;
+    };
+    $.post("/index.php?m=user&a=follow_tag_del",{userid:PINER.uid,tag:$(".search_word").text()},function(result){
+      if(result.status==1){
+        tips(result.msg,1);
+        $(".ygz").hide();
+        $(".gz").show();
+        $(".yts").hide();
+        $(".ts").show();
+
+      }else{
+        tips(result.msg,0);
+      }
+    },'json');
+  });
+function opdg(content,w,h,title){  
+  var dg = new $.dialog({id:'selectorder',title:title, lock:false,content:content,width:w,height:h,background:'#000',opacity:1,top:311, max: false, min: false,resize:false});    
+}
+
+</script>
 
 <script src="/static/js/lhg/lhgdialog.min.js?self=true&skin=idialog" type="text/javascript"></script>
 

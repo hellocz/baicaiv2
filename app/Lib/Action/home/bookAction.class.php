@@ -21,7 +21,7 @@ class bookAction extends frontendAction {
         $isnice = $this->_get('isnice','intval');
     $time=time();
         $where = array();
-        $where['sh_time']=array('lt',$time);
+        $where['add_time']=array('lt',$time);
         $pos   =   strpos($tag,   '-');      
         if($tag =="9-9包邮"){
             $tag ="9.9包邮";
@@ -52,13 +52,20 @@ class bookAction extends frontendAction {
                 $order = 'add_time DESC';
                 break;
         }
-         $str &&$this->waterfall($where, $order, '', $page_max);
+         $this->waterfall($where, $order, '', $page_max);
 
         $this->assign('hot_tags', $hot_tags);
         $this->assign('tag', $tag );
         $this->assign('sort', $sort);
         $this->_config_seo(C('pin_seo_config.book'), array('tag_name' => $tag)); //SEO
         $strpos = ($tag)?"$tag":" 所有商品";
+        if(empty($tag)){
+        $page_seo['title'] = "海淘专享优惠券|海外购网站优惠劵|网易考拉海购优惠卷|海淘专享优惠券|白菜哦 ";
+        $page_seo['keywords'] = "海淘专享优惠券|海外购网站优惠劵|网易考拉海购优惠卷|海淘专享优惠券|白菜哦";
+        $page_seo['description'] = "白菜哦提供2018年最新海淘,商品优惠劵,专享优惠卷，20-50元天猫优惠劵，告诉你优惠劵购买技巧";
+        $this->assign('page_seo', $page_seo);
+        }
+
         $this->assign('strpos',$strpos);
         $this->display();
     }
@@ -261,12 +268,9 @@ class bookAction extends frontendAction {
 			));
             $disp = 'gny1';
 		}elseif($tp==0){
-			$this->_config_seo(C('pin_seo_config.cate'), array(
-            'cate_name' => '国内频道',
-            'seo_title' => $cate_info['seo_title'],
-            'seo_keywords' => $cate_info['seo_keys'],
-            'seo_description' => $cate_info['seo_desc'],
-			));
+        $page_seo['title'] = "国内商品优惠劵|国内商品活动信息优惠劵";
+        $page_seo['keywords'] = "国内商品优惠劵|国内商品活动信息优惠劵";
+        $page_seo['description'] = "白菜哦实时更新国内电商优惠促销活动优惠劵,众多神价都是全网独家。电商自营,和品牌直营的旗舰店,在正品行货中寻觅神价格,好活动。";
             $disp = 'gny';
 		}
 		//表现形式
@@ -278,16 +282,23 @@ class bookAction extends frontendAction {
 		$this->assign("origid",$orig_id);
 		$this->assign("cateid",$cateid);
 		$this->assign("count",$count);
+        if($cateid!=0){
+            $cate=M("item_cate")->where("id=$cateid")->find();
+            $this->assign('cate_url',U("book/gny",array('tp'=>$tp,'origid'=>$orig_id,"ispost"=>$ispost)));
+            $this->assign('cate',$cate['name']);
+        $page_seo['title'] = $cate['seo_title'];
+        $page_seo['keywords'] = $cate['seo_keys'];
+        $page_seo['description'] = $cate['seo_desc'];
+        }
 		if($orig_id!=0){
-			$orig=M("item_orig")->where("id=$orig_id")->getField("name");
+			$orig=M("item_orig")->where("id=$orig_id")->find();
 			$this->assign('orig_url',U("book/gny",array('tp'=>$tp,'cateid'=>$cateid,"ispost"=>$ispost)));
-			$this->assign('orig',$orig);
+			$this->assign('orig',$orig['name']);
+            $page_seo['title'] = $orig['seo_title'];
+            $page_seo['keywords'] = $orig['seo_keys'];
+            $page_seo['description'] = $orig['seo_desc'];
 		}
-		if($cateid!=0){
-			$cate=M("item_cate")->where("id=$cateid")->getField("name");
-			$this->assign('cate_url',U("book/gny",array('tp'=>$tp,'origid'=>$orig_id,"ispost"=>$ispost)));
-			$this->assign('cate',$cate);
-		}
+		$this->assign('page_seo', $page_seo);
 		//可直邮
 		if($ispost==1){$cispost=0;}else{$cispost=1;}
         $time = time();

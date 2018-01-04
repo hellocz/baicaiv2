@@ -1252,8 +1252,10 @@ width:35%; text-align:center;
 }
 
 /*11月3号修改*/
-.bc_fixed_right{position: fixed;padding: 0.5% 0;opacity: 0.8; background-color: #3dc399; right: 2%;bottom: 100px;width: 8%;}
+.bc_fixed_right{position: fixed;padding: 0.5% 0;opacity: 0.8; background-color: #3dc399; right: 2%;bottom: 141px;width: 8%;}
 .bc_fixed_right img{width: 100%;}
+.bc_fixed_right_img{position: fixed;opacity: 0.8; background-color: #3dc399; right: 2%;bottom: 100px;width: 40px;height: 40px;}
+.bc_fixed_right_img img{width: 100%;}
 
 /*1221zf修改*/
 .w_bjtjy_2 p span {

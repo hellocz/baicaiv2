@@ -6,10 +6,147 @@ class itemAction extends frontendAction {
     public function _initialize() {
         parent::_initialize();
         //访问者控制
-        if (!$this->visitor->is_login && in_array(ACTION_NAME, array('share_item', 'fetch_item', 'publish_item', 'like', 'unlike', 'delete', 'comment','publish'))) {
+        if (!$this->visitor->is_login && in_array(ACTION_NAME, array('share_item', 'fetch_item', 'publish_item', 'like', 'unlike', 'delete', 'comment','publish','myitems'))) {
             IS_AJAX && $this->ajaxReturn(0, L('login_please'));
             $this->redirect('user/login');
         }
+    }
+    /**
+    * 我的关注
+    */
+
+    public function myitems(){
+    $mod=M("item");
+     $order =" add_time desc";
+      $tab = "myitems";
+       $p = $this->_get('p', 'intval', 1);
+    $time=time();   
+    $pagesize=18;//$mod->where("status=1 and add_time<$time ".$where)->count();
+    
+    if($tab =="myitems"){
+      require LIB_PATH . 'Pinlib/php/lib/XS.php';
+        $xs = new XS('baicai');
+        $search = $xs->search;
+        $search->setLimit(18,18*($p-1)); 
+        $search->setSort('add_time',false);
+        $notify_tag = M("notify_tag");
+        $user = $this->visitor->get();
+        $tags = $notify_tag->field('tag')->where(array('userid' => $user['id'],'f_sign'=> 1 ))->select();
+        $this->assign('tags',$tags);
+        $count=0;
+        if(!empty($tags)){
+          foreach ($tags as $tag) {
+            $search->addQueryString($tag['tag'],XS_CMD_QUERY_OP_OR);
+          }
+        $docs = $search->search();
+        $count = $search->count();
+        }
+      if($count ==0){
+        $list = "";
+      }
+      else{
+        $pager = $this->_pager($count,$pagesize);
+        foreach ($docs as $doc) {
+            if($str==""){
+                 $str=$doc->id;
+            }
+            else{
+               $str.=",".$doc->id;
+            }
+        }
+        $item_mod = M('item');
+        $str && $where1['id'] = array('in', $str);
+        $list = $item_mod->where($where1)->order($order)->select();
+      }
+      }
+      
+    $article_begin_time =0;
+    $article_end_time =0;
+    foreach($list as $key=>$val){
+        if($article_end_time==0){
+          $article_end_time = $list[$key]['add_time'];
+        }
+    $list[$key]['zan'] = $list[$key]['zan']   +intval($list[$key]['hits'] /10);
+    $article_begin_time =$list[$key]['add_time'];
+      }
+    if(p<1){
+      $article_end_time=time();
+    }
+    $article_list = M("article")->where("add_time > $article_begin_time and add_time < $article_end_time and status=4")->select();
+    if(count($article_list)>=1){
+    $list = array_merge($list, $article_list); 
+    usort($list, 'sortByAddTime');
+    }
+    $this->assign('item_list',$list);
+    $this->assign('pagebar',$pager->fshow());
+    $p = $this->_get("p",'intval');
+    if($p<1){$p=1;}
+    $this->assign('p',$p);
+    //每天排名
+    $time_s = strtotime(date('Y-m-d'),time());
+    $time_m_s = strtotime(date('Y-m-1'),time());
+    $time_m_e = time();
+    $time_e =$time_s+24*60*60;
+    $pm1 = M()->query("select distinct uid as id,uname,sum(score) as num from try_score_log where add_time>$time_s and add_time<$time_e group by uname order by num desc,uid asc limit 4");
+    $pmm = M()->query("select distinct uid as id,uname,sum(score) as num from try_score_log where add_time>$time_m_s and add_time<$time_m_e group by uname order by num desc,uid asc limit 4");
+    //全部排名
+    $pma = M("user")->field("id,username,score")->order("score desc,id asc")->limit(4)->select();   
+    if($this->visitor->is_login){
+      $user = $this->visitor->get();
+      $follow_list = M("user_follow")->where("uid=$user[id]")->select();
+      foreach($pm1 as $key=>$val){
+        foreach($follow_list as $k=>$v){
+          if($val['uid']==$v['follow_uid']){
+            $pm1[$key]['follow']=1;
+          }
+        }
+      }
+      foreach($pmm as $key=>$val){
+        foreach($follow_list as $k=>$v){
+          if($val['uid']==$v['follow_uid']){
+            $pmm[$key]['follow']=1;
+          }
+        }
+      }
+      foreach($pma as $key=>$val){
+        foreach($follow_list as $k=>$v){
+          if($val['id']==$v['follow_uid']){
+            $pma[$key]['follow']=1;
+          }
+        }
+      }
+    }
+    $this->assign('pm1',$pm1);
+    $this->assign('pmm',$pmm);
+    $this->assign('pma',$pma);
+    //表现形式
+
+        $dss =$this->_get("dss","trim");
+  //  $dss = ($dss=="")?$_SESSION['dss']:$dss;
+    $dss = ($dss=="")?"lb":$dss;
+    $_SESSION['dss']=$dss;
+    $this->assign("dss",$dss);
+    $this->assign("tab",$tab);
+    $this->assign("lb_url",U('index/index',array('type'=>$type,'tab'=>$tab,'dss'=>'lb')));
+    $this->assign("cc_url",U('index/index',array('type'=>$type,'tab'=>$tab,'dss'=>'cc')));
+        $this->_config_seo();
+    $this->assign("bcid",0);
+    //热门活动
+    $hd = M("hd")->limit(8)->order("order_s asc,id desc")->select();
+    $thd = M("item")->where('istop = 1')->limit(8)->order("id desc")->select();
+    $this->assign('hd',$hd);
+    $this->assign('thd',$thd);
+    $time = time();
+    $time_hour = $time - 3600;
+    $time_day = $time - 86400;
+
+    //小时榜和24小时榜
+    $hour_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_hour and $time ORDER BY hits desc LIMIT 9");
+    $day_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_day and $time ORDER BY hits desc LIMIT 9");
+    $this->assign('hour_list',$hour_list);
+    $this->assign('day_list',$day_list);
+        $this->display();
+
     }
 
     /**
@@ -31,7 +168,7 @@ class itemAction extends frontendAction {
             $item['uid'] = 0;
         }
         ($item['status']==0)&&$this->error('该信息未通过审核');
-           if(isset($_SESSION['admin']['role_id']) && $_SESSION['admin']['role_id'] == 1) {
+           if(isset($_SESSION['admin']['role_id']) && $_SESSION['admin']['role_id'] >0 ) {
            
         }
         else{
@@ -70,11 +207,11 @@ class itemAction extends frontendAction {
         }
         */
     
-        $is_hot = $item_mod->field("id,img,intro,price,title")->where('ishot=1 AND status=1')->order('add_time desc,id desc')->limit(8)->select();
+        $is_hot = $item_mod->field("id,img,intro,price,title")->where('ishot=1 AND status=1')->order('add_time desc,id desc')->limit(5)->select();
         
         //第一页评论不使用AJAX利于SEO
         $item_comment_mod = M('item_comment');
-        $pagesize = 8;
+        $pagesize = 20;
         $map = array('item_id' => $id);
         $count = $item_comment_mod->where($map)->count('id');
         $pager = $this->_pager($count, $pagesize);
@@ -86,6 +223,16 @@ class itemAction extends frontendAction {
         }
             else{
         $item_mod->where(array('id' => $id))->setInc('hits'); //点击量
+        /*
+          require LIB_PATH . 'Pinlib/php/lib/XS.php';
+             $xs = new XS('baicai');
+             $index = $xs->index; 
+             $doc = new XSDocument;  
+             $xu_data = M("item")->where("id=$id")->find();
+             $doc->setFields($xu_data);  
+            //更新到索引数据库中  
+            $index->update($doc);
+            */
         }
        
 
@@ -133,6 +280,8 @@ class itemAction extends frontendAction {
         $this->assign('xid',1);
         $this->assign('itemid',$id);    
         $time = time();
+        $itemid = $id;
+        $xid = 1;
         $time_hour = $time - 3600;
         $time_day = $time - 86400;
 
@@ -141,6 +290,81 @@ class itemAction extends frontendAction {
         $day_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_day and $time ORDER BY hits desc,add_time desc LIMIT 9");
         $this->assign('hour_list',$hour_list);
         $this->assign('day_list',$day_list);
+
+         $comment_mod = M('comment');
+
+      $pagesize = 10;
+
+      $map = array('itemid' => $itemid,'xid'=>$xid,'status'=>1,'pid'=>0);
+
+      $count = $comment_mod->where($map)->count('id');
+
+      $pager = new Page($count, $pagesize);
+
+      $pager->path = "ajax/comment_list";
+
+      $pager->parameter ="itemid=$itemid&xid=$xid";
+
+      $pager_bar = $pager->jshow();
+      $this->assign('pager_bar',$pager_bar);
+
+      $pager_hot = new Page($count, $pagesize);
+
+      $pager_hot->path = "ajax/comment_list";
+
+      $pager_hot->parameter ="itemid=$itemid&xid=$xid&order=zan";
+
+      $pager_bar_hot = $pager_hot->jshow();
+
+      $this->assign('pager_bar_hot',$pager_bar_hot);
+
+ //   $hot_list=M()->query("select * from try_comment where itemid=$itemid and xid=$xid and status=1  order by zan desc,id desc limit $pager_hot->firstRow , $pager_hot->listRows ");
+  //  $hot_list_tmp=M("comment")->where(array('itemid'=>$itemid,'xid'=>$xid,'status'=>1))->order("zan desc")->limit($pager_hot->firstRow , $pager_hot->listRows)->select();
+   /* 
+    foreach($hot_list_tmp as $key=>$v){
+      if($v['pid'] == '0'){
+      $hot_list[$v['id']]=$v;
+      }
+    }
+
+
+    foreach($hot_list_tmp as $key=>$v){
+       if($v['pid'] !== '0'){
+        $hot_list[$v['pid']]['list'][$v['id']]= $v;
+      }
+
+   // $hot_list[$key]['list1']=M()->query("select count(*) from try_comment where status=1 and pid='".$v['id']."' order by id asc");
+
+    //$hot_list[$key]['list']=M()->query("select * from try_comment where status=1 and pid='".$v['id']."' order by id asc");
+
+    }*/
+
+  //  $this->assign('hot_list',$hot_list);
+
+
+
+
+      $sql = "select * from try_comment where itemid=$itemid and xid=$xid and status=1 and pid=0 order by id desc  limit $pager->firstRow , $pager->listRows ";
+
+      $cmt_list = M()->query($sql);
+/*
+      foreach($cmt_list_tmp as $key=>$v){
+      if($v['pid'] == '0'){
+      $cmt_list[$v['id']]=$v;
+      }
+    }
+*/
+      foreach($cmt_list as $key=>$v){
+
+      $cmt_list[$key]['list']=M()->query("select * from try_comment where status=1 and pid='".$v['id']."' order by id asc");
+
+    //  $cmt_list[$key]['list1']=M()->query("select count(*) from try_comment where status=1 and pid='".$v['id']."' order by id asc");
+
+
+
+      }
+
+      $this->assign('cmt_list',$cmt_list);
         
         $this->display();
     }
@@ -187,7 +411,7 @@ class itemAction extends frontendAction {
         $item = $item_mod->where(array('id' => $id, 'status' => '1'))->count('id');
         !$item && $this->ajaxReturn(0, L('invalid_item'));
         $item_comment_mod = M('item_comment');
-        $pagesize = 8;
+        $pagesize = 20;
         $map = array('item_id' => $id);
         $count = $item_comment_mod->where($map)->count('id');
         $pager = $this->_pager($count, $pagesize);

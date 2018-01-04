@@ -1404,7 +1404,7 @@ class userAction extends userbaseAction
             //积分日志
             set_score_log(array('id'=>$data['uid'],'username'=>$data['uname']),'comment',2,'','',2);
 
-            echo get_result(10001,'评论成功');return ;
+            echo get_result(10001,[],"感谢您的回复,系统给您奖励积分：2，经验：2.");return ;
         } else {
             echo get_result(10001,'评论失败');return ;
         }
@@ -1876,7 +1876,7 @@ class userAction extends userbaseAction
    //         echo get_result(10001,'您的等级还不够，需要升到 3 级才能发送私息！');return ;
    //     }
         $score = M('user')->where(array('id'=>$uid))->getField('score');
-        if($score <2){
+        if($score <1){
             echo get_result(10001,'您的积分不够了');return ;
 
         }
@@ -1903,9 +1903,9 @@ class userAction extends userbaseAction
         if ($info['id']) {
             //提示接收者
             D('user_msgtip')->add_tip($to_id, 3);
-            M("user")->where("id=$uid")->setDec("score",2);
+            M("user")->where("id=$uid")->setDec("score",1);
             //积分日志
-            set_score_log(array('id'=>$uid,'username'=>$username),'shixin',-2,'','','');
+            set_score_log(array('id'=>$uid,'username'=>$username),'shixin',-1,'','','');
             echo get_result(10001,'发送成功');return ;
         } else {
             $this->ajaxReturn(0, L('illegal_parameters'));
@@ -2024,23 +2024,17 @@ class userAction extends userbaseAction
             echo get_result(20001,[], "评论失败");return ;
         }
         $comment_id = $comment_mod->add();
+
         if ($comment_id) {
-            $item_mod->where(array('id'=>$info['itemid']))->setInc('comments');//评论数量加1
-            M("user")->where("id=".$info['uid'])->setInc("score");
+            $item_mod->where(array('id'=>$itemid))->setInc('comments');//评论数量加1
+            M("user")->where("id=".$info['uid'])->setInc("score",2);
+            M("user")->where("id=".$info['uid'])->setInc("exp",2);
             //积分日志
-            set_score_log(array('id'=>$info['uid'],'username'=>$info['uname']),'comment',1,'','',1);
-            $xc = array();
-            $xc['ftid']=$info['uid'];
-            $xc['to_id']=$info['uid'];
-            $xc['to_name']=$info['uname'];
-            $xc['from_id']=0;
-            $xc['from_name']='tryine';
-            $xc['add_time']=time();
-            $xc['info'] ='感谢您的回复,系统给您奖励积分：1，经验：1.';
-            M('message')->add($xc);
-            echo get_result(10001,[], $xc['info']);return ;
+            set_score_log(array('id'=>$info['uid'],'username'=>$info['uname']),'comment',2,'','',2);
+
+            echo get_result(10001,[],'"感谢您的回复,系统给您奖励积分：2，经验：2."');return ;
         } else {
-            echo get_result(20001,[], "评论失败");return ;
+            echo get_result(10001,[],'评论失败');return ;
         }
     }
 
@@ -2057,8 +2051,9 @@ class userAction extends userbaseAction
         $order_list = $score_order_mod->field('id,order_sn,item_id,item_name,order_score,order_coin,status,add_time,remark,luckdraw_num')->where($map)->limit($page-$data['pagesize'], $data['pagesize'])->order('id DESC')->select();
 
         foreach($order_list as $key=>$val){
-            $score_item = M('score_item')->field('img')->where('id='.$order_list[$key]['item_id'])->find();
+            $score_item = M('score_item')->field('img,win')->where('id='.$order_list[$key]['item_id'])->find();
         $order_list[$key]['img'] = $score_item['img'];
+        $order_list[$key]['win'] = $score_item['win'];
             }
 
          $code = 10001;

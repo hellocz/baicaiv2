@@ -20,28 +20,8 @@ class origAction extends frontendAction {
 			$hot_list = M("item_orig")->where("ismy=$k")->order("is_hot desc,id asc")->limit(21)->select();	
 			$count = M()->query("SELECT COUNT(name) FROM try_item_orig  where ismy=".$k);					
 			if($p){
-					if($k==0){
-						$list = M()->query("select i.* from try_item_orig i,try_cosler c  where CONV( HEX( LEFT( CONVERT( i.name  USING gbk ) , 1 ) ) , 16, 10 ) BETWEEN c.cBegin AND c.cEnd AND c.fPY = '$p' AND i.ismy='$k' order by i.id asc");
-					}else{					
-						for($i=0; $i< $count[0]['COUNT(name)']; $i++){
-							if(substr($hot_list[$i]['name'],0,1)==$p || substr($hot_list[$i]['name'],0,1) == strtolower($p) ){
-								$list[$i]['id'].=	$hot_list[$i]['id'];
-								$list[$i]['img'].=	$hot_list[$i]['img'];
-								$list[$i]['img_url'].=	$hot_list[$i]['img_url'];
-								$list[$i]['name'].=	$hot_list[$i]['name'];
-								$list[$i]['url'].=	$hot_list[$i]['url'];
-								$list[$i]['ordid'].=	$hot_list[$i]['ordid'];
-								$list[$i]['ismy'].=	$hot_list[$i]['ismy'];
-								$list[$i]['intro'].=	$hot_list[$i]['intro'];
-								$list[$i]['kb'].=	$hot_list[$i]['kb'];
-								$list[$i]['fwzl'].=	$hot_list[$i]['fwzl'];
-								$list[$i]['fwps'].=	$hot_list[$i]['fwps'];
-								$list[$i]['khfw'].=	$hot_list[$i]['khfw'];
-								$list[$i]['is_hot'].=	$hot_list[$i]['is_hot'];
-							}
-						}
-						
-					}
+				$list = M()->query("select i.* from try_item_orig i where fristPinyin(i.name) = '$p' AND i.ismy='$k' order by i.id asc");
+				
 
 			}else{
 				$list = M("item_orig")->where("ismy=$k")->order("id asc")->select();
@@ -87,8 +67,12 @@ class origAction extends frontendAction {
         $p = $this->_get('p', 'intval', 1);
         $this->assign('p', $p);
         $this->assign('page_bar', $pager->fshow());		
-        $this->_config_seo();
-        $this->_config_seo(C('pin_seo_config.orig'), array('orig_name' => $orig_info['name']));
+        //$this->_config_seo();
+        //$this->_config_seo(C('pin_seo_config.orig'), array('orig_name' => $orig_info['name']));
+        $page_seo['title'] = $orig_info['seo_title'];
+        $page_seo['keywords'] = $orig_info['seo_keys'];
+        $page_seo['description'] = $orig_info['seo_desc'];
+        $this->assign('page_seo', $page_seo);
     	$this->display();
     }
 }

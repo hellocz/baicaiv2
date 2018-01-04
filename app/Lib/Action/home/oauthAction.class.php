@@ -14,6 +14,8 @@ class oauthAction extends frontendAction {
         }
         $oauth = new oauth($mod);
         cookie('callback_type', $type);
+        $ret_url = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : __APP__;
+        cookie('ret_url', $ret_url);
         return $oauth->authorize();
     }
 

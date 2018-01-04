@@ -1,0 +1,458 @@
+[ 2017-12-13T10:18:27+08:00 ] 127.0.0.1 /admin?g=admin&m=index&a=login
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.001000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.001000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.009001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.043060s ]
+INFO: [ view_template ] --END-- [ RunTime:0.005000s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-1.048060s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.012001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.060061s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.062061s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.063061s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.064061s ]
+INFO: Run content_replace Behavior [ RunTime:-1.065061s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.005000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.065061s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-12-13T10:18:28+08:00 ] 127.0.0.1 /admin?g=admin&m=index&a=verify_code&t=1513131507
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.001000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.002000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:-0.002000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.002000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.004000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.005000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.008001s ]
+
+[ 2017-12-13T10:18:31+08:00 ] 127.0.0.1 /admin?g=admin&m=index&a=login
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.001000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.001000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.007000s ]
+SQL: SHOW COLUMNS FROM `try_admin` [ RunTime:0.012001s ]
+SQL: SELECT * FROM `try_admin` WHERE ( `username` = 'hellocz' ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.003000s ]
+SQL: UPDATE `try_admin` SET `last_time`=1513131511,`last_ip`='127.0.0.1' WHERE ( `id` = 19 ) [ RunTime:0.002000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.065061s ]
+INFO: [ view_template ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-1.068061s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.011001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.079062s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.080062s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.081062s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.081062s ]
+INFO: Run content_replace Behavior [ RunTime:-1.082062s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.004000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.083062s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-12-13T10:18:34+08:00 ] 127.0.0.1 /admin?g=admin&m=index&a=index
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.002000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.003000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:-0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.001000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.003000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.007000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.007001s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 0 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.062061s ]
+INFO: [ view_template ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-1.064061s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.013001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.078062s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.078062s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.079062s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.079062s ]
+INFO: Run content_replace Behavior [ RunTime:-1.080062s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.004000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.081062s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-12-13T10:18:35+08:00 ] 127.0.0.1 /admin?g=admin&m=index&a=panel
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.002000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.002000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.001000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.005000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.015001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.169067s ]
+INFO: [ view_template ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.176067s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.005000s ]
+NOTIC: [8] Undefined variable: sub_menu D:\repo\baicai\data\runtime\Cache\admin\ba3d2a4c7110487814df26e78e828b96.php 第 43 行.
+NOTIC: [8] Undefined variable: big_menu D:\repo\baicai\data\runtime\Cache\admin\ba3d2a4c7110487814df26e78e828b96.php 第 43 行.
+INFO: Run ParseTemplate Behavior [ RunTime:-1.176067s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.018001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.189068s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.190068s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.190068s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.191068s ]
+INFO: Run content_replace Behavior [ RunTime:-1.192068s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.005000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.194068s ]
+INFO: [ view_end ] --END-- [ RunTime:0.002000s ]
+
+[ 2017-12-13T10:18:36+08:00 ] 127.0.0.1 /admin?g=admin&m=index&a=left
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.002000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.002000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:-0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.002000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.003000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.005000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.006000s ]
+SQL: SELECT * FROM `try_menu` WHERE ( `often` = 1 )  [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.198126s ]
+INFO: [ view_template ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_parse ] --START--
+NOTIC: [8] Undefined index: data D:\repo\baicai\data\runtime\Cache\admin\8bbf59c365bdf6267b9eb5e67d22693d.php 第 5 行.
+INFO: Run ParseTemplate Behavior [ RunTime:-2.200126s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.014000s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-2.214126s ]
+INFO: Run TokenBuild Behavior [ RunTime:-2.215127s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-2.215127s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-2.216127s ]
+INFO: Run content_replace Behavior [ RunTime:-2.216127s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003001s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-2.217127s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-12-13T10:18:37+08:00 ] 127.0.0.1 /admin?g=admin&m=index&a=left
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.002000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.003000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:-0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.001000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.003000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.005000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.007000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.008001s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 50 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 50 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 51 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 288 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 290 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 293 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.488085s ]
+INFO: [ view_template ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-1.490085s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.013001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.503086s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.504086s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.504086s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.505086s ]
+INFO: Run content_replace Behavior [ RunTime:-1.505086s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.506086s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-12-13T10:18:38+08:00 ] 127.0.0.1 /admin?g=admin&m=index&a=panel
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.002000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.002000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.001000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.003000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.006000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.011001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.225070s ]
+INFO: [ view_template ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.232070s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.005000s ]
+NOTIC: [8] Undefined variable: sub_menu D:\repo\baicai\data\runtime\Cache\admin\ba3d2a4c7110487814df26e78e828b96.php 第 43 行.
+NOTIC: [8] Undefined variable: big_menu D:\repo\baicai\data\runtime\Cache\admin\ba3d2a4c7110487814df26e78e828b96.php 第 43 行.
+INFO: Run ParseTemplate Behavior [ RunTime:-1.232070s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.023001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.250071s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.250071s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.251071s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.251071s ]
+INFO: Run content_replace Behavior [ RunTime:-1.252071s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.253071s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-12-13T10:18:43+08:00 ] 127.0.0.1 /admin?g=admin&m=item&a=index&menuid=52
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.001000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:-0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.002000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.003000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004001s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.010000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.010000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 52 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+NOTIC: [2] strpos(): Empty needle D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 21 行.
+SQL: SHOW COLUMNS FROM `try_item` [ RunTime:0.016001s ]
+SQL: SHOW COLUMNS FROM `try_item_cate` [ RunTime:0.015001s ]
+SQL: SELECT `id`,`name` FROM `try_item_cate`  [ RunTime:0.004001s ]
+NOTIC: [8] Undefined index: status D:\repo\baicai\app\Lib\Action\admin\itemAction.class.php 第 78 行.
+NOTIC: [8] Undefined variable: spid D:\repo\baicai\app\Lib\Action\admin\itemAction.class.php 第 108 行.
+SQL: SELECT COUNT(id) AS tp_count FROM `try_item` WHERE (  ( (`title` LIKE '%%') ) OR ( (`content` LIKE '%%') ) ) LIMIT 1   [ RunTime:0.338019s ]
+SQL: SELECT * FROM `try_item` WHERE (  ( (`title` LIKE '%%') ) OR ( (`content` LIKE '%%') ) ) ORDER BY ordid ASC, add_time DESC LIMIT 0,20   [ RunTime:0.333019s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.902166s ]
+INFO: [ view_template ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.908167s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.004001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.909167s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.005001s ]
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index:  D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 315 行.
+INFO: Run ParseTemplate Behavior [ RunTime:-2.909167s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.029002s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-2.933168s ]
+INFO: Run TokenBuild Behavior [ RunTime:-2.933168s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-2.934168s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-2.935168s ]
+INFO: Run content_replace Behavior [ RunTime:-2.935168s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-2.937168s ]
+INFO: [ view_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-12-13T10:18:45+08:00 ] 127.0.0.1 /admin?g=admin&m=item&a=index&menuid=52
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.001000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:-0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.001000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.011001s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.010000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 52 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.002000s ]
+NOTIC: [2] strpos(): Empty needle D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 21 行.
+SQL: SHOW COLUMNS FROM `try_item` [ RunTime:0.011001s ]
+SQL: SHOW COLUMNS FROM `try_item_cate` [ RunTime:0.007001s ]
+SQL: SELECT `id`,`name` FROM `try_item_cate`  [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: status D:\repo\baicai\app\Lib\Action\admin\itemAction.class.php 第 78 行.
+NOTIC: [8] Undefined variable: spid D:\repo\baicai\app\Lib\Action\admin\itemAction.class.php 第 108 行.
+SQL: SELECT COUNT(id) AS tp_count FROM `try_item` WHERE (  ( (`title` LIKE '%%') ) OR ( (`content` LIKE '%%') ) ) LIMIT 1   [ RunTime:0.340019s ]
+SQL: SELECT * FROM `try_item` WHERE (  ( (`title` LIKE '%%') ) OR ( (`content` LIKE '%%') ) ) ORDER BY ordid ASC, add_time DESC LIMIT 0,20   [ RunTime:0.667039s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-4.979285s ]
+INFO: [ view_template ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-4.984285s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.003000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-4.985285s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.004000s ]
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 299 行.
+NOTIC: [8] Undefined index:  D:\repo\baicai\data\runtime\Cache\admin\6090765389774d6a15ddce11022e141b.php 第 315 行.
+INFO: Run ParseTemplate Behavior [ RunTime:-4.985285s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.029001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-5.011286s ]
+INFO: Run TokenBuild Behavior [ RunTime:-5.012286s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-5.012286s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-5.013286s ]
+INFO: Run content_replace Behavior [ RunTime:-5.014287s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.004001s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-5.015287s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-12-13T10:18:46+08:00 ] 127.0.0.1 /admin?g=admin&m=item&a=add&menuid=249
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.001000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:-0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.001000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.003001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004001s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.008000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.006001s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 249 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 19 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 26 行.
+SQL: SHOW COLUMNS FROM `try_item` [ RunTime:0.008000s ]
+SQL: SHOW COLUMNS FROM `try_item_cate` [ RunTime:0.010000s ]
+SQL: SHOW COLUMNS FROM `try_item_orig` [ RunTime:0.007001s ]
+SQL: SELECT `id`,`name` FROM `try_item_orig` ORDER BY name asc  [ RunTime:0.002000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.197069s ]
+INFO: [ view_template ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.202069s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.003000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.204069s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.005000s ]
+NOTIC: [8] Undefined variable: big_menu D:\repo\baicai\data\runtime\Cache\admin\40572f8d9c5c79f061d4a3a7dba195bf.php 第 43 行.
+NOTIC: [8] Undefined variable: item D:\repo\baicai\data\runtime\Cache\admin\40572f8d9c5c79f061d4a3a7dba195bf.php 第 137 行.
+NOTIC: [8] Undefined variable: item D:\repo\baicai\data\runtime\Cache\admin\40572f8d9c5c79f061d4a3a7dba195bf.php 第 145 行.
+NOTIC: [8] Undefined variable: info D:\repo\baicai\data\runtime\Cache\admin\40572f8d9c5c79f061d4a3a7dba195bf.php 第 221 行.
+NOTIC: [8] Undefined variable: info D:\repo\baicai\data\runtime\Cache\admin\40572f8d9c5c79f061d4a3a7dba195bf.php 第 223 行.
+NOTIC: [8] Undefined variable: info D:\repo\baicai\data\runtime\Cache\admin\40572f8d9c5c79f061d4a3a7dba195bf.php 第 225 行.
+NOTIC: [8] Undefined variable: info D:\repo\baicai\data\runtime\Cache\admin\40572f8d9c5c79f061d4a3a7dba195bf.php 第 227 行.
+NOTIC: [8] Undefined variable: info D:\repo\baicai\data\runtime\Cache\admin\40572f8d9c5c79f061d4a3a7dba195bf.php 第 229 行.
+NOTIC: [8] Undefined variable: info D:\repo\baicai\data\runtime\Cache\admin\40572f8d9c5c79f061d4a3a7dba195bf.php 第 231 行.
+NOTIC: [8] Undefined variable: article_list D:\repo\baicai\data\runtime\Cache\admin\40572f8d9c5c79f061d4a3a7dba195bf.php 第 365 行.
+NOTIC: [8] Undefined variable: visitor D:\repo\baicai\data\runtime\Cache\admin\40572f8d9c5c79f061d4a3a7dba195bf.php 第 925 行.
+INFO: Run ParseTemplate Behavior [ RunTime:-1.204069s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.025001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.224070s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.225070s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.226070s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.227071s ]
+INFO: Run content_replace Behavior [ RunTime:-1.227071s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.004001s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.228071s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-12-13T10:18:48+08:00 ] ERR: (ThinkException) 无法加载模块:js/car1.6/lrz.all.bundle.js
+[ 2017-12-13T10:20:35+08:00 ] 127.0.0.1 /admin?g=admin&m=item&a=add&menuid=249
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.001000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:-0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.001000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.011001s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.008000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 249 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.002000s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 19 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 26 行.
+SQL: SHOW COLUMNS FROM `try_item` [ RunTime:0.009000s ]
+SQL: SHOW COLUMNS FROM `try_item_cate` [ RunTime:0.008001s ]
+SQL: SHOW COLUMNS FROM `try_item_orig` [ RunTime:0.007000s ]
+SQL: SELECT `id`,`name` FROM `try_item_orig` ORDER BY name asc  [ RunTime:0.002000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.094062s ]
+INFO: [ view_template ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.099063s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.003001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.100063s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.004001s ]
+NOTIC: [8] Undefined variable: big_menu D:\repo\baicai\data\runtime\Cache\admin\40572f8d9c5c79f061d4a3a7dba195bf.php 第 43 行.
+NOTIC: [8] Undefined variable: item D:\repo\baicai\data\runtime\Cache\admin\40572f8d9c5c79f061d4a3a7dba195bf.php 第 137 行.
+NOTIC: [8] Undefined variable: item D:\repo\baicai\data\runtime\Cache\admin\40572f8d9c5c79f061d4a3a7dba195bf.php 第 145 行.
+NOTIC: [8] Undefined variable: info D:\repo\baicai\data\runtime\Cache\admin\40572f8d9c5c79f061d4a3a7dba195bf.php 第 221 行.
+NOTIC: [8] Undefined variable: info D:\repo\baicai\data\runtime\Cache\admin\40572f8d9c5c79f061d4a3a7dba195bf.php 第 223 行.
+NOTIC: [8] Undefined variable: info D:\repo\baicai\data\runtime\Cache\admin\40572f8d9c5c79f061d4a3a7dba195bf.php 第 225 行.
+NOTIC: [8] Undefined variable: info D:\repo\baicai\data\runtime\Cache\admin\40572f8d9c5c79f061d4a3a7dba195bf.php 第 227 行.
+NOTIC: [8] Undefined variable: info D:\repo\baicai\data\runtime\Cache\admin\40572f8d9c5c79f061d4a3a7dba195bf.php 第 229 行.
+NOTIC: [8] Undefined variable: info D:\repo\baicai\data\runtime\Cache\admin\40572f8d9c5c79f061d4a3a7dba195bf.php 第 231 行.
+NOTIC: [8] Undefined variable: article_list D:\repo\baicai\data\runtime\Cache\admin\40572f8d9c5c79f061d4a3a7dba195bf.php 第 365 行.
+NOTIC: [8] Undefined variable: visitor D:\repo\baicai\data\runtime\Cache\admin\40572f8d9c5c79f061d4a3a7dba195bf.php 第 925 行.
+INFO: Run ParseTemplate Behavior [ RunTime:-1.100063s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.023002s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.119064s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.120064s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.121064s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.121064s ]
+INFO: Run content_replace Behavior [ RunTime:-1.122064s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.004000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.123064s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-12-13T10:20:36+08:00 ] ERR: (ThinkException) 无法加载模块:js/car1.6/lrz.all.bundle.js

@@ -88,9 +88,9 @@ class searchAction extends frontendAction {
                 }
 				$where = array('i.status' => '1');
 				$where['_string'] ="($q_info1) and (add_time > ".$day_w.") and ";
-				$this->waterfall_tp($where, $order,$tp);
+				$this->waterfall_xs($where, $order,$q);
 			}else{
-				$this->waterfall($where, $order);
+				$this->waterfall_xs($where, $order,$q);
 			}
 			
         }

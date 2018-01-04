@@ -1311,4 +1311,160 @@ class userAction extends userbaseAction {
         $_SESSION['user_info']['message']=M('message')->where("to_id='".$info['id']."' and ck_status=0")->count();
         $this->ajaxReturn("1",$_SESSION['user_info']['message']);
     }
+    public function notify_tag_create(){
+        $tag['userid'] = $this->_post('userid','trim');
+        $tag['tag'] = $this->_post('tag','trim');
+        $notify_tag = M("notify_tag");
+        $list = $notify_tag->where(array('userid' => $tag['userid'],'tag'=> $tag['tag'] ))->find();
+        if(count($list)>0){
+            $list['p_sign'] = 1;
+            $notify_tag->save($list);
+            $this->ajaxReturn("1",'设置推送成功!',$list['id']);
+        }
+        else{
+        $result = $notify_tag->add(array(
+            'userid' => $tag['userid'],
+            'tag' => $tag['tag'],
+            'p_sign' => 1,
+            'f_sign' => 1
+            ));
+        if ($result) {
+             $this->ajaxReturn("1",'设置推送成功!',$result);
+            } else {
+                 $this->ajaxReturn("0",'设置推送失败!');
+            }
+            }
+    }
+
+        //创建关注tag
+
+    public function follow_tag_create(){
+        $tag['userid'] = $this->_post('userid','trim');
+        $tag['tag'] = $this->_post('tag','trim');
+        $notify_tag = M("notify_tag");
+        $list = $notify_tag->where(array('userid' => $tag['userid'],'tag'=> $tag['tag'] ))->find();
+        if(count($list)>0){
+            $list['f_sign'] = 1;
+            $notify_tag->save($list);
+             $this->ajaxReturn("1",'设置关注成功!',$list['id']);
+        }
+        else{
+        $result = $notify_tag->add(array(
+            'userid' => $tag['userid'],
+            'tag' => $tag['tag'],
+            'f_sign' => 1
+            ));
+        if ($result) {
+                $this->ajaxReturn("1",'设置关注成功!',$result);
+            } else {
+                $this->ajaxReturn("0",'设置关注失败!');
+            }
+            }
+    }
+
+      //查询某个用户的推送时段
+
+    public function push_range_byuser($data){
+        $userid = $data['userid'];
+        $user = M("user");
+        $list = $user->where(array('id'=>$userid))->field("push_range")->select();
+       $code = 10001;
+        if(count($list) < 1){
+            $code = 10002;
+        }
+        echo get_result($code,$list);return ;
+    }
+
+    //更新推送时段
+
+    public function push_range_modify($data){
+        $push_info['push_range'] = $data['push_range'];
+        $push_info['id'] = $data['userid'];
+        $user = M("user");
+        $user->save($push_info);
+        echo get_result(10001, '更新成功!');
+    }
+
+     //查询某个用户下面所有推送tag
+
+    public function keysfollow(){
+        $user = $this->visitor->get();
+        $notify_tag = M("notify_tag");
+        $tag_list = $notify_tag->where(array('userid'=>$user['id']))->select();
+        $this->assign('tag_list',$tag_list);
+        $this->display();
+    }
+
+    public function notify_tag_byuser(){
+        $userid = $this->_post('userid','trim');
+        $notify_tag = M("notify_tag");
+        $list = $notify_tag->where(array('userid'=>$userid))->select();
+        if(count($list) < 1){
+           $this->ajaxReturn("0",'设置关注标签失败!');
+        }
+         $this->ajaxReturn("1",'设置关注标签成功!',$list);
+    }
+
+    //更新推送tag
+
+    public function notify_tag_modify(){
+        $tag['id'] = $this->_post('id','trim');
+        $tag['tag'] = $this->_post('tag','trim');
+        $tag['userid'] = $this->_post('userid','trim');
+        $notify_tag = M("notify_tag");
+        $list = $notify_tag->where(array('userid' =>$userid,'tag'=>$tag ))->select();
+        if(count($list)>0){
+            echo get_result(10001, '标签已存在!');
+        }
+        else{
+        $notify_tag->save($tag);
+        echo get_result(10001, '更新成功!');
+        }
+    }
+
+     //删除推送tag
+
+    public function notify_tag_del(){
+        $notify_tag = M("notify_tag");
+        $tag['id'] = $this->_post('id','trim');
+        $tag['userid'] = $this->_post('userid','trim');
+        $tag['p_sign'] = 0;
+        $notify_tag->save($tag);
+        $this->ajaxReturn("1",'删除推送成功!');
+    }
+
+    //是否选中推送
+    public function is_notify_tag($data){
+        $notify_tag = M("notify_tag");
+        $list = $notify_tag->where(array("tag"=>$data['tag'],'userid' =>$data['userid'],'p_sign'=>1))->select();
+         if(count($list)>0){
+            echo get_result(10001, '已关注推送!');
+        }
+        else{
+            echo get_result(10002, '未关注推送!');
+        }
+    }
+
+     //是否选中关注
+    public function is_follow_tag($data){
+        $notify_tag = M("notify_tag");
+        $list = $notify_tag->where(array("tag"=>$data['tag'],'userid' =>$data['userid'],'f_sign'=>1))->select();
+         if(count($list)>0){
+            echo get_result(10001, '已关注!');
+        }
+        else{
+            echo get_result(10002, '未关注!');
+        }
+    }
+
+    //删除关注tag
+
+    public function follow_tag_del(){
+        $tag['tag'] = $this->_post('tag','trim');
+        $tag['userid'] = $this->_post('userid','trim');
+        $notify_tag = M("notify_tag");
+        $notify_tag->where(array("tag"=>$tag['tag'],"userid"=>$tag['userid']))->delete();
+        $this->ajaxReturn("1",'删除关注成功!');
+    }
+
 }

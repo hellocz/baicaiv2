@@ -5,6 +5,14 @@ class tickAction extends frontendAction {
 		$tp = $this->_get('tp','trim');
 		$mod_orig=M("item_orig");
 		$mod = M('tick');
+		$order = $this->_get('order', 'intval', 1);
+		$this->assign('order',$order);
+		if($order == 1){
+			$order_by = "id desc";
+		}
+		else{
+			$order_by = "yl desc";
+		}
 		//获取所有有优惠券的购物平台
 		$arr_list = $mod_orig->where("id in(select distinct orig_id from try_tick where DATEDIFF(now() ,start_time)>-1 and DATEDIFF(end_time,now())>0 )")->order("ordid asc,id asc")->select();
 		$orig_list=array();
@@ -24,7 +32,7 @@ class tickAction extends frontendAction {
 		if($tp){
 			$list = M()->query("select t.* from try_tick as t,try_item_orig as o,try_cosler c where CONV( HEX( LEFT( CONVERT( o.name  USING gbk ) , 1 ) ) , 16, 10 ) BETWEEN c.cBegin AND c.cEnd AND c.fPY = '$tp' and t.orig_id=o.id and DATEDIFF(now() ,t.start_time)>-1 and DATEDIFF(t.end_time,now())>0 order by ordid asc,id asc limit ".$pager->firstRow.",".$pager->listRows);
 		}else{
-			$list = $mod->where("DATEDIFF(now() ,start_time)>-1 and DATEDIFF(end_time,now())>0")->order("ordid asc,id asc")->limit($pager->firstRow.",".$pager->listRows)->select();
+			$list = $mod->where("DATEDIFF(now() ,start_time)>-1 and DATEDIFF(end_time,now())>0")->order($order_by)->limit($pager->firstRow.",".$pager->listRows)->select();
 		}
 		foreach($list as $key=>$val){
 			$list[$key]['days']=round(abs(strtotime($val['end_time'])-time())/3600/24);
@@ -55,7 +63,7 @@ class tickAction extends frontendAction {
 		$pagesize=20;
 		$count = $mod_tk->where("tick_id=$id and status=1")->count();
 		$pager = $this->_pager($count,$pagesize);
-		$lq = $mod_tk->where("tick_id=$id and status=1")->limit($pager->firstRow.",".$pager->listRows)->select();
+		$lq = $mod_tk->where("tick_id=$id and status=1")->order("get_time desc")->limit($pager->firstRow.",".$pager->listRows)->select();
 		foreach($lq as $key=>$val){
 			$lq[$key]['gk']= ((time()-$val['get_time'])>3600*24)?1:0;
 			$lq[$key]['uname']=str_pad(substr(get_uname($val['uid']),-3),6,'*',STR_PAD_LEFT);

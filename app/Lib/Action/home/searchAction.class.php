@@ -5,6 +5,10 @@
  */
 class searchAction extends frontendAction {
 
+    public function _initialize() {
+        parent::_initialize();
+    }
+
     public function index() {
         $q = $this->_get('q', 'trim');
         $t = $this->_get('t', 'trim', 'item');
@@ -37,13 +41,34 @@ class searchAction extends frontendAction {
             $where1['seo_keys']=array('like',"%$q%");
             $where1['_logic'] = 'or';
              $where['_complex'] =  $where1;
-            $ss_cate = M('item_cate')->field('id,name')->where( $where)->select();;
+        //    $ss_cate = M('item_cate')->field('id,name')->where( $where)->select();;
         //    print_r($ss_cate);
-            $this->assign('ss_cate', $ss_cate);
+        //    $this->assign('ss_cate', $ss_cate);
         }
         if($q==" "){
             $q="";
         }
+        $this->_config_seo(C('pin_seo_config.book'), array('tag_name' => $q)); 
+
+        if($this->visitor->is_login){
+            $user = $this->visitor->get();
+            $notify_tag = M("notify_tag");
+            $list = $notify_tag->where(array("tag"=>$q,'userid' =>$user['id']))->find();
+            if(empty($list)){
+            $fsign = 0;
+            $psign = 0;
+            }
+            else{
+            $fsign = $list['f_sign'];
+            $psign = $list['p_sign'];
+            }
+        }
+        else{
+            $fsign = 0;
+            $psign = 0;
+        }
+        $this->assign('fsign', $fsign);
+        $this->assign('psign', $psign);
         $this->assign('q', $q);
         $this->assign('t', $t);
 		$this->assign('tp', $tp);
@@ -133,7 +158,7 @@ class searchAction extends frontendAction {
 				$where['_string'] ="($q_info1) and (add_time > ".$day_w.")";
 				$this->waterfall_tp($where, $order,$tp);
 			}else{
-				$this->waterfall($where, $order);
+				$this->waterfall_xs($where, $order,$q);
 			}
 			
         }

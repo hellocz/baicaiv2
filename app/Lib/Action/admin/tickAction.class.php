@@ -73,7 +73,7 @@ class tickAction extends backendAction{
 		$pagesize = 20;
 		$count = $model->where($map)->count();
 		$pager = new Page($count,$pagesize);
-		$list = $model->where($map)->order("get_time desc")->limit($pager->firstRow.','.$pager->listRows)->select();
+		$list = $model->where($map)->order("tk_id asc")->limit($pager->firstRow.','.$pager->listRows)->select();
 		$page = $pager->show();
 		
 		for($i=0;$i < $count; $i++){

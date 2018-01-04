@@ -66,6 +66,9 @@ class itemAction extends frontendAction {
         $time = time();
         $time_day = $time - 86400;
 
+        $item['content'] = preg_replace('/max-width:800px/','max-width:100%',$item['content']);
+        $item['content'] = preg_replace('/<img/','<img style="max-width:100%"',$item['content']);
+
         //小时榜和24小时榜
    //     $day_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_day and $time ORDER BY hits desc,add_time desc LIMIT 4");
     //    $this->assign('day_list',$day_list);

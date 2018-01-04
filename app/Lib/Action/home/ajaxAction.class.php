@@ -101,9 +101,11 @@ class ajaxAction extends frontendAction {
         $data['info'] = $this->_post('content', 'trim');
 		//过滤字符
 		$kill_word = C("pin_kill_word");
-		$kill_word = explode(",",$kill_word);
-		if(in_array($data['info'],$kill_word)){
-			$this->ajaxReturn(0,'您发表的内容有非法字符');
+		$kill_words = explode(",",$kill_word);
+		foreach ($kill_words as $kill) {
+			if(strpos($data['info'], $kill) == true){
+				$this->ajaxReturn(0,'您发表的内容有非法字符');
+			}
 		}
         !$data['info'] && $this->ajaxReturn(0, L('please_input') . '评论内容');
         //敏感词处理
@@ -128,7 +130,10 @@ class ajaxAction extends frontendAction {
 		}
         $item = $item_mod->where(array('id' => $data['itemid']))->find();
         !$item && $this->ajaxReturn(0, L('invalid_object'));
+       // if()
+        //$minScore = $item_mod->where(array('id' => $data['itemid']))->max('lc');
 		$data['lc']=intval($item['comments'])+1;
+
         //写入评论
         $comment_mod = D('comment');
         if (false === $comment_mod->create($data)) {
@@ -139,7 +144,7 @@ class ajaxAction extends frontendAction {
 			$item_mod->where(array('id'=>$data['itemid']))->setInc('comments');//评论数量加1
 			M("user")->where("id=$data[uid]")->setInc("score");
 			//积分日志
-			set_score_log(array('id'=>$data['uid'],'username'=>$data['uname']),'comment',1,'','',1);
+			//set_score_log(array('id'=>$data['uid'],'username'=>$data['uname']),'comment',1,'','',1);
 			/*$xc = array();
 			$xc['ftid']=$data['uid'];
 			$xc['to_id']=$data['uid'];
@@ -176,7 +181,12 @@ class ajaxAction extends frontendAction {
 		$id = $this->_post('id','intval');
 		!$id && $this->ajaxReturn(0, L('invalid_object'));
 		//查找上级评论xid 和itemid
-		$data=M("comment")->where("id=$id")->field("xid,itemid")->find();
+		$last_comment = M("comment")->where("uid=".$this->visitor->info['id'])->order("add_time desc")->find();
+		$last_comment['add_time']=intval($last_comment['add_time'])+30;
+		if(time() < $last_comment['add_time']){
+			$this->ajaxReturn(0, '评论需间隔30秒,请不要灌水哦!');
+		}
+		$data=M("comment")->where("id=$id")->field("xid,itemid,pid")->find();
         $data['info'] = $this->_post('content', 'trim');
         !$data['info'] && $this->ajaxReturn(0, L('please_input') . '评论内容');
         //敏感词处理
@@ -202,7 +212,14 @@ class ajaxAction extends frontendAction {
         $item = $item_mod->where(array('id' => $data['itemid']))->find();
         !$item && $this->ajaxReturn(0, L('invalid_object'));
 		$data['lc']=intval($item['comments'])+1;
-		$data['pid']=$id;
+ 		
+ 		$data_pid = $id;
+ 		if($data['pid']!== "0"){
+
+ 			$data_pid = $data['pid'];
+ 		}
+
+		$data['pid']=$data_pid;
         //写入评论
         $comment_mod = D('comment');
         if (false === $comment_mod->create($data)) {
@@ -223,7 +240,7 @@ class ajaxAction extends frontendAction {
 			$xc['from_name']='tryine';
 			$xc['add_time']=time();
 			$xc['info'] ='感谢您的回复,系统给您奖励积分：1，经验：1.';
-			M('message')->add($xc);
+		//	M('message')->add($xc);
 
 			$pcomment=M("comment")->where(array('id' => $id))->find();
 			$xc1 = array();
@@ -292,7 +309,7 @@ class ajaxAction extends frontendAction {
         $item = $item_mod->where(array('id' => $itemid))->count('id');
         !$item && $this->ajaxReturn(0, L('invalid_object'));
         $comment_mod = M('comment');
-        $pagesize = 5;
+        $pagesize = 10;
         $map = array('itemid' => $itemid,'xid'=>$xid,'status'=>1,'pid'=>0);
         $count = $comment_mod->where($map)->count('id');
         $pager = $this->_pager($count, $pagesize);

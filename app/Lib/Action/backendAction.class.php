@@ -40,8 +40,67 @@ class backendAction extends baseAction
      */
     public function index() {
         $map = $this->_search();
+        if($this->_name == 'item' && $this->_request('keyword', 'trim')!="" && ($this->_request('status', 'trim')=="" || $this->_request('status', 'trim')=="1")){ 
+              $p = $this->_get('p', 'intval', 1);
+            $keyword = $this->_request('keyword', 'trim');
+        require LIB_PATH . 'Pinlib/php/lib/XS.php';
+        $xs = new XS('baicai');
+        $search = $xs->search;   //  获取搜索对象
+        $search->setLimit(20,20*($p-1)); 
+        $search->setSort('add_time',false);
+        $docs = $search->setQuery($keyword)->search();
+        //$docs = $search->search();
+        $count = $search->count();
+        $pager = new Page($count, 20);
+        
+
+        $item_list = Array();
+        foreach ($docs as $doc) {
+
+            $item['title'] = $doc->title;
+            $item['img'] = $doc->img;
+            $item['id'] = $doc->id;
+            $item['price'] = $doc->price;
+            $item['add_time'] = $doc->add_time;
+            $item['cate_id'] = $doc->cate_id;
+            $item['uname'] = $doc->uname;
+            $item['likes'] = $doc->likes;
+            $item['hits'] = $doc->hits;
+            $item['status'] = $doc->status;
+            array_push($item_list,$item);
+            # code...
+        }
+
+        foreach ($item_list as $key=>$val) {
+            /*
+            if($val["sh_time"]>$val["ds_time"]){
+                $item_list[$key]['add_time']=$val["sh_time"];
+                
+            }else{
+                $item_list[$key]['add_time']=$val["ds_time"];
+                
+            }
+            */
+            $item_list[$key]['zan'] = $item_list[$key]['zan']   +intval($item_list[$key]['hits'] /10);
+            isset($val['comments_cache']) && $item_list[$key]['comment_list'] = unserialize($val['comments_cache']);
+            $item_list[$key]['orig_name']=getly($val['orig_id']);
+        }       
+        
+    
+        $this->assign('list', $item_list);
+        
+        $page = $pager->show();
+        $this->assign("page", $page);
+        $this->assign('list_table', true);
+        if($count == 0 ){
         $mod = D($this->_name);
         !empty($mod) && $this->_list($mod, $map);
+        }
+        }
+            else{
+        $mod = D($this->_name);
+        !empty($mod) && $this->_list($mod, $map);
+        }
         $this->display();
     }
 

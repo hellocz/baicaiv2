@@ -8,7 +8,7 @@ return array(
     'forward_failed' => '转发失败',
     'please_input_comment_info' => '请输入评论内容！',
     'comment_invalid_topic' => '您要评论的微薄不存在或者已经被删除',
-    'comment_success' => '评论成功',
+    'comment_success' => '感谢评论，积分+1',
     'comment_failed' => '评论失败',
     'please_select_comment' => '请选择要删除的评论！',
     'delete_comment_success' => '删除评论成功',

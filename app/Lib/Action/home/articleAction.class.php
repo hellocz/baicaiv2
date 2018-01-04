@@ -94,6 +94,83 @@ class articleAction extends frontendAction {
             'seo_keywords' => $item['seo_keys'],
             'seo_description' => $item['seo_desc'],
         ));
+
+		$itemid = $id;
+		$comment_mod = M('comment');
+
+      $pagesize = 10;
+      $xid =3;
+
+      $map = array('itemid' => $itemid,'xid'=>$xid,'status'=>1,'pid'=>0);
+
+      $count = $comment_mod->where($map)->count('id');
+
+      $pager = new Page($count, $pagesize);
+
+      $pager->path = "ajax/comment_list";
+
+      $pager->parameter ="itemid=$itemid&xid=$xid";
+
+      $pager_bar = $pager->jshow();
+      $this->assign('pager_bar',$pager_bar);
+
+      $pager_hot = new Page($count, $pagesize);
+
+      $pager_hot->path = "ajax/comment_list";
+
+      $pager_hot->parameter ="itemid=$itemid&xid=$xid&order=zan";
+
+      $pager_bar_hot = $pager_hot->jshow();
+
+      $this->assign('pager_bar_hot',$pager_bar_hot);
+
+ //   $hot_list=M()->query("select * from try_comment where itemid=$itemid and xid=$xid and status=1  order by zan desc,id desc limit $pager_hot->firstRow , $pager_hot->listRows ");
+  //  $hot_list_tmp=M("comment")->where(array('itemid'=>$itemid,'xid'=>$xid,'status'=>1))->order("zan desc")->limit($pager_hot->firstRow , $pager_hot->listRows)->select();
+   /* 
+    foreach($hot_list_tmp as $key=>$v){
+      if($v['pid'] == '0'){
+      $hot_list[$v['id']]=$v;
+      }
+    }
+
+
+    foreach($hot_list_tmp as $key=>$v){
+       if($v['pid'] !== '0'){
+        $hot_list[$v['pid']]['list'][$v['id']]= $v;
+      }
+
+   // $hot_list[$key]['list1']=M()->query("select count(*) from try_comment where status=1 and pid='".$v['id']."' order by id asc");
+
+    //$hot_list[$key]['list']=M()->query("select * from try_comment where status=1 and pid='".$v['id']."' order by id asc");
+
+    }*/
+
+  //  $this->assign('hot_list',$hot_list);
+
+
+
+
+      $sql = "select * from try_comment where itemid=$itemid and xid=$xid and status=1 and pid=0 order by id desc  limit $pager->firstRow , $pager->listRows ";
+
+      $cmt_list = M()->query($sql);
+/*
+      foreach($cmt_list_tmp as $key=>$v){
+      if($v['pid'] == '0'){
+      $cmt_list[$v['id']]=$v;
+      }
+    }
+*/
+      foreach($cmt_list as $key=>$v){
+
+      $cmt_list[$key]['list']=M()->query("select * from try_comment where status=1 and pid='".$v['id']."' order by id asc");
+
+    //  $cmt_list[$key]['list1']=M()->query("select count(*) from try_comment where status=1 and pid='".$v['id']."' order by id asc");
+
+
+
+      }
+
+      $this->assign('cmt_list',$cmt_list);
     	$this->display();
     }
 	//发布晒单、攻略

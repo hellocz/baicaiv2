@@ -10,7 +10,9 @@
 
 <script src="/static/js/wap/owl.carousel.min.js" type="text/javascript"></script>
 <style type="text/css">
-
+.w_h1{
+	height: 88px;
+}
 .badge {
     background-color: red;
     border-radius: 10px;
@@ -25,6 +27,41 @@
     text-align: center;
     white-space: nowrap;
 }
+.header-white {
+    padding: 9px 15px;
+    height: 44px;
+    overflow: hidden;
+    background-color: rgba(0,0,0,.7);
+    width: 100%;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ddd;
+}
+.header-white .logo-img {
+    float: left;
+    width: 107px;
+}
+.header-white .logo-img img {
+    width: 100%;
+}
+.header-white .logo-download {
+    margin-top: 2px;
+    float: right;
+    border: 1px solid #3dc399;
+    height: 20px;
+    border-radius: 20px;
+    line-height: 20px;
+    padding-left: 6px;
+    padding-right: 6px;
+    font-size: 11px;
+    text-align: center;
+}
+.logo-download a{
+	color: #3dc399;
+}
+.w_center{
+      margin: 88px auto 0 auto;
+}
+
 </style>
 
 </head>
@@ -34,6 +71,9 @@
 <nav class="w_h1">
 
   <div  class="w_h1_c">
+
+  	<div class="header-white"><div class="logo-img"><a href="/wap"><img src="/images/w_logo.png"></a></div>
+  <div class="logo-download"><a target="_blank" class="J_ota" href="http://baicaio.com/wap" onclick="dataLayer.push({'event':'WAP站导航下载按钮','tag':'home_list','name':'列表页'})">下载APP</a></div></div>
 
    <div  class="w_h1_c_l">
 
@@ -162,6 +202,11 @@
 		<img src="/static/images/wap/bc_topbtn.png" />
 
 </div>
+<div class="bc_fixed_right_img">
+
+    <a href="/"><img src="/images/float_img.png" /></a>
+
+</div>
 
 <include file="public:footer" />
 
@@ -171,6 +216,36 @@
 <script>
 
 $(function(){
+
+		var browser={
+    versions:function(){
+        var u = navigator.userAgent, app = navigator.appVersion;
+        return {
+            trident: u.indexOf('Trident') > -1, //IE内核
+            presto: u.indexOf('Presto') > -1, //opera内核
+            webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+            gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1,//火狐内核
+            mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+            ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+            android: u.indexOf('Android') > -1 || u.indexOf('Adr') > -1, //android终端
+            iPhone: u.indexOf('iPhone') > -1 , //是否为iPhone或者QQHD浏览器
+            iPad: u.indexOf('iPad') > -1, //是否iPad
+            webApp: u.indexOf('Safari') == -1, //是否web应该程序，没有头部与底部
+            weixin: u.indexOf('MicroMessenger') > -1, //是否微信 （2015-01-22新增）
+            qq: u.match(/\sQQ/i) == " qq" //是否QQ
+        };
+    }(),
+    language:(navigator.browserLanguage || navigator.language).toLowerCase()
+}
+if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+    //alert(navigator.userAgent);  
+   $(".J_ota").attr("href","https://itunes.apple.com/cn/app/白菜哦/id1245140625");
+} else if (/(Android)/i.test(navigator.userAgent)) {
+    //alert(navigator.userAgent); 
+   $(".J_ota").attr("href","http://test.baicaio.com/upload/plugin/app-releaseV1.1.2.apk");
+} else {
+   $(".J_ota").attr("href","/item/275535.html");
+};
 
 	$("#mmm").click(function(){
 

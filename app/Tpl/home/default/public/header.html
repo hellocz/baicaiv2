@@ -54,7 +54,7 @@
           <i class="w_xsj"></i>
           <ul>
         <!--    <li><a href="{:U('zr/index')}" title="闲置转让">闲置转让</a></li>-->
-            <li><a href="{:U('article/index',array('id'=>9))}"  title="攻略">攻略</a></li>
+            <li><a href="{:U('article/index',array('id'=>9))}"  title="海淘攻略">海淘攻略</a></li>
             <li><a href="{:U('tick/index')}" title="优惠劵">优惠劵</a></li>
             <li><a href="{:U('exchange/lucky')}" title="抽奖专区">抽奖专区</a></li>
             <li><a href="{:U('exchange/index')}" title="礼品兑换">礼品兑换</a></li>
@@ -65,7 +65,7 @@
 
             <form class="form_search" action="{:U('search/index')}"  method="get">
                  <button type="submit" class="btn_search icon-search"><!--[if lt IE 8]>Go<![endif]--></button>
-                <input id="s" name="q" type="search" class="text_search" value="<if condition="$strpos1">{$strpos1}<else/>白菜帮你搜</if>" onblur="if(this.value==&#39;&#39;) {this.value=&#39;白菜帮你搜&#39;;this.style.color=&#39;#999&#39;;}" onfocus="if(this.value==&#39;白菜帮你搜&#39;) {this.value=&#39;&#39;;this.style.color=&#39;#333&#39;;}" style="color: rgb(153, 153, 153);" _hover-ignore="1">
+                <input id="s" name="q" type="search" class="text_search" value="<if condition="$strpos1">{$strpos1}<else/>回血计划</if>" onblur="if(this.value==&#39;&#39;) {this.value=&#39;回血计划&#39;;this.style.color=&#39;#999&#39;;}" onfocus="if(this.value==&#39;回血计划&#39;) {this.value=&#39;&#39;;this.style.color=&#39;#333&#39;;}" style="color: rgb(153, 153, 153);" _hover-ignore="1">
             </form>
      </div>
 
@@ -98,6 +98,7 @@
                  <ul class="xiaoxs_a">
                      <li><a href="{:U('message/system')}" title="我的消息">我的消息</a><if condition= "(isset($visitor['message'])) AND ($visitor['message'] neq 0)"><span>{$visitor['message']}</span></if></li>
                      <li><a href="{:U('user/index', array('uid'=>$visitor['id']))}" title="个人中心">个人中心</a></li>
+                     <li><a href="{:U('user/keysfollow')}" title="我的关注">我的关注</a></li>
                      <li><a href="{:U('user/publish')}" title="我的文章">我的文章</a></li>
                      <li><a href="{:U('user/logout')}" title="安全退出">安全退出</a></li>
                  </ul>

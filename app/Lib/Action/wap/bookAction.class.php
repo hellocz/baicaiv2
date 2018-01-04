@@ -241,12 +241,9 @@ class bookAction extends frontendAction {
             'seo_description' => $cate_info['seo_desc'],
 			));
 		}elseif($tp==0){
-			$this->_config_seo(C('pin_seo_config.cate'), array(
-            'cate_name' => '国内频道',
-            'seo_title' => $cate_info['seo_title'],
-            'seo_keywords' => $cate_info['seo_keys'],
-            'seo_description' => $cate_info['seo_desc'],
-			));
+		$page_seo['title'] = "国内商品优惠劵|国内商品活动信息优惠劵";
+        $page_seo['keywords'] = "国内商品优惠劵|国内商品活动信息优惠劵";
+        $page_seo['description'] = "白菜哦实时更新国内电商优惠促销活动优惠劵,众多神价都是全网独家。电商自营,和品牌直营的旗舰店,在正品行货中寻觅神价格,好活动。";
 		}
 		
 		$this->assign("tp",$tp);
@@ -255,16 +252,23 @@ class bookAction extends frontendAction {
 		$this->assign("cateid",$cateid);
 		$this->assign("count",$count);
 		$this->assign("pagesize",$pagesize);
+        if($cateid!=0){
+            $cate=M("item_cate")->where("id=$cateid")->find();
+            $this->assign('cate_url',U("book/gny",array('tp'=>$tp,'origid'=>$orig_id,)));
+            $this->assign('cate',$cate['name']);
+        $page_seo['title'] = $cate['seo_title'];
+        $page_seo['keywords'] = $cate['seo_keys'];
+        $page_seo['description'] = $cate['seo_desc'];
+        }
 		if($orig_id!=0){
-			$orig=M("item_orig")->where("id=$orig_id")->getField("name");
+			$orig=M("item_orig")->where("id=$orig_id")->find();
 			$this->assign('orig_url',U("book/gny",array('tp'=>$tp,'cateid'=>$cateid,)));
-			$this->assign('orig',$orig);
+			$this->assign('orig',$orig['name']);
+            $page_seo['title'] = $orig['seo_title'];
+            $page_seo['keywords'] = $orig['seo_keys'];
+            $page_seo['description'] = $orig['seo_desc'];
 		}
-		if($cateid!=0){
-			$cate=M("item_cate")->where("id=$cateid")->getField("name");
-			$this->assign('cate_url',U("book/gny",array('tp'=>$tp,'origid'=>$orig_id,)));
-			$this->assign('cate',$cate);
-		}
+		$this->assign('page_seo', $page_seo);
 		//可直邮
 		if($ispost==1){$cispost=0;}else{$cispost=1;}
 		$this->assign("lb_url",U('book/gny',array('tp'=>$tp,'tab'=>$tab,'dss'=>'lb',"$tab"=>'1',"ispost"=>$cispost)));
