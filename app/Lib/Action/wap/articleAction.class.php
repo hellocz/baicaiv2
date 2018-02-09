@@ -96,10 +96,13 @@ class articleAction extends frontendAction {
 
 		$item['info'] = preg_replace('/max-width:800px/','max-width:100%',$item['info']);
         $item['info'] = preg_replace('/<img/','<img style="max-width:100%"',$item['info']);
+
+        $add_time = intval($item['add_time']);
+        $time = time();
 		
 		//上下页
-		$pre = $model->where("id<$id and status=1 and cate_id=$item[cate_id]")->field("id,title")->find();
-		$next = $model->where("id>$id and status=1 and cate_id=$item[cate_id]")->field("id,title")->find();
+		$pre = $model->where("add_time<$add_time and (status=1 or status=4) and cate_id=$item[cate_id]")->order("add_time desc,id desc")->field("id,title")->find();
+		$next = $model->where("add_time>$add_time and add_time <$time and (status=1 or status=4) and cate_id=$item[cate_id]")->order("add_time desc,id desc")->field("id,title")->find();
 		$this->assign("pre",$pre);
 		$this->assign("next",$next);
 		$this->assign('item',$item);
