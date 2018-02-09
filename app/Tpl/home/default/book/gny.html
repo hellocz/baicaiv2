@@ -30,7 +30,7 @@
 
     <div class="w_gn_f">
 
-	<h2>热门置顶</h2>
+  <h2>热门置顶</h2>
 
      <div class="w_gn_f1">      
 
@@ -44,17 +44,17 @@
 
             <!-- 图片列表 begin -->
 
-			<volist name="hot_list" id="r">
+      <volist name="hot_list" id="r">
 
             <div class="box3">
 
             <a href="{:U('item/index',array('id'=>$r['id']))}" title="{$r.title}" target="_blank">
 
-			  <img src="{:attach($r['img'],'item')}" title="{$r.title}" alt="{$r.title}"/><br/>
+        <img src="{:attach($r['img'],'item')}" title="{$r.title}" alt="国内商品优惠劵"/><br/>
 
-			  {$r.title}<br/>{$r.intro}
+        {$r.title}<br/>{$r.intro}
 
-			  </a>
+        </a>
 
             </div>
 
@@ -72,104 +72,104 @@
 
     </div>
 
-	<div onmouseup="ISL_StopDown_1()" class="RightBotton1" onmousedown="ISL_GoDown_1()" onmouseout="ISL_StopDown_1()"></div>
+  <div onmouseup="ISL_StopDown_1()" class="RightBotton1" onmousedown="ISL_GoDown_1()" onmouseout="ISL_StopDown_1()"></div>
 
       <script type="text/javascript" src="/js/rollpic.js"></script>
 
-	 </div>
+   </div>
 
-	 </div>
+   </div>
 
-	 <div class="w_gn_jbj">
+   <div class="w_gn_jbj">
 
-	  <div class="w_gn_jbj_t">
+    <div class="w_gn_jbj_t">
 
-<!--	   <span>共<i>{$count}</i>件相关商品</span> -->
+<!--     <span>共<i>{$count}</i>件相关商品</span> -->
 
-	   <b>通过筛选您可以获得更准确的结果</b>
+     <b>通过筛选您可以获得更准确的结果</b>
 
-	   <ul>
+     <ul>
 
-	   <if condition="$origid!=0">
+     <if condition="$origid!=0">
 
-	    <li><a href="{$orig_url}" title="{$orig}">{$orig}</a><a href="{$orig_url}" title="{$orig}" class="w_gnsc_x">x</a></li>
+      <li><a href="{$orig_url}" title="{$orig}">{$orig}</a><a href="{$orig_url}" title="{$orig}"  alt="国内商品优惠劵" class="w_gnsc_x">x</a></li>
 
-	   </if>
+     </if>
 
-	   <if condition="$cateid!=0">
+     <if condition="$cateid!=0">
 
-		<li><a href="{$cate_url}" title="{$cate}">{$cate}</a><a href="{$cate_url}" title="{$cate}" class="w_gnsc_x">x</a></li>
+    <li><a href="{$cate_url}" title="{$cate}">{$cate}</a><a href="{$cate_url}" title="{$cate}" alt="国内商品优惠劵" class="w_gnsc_x">x</a></li>
 
-	   </if>
+     </if>
 
-	   </ul>
+     </ul>
 
-	  </div>
+    </div>
 
-	  <div class="w_gn_jbj_n">
+    <div class="w_gn_jbj_n">
 
-	    <b>商城筛选：</b>
+      <b>商城筛选：</b>
 
-		<?php
-	   	$orig = M("item_orig")->where("ismy='$tp'")->order("ordid")->select();
-	   ?>
+    <?php
+      $orig = M("item_orig")->where("ismy='$tp'")->order("ordid")->select();
+     ?>
 
-		<ul style="height:27px; overflow:hidden" id="daohan">
+    <ul style="height:27px; overflow:hidden" id="daohan">
 
-		<volist name="orig" id="r">
+    <volist name="orig" id="r">
 
-			<li><a href="{:U('book/gny',array('tp'=>$tp,'cateid'=>$cateid,'origid'=>$r['id']))}" title="{$r.name}">{$r.name}</a></li>
+      <li><a href="{:U('book/gny',array('tp'=>$tp,'cateid'=>$cateid,'origid'=>$r['id']))}" title="{$r.name}" alt="国内商品优惠劵">{$r.name}</a></li>
 
-		</volist>
+    </volist>
 
-		</ul>
+    </ul>
 
-		<span class="w_zq_more" data="0" onclick="javascript:show($('#daohan'));">更多</span>
+    <span class="w_zq_more" data="0" onclick="javascript:show($('#daohan'));" alt="国内商品优惠劵信息">更多</span>
 
-	  </div>
+    </div>
 
-	  <div class="w_gn_jbj_n">
+    <div class="w_gn_jbj_n">
 
-	    <b>分类筛选：</b>
+      <b>分类筛选：</b>
 
-		<?php
+    <?php
 
-		$cate_id = M("item_cate")->where("pid=0")->order("ordid asc")->select();
+    $cate_id = M("item_cate")->where("pid=0")->order("ordid asc")->select();
 
-		?>
+    ?>
 
-		<ul id="cateid" style="height:27px; overflow:hidden" >
+    <ul id="cateid" style="height:27px; overflow:hidden" >
 
-		<volist name="cate_id" id="r">
+    <volist name="cate_id" id="r">
 
-		<li><a href="{:U('book/gny',array('tp'=>$tp,'cateid'=>$r['id'],'origid'=>$origid))}" title="{$r.name}">{$r.name}</a></li>
+    <li><a href="{:U('book/gny',array('tp'=>$tp,'cateid'=>$r['id'],'origid'=>$origid))}" title="{$r.name}">{$r.name}</a></li>
 
-		</volist>
+    </volist>
 
-		</ul>
+    </ul>
 
-		<span class="w_zq_more" onclick="show($('#cateid'));" data="0">更多</span>
+    <span class="w_zq_more" onclick="show($('#cateid'));" data="0">更多</span>
 
-	  </div>
+    </div>
 
-	 </div>
+   </div>
 
      <div class="w_f2">
 
        <div class="w_sy_ha">
 
-         <div class="w_sh_r"><a href="{$cc_url}" title="橱窗模式" <if condition="$dss=='cc'">class="w_sh_1i"<else/>class="w_sh_1"</if>><i></i></a><em>|</em><a href="{$lb_url}" title="列表模式" <if condition="$dss=='lb'">class="w_sh_2i"<else/>class="w_sh_2"</if>><i></i></a>		 
+         <div class="w_sh_r"><a href="{$cc_url}" title="橱窗模式" alt="国内商品优惠劵信息" <if condition="$dss=='cc'">class="w_sh_1i"<else/>class="w_sh_1"</if>><i></i></a><em>|</em><a href="{$lb_url}" title="列表模式" alt="国内商品优惠劵" <if condition="$dss=='lb'">class="w_sh_2i"<else/>class="w_sh_2"</if>><i></i></a>    
 
-		 </div>
+     </div>
 
          <a href="{:U('book/gny',array('tp'=>$tp,'isnice'=>1,'dss'=>'lb'))}"><span <if condition="$tab eq 'isnice'">class="w_sy_s"</if> id="sy1" >编辑推荐<i></i></span></a>
          <!--<a href="{:U('book/gny',array('tp'=>$tp,'isbao'=>1,'dss'=>'cc'))}"><span <if condition="$tab eq 'isbao'">class="w_sy_s"</if> id="sy2">网友爆料</span></a>-->
 
-		 
+     
 
        </div>
 
-	   <include file="public:item_list" />
+     <include file="public:item_list" />
 
        <div class="w_pag">{$page_bar}</div>
 
@@ -185,48 +185,48 @@
 
         <h2>关注我们，获取最新动态</h2>
 
-        <a href="http://weibo.com/baicaio" target="_blank" title="微博"><img src="/images/w_gz_1.png" title="微博" alt="微博"/></a>
+        <a href="http://weibo.com/baicaio" target="_blank" title="微博"><img src="/images/w_gz_1.png" title="微博" alt="微博国内商品优惠劵"/></a>
 
         <a href="javascript:;" title="微信" class="l_wx_a">
 
-		 <img src="/images/w_gz_2.png" title="微信" alt="微信"/>
+     <img src="/images/w_gz_2.png" title="微信" alt="微信国内商品优惠劵"/>
 
-		 <div class="l_wx">
+     <div class="l_wx">
 
-		   <img src="/images/w_erm.jpg" title="白菜哦" alt="白菜哦"/>
+       <img src="/images/w_erm.jpg" title="白菜哦" alt="白菜哦优惠劵"/>
 
-		 </div>
+     </div>
 
-		</a>
+    </a>
 
-		<script>
+    <script>
 
-		$(document).ready(function(e) {
+    $(document).ready(function(e) {
 
              $(".l_wx_a").hover(
 
-				  function () {
+          function () {
 
-					$(this).children(".l_wx").show();
+          $(this).children(".l_wx").show();
 
-				  },
+          },
 
-				  function () {
+          function () {
 
-					$(this).children(".l_wx").hide("");
+          $(this).children(".l_wx").hide("");
 
-				  }
+          }
 
-				); 
+        ); 
 
            }) 
 
-		</script>
+    </script>
 
-        <a href="/rss" title="订阅"><img src="/images/w_gz_3.png" title="订阅" alt="订阅"/></a>
+        <a href="/rss" title="国内商品优惠劵"><img src="/images/w_gz_3.png" title="国内商品优惠劵信息" alt="优惠劵"/></a>
 
         <a href="javascript:AddFavorite(window.location.href,document.title)" title="收藏"><img src="/images/w_gz_4.png" title="收藏" alt="收藏"/></a>
-        <a href="/item/241815.html" title="插件"><img src="/images/w_gz_5.png" title="插件" alt="插件"/></a>
+        <a href="/item/241815.html" title="插件优惠劵"><img src="/images/w_gz_5.png" title="插件优惠劵" alt="国内商品优惠劵信息"/></a>
       </div>
 
     </div>
@@ -236,6 +236,7 @@
     <div class="w_r4">{:R('advert/index', array(2), 'Widget')}</div>
 
     <include file="public:yhq_right" />
+    <include file="public:zx_right" />
     <div class="w_r_tab">
         <h2>热门白菜榜</h2>
 
@@ -261,9 +262,9 @@
        <ul style="display:none"  id="con_rm_2" class="ninePicBox ">
                         <volist name="day_list" id="r">
                             <li class="re_pic" <if condition="!($i%3)">class="gogo"</if>>
-                            <if condition="$i lt 4"><img class="re_tt" src="/images/tz_{$i}.png" /></if>
+                            <if condition="$i lt 4"><img class="re_tt" src="/images/tz_{$i}.png" alt="国内商品优惠劵信息" title="国内优惠劵" /></if>
                             <a href="{:U('item/index',array('id'=>$r['id']))}" title="{$r.title}" target="_blank">
-                                 <img src="<if condition="$r['img']==''">/images/nopic.jpg<else/> <if condition="preg_match('/img.baicaio.com/',$r['img'])">{:attach($r['img'],'item')}!thumb94<else/>{:attach($r['img'],'item')}</if></if>" style="width:94px; height:94px;">
+                                 <img alt="国内商品优惠劵信息" src="<if condition="$r['img']==''">/images/nopic.jpg<else/> <if condition="preg_match('/img.baicaio.com/',$r['img'])">{:attach($r['img'],'item')}!thumb94<else/>{:attach($r['img'],'item')}</if></if>" style="width:94px; height:94px;">
                                 <div class="tabCon" style="z-index:999999;">
                                     <p>{$r.title|msubstr=0,16,""}</p>
                                     <span>{$r.price}</span>
@@ -286,13 +287,13 @@
 
 $(document).ready(function(){
 
-	$('.flexslider').flexslider({
+  $('.flexslider').flexslider({
 
-		directionNav: true,
+    directionNav: true,
 
-		pauseOnAction: false
+    pauseOnAction: false
 
-	});
+  });
 
         $('.w_r_tab').scrollFix(60,"top");
         $('.w_r7').scrollFix(480,"top");
@@ -301,19 +302,19 @@ $(document).ready(function(){
 
 function show(obj){
 
-	if($(this).attr('data')==0){
+  if($(this).attr('data')==0){
 
-		obj.css('height','auto');
+    obj.css('height','auto');
 
-		$(this).attr('data','1');
+    $(this).attr('data','1');
 
-	}else{
+  }else{
 
-		obj.css('height','27px');
+    obj.css('height','27px');
 
-		$(this).attr('data','0');
+    $(this).attr('data','0');
 
-	}
+  }
 
 }
 

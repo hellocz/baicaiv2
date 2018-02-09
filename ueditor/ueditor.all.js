@@ -11161,6 +11161,13 @@ UE.commands['insertcard'] = {
     }
 };
 
+UE.commands['baicaicoupon'] = {
+    execCommand:function (cmd, opt) {
+        var me = this;
+          me.execCommand('insertHtml',opt);
+
+    }
+};
 // plugins/justify.js
 /**
  * 段落格式
@@ -27684,6 +27691,7 @@ UE.ui = baidu.editor.ui = {};
         'preview':'~/dialogs/preview/preview.html',
         'emotion':'~/dialogs/emotion/emotion.html',
         'insertcard':'~/dialogs/insertcard/insertcard.html',
+        'baicaicoupon':'~/dialogs/baicaicoupon/baicaicoupon.html',
         'wordimage':'~/dialogs/wordimage/wordimage.html',
         'attachment':'~/dialogs/attachment/attachment.html',
         'insertframe':'~/dialogs/insertframe/insertframe.html',
@@ -27705,7 +27713,7 @@ UE.ui = baidu.editor.ui = {};
         'blockquote', 'pasteplain', 'pagebreak',
         'selectall', 'print','horizontal', 'removeformat', 'time', 'date', 'unlink',
         'insertparagraphbeforetable', 'insertrow', 'insertcol', 'mergeright', 'mergedown', 'deleterow',
-        'deletecol', 'splittorows', 'splittocols', 'splittocells', 'mergecells', 'deletetable', 'drafts','insertcard'];
+        'deletecol', 'splittorows', 'splittocols', 'splittocells', 'mergecells', 'deletetable', 'drafts','insertcard','baicaicoupon'];
 
     for (var i = 0, ci; ci = btnCmds[i++];) {
         ci = ci.toLowerCase();
@@ -28445,9 +28453,26 @@ UE.ui = baidu.editor.ui = {};
         return ui;
     };
 
-    // 表情
+    // 卡片
     editorui["insertcard"] = function (editor, iframeUrl) {
         var cmd = "insertcard";
+        var ui = new editorui.MultiMenuPop({
+            title:editor.options.labelMap[cmd] || editor.getLang("labelMap." + cmd + "") || '',
+            editor:editor,
+            className:'edui-for-' + cmd,
+            iframeUrl:editor.ui.mapUrl(iframeUrl || (editor.options.iframeUrlMap || {})[cmd] || iframeUrlMap[cmd])
+        });
+        editorui.buttons[cmd] = ui;
+
+        editor.addListener('selectionchange', function () {
+            ui.setDisabled(editor.queryCommandState(cmd) == -1)
+        });
+        return ui;
+    };
+
+      // 优惠码
+    editorui["baicaicoupon"] = function (editor, iframeUrl) {
+        var cmd = "baicaicoupon";
         var ui = new editorui.MultiMenuPop({
             title:editor.options.labelMap[cmd] || editor.getLang("labelMap." + cmd + "") || '',
             editor:editor,
@@ -28967,7 +28992,7 @@ UE.ui = baidu.editor.ui = {};
                         editor.autoHeightEnabled = false;
                         this.editor.disableAutoHeight();
                     }
-
+                    $(".w_head_bd").css("position","");
                     document.documentElement.style.overflow = 'hidden';
                     //修复，滚动条不收起的问题
 

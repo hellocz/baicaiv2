@@ -8,7 +8,7 @@
 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<link href="__STATIC__/css/admin/style.css" rel="stylesheet"/>
+	<link href="__STATIC__/css/admin/style.css?v=20180123" rel="stylesheet"/>
 
 	<link href="__STATIC__/css/card.min.css" rel="stylesheet"/>
 
@@ -86,7 +86,9 @@
 
                 <td><select class="J_cate_select mr10" data-pid="0" data-uri="<?php echo U('item_cate/ajax_getchilds', array('type'=>0));?>" data-selected="<?php echo ($selected_ids); ?>"></select>
 
-                <input type="hidden" name="cate_id" id="J_cate_id" value="<?php echo ($info["cate_id"]); ?>" /></td>
+                <input type="hidden" name="cate_id" id="J_cate_id" value="<?php echo ($info["cate_id"]); ?>" />
+
+                &nbsp;<input class="input-text" type="text" name="search_cate" id ="search_cate" value="" placeholder="搜索分类" /> </td>
 
 			</tr>
 
@@ -256,6 +258,8 @@
 					<label><input type="checkbox" value="<?php echo ($info['ispost']); ?>" name="ispost" id="ispost"  <?php if($info['ispost'] == 1): ?>checked<?php endif; ?>>可直邮</label>
 
 					<label><input type="checkbox" value="<?php echo ($info['isoriginal']); ?>" name="isoriginal" id="isoriginal" <?php if($info['isoriginal'] == 1): ?>checked<?php endif; ?>>原创</label> &nbsp;&nbsp;
+
+					<label><input type="checkbox" value="<?php echo ($info['isfront']); ?>" name="isfront" id="isfront" <?php if($info['isfront'] == 1): ?>checked<?php endif; ?>>文章置顶</label> &nbsp;&nbsp;
 
 					<label>&nbsp;&nbsp;<input type="text" value="<?php echo ($info["express"]); ?>"  disabled="disabled" style="width:50px;"></label>
 
@@ -537,6 +541,9 @@
             z-index: 999;
 
 	}
+	a.cates {
+    margin-left: 4px;
+}
 
 </style>
 
@@ -596,7 +603,7 @@ $(function(){
 
 <script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
 
-<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.js"> </script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.js?v=20171214"> </script>
 
 <script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
 
@@ -1115,6 +1122,33 @@ var PINER = {
     //URL
     url: {}
 };
+
+$("#search_cate").change(function(){
+		//alert($(this).val());
+		if($(this).val() !=""){
+			$.post('<?php echo U("item/ajax_getcates");?>', {cate:$(this).val()}, function(result){
+
+			if(result.status == 1){
+				$(".cates").remove();
+				for(var i=0;i<result.data.length;i++){
+				$("#search_cate").after("<a class='cates' spid=" + result.data[i].spid + ">"+result.data[i].name + "</a>");
+			}
+
+			}else{
+				$.pinphp.tip({content:result.msg});
+
+			}
+
+		},'json');
+		}
+	});
+	$(".cates").live("click",function(){
+		var spid = $(this).attr("spid");
+		$('.J_cate_select').attr("data-selected",0);
+		$(".J_cate_select").cate_select();
+		$('.J_cate_select').attr("data-selected",spid);
+		$(".J_cate_select").cate_select();
+	});
 
 function ajaxFileUpload() {
 

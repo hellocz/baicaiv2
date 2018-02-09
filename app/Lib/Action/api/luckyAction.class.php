@@ -51,6 +51,20 @@ class luckyAction extends userbaseAction
     }
 
     /**
+     * 积分商品详细页
+     */
+    public function exchange_detail() {
+        $id = $data['id'];
+        $item_mod = M('score_item');
+        $item = $item_mod->field('id,title,img,score,coin,stock,user_num,buy_num,desc,cate_id,win,sign_date')->find($id);
+
+        $list = M("score_order")->where("item_id=$id")->order('add_time desc')->select();
+        $item['list'] = $list;
+        $code = 10001;
+        echo get_result($code,$item);return ;
+
+    }
+    /**
      * 往期抽奖详情页
      */
     public function lucky_list_past() {

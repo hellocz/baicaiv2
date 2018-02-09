@@ -24,7 +24,7 @@
 
     <div class="w_zh_dq1">
 
-	  <a href="/" title="首页">首页</a> > {$strpos}
+	  <a href="/" title="首页" alt="海淘专享优惠劵">首页</a> > {$strpos}
 
 	  <a style="float:right">共<font color="#FF0000">{$count}</font>条记录</a>
 
@@ -60,7 +60,7 @@
 
 	  <div class="w_gn_jbj_n">
 
-	    <b>分类筛选：</b>
+	    <b alt="海外购网站优惠劵">分类筛选：</b>
 
 		<?php
 
@@ -72,13 +72,13 @@
 
 		<volist name="cate_id" id="r">
 
-		<li><a href="{:U('book/cate',array('cid'=>$r['id']))}" title="{$r.name}">{$r.name}</a></li>
+		<li><a href="{:U('book/cate',array('cid'=>$r['id']))}" title="{$r.name}" alt="海淘专享优惠劵">{$r.name}</a></li>
 
 		</volist>
 
 		</ul>
 
-		<span class="w_zq_more" onclick="show($('#cateid'));" data="0">更多</span>
+		<span class="w_zq_more" alt="海外购网站优惠劵" onclick="show($('#cateid'));" data="0">更多</span>
 
 	  </div>
 
@@ -123,7 +123,7 @@ function show(obj){
 
 <include file="public:footer" />
 
-<script src="/js/function.js"></script>
+<script src="/js/function.js?v=2018010501"></script>
 
 <script src="/static/js/lhg/lhgdialog.min.js?self=true&skin=idialog" type="text/javascript"></script>
 

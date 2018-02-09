@@ -23,7 +23,7 @@ class articleAction extends frontendAction {
 
 		$count = M("article")->where($where)->count();
 		$pager = $this->_pager($count, $spage_size);
-		$article_list = M("article")->where($where)->order("isbest desc,id desc")->limit($start. ',' . $spage_size)->select();
+		$article_list = M("article")->where($where)->order("add_time desc")->limit($start. ',' . $spage_size)->select();
 		$this->assign('pagebar',$pager->fshow());
 		$this->assign("article_list",$article_list);
 		$this->assign("tab", $tab);	
@@ -47,6 +47,10 @@ class articleAction extends frontendAction {
 		'seo_description' => $seo['seo_desc'],
 		));	
 		$this->assign("bcid",getbcid($cate_id));
+		$where1['cate_id']=16;
+      	$where1['status']=1;
+		$zx_list = M("article")->where($where1)->order("id desc")->limit(4)->select();
+    	$this->assign("zx_list",$zx_list);
         $this->display();
     }
 
@@ -61,7 +65,7 @@ class articleAction extends frontendAction {
 		$item = $model->where($where)->find();
 		!$item&&$this->error('文章内容不存在或未通过审核');
 		//标签
-        $item['tag_list'] = explode(" ",$item['tags']);
+        $item['tag_list'] = explode("、",$item['tags']);
 		//面包削
 		$this->assign("strpos",getapos($item['cate_id'],''));
 		//可能还喜欢
@@ -71,23 +75,28 @@ class articleAction extends frontendAction {
         $maylike_list = array_slice($item['tag_list'], 0, 3, true);
         foreach ($maylike_list as $key => $val) {
             $maylike_list[$key] = array('name' => $val);
+            $where_maylike_list['tag_cache'] = array('like', '%'.$val.'%');
+			$where_maylike_list['add_time'] = array('lt', time());
+			$where_maylike_list['status'] = 1;
             //$maylike_list[$key]['list'] = $item_tag_mod->field('i.id,i.img,i.intro,i.title,' . $item_tag_table . '.tag_id')->where(array($item_tag_table . '.tag_id' => $key, 'i.id' => array('neq', $id)))->join($db_pre . 'item i ON i.id = ' . $item_tag_table . '.item_id')->order('i.id DESC')->limit(9)->select();
-			$maylike_list[$key]['list'] = M("item")->field("id,img,intro,title")->where("tag_cache like '%$val%'")->limit(8)->select();
+			$maylike_list[$key]['list'] = M("item")->field("id,img,intro,title")->where($where_maylike_list)->order("add_time desc")->limit(8)->select();
         }
 		$this->assign('maylike_list', $maylike_list);
 		
 		//上下页
-		/*$pre = $model->where("id<$id and status=1 and cate_id=$item[cate_id]")->field("id,title")->find();
-		$next = $model->where("id>$id and status=1 and cate_id=$item[cate_id]")->field("id,title")->find();
+		$add_time = intval($item['add_time']);
+        $time = time();
+		$pre = $model->where("add_time<$add_time and status=1 and cate_id=$item[cate_id]")->field("id,title")->order("add_time desc,id desc")->find();
+        $next = $model->where("add_time>$add_time and add_time <$time and status=1 and cate_id=$item[cate_id]")->field("id,title")->find();
 		$this->assign("pre",$pre);
-		$this->assign("next",$next);*/
+		$this->assign("next",$next);
 		$this->assign('item',$item);
 		$this->assign("bcid",getbcid($item['cate_id']));
 		//评论
 		$this->assign('xid',3);
 		$this->assign('itemid',$id);
 		$this->_config_seo(array('title'=>'{article_title}','keywords' => '{article_tag}','description' => '{article_intro}' ), array(
-			'article_title' => $item['title'],
+			'article_title' => $item['title'] . "_白菜哦",
             'article_intro' => $item['intro'],
             'article_tag' => implode(' ', $item['tag_list']),
             'seo_title' => $item['seo_title'],

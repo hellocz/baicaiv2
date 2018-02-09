@@ -32,7 +32,9 @@
 
                 <td><select class="J_cate_select mr10" data-pid="0" data-uri="{:U('item_cate/ajax_getchilds', array('type'=>0))}" data-selected="{$selected_ids}"></select>
 
-                <input type="hidden" name="cate_id" id="J_cate_id" value="{$info.cate_id}" /></td>
+                <input type="hidden" name="cate_id" id="J_cate_id" value="{$info.cate_id}" />
+
+                &nbsp;<input class="input-text" type="text" name="search_cate" id ="search_cate" value="" placeholder="搜索分类" /> </td>
 
 			</tr>
 
@@ -505,6 +507,9 @@
             z-index: 999;
 
 	}
+	a.cates {
+    margin-left: 4px;
+}
 
 </style>
 
@@ -1045,6 +1050,33 @@ var PINER = {
     //URL
     url: {}
 };
+
+$("#search_cate").change(function(){
+		//alert($(this).val());
+		if($(this).val() !=""){
+			$.post('{:U("item/ajax_getcates")}', {cate:$(this).val()}, function(result){
+
+			if(result.status == 1){
+				$(".cates").remove();
+				for(var i=0;i<result.data.length;i++){
+				$("#search_cate").after("<a class='cates' spid=" + result.data[i].spid + ">"+result.data[i].name + "</a>");
+			}
+
+			}else{
+				$.pinphp.tip({content:result.msg});
+
+			}
+
+		},'json');
+		}
+	});
+	$(".cates").live("click",function(){
+		var spid = $(this).attr("spid");
+		$('.J_cate_select').attr("data-selected",0);
+		$(".J_cate_select").cate_select();
+		$('.J_cate_select').attr("data-selected",spid);
+		$(".J_cate_select").cate_select();
+	});
 
 function ajaxFileUpload() {
 

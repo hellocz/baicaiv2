@@ -385,6 +385,19 @@ class ajaxAction extends frontendAction {
 			$pager->url="index/index?type=$para" . "&dss=". $_SESSION['dss'];
 		}
 		$item_list = $item_mod->where("$para=1 and status=1 and add_time<$time")->limit($pager->firstRow.",".$pager->listRows)->order("add_time desc,id desc")->select();
+		$article_begin_time =0;
+		$article_end_time =0;
+		foreach($item_list as $key=>$val){
+				if($article_end_time==0){
+					$article_end_time = $item_list[$key]['add_time'];
+				}
+		$article_begin_time =$item_list[$key]['add_time'];
+			}
+		$article_list = M("article")->where("add_time > $article_begin_time and add_time < $article_end_time and status=4")->select();
+		if(count($article_list)>=1){
+		$item_list = array_merge($item_list, $article_list); 
+		usort($item_list, 'sortByAddTime');
+		}
 		foreach($item_list as $key=>$val){
 			$item_list[$key]['zan'] = $item_list[$key]['zan']   +intval($item_list[$key]['hits'] /10);
 		}

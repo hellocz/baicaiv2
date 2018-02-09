@@ -30,22 +30,47 @@ class crontabAction extends frontendAction {
         } 
 
     }
+/**
+    * 熊掌号推送
+    */
 
-    /**
-     * 商品详细页
-     */
-    public function update_lucky_num() {
-       
-      $score_list= M('score_order')->where("item_id=8")->order("add_time asc")->select();
-      $i=1;
-      foreach ($score_list as $score) {
-        $score['luckdraw_num'] = $i++;
-        M('score_order')->where(array('id'=>$score['id']))->save($score);
-      }
-      
-      echo $count;
+    public function bear_push(){
+        $time = time();
+        $fivemin_before = $time -300;
+        $map['add_time'] = array('between',"$fivemin_before, $time");
+        $map['status'] = 1;
+        $map['isoriginal'] = 1;
+        $items= M('item')->field('id')->where($map)->select();
+
+        $article_map['status'] = 1;
+        $article_map['add_time'] = array('between',"$fivemin_before, $time");
+        $articles= M('article')->field('id')->where($article_map)->select();
+
+        if(!empty($items) || !empty($articles)){
+          $urls = array();
+          foreach ($items as $item) {
+            $url = 'http://www.baicaio.com/item/' . $item['id'] . '.html';
+            array_push($urls, $url);
+          }
+          foreach ($articles as $article) {
+            $url = 'http://www.baicaio.com/article/' . $article['id'] . '.html';
+            array_push($urls, $url);
+          }
+      $api = 'http://data.zz.baidu.com/urls?appid=1587722983761931&token=IkgnHbK6nGfqsqGB&type=realtime';
+      $ch = curl_init();
+      $options =  array(
+          CURLOPT_URL => $api,
+          CURLOPT_POST => true,
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_POSTFIELDS => implode("\n", $urls),
+          CURLOPT_HTTPHEADER => array('Content-Type: text/plain'),
+      );
+      curl_setopt_array($ch, $options);
+      $result = curl_exec($ch);
+      echo $result;
+        }
+
     }
-
     public function baicai_push_generator(){
       $time =time();
         $fivemin_before = $time -300;

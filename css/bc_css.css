@@ -559,7 +559,7 @@ input,label { vertical-align:middle; font-family:"Microsoft YaHei";}
 .w_dtxq_1s p{ color:#323232; font-size:14px; line-height:30px;}
 .w_dtxq_1s p em{ color:#ec1313; }
 .w_dtxq_1 dl{ color:#323232; font-size:14px; line-height:200%; margin-top:52px; float:left;}
-.w_dha{ width:90px; height:30px; text-align:center; line-height:30px; color:#fff; background:#3dc399; margin-top:10px; display:block; border-radius:4px; float:left;}
+.w_dha{ width:90px; height:30px; text-align:center; line-height:30px; color:#fff; background:#3dc399; margin-top:10px; display:block; border-radius:4px; float:left;margin-right: 10px;}
 
 .w_dtxq_2{ width:825px; padding:0px 25px 30px 18px; background:#fff;  box-shadow: 2px 2px 5px rgba(0,0,0,.1); color:#323232; font-size:14px;  margin-top:30px; float:left;}
 .w_dtxq_2 h2{ color:#323232; border-bottom:2px solid #3dc399; height:35px; line-height:35px; font-weight:normal;}
@@ -2380,7 +2380,8 @@ label.search_word {
     cursor: pointer;
 }
 .brand .brand-list-item {
-    width: 100%;
+	float: left;
+    width: 1140px;
     margin: 0px;
     padding: 30px 30px 30px;
     border-bottom: 1px gray solid;
@@ -2561,7 +2562,7 @@ ul, h1, li, div {
     margin-bottom: 10px;
     margin-right: 5px;
     overflow: hidden;
-    width: 233px;
+    width: 222px;
 }
 .itemImageAndName {
     cursor: pointer;
@@ -2669,8 +2670,6 @@ ul, h1, li, div {
 .w_zdlj_a{
     border-radius: 4px;
     color: #646464;
-    float: right;
-    padding-right: 10px;
     text-align: center;
 }
 .newtag{
@@ -2796,4 +2795,19 @@ em.quan-right {
 }
 .w_spxx_bd img{
 	max-width: 100%;
+}
+button.baicaio_coupon {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 8px;
+    padding-right: 8px;
+    border: 1px solid #E53333;
+    text-decoration: none;
+    font-size: 0.6rem;
+    background-color: #FFFFFF;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+    border-radius: 5px;
+    color: Red;
+    cursor: pointer;
 }

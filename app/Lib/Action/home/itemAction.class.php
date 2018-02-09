@@ -247,7 +247,17 @@ class itemAction extends frontendAction {
             $item['content']= $this->str_replace_once($v,$url,$item['content']);
         }
         }
-        
+        $orig_name=getly($item['orig_id']);
+
+        $base1 = stripos($item['content'],$orig_name);
+
+        $base2 = stripos($item['content'],"前往" . $orig_name);
+
+        if($base2 == false || $base2-$base1 > 6){
+        $item['content'] = preg_replace("/($orig_name)/i","<a href=/orig-show-id-" . $item['orig_id'] . " target='_blank'>$1</a>",$item['content'],1);
+        }
+      //  $item['content'] = preg_replace("/title=[\'|\"](\S+)[\'|\"]/","title=\"" . trim($item['title'])  . trim($item['price']) . "\"",$item['content']);
+        $item['content'] = preg_replace("/alt=[\'|\"](\S+)[\'|\"]/","alt=\"" . trim($item['title'])  . trim($item['price']) . "\"",$item['content']);
         $this->assign('is_hot', $is_hot);
         $this->assign('item', $item);
         $this->assign('orig', $orig);
@@ -272,10 +282,10 @@ class itemAction extends frontendAction {
         $this->assign("strpos",$strpos);
         $add_time = intval($item['add_time']);
         $time = time();
-     //   $pre = $item_mod->where("add_time<$add_time and status=1")->field("id,title")->order("add_time desc,id desc")->find();
-     //   $next = $item_mod->where("add_time>$add_time and add_time <$time and status=1")->field("id,title")->find();
-     //   $this->assign("pre",$pre);
-     //   $this->assign("next",$next);
+        $pre = $item_mod->where("add_time<$add_time and status=1")->field("id,title")->order("add_time desc,id desc")->find();
+        $next = $item_mod->where("add_time>$add_time and add_time <$time and status=1")->field("id,title")->find();
+        $this->assign("pre",$pre);
+        $this->assign("next",$next);
         //评论
         $this->assign('xid',1);
         $this->assign('itemid',$id);    
@@ -365,6 +375,12 @@ class itemAction extends frontendAction {
       }
 
       $this->assign('cmt_list',$cmt_list);
+
+
+      $where1['cate_id']=16;
+      $where1['status']=1;
+      $article_list = M("article")->where($where1)->order("id desc")->limit(4)->select();
+      $this->assign("zx_list",$article_list);
         
         $this->display();
     }

@@ -38,7 +38,7 @@
             'bold', 'italic', 'underline','forecolor',  'cleardoc', 'fontsize', '|',
             'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify',
             'link', 'unlink',
-            'simpleupload', 'insertimage', 'emotion','insertcard'
+            'simpleupload', 'insertimage', 'emotion','insertcard','baicaicoupon'
         ]]
         //当鼠标放在工具栏上时显示的tooltip提示,留空支持自动多语言配置，否则以配置值为准
         //,labelMap:{

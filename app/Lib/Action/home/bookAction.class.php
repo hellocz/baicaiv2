@@ -63,9 +63,14 @@ class bookAction extends frontendAction {
         $page_seo['title'] = "海淘专享优惠券|海外购网站优惠劵|网易考拉海购优惠卷|海淘专享优惠券|白菜哦 ";
         $page_seo['keywords'] = "海淘专享优惠券|海外购网站优惠劵|网易考拉海购优惠卷|海淘专享优惠券|白菜哦";
         $page_seo['description'] = "白菜哦提供2018年最新海淘,商品优惠劵,专享优惠卷，20-50元天猫优惠劵，告诉你优惠劵购买技巧";
-        $this->assign('page_seo', $page_seo);
+        
         }
-
+        else{
+        $page_seo['title'] = $tag . "最新优惠商品推荐_" . $tag . "怎么选_" . $tag . "品牌_白菜哦";
+        $page_seo['keywords'] = $tag . "最新优惠," . $tag . "怎么选," . $tag . "哪个牌子好";
+        $page_seo['description'] = "这里是白菜哦(baicaio.com)关于" . $tag . "的优惠汇总页面，特价一网打尽。本站还提供知名品牌排行榜，专属优惠券、独家优惠码，攻略晒单等，想知道" . $tag . "哪个牌子好，" . $tag . "怎么选，" . $tag . "排行榜，就来白菜哦看看吧！";
+        }
+        $this->assign('page_seo', $page_seo);
         $this->assign('strpos',$strpos);
         $this->display();
     }
@@ -133,7 +138,7 @@ class bookAction extends frontendAction {
 				$order = 'id DESC';
                 break;
 			default: 
-				$order = 'id DESC';
+				$order = 'add_time DESC';
 				break;
         }
         //分类
@@ -141,7 +146,7 @@ class bookAction extends frontendAction {
             $min_price && $where['price'][] = array('egt', $min_price);
             $max_price && $where['price'][] = array('elt', $max_price); //价格
             //实物分类
-            $cate_relate[$cid]['sids'][] = $cid;
+            $cate_relate[$cid]['sids'][] = strval($cid);
             $where['cate_id'] = array('in', $cate_relate[$cid]['sids']);
             $this->waterfall($where, $order);
         } else {
@@ -160,6 +165,7 @@ class bookAction extends frontendAction {
             }
         }
 
+
         $this->assign('cate_list', $cate_list); //分类
         $this->assign('tid', $tid); //顶级分类ID
         $this->assign('cate_info', $cate_info); //当前分类信息
@@ -168,16 +174,50 @@ class bookAction extends frontendAction {
         $this->assign('max_price', $max_price); //最高价格
         $this->assign('nav_curr', 'cate'); //导航设置
         //SEO
-        $this->_config_seo(C('pin_seo_config.cate'), array(
-            'cate_name' => $cate_info['name'],
-            'seo_title' => $cate_info['seo_title'],
-            'seo_keywords' => $cate_info['seo_keys'],
-            'seo_description' => $cate_info['seo_desc'],
-        ));
+        $level = substr_count($cate_info['spid'],"|")+1;
+        if(empty($cate_info['seo_title'])){
+      if($level == 2){
+        $child_cates =M("item_cate")->where("pid=$cid")->field("name")->select();
+        $child = "";
+        foreach ($child_cates as $child_cate) {
+          $child .= $child_cate['name'] . ",";
+        }
+        $child = rtrim($child, ',');
+        $page_seo['title'] = $cate_info['name'] . "内部优惠券|" . $cate_info['name'] . "优惠活动|" . $cate_info['name'] . "海淘|白菜哦";
+        $page_seo['keywords'] = $cate_info['name'] . "内部优惠券|" . $cate_info['name'] . "优惠活动|" . $cate_info['name'] . "海淘";
+        $page_seo['description'] = "提供最新" . $cate_info['name'] . "相关内部优惠券大全,教你海淘" . $cate_info['name'] ."无需找代购,这里是白菜哦" . $cate_info['name'] . "优惠信息专栏,最新热门品牌榜等,下载APP不错过任何好价.包括" . $child . "等各类优惠促销";
+      }
+      else{
+        $page_seo['title'] = $cate_info['name'] . "内部优惠券|" . $cate_info['name'] . "优惠活动|" . $cate_info['name'] . "海淘|白菜哦";
+        $page_seo['keywords'] = $cate_info['name'] . "内部优惠券|" . $cate_info['name'] . "优惠活动|" . $cate_info['name'] . "海淘";
+        $page_seo['description'] = "这里是白菜哦关于" . $cate_info['name'] . "的优惠信息活动专栏,提供2018年最新" . $cate_info['name'] ."十大品牌,全网" . $cate_info['name'] . "内部优惠券大全,教你海淘" . $cate_info['name'] . "无需找代购,下载APP不错过任何好价.";
+      }
+    }
+    else{
+        $page_seo['title'] = $cate_info['seo_title'];
+        $page_seo['keywords'] = $cate_info['seo_keys'];
+        $page_seo['description'] = $cate_info['seo_desc'];
+    }
+
+    $nav_cates =M("item_cate")->where("pid=$cid")->field("id,name")->select();
+    $nav_cates_filter = array();
+    foreach ($nav_cates as $key => $value) {
+        $where_nav = array();
+        $where_nav['add_time'] =array('lt',$time);
+        $where_nav['status'] =1;
+        $cate_relate[$nav_cates[$key]['id']]['sids'][] = strval($nav_cates[$key]['id']);
+        $where_nav['cate_id'] = array('in', $cate_relate[$nav_cates[$key]['id']]['sids']);
+        $nav_cates[$key]['count'] = M("item")->where($where_nav)->count('id');
+        if($nav_cates[$key]['count'] > 0){array_push($nav_cates_filter, $nav_cates[$key]);}
+    }
+    usort($nav_cates_filter, 'sortByCount');
 		//面包削
+     $this->assign('nav_cates', $nav_cates_filter);
+        $this->assign('page_seo', $page_seo);
 		$this->assign("strpos",getpos($cid,''));
         $this->display();
     }
+    
 	public function gny(){
 		$tp = $this->_get('tp',"intval");
 		$isnice = $this->_get('isnice','intval');
@@ -260,12 +300,9 @@ class bookAction extends frontendAction {
 		$this->assign("hot_list",$hot_list);
 		//SEO
 		if($tp==1){//海淘
-			$this->_config_seo(C('pin_seo_config.cate'), array(
-            'cate_name' => '海淘频道',
-            'seo_title' => $cate_info['seo_title'],
-            'seo_keywords' => $cate_info['seo_keys'],
-            'seo_description' => $cate_info['seo_desc'],
-			));
+		$page_seo['title'] = "海淘专区|海外代购|海淘中文网站|白菜哦";
+        $page_seo['keywords'] = "海淘专区|海外代购|海淘中文网站|白菜哦";
+        $page_seo['description'] = "这是白菜哦网站推荐关于海淘专区,海淘代购M海淘中文网站，信息专题，集合网友晒单,网友热评,菜油分享都在这里,下载白菜哦app了解更多优惠";
             $disp = 'gny1';
 		}elseif($tp==0){
         $page_seo['title'] = "国内商品优惠劵|国内商品活动信息优惠劵";
@@ -310,6 +347,10 @@ class bookAction extends frontendAction {
         $day_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_day and $time ORDER BY hits desc LIMIT 9");
         $this->assign('hour_list',$hour_list);
         $this->assign('day_list',$day_list);
+        $where1['cate_id']=16;
+        $where1['status']=1;
+        $article_list = M("article")->where($where1)->order("id desc")->limit(4)->select();
+        $this->assign("zx_list",$article_list);
 		$this->assign("lb_url",U('book/gny',array('tp'=>$tp,'tab'=>$tab,'dss'=>'lb',"$tab"=>'1',"ispost"=>$ispost)));
 		$this->assign("cc_url",U('book/gny',array('tp'=>$tp,'tab'=>$tab,'dss'=>'cc',"$tab"=>'1',"ispost"=>$ispost)));
 		$this->assign("post_url",U('book/gny',array('tp'=>$tp,'tab'=>$tab,'dss'=>$dss,"$tab"=>1,"ispost"=>$cispost)));
@@ -347,12 +388,10 @@ class bookAction extends frontendAction {
    //     $hot_list =  M("item")->where("status=1 and add_time<$time and add_time >$time_one_day  and (title like '%白菜%' or title like '%神价格%' or title like '%手快有%' or title like '%手慢无%' or title like '%bug价%')")->field('id ,title, img')->order(' hits desc ')->limit(10)->select();
     //    $this->assign("hot_list",$hot_list);
         //SEO
-            $this->_config_seo(C('pin_seo_config.cate'), array(
-            'cate_name' => '白菜',
-            'seo_title' => $cate_info['seo_title'],
-            'seo_keywords' => $cate_info['seo_keys'],
-            'seo_description' => $cate_info['seo_desc'],
-            ));
+        $page_seo['title'] = "白菜价优惠券|白菜价优惠券官网|白菜哦";
+        $page_seo['keywords'] = "白菜价优惠券|白菜价优惠券官网|白菜哦";
+        $page_seo['description'] = "这里是白菜哦网站推荐的关于白菜价专题，大量优惠卷后白菜价、京东亚马逊天猫BUG价、神价手快有手慢无！";
+        $this->assign('page_seo', $page_seo);
         //表现形式
         $dss =$this->_get("dss","trim");
         $dss = empty($dss)?"lb":$dss;
@@ -368,6 +407,10 @@ class bookAction extends frontendAction {
         $day_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_day and $time ORDER BY hits desc LIMIT 9");
         $this->assign('hour_list',$hour_list);
         $this->assign('day_list',$day_list);
+        $where1['cate_id']=16;
+        $where1['status']=1;
+        $article_list = M("article")->where($where1)->order("id desc")->limit(4)->select();
+        $this->assign("zx_list",$article_list);
         $this->assign("lb_url",U('book/baicai',array('dss'=>'lb',)));
         $this->assign("cc_url",U('book/baicai',array('dss'=>'cc')));
         $this->assign('tp',2);

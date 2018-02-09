@@ -8,14 +8,8 @@
 
 <style type="text/css">
 
-
-.w_zh_dq1{
-	width: 100%;
-    padding: 0 30px 0 30px;
-    float: inherit;
-}
 .w_nr3 {
-    width: 100%;
+    width: 1157px;
     float: inherit;
 }
 .this-more-goods-msg1 a {
@@ -32,6 +26,21 @@
     width: 100%;
     overflow: hidden;
 }
+.w_sy_ha {
+    width: 1157px;
+    float: left;
+    height: 40px;
+    background: #fff;
+    box-shadow: 2px 2px 5px rgba(0,0,0,.1);
+    line-height: 40px;
+    padding: 0 25px 0 18px;
+    position: relative;
+    border-bottom: 1px solid #3dc399;
+}
+#sy1{
+    background: #3dc399;
+    color: white;
+}
 </style>
 </head>
 
@@ -45,196 +54,22 @@
 
     <div class="w_zh_dq1">
 
-	  <a href="/" title="首页">首页</a> > {$strpos}大品牌
+	  <a href="/" title="首页" alt="{$cate_info.name}">首页</a> > {$strpos}
 	</div>
+
+    <div class="w_sy_ha">
+          <a href="{:U('book/cate',array('cid'=>$cate_info[id]))}"><span id="sy2" >编辑推荐</span></a>
+          <a ><span  id="sy1">品牌榜</span></a>
+          <a href="{:U('quan/index',array('q'=>$category))}"><span id="sy2">优惠券</span></a>
+
+         <!--<a href="{:U('article/index',array('id'=>9))}"><span id="ngl">海淘攻略</span></a>-->
+       </div>
+
 	<include file="public:brand_list" />
-
-	<div class="row brand-list-item brand-list-item1" _hover-ignore="1">
-                        <div class="col-sm-2 brand-list-item-img">
-                            <div class="brand-list-item-rank">
-                                                                        <span class="span1">TOP3</span>
-                                                                    </div>                            <a target="_blank" class="brand-list-item-imgwrap" href="/pinpai/yijian8/">
-                                <img class="lazy autoWH" data-original="/data/upload/20170205/5896853209785.png" alt="亿健" src="https://www.qiang100.com/data/upload/20170205/5896853209785.png" width="158" style="display: inline; margin: 13px 0px;" height="47">
-                            </a>
-                        </div>
-
-                        <div class="col-sm-7 brand-list-item-intro" _hover-ignore="1">
-                            <div class="brand-list-item-intro-title">
-                                <h2 class="no-more-css">
-                                    <a href="/pinpai/yijian8/" target="_blank" class="brand-list-item-intro-title-brandname">亿健<div class="brandCountry">&nbsp;&nbsp;/&nbsp;中国</div></a>
-                                    
-                                    
-                                </h2>
-                            </div>
-                            <div class="brand-list-item-intro-detail clearfix">
-                                <a href="/pinpai/yijian8/" target="_blank" class="brand-good-list-intro-detail-synopsis">
-                                    YIJIAN亿健 诞生于2005年，国内著名健身器材品牌，拥有六级横向减震技术、自动加油系统等跑步机核心技术。2012年7月9日，亿健与美国顶健（TOP JSEN）科技集团强强联手，在美丽的山城中国浙江武义成立了顶康科技有限公司，专业、专心、专注于研发生产、家用商用豪华跑步机及健康产品。                                </a>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-
-                        <div class="col-sm-2 brand-list-item-jump pull-right" id="qy-js-over">
-                                                            <a href="/mingdian/tm-yijianyundong.html" data-bde="zhuanti|tmall-shop-click|跑步机" class="brand-list-item-jump-tmall official" target="_blank" title="" data-bde-bind="1" _hover-ignore="1">天猫旗舰店</a>
-                                                             <a href="/mingdian/tm-yijianyundong.html" data-bde="zhuanti|tmall-shop-click|跑步机" class="brand-list-item-jump-tmall official" target="_blank" title="" data-bde-bind="1" _hover-ignore="1">JD旗舰店</a>
-                                                            
-                           
-                        </div>
-                        <div class="clear"></div>
-                        <div class="this-more-bar" data="跑步机" style="visibility: hidden; height: 30px; margin-top: 0px;">
-                            → 旗下最热销跑步机 点击展开<i class="iconfont icon-xiangxia"> </i>
-                        </div>
-                       <div class="this-more-goods w_nr3">
-                       	<div class="fpGridBox grid"><div class="fpItem"><div><div><div class="itemImageAndName"><div class="itemImageLink"><div class="imageContainer"><a isconvert="1" href="https://uland.taobao.com/coupon/edetail?e=mN%2BUQ%2BGVrBQGQASttHIRqf0Am9v8dhLxSYmbtwYntqLGVWvbOqykrna72z5n%2FnKncmPIGS8oDaA9XbwcbJyzGMVIbktuF2Z6bd76m3V5xpZrM%2FivvMMmeTtunsGahka6GrGW0ucwrQ62%2FwVislvJlP%2BH39ceNjhWUoy5nu%2B%2FuVKtYW0YMGFDnw%3D%3D&amp;traceId=0bfac75115148755054735208e" title="" target="_blank"><img src="http://img.alicdn.com/tfscom/i2/1061746493/TB1_EAbdRfM8KJjSZPiXXXdspXa_!!0-item_pic.jpg" title="" alt="亿健精灵ELF跑步机家用款健身器材多功能电动静音折叠智能跑步机"></a></div><a class="itemStore" href="" title=""></a><a class="itemTitle" isconvert="1" href="https://uland.taobao.com/coupon/edetail?e=mN%2BUQ%2BGVrBQGQASttHIRqf0Am9v8dhLxSYmbtwYntqLGVWvbOqykrna72z5n%2FnKncmPIGS8oDaA9XbwcbJyzGMVIbktuF2Z6bd76m3V5xpZrM%2FivvMMmeTtunsGahka6GrGW0ucwrQ62%2FwVislvJlP%2BH39ceNjhWUoy5nu%2B%2FuVKtYW0YMGFDnw%3D%3D&amp;traceId=0bfac75115148755054735208e" title="" target="_blank">亿健精灵ELF跑步机家用款健身器材多功能电动静音折叠智能跑步机<em style="color:red;"></em></a></div></div><div class="itemInfoLine"><div class="goods-type">16720 (30天销量)  <i class="tmall" title="天猫"></i></div><div class="itemPrice"><span class="coupon"><em class="quan-left"></em>券<b><i>￥</i>200</b><em class="quan-right"></em></span></div></div><div class="itemBottomRow"><div class="buy-price">1399</div><div class="old-price"><p><i>￥</i>1599</p><span>券后价</span></div><div class="go-buy"><a data-goodsid="536022462362" isconvert="1" style="color:white" href="https://uland.taobao.com/coupon/edetail?e=mN%2BUQ%2BGVrBQGQASttHIRqf0Am9v8dhLxSYmbtwYntqLGVWvbOqykrna72z5n%2FnKncmPIGS8oDaA9XbwcbJyzGMVIbktuF2Z6bd76m3V5xpZrM%2FivvMMmeTtunsGahka6GrGW0ucwrQ62%2FwVislvJlP%2BH39ceNjhWUoy5nu%2B%2FuVKtYW0YMGFDnw%3D%3D&amp;traceId=0bfac75115148755054735208e" target="_blank" _hover-ignore="1">去抢券</a></div><!--     <a   isconvert="1" href="https://uland.taobao.com/coupon/edetail?e=mN%2BUQ%2BGVrBQGQASttHIRqf0Am9v8dhLxSYmbtwYntqLGVWvbOqykrna72z5n%2FnKncmPIGS8oDaA9XbwcbJyzGMVIbktuF2Z6bd76m3V5xpZrM%2FivvMMmeTtunsGahka6GrGW0ucwrQ62%2FwVislvJlP%2BH39ceNjhWUoy5nu%2B%2FuVKtYW0YMGFDnw%3D%3D&traceId=0bfac75115148755054735208e" title=""  target="_blank" rel="nofollow" ><div class="coupon">200元 优惠券</div><div class="coupon_tag">领券</div></a>
---></div></div></div></div></div>
-<div class="fpGridBox grid"><div class="fpItem"><div><div><div class="itemImageAndName"><div class="itemImageLink"><div class="imageContainer"><a isconvert="1" href="https://uland.taobao.com/coupon/edetail?e=mN%2BUQ%2BGVrBQGQASttHIRqf0Am9v8dhLxSYmbtwYntqLGVWvbOqykrna72z5n%2FnKncmPIGS8oDaA9XbwcbJyzGMVIbktuF2Z6bd76m3V5xpZrM%2FivvMMmeTtunsGahka6GrGW0ucwrQ62%2FwVislvJlP%2BH39ceNjhWUoy5nu%2B%2FuVKtYW0YMGFDnw%3D%3D&amp;traceId=0bfac75115148755054735208e" title="" target="_blank"><img src="http://img.alicdn.com/tfscom/i2/1061746493/TB1_EAbdRfM8KJjSZPiXXXdspXa_!!0-item_pic.jpg" title="" alt="亿健精灵ELF跑步机家用款健身器材多功能电动静音折叠智能跑步机"></a></div><a class="itemStore" href="" title=""></a><a class="itemTitle" isconvert="1" href="https://uland.taobao.com/coupon/edetail?e=mN%2BUQ%2BGVrBQGQASttHIRqf0Am9v8dhLxSYmbtwYntqLGVWvbOqykrna72z5n%2FnKncmPIGS8oDaA9XbwcbJyzGMVIbktuF2Z6bd76m3V5xpZrM%2FivvMMmeTtunsGahka6GrGW0ucwrQ62%2FwVislvJlP%2BH39ceNjhWUoy5nu%2B%2FuVKtYW0YMGFDnw%3D%3D&amp;traceId=0bfac75115148755054735208e" title="" target="_blank">亿健精灵ELF跑步机家用款健身器材多功能电动静音折叠智能跑步机<em style="color:red;"></em></a></div></div><div class="itemInfoLine"><div class="goods-type">16720 (30天销量)  <i class="tmall" title="天猫"></i></div><div class="itemPrice"><span class="coupon"><em class="quan-left"></em>券<b><i>￥</i>200</b><em class="quan-right"></em></span></div></div><div class="itemBottomRow"><div class="buy-price">1399</div><div class="old-price"><p><i>￥</i>1599</p><span>券后价</span></div><div class="go-buy"><a data-goodsid="536022462362" isconvert="1" style="color:white" href="https://uland.taobao.com/coupon/edetail?e=mN%2BUQ%2BGVrBQGQASttHIRqf0Am9v8dhLxSYmbtwYntqLGVWvbOqykrna72z5n%2FnKncmPIGS8oDaA9XbwcbJyzGMVIbktuF2Z6bd76m3V5xpZrM%2FivvMMmeTtunsGahka6GrGW0ucwrQ62%2FwVislvJlP%2BH39ceNjhWUoy5nu%2B%2FuVKtYW0YMGFDnw%3D%3D&amp;traceId=0bfac75115148755054735208e" target="_blank" _hover-ignore="1">去抢券</a></div><!--     <a   isconvert="1" href="https://uland.taobao.com/coupon/edetail?e=mN%2BUQ%2BGVrBQGQASttHIRqf0Am9v8dhLxSYmbtwYntqLGVWvbOqykrna72z5n%2FnKncmPIGS8oDaA9XbwcbJyzGMVIbktuF2Z6bd76m3V5xpZrM%2FivvMMmeTtunsGahka6GrGW0ucwrQ62%2FwVislvJlP%2BH39ceNjhWUoy5nu%2B%2FuVKtYW0YMGFDnw%3D%3D&traceId=0bfac75115148755054735208e" title=""  target="_blank" rel="nofollow" ><div class="coupon">200元 优惠券</div><div class="coupon_tag">领券</div></a>
---></div></div></div></div></div>
-<div class="fpGridBox grid"><div class="fpItem"><div><div><div class="itemImageAndName"><div class="itemImageLink"><div class="imageContainer"><a isconvert="1" href="https://uland.taobao.com/coupon/edetail?e=mN%2BUQ%2BGVrBQGQASttHIRqf0Am9v8dhLxSYmbtwYntqLGVWvbOqykrna72z5n%2FnKncmPIGS8oDaA9XbwcbJyzGMVIbktuF2Z6bd76m3V5xpZrM%2FivvMMmeTtunsGahka6GrGW0ucwrQ62%2FwVislvJlP%2BH39ceNjhWUoy5nu%2B%2FuVKtYW0YMGFDnw%3D%3D&amp;traceId=0bfac75115148755054735208e" title="" target="_blank"><img src="http://img.alicdn.com/tfscom/i2/1061746493/TB1_EAbdRfM8KJjSZPiXXXdspXa_!!0-item_pic.jpg" title="" alt="亿健精灵ELF跑步机家用款健身器材多功能电动静音折叠智能跑步机"></a></div><a class="itemStore" href="" title=""></a><a class="itemTitle" isconvert="1" href="https://uland.taobao.com/coupon/edetail?e=mN%2BUQ%2BGVrBQGQASttHIRqf0Am9v8dhLxSYmbtwYntqLGVWvbOqykrna72z5n%2FnKncmPIGS8oDaA9XbwcbJyzGMVIbktuF2Z6bd76m3V5xpZrM%2FivvMMmeTtunsGahka6GrGW0ucwrQ62%2FwVislvJlP%2BH39ceNjhWUoy5nu%2B%2FuVKtYW0YMGFDnw%3D%3D&amp;traceId=0bfac75115148755054735208e" title="" target="_blank">亿健精灵ELF跑步机家用款健身器材多功能电动静音折叠智能跑步机<em style="color:red;"></em></a></div></div><div class="itemInfoLine"><div class="goods-type">16720 (30天销量)  <i class="tmall" title="天猫"></i></div><div class="itemPrice"><span class="coupon"><em class="quan-left"></em>券<b><i>￥</i>200</b><em class="quan-right"></em></span></div></div><div class="itemBottomRow"><div class="buy-price">1399</div><div class="old-price"><p><i>￥</i>1599</p><span>券后价</span></div><div class="go-buy"><a data-goodsid="536022462362" isconvert="1" style="color:white" href="https://uland.taobao.com/coupon/edetail?e=mN%2BUQ%2BGVrBQGQASttHIRqf0Am9v8dhLxSYmbtwYntqLGVWvbOqykrna72z5n%2FnKncmPIGS8oDaA9XbwcbJyzGMVIbktuF2Z6bd76m3V5xpZrM%2FivvMMmeTtunsGahka6GrGW0ucwrQ62%2FwVislvJlP%2BH39ceNjhWUoy5nu%2B%2FuVKtYW0YMGFDnw%3D%3D&amp;traceId=0bfac75115148755054735208e" target="_blank" _hover-ignore="1">去抢券</a></div><!--     <a   isconvert="1" href="https://uland.taobao.com/coupon/edetail?e=mN%2BUQ%2BGVrBQGQASttHIRqf0Am9v8dhLxSYmbtwYntqLGVWvbOqykrna72z5n%2FnKncmPIGS8oDaA9XbwcbJyzGMVIbktuF2Z6bd76m3V5xpZrM%2FivvMMmeTtunsGahka6GrGW0ucwrQ62%2FwVislvJlP%2BH39ceNjhWUoy5nu%2B%2FuVKtYW0YMGFDnw%3D%3D&traceId=0bfac75115148755054735208e" title=""  target="_blank" rel="nofollow" ><div class="coupon">200元 优惠券</div><div class="coupon_tag">领券</div></a>
---></div></div></div></div></div>
-<div class="fpGridBox grid"><div class="fpItem"><div><div><div class="itemImageAndName"><div class="itemImageLink"><div class="imageContainer"><a isconvert="1" href="https://uland.taobao.com/coupon/edetail?e=mN%2BUQ%2BGVrBQGQASttHIRqf0Am9v8dhLxSYmbtwYntqLGVWvbOqykrna72z5n%2FnKncmPIGS8oDaA9XbwcbJyzGMVIbktuF2Z6bd76m3V5xpZrM%2FivvMMmeTtunsGahka6GrGW0ucwrQ62%2FwVislvJlP%2BH39ceNjhWUoy5nu%2B%2FuVKtYW0YMGFDnw%3D%3D&amp;traceId=0bfac75115148755054735208e" title="" target="_blank"><img src="http://img.alicdn.com/tfscom/i2/1061746493/TB1_EAbdRfM8KJjSZPiXXXdspXa_!!0-item_pic.jpg" title="" alt="亿健精灵ELF跑步机家用款健身器材多功能电动静音折叠智能跑步机"></a></div><a class="itemStore" href="" title=""></a><a class="itemTitle" isconvert="1" href="https://uland.taobao.com/coupon/edetail?e=mN%2BUQ%2BGVrBQGQASttHIRqf0Am9v8dhLxSYmbtwYntqLGVWvbOqykrna72z5n%2FnKncmPIGS8oDaA9XbwcbJyzGMVIbktuF2Z6bd76m3V5xpZrM%2FivvMMmeTtunsGahka6GrGW0ucwrQ62%2FwVislvJlP%2BH39ceNjhWUoy5nu%2B%2FuVKtYW0YMGFDnw%3D%3D&amp;traceId=0bfac75115148755054735208e" title="" target="_blank">亿健精灵ELF跑步机家用款健身器材多功能电动静音折叠智能跑步机<em style="color:red;"></em></a></div></div><div class="itemInfoLine"><div class="goods-type">16720 (30天销量)  <i class="tmall" title="天猫"></i></div><div class="itemPrice"><span class="coupon"><em class="quan-left"></em>券<b><i>￥</i>200</b><em class="quan-right"></em></span></div></div><div class="itemBottomRow"><div class="buy-price">1399</div><div class="old-price"><p><i>￥</i>1599</p><span>券后价</span></div><div class="go-buy"><a data-goodsid="536022462362" isconvert="1" style="color:white" href="https://uland.taobao.com/coupon/edetail?e=mN%2BUQ%2BGVrBQGQASttHIRqf0Am9v8dhLxSYmbtwYntqLGVWvbOqykrna72z5n%2FnKncmPIGS8oDaA9XbwcbJyzGMVIbktuF2Z6bd76m3V5xpZrM%2FivvMMmeTtunsGahka6GrGW0ucwrQ62%2FwVislvJlP%2BH39ceNjhWUoy5nu%2B%2FuVKtYW0YMGFDnw%3D%3D&amp;traceId=0bfac75115148755054735208e" target="_blank" _hover-ignore="1">去抢券</a></div><!--     <a   isconvert="1" href="https://uland.taobao.com/coupon/edetail?e=mN%2BUQ%2BGVrBQGQASttHIRqf0Am9v8dhLxSYmbtwYntqLGVWvbOqykrna72z5n%2FnKncmPIGS8oDaA9XbwcbJyzGMVIbktuF2Z6bd76m3V5xpZrM%2FivvMMmeTtunsGahka6GrGW0ucwrQ62%2FwVislvJlP%2BH39ceNjhWUoy5nu%2B%2FuVKtYW0YMGFDnw%3D%3D&traceId=0bfac75115148755054735208e" title=""  target="_blank" rel="nofollow" ><div class="coupon">200元 优惠券</div><div class="coupon_tag">领券</div></a>
---></div></div></div></div></div>
-<div class="fpGridBox grid"><div class="fpItem"><div><div><div class="itemImageAndName"><div class="itemImageLink"><div class="imageContainer"><a isconvert="1" href="https://uland.taobao.com/coupon/edetail?e=mN%2BUQ%2BGVrBQGQASttHIRqf0Am9v8dhLxSYmbtwYntqLGVWvbOqykrna72z5n%2FnKncmPIGS8oDaA9XbwcbJyzGMVIbktuF2Z6bd76m3V5xpZrM%2FivvMMmeTtunsGahka6GrGW0ucwrQ62%2FwVislvJlP%2BH39ceNjhWUoy5nu%2B%2FuVKtYW0YMGFDnw%3D%3D&amp;traceId=0bfac75115148755054735208e" title="" target="_blank"><img src="http://img.alicdn.com/tfscom/i2/1061746493/TB1_EAbdRfM8KJjSZPiXXXdspXa_!!0-item_pic.jpg" title="" alt="亿健精灵ELF跑步机家用款健身器材多功能电动静音折叠智能跑步机"></a></div><a class="itemStore" href="" title=""></a><a class="itemTitle" isconvert="1" href="https://uland.taobao.com/coupon/edetail?e=mN%2BUQ%2BGVrBQGQASttHIRqf0Am9v8dhLxSYmbtwYntqLGVWvbOqykrna72z5n%2FnKncmPIGS8oDaA9XbwcbJyzGMVIbktuF2Z6bd76m3V5xpZrM%2FivvMMmeTtunsGahka6GrGW0ucwrQ62%2FwVislvJlP%2BH39ceNjhWUoy5nu%2B%2FuVKtYW0YMGFDnw%3D%3D&amp;traceId=0bfac75115148755054735208e" title="" target="_blank">亿健精灵ELF跑步机家用款健身器材多功能电动静音折叠智能跑步机<em style="color:red;"></em></a></div></div><div class="itemInfoLine"><div class="goods-type">16720 (30天销量)  <i class="tmall" title="天猫"></i></div><div class="itemPrice"><span class="coupon"><em class="quan-left"></em>券<b><i>￥</i>200</b><em class="quan-right"></em></span></div></div><div class="itemBottomRow"><div class="buy-price">1399</div><div class="old-price"><p><i>￥</i>1599</p><span>券后价</span></div><div class="go-buy"><a data-goodsid="536022462362" isconvert="1" style="color:white" href="https://uland.taobao.com/coupon/edetail?e=mN%2BUQ%2BGVrBQGQASttHIRqf0Am9v8dhLxSYmbtwYntqLGVWvbOqykrna72z5n%2FnKncmPIGS8oDaA9XbwcbJyzGMVIbktuF2Z6bd76m3V5xpZrM%2FivvMMmeTtunsGahka6GrGW0ucwrQ62%2FwVislvJlP%2BH39ceNjhWUoy5nu%2B%2FuVKtYW0YMGFDnw%3D%3D&amp;traceId=0bfac75115148755054735208e" target="_blank" _hover-ignore="1">去抢券</a></div><!--     <a   isconvert="1" href="https://uland.taobao.com/coupon/edetail?e=mN%2BUQ%2BGVrBQGQASttHIRqf0Am9v8dhLxSYmbtwYntqLGVWvbOqykrna72z5n%2FnKncmPIGS8oDaA9XbwcbJyzGMVIbktuF2Z6bd76m3V5xpZrM%2FivvMMmeTtunsGahka6GrGW0ucwrQ62%2FwVislvJlP%2BH39ceNjhWUoy5nu%2B%2FuVKtYW0YMGFDnw%3D%3D&traceId=0bfac75115148755054735208e" title=""  target="_blank" rel="nofollow" ><div class="coupon">200元 优惠券</div><div class="coupon_tag">领券</div></a>
---></div></div></div></div></div>
-<div class="this-more-goods-msg1" _hover-ignore="1">
-                                
-                                
-                                
-                                                                <a href="https://list.tmall.com/search_product.htm?type=p&amp;vmarket=&amp;q=%E8%B7%91%E6%AD%A5%E6%9C%BA+%E5%90%AF%E8%BF%88%E6%96%AF" data-cpsurl="/url/tmallSearch?keyword=跑步机 启迈斯" isconvert="1" onclick="check_cps(this);" data-bde="zhuanti|more-product-search-click|跑步机" rel="nofollow" target="_blank" data-bde-bind="1" _hover-ignore="1">查看更多产品 &gt;</a>
-                            </div>  
-</div>
-  
-                    </div>
-
-                    <div class="row brand-list-item brand-list-item1" _hover-ignore="1">
-                        <div class="col-sm-2 brand-list-item-img">
-                            <div class="brand-list-item-rank">
-                                                                        <span class="span1">TOP3</span>
-                                                                    </div>                            <a target="_blank" class="brand-list-item-imgwrap" href="/pinpai/yijian8/">
-                                <img class="lazy autoWH" data-original="/data/upload/20170205/5896853209785.png" alt="亿健" src="https://www.qiang100.com/data/upload/20170205/5896853209785.png" width="158" style="display: inline; margin: 13px 0px;" height="47">
-                            </a>
-                        </div>
-
-                        <div class="col-sm-7 brand-list-item-intro" _hover-ignore="1">
-                            <div class="brand-list-item-intro-title">
-                                <h2 class="no-more-css">
-                                    <a href="/pinpai/yijian8/" target="_blank" class="brand-list-item-intro-title-brandname">亿健<div class="brandCountry">&nbsp;&nbsp;/&nbsp;中国</div></a>
-                                    
-                                    
-                                </h2>
-                            </div>
-                            <div class="brand-list-item-intro-detail clearfix">
-                                <a href="/pinpai/yijian8/" target="_blank" class="brand-good-list-intro-detail-synopsis">
-                                    YIJIAN亿健 诞生于2005年，国内著名健身器材品牌，拥有六级横向减震技术、自动加油系统等跑步机核心技术。2012年7月9日，亿健与美国顶健（TOP JSEN）科技集团强强联手，在美丽的山城中国浙江武义成立了顶康科技有限公司，专业、专心、专注于研发生产、家用商用豪华跑步机及健康产品。                                </a>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-
-                        <div class="col-sm-2 brand-list-item-jump pull-right" id="qy-js-over">
-                                                            <a href="/mingdian/tm-yijianyundong.html" data-bde="zhuanti|tmall-shop-click|跑步机" class="brand-list-item-jump-tmall official" target="_blank" title="" data-bde-bind="1" _hover-ignore="1">官方旗舰店</a>
-                                                            
-                            <div>
-                                <a href="/mingdian/jd-yijianyundong.html" data-bde="zhuanti|jd-shop-click|跑步机" class="jd brand-list-item-jump-jd pull-left" target="_blank" title="" data-bde-bind="1">
-                                    </a>
-                                                                <a href="/url/redirect?module=&amp;url=http%3A%2F%2Fwww.yijianfit.com%2F" data-bde="zhuanti|gw-click|跑步机" class="official brand-list-item-jump-official pull-right" target="_blank" rel="nofollow" title="" data-bde-bind="1" _hover-ignore="1"></a>
-                                                                    <div class="clear"></div>
-                            </div>
-                        </div>
-                        <div class="clear"></div>
-                        <div class="this-more-bar" data="跑步机" style="visibility: hidden; height: 30px; margin-top: 0px;">
-                            → 旗下最热销跑步机 点击展开<i class="iconfont icon-xiangxia"> </i>
-                        </div>
-                        <div class="this-more-goods">
-
-                                                        <div class="this-more-goods-msg2">
-                                <ul>
-                                                                        <li>
-                                        <a href="http://item.taobao.com/item.htm?id=539192332850" data-hrefsrc="http://item.taobao.com/item.htm?id=539192332850" data-cpsurl="/url/redirect?module=brand&amp;url=http%3A%2F%2Fitem.taobao.com%2Fitem.htm%3Fid%3D539192332850" isconvert="1" onclick="check_cps(this);" data-bde="zhuanti|recommend-product-new-click|天猫" target="_blank" rel="nofollow" title="佑美跑步机家用款多功能电动折叠商用健身房家庭宽跑..." data-bde-bind="1">
-
-                                            <img src="https://img.alicdn.com/imgextra/i3/1067106875/TB1oQQ0iiqAXuNjy1XdXXaYcVXa_!!0-item_pic.jpg_300x300q90.jpg" alt="佑美跑步机家用款多功能电动折叠商用健身房家庭宽跑带超静音智能">
-
-                                            <div><span class="l">好评 <em style="color: #B57C5B;">3687条</em></span>
-                                                                                                    <span class="r">￥<span style="font-size:14px;">2999.00</span></span>                                            </div>
-
-                                                                                            <div class="h2">佑美跑步机家用款多功能电动折叠商用健身房家庭宽... </div>                                        </a>
-
-                                                                                    <img src="/themes/baiqiang_v3/Public/images/special_list/icon_tmall.png" class="tmallbg" alt="天猫">
-                                                                            </li>
-                                                                        <li>
-                                        <a href="http://item.taobao.com/item.htm?id=525685184783" data-hrefsrc="http://item.taobao.com/item.htm?id=525685184783" data-cpsurl="/url/redirect?module=brand&amp;url=http%3A%2F%2Fitem.taobao.com%2Fitem.htm%3Fid%3D525685184783" isconvert="1" onclick="check_cps(this);" data-bde="zhuanti|recommend-product-new-click|天猫" target="_blank" rel="nofollow" title="佑美A900智能跑步机家用款多功能超静音减肥电动迷你..." data-bde-bind="1">
-
-                                            <img src="https://img.alicdn.com/imgextra/i3/1067106875/TB17hHfkNrI8KJjy0FpXXb5hVXa_!!0-item_pic.jpg_300x300q90.jpg" alt="佑美A900智能跑步机家用款多功能超静音减肥电动迷你折叠健身器材">
-
-                                            <div><span class="l">好评 <em style="color: #B57C5B;">2529条</em></span>
-                                                                                                    <span class="r">￥<span style="font-size:14px;">1398.00</span></span>                                            </div>
-
-                                                                                            <div class="h2">佑美A900智能跑步机家用款多功能超静音减肥电动迷... </div>                                        </a>
-
-                                                                                    <img src="/themes/baiqiang_v3/Public/images/special_list/icon_tmall.png" class="tmallbg" alt="天猫">
-                                                                            </li>
-                                                                       <li>
-                                        <a href="http://item.taobao.com/item.htm?id=557822685132" data-hrefsrc="http://item.taobao.com/item.htm?id=557822685132" data-cpsurl="/url/redirect?module=brand&amp;url=http%3A%2F%2Fitem.taobao.com%2Fitem.htm%3Fid%3D557822685132" isconvert="1" onclick="check_cps(this);" data-bde="zhuanti|recommend-product-new-click|天猫" target="_blank" rel="nofollow" title="佑美A8008跑步机家用款多功能超静音室内折叠豪华电动..." data-bde-bind="1">
-
-                                            <img src="https://img.alicdn.com/tfscom/i1/1067106875/TB1d66_c3jN8KJjSZFgXXbjbVXa_!!0-item_pic.jpg_300x300q90.jpg" alt="佑美A8008跑步机家用款多功能超静音室内折叠豪华电动健身器材">
-
-                                            <div><span class="l">好评 <em style="color: #B57C5B;">555条</em></span>
-                                                                                                    <span class="r">￥<span style="font-size:14px;">2398.00</span></span>                                            </div>
-
-                                                                                            <div class="h2">佑美A8008跑步机家用款多功能超静音室内折叠豪华电... </div>                                        </a>
-
-                                                                                    <img src="/themes/baiqiang_v3/Public/images/special_list/icon_tmall.png" class="tmallbg" alt="天猫">
-                                                                            </li>
-                                                                        <li>
-                                        <a href="http://item.taobao.com/item.htm?id=557822685132" data-hrefsrc="http://item.taobao.com/item.htm?id=557822685132" data-cpsurl="/url/redirect?module=brand&amp;url=http%3A%2F%2Fitem.taobao.com%2Fitem.htm%3Fid%3D557822685132" isconvert="1" onclick="check_cps(this);" data-bde="zhuanti|recommend-product-new-click|天猫" target="_blank" rel="nofollow" title="佑美A8008跑步机家用款多功能超静音室内折叠豪华电动..." data-bde-bind="1">
-
-                                            <img src="https://img.alicdn.com/tfscom/i1/1067106875/TB1d66_c3jN8KJjSZFgXXbjbVXa_!!0-item_pic.jpg_300x300q90.jpg" alt="佑美A8008跑步机家用款多功能超静音室内折叠豪华电动健身器材">
-
-                                            <div><span class="l">好评 <em style="color: #B57C5B;">555条</em></span>
-                                                                                                    <span class="r">￥<span style="font-size:14px;">2398.00</span></span>                                            </div>
-
-                                                                                            <div class="h2">佑美A8008跑步机家用款多功能超静音室内折叠豪华电... </div>                                        </a>
-
-                                                                                    <img src="/themes/baiqiang_v3/Public/images/special_list/icon_tmall.png" class="tmallbg" alt="天猫">
-                                                                            </li>
-                                                                            <li>
-                                        <a href="http://item.taobao.com/item.htm?id=557822685132" data-hrefsrc="http://item.taobao.com/item.htm?id=557822685132" data-cpsurl="/url/redirect?module=brand&amp;url=http%3A%2F%2Fitem.taobao.com%2Fitem.htm%3Fid%3D557822685132" isconvert="1" onclick="check_cps(this);" data-bde="zhuanti|recommend-product-new-click|天猫" target="_blank" rel="nofollow" title="佑美A8008跑步机家用款多功能超静音室内折叠豪华电动..." data-bde-bind="1">
-
-                                            <img src="https://img.alicdn.com/tfscom/i1/1067106875/TB1d66_c3jN8KJjSZFgXXbjbVXa_!!0-item_pic.jpg_300x300q90.jpg" alt="佑美A8008跑步机家用款多功能超静音室内折叠豪华电动健身器材">
-
-                                            <div><span class="l">好评 <em style="color: #B57C5B;">555条</em></span>
-                                                                                                    <span class="r">￥<span style="font-size:14px;">2398.00</span></span>                                            </div>
-
-                                                                                            <div class="h2">佑美A8008跑步机家用款多功能超静音室内折叠豪华电... </div>                                        </a>
-
-                                                                                    <img src="/themes/baiqiang_v3/Public/images/special_list/icon_tmall.png" class="tmallbg" alt="天猫">
-                                                                            </li>
-
-                                                                    </ul>
-                            </div>
-                                 <div class="this-more-goods-msg1" _hover-ignore="1">
-                                
-                                
-                                
-                                                                <a href="https://list.tmall.com/search_product.htm?type=p&amp;vmarket=&amp;q=%E8%B7%91%E6%AD%A5%E6%9C%BA+%E5%90%AF%E8%BF%88%E6%96%AF" data-cpsurl="/url/tmallSearch?keyword=跑步机 启迈斯" isconvert="1" onclick="check_cps(this);" data-bde="zhuanti|more-product-search-click|跑步机" rel="nofollow" target="_blank" data-bde-bind="1" _hover-ignore="1">查看更多产品 &gt;</a>
-                            </div>                
-                        </div>
-                       
-                    </div>
-
-
-    <div class="w_dhxx" >
-
-      <ul id="J_waterfall" data-uri="__ROOT__/?m=book&a=cate_ajax&cid={$cate_info.id}&sort={$sort}&min_price={$min_price}&max_price={$max_price}&p={$p}">
-
-	  <include file="public:waterfall" />
-
-	  </ul>
-
-	<div class="w_pag" id="J_wall_page">{$page_bar}</div>
-
-	</div>   
-
 </div>
 
 <include file="public:footer" />
+<include file="public:baidu_js_push" />
 
 <script src="/js/function.js"></script>
 <script type="text/javascript">

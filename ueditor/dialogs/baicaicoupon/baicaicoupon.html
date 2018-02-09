@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="robots" content="noindex, nofollow"/>
+    <script type="text/javascript" src="../internal.js"></script>
+    <script type="text/javascript" src="../../third-party/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="emotion.css">
+    <style type="text/css">
+        .td_img{ width: 50px; }
+        .url{width:500px;}
+        .div_url span{height:34px;display:block; float: left;margin:1px 1px;text-align:center;line-height:34px;}
+        .img{ width:140px;height: 140px;}
+        .content_table {display: none}
+        td input{width: 334px;}
+        .div_url {
+            width: 300px;
+            display: block;
+        }
+        .div_url input{
+            line-height:34px;
+            margin:1px 1px;
+            height:34px;
+            display: inline;
+            width: 200px;
+        }
+        .div_url #insertcoupon{
+            background: #3dc399;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <span>
+        插入优惠码
+    </span>
+</div>
+<hr>
+<div class="div_url">
+    <span>
+        优惠代码:
+    </span><input type="text" id="coupon_value" size="30px">
+</div>
+<!--
+<div class="div_url">
+    <span>
+        显示文字:
+    </span><input type="text" id="coupon_title" size="30px">
+</div>
+-->
+<div class="div_url">
+    <input type="button" id="insertcoupon"  value="插入优惠码">
+</div>
+<script type="text/javascript">
+    $("#insertcoupon").click(function(){
+        var value = $("#coupon_value").val();
+      //  var title = $("#coupon_title").val();
+        var content = '<button class="baicaio_coupon" title="点击可复制" data-clipboard-text="'+value+'">'+value+'</button>';
+        editor.execCommand( 'baicaicoupon', content); 
+    });
+
+function insertcard(url,img,title,desc,price,shopping_name) {
+
+    var url = $(".url").val();
+    var img = $(".img").attr('src');
+    var title = $("#title").val();
+    var desc = $("#desc").val();
+    var price = $("#price").val();
+    var shopping_name = $("#shopping_name").val();
+
+    var content  = '<span class="embed-card main-site res_baicaio"><span class="embed-card-logo res_baicaio"><img class="res_baicaio" src="'+ img+'"></span><span class="embed-card-info  res_baicaio"><span class="card-name res_baicaio">'+title + '<strong class="price res_baicaio">' + price + '</strong></span><span class="card-abstract res_baicaio">'+ desc + '</span><span class="card-controls res_baicaio"><span style="color:red;font-size:14px;" class="mall-data res_baicaio">' + price +'</span><a target="_blank" href="' + url + '"><span class="card-btn-deep res_baicaio">去购买</span></a></span></span></span>';
+
+                editor.execCommand( 'insertcard', content); 
+}
+</script>
+</body>
+</html>

@@ -46,6 +46,7 @@
 #emotions .container{
 	padding:1px;
 	overflow: hidden;
+	width: 100%;
 }
 #emotions .container a{
 	float:left;

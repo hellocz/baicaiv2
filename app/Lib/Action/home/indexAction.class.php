@@ -16,7 +16,7 @@ class indexAction extends frontendAction {
 		}
 		
 		if(is_mobile()){ //跳转至wap分组
-			header("Location: /index.php?g=wap");
+			header("Location: //m.baicaio.com");
 		}
 		
 		$p = $this->_get('p', 'intval', 1);
@@ -154,10 +154,10 @@ class indexAction extends frontendAction {
 		$hour_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_hour and $time ORDER BY hits desc LIMIT 9");
 		$day_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_day and $time ORDER BY hits desc LIMIT 9");
 
-		$where1['cate_id']=9;
+		$where1['cate_id']=16;
 		$where1['status']=1;
-		$article_list = M("article")->where($where1)->order("id desc")->limit(10)->select();
-		$this->assign("article_list",$article_list);
+		$article_list = M("article")->where($where1)->order("id desc")->limit(4)->select();
+		$this->assign("zx_list",$article_list);
 		$this->assign("article_hide",1);
 
 		$this->assign('hour_list',$hour_list);

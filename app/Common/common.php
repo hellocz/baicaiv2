@@ -141,6 +141,19 @@ return ($a['add_time'] < $b['add_time']) ? 1 : -1;
         }
     }
 
+    function sortByCount($a, $b) {
+
+        if ($a['count'] == $b['count']) {
+
+        return 0;
+
+        } else {
+
+        return ( $a['count'] < $b['count']) ? 1 : -1;
+
+        }
+    }
+
 
 function sbbtime($time){
 	if($time>time())return true;
@@ -233,6 +246,13 @@ function fdate($time) {
         }
     }
     return $fdate;
+}
+
+function fpubdate($time) {
+    if (!$time)
+        return false;
+     $fdate = date('Y-m-d',$time) . 'T' . date('H:i:s',$time);
+     return $fdate;
 }
 
 /**

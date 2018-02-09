@@ -1,112 +1,246 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-<include file="public:head" />
-<script src="/static/js/wap/tab.js" type="text/javascript"></script>
-</head>
-<body style="background:#f5f5f5;">
-<nav class="w_h2">
-<div  class="w_h1_c_r">
-     <div class="t_c_order">
-         <a href="{:U('wap/book/gny',array('tp'=>$tp,'isnice'=>1))}" title="编辑推荐" <if condition="$tab eq 'isnice'">class="current"</if>>编辑推荐</a>
-         <a href="{:U('wap/book/gny',array('tp'=>$tp,'isbao'=>1))}" title="网友爆料" <if condition="$tab eq 'isbao'">class="current1"</if>>网友爆料</a>
-     </div>
-   </div>
-<a href="javascript:history.go(-1);" title="返回" class="w_h2_l"><img src="/static/images/wap/w_t_lef.png" title="返回" alt="返回"/></a>
-<h2><if condition="$tp eq 0">国内<else/>海淘</if></h2>
-</nav>
-<div class="w_center">
-  <div class="w_sd">
-    <ul>
-      <li>
-        <a href="{:U('wap/book/index')}" title="商品分类">
-         <img src="/static/images/wap/3d_1.png"/><br/>商品分类
-        </a>
-      </li>
-      <li><a href="javascript:;" title="每日签到" id="J_sign">
-          <img src="/static/images/wap/3d_2.png"/><br/>每日签到
-          </a>
-      </li>
-      <li><a href="{:U('wap/user/index')}" title="我的白菜">
-          <img src="/static/images/wap/3d_3.png"/><br/>我的白菜
-          </a>
-      </li>
-    </ul>
-  </div>
-  <div class="clear"></div>
- <div class="w_glzl">
-  <div id="m_search" class="p_lr">
-     <form action="{:U('wap/book/gny')}" method="get" class="clearfix">
-       <input type="text fl" class="text" name="keywords" placeholder="快速搜索你想要的商品" value="">
-       <input type="hidden" name="tp" value="{$tp}" />
-       <input type="hidden" name="{$tab}" value="1" />
-       <button class="btn fr" type="submit"></button>
-     </form>
-  </div>
-  
-  <ul class="list list_preferential" id="post_list_preferential">
-    <volist name="item_list" id="r">
-    <li> 
-      <a href="{:U('wap/item/index',array('id'=>$r['id']))}" title="{$r.title}">
-      <div class="image_wrap">
-        <div class="image"><img src="{:attach($r['img'],'item')}" alt="{$r.title}" title="{$r.title}"/></div>
-      </div>
-      <address>
-      <span>{$r.add_time|fdate}</span>{:getly($r['orig_id'])}
-      </address>
-      <h2>{$r.title}</h2>
-      <div class="tips"><span><i class="icons icon_comment"></i>{$r.comments}</span></div>
-      </a>
-    </li>
-    </volist>
-  </ul>
-  <if condition="$pagesize lt $count"><div class="clear"></div>
-  <div id="more" class="btn_getmore" ><a href="javascript:;" title="加载更多">加载更多</a></div></if>
-  <div id="Loading" style="display: none;text-align:center">加载中...</div>
-  <input type="hidden" id="page" value="2"/>
-</div>
-   <include file="public:footer" />
-   
-   <script src="/static/js/wap/weui.min.js"></script>
-   <link href="/static/js/wap/weui.css" type="text/css" rel="stylesheet"/>
-   <script>
-//加载更多
-$(document).ready(function(){
-	$("#more").click(function(){
-		var more_id=$("#page").val(),l=$("#Loading"),g=$("#more");
-		l.show();g.hide();
-		$.ajax({
-		   type:"GET",
-		   url: "/wap-book-gny-tp-{$tp}-{$tab}-1",
-		   data: "keywords={$keywords}&more=more&p="+more_id,
-		   success: function(msg){
-			   if(msg){
-				   $("#page").val(parseInt(more_id)+1);
-				   $("#post_list_preferential").append(msg);
-				   g.show();l.hide();
-			   }else{
-				   weui.Loading.error("已经到最后一页了");
-				   $(".btn_getmore").hide();l.hide();
-			   }
-		   }
-		});
-	})
-});
-//签到
-$("#J_sign").click(function(){
-	if(PINER.uid==""){
-		window.location="{:U('wap/user/login')}";
-		return false;
-	}
-	$.get(PINER.root+'/?g=wap&m=user&a=sign',function(result){
-		if(result.status==0){
-			weui.Loading.error(result.msg);
-		}else{
-			weui.Loading.success(result.msg);
-		}
-	},'json');
-});
-</script>
-</div>
-</body>
-</html>
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+
+<include file="public:head" />
+
+<script src="/static/js/wap/tab.js" type="text/javascript"></script>
+
+</head>
+
+<body style="background:#f5f5f5;">
+
+<nav class="w_h2">
+
+<div  class="w_h1_c_r">
+
+     <div class="t_c_order">
+
+         <a href="{:U('wap/book/gny',array('tp'=>$tp,'isnice'=>1))}" title="编辑推荐" <if condition="$tab eq 'isnice'">class="current"</if>>编辑推荐</a>
+
+         <a href="{:U('wap/book/gny',array('tp'=>$tp,'isbao'=>1))}" title="网友爆料" <if condition="$tab eq 'isbao'">class="current1"</if>>网友爆料</a>
+
+     </div>
+
+   </div>
+
+<a href="javascript:history.go(-1);" title="返回" class="w_h2_l"><img src="/static/images/wap/w_t_lef.png" title="返回" alt="国内商品优惠劵"/></a>
+
+<h2><if condition="$tp eq 0">国内<else/>海淘</if></h2>
+
+</nav>
+
+<div class="w_center">
+
+  <div class="w_sd">
+
+    <ul>
+
+      <li>
+
+        <a href="{:U('wap/book/index')}" title="商品分类" alt="国内商品优惠劵">
+
+         <img src="/static/images/wap/3d_1.png"/><br/>商品分类
+
+        </a>
+
+      </li>
+
+      <li><a href="javascript:;" title="每日签到" id="J_sign">
+
+          <img src="/static/images/wap/3d_2.png"/><br/>每日签到
+
+          </a>
+
+      </li>
+
+      <li><a href="{:U('wap/user/index')}" title="我的白菜" alt="国内商品优惠劵">
+
+          <img src="/static/images/wap/3d_3.png"/><br/>我的白菜
+
+          </a>
+
+      </li>
+
+    </ul>
+
+  </div>
+
+  <div class="clear"></div>
+
+ <div class="w_glzl">
+
+  <div id="m_search" class="p_lr">
+
+     <form action="{:U('wap/book/gny')}" method="get" class="clearfix">
+
+       <input type="text fl" class="text" name="keywords" placeholder="快速搜索你想要的商品" value="">
+
+       <input type="hidden" name="tp" value="{$tp}" />
+
+       <input type="hidden" name="{$tab}" value="1" />
+
+       <button class="btn fr" type="submit"></button>
+
+     </form>
+
+  </div>
+
+  
+
+  <ul class="list list_preferential" id="post_list_preferential">
+
+    <volist name="item_list" id="r">      
+
+  <li> <a href="{:U('wap/item/index',array('id'=>$r['id']))}" title="{$r.title}{$r.price}">
+
+  <div class="image_wrap">
+
+  <div class="image"><img src="<if condition="$r['img']==''">/images/nopic.jpg<else/>{:attach($r['img'],'item')}</if>" title="{$r.title}{$r.price}" alt="{$r.title}{$r.price}"/></div>
+
+  </div>
+
+  <h2>{$r.title}</h2>
+
+  <div class="price" >{$r.price}</div>
+
+  <address>{$r['orig_name']}｜{$r['add_time']|fdate}
+<span><i class="icons icon_like"></i>{$r.likes}</span><span><i class="icons icon_comment"></i>{$r.comments}</span><span><i class="icons icon_zan"></i>{$r.zan}</span>
+  </address>
+
+  </a> </li>
+
+</volist>
+
+    <volist name="item_list" id="r">
+
+    <li> 
+
+      <a href="{:U('wap/item/index',array('id'=>$r['id']))}" title="{$r.title}">
+
+      <div class="image_wrap">
+
+        <div class="image"><img src="{:attach($r['img'],'item')}" alt="{$r.title}" title="{$r.title}"/></div>
+
+      </div>
+
+      <address>
+
+      <span>{$r.add_time|fdate}</span>{:getly($r['orig_id'])}
+
+      </address>
+
+      <h2>{$r.title}</h2>
+
+      <div class="tips"><span><i class="icons icon_comment"></i>{$r.comments}</span></div>
+
+      </a>
+
+    </li>
+
+    </volist>
+
+  </ul>
+
+  <if condition="$pagesize lt $count"><div class="clear"></div>
+
+  <div id="more" class="btn_getmore" ><a href="javascript:;" title="加载更多" alt="国内商品优惠劵">加载更多</a></div></if>
+
+  <div id="Loading" style="display: none;text-align:center">加载中...</div>
+
+  <input type="hidden" id="page" value="2"/>
+
+</div>
+
+   <include file="public:footer" />
+
+   
+
+   <script src="/static/js/wap/weui.min.js"></script>
+
+   <link href="/static/js/wap/weui.css" type="text/css" rel="stylesheet"/>
+
+   <script>
+
+//加载更多
+
+$(document).ready(function(){
+
+  $("#more").click(function(){
+
+    var more_id=$("#page").val(),l=$("#Loading"),g=$("#more");
+
+    l.show();g.hide();
+
+    $.ajax({
+
+       type:"GET",
+
+       url: "/wap-book-gny-tp-{$tp}-{$tab}-1",
+
+       data: "keywords={$keywords}&more=more&p="+more_id,
+
+       success: function(msg){
+
+         if(msg){
+
+           $("#page").val(parseInt(more_id)+1);
+
+           $("#post_list_preferential").append(msg);
+
+           g.show();l.hide();
+
+         }else{
+
+           weui.Loading.error("已经到最后一页了");
+
+           $(".btn_getmore").hide();l.hide();
+
+         }
+
+       }
+
+    });
+
+  })
+
+});
+
+//签到
+
+$("#J_sign").click(function(){
+
+  if(PINER.uid==""){
+
+    window.location="{:U('wap/user/login')}";
+
+    return false;
+
+  }
+
+  $.get(PINER.root+'/?g=wap&m=user&a=sign',function(result){
+
+    if(result.status==0){
+
+      weui.Loading.error(result.msg);
+
+    }else{
+
+      weui.Loading.success(result.msg);
+
+    }
+
+  },'json');
+
+});
+
+</script>
+
+</div>
+
+</body>
+
+</html>
+

@@ -163,6 +163,7 @@ class backendAction extends baseAction
                 $x = $mod->where('id ='.$data['id'])->find();
                 $score_log = M('score_log')->where("action='$score_article'")->find();
             }
+            
             if (false !== $mod->save($data)) {
                 if($sb!=0){
                     set_score_log(array('id'=>$x['id'],'username'=>$x['username']),'ssbx',$sb,'','','');
@@ -201,6 +202,18 @@ class backendAction extends baseAction
                     M('message')->add($xc);
                     set_score_log($user,$score_article,"$score","$coin","$offer","$exp");
                 }
+                if($this->_name == 'item_cate'){
+                   $child_cates = $mod->where("pid=" . $data['id'])->select();
+                   if(!empty($child_cates)){
+                    $spid = $this->_mod->where(array('id'=>$data['id']))->getField('spid');
+                    $new_spid = $spid . $data['id'] . "|";
+                    foreach ($child_cates as $child_cate) {
+                        $child_cate['spid'] = $new_spid;
+                        $mod->save($child_cate);
+                    }
+                   }
+                }
+
                 if( method_exists($this, '_after_update')){
                     $id = $data['id'];
                     $this->_after_update($id);

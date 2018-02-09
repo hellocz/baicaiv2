@@ -26,7 +26,7 @@
 
 <link href="__STATIC__/css/card.min.css" rel="stylesheet"/>
 
-<link href="/static/css/wap/w_css.css?v=2017121502" type="text/css" rel="stylesheet"/>
+<link href="/static/css/wap/w_css.css?v=20180202" type="text/css" rel="stylesheet"/>
 
 <script src="/static/js/wap/jquery-1.11.0.min.js" type="text/javascript"></script>
 
@@ -39,7 +39,7 @@
 <script src="/static/js/wap/owl.carousel.min.js" type="text/javascript"></script>
 <style type="text/css">
 .w_h1{
-	height: 88px;
+  height: 88px;
 }
 .badge {
     background-color: red;
@@ -84,7 +84,7 @@
     text-align: center;
 }
 .logo-download a{
-	color: #3dc399;
+  color: #3dc399;
 }
 .w_center{
       margin: 88px auto 0 auto;
@@ -100,14 +100,14 @@
 
   <div  class="w_h1_c">
 
-  	<div class="header-white"><div class="logo-img"><a href="/wap"><img src="/images/w_logo.png"></a></div>
+    <div class="header-white"><div class="logo-img"><a href="/wap"><img src="/images/w_logo.png"></a></div>
   <div class="logo-download"><a target="_blank" class="J_ota" href="http://baicaio.com/wap" onclick="dataLayer.push({'event':'WAP站导航下载按钮','tag':'home_list','name':'列表页'})">下载APP</a></div></div>
 
    <div  class="w_h1_c_l">
 
-    <span data='0' id="mmm"><img src="/static/images/wap/bc_h_1.png" title="导航" alt="导航"/></span>
+    <span data='0' id="mmm"><img src="/static/images/wap/bc_h_1.png" title="导航" alt="德国亚马逊海淘攻略"/></span>
 
-     <a href="<?php echo U('wap/index/index');?>" title="白菜首页" class="w_logo"><img src="/static/images/wap/bc_h_2.png" title="白菜首页" alt="白菜首页"/></a>
+     <a href="<?php echo U('wap/index/index');?>" title="白菜首页" class="w_logo"><img src="/static/images/wap/bc_h_2.png" title="白菜首页" alt="德国亚马逊攻略"/></a>
 
      <div class="w_nav" style="display:none;">
 
@@ -115,15 +115,15 @@
 
      <div class="w_p1">
 
-       <a href="<?php echo U('wap/book/gny',array('ismy'=>0));?>" title="国内">国内</a>
+       <a href="<?php echo U('wap/book/gny',array('tp'=>0));?>" title="国内" alt="国内海淘攻略">国内</a>
 
-       <a href="<?php echo U('wap/book/gny',array('ismy'=>1));?>" title="海淘">海淘</a>
+       <a href="<?php echo U('wap/book/gny',array('tp'=>1));?>" title="海淘" alt="海淘攻略">海淘</a>
 
-       <a href="<?php echo U('wap/book/best');?>" title="精品汇">精品汇</a>
+       <a href="<?php echo U('wap/book/index',array('tag'=>'9.9包邮'));?>" title="9.9包邮">9.9包邮</a>
+      
+       <a href="<?php echo U('wap/article/index',array('id'=>16));?>" title="购物资讯" alt="海淘攻略" >购物资讯</a>
 
-       <a href="<?php echo U('wap/article/index',array('id'=>10));?>" title="晒单">晒单</a>
-
-       <a href="<?php echo U('wap/article/index',array('id'=>9));?>" title="攻略" class="nor">攻略</a>
+       <a href="<?php echo U('wap/article/index',array('id'=>9));?>" title="攻略" class="nor" alt="海淘攻略">攻略</a>
 
      </div>
 
@@ -131,13 +131,13 @@
 
      <div class="w_p2">
 
-       <a href="<?php echo U('wap/zr/index');?>" title="闲置转让">闲置转让</a>
+       <a href="<?php echo U('wap/tick/index');?>" title="优惠劵" alt="海淘优惠劵">优惠劵</a>
 
-       <a href="<?php echo U('wap/tick/index');?>" title="优惠劵">优惠劵</a>
+       <a href="<?php echo U('wap/exchange/index');?>" title="积分兑换" alt="海淘优惠劵攻略">积分兑换</a>
 
-       <a href="<?php echo U('wap/exchange/index');?>" title="积分兑换">积分兑换</a>
+       <a href="<?php echo U('wap/orig/index');?>" title="商城导航" alt="亚马逊海淘攻略">商城导航</a>
 
-       <a href="<?php echo U('wap/orig/index');?>" title="商城导航" class="nor">商城导航</a>
+       <a href="<?php echo U('wap/article/index',array('id'=>10));?>" title="晒单" alt="晒单海淘攻略" class="nor">晒单</a>
 
      </div>
 
@@ -165,7 +165,7 @@
 
       <li>
 
-        <a href="<?php echo U('wap/book/index');?>" title="商品分类">
+        <a href="<?php echo U('wap/book/index');?>" title="商品分类" alt="德国亚马逊海淘优惠劵">
 
          <img src="/static/images/wap/3d_1.png"/><br/>商品分类
 
@@ -207,25 +207,21 @@
 
   <ul class="list list_preferential" id="Items">
 
-    <?php if(is_array($item_list)): $i = 0; $__LIST__ = $item_list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$r): $mod = ($i % 2 );++$i;?><li> <a href="<?php echo U('wap/item/index',array('id'=>$r['id']));?>" title="<?php echo ($r["title"]); ?>">
+    <?php if(is_array($item_list)): $i = 0; $__LIST__ = $item_list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$r): $mod = ($i % 2 );++$i;?><li> <a href="<?php echo U('wap/item/index',array('id'=>$r['id']));?>" title="<?php echo ($r["title"]); echo ($r["price"]); ?>">
 
 	<div class="image_wrap">
 
-	<div class="image"><img src="<?php if($r['img']==''): ?>/images/nopic.jpg<?php else: echo attach($r['img'],'item'); endif; ?>" title="<?php echo ($r["title"]); ?>" alt="<?php echo ($r["title"]); ?>"/></div>
+	<div class="image"><img src="<?php if($r['img']==''): ?>/images/nopic.jpg<?php else: echo attach($r['img'],'item'); endif; ?>" title="<?php echo ($r["title"]); echo ($r["price"]); ?>" alt="<?php echo ($r["title"]); echo ($r["price"]); ?>"/></div>
 
 	</div>
 
-	<address>
-
-	<span><?php echo (fdate($r['add_time'])); ?></span><?php echo ($r['orig_name']); ?>
-
-	</address>
-
 	<h2><?php echo ($r["title"]); ?></h2>
 
-	<div class="tips"><span><i class="icons icon_zan"></i><?php echo ($r["zan"]); ?></span></div>
+	<div class="price" ><?php echo ($r["price"]); ?></div>
 
-	<div style="color:#FF0000; "><?php echo ($r["price"]); ?></div>
+	<address><?php echo ($r['orig_name']); ?>｜<?php echo (fdate($r['add_time'])); ?>
+<span><i class="icons icon_like"></i><?php echo ($r["likes"]); ?></span><span><i class="icons icon_comment"></i><?php echo ($r["comments"]); ?></span><span><i class="icons icon_zan"></i><?php echo ($r["zan"]); ?></span>
+	</address>
 
 	</a> </li><?php endforeach; endif; else: echo "" ;endif; ?>
 
@@ -238,7 +234,7 @@
   <div id="Loading" style="display: none;text-align:center"><img src="/static/images/wap/jiazai.gif" style="width:30%;margin-top:10px;"/></div>
 
   <input type="hidden" id="page" value="2"/>
-<!--	
+<!--  
 <div class="btn_getmore">
 
 <span><a href="http://y3.jiaodaoren.com/">电脑版</a></span>
@@ -247,7 +243,7 @@
 
 <div class="bc_fixed_right">
 
-		<img src="/static/images/wap/bc_topbtn.png" />
+    <img src="/static/images/wap/bc_topbtn.png" />
 
 </div>
 <div class="bc_fixed_right_img">
@@ -273,7 +269,7 @@
 <script src=" http://hm.baidu.com/h.js?49113e6b733eb50457f8170c967ff321" type="text/javascript"></script>
   </div>
 
-  版权所有   白菜哦-高性价比海淘购物推荐 所有资讯均受著作湘ICP备13002285号
+  版权所有&copy;白菜哦-高性价比海淘购物推荐 所有资讯均受著作湘ICP备13002285号
 
 </div>
 <script>
@@ -325,7 +321,7 @@ var PINER = {
 
 $(function(){
 
-		var browser={
+    var browser={
     versions:function(){
         var u = navigator.userAgent, app = navigator.appVersion;
         return {
@@ -350,40 +346,40 @@ if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
    $(".J_ota").attr("href","https://itunes.apple.com/cn/app/白菜哦/id1245140625");
 } else if (/(Android)/i.test(navigator.userAgent)) {
     //alert(navigator.userAgent); 
-   $(".J_ota").attr("href","http://test.baicaio.com/upload/plugin/app-releaseV1.1.2.apk");
+   $(".J_ota").attr("href","http://sj.qq.com/myapp/detail.htm?apkName=com.cnxxp.cabbagenet");
 } else {
    $(".J_ota").attr("href","/item/275535.html");
 };
 
-	$("#mmm").click(function(){
+  $("#mmm").click(function(){
 
-		if($(this).attr("data")==0){
+    if($(this).attr("data")==0){
 
-			$(this).addClass('w_sp1');
+      $(this).addClass('w_sp1');
 
-			$('.w_nav').slideToggle(500);
+      $('.w_nav').slideToggle(500);
 
-			$(this).attr('data',"1");
+      $(this).attr('data',"1");
 
-		}else{
+    }else{
 
-			$(this).removeClass('w_sp1');
+      $(this).removeClass('w_sp1');
 
-			$('.w_nav').slideToggle(500);
+      $('.w_nav').slideToggle(500);
 
-			$(this).attr('data',"0");	
+      $(this).attr('data',"0"); 
 
-		}
+    }
 
-	});
+  });
 
-	
+  
 
-	$('.bc_fixed_right').click(function(){
+  $('.bc_fixed_right').click(function(){
 
-		$("body").animate({scrollTop: 0}, 500);
+    $("body").animate({scrollTop: 0}, 500);
 
-	})
+  })
 
 })
 
@@ -391,27 +387,27 @@ if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
 
 $("#J_sign").click(function(){
 
-	if(PINER.uid==""){
+  if(PINER.uid==""){
 
-		window.location="<?php echo U('wap/user/login');?>";
+    window.location="<?php echo U('wap/user/login');?>";
 
-		return false;
+    return false;
 
-	}
+  }
 
-	$.get(PINER.root+'/?g=wap&m=user&a=sign',function(result){
+  $.get(PINER.root+'/?g=wap&m=user&a=sign',function(result){
 
-		if(result.status==0){
+    if(result.status==0){
 
-			weui.Loading.error(result.msg);
+      weui.Loading.error(result.msg);
 
-		}else{
+    }else{
 
-			weui.Loading.success(result.msg);
+      weui.Loading.success(result.msg);
 
-		}
+    }
 
-	},'json');
+  },'json');
 
 });
 
@@ -421,39 +417,39 @@ var para='<?php echo ($tab); ?>';
 
 $("#Get").click(function(){
 
-	getmore();
+  getmore();
 
 });
 
 function getmore(){
 
-	var cid=$("#cid").val(),page=$("#page").val(),l=$("#Loading"),g=$("#Gtmore"),I=$("#Items");
+  var cid=$("#cid").val(),page=$("#page").val(),l=$("#Loading"),g=$("#Gtmore"),I=$("#Items");
 
-	l.show();g.hide();
+  l.show();g.hide();
 
-	$.get('<?php echo U("wap/ajax/getpbl");?>',{para:para,p:page},
+  $.get('<?php echo U("wap/ajax/getpbl");?>',{para:para,p:page},
 
-	function(res){
+  function(res){
 
-		if(res.status==1){
+    if(res.status==1){
 
-			I.append(res.data.resp);
+      I.append(res.data.resp);
 
-			$("#page").val(parseInt(page)+1);
+      $("#page").val(parseInt(page)+1);
 
-			g.show();l.hide();
+      g.show();l.hide();
 
-		}else{
+    }else{
 
-			weui.Loading.error("已经到最后一页了");
+      weui.Loading.error("已经到最后一页了");
 
-			l.hide();
+      l.hide();
 
-		}
+    }
 
-	},'json');
+  },'json');
 
-	
+  
 
 }
 
@@ -461,69 +457,69 @@ function getmore(){
 
 <script language="javascript">
 
-	$(function() { 
+  $(function() { 
 
-	function loadMeinv() {
+  function loadMeinv() {
 
-		$('.jiazai').show();
+    $('.jiazai').show();
 
 
 
-		$.get('/index.php?m=ajax&a=getpbl', {para:para ,p:page,pagesize:pagesize}, function (result){
+    $.get('/index.php?m=ajax&a=getpbl', {para:para ,p:page,pagesize:pagesize}, function (result){
 
-			if(result.status==1){
+      if(result.status==1){
 
-				$('.jiazai').hide();
+        $('.jiazai').hide();
 
-				$("#C_drc").append(result.data.resp);
+        $("#C_drc").append(result.data.resp);
 
-				$("#J_page").html(result.data.pagebar);
+        $("#J_page").html(result.data.pagebar);
 
-				if(pageend<page||pageend==null) {
+        if(pageend<page||pageend==null) {
 
-					$('#J_page').show();
+          $('#J_page').show();
 
-				}else{
+        }else{
 
-					$('#J_page').show();
+          $('#J_page').show();
 
-				}
+        }
 
-			}
+      }
 
-		},'json');		
+    },'json');    
 
-	}
+  }
 
-	page=page+1;
+  page=page+1;
 
-	//无限加载
+  //无限加载
 
-	
+  
 
-	$(window).scroll(function(){
+  $(window).scroll(function(){
 
-		var scrollTop = $(this).scrollTop();
+    var scrollTop = $(this).scrollTop();
 
-		var scrollHeight = $(document).height();
+    var scrollHeight = $(document).height();
 
-		var windowHeight = $(this).height();
+    var windowHeight = $(this).height();
 
-		if (scrollTop + windowHeight == scrollHeight) {
+    if (scrollTop + windowHeight == scrollHeight) {
 
-				//alert(333);
+        //alert(333);
 
-				$("#Get").click();
+        $("#Get").click();
 
-				loadMeinv();//加载新图片
+        loadMeinv();//加载新图片
 
-				page=page+1;
+        page=page+1;
 
-		}
+    }
 
-		
+    
 
-	})
+  })
 
 })
 

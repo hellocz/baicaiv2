@@ -18,7 +18,7 @@ class itemAction extends frontendAction {
         $id = $this->_get('id', 'intval');
         !$id && $this->_404();
         $item_mod = M('item');
-        $item = $item_mod->field('id,cate_id,title,uid,uname,intro,price,url,likes,comments,tag_cache,seo_title,seo_keys,seo_desc,add_time,content,zan,status,orig_id,go_link')->where(array('id' => $id))->find();
+        $item = $item_mod->field('id,cate_id,title,uid,img,uname,intro,price,url,likes,comments,tag_cache,seo_title,seo_keys,seo_desc,add_time,content,zan,status,orig_id,go_link')->where(array('id' => $id))->find();
 		
 		
 		
@@ -42,14 +42,6 @@ class itemAction extends frontendAction {
         $db_pre = C('DB_PREFIX');
         $item_tag_table = $db_pre . 'item_tag';
 		$i=1;
-        foreach ($maylike_list as $key => $val) {
-            $maylike_list[$key] = array('name' => $val);
-			$maylike_list[$key]['list'] = $item_mod->field("id,img,intro,title,add_time,orig_id")->where('tag_cache like "%$val%"')->limit(4)->select();
-			foreach($maylike_list[$key]['list'] as $k=>$v){
-				$maylike_list[$key]['list'][$k]['orig_name'] = getly($v['orig_id']);
-				$maylike_list[$key]['list'][$k]['num'] = $i++;
-			}
-        }
 		
         //第一页评论不使用AJAX利于SEO
         $item_comment_mod = M('item_comment');
@@ -69,9 +61,29 @@ class itemAction extends frontendAction {
         $item['content'] = preg_replace('/max-width:800px/','max-width:100%',$item['content']);
         $item['content'] = preg_replace('/<img/','<img style="max-width:100%"',$item['content']);
 
-        //小时榜和24小时榜
-   //     $day_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_day and $time ORDER BY hits desc,add_time desc LIMIT 4");
-    //    $this->assign('day_list',$day_list);
+        if(strpos($item['content'], "www.baicaio.com") !== false){
+              $item['content']= str_replace("www.baicaio.com","m.baicaio.com",$item['content']);
+          }
+
+        $orig_name=getly($item['orig_id']);
+
+        $base1 = stripos($item['content'],$orig_name);
+
+        $base2 = stripos($item['content'],"前往" . $orig_name);
+
+        if($base2 == false || $base2-$base1 > 6){
+        $item['content'] = preg_replace("/($orig_name)/i","<a href=/wap-orig-show-id-" . $item['orig_id'] . " target='_blank'>$1</a>",$item['content'],1);
+        }
+
+        $where_day['cate_id'] = $item['cate_id'];
+        $where_day['add_time'] = array("lt",$time);
+        $where_day['status'] = 1;
+        $day_list=M('item')->field("id,orig_id,title,img,price,add_time,hits,comments,likes,zan")->where($where_day)->order("add_time desc")->limit(0,10)->select();
+        foreach($day_list as $key=>$val){
+            $day_list[$key]['orig_name']=getly($val['orig_id']);
+            $day_list[$key]['zan'] = $list[$key]['zan']   +intval($list[$key]['hits'] /10);
+        }
+        $this->assign('day_list',$day_list);
 
         $this->assign('item', $item);
         $this->assign('orig', $orig);
@@ -79,8 +91,8 @@ class itemAction extends frontendAction {
         $this->assign('cmt_list', $cmt_list);
         $this->assign('page_bar', $pager_bar);
         $this->_config_seo(C('pin_seo_config.item'), array(
-            'item_title' => $item['title'],
-            'item_intro' => $item['intro'],
+            'item_title' => $item['title'] . $item['price'],
+            'item_intro' => substr(strip_tags($item['content']),0,200),
             'item_tag' => implode(' ', $item['tag_list']),
             'user_name' => $item['uname'],
             'seo_title' => $item['seo_title'],
@@ -92,11 +104,47 @@ class itemAction extends frontendAction {
 		{
 			$strpos = getpos($item['cate_id'],'');
 		}
+        $mod=M("item");
+        if($type==""||$type=='isnice'){
+            $where=" and isnice=1 ";
+            $order =" add_time desc";
+            $tab = "isnice";
+        }else{
+            $where=" and isbao=1 ";
+            $order =" add_time desc";
+            $tab = "isbao";
+        }   
+        $time=time();       
+        $pagesize=18;
+        $count = 500; //$mod->where("status=1 and add_time<$time ".$where)->count();
+        $pager = $this->_pager($count,$pagesize);
+        $list = $mod->where("status=1 and add_time<$time ".$where)->limit($pager->firstRow.",".$pager->listRows)->order($order)->select();
+        foreach($list as $key=>$val){
+            $list[$key]['orig_name']=getly($val['orig_id']);
+            $list[$key]['zan'] = $list[$key]['zan']   +intval($list[$key]['hits'] /10);
+        }
+        /*
+        foreach ($list as $key=>$val) {
+            if($val["sh_time"]>$val["ds_time"]){
+                $list[$key]['add_time']=$val["sh_time"];
+            }else{
+                $list[$key]['add_time']=$val["ds_time"];
+            } 
+        }   
+        */
+        /*echo "<pre>";
+        var_dump($list);*/
+        $this->assign('item_list',$list);
+        $this->assign("tab",$tab);
+        $this->assign('pagebar',$pager->fshow());
+        $p = $this->_get("p",'intval');
+        if($p<1){$p=1;}
+        $this->assign('p',$p);
 		$this->assign("strpos",$strpos);
-//		$pre = $item_mod->where("id<$id and status=1")->field("id,title")->find();
-//		$next = $item_mod->where("id>$id and status=1")->field("id,title")->find();
-		$this->assign("pre",$pre);
-		$this->assign("next",$next);
+	//	$pre = $item_mod->where("id<$id and status=1")->field("id,title")->find();
+	//	$next = $item_mod->where("id>$id and status=1")->field("id,title")->find();
+	//	$this->assign("pre",$pre);
+	//	$this->assign("next",$next);
 		//评论
 		$this->assign('xid',1);
 		$this->assign('itemid',$id);

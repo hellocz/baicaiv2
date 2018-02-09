@@ -77,17 +77,25 @@ class articleAction extends frontendAction {
         $item_tag_mod = M('item_tag');
         $db_pre = C('DB_PREFIX');
         $item_tag_table = $db_pre . 'item_tag';
+        $item['tag_list'] = explode("、",$item['tags']);
         $maylike_list = array_slice($item['tag_list'], 0, 3, true);
 		$i=1;
         foreach ($maylike_list as $key => $val) {
             $maylike_list[$key] = array('name' => $val);
             //$maylike_list[$key]['list'] = $item_tag_mod->field('i.id,i.img,i.intro,i.title,' . $item_tag_table . '.tag_id')->where(array($item_tag_table . '.tag_id' => $key, 'i.id' => array('neq', $id)))->join($db_pre . 'item i ON i.id = ' . $item_tag_table . '.item_id')->order('i.id DESC')->limit(9)->select();
-			$maylike_list[$key]['list'] = M("item")->field("id,img,intro,title")->where("tag_cache like '%$val%'")->limit(4)->select();
+			$where_maylike_list['tag_cache'] = array('like', '%'.$val.'%');
+			$where_maylike_list['add_time'] = array('lt', time());
+			$where_maylike_list['status'] = 1;
+
+			$maylike_list[$key]['list'] = M("item")->field("id,img,intro,title")->where($where_maylike_list)->order("add_time desc")->limit(4)->select();
 			foreach($maylike_list[$key]['list'] as $k=>$v){
 				$maylike_list[$key]['list'][$k]['num'] = $i++;
 			}
         }
 		$this->assign('maylike_list', $maylike_list);
+
+		$item['info'] = preg_replace('/max-width:800px/','max-width:100%',$item['info']);
+        $item['info'] = preg_replace('/<img/','<img style="max-width:100%"',$item['info']);
 		
 		//上下页
 		$pre = $model->where("id<$id and status=1 and cate_id=$item[cate_id]")->field("id,title")->find();

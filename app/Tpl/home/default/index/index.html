@@ -18,7 +18,7 @@
   url('//g.517cdn.com/PlugJavascriptJq/tamlliconfont/iconfont.ttf') format('truetype'),
   url('//g.517cdn.com/PlugJavascriptJq/tamlliconfont/iconfont.svg#iconfont') format('svg');
 }
-	.w_dj1{margin-right: 10px;}
+    .w_dj1{margin-right: 10px;}
   .badge {
      background-color: red;
     border-radius: 10px;
@@ -90,7 +90,7 @@
 
 <!--//首页轮播-->
 <script type="text/javascript">
-	
+    
 </script>
 
 
@@ -119,7 +119,7 @@
 </script>
 </if>
 -->
-<!--focus end-->	
+<!--focus end-->    
 
 <!--banner end-->
 <include file="public:daohan" />
@@ -222,7 +222,7 @@
           <a href="{:U('index/index',array('type'=>isnice,'dss'=>'lb'))}"><span <if condition="$tab eq 'isnice'">class="w_sy_s"</if>  id="sy1" >编辑推荐<if condition="$tab eq 'isnice'"><i></i></if></span></a><a href="{:U('bao/index',array('type'=>isbao,'dss'=>'cc'))}" target="_blank"><span <if condition="$tab eq 'isbao'">class="w_sy_s"</if> id="sy2">网友爆料<if condition="$tab eq 'isbao'"><i></i></if></span></a>
          <a href="{:U('item/myitems')}"><span <if condition="$tab eq 'myitems'">class="w_sy_s"</if> id="sy2">我的关注<if condition="$tab eq 'myitems'"><i></i></if></span></a>
 
-         <a href="{:U('article/index',array('id'=>9))}"><span id="ngl">海淘攻略</span></a>
+         <!--<a href="{:U('article/index',array('id'=>9))}"><span id="ngl">海淘攻略</span></a>-->
        </div>
 
         <include file="public:article_list" />
@@ -242,7 +242,7 @@
         <a href="" title="微信" class="l_wx_a">
          <img src="/images/w_gz_2.png" title="微信" alt="微信"/>
          <div class="l_wx">
-           <img src="images/w_erm.jpg" title="白菜哦" alt="白菜哦"/>
+           <img src="images/w_erm.jpg?v=20180207" title="白菜哦" alt="白菜哦"/>
          </div>
         </a>
         <script>
@@ -280,7 +280,6 @@
       </div>
     </div>
     
-    <div class="w_r2" style="display: block;background:rgba(0, 0, 0, 0) url('images/ad_02.jpg') repeat scroll center center;"> <a href="mailto:br@baicaio.com" target="_blank"><h2 style="">广告位出租--请发邮件到:br@baicaio.com</h2></a></div>
     <div class="w_rq" style="display: block;"> <form action="quan">
     <input class="sq_text" type="text" name="q" placeholder="淘宝/天猫全站优惠券检索"><input  class="sq_btn" type="submit" name="" value="搜券"></ins></form>
     <a  class="sq_jc" href="{:U('item/index',array('id'=>272745))}"><i class="md_icon">&#xe690;</i>找券教程</a></div>
@@ -393,6 +392,7 @@
 
      <div class="w_r4">{:R('advert/index', array(2), 'Widget')}</div>
       <include file="public:yhq_right" />
+      <include file="public:zx_right" />
       <div class="w_r10" style="display: block;">{:R('advert/index', array(10), 'Widget')}</div>
        
       <include file="public:zt_right_index" />

@@ -256,7 +256,7 @@ class messageAction extends userbaseAction {
         $pagesize = 8;
         $map = array();
         $map['from_id'] = '0';
-        $map['to_id'] = array('in', '0,'.$uid);
+        $map['to_id'] = $uid;
         $xx = $message_mod->where($map)->select();
         $sx = M('ssb');
         $where=array();

@@ -332,6 +332,11 @@ class shopAction extends userbaseAction
                 $item['fenxiang'] = 'http://www.baicaio.com/item/'.$id.'.html';
             }
         }
+
+         if(strpos($item['content'], "www.baicaio.com") !== false){
+              $item['content']= str_replace("www.baicaio.com","m.baicaio.com",$item['content']);
+          }
+
         $item['go_link'] = array_shift($go_link);
         $tag_caches = unserialize($item['tag_cache']);
         $item['tag_cache'] = '';

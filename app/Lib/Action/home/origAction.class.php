@@ -53,15 +53,21 @@ class origAction extends frontendAction {
 		$orig_info = $model->where("id=$id")->find();
 		$this->assign('info',$orig_info);
 		//商品
-		$count =100;// M("item")->where("orig_id=$id")->count();
+		$time=time();
+		$count = M("item")->where("orig_id='$id' and status=1 and add_time<$time ")->count();
         $page_size = 16; //每页显示个数
         $pager = $this->_pager($count, $page_size);
-        $time=time();
-        $list = M("item")->where("orig_id='$id' and status=1 and add_time<$time and ds_time < $time ")->limit($pager->firstRow . ',' . $page_size)->order("add_time desc")->select();
+        
+        $list = M("item")->where("orig_id='$id' and status=1 and add_time<$time ")->limit($pager->firstRow . ',' . $page_size)->order("add_time desc")->select();
         foreach($list as $key=>$val){
 				
 		$list[$key]['zan'] = $list[$key]['zan']   +intval($list[$key]['hits'] /10);
 			}
+
+		$gl_list = M("article")->field("id, otitle")->where("orig_id = '$id' and status =1 and cate_id=9 and add_time<$time ")->select();
+
+
+		$this->assign('gl_list',$gl_list);
         $this->assign('list', $list);
         //当前页码
         $p = $this->_get('p', 'intval', 1);

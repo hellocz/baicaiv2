@@ -77,7 +77,12 @@ class articleAction extends backendAction
         $first_cate = $this->_cate_mod->field('id,name')->where(array('pid'=>0))->order('ordid DESC')->select();
         $this->assign('first_cate',$first_cate);
 		$orig_list = M("item_orig")->order("ordid asc")->field("id,name")->select();
-		$this->assign("orig_list",$orig_list);
+        $settlesRes = array(); 
+            foreach ($orig_list as $set) {
+                $settlesRes[iconv('UTF-8', 'GBK', $set['name'])] = $set;
+            }
+            ksort($settlesRes);
+		$this->assign("orig_list",$settlesRes);
 		
     }
 
@@ -103,7 +108,7 @@ class articleAction extends backendAction
     public function _before_edit(){
         $id = $this->_get('id','intval');
 
-        $article = $this->_mod->field('id,cate_id')->where(array('id'=>$id))->find();
+        $article = $this->_mod->field('id,cate_id,item_cate_id')->where(array('id'=>$id))->find();
         $spid = $this->_cate_mod->where(array('id'=>$article['cate_id']))->getField('spid');
         if( $spid==0 ){
             $spid = $article['cate_id'];
@@ -111,9 +116,21 @@ class articleAction extends backendAction
             $spid .= $article['cate_id'];
         }
         $this->assign('selected_ids',$spid);
+        $spid_item_cate = M("item_cate")->where(array('id'=>$article['item_cate_id']))->getField('spid');
+        if( $spid_item_cate==0 ){
+            $spid_item_cate = $article['item_cate_id'];
+        }else{
+            $spid_item_cate .= $article['item_cate_id'];
+        }
+        $this->assign('selected_item_cate_ids',$spid_item_cate);
 		$orig_list = M("item_orig")->order("ordid asc")->field("id,name")->select();
+        $settlesRes = array(); 
+            foreach ($orig_list as $set) {
+                $settlesRes[iconv('UTF-8', 'GBK', $set['name'])] = $set;
+            }
+            ksort($settlesRes);
 		$this->assign('img_dir',$this->_get_imgdir());
-		$this->assign("orig_list",$orig_list);
+		$this->assign("orig_list",$settlesRes);
     }
 
     protected function _before_update($data) {
@@ -252,7 +269,7 @@ class articleAction extends backendAction
         $title = $this->_get('title', 'trim');
         if ($title) {
             $tags = D('tag')->get_tags_by_title($title);
-            $tags = implode(' ', $tags);
+            $tags = implode('、', $tags);
             $this->ajaxReturn(1, L('operation_success'), $tags);
         } else {
             $this->ajaxReturn(0, L('operation_failure'));

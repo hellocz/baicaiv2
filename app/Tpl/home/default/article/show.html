@@ -1,176 +1,353 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<include file="public:head" />
-<link rel="stylesheet" type="text/css" href="/static/css/default/style.css" />
-<link rel="stylesheet" type="text/css" href="/static/css/default/base.css" />
-</head>
-
-<body style="background:#f5f5f5">
-<include file="public:header" />
-<div class="w_center">
-  <div class="w_cen_lef">
-    <div class="w_zh_dq">
-	  <a href="/" title="首页">首页</a>>{$strpos}
-	</div>
-    <div class="w_spxx_bd">
-    <div class="w_spxx_1">
-      <h2>{$item.title}<br/></h2>
-      <div class="w_xgxq">
-	    <div class="w_xgxq_1">
-		  <i></i>
-		  <span>标签：</span>
-		  <volist name="item['tag_list']" id="tag">
-		<a href="{:U('book/index', array('tag'=>urlencode($tag)))}" target="_blank">{$tag}</a>
-		</volist>
-		  <br/><span>时间：</span><a>{$item.add_time|fdate}</a>
-		</div>
-	   <div class="w_xxgg">
-	     <a href="javascript:;" data-id="{$item.id}" title="分享+" class="T_share w_xxgg_1">分享</a>
-		 <a href="javascript:;" data="{$item.id}" title="点赞" class="z_submit w_xxgg_2">点赞</a>
-		 <a href="javascript:;" data-id="{$item.id}" data-xid="3" title="收藏" class="J_fav w_xxgg_3">收藏</a>
-		 <a href="#pl" title="评论" class="w_xxgg_4">评论</a>
-	   </div>	   
-	  <div class="clear"></div>
-	  </div>
-		<style>
-			.content img {max-width: 100%}
-		</style>
-		<div class="content">
-		{$item.info}
-		</div>
-	</div>
-      <div class="w_spxx_3">
-       <em>注意：</em>优惠信息有时效性和地域性，如果看到价格变化或者已经无货请点击 : <a href="javascript:;" class="J_jb " data-id="{$item.id}" data-xid='3'>无货举报</a><br>希望大家发扬网络共享精神，如果发现了优质商品特价，欢迎<a href="{:U('item/share_item')}" title="爆料">点此爆料</a>，以便及时分享给广大菜油，谢绝商家广告。
-      </div>
-      <!--<div class="w_spxx_4">
-       <div class="w_spxx_4_l">
-         <p>上一篇：<if condition="$pre"><a href="{:U('article/show',array('id'=>$pre['id']))}" title="{$pre['title']}">{$pre['title']}</a><else/>无</if></p>
-         <p>下一篇：<if condition="$next"><a href="{:U('article/show',array('id'=>$next['id']))}" title="{$next['title']}">{$next['title']}</a><else/>无</if></p>
-       </div>
-      </div>-->
-      <div class="w_spxx_5">
-      {:R('advert/index', array(13), 'Widget')}
-      </div>
-      
-	  <a name="pl"></a>
-	<include file="public:comment" />
-    </div>     
-  </div>
-  <div class="w_cen_rig ">
-	<if condition="$bcid eq '9'">
-     <include file="public:gl_right" />
-	<else/>
-	 <include file="public:sd_right" />
-	</if>
-	 <include file="public:zt_right" />
-	  <div style=" clear:both;"></div>
-	  <script type="text/javascript" src="/js/jquery.SuperSlide2.js"></script>
-
-	  <div style="width:300px;margin:40px auto 0 auto; background:#fff;">
-
-		  <h2 style=" color:#323232; font-size:16px; padding-left:16px; padding-top:20px; padding-bottom:20px;">&nbsp;&nbsp;您可能还喜欢</h2>
-
-		  <div class="mr_frbox" >
-			  <img class="mr_frBtnL prev" src="/images/knxh_l.png" width="28" height="46" />
-			  <div class="mr_frUl">
-				  <ul>
-					  <volist name="maylike_list" id="mval">
-						  <volist name="mval['list']" id="r">
-							  <if condition="$i%2">
-								  <li>
-									  <a href="{:U('item/index', array('id'=>$r['id']))}" title="{$r.title}" target="_blank"><img src="{:attach($r['img'],'item')}" width="115" height="95" alt="{$r.title}" /><p>{$r.title|msubstr=0,8,""}</p></a>
-									  <else/>
-									  <a href="{:U('item/index', array('id'=>$r['id']))}" title="{$r.title}" target="_blank"><img src="{:attach($r['img'],'item')}" width="115" height="95" alt="{$r.title}" /><p>{$r.title|msubstr=0,8,""}</p></a>
-								  </li>
-							  </if>
-						  </volist>
-					  </volist>
-				  </ul>
-			  </div>
-			  <img class="mr_frBtnR next" src="/images/knxh_r.png" width="28" height="46" />
-		  </div>
-
-	  </div>
-
-
-	  <script type="text/javascript">
-		  $(".mr_frbox").slide({
-			  titCell:"",
-			  mainCell:".mr_frUl ul",
-			  autoPage:true,
-			  effect:"leftLoop",
-			  autoPlay:true,
-			  vis:4
-		  });
-	  </script>
-  </div>
-</div>   
-<include file="public:footer" />
-<script>var t="article";</script>
-<script src="/js/function.js"></script>
-<script src="/static/js/lhg/lhgdialog.min.js?self=true&skin=idialog" type="text/javascript"></script>
-<div class="S_float w_clb_bd" style="display:none">
-  <ul class="w_clb_1">
-	<li>
-	<a href="javascript:;"  data-id="{$item.id}" data-xid="1" title="收藏" class="J_fav">
-	 <i class="w_clb_i2"></i>
-	 <em></em>
-	</a>
-	</li>
-	<li>
-	<a href="javascript:;" data="{$item.id}" title="点赞" class="z_submit">
-	 <i class="w_clb_i3"></i>
-	 <em class="S_pl" style="display:none">{$item.comments}</em>
-	</a>
-	</li>
-	<li class="no_bott">
-	<a href="javascript:;" class="T_share" data-id="{$item.id}" title="分享">
-	 <i class="w_clb_i4"></i>
-	 <em></em>
-	</a>
-	</li>
-  </ul>
-  <div class="w_sjsm">
-   <a href="javascript:void(0);" title="" class="w_sjsm_a"></a>
-   <div class="w_sjsm_d" style="display:none;">
-      <div class="w_sjsm_d1">
-	    <span id="qrcode"></span>
-	    <span>扫一下，分享更方便，购买更轻松</span>
-	  </div>
-     <s></s>
-   </div>
-<script src="/js/qrcode.js"></script>
-<script>
-$(document).ready(function(e) {
- $(".w_sjsm").hover(
-	  function () {
-		$(this).children(".w_sjsm_d").show();
-		
-	  },
-	  function () {
-		$(this).children(".w_sjsm_d").hide("");
-	  }
-	); 
-	$(window).scroll(function (){
-		if(document.body.scrollTop>200){
-			$(".S_float").show();
-		}else{
-			$(".S_float").hide();
-		}
-	});
-}) 
-//生成二维码
-window.onload =function(){
-	var qrcode = new QRCode(document.getElementById("qrcode"), {
-		width : 200,//设置宽高
-		height : 200
-	});
-	qrcode.makeCode("http://"+window.location.host+"{:U('wap/article/index',array('id'=>$item['id']))}");
-}
-</script>
-  </div>
-</div>
-
-</body>
-</html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<include file="public:head" />
+
+<link rel="stylesheet" type="text/css" href="/static/css/default/style.css" />
+
+<link rel="stylesheet" type="text/css" href="/static/css/default/base.css" />
+
+</head>
+
+
+
+<body style="background:#f5f5f5">
+
+<include file="public:header" />
+
+<div class="w_center">
+
+  <div class="w_cen_lef">
+
+    <div class="w_zh_dq">
+
+	  <a href="/" title="首页">首页</a>>{$strpos}
+
+	</div>
+
+    <div class="w_spxx_bd">
+
+    <div class="w_spxx_1">
+
+      <h2>{$item.title}<br/></h2>
+
+      <div class="w_xgxq">
+
+	    <div class="w_xgxq_1">
+
+		  <i></i>
+
+		  <span>标签：</span>
+
+		  <volist name="item['tag_list']" id="tag">
+
+		<a href="{:U('book/index', array('tag'=>urlencode($tag)))}" target="_blank">{$tag}</a>
+
+		</volist>
+
+		  <br/><span>时间：</span><a>{$item.add_time|fdate}</a>
+
+		</div>
+
+	   <div class="w_xxgg">
+
+	     <a href="javascript:;" data-id="{$item.id}" title="分享+" class="T_share w_xxgg_1">分享</a>
+
+		 <a href="javascript:;" data="{$item.id}" title="点赞" class="z_submit w_xxgg_2">点赞</a>
+
+		 <a href="javascript:;" data-id="{$item.id}" data-xid="3" title="收藏" class="J_fav w_xxgg_3">收藏</a>
+
+		 <a href="#pl" title="评论" class="w_xxgg_4">评论</a>
+
+	   </div>	   
+
+	  <div class="clear"></div>
+
+	  </div>
+
+		<style>
+
+			.content img {max-width: 100%}
+
+		</style>
+
+		<div class="content">
+
+		{$item.info}
+
+		</div>
+
+	</div>
+
+      <div class="w_spxx_3">
+
+       <em>注意：</em>本站优惠信息为小编每日人工精选，因为价格过于给力，缺货和涨价比较常见，如果不想再错过白菜价，请偷偷下载本站APP，不要让黄牛知道。IOS请前往<a href="https://itunes.apple.com/cn/app/%E7%99%BD%E8%8F%9C%E5%93%A6/id1245140625?mt=8" target="_blank"  rel="nofollow">苹果商店下载，</a>安卓用户请前往<a href="http://sj.qq.com/myapp/detail.htm?apkName=com.cnxxp.cabbagenet" rel="nofollow" target="_blank" >应用宝下载。</a>
+       <div style="text-align:center"><img style="margin: 0 auto;"  src="/images/w_erm.jpg?v=20180206"></div>
+
+      </div>
+
+      <div class="w_spxx_4">
+
+       <div class="w_spxx_4_l">
+
+         <p>上一篇：<if condition="$pre"><a href="{:U('article/show',array('id'=>$pre['id']))}" title="{$pre['title']}">{$pre['title']}</a><else/>无</if></p>
+
+         <p>下一篇：<if condition="$next"><a href="{:U('article/show',array('id'=>$next['id']))}" title="{$next['title']}">{$next['title']}</a><else/>无</if></p>
+
+       </div>
+
+      </div>
+
+      <div class="w_spxx_5">
+
+      {:R('advert/index', array(13), 'Widget')}
+
+      </div>
+
+      
+
+	  <a name="pl"></a>
+
+	<include file="public:comment" />
+
+    </div>     
+
+  </div>
+
+  <div class="w_cen_rig ">
+
+	<if condition="$bcid eq '9'">
+
+     <include file="public:gl_right" />
+
+	<else/>
+
+	 <include file="public:sd_right" />
+
+	</if>
+
+	 <include file="public:zt_right" />
+
+	  <div style=" clear:both;"></div>
+
+	  <script type="text/javascript" src="/js/jquery.SuperSlide2.js"></script>
+
+
+
+	  <div style="width:300px;margin:40px auto 0 auto; background:#fff;">
+
+
+
+		  <h2 style=" color:#323232; font-size:16px; padding-left:16px; padding-top:20px; padding-bottom:20px;">&nbsp;&nbsp;您可能还喜欢</h2>
+
+
+
+		  <div class="mr_frbox" >
+
+			  <img class="mr_frBtnL prev" src="/images/knxh_l.png" width="28" height="46" />
+
+			  <div class="mr_frUl">
+
+				  <ul>
+
+					  <volist name="maylike_list" id="mval">
+
+						  <volist name="mval['list']" id="r">
+
+								  <li>
+
+									  <a href="{:U('item/index', array('id'=>$r['id']))}" title="{$r.title}" target="_blank"><img src="{:attach($r['img'],'item')}" width="115" height="95" alt="{$r.title}" /><p>{$r.title|msubstr=0,8,""}</p></a>
+
+									  <else/>
+
+									  <a href="{:U('item/index', array('id'=>$r['id']))}" title="{$r.title}" target="_blank"><img src="{:attach($r['img'],'item')}" width="115" height="95" alt="{$r.title}" /><p>{$r.title|msubstr=0,8,""}</p></a>
+
+								  </li>
+
+						  </volist>
+
+					  </volist>
+
+				  </ul>
+
+			  </div>
+
+			  <img class="mr_frBtnR next" src="/images/knxh_r.png" width="28" height="46" />
+
+		  </div>
+
+
+
+	  </div>
+
+
+
+
+
+	  <script type="text/javascript">
+
+		  $(".mr_frbox").slide({
+
+			  titCell:"",
+
+			  mainCell:".mr_frUl ul",
+
+			  autoPage:true,
+
+			  effect:"leftLoop",
+
+			  autoPlay:true,
+
+			  vis:4
+
+		  });
+		  var bodyMain = document.getElementsByTagName('body')[0];
+			bodyMain.oncopy = function(){
+			return false;
+			}
+
+	  </script>
+
+  </div>
+
+</div>   
+
+<include file="public:footer" />
+
+<script>var t="article";</script>
+
+<script src="/js/function.js?v=2018010501"></script>
+
+<script src="/static/js/lhg/lhgdialog.min.js?self=true&skin=idialog" type="text/javascript"></script>
+
+<div class="S_float w_clb_bd" style="display:none">
+
+  <ul class="w_clb_1">
+
+	<li>
+
+	<a href="javascript:;"  data-id="{$item.id}" data-xid="1" title="收藏" class="J_fav">
+
+	 <i class="w_clb_i2"></i>
+
+	 <em></em>
+
+	</a>
+
+	</li>
+
+	<li>
+
+	<a href="javascript:;" data="{$item.id}" title="点赞" class="z_submit">
+
+	 <i class="w_clb_i3"></i>
+
+	 <em class="S_pl" style="display:none">{$item.comments}</em>
+
+	</a>
+
+	</li>
+
+	<li class="no_bott">
+
+	<a href="javascript:;" class="T_share" data-id="{$item.id}" title="分享">
+
+	 <i class="w_clb_i4"></i>
+
+	 <em></em>
+
+	</a>
+
+	</li>
+
+  </ul>
+
+  <div class="w_sjsm">
+
+   <a href="javascript:void(0);" title="" class="w_sjsm_a"></a>
+
+   <div class="w_sjsm_d" style="display:none;">
+
+      <div class="w_sjsm_d1">
+
+	    <span id="qrcode"></span>
+
+	    <span>扫一下，分享更方便，购买更轻松</span>
+
+	  </div>
+
+     <s></s>
+
+   </div>
+
+<script src="/js/qrcode.js"></script>
+
+<script>
+
+$(document).ready(function(e) {
+
+ $(".w_sjsm").hover(
+
+	  function () {
+
+		$(this).children(".w_sjsm_d").show();
+
+		
+
+	  },
+
+	  function () {
+
+		$(this).children(".w_sjsm_d").hide("");
+
+	  }
+
+	); 
+
+	$(window).scroll(function (){
+
+		if(document.body.scrollTop>200){
+
+			$(".S_float").show();
+
+		}else{
+
+			$(".S_float").hide();
+
+		}
+
+	});
+
+}) 
+
+//生成二维码
+
+window.onload =function(){
+
+	var qrcode = new QRCode(document.getElementById("qrcode"), {
+
+		width : 200,//设置宽高
+
+		height : 200
+
+	});
+
+	qrcode.makeCode("http://"+window.location.host+"{:U('wap/article/index',array('id'=>$item['id']))}");
+
+}
+
+</script>
+
+  </div>
+
+</div>
+
+
+
+</body>
+
+</html>
+

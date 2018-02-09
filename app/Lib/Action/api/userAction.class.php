@@ -2097,5 +2097,53 @@ class userAction extends userbaseAction
         echo get_result($code,$score_item);return ;
     }
 
+     /**
+     * 积分商品详细页
+     */
+    public function exchange_detail($data) {
+        $id = $data['id'];
+        $item_mod = M('score_item');
+        $item = $item_mod->field('id,title,img,score,coin,stock,user_num,buy_num,desc,cate_id,win,sign_date')->find($id);
+
+        $list = M("score_order")->where("item_id=$id")->order('add_time desc')->select();
+        $item['list'] = $list;
+        $code = 10001;
+        echo get_result($code,$item);return ;
+
+    }
+
+     /**
+     * ios version
+     */
+    public function ios_version($data) {
+        $ios_version = $data['version'];
+        $ios_latest_version = M('setting')->where("name = 'ios_version'")->field('data')->find();
+        if($ios_version === $ios_latest_version['data']){
+            $code = 10001;
+        }
+        else{
+            $code = 10002;
+        }
+        
+        echo get_result($code);return ;
+
+    }
+
+     /**
+     * android version
+     */
+    public function android_version($data) {
+        $android_version = $data['version'];
+        $android_latest_version = M('setting')->where("name = 'android_version'")->field('data')->find();
+        if($android_version === $android_latest_version['data']){
+            $code = 10001;
+        }
+        else{
+            $code = 10002;
+        }
+        
+        echo get_result($code);return ;
+
+    }
 
 }

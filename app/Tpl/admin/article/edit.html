@@ -32,6 +32,18 @@
 
 					</tr>
 
+					<tr>
+
+				<th width="120">所属分类 :</th>
+
+                <td><select class="J_item_cate_select mr10" data-pid="0" data-uri="{:U('item_cate/ajax_getchilds', array('type'=>0))}" data-selected="{$selected_item_cate_ids}"></select>
+
+				<input type="hidden" name="item_cate_id" id="J_item_cate_id" value="{$info.item_cate_id}" /><b style="color: orangered; font-weight: bold;">* 必填项</b>
+
+				&nbsp;<input class="input-text" type="text" name="search_cate" id ="search_cate" value="" placeholder="搜索分类" /> </td>
+
+			</tr>
+
 		            <tr>
 
 						<th>{:L('article_title')} :</th>
@@ -60,15 +72,23 @@
 
 					</tr>
 
-					<tr>
+						<tr>
 
-						<th width="120">购物商城 :</th>
+						<th width="120">商品来源 :</th>
 
-		 				<td>
+						<!--<td><input type="text" name="orig_id" id="orig_id" size="30" class="input-text" value="{$orig_name}"> </td>-->
 
-							<input type="text" name="sc" id="sc" class="input-text" size="30" value="{$info.sc}">
+		                <td>
 
-						</td>
+						<select name="orig_id" id="orig_id">
+
+		            	<volist name="orig_list" id="val">
+
+		            	<option value="{$val.id}" <if condition="$info['orig_id'] eq $val['id']">selected="selected"</if>>{$val.name}</option>
+
+		            	</volist>
+
+		            	</select></td>
 
 					</tr>
 
@@ -388,18 +408,38 @@
 	var ue = UE.getEditor('content');
 
 $('.J_cate_select').cate_select('请选择');
+$('.J_item_cate_select').item_cate_select('请选择');
+$("#search_cate").change(function(){
+		//alert($(this).val());
+		if($(this).val() !=""){
+			$.post('{:U("item/ajax_getcates")}', {cate:$(this).val()}, function(result){
+
+			if(result.status == 1){
+				$(".cates").remove();
+				for(var i=0;i<result.data.length;i++){
+				$("#search_cate").after("<a class='cates' spid=" + result.data[i].spid + ">"+result.data[i].name + "</a>");
+			}
+
+			}else{
+				$(".cates").remove();
+				$.pinphp.tip({content:result.msg});
+
+			}
+
+		},'json');
+		}
+	});
+$(".cates").live("click",function(){
+		var spid = $(this).attr("spid");
+		$('.J_item_cate_select').attr("data-selected",0);
+		$(".J_item_cate_select").item_cate_select();
+		$('.J_item_cate_select').attr("data-selected",spid);
+		$(".J_item_cate_select").item_cate_select();
+	});
 
 $(function() {
 
-	KindEditor.create('#info', {
 
-		uploadJson : '{:U("attachment/editer_upload")}',
-
-		fileManagerJson : '{:U("attachment/editer_manager")}',
-
-		allowFileManager : true
-
-	});
 
 	$('ul.J_tabs').tabs('div.J_panes > div');
 

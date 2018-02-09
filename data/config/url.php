@@ -6,6 +6,9 @@ return array(
     'URL_ROUTER_ON' => true,
     'URL_ROUTE_RULES' =>
         array(
+
+
+
             '/^topics\/$/' => 'book/index',
             '/^topics\/p(\d+)$/' => 'book/index?p=:1',
             '/^topics\/c(\d+)\/$/' => 'book/cate?cid=:1',
@@ -45,41 +48,7 @@ return array(
             '/^topics\/best$/' => 'book/best',
 
         //分类
-             '/^wap\/topics\/$/' => 'wap/book/index',
-            '/^wap\/topics\/p(\d+)$/' => 'wap/book/index?p=:1',
-            '/^wap\/topics\/ghhz\/$/' => 'wap/book/cate?cid=333',  //个护化妆 
-            '/^wap\/topics\/bjys\/$/' => 'wap/book/cate?cid=334',  //保健养生  
-            '/^wap\/topics\/tsyx\/$/' => 'wap/book/cate?cid=336',  //图书音像  
-            '/^wap\/topics\/smjd\/$/' => 'wap/book/cate?cid=116',  //数码家电  
-            '/^wap\/topics\/lyxx\/$/' => 'wap/book/cate?cid=338',  //旅游休闲  
-            '/^wap\/topics\/rybh\/$/' => 'wap/book/cate?cid=335',  //日用百货  
-            '/^wap\/topics\/fzxm\/$/' => 'wap/book/cate?cid=1',    //服装鞋帽  
-            '/^wap\/topics\/mywj\/$/' => 'wap/book/cate?cid=115',  //母婴玩具  
-            '/^wap\/topics\/dyzx\/$/' => 'wap/book/cate?cid=339',  //电影资讯  
-            '/^wap\/topics\/yzps\/$/' => 'wap/book/cate?cid=340',  //眼镜配饰  
-            '/^wap\/topics\/xbsd\/$/' => 'wap/book/cate?cid=50',   //箱包手袋  
-            '/^wap\/topics\/ydhw\/$/' => 'wap/book/cate?cid=102',  //运动户外  
-            '/^wap\/topics\/zbss\/$/' => 'wap/book/cate?cid=114',  //钟表首饰  
-            '/^wap\/topics\/spjy\/$/' => 'wap/book/cate?cid=337',  //食品酒饮  
-            '/^wap\/topics\/zqzb\/$/' => 'wap/book/cate?cid=341',  //杂七杂八  
-            '/^wap\/topics\/notice\/$/' => 'wap/book/cate?cid=342',//活动公告  
-            '/^wap\/topics\/finance\/$/' => 'wap/book/cate?cid=349',
-             '/^wap\/topics\/oversea-guide\/$/' =>'wap/article/index?id=9',
-            //END
-            
-            '/^wap\/topics\/c(\d+)\/p(\d+)$/' => 'wap/book/cate?cid=:1&p=:2',
-            '/^wap\/topics\/gny\/(\d+)\/$/' => 'wap/book/gny?tp=:1',
-            '/^wap\/topics\/gny\/(\d+)\/p(\d+)$/' => 'wap/book/gny?tp=:1&p=:2',
-            '/^wap\/topics\/gny\/(\d+)\/isbao(\d+)$/' => 'wap/book/gny?tp=:1&isbao=:2',
-            '/^wap\/topics\/gny\/(\d+)\/isbao(\d+)\/p(\d+)$/' => 'wap/book/gny?tp=:1&isbao=:2&p=:3',
-            '/^wap\/topics\/gny\/(\d+)\/isnice(\d+)$/' => 'wap/book/gny?tp=:1&isnice=:2',
-            '/^wap\/topics\/gny\/(\d+)\/isnice(\d+)\/p(\d+)$/' => 'wap/book/gny?tp=:1&isnice=:2&p=:3',
-            '/^wap\/topics\/gny\/(\d+)\/(\S+)\/(\S+)\/isnice(\d+)$/' => 'wap/book/gny?tp=:1&tab=:2&dss=:3&isnice=:4',
-            '/^wap\/topics\/gny\/(\d+)\/(\S+)\/(\S+)\/isnice(\d+)\/p(\d+)$/' => 'wap/book/gny?tp=:1&tab=:2&dss=:3&isnice=:4&p=:5',
-            '/^wap\/topics\/gny\/(\d+)\/(\S+)\/(\S+)\/isbao(\d+)$/' => 'wap/book/gny?tp=:1&tab=:2&dss=:3&isbao=:4',
-            '/^wap\/topics\/gny\/(\d+)\/(\S+)\/(\S+)\/isbao(\d+)\/p(\d+)$/' => 'wap/book/gny?tp=:1&tab=:2&dss=:3&isbao=:4&p=:5',
-            '/^wap\/topics\/best$/' => 'wap/book/best',
-            '/^wap\/article\/(\d+).html$/' => 'wap/article/show?id=:1',
+           
 
             '/^article\/(\d+).html$/' => 'article/show?id=:1',
             '/^zr\/(\d+).html$/' => 'zr/show?id=:1',
@@ -104,6 +73,60 @@ return array(
             '/^share\/(\S+)$/' => 'ajax/g_share?tg=:1',
             '/^sitemap.html$/' => 'sitemap/index',
             '/^go\/(\S+)$/' => 'go/index?to=:1',
-            '/^rss$/' => 'rss/index'
+            '/^rss$/' => 'rss/index',
+              '/^topics\/$/' => 'wap/book/index',
+            '/^topics\/p(\d+)$/' => 'wap/book/index?p=:1',
+            '/^topics\/ghhz\/$/' => 'wap/book/cate?cid=333',  //个护化妆 
+            '/^topics\/bjys\/$/' => 'wap/book/cate?cid=334',  //保健养生  
+            '/^topics\/tsyx\/$/' => 'wap/book/cate?cid=336',  //图书音像  
+            '/^topics\/smjd\/$/' => 'wap/book/cate?cid=116',  //数码家电  
+            '/^topics\/lyxx\/$/' => 'wap/book/cate?cid=338',  //旅游休闲  
+            '/^topics\/rybh\/$/' => 'wap/book/cate?cid=335',  //日用百货  
+            '/^topics\/fzxm\/$/' => 'wap/book/cate?cid=1',    //服装鞋帽  
+            '/^topics\/mywj\/$/' => 'wap/book/cate?cid=115',  //母婴玩具  
+            '/^topics\/dyzx\/$/' => 'wap/book/cate?cid=339',  //电影资讯  
+            '/^topics\/yzps\/$/' => 'wap/book/cate?cid=340',  //眼镜配饰  
+            '/^topics\/xbsd\/$/' => 'wap/book/cate?cid=50',   //箱包手袋  
+            '/^topics\/ydhw\/$/' => 'wap/book/cate?cid=102',  //运动户外  
+            '/^topics\/zbss\/$/' => 'wap/book/cate?cid=114',  //钟表首饰  
+            '/^topics\/spjy\/$/' => 'wap/book/cate?cid=337',  //食品酒饮  
+            '/^topics\/zqzb\/$/' => 'wap/book/cate?cid=341',  //杂七杂八  
+            '/^topics\/notice\/$/' => 'wap/book/cate?cid=342',//活动公告  
+            '/^topics\/finance\/$/' => 'wap/book/cate?cid=349',
+             '/^topics\/oversea-guide\/$/' =>'wap/article/index?id=9',
+            //END
+            
+            '/^topics\/c(\d+)\/p(\d+)$/' => 'wap/book/cate?cid=:1&p=:2',
+            '/^topics\/gny\/(\d+)\/$/' => 'wap/book/gny?tp=:1',
+            '/^topics\/gny\/(\d+)\/p(\d+)$/' => 'wap/book/gny?tp=:1&p=:2',
+            '/^topics\/gny\/(\d+)\/isbao(\d+)$/' => 'wap/book/gny?tp=:1&isbao=:2',
+            '/^topics\/gny\/(\d+)\/isbao(\d+)\/p(\d+)$/' => 'wap/book/gny?tp=:1&isbao=:2&p=:3',
+            '/^topics\/gny\/(\d+)\/isnice(\d+)$/' => 'wap/book/gny?tp=:1&isnice=:2',
+            '/^topics\/gny\/(\d+)\/isnice(\d+)\/p(\d+)$/' => 'wap/book/gny?tp=:1&isnice=:2&p=:3',
+            '/^topics\/gny\/(\d+)\/(\S+)\/(\S+)\/isnice(\d+)$/' => 'wap/book/gny?tp=:1&tab=:2&dss=:3&isnice=:4',
+            '/^topics\/gny\/(\d+)\/(\S+)\/(\S+)\/isnice(\d+)\/p(\d+)$/' => 'wap/book/gny?tp=:1&tab=:2&dss=:3&isnice=:4&p=:5',
+            '/^topics\/gny\/(\d+)\/(\S+)\/(\S+)\/isbao(\d+)$/' => 'wap/book/gny?tp=:1&tab=:2&dss=:3&isbao=:4',
+            '/^topics\/gny\/(\d+)\/(\S+)\/(\S+)\/isbao(\d+)\/p(\d+)$/' => 'wap/book/gny?tp=:1&tab=:2&dss=:3&isbao=:4&p=:5',
+            '/^topics\/best$/' => 'wap/book/best',
+
+            '/^article\/(\d+).html$/' => 'wap/article/show?id=:1',
+            '/^item\/(\d+).html$/' => 'wap/item/index?id=:1',
+            '/^bao\/(\d+).html$/' => 'wap/bitem/index?isbao=1&id=:1',
+            '/^tag\/(\S+)$/' => 'wap/book/index?tag=:1',
+            '/^p\/(\d+)\/tag\/(\S+)$/' => 'wap/book/index?p=:1&tag=:2',
+            '/^topics\/oversea-guide\/p(\d+)$/' => 'wap/article/index?id=9&p=:1',
+            '/^shaidan\/$/' => 'wap/article/index?id=10',
+            '/^shaidan\/p(\d+)$/' => 'wap/article/index?id=10&p=:1',
+            '/^baicai\/$/' => 'wap/book/baicai',
+            '/^baicai\/p(\d+)$/' => 'wap/book/baicai?p=:1',
+            '/^ec\/$/' => 'wap/exchange/index',
+            '/^ec\/p(\d+)$/' => 'wap/exchange/index?p=:1',
+            '/^space$/' => 'wap/space/index',
+            '/^space\/(\d+)$/' => 'wap/space/index?uid=:1',
+            '/^space\/(\d+)\/(\S+)$/' => 'wap/space/index?uid=:1&t=:2',
+            '/^share\/(\S+)$/' => 'wap/ajax/g_share?tg=:1',
+            '/^sitemap.html$/' => 'wap/sitemap/index',
+
+
         ),
 );

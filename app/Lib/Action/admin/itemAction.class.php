@@ -1007,6 +1007,27 @@ class itemAction extends backendAction {
         $this->ajaxReturn(1, L('operation_success'), $tags);
     }
 
+    /**
+     * ajax搜索分类
+     */
+    public function ajax_getcates() {
+        $cate = $this->_post('cate', 'trim');
+        $cate_list = M('item_cate')->where("name like '%" . $cate ."%'")->field("id,name,spid")->order("id asc")->select();
+        if(empty($cate_list)){
+            $this->ajaxReturn(0, "没有找到分类");
+        }
+
+        foreach ($cate_list as $key => $value) {
+            if($cate_list[$key]['spid'] == 0){
+                $cate_list[$key]['spid'] = $cate_list[$key]['id'];
+            }
+            else{
+                $cate_list[$key]['spid'] .= $cate_list[$key]['id'];
+            }
+        }
+        $this->ajaxReturn(1, L('operation_success'), $cate_list);
+    }
+
     public function ajax_getfromurl() {
         $url = $this->_get('url', 'trim');
          $pattern = '/(\d{4,})/';
@@ -1030,6 +1051,13 @@ class itemAction extends backendAction {
               $result['otitle'] = $items[0]['otitle'];
               $result['intro'] = $items[0]['intro'];
               $result['img'] = $items[0]['img'];
+              $spid = $this->_cate_mod->where(array('id'=>$items[0]['cate_id']))->getField('spid');
+            if( $spid==0 ){
+                $spid = $items[0]['cate_id'];
+            }else{
+                $spid .= $items[0]['cate_id'];
+            }
+              $result['spid'] =  $spid;
               $go_link = unserialize($items[0]['go_link']);
               if(isset($go_link[0]['link'])){
               $result['go_link'] = $go_link[0]['link'];

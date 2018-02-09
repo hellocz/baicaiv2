@@ -4802,6 +4802,8 @@ KEditor.prototype = {
 			return self;
 		}
 		if (fullscreenMode) {
+			alert(2);
+			$(".w_head_bd").css("position","");
 			_docElement().style.overflow = 'hidden';
 		} else {
 			_docElement().style.overflow = '';
@@ -4837,6 +4839,8 @@ KEditor.prototype = {
 				'height' : '1px',
 				'overflow' : 'hidden'
 			});
+			alert(1);
+			$(".w_head_bd").css("position","");
 			K(document.body.parentNode).css('overflow', 'hidden');
 			self._fullscreenExecuted = true;
 		} else {

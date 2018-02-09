@@ -69,8 +69,20 @@ class quanAction extends frontendAction {
            $this->assign("s",$s);
            $this->assign("q",$q);
            $this->assign("item_list",$item_list);
-          $this->_config_seo();
-          $this->display();
+           if(empty($q)){
+        $page_seo['title'] = "天猫优惠券|淘宝优惠券|天猫优惠券免费领取|白菜哦";
+        $page_seo['keywords'] = "天猫优惠券，淘宝优惠券，天猫购物券免费领取";
+        $page_seo['description'] = "天猫淘宝优惠券免费领取，实时更新最新折扣秒杀，9.9包邮特价商品，可用宝贝标题或者品牌搜券，超过500万张优惠券可供搜索查询，购物前别忘记来搜一搜优惠券哦！";
+           }
+           else{
+        $page_seo['title'] = $q . "优惠券|天猫" . $q ."特价|天猫" . $q . "优惠券免费领取|白菜哦";
+        $page_seo['keywords'] = $q . "优惠券，天猫" . $q . "特价，天猫" . $q . "优惠券免费领取";
+        $page_seo['description'] = "实时更新最新" . $q . "优惠券，天猫" . $q . "优惠券免费领取，包括所有可领购物券的" . $q . "商品，可根据" . $q . "品牌或者标题查询，购物前别忘记领券哦！";
+        
+           }
+           
+    $this->assign('page_seo', $page_seo);
+    $this->display();
     } 
 
         function sortByVolume($a, $b) {

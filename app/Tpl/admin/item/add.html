@@ -46,7 +46,9 @@
 
                 <td><select class="J_cate_select mr10" data-pid="0" data-uri="{:U('item_cate/ajax_getchilds', array('type'=>0))}" data-selected=""></select>
 
-				<input type="hidden" name="cate_id" id="J_cate_id" value="" /><b style="color: orangered; font-weight: bold;">* 必填项</b></td>
+				<input type="hidden" name="cate_id" id="J_cate_id" value="" /><b style="color: orangered; font-weight: bold;">* 必填项</b>
+
+				&nbsp;<input class="input-text" type="text" name="search_cate" id ="search_cate" value="" placeholder="搜索分类" /> </td>
 
 			</tr>
 
@@ -382,6 +384,9 @@
             z-index: 999;
 
 	}
+	a.cates {
+    margin-left: 4px;
+}
 
 </style>
 
@@ -481,7 +486,8 @@ $(function() {
 		$.getJSON('{:U("item/ajax_getfromurl")}', {url:url}, function(result){
 
 			if(result.data.status == 1){
-				$(".J_cate_select").cate_select(2);
+				$('.J_cate_select').attr("data-selected",result.data.spid);
+				$(".J_cate_select").cate_select();
 				$('#J_title').val(result.data.title);
 				$('#J_otitle').val(result.data.otitle);
 				//$('#intro').val(result.data.intro);
@@ -1052,6 +1058,34 @@ return;
 		
 
 	}
+
+	$("#search_cate").change(function(){
+		//alert($(this).val());
+		if($(this).val() !=""){
+			$.post('{:U("item/ajax_getcates")}', {cate:$(this).val()}, function(result){
+
+			if(result.status == 1){
+				$(".cates").remove();
+				for(var i=0;i<result.data.length;i++){
+				$("#search_cate").after("<a class='cates' spid=" + result.data[i].spid + ">"+result.data[i].name + "</a>");
+			}
+
+			}else{
+				$(".cates").remove();
+				$.pinphp.tip({content:result.msg});
+
+			}
+
+		},'json');
+		}
+	});
+	$(".cates").live("click",function(){
+		var spid = $(this).attr("spid");
+		$('.J_cate_select').attr("data-selected",0);
+		$(".J_cate_select").cate_select();
+		$('.J_cate_select').attr("data-selected",spid);
+		$(".J_cate_select").cate_select();
+	});
 
 /*Calendar.setup({
 

@@ -37,6 +37,10 @@
 
       <a target="_blank" href="{$info.url}"  title="直达商城"  class="w_dha">直达商城</a>
 
+      <volist name="gl_list" id="gl" >
+         <a target="_blank" href="{:U('article/show',array('id'=>$gl['id']))}"  title="{$gl.otitle}"  class="w_dha">{$gl.otitle}</a>
+      </volist>
+
     </div>
 
     <div class="w_dhxq_h">
@@ -143,6 +147,7 @@ $(document).ready(function(e) {
 <script src="/js/function.js"></script>
 
 <include file="public:footer" />
+<include file="public:baidu_js_push" />
 
 <script src="/static/js/lhg/lhgdialog.min.js?self=true&skin=idialog" type="text/javascript"></script>
 

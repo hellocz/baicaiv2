@@ -245,7 +245,7 @@ class item_cateAction extends backendAction {
     public function ajax_getchilds() {
        $id = $this->_get('id', 'intval');
        $type = $this->_get('type', 'intval', null);
-        $map = array('pid'=>$id,'status'=>1);
+        $map = array('pid'=>$id);
         if (!is_null($type)) {
             $map['type'] = $type;
         }

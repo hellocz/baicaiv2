@@ -152,7 +152,9 @@ class UpYun {
             if (!is_null($this->_content_md5)) $opts[self::CONTENT_MD5] = $this->_content_md5;
             if (!is_null($this->_file_secret)) $opts[self::CONTENT_SECRET] = $this->_file_secret;
         }
+        if(strpos($path, "png") == false){
         $opts[self::X_GMKERL_THUMB] = 'watermark';
+        }
         // 如果设置了缩略版本或者缩略图类型，则添加默认压缩质量和锐化参数
         //if (isset($opts[self::X_GMKERL_THUMBNAIL]) || isset($opts[self::X_GMKERL_TYPE])) {
         //    if (!isset($opts[self::X_GMKERL_QUALITY])) $opts[self::X_GMKERL_QUALITY] = 95;

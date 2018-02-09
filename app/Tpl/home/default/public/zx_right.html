@@ -1,0 +1,24 @@
+<style type="text/css">
+    .zx{
+        width: 100%;
+    }
+</style>
+<div class="w_r5">
+     <h2>购物资讯</h2>
+     <ul>
+	 <?php
+     ?>
+	  <volist name="zx_list" id="r">
+       <li>
+         <a class="zx" href="{:U('article/show',array('id'=>$r['id']))}" title="{$r['title']}">
+                {$r['title']}
+         </a>
+       </li>
+
+	   </volist>
+
+     </ul>
+     <a href="{:U('article/index',array('id'=>16))}">更多资讯>></a>
+     </div>
+
+	 

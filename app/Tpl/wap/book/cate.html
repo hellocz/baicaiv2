@@ -14,9 +14,9 @@
 
 <nav class="w_h2">
 
-<a href="{:U('wap/index/index')}" title="首页" class="w_h2_r"><img src="/static/images/wap/w_fz.png" title="首页" alt="首页"/></a>
+<a href="{:U('wap/index/index')}" title="首页" class="w_h2_r"><img src="/static/images/wap/w_fz.png" title="首页" alt="海淘专享优惠劵"/></a>
 
-<a href="javascript:history.go(-1);" title="返回" class="w_h2_l"><img src="/static/images/wap/w_t_lef.png" title="返回" alt="返回"/></a>
+<a href="javascript:history.go(-1);" title="返回" class="w_h2_l"><img src="/static/images/wap/w_t_lef.png" title="返回" alt="海淘专享优惠劵"/></a>
 
 <h2>{$cate_info.name}</h2>
 
@@ -30,7 +30,7 @@
 
       <li>
 
-        <a href="{:U('wap/book/index')}" title="商品分类">
+        <a href="{:U('wap/book/index')}" title="商品分类" alt="海淘专享优惠劵">
 
          <img src="/static/images/wap/3d_1.png"/><br/>商品分类
 
@@ -38,7 +38,7 @@
 
       </li>
 
-      <li><a href="javascript:;" id="J_sign" title="每日签到">
+      <li><a href="javascript:;" id="J_sign" title="每日签到" alt="海淘专享优惠劵">
 
           <img src="/static/images/wap/3d_2.png"/><br/>每日签到
 
@@ -46,7 +46,7 @@
 
       </li>
 
-      <li><a href="{:U('wap/user/index')}" title="我的白菜">
+      <li><a href="{:U('wap/user/index')}" title="我的白菜" alt="海淘专享优惠劵">
 
           <img src="/static/images/wap/3d_3.png"/><br/>我的白菜
 
@@ -96,7 +96,7 @@
 
 $("#Get").click(function(){
 
-	getmore();
+  getmore();
 
 });
 
@@ -104,59 +104,59 @@ $("#Get").click(function(){
 
 $("#J_sign").click(function(){
 
-	if(PINER.uid==""){
+  if(PINER.uid==""){
 
-		window.location="{:U('wap/user/login')}";
+    window.location="{:U('wap/user/login')}";
 
-		return false;
+    return false;
 
-	}
+  }
 
-	$.get(PINER.root+'/?g=wap&m=user&a=sign',function(result){
+  $.get(PINER.root+'/?g=wap&m=user&a=sign',function(result){
 
-		if(result.status==0){
+    if(result.status==0){
 
-			weui.Loading.error(result.msg);
+      weui.Loading.error(result.msg);
 
-		}else{
+    }else{
 
-			weui.Loading.success(result.msg);
+      weui.Loading.success(result.msg);
 
-		}
+    }
 
-	},'json');
+  },'json');
 
 });
 
 function getmore(){
 
-	var cid=$("#cid").val(),page=$("#page").val(),l=$("#Loading"),g=$("#Gtmore"),I=$("#Items");
+  var cid=$("#cid").val(),page=$("#page").val(),l=$("#Loading"),g=$("#Gtmore"),I=$("#Items");
 
-	l.show();g.hide();
+  l.show();g.hide();
 
-	$.get('{:U("wap/book/cate_ajax")}',{cid:cid,p:page},
+  $.get('{:U("wap/book/cate_ajax")}',{cid:cid,p:page},
 
-	function(res){
+  function(res){
 
-		if(res.data.isfull==0){
+    if(res.data.isfull==0){
 
-			weui.Loading.error("已经到最后一页了");
+      weui.Loading.error("已经到最后一页了");
 
-			l.hide();
+      l.hide();
 
-		}else{
+    }else{
 
-			I.append(res.data.html);
+      I.append(res.data.html);
 
-			$("#page").val(parseInt(page)+1);
+      $("#page").val(parseInt(page)+1);
 
-			g.show();l.hide();
+      g.show();l.hide();
 
-		}
+    }
 
-	},'json');
+  },'json');
 
-	
+  
 
 }
 

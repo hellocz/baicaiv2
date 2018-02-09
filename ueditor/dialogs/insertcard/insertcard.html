@@ -100,7 +100,7 @@ function insertcard(url,img,title,desc,price,shopping_name) {
     var price = $("#price").val();
     var shopping_name = $("#shopping_name").val();
 
-    var content  = '<span class="embed-card main-site res_baicaio"><span class="embed-card-logo res_baicaio"><img class="res_baicaio" src="'+ img+'"></span><span class="embed-card-info  res_baicaio"><span class="card-name res_baicaio">'+title + '<strong class="price res_baicaio">' + price + '元</strong></span><span class="card-abstract res_baicaio">'+ desc + '</span><span class="card-controls res_baicaio"><span class="mall-data res_baicaio">' + shopping_name +'</span><a target="_blank" href="' + url + '"><span class="card-btn-deep res_baicaio">去购买</span></a></span></span></span>';
+    var content  = '<span class="embed-card main-site res_baicaio"><span class="embed-card-logo res_baicaio"><img class="res_baicaio" src="'+ img+'"></span><span class="embed-card-info  res_baicaio"><span class="card-name res_baicaio">'+title + '<strong class="price res_baicaio">' + price + '</strong></span><span class="card-abstract res_baicaio">'+ desc + '</span><span class="card-controls res_baicaio"><span style="color:red;font-size:14px;" class="mall-data res_baicaio">' + price +'</span><a target="_blank" href="' + url + '"><span class="card-btn-deep res_baicaio">去购买</span></a></span></span></span>';
 
                 editor.execCommand( 'insertcard', content); 
 }

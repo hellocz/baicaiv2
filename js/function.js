@@ -1,4 +1,13 @@
 $(function(){
+	/*
+	var bodyMain = document.getElementsByTagName('body')[0];
+	bodyMain.oncopy = function(){
+	return false;
+	}
+	*/
+
+//	var clipboard = new Clipboard('.baicaio_coupon');
+	
 	$(".z_submit").click(function(){//商品点赞
 		$.get("/index.php?m=ajax&a=zan&t="+t,{id:$(this).attr("data")},function(result){
 			if(result.status==1){

@@ -10,6 +10,7 @@
 <include file="public:header" />
 <div class="w_center">
   <div class="w_cen_lef">
+  	<if condition="$id neq '16'">
 	<div class="w_gn_f">
 	<h2>热门置顶</h2>
      <div class="w_gn_f1">      
@@ -36,34 +37,7 @@
       <script type="text/javascript" src="/js/rollpic.js"></script>
 	 </div>
 	 </div>
-
-	  <div class="w_gn_jbj">
-		  <div class="w_gn_jbj_t">
-			  <span>共<i>{$count}</i>件相关商品</span>
-			  <b>通过筛选您可以获得更准确的结果</b>
-			  <ul>
-				  <if condition="$cate">
-					  <li><a href="{$cate_url}" title="{$cate}">{$cate}</a><a href="{$cate_url}" title="{$cate}" class="w_gnsc_x">x</a></li>
-				  </if>
-			  </ul>
-		  </div>
-		  <div class="w_gn_jbj_n">
-			  <b>分类筛选：</b>
-			  <?php
-		$cate_id = M()->query("SELECT c.* from try_article as a,try_article_cate as c where a.cate_id=c.id and c.pid=$bcid GROUP BY c.id");
-			  ?>
-			  <ul id="cateid" style="height:27px; overflow:hidden" >
-				  <if condition="$cate_id">
-				  <volist name="cate_id" id="r">
-					  <li><a href="{:U('article/index',array('id'=>$r['id']))}" title="{$r.name}">{$r.name}</a></li>
-				  </volist>
-				  <else/>
-					  <li>暂无分类</li>
-				  </if>
-			  </ul>
-			  <span class="w_zq_more" onclick="show($('#cateid'));" data="0">更多</span>
-		  </div>
-	  </div>
+	</if>
 
 	<div class="w_gllb">
 	   <div class="w_gllb_h">
@@ -81,11 +55,12 @@
 	 <include file="public:sd_right" />
 	</if>
 	<include file="public:zt_right" />
+	<include file="public:zx_right" />
   </div>
 </div>  
 <include file="public:footer" />
 <include file="public:baidu_js_push" />
-<script src="/js/function.js"></script>
+<script src="/js/function.js?v=2018010501"></script>
 <!--右边banner条部分js-->
 <script> 
   var count=index=0;

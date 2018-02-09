@@ -1,224 +1,455 @@
-<include file="public:header" />
-<form id="info_form" action="{:u('article/add')}" method="post" enctype="multipart/form-data">
-<div class="pad_lr_10">
-	<div class="col_tab">
-		<ul class="J_tabs tab_but cu_li">
-			<li class="current">{:L('article_basic')}</li>
-			<li>{:L('article_seo')}</li>
-			<li>其他信息</li>
-		</ul>
-		<div class="J_panes">
-			<div class="content_list pad_10">
-				<table width="100%" cellspacing="0" class="table_form">
-					<tr>
-						<th width="120">{:L('article_cateid')} :</th>
-						<td><select class="J_cate_select mr10" data-pid="0" data-uri="{:U('article_cate/ajax_getchilds')}" data-selected="{$selected_ids}"></select>
-                			<input type="hidden" name="cate_id" id="J_cate_id" value="{$info.cate_id}" /></td>
-					</tr>
-		            <tr>
-						<th>{:L('article_title')} :</th>
-						<td>
-		                    <input type="text" name="title" id="J_title" rel="title_color" class="input-text iColorPicker" size="60" value="{$info.title}" style="color:{$info.colors}">
-		                    <input type="hidden" value="{$info.colors}" name="colors" id="title_color">
-					        <a href="javascript:;" class="color_picker_btn"><img class="J_color_picker" data-it="J_title" data-ic="J_color" src="__STATIC__/images/color.png"></a>
-		                </td>
-					</tr>
-					<tr>
-						<th>副标题 :</th>
-						<td>
-							<input type="text" name="otitle" id="J_otitle" class="input-text" size="30" value="{$info.otitle}">
-		                </td>
-					</tr>
-					<tr>
-						<th width="120">购物商城 :</th>
-		 				<td>
-							<input type="text" name="sc" id="sc" class="input-text" size="30" value="{$info.sc}">
-						</td>
-					</tr>
-		            <tr>
-						<th>{:L('tag')} :</th>
-						<td>
-		                	<input type="text" name="tags" id="J_tags" class="input-text" size="50" value="{$info.tags}">
-		                    <input type="button" value="{:L('auto_get')}" id="J_gettags" name="tags_btn" class="btn">
-		                </td>
-					</tr>
-		            <tr>
-						<th>{:L('author')} :</th>
-						<td><input type="text" name="author" class="input-text" size="30" value="{$info.author}"></td>
-					</tr>
-		            <tr>
-						<th>{:L('article_img')} :</th>
-						<td>
-                        <notempty name="info['img']"><span class="attachment_icon J_attachment_icon" file-type="image" file-rel="{:attach($info['img'],'article')}"><img src="{:attach($info['img'],'article')}" width="100" height="100" /></span><br /></notempty>
-                        <input type="file" name="img" class="input-text"  style="width:200px;" />
-                        </td>
-		 			</tr>
-					<tr>
-						<th>{:L('publish')} :</th>
-		 				<td>
-		                	<label><input type="radio" name="status" class="radio_style" value="1" <if condition="$info.status eq '1'">checked="checked"</if>> {:L('yes')}</label>&nbsp;&nbsp;
-							<label><input type="radio" name="status" class="radio_style" value="0" <if condition="$info.status eq '0'">checked="checked"</if>> {:L('no')}</label>&nbsp;&nbsp;
-							<label><input type="radio" name="status" class="radio_style" value="3" <if condition="$info.status eq '3'">checked="checked"</if>> 退回</label>
-						</td>
-					</tr>
-                    <tr>
-						<th width="120">{:L('article_abst')} :</th>
-						<td><textarea name="intro" id="abst" style="width:68%;height:50px;resize:none;">{$info.intro}</textarea></td>
-					</tr>
-		            <tr>
-		                <th>详细内容 :</th>
-						<td>
-							<script id="content" name="info" type="text/plain" style="width:80%;height:300px;z-index:100;">{$info.info}</script>
-							<!--<textarea name="info" id="info" style="width:80%;height:400px;visibility:hidden;resize:none;">{$info.info}</textarea>--></td>
-					</tr>
-					<tr>
-						<th>评语 / 退回理由 :</th>
-						<td>
-							<input type="text" name="remark" id="remark" size="75" class="input-text" value="{$info.remark}"></td>
-					</tr>
-					<tr>
-						<th>操作：</th>
-						<td>
-							<if condition="$info['status'] eq '0'"><a href="javascript:;" class="J_showdialog" data-uri="/?g=admin&m=article&a=set_score&id={$info.id}" data-title="设置积分信息" data-id="edit" data-acttype="ajax" data-width="300" data-height="140" title="审核">审核</a> | </if>
-							<a href="javascript:void(0);" class="J_confirmurl" data-uri="{:u('item/delete', array('id'=>$info['id']))}" data-msg="{:sprintf(L('confirm_delete_one'),$info['title'])}">{:L('delete')}</a>
-						</td>
-					</tr>
-					<tr>
-						<th>发布时间 :</th>
-						<td>
-						<input type="text" name="add_time" id="add_time" size="25" class="input-text" value="{$info.add_time|date='Y-m-d H:i:s',###}"></td>
-					</tr>
-				</table>
-			</div>
-			<div class="content_list pad_10 hidden">
-				<table width="100%" cellspacing="0" class="table_form">
-					<tr>
-						<th width="120">{:L('seo_title')} :</th>
-		 				<td><input type="text" name="seo_title" id="seo_title" class="input-text" size="60" value="{$info.seo_title}"></td>
-					</tr>
-					<tr>
-						<th>{:L('seo_keys')} :</th>
-						<td><input type="text" name="seo_keys" id="seo_keys" class="input-text" size="60" value="{$info.seo_keys}"></td>
-					</tr>
-					<tr>
-						<th>{:L('seo_desc')} :</th>
-						<td><textarea name="seo_desc" id="seo_desc" cols="80" rows="8">{$info.seo_desc}</textarea></td>
-					</tr>
-				</table>
-			</div>
-			<div class="content_list pad_10 hidden">
-				<table width="100%" cellspacing="0" class="table_form">
-					<tr>
-						<th>商品质量 :</th>
-						<td>
-						<select name="g_zl" id="g_zl">
-						<option value="5" <if condition="$info['g_zl'] eq 5">selected</if>>★★★★★</option>
-						<option value="4" <if condition="$info['g_zl'] eq 4">selected</if>>★★★★</option>
-						<option value="3" <if condition="$info['g_zl'] eq 3">selected</if>>★★★</option>
-						<option value="2" <if condition="$info['g_zl'] eq 2">selected</if>>★★</option>
-						<option value="1" <if condition="$info['g_zl'] eq 1">selected</if>>★</option>
-						</select>
-						</td>
-					</tr>
-					<tr>
-						<th>配送服务 :</th>
-						<td>
-						<select name="g_fw" id="g_fw">
-						<option value="5" <if condition="$info['g_fw'] eq 5">selected</if>>★★★★★</option>
-						<option value="4" <if condition="$info['g_fw'] eq 4">selected</if>>★★★★</option>
-						<option value="3" <if condition="$info['g_fw'] eq 3">selected</if>>★★★</option>
-						<option value="2" <if condition="$info['g_fw'] eq 2">selected</if>>★★</option>
-						<option value="1" <if condition="$info['g_fw'] eq 1">selected</if>>★</option>
-						</select></td>
-					</tr>
-					<tr>
-						<th>客户服务 :</th>
-						<td>
-						<select name="g_kh" id="g_kh">
-						<option value="5" <if condition="$info['g_kh'] eq 5">selected</if>>★★★★★</option>
-						<option value="4" <if condition="$info['g_kh'] eq 4">selected</if>>★★★★</option>
-						<option value="3" <if condition="$info['g_kh'] eq 3">selected</if>>★★★</option>
-						<option value="2" <if condition="$info['g_kh'] eq 2">selected</if>>★★</option>
-						<option value="1" <if condition="$info['g_kh'] eq 1">selected</if>>★</option>
-						</select></td>
-					</tr>
-					<tr>
-						<th>文章属性 :</th>
-						<td><label><input type="checkbox" name="isbest" value="1" <if condition="$info['isbest'] eq 1">checked</if>> 精华 </label> <label><input type="checkbox" name="ishot" value="1" <if condition="$info['ishot'] eq 1">checked</if>> 热门 </label> <label><input type="checkbox" name="istop" value="1" <if condition="$info['istop'] eq 1">checked</if>> 置顶 </label></td>
-					</tr>
-				</table>
-			</div>
-        </div>
-		<div class="mt10">><input type="button" value="{:L('submit')}" id="dosubmit" onclick="ajx()" name="dosubmit" class="btn btn_submit" style="margin:0 0 10px 100px;"><br /><br /><br /></div>
-	</div>
-</div>
-<input type="hidden" name="menuid"  value="{$menuid}"/>
-
-</form>
-<include file="public:footer" />
-<script src="__STATIC__/js/jquery/plugins/iColorPicker.js"></script>
-<script src="__STATIC__/js/jquery/plugins/colorpicker.js"></script>
-<script src="__STATIC__/js/kindeditor/kindeditor-min.js"></script>
-<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"> </script>
-<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
-<script>
-	var ue = UE.getEditor('content');
-$('.J_cate_select').cate_select('请选择');
-$(function() {
-	KindEditor.create('#info', {
-		uploadJson : '{:U("attachment/editer_upload")}',
-		fileManagerJson : '{:U("attachment/editer_manager")}',
-		allowFileManager : true
-	});
-	$('ul.J_tabs').tabs('div.J_panes > div');
-	
-	//颜色选择器
-	$('.J_color_picker').colorpicker();
-	//自动获取标签
-	$('#J_gettags').live('click', function() {
-		var title = $.trim($('#J_title').val());
-		if(title == ''){
-			$.pinphp.tip({content:lang.article_title_isempty, icon:'alert'});
-			return false;
-		}
-		$.getJSON('{:U("article/ajax_gettags")}', {title:title}, function(result){
-			if(result.status == 1){
-				$('#J_tags').val(result.data);
-			}else{
-				$.pinphp.tip({content:result.msg});
-			}
-		});
-	});
-});
-	function ajx(){
-
-
-		$.ajax({
-			cache: true,
-			type: "POST",
-			url:"{:U('article/add')}",
-			data:$('#info_form').serialize(),// 你的formid
-			async: false,
-			dataType: "json",
-			error: function(request) {
-				alert("Connection error");
-			},
-			success: function(data) {
-				alert(data.msg);
-			}
-		});
-	}
-</script>
-<link rel="stylesheet" href="__STATIC__/js/calendar/calendar-blue.css"/>
-<script src="__STATIC__/js/calendar/calendar.js"></script>
-<script>
-Calendar.setup({
-	inputField : "add_time",
-	ifFormat   : "%Y-%m-%d %H:%M",
-	showsTime  : true,
-	timeFormat : "24"
-});
-</script>
-</body>
+<include file="public:header" />
+
+<form id="info_form" action="{:u('article/add')}" method="post" enctype="multipart/form-data">
+
+<div class="pad_lr_10">
+
+	<div class="col_tab">
+
+		<ul class="J_tabs tab_but cu_li">
+
+			<li class="current">{:L('article_basic')}</li>
+
+			<li>{:L('article_seo')}</li>
+
+			<li>其他信息</li>
+
+		</ul>
+
+		<div class="J_panes">
+
+			<div class="content_list pad_10">
+
+				<table width="100%" cellspacing="0" class="table_form">
+
+					<tr>
+
+						<th width="120">{:L('article_cateid')} :</th>
+
+						<td><select class="J_cate_select mr10" data-pid="0" data-uri="{:U('article_cate/ajax_getchilds')}" data-selected="{$selected_ids}"></select>
+
+                			<input type="hidden" name="cate_id" id="J_cate_id" value="{$info.cate_id}" /></td>
+
+					</tr>
+
+		            <tr>
+
+						<th>{:L('article_title')} :</th>
+
+						<td>
+
+		                    <input type="text" name="title" id="J_title" rel="title_color" class="input-text iColorPicker" size="60" value="{$info.title}" style="color:{$info.colors}">
+
+		                    <input type="hidden" value="{$info.colors}" name="colors" id="title_color">
+
+					        <a href="javascript:;" class="color_picker_btn"><img class="J_color_picker" data-it="J_title" data-ic="J_color" src="__STATIC__/images/color.png"></a>
+
+		                </td>
+
+					</tr>
+
+					<tr>
+
+						<th>副标题 :</th>
+
+						<td>
+
+							<input type="text" name="otitle" id="J_otitle" class="input-text" size="30" value="{$info.otitle}">
+
+		                </td>
+
+					</tr>
+
+						<tr>
+
+						<th width="120">商品来源 :</th>
+
+						<!--<td><input type="text" name="orig_id" id="orig_id" size="30" class="input-text" value="{$orig_name}"> </td>-->
+
+		                <td>
+
+						<select name="orig_id" id="orig_id">
+
+		            	<volist name="orig_list" id="val">
+
+		            	<option value="{$val.id}" <if condition="$info['orig_id'] eq $val['id']">selected="selected"</if>>{$val.name}</option>
+
+		            	</volist>
+
+		            	</select></td>
+
+					</tr>
+
+		            <tr>
+
+						<th>{:L('tag')} :</th>
+
+						<td>
+
+		                	<input type="text" name="tags" id="J_tags" class="input-text" size="50" value="{$info.tags}">
+
+		                    <input type="button" value="{:L('auto_get')}" id="J_gettags" name="tags_btn" class="btn">
+
+		                </td>
+
+					</tr>
+
+		            <tr>
+
+						<th>{:L('author')} :</th>
+
+						<td><input type="text" name="author" class="input-text" size="30" value="{$info.author}"></td>
+
+					</tr>
+
+		            <tr>
+
+						<th>{:L('article_img')} :</th>
+
+						<td>
+
+                        <notempty name="info['img']"><span class="attachment_icon J_attachment_icon" file-type="image" file-rel="{:attach($info['img'],'article')}"><img src="{:attach($info['img'],'article')}" width="100" height="100" /></span><br /></notempty>
+
+                        <input type="file" name="img" class="input-text"  style="width:200px;" />
+
+                        </td>
+
+		 			</tr>
+
+					<tr>
+
+						<th>{:L('publish')} :</th>
+
+		 				<td>
+
+		                	<label><input type="radio" name="status" class="radio_style" value="1" <if condition="$info.status eq '1'">checked="checked"</if>> {:L('yes')}</label>&nbsp;&nbsp;
+
+							<label><input type="radio" name="status" class="radio_style" value="0" <if condition="$info.status eq '0'">checked="checked"</if>> {:L('no')}</label>&nbsp;&nbsp;
+
+							<label><input type="radio" name="status" class="radio_style" value="3" <if condition="$info.status eq '3'">checked="checked"</if>> 退回</label>
+
+						</td>
+
+					</tr>
+
+                    <tr>
+
+						<th width="120">{:L('article_abst')} :</th>
+
+						<td><textarea name="intro" id="abst" style="width:68%;height:50px;resize:none;">{$info.intro}</textarea></td>
+
+					</tr>
+
+		            <tr>
+
+		                <th>详细内容 :</th>
+
+						<td>
+
+							<script id="content" name="info" type="text/plain" style="width:80%;height:300px;z-index:100;">{$info.info}</script>
+
+							<!--<textarea name="info" id="info" style="width:80%;height:400px;visibility:hidden;resize:none;">{$info.info}</textarea>--></td>
+
+					</tr>
+
+					<tr>
+
+						<th>评语 / 退回理由 :</th>
+
+						<td>
+
+							<input type="text" name="remark" id="remark" size="75" class="input-text" value="{$info.remark}"></td>
+
+					</tr>
+
+					<tr>
+
+						<th>操作：</th>
+
+						<td>
+
+							<if condition="$info['status'] eq '0'"><a href="javascript:;" class="J_showdialog" data-uri="/?g=admin&m=article&a=set_score&id={$info.id}" data-title="设置积分信息" data-id="edit" data-acttype="ajax" data-width="300" data-height="140" title="审核">审核</a> | </if>
+
+							<a href="javascript:void(0);" class="J_confirmurl" data-uri="{:u('item/delete', array('id'=>$info['id']))}" data-msg="{:sprintf(L('confirm_delete_one'),$info['title'])}">{:L('delete')}</a>
+
+						</td>
+
+					</tr>
+
+					<tr>
+
+						<th>发布时间 :</th>
+
+						<td>
+
+						<input type="text" name="add_time" id="add_time" size="25" class="input-text" value="{$info.add_time|date='Y-m-d H:i:s',###}"></td>
+
+					</tr>
+
+				</table>
+
+			</div>
+
+			<div class="content_list pad_10 hidden">
+
+				<table width="100%" cellspacing="0" class="table_form">
+
+					<tr>
+
+						<th width="120">{:L('seo_title')} :</th>
+
+		 				<td><input type="text" name="seo_title" id="seo_title" class="input-text" size="60" value="{$info.seo_title}"></td>
+
+					</tr>
+
+					<tr>
+
+						<th>{:L('seo_keys')} :</th>
+
+						<td><input type="text" name="seo_keys" id="seo_keys" class="input-text" size="60" value="{$info.seo_keys}"></td>
+
+					</tr>
+
+					<tr>
+
+						<th>{:L('seo_desc')} :</th>
+
+						<td><textarea name="seo_desc" id="seo_desc" cols="80" rows="8">{$info.seo_desc}</textarea></td>
+
+					</tr>
+
+				</table>
+
+			</div>
+
+			<div class="content_list pad_10 hidden">
+
+				<table width="100%" cellspacing="0" class="table_form">
+
+					<tr>
+
+						<th>商品质量 :</th>
+
+						<td>
+
+						<select name="g_zl" id="g_zl">
+
+						<option value="5" <if condition="$info['g_zl'] eq 5">selected</if>>★★★★★</option>
+
+						<option value="4" <if condition="$info['g_zl'] eq 4">selected</if>>★★★★</option>
+
+						<option value="3" <if condition="$info['g_zl'] eq 3">selected</if>>★★★</option>
+
+						<option value="2" <if condition="$info['g_zl'] eq 2">selected</if>>★★</option>
+
+						<option value="1" <if condition="$info['g_zl'] eq 1">selected</if>>★</option>
+
+						</select>
+
+						</td>
+
+					</tr>
+
+					<tr>
+
+						<th>配送服务 :</th>
+
+						<td>
+
+						<select name="g_fw" id="g_fw">
+
+						<option value="5" <if condition="$info['g_fw'] eq 5">selected</if>>★★★★★</option>
+
+						<option value="4" <if condition="$info['g_fw'] eq 4">selected</if>>★★★★</option>
+
+						<option value="3" <if condition="$info['g_fw'] eq 3">selected</if>>★★★</option>
+
+						<option value="2" <if condition="$info['g_fw'] eq 2">selected</if>>★★</option>
+
+						<option value="1" <if condition="$info['g_fw'] eq 1">selected</if>>★</option>
+
+						</select></td>
+
+					</tr>
+
+					<tr>
+
+						<th>客户服务 :</th>
+
+						<td>
+
+						<select name="g_kh" id="g_kh">
+
+						<option value="5" <if condition="$info['g_kh'] eq 5">selected</if>>★★★★★</option>
+
+						<option value="4" <if condition="$info['g_kh'] eq 4">selected</if>>★★★★</option>
+
+						<option value="3" <if condition="$info['g_kh'] eq 3">selected</if>>★★★</option>
+
+						<option value="2" <if condition="$info['g_kh'] eq 2">selected</if>>★★</option>
+
+						<option value="1" <if condition="$info['g_kh'] eq 1">selected</if>>★</option>
+
+						</select></td>
+
+					</tr>
+
+					<tr>
+
+						<th>文章属性 :</th>
+
+						<td><label><input type="checkbox" name="isbest" value="1" <if condition="$info['isbest'] eq 1">checked</if>> 精华 </label> <label><input type="checkbox" name="ishot" value="1" <if condition="$info['ishot'] eq 1">checked</if>> 热门 </label> <label><input type="checkbox" name="istop" value="1" <if condition="$info['istop'] eq 1">checked</if>> 置顶 </label></td>
+
+					</tr>
+
+				</table>
+
+			</div>
+
+        </div>
+
+		<div class="mt10">><input type="button" value="{:L('submit')}" id="dosubmit" onclick="ajx()" name="dosubmit" class="btn btn_submit" style="margin:0 0 10px 100px;"><br /><br /><br /></div>
+
+	</div>
+
+</div>
+
+<input type="hidden" name="menuid"  value="{$menuid}"/>
+
+
+
+</form>
+
+<include file="public:footer" />
+
+<script src="__STATIC__/js/jquery/plugins/iColorPicker.js"></script>
+
+<script src="__STATIC__/js/jquery/plugins/colorpicker.js"></script>
+
+<script src="__STATIC__/js/kindeditor/kindeditor-min.js"></script>
+
+<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
+
+<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"> </script>
+
+<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+<script>
+
+	var ue = UE.getEditor('content');
+
+$('.J_cate_select').cate_select('请选择');
+
+$(function() {
+
+	KindEditor.create('#info', {
+
+		uploadJson : '{:U("attachment/editer_upload")}',
+
+		fileManagerJson : '{:U("attachment/editer_manager")}',
+
+		allowFileManager : true
+
+	});
+
+	$('ul.J_tabs').tabs('div.J_panes > div');
+
+	
+
+	//颜色选择器
+
+	$('.J_color_picker').colorpicker();
+
+	//自动获取标签
+
+	$('#J_gettags').live('click', function() {
+
+		var title = $.trim($('#J_title').val());
+
+		if(title == ''){
+
+			$.pinphp.tip({content:lang.article_title_isempty, icon:'alert'});
+
+			return false;
+
+		}
+
+		$.getJSON('{:U("article/ajax_gettags")}', {title:title}, function(result){
+
+			if(result.status == 1){
+
+				$('#J_tags').val(result.data);
+
+			}else{
+
+				$.pinphp.tip({content:result.msg});
+
+			}
+
+		});
+
+	});
+
+});
+
+	function ajx(){
+
+
+
+
+
+		$.ajax({
+
+			cache: true,
+
+			type: "POST",
+
+			url:"{:U('article/add')}",
+
+			data:$('#info_form').serialize(),// 你的formid
+
+			async: false,
+
+			dataType: "json",
+
+			error: function(request) {
+
+				alert("Connection error");
+
+			},
+
+			success: function(data) {
+
+				alert(data.msg);
+
+			}
+
+		});
+
+	}
+
+</script>
+
+<link rel="stylesheet" href="__STATIC__/js/calendar/calendar-blue.css"/>
+
+<script src="__STATIC__/js/calendar/calendar.js"></script>
+
+<script>
+
+Calendar.setup({
+
+	inputField : "add_time",
+
+	ifFormat   : "%Y-%m-%d %H:%M",
+
+	showsTime  : true,
+
+	timeFormat : "24"
+
+});
+
+</script>
+
+</body>
+
 </html>

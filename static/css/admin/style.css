@@ -449,3 +449,18 @@ body { _margin:0; _height:100%; }/*IE6 BUG*/
 /* 附件tip */
 .attachment_icon{ margin-left:8px; position:relative;}
 .attachment_tip{ border:1px #CCC solid; position:absolute; left:16px; top:16px; display:none; padding:1px; z-index:9;}
+button.baicaio_coupon {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 8px;
+    padding-right: 8px;
+    border: 1px solid #E53333;
+    text-decoration: none;
+    font-size: 0.6rem;
+    background-color: #FFFFFF;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+    border-radius: 5px;
+    color: Red;
+    cursor: pointer;
+}

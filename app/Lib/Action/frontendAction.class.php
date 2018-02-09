@@ -100,10 +100,9 @@ class frontendAction extends baseAction {
         $page_size = $spage_size * $spage_max; //每页显示个数
         $item_mod = M('item');
         $where_init = array('status'=>'1');
+        $where = $where ? array_merge($where,$where_init) : $where_init;
         $where['add_time']=array('lt',$time);
-        $where = $where ? array_merge($where_init, $where) : $where_init;
         //echo "<pre>";
-        //var_dump($where);
         $count = $item_mod->where($where)->count('id');
         //控制最多显示多少页
         //if ($page_max && $count > $page_max * $page_size) {
@@ -206,7 +205,7 @@ class frontendAction extends baseAction {
             }
         }
         $str && $where1['id'] = array('in', $str);
-        $item_list = $item_mod->field($field)->where($where1)->order($order)->select();
+        $str && $item_list = $item_mod->field($field)->where($where1)->order($order)->select();
     
         //$prefix = "/usr/local/xunsearch";  
         //加载XS.php，这步是必须的  
