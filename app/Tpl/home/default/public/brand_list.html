@@ -3,7 +3,7 @@
                         <div class="col-sm-2 brand-list-item-img">
                             <div class="brand-list-item-rank">
                                                                         
-                                                                    </div>                            <a target="_blank" class="brand-list-item-imgwrap" >
+                                                                    </div>                            <a href="{:U('brand/show',array('id'=>$r['id']))}" target="_blank" class="brand-list-item-imgwrap" >
                                 <img class="lazy autoWH" src="{$r.img}" width="158" style="display: inline; margin: 13px 0px;" height="47">
                             </a>
                         </div>
@@ -11,13 +11,13 @@
                         <div class="col-sm-7 brand-list-item-intro" _hover-ignore="1">
                             <div class="brand-list-item-intro-title">
                                 <h2 class="no-more-css">
-                                    <a  target="_blank" class="brand-list-item-intro-title-brandname">{$r.name}<div class="brandCountry">&nbsp;&nbsp;/&nbsp;{$r.country}</div></a>
+                                    <a  target="_blank" href="{:U('brand/show',array('id'=>$r['id']))}" class="brand-list-item-intro-title-brandname">{$r.name}<div class="brandCountry">&nbsp;&nbsp;/&nbsp;{$r.country}</div></a>
                                     
                                     
                                 </h2>
                             </div>
                             <div class="brand-list-item-intro-detail clearfix">
-                                <a  target="_blank" class="brand-good-list-intro-detail-synopsis">
+                                <a  target="_blank" class="brand-good-list-intro-detail-synopsis" href="{:U('brand/show',array('id'=>$r['id']))}">
                                     {$r.abstract}</a>
                             </div>
                             <div class="clear"></div>

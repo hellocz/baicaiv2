@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<include file="public:head" />
+
+<style type="text/css">
+
+.w_nr3 {
+    width: 1157px;
+    float: inherit;
+}
+.this-more-goods-msg1 a {
+    color: #666;
+    display: inline-block;
+    height: 40px;
+    line-height: 38px;
+    text-align: center;
+    margin-right: 20px;
+    float: right;
+}
+.this-more-goods-msg1 {
+    height: 60px;
+    width: 100%;
+    overflow: hidden;
+}
+.w_sy_ha {
+    width: 1157px;
+    float: left;
+    height: 40px;
+    background: #fff;
+    box-shadow: 2px 2px 5px rgba(0,0,0,.1);
+    line-height: 40px;
+    padding: 0 25px 0 18px;
+    position: relative;
+    border-bottom: 1px solid #3dc399;
+}
+#sy1{
+    background: #3dc399;
+    color: white;
+}
+.w_spxx_1 {
+    float: left;
+    background: #fff;
+}
+.content {
+    padding: 10px;
+}
+</style>
+</head>
+
+
+
+<body style="background:#f5f5f5">
+
+<include file="public:header" />
+
+<div class="w_bl_bd brand">
+
+    <div class="w_zh_dq1">
+
+	  <a href="/" title="首页" alt="{$cate_info.name}">首页</a> > {$info.name}
+	</div>
+
+    <div class="w_scxq_1">
+
+      <img src="<if condition="$info['img']">{:attach($info['img'],'item_orig')}<else/>/images/nopic.jpg</if>" title="{$info.name}" alt="{$info.name}"/>
+
+      <h2>{$info.name}</h2>
+
+
+      <p>{$info.abstract}</p>
+
+      <a target="_blank" href="{$info.tb}"  title="天猫旗舰店" rel="nofollow" isconvert="1" class="w_dha">天猫旗舰店</a>
+
+      <a target="_blank" href="http://cps.youmai.com/track.php?site_id=56396&aid=2352&euid=SS&t=http://search.jd.com/Search?enc=utf-8&keyword={$info.name}" isconvert="1"  title="JD旗舰店" rel="nofollow"  class="w_dha">JD旗舰店</a>
+
+
+    </div>
+
+    <div class="w_sy_ha">
+          <a ><span  id="sy1">品牌介绍</span></a>
+          <a href="{:U('search/index',array('q'=>$info['chn_name']))}"><span id="sy2" >编辑推荐</span></a>
+          <a href="{:U('quan/index',array('q'=>$info['chn_name']))}"><span id="sy2">优惠券</span></a>
+
+         <!--<a href="{:U('article/index',array('id'=>9))}"><span id="ngl">海淘攻略</span></a>-->
+       </div>
+       <div class="w_spxx_1">
+        <div class="content">
+            <p>{$info.content}</p>
+        </div>
+    </div>
+	
+</div>
+
+<include file="public:footer" />
+<include file="public:baidu_js_push" />
+
+<script src="/js/function.js"></script>
+<script type="text/javascript">
+	$(".brand-list-item").hover(function(){
+		$(this).find(".this-more-bar").css("visibility","visible").animate({
+			"margin-top":"20px",
+			"height":"50px"
+		});
+	},function(){
+		$(this).find(".this-more-bar").css("visibility","hidden").animate({
+			"margin-top":"0px",
+			"height":"20px"
+		});
+	});
+	$(".this-more-bar").click(function(){
+		$(this).parent().find(".this-more-goods").show();
+		$(this).hide();
+	});
+</script>
+
+<script src="/static/js/lhg/lhgdialog.min.js?self=true&skin=idialog" type="text/javascript"></script>
+
+</body>
+
+</html>
+

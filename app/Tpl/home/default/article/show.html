@@ -85,7 +85,7 @@
       <div class="w_spxx_3">
 
        <em>注意：</em>本站优惠信息为小编每日人工精选，因为价格过于给力，缺货和涨价比较常见，如果不想再错过白菜价，请偷偷下载本站APP，不要让黄牛知道。IOS请前往<a href="https://itunes.apple.com/cn/app/%E7%99%BD%E8%8F%9C%E5%93%A6/id1245140625?mt=8" target="_blank"  rel="nofollow">苹果商店下载，</a>安卓用户请前往<a href="http://sj.qq.com/myapp/detail.htm?apkName=com.cnxxp.cabbagenet" rel="nofollow" target="_blank" >应用宝下载。</a>
-       <div style="text-align:center"><img style="margin: 0 auto;"  src="/images/w_erm.jpg?v=20180206"></div>
+       <div style="text-align:center"><img src="/images/w_erm.jpg?v=20180206"><img src="/images/xiami200.png"></div>
 
       </div>
 
@@ -161,10 +161,6 @@
 
 									  <a href="{:U('item/index', array('id'=>$r['id']))}" title="{$r.title}" target="_blank"><img src="{:attach($r['img'],'item')}" width="115" height="95" alt="{$r.title}" /><p>{$r.title|msubstr=0,8,""}</p></a>
 
-									  <else/>
-
-									  <a href="{:U('item/index', array('id'=>$r['id']))}" title="{$r.title}" target="_blank"><img src="{:attach($r['img'],'item')}" width="115" height="95" alt="{$r.title}" /><p>{$r.title|msubstr=0,8,""}</p></a>
-
 								  </li>
 
 						  </volist>
@@ -214,7 +210,7 @@
   </div>
 
 </div>   
-
+<include file="public:baidu_js_push" />
 <include file="public:footer" />
 
 <script>var t="article";</script>

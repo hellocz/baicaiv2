@@ -416,6 +416,9 @@ class backendAction extends baseAction
         if(isset($_SESSION['admin']['role_id']) && $_SESSION['admin']['role_id'] == 1) {
             return true;
         }
+        if(isset($_SESSION['admin']['role_id']) && $_SESSION['admin']['role_id'] == 2) {
+            return true;
+        }
         if (in_array(MODULE_NAME, explode(',', 'index'))) {
             return true;
         }

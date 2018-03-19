@@ -208,7 +208,6 @@ class frontendAction extends baseAction {
         $str && $item_list = $item_mod->field($field)->where($where1)->order($order)->select();
     
         //$prefix = "/usr/local/xunsearch";  
-        //加载XS.php，这步是必须的  
         //require_once("$prefix/sdk/php/lib/XS.php");
        /* 
 
@@ -280,24 +279,33 @@ class frontendAction extends baseAction {
         $spage_size = C('pin_wall_spage_size'); //每次加载个数
         $spage_max = C('pin_wall_spage_max'); //加载次数
         $p = $this->_get('p', 'intval', 1); //页码
-        $sp = $this->_get('sp', 'intval', 1); //子页
 
         //条件
         $where_init = array('status'=>'1');
         $where = array_merge($where_init, $where);
         //计算开始
-        $start = $spage_size * ($spage_max * ($p - 1) + $sp);
+        $start = $spage_size * $spage_max * ($p - 1);
         $item_mod = M('item');
        // print_r($where);
         $count = $item_mod->where($where)->count('id');
-        $field == '' && $field = 'id,uid,uname,title,intro,img,price,likes,comments,comments_cache,url';
+        $field == '' && $field = 'id,uid,uname,title,intro,img,price,likes,comments,comments_cache,url,add_time,orig_id,hits,zan';
         $item_list = $item_mod->field($field)->where($where)->order($order)->limit($start.','.$spage_size)->select();
         foreach ($item_list as $key=>$val) {
-            //解析评论
+            /*
+            if($val["sh_time"]>$val["ds_time"]){
+                $item_list[$key]['add_time']=$val["sh_time"];
+                
+            }else{
+                $item_list[$key]['add_time']=$val["ds_time"];
+                
+            }
+            */
+            $item_list[$key]['zan'] = $item_list[$key]['zan']   +intval($item_list[$key]['hits'] /10);
             isset($val['comments_cache']) && $item_list[$key]['comment_list'] = unserialize($val['comments_cache']);
-        }
+            $item_list[$key]['orig_name']=getly($val['orig_id']);
+        } 
         $this->assign('item_list', $item_list);
-        $resp = $this->fetch('public:waterfall');
+        $resp = $this->fetch('public:item_list');
         $data = array(
             'isfull' => 1,
             'html' => $resp

@@ -266,6 +266,7 @@ input,label { vertical-align:middle; font-family:"Microsoft YaHei";}
 
 
 .w_r5{ width:260px; background:#fff; box-shadow: 2px 2px 5px rgba(0,0,0,.1); padding:20px; margin-top:20px; float:left;}
+.w_r5 a {color:#000000;}
 .w_r5 h2{ color:#323232; font-weight:normal; font-size:16px; padding:0px 0 16px 0;}
 .w_r5 li{ width:100%; float:left; padding:10px 0;border-bottom:1px dashed #cccccc;position: relative;}
 .w_r5 li img{ float:left; max-height:80px; max-width:80px;}
@@ -2795,6 +2796,13 @@ em.quan-right {
 }
 .w_spxx_bd img{
 	max-width: 100%;
+	display: block;
+    margin: 0 auto;
+}
+.w_spxx_bd .w_spxx_3 img{
+	max-width: 100%;
+	display: inline;
+    margin: 0 auto;
 }
 button.baicaio_coupon {
     padding-top: 2px;
@@ -2810,4 +2818,7 @@ button.baicaio_coupon {
     border-radius: 5px;
     color: Red;
     cursor: pointer;
+}
+#J_cmt_list img{
+	display: inline;
 }

@@ -45,24 +45,32 @@ class searchAction extends frontendAction {
 		$more = $this->_get('more','trim');
 		$p=$this->_get('p','intval') ? $this->_get('p','intval') : 1;
         if ($q) {
-            $item_mod = M('item');
-            $pagesize = 18;
-			$start=($p-1)*$pagesize;
-			$where = array('status' => '1');
-            $where1['title'] = array('like', '%' . $q . '%');
-            $where1['content'] = array('like', '%' . $q . '%');
-            $where1['_logic'] = 'or';
-            $where['_complex'] =  $where1;
-            switch ($sort) {
-                case 'hot':
-                    $order = 'hits DESC,id DESC';
-                    break;
-                case 'new':
-                    $order = 'add_time DESC';
-                    break;
+
+            require LIB_PATH . 'Pinlib/php/lib/XS.php';
+        $xs = new XS('baicai');
+        $search = $xs->search;   //  获取搜索对象
+        $search->setLimit(18,18*($p-1)); 
+        $search->setSort('add_time',false);
+        $search->setQuery($q);
+
+        $docs = $search->search();
+        $count = $search->count();
+        $field = 'id,uid,uname,orig_id,title,intro,img,price,likes,comments,comments_cache,url,zan,hits,go_link,add_time';
+        //分页
+        $item_mod = M('item');
+
+        foreach ($docs as $doc) {
+            if($str==""){
+                 $str=$doc->id;
             }
-			$count = $item_mod->where($where)->count('id');
-			$item_list = $item_mod->field('id,title,img,add_time,orig_id,comments')->where($where)->order($order)->limit($start.','.$pagesize)->select();
+            else{
+               $str.=",".$doc->id;
+            }
+        }
+        $str && $where1['id'] = array('in', $str);
+        $str && $item_list = $item_mod->field($field)->where($where1)->order('add_time DESC')->select();
+
+
 			if($more == 'more'){
 				$more_arr="";
 				foreach($item_list as $key=>$r){

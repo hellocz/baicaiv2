@@ -766,7 +766,7 @@ class ajaxAction extends frontendAction {
 			$xc['ftid']=$id;
 			$xc['to_id']=$user['id'];
 			$xc['to_name']=$user['username'];;
-			$xc['from_id']=$this->visitor->info['id'];
+			$xc['from_id']=0;
 			$xc['from_name']=$this->visitor->info['username'];
 			$xc['add_time']=time();
 			

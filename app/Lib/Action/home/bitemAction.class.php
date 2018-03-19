@@ -89,6 +89,9 @@ class bitemAction extends frontendAction {
           }
           }
         }
+          foreach($arr[0] as $key=>$v){
+            $item['content']= str_replace($v,$v . " rel=\"nofollow\"",$item['content']);
+      }
 
         
         $this->assign('is_hot', $is_hot);

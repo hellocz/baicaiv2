@@ -48,8 +48,8 @@ class articleAction extends frontendAction {
 		));	
 		$this->assign("bcid",getbcid($cate_id));
 		$where1['cate_id']=16;
-      	$where1['status']=1;
-		$zx_list = M("article")->where($where1)->order("id desc")->limit(4)->select();
+      	$where1['status']=array("in","1,4");
+		$zx_list = M("article")->where($where1)->order("add_time desc")->limit(4)->select();
     	$this->assign("zx_list",$zx_list);
         $this->display();
     }
@@ -302,6 +302,10 @@ class articleAction extends frontendAction {
 			}
 		}else{			
 			$item = $mod->where("id=$id")->find();
+			$time = time();
+			if($item['add_time'] !=0 && ($time-$item['add_time'] > 604800)){
+				 $this->error('该文章发布时间超过7天，不能再进行编辑，如需编辑，请联系管理员。');
+			}
 			$this->assign('item',$item);
 			$this->assign('t',$t);
 			if($t=='sd'){$pt="编辑晒单";}else{$pt='编辑攻略';}

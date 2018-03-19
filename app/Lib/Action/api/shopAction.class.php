@@ -55,9 +55,9 @@ class shopAction extends userbaseAction
         }
        
 //        $field = 'i.id,i.uid,i.uname,i.title,i.intro,i.img,i.price,i.likes,i.intro,i.content,i.comments,i.comments_cache,i.add_time,i.orig_id,i.url,i.go_link,i.zan';
-        $field = 'name,i.id,i.title,i.img,i.price,i.comments,i.likes,i.add_time,i.zan,i.go_link,i.hits';
+        $field = 'name,i.id,i.title,i.img,i.price,i.comments,i.likes,i.add_time,i.zan,i.go_link,i.hits,i.cate_id,i.orig_id';
          if(!empty($data['isbao'])){
-           $item_list = $item_orig
+        $item_list = $item_orig
             ->where($where." and i.status=1 and i.add_time<$time ")
             ->join($db_pre . 'item_diu i ON i.orig_id = ' . $db_pre . 'item_orig.id')
             ->field($field)
@@ -65,6 +65,33 @@ class shopAction extends userbaseAction
             ->limit($page-10, $data['pagesize'])
             ->select();
         }else{
+            
+            if(!empty($data['key'])){
+            require LIB_PATH . 'Pinlib/php/lib/XS.php';
+        $xs = new XS('baicai');
+        $search = $xs->search;   //  获取搜索对象
+        $search->setLimit(10,10*($data['page']-1)); 
+        $search->setSort('add_time',false);
+        $search->setQuery($data['key']);
+        $docs = $search->search();
+        $count = $search->count();
+        $field = 'id,uid,uname,orig_id,title,intro,img,price,likes,comments,comments_cache,url,zan,hits,go_link,add_time';
+        //分页
+        $item_mod = M('item');
+
+        foreach ($docs as $doc) {
+            if($str==""){
+                 $str=$doc->id;
+            }
+            else{
+               $str.=",".$doc->id;
+            }
+        }
+        $str && $where1['id'] = array('in', $str);
+        $str && $item_list = $item_mod->field($field)->where($where1)->order('add_time DESC')->select();
+    }
+    else{
+        
         $item_list = $item_orig
             ->where($where." and i.status=1 and i.add_time<$time ")
             ->join($db_pre . 'item i ON i.orig_id = ' . $db_pre . 'item_orig.id')
@@ -73,6 +100,7 @@ class shopAction extends userbaseAction
             ->limit($page-10, $data['pagesize'])
             ->select();
         }
+        }
         foreach ($item_list as $key => &$val) {
             if(!isset($val['shopid'])){
                 $val['shopid'] = $val['id'];
@@ -80,6 +108,10 @@ class shopAction extends userbaseAction
             }
             $item_list[$key]['zan'] = $item_list[$key]['zan']   +intval($item_list[$key]['hits'] /10);
             $val['go_link'] = array_shift(unserialize($val['go_link']));
+            $item_list[$key]['name']=getly($val['orig_id']);
+            if($val['cate_id'] == 349 || $val['cate_id'] == 3672 || $val['cate_id'] == 3673 || $val['cate_id'] == 3675){
+             //   unset($item_list[$key]);
+            }
         }
         $code = 10001;
         if(count($item_list) < 1){
@@ -168,7 +200,7 @@ class shopAction extends userbaseAction
           $where['add_time'] =array('lt', $time);
 
 //        $field = 'i.id,i.uid,i.uname,i.title,i.intro,i.img,i.price,i.likes,i.intro,i.content,i.comments,i.comments_cache,i.add_time,i.orig_id,i.url,i.go_link,i.zan';
-        $field = 'id,title,img,price,comments,likes,add_time,zan,go_link,hits,orig_id';
+        $field = 'id,title,img,price,comments,likes,add_time,zan,go_link,hits,orig_id,cate_id';
      
         $item_list = M("item")
             ->where($where)
@@ -185,6 +217,9 @@ class shopAction extends userbaseAction
             $item_list[$key]['name'] = getly($item_list[$key]['orig_id']);
             $item_list[$key]['zan'] = $item_list[$key]['zan']   +intval($item_list[$key]['hits'] /10);
             $val['go_link'] = array_shift(unserialize($val['go_link']));
+            if($val['cate_id'] == 349 || $val['cate_id'] == 3672 || $val['cate_id'] == 3673 || $val['cate_id'] == 3675){
+            //    unset($item_list[$key]);
+            }
         }
         $code = 10001;
         if(count($item_list) < 1){
@@ -201,7 +236,7 @@ class shopAction extends userbaseAction
         $item_orig = M("item_orig");
         $where = 'istop = 1';
         $time = time();
-        $field = 'name,i.id,i.title,i.img,i.price,i.comments,i.likes,i.add_time,i.zan,i.go_link,i.hits';
+        $field = 'name,i.id,i.title,i.img,i.price,i.comments,i.likes,i.add_time,i.zan,i.go_link,i.hits,i.cate_id';
         $item_list = $item_orig
             ->where($where." and i.status=1 and i.add_time<$time ")
             ->join($db_pre . 'item i ON i.orig_id = ' . $db_pre . 'item_orig.id')
@@ -216,6 +251,9 @@ class shopAction extends userbaseAction
             }
             $item_list[$key]['zan'] = $item_list[$key]['zan']   +intval($item_list[$key]['hits'] /10);
             $val['go_link'] = array_shift(unserialize($val['go_link']));
+            if($val['cate_id'] == 349 || $val['cate_id'] == 3672 || $val['cate_id'] == 3673 || $val['cate_id'] == 3675){
+             //   unset($item_list[$key]);
+            }
         }
         $code = 10001;
         if(count($item_list) < 1){
@@ -278,6 +316,9 @@ class shopAction extends userbaseAction
                 unset($val['id']);
             }
             $val['go_link'] = array_shift(unserialize($val['go_link']));
+            if($val['cate_id'] == 349 || $val['cate_id'] == 3672 || $val['cate_id'] == 3673 || $val['cate_id'] == 3675){
+             //   unset($item_list[$key]);
+            }
         }
         $code = 10001;
         if(count($item_list) < 1){
@@ -332,10 +373,14 @@ class shopAction extends userbaseAction
                 $item['fenxiang'] = 'http://www.baicaio.com/item/'.$id.'.html';
             }
         }
-
+        
          if(strpos($item['content'], "www.baicaio.com") !== false){
               $item['content']= str_replace("www.baicaio.com","m.baicaio.com",$item['content']);
           }
+          preg_match_all('/src=[\'|\"](\/\S+)[\'|\"]/i',$item['content'],$arr);
+          foreach($arr[1] as $key=>$v){
+            $item['content']= str_replace($v,"http://www.baicaio.com" . $v,$item['content']);
+        }
 
         $item['go_link'] = array_shift($go_link);
         $tag_caches = unserialize($item['tag_cache']);

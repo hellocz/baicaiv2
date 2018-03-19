@@ -283,6 +283,7 @@ class ajaxAction extends frontendAction {
 		$start = $pagesize*($p - 1);
 		$item_list = $item_mod->where("$para=1 and status=1 and add_time<$time")->limit($start.",".$pagesize)->order("add_time desc")->select();
 		foreach($item_list as $key=>$val){
+			$item_list[$key]['zan'] = $item_list[$key]['zan']   +intval($item_list[$key]['hits'] /10);
 			$item_list[$key]['orig_name']=getly($val['orig_id']);
 		}
 		if($item_list){

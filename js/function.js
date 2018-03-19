@@ -135,30 +135,6 @@ $(function(){
 			}
 		});
 	});
-	$("body").delegate("#J_cmt_page a","click", function(){
-		var url = $(this).attr('url');
-		$.get(url, function(result){
-			if(result.status == 1){
-				$("#J_cmt_list").html(AnalyticEmotion(result.data.list));
-				$("#J_cmt_page").html(result.data.page);
-			}else{
-				tips(result.msg, 0);
-			}
-		},'json');
-		return false;
-	});
-	$("body").delegate("#J_cmt_page_hot a","click", function(){
-		var url = $(this).attr('url');
-		$.get(url, function(result){
-			if(result.status == 1){
-				$("#J_cmt_list_hot").html(AnalyticEmotion(result.data.list));
-				$("#J_cmt_page_hot").html(result.data.page);
-			}else{
-				tips(result.msg, 0);
-			}
-		},'json');
-		return false;
-	});
 	$(".J_hf").on("click",function(){
 		var name = $(this).parents('.lrhf').siblings('.hf_zr').find('span').html();
 		$(".sbhf").remove();

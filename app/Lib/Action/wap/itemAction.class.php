@@ -18,7 +18,7 @@ class itemAction extends frontendAction {
         $id = $this->_get('id', 'intval');
         !$id && $this->_404();
         $item_mod = M('item');
-        $item = $item_mod->field('id,cate_id,title,uid,img,uname,intro,price,url,likes,comments,tag_cache,seo_title,seo_keys,seo_desc,add_time,content,zan,status,orig_id,go_link')->where(array('id' => $id))->find();
+        $item = $item_mod->field('id,cate_id,title,uid,img,uname,intro,price,url,likes,comments,tag_cache,seo_title,seo_keys,seo_desc,add_time,content,zan,hits,status,orig_id,go_link')->where(array('id' => $id))->find();
 		
 		
 		
@@ -33,6 +33,8 @@ class itemAction extends frontendAction {
        }
         //来源
         $orig = M('item_orig')->field('name,img')->find($item['orig_id']);
+
+        $item['zan']=$item['zan']   +intval($item['hits'] /10);
         //商品相册
         $img_list = M('item_img')->field('url')->where(array('item_id' => $id))->order('ordid')->select();
         //标签
@@ -54,7 +56,24 @@ class itemAction extends frontendAction {
         $cmt_list = $item_comment_mod->where($map)->order('id DESC')->limit($pager->firstRow . ',' . $pager->listRows)->select();
         $item_mod->where(array('id' => $id))->setInc('hits'); //点击量
 		//凑单品等链接
-		$item['go_link']=unserialize($item['go_link']);	
+		$item['go_link']=unserialize($item['go_link']);
+            preg_match_all('/href=[\'|\"](\S+)[\'|\"]/i',$item['content'],$arr);
+        foreach($arr[1] as $key=>$v){
+            if(strpos($v, "baicaio.com") == false  && strpos($v, "tmall.com") == false && strpos($v, "taobao.com") == false){
+            $url= '/?m=item&a=tgo&to='.shortUrl($v);
+            $item['content']= $this->str_replace_once($v,$url,$item['content']);
+        }
+        }
+        foreach($arr[0] as $key=>$v){
+            if(strpos($v, "baicaio.com") == true  || strpos($v, "tmall.com") == true || strpos($v, "taobao.com") == true){
+            $item['content']= str_replace($v,$v . " rel=\"nofollow\"",$item['content']);
+        }
+        if(strpos($v, "market.m.taobao.com") == true  || strpos($v, "taoquan.taobao.com") == true || strpos($v, "shop.m.taobao.com") == true){
+            $item['content']= str_replace($v,"",$item['content']);
+        }
+      }
+
+
         $time = time();
         $time_day = $time - 86400;
 
@@ -414,6 +433,16 @@ class itemAction extends frontendAction {
 		$user = $this->visitor->get();
 		$this->display();
 	}
+      function str_replace_once($needle, $replace, $haystack) {
+      // Looks for the first occurence of $needle in $haystack
+      // and replaces it with $replace.
+      $pos = strpos($haystack, $needle);
+      if ($pos === false) {
+          // Nothing found
+          return $haystack;
+      }
+      return substr_replace($haystack, $replace, $pos, strlen($needle));
+  }
 	
 	public function edit(){
 		 if (IS_POST) {

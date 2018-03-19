@@ -24,9 +24,11 @@
 
 <meta name="description" content="<?php echo ($page_seo["description"]); ?>" />
 
+<meta property="article:published_time" content="<?php echo (fpubdate($item["add_time"])); ?>+08:00" />
+
 <link href="__STATIC__/css/card.min.css" rel="stylesheet"/>
 
-<link href="/static/css/wap/w_css.css?v=20180202" type="text/css" rel="stylesheet"/>
+<link href="/static/css/wap/w_css.css?v=20180209" type="text/css" rel="stylesheet"/>
 
 <script src="/static/js/wap/jquery-1.11.0.min.js" type="text/javascript"></script>
 

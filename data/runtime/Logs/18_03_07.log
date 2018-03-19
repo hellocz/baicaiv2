@@ -1,0 +1,230 @@
+[ 2018-03-07T13:09:08+08:00 ] 127.0.0.1 /home
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.002000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.003000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:-0.002000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.004000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.006001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.007001s ]
+SQL: SHOW COLUMNS FROM `try_item` [ RunTime:0.023001s ]
+SQL: SELECT * FROM `try_item` WHERE status=1 and isfront=1 and add_time<1520399343  and isnice=1  ORDER BY  add_time desc LIMIT 0,18   [ RunTime:1.299074s ]
+SQL: SELECT * FROM `try_item` WHERE status=1 and add_time<1520399343  and isnice=1  ORDER BY  add_time desc LIMIT 0,18   [ RunTime:0.314018s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\home\indexAction.class.php 第 77 行.
+SQL: SHOW COLUMNS FROM `try_article` [ RunTime:0.008000s ]
+SQL: SELECT * FROM `try_article` WHERE add_time > 1492492391 and add_time < 1516862738 and status=4  [ RunTime:0.002000s ]
+SQL: select distinct uid as id,uname,sum(score) as num from try_score_log where add_time>1520352000 and add_time<1520438400 group by uname order by num desc,uid asc limit 4 [ RunTime:0.004001s ]
+SQL: select distinct uid as id,uname,sum(score) as num from try_score_log where add_time>1519833600 and add_time<1520399345 group by uname order by num desc,uid asc limit 4 [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `try_user` [ RunTime:0.009000s ]
+SQL: SELECT `id`,`username`,`score` FROM `try_user` ORDER BY score desc,id asc LIMIT 4   [ RunTime:0.025002s ]
+SQL: SHOW COLUMNS FROM `try_hd` [ RunTime:0.008000s ]
+SQL: SELECT * FROM `try_hd` ORDER BY order_s asc,id desc LIMIT 8   [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_item` WHERE istop = 1 ORDER BY id desc LIMIT 8   [ RunTime:0.939054s ]
+SQL: SELECT id,title,img,price from try_item  WHERE add_time between 1520395746 and 1520399346 ORDER BY hits desc LIMIT 9 [ RunTime:0.238014s ]
+SQL: SELECT id,title,img,price from try_item  WHERE add_time between 1520312946 and 1520399346 ORDER BY hits desc LIMIT 9 [ RunTime:0.263015s ]
+SQL: SELECT * FROM `try_article` WHERE ( `cate_id` = 16 ) AND ( `status` = 1 ) ORDER BY id desc LIMIT 4   [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-4.240243s ]
+INFO: [ view_template ] --END-- [ RunTime:0.003000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-4.249243s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.006000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-4.250243s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.007000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-4.252243s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.009000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-4.253244s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.010001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-4.254244s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.011001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-4.255244s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.012001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-4.256244s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.013001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-4.258244s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.015001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-4.259244s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.016001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-4.261244s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.018001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-4.262244s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.019001s ]
+NOTIC: [8] Undefined variable: item D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 11 行.
+SQL: SHOW COLUMNS FROM `try_item_cate` [ RunTime:0.007001s ]
+SQL: SELECT * FROM `try_item_cate` WHERE pid=0 and is_index=1  [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_item_cate` WHERE pid=0 and status=1 and is_index=1  [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: tp D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 204 行.
+NOTIC: [8] Undefined variable: tp D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 205 行.
+NOTIC: [8] Undefined variable: tp D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 207 行.
+NOTIC: [8] Undefined variable: strpos1 D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 227 行.
+NOTIC: [8] Undefined index: taobao_hongbao20171212 D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 279 行.
+SQL: SHOW COLUMNS FROM `try_item_orig` [ RunTime:0.009000s ]
+SQL: SELECT * FROM `try_item_orig` ORDER BY ordid asc LIMIT 12   [ RunTime:0.005000s ]
+SQL: SHOW COLUMNS FROM `try_ad` [ RunTime:0.008001s ]
+SQL: SELECT * FROM `try_ad` WHERE status=1 AND board_id=1  [ RunTime:0.001000s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `try_ad` WHERE status=1 AND board_id=1 LIMIT 1   [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: html D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 315 行.
+NOTIC: [8] Undefined variable: htmlA D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 321 行.
+NOTIC: [8] Use of undefined constant url - assumed 'url' D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 321 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 321 行.
+NOTIC: [8] Use of undefined constant content - assumed 'content' D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 321 行.
+NOTIC: [8] Use of undefined constant url - assumed 'url' D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 321 行.
+NOTIC: [8] Undefined offset: 1 D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 321 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 321 行.
+NOTIC: [8] Undefined offset: 1 D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 321 行.
+NOTIC: [8] Use of undefined constant content - assumed 'content' D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 321 行.
+NOTIC: [8] Undefined offset: 1 D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 321 行.
+SQL: SHOW COLUMNS FROM `try_adboard` [ RunTime:0.008000s ]
+SQL: SELECT * FROM `try_adboard` WHERE ( `id` = 17 ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `id`,`type`,`name`,`url`,`content`,`desc`,`extimg`,`extval` FROM `try_ad` WHERE ( `board_id` = 17 ) AND ( `start_time` <= 1520399347 ) AND ( `end_time` >= 1520399347 ) AND ( `status` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Widget\advertWidget.class.php 第 22 行.
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-4.444254s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.201011s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-4.444254s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.004001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-4.448255s ]
+INFO: Run TokenBuild Behavior [ RunTime:-4.449255s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-4.450255s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-4.450255s ]
+INFO: Run content_replace Behavior [ RunTime:-4.451255s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.004000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-4.452255s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_ad` WHERE ( `board_id` = 17 ) AND ( `start_time` <= 1520399347 ) AND ( `end_time` >= 1520399347 ) AND ( `status` = 1 )  [ RunTime:0.001000s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `try_ad` WHERE ( `board_id` = 17 ) AND ( `start_time` <= 1520399347 ) AND ( `end_time` >= 1520399347 ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.001000s ]
+NOTIC: [8] Use of undefined constant url - assumed 'url' D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 341 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 341 行.
+NOTIC: [8] Use of undefined constant content - assumed 'content' D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 341 行.
+NOTIC: [8] Use of undefined constant isnice - assumed 'isnice' D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 511 行.
+NOTIC: [8] Use of undefined constant isbao - assumed 'isbao' D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 511 行.
+NOTIC: [8] Undefined variable: article_list D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 519 行.
+NOTIC: [8] Use of undefined constant lb - assumed 'lb' D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 779 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=857 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=857 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=857 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=857 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `try_go` [ RunTime:0.008001s ]
+SQL: SELECT * FROM `try_go` WHERE ( `show` = '50jmlm_1mhxpm_nzbd4n_tv0q4d' ) LIMIT 1   [ RunTime:0.016000s ]
+NOTIC: [8] Undefined index: title D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 804 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'ileyz2_ivbotu_iobbap_5zdmnb' ) LIMIT 1   [ RunTime:0.007000s ]
+NOTIC: [8] Undefined index: title D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 804 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=393 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'xev24k_2p0244_szofks_cayxyn' ) LIMIT 1   [ RunTime:0.002000s ]
+NOTIC: [8] Undefined index: title D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 804 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=50 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'zuramp_3h4jc3_yj04xk_052wvx' ) LIMIT 1   [ RunTime:0.007000s ]
+NOTIC: [8] Undefined index: title D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 804 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=2 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_go` WHERE ( `show` = '14vylw_ggk4wo_21dc51_b4p5xi' ) LIMIT 1   [ RunTime:0.007000s ]
+NOTIC: [8] Undefined index: title D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 804 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.001001s ]
+SQL: SELECT * FROM `try_go` WHERE ( `show` = 'xfp13w_ymigzu_0nmrwk_fum3or' ) LIMIT 1   [ RunTime:0.002000s ]
+NOTIC: [8] Undefined index: title D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 804 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.001000s ]
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/27/a5c1ecaadd6ace0e9222a1b20cf6f0b2.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\repo\baicai\app\Common\common.php 第 267 行.
+NOTIC: [8] Undefined index: follow D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 1046 行.
+NOTIC: [8] Undefined index: follow D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 1046 行.
+NOTIC: [2] fopen(http://img.baicaio.com/data/upload/avatar/000/19/27/35f94626a3c8956ff4b1e837f3a8aff0.jpg): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\repo\baicai\app\Common\common.php 第 267 行.
+NOTIC: [8] Undefined index: follow D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 1046 行.
+NOTIC: [8] Undefined index: follow D:\repo\baicai\data\runtime\Cache\home\11e2f12d84b746b76491e3160c81a5b0.php 第 1046 行.
+SQL: SELECT * FROM `try_adboard` WHERE ( `id` = 2 ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.002001s ]
+SQL: SELECT `id`,`type`,`name`,`url`,`content`,`desc`,`extimg`,`extval` FROM `try_ad` WHERE ( `board_id` = 2 ) AND ( `start_time` <= 1520399348 ) AND ( `end_time` >= 1520399348 ) AND ( `status` = 1 ) ORDER BY ordid  [ RunTime:0.003000s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Widget\advertWidget.class.php 第 22 行.
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-5.290303s ]
+INFO: [ view_template ] --END-- [ RunTime:-1.047060s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-5.291303s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.843048s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-5.296303s ]
+INFO: Run TokenBuild Behavior [ RunTime:-5.296303s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-5.296303s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-5.296303s ]
+INFO: Run content_replace Behavior [ RunTime:-5.296303s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.844048s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-5.296303s ]
+INFO: [ view_end ] --END-- [ RunTime:-0.843048s ]
+SQL: SHOW COLUMNS FROM `try_tick` [ RunTime:0.010001s ]
+SQL: SELECT * FROM `try_tick` WHERE start_time < NOW() and end_time > NOW() and sy != 0 ORDER BY yl desc,id desc LIMIT 3   [ RunTime:0.001000s ]
+SQL: SELECT `img_url` FROM `try_item_orig` WHERE id=16 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `img_url` FROM `try_item_orig` WHERE id=2 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_adboard` WHERE ( `id` = 10 ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `id`,`type`,`name`,`url`,`content`,`desc`,`extimg`,`extval` FROM `try_ad` WHERE ( `board_id` = 10 ) AND ( `start_time` <= 1520399348 ) AND ( `end_time` >= 1520399348 ) AND ( `status` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Widget\advertWidget.class.php 第 22 行.
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-5.322305s ]
+INFO: [ view_template ] --END-- [ RunTime:-1.079062s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-5.323305s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.875050s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-5.325305s ]
+INFO: Run TokenBuild Behavior [ RunTime:-5.326305s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-5.326305s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-5.326305s ]
+INFO: Run content_replace Behavior [ RunTime:-5.326305s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.873050s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-5.326305s ]
+INFO: [ view_end ] --END-- [ RunTime:-0.873050s ]
+SQL: SELECT * FROM `try_adboard` WHERE ( `id` = 15 ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `id`,`type`,`name`,`url`,`content`,`desc`,`extimg`,`extval` FROM `try_ad` WHERE ( `board_id` = 15 ) AND ( `start_time` <= 1520399348 ) AND ( `end_time` >= 1520399348 ) AND ( `status` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-5.330305s ]
+INFO: [ view_template ] --END-- [ RunTime:-1.087062s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-5.330305s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.882050s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-5.333305s ]
+INFO: Run TokenBuild Behavior [ RunTime:-5.333305s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-5.333305s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-5.333305s ]
+INFO: Run content_replace Behavior [ RunTime:-5.333305s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.881050s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-5.333305s ]
+INFO: [ view_end ] --END-- [ RunTime:-0.880050s ]
+SQL: SHOW COLUMNS FROM `try_flink` [ RunTime:0.007000s ]
+SQL: SELECT * FROM `try_flink` WHERE cate_id=1 and status=1  [ RunTime:0.000000s ]
+INFO: Run ParseTemplate Behavior [ RunTime:-5.333305s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.882050s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-5.348306s ]
+INFO: Run TokenBuild Behavior [ RunTime:-5.349306s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-5.349306s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-5.349306s ]
+INFO: Run content_replace Behavior [ RunTime:-5.349306s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.896051s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-5.349306s ]
+INFO: [ view_end ] --END-- [ RunTime:-0.896051s ]
+

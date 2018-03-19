@@ -191,6 +191,13 @@ class itemAction extends frontendAction {
 
         //标签
         $item['tag_list'] = unserialize($item['tag_cache']);
+
+        foreach ($item['tag_list'] as $tag_value) {
+          $tag_map['chn_name'] = $tag_value;
+          $brand = M("brand")->where($tag_map)->field("id,name,chn_name")->find();
+          if(!empty($brand)){break;}
+        }
+         $this->assign('brand', $brand);
         
         
         //可能还喜欢
@@ -211,11 +218,11 @@ class itemAction extends frontendAction {
         
         //第一页评论不使用AJAX利于SEO
         $item_comment_mod = M('item_comment');
-        $pagesize = 20;
+        $p = $this->_get('p', 'intval', 1);
+        $pagesize = 10;
         $map = array('item_id' => $id);
         $count = $item_comment_mod->where($map)->count('id');
         $pager = $this->_pager($count, $pagesize);
-        $pager->path = 'ajax/comment_list';
         $pager_bar = $pager->fshow();
         $cmt_list = $item_comment_mod->where($map)->order('id DESC')->limit($pager->firstRow . ',' . $pager->listRows)->select();
         if($isbao==1){
@@ -247,6 +254,16 @@ class itemAction extends frontendAction {
             $item['content']= $this->str_replace_once($v,$url,$item['content']);
         }
         }
+        foreach($arr[0] as $key=>$v){
+            if(strpos($v, "baicaio.com") == true  || strpos($v, "tmall.com") == true || strpos($v, "taobao.com") == true){
+            $item['content']= str_replace($v,$v . " rel=\"nofollow\"",$item['content']);
+        }
+        if(strpos($v, "market.m.taobao.com") == true  || strpos($v, "taoquan.taobao.com") == true || strpos($v, "shop.m.taobao.com") == true){
+            $item['content']= str_replace($v,"",$item['content']);
+        }
+      }
+
+
         $orig_name=getly($item['orig_id']);
 
         $base1 = stripos($item['content'],$orig_name);
@@ -254,10 +271,21 @@ class itemAction extends frontendAction {
         $base2 = stripos($item['content'],"前往" . $orig_name);
 
         if($base2 == false || $base2-$base1 > 6){
-        $item['content'] = preg_replace("/($orig_name)/i","<a href=/orig-show-id-" . $item['orig_id'] . " target='_blank'>$1</a>",$item['content'],1);
+        $item['content'] = preg_replace("/($orig_name)/i","<a href=" . U('orig/show',array('id'=>$item['orig_id'])) . " target='_blank'>$1</a>",$item['content'],1);
         }
+
+        if(!empty($brand)){
+          $brand_name = $brand['chn_name'];
+          $item['content'] = preg_replace("/($brand_name)/i","<a href=" . U('brand/show',array('id'=>$brand['id'])) . " target='_blank'>$1</a>",$item['content'],1);
+        }
+
       //  $item['content'] = preg_replace("/title=[\'|\"](\S+)[\'|\"]/","title=\"" . trim($item['title'])  . trim($item['price']) . "\"",$item['content']);
         $item['content'] = preg_replace("/alt=[\'|\"](\S+)[\'|\"]/","alt=\"" . trim($item['title'])  . trim($item['price']) . "\"",$item['content']);
+        preg_match_all('/src=\"http\:\/\/img.baidu.com(\S+)\"/i',$item['content'],$arr_img);
+        foreach($arr_img[0] as $key=>$v){
+            $item['content']= str_replace($v,$v . " style=\"display:inline\"",$item['content']);
+      }
+
         $this->assign('is_hot', $is_hot);
         $this->assign('item', $item);
         $this->assign('orig', $orig);
@@ -279,6 +307,16 @@ class itemAction extends frontendAction {
         {
             $strpos = getpos($item['cate_id'],'');
         }
+        if (false === $cate_data = F('cate_data')) {
+            $cate_data = D('item_cate')->cate_data_cache();
+        }
+        //当前分类信息
+        if (isset($cate_data[$item['cate_id']])) {
+            $cate_info = $cate_data[$item['cate_id']];
+        } else {
+            //$this->_404();
+        }
+        $this->assign('cate_info', $cate_info);
         $this->assign("strpos",$strpos);
         $add_time = intval($item['add_time']);
         $time = time();
@@ -303,28 +341,22 @@ class itemAction extends frontendAction {
 
          $comment_mod = M('comment');
 
+         
+
       $pagesize = 10;
 
       $map = array('itemid' => $itemid,'xid'=>$xid,'status'=>1,'pid'=>0);
 
       $count = $comment_mod->where($map)->count('id');
 
-      $pager = new Page($count, $pagesize);
+      $pager = $this->_pager($count, $pagesize);
 
-      $pager->path = "ajax/comment_list";
-
-      $pager->parameter ="itemid=$itemid&xid=$xid";
-
-      $pager_bar = $pager->jshow();
+      $pager_bar = $pager->fshow();
       $this->assign('pager_bar',$pager_bar);
 
-      $pager_hot = new Page($count, $pagesize);
+      $pager_hot = $this->_pager($count, $pagesize);
 
-      $pager_hot->path = "ajax/comment_list";
-
-      $pager_hot->parameter ="itemid=$itemid&xid=$xid&order=zan";
-
-      $pager_bar_hot = $pager_hot->jshow();
+      $pager_bar_hot = $pager_hot->fshow();
 
       $this->assign('pager_bar_hot',$pager_bar_hot);
 
@@ -378,8 +410,8 @@ class itemAction extends frontendAction {
 
 
       $where1['cate_id']=16;
-      $where1['status']=1;
-      $article_list = M("article")->where($where1)->order("id desc")->limit(4)->select();
+      $where1['status']=array("in","1,4");
+      $article_list = M("article")->where($where1)->order("add_time desc")->limit(4)->select();
       $this->assign("zx_list",$article_list);
         
         $this->display();
@@ -617,7 +649,7 @@ class itemAction extends frontendAction {
                 $diu_detail = new simple_html_dom();
                 $diu_detail->load_file('http://guangdiu.com/' .$detal_url);
                 $content;
-                  foreach ( $diu_detail->find(".dabstract") as $e) {
+                  foreach ( $diu_detail->find("#dabstract") as $e) {
                       $content = $e;
                    } 
                   foreach ($content->find ("a") as $e) {
@@ -677,6 +709,176 @@ class itemAction extends frontendAction {
 
     }
 }
+      public function fetch_diu_us(){
+        $diucollect = new simple_html_dom();
+        $diucollect->load_file('https://guangdiu.com/?c=us');
+        $items = $diucollect->find('.gooditem');
+        echo "<meta http-equiv='Content-Type'' content='text/html; charset=utf-8'>";
+
+        $exist_item = M("item_diu")->where("orig_id !=2 && orig_id !=3 && orig_id !=358 ")->field("max(diu_id) as max_id ")->find();
+        $max= 0;
+        $exist_item['max_id'] && $max=  $exist_item['max_id'];
+       for($i=0 ; $i<20;$i++)
+        {
+           $diu_item;
+            echo ("---------------------<br>");
+           unset($diu_item);
+           $childs =  $items[$i]->childNodes();
+           $imgandbtn = $childs[0];
+           $iteminfoarea =  $childs[1];
+           $iteminfoarea_childs = $iteminfoarea->childNodes();
+           $rightlinks  =  $childs[2];
+           $detal_url = $imgandbtn->getElementByTagName('a')->href;
+           $id = intval(preg_replace('/.*id=/',"",$detal_url));
+            echo "------id:".$id . "max:".$max."---------------<br>";
+          if ($id <=$max){continue;}
+           $diu_item['diu_id']= $id ;
+           foreach ( $rightlinks->find(".rightmallname") as $e) {
+                $diu_item['orig']=trim($e->text());
+             }
+             if(true){//$diu_item['orig']=="亚马逊中国" || $diu_item['orig']=="天猫" || $diu_item['orig'] == "京东商城"){
+                if($diu_item['orig']=="天猫"){
+                  $diu_item['orig'] = "天猫商城";
+                }
+                  $where['name'] =  $diu_item['orig'];
+                  $orig = M('item_orig')->field('id')->where($where)->find();
+                  $diu_item['orig_id']= intval($orig['id']) ;
+                  echo($diu_item['orig'] . "|" . $diu_item['orig_id']);
+                  $diu_item['cate_id'] =346;
+                  $diu_item['uid'] =193739;
+                  $diu_item['uname'] ="baoff";
+                  $diu_item['status'] =1;
+                  $diu_item['isbao'] =1;
+                  $diu_item['zan']=rand(0,5);
+                  $diu_item['add_time'] =time();
+                     foreach ( $rightlinks->find(".innergototobuybtn") as $e) {
+                       if(true){//$diu_item['orig'] == "京东商城"){
+                        $href = $e->href;
+                        if(strpos($href, "http") !== false){
+                            $url = $e->href;
+                         
+                          }
+                          else{
+                          $diucollect =file_get_contents('http://guangdiu.com/' . $e->href);
+                          $headers = get_headers('http://guangdiu.com/' . $e->href, TRUE);
+                          $pattern = '/(((https|http)%3A%2F%2F\S+)\')/';
+                          $pattern_num = preg_match($pattern, $diucollect,$pattern_result);
+                          if(empty($pattern_result[2])){
+                            $pattern_num = preg_match($pattern, $headers['Location'],$pattern_result);
+                          }
+                          $url = urldecode($pattern_result[2]);
+                          }
+                          if(empty($url)){
+                            continue;
+                          }
+                            else
+                              $result = $this->converturl_us($url); 
+                          $diu_item['url'] = $result['convert_url'];
+                          $diu_item['orig_id'] = $result['id'];
+                        //  var_dump($pattern_result[1]);
+                  }
+                  else{
+                          $diu_item['url'] = $this->converturl($e->href);
+                        }
+                          $arr[0]=array('name'=>"直达链接",'link'=>$diu_item['url']);
+                          $diu_item['go_link'] =serialize($arr);
+                     }
+
+      /*
+                   $itemcollect = new itemcollect();
+                    echo ("--url--".$diu_item['url']  ."--url--<br>");
+                   $info = $itemcollect->url_parse( $diu_item['url'] );
+                    echo ("--img_content--".$info['img'] ."--img_content--<br>");
+                     echo ("--price--".$info['price'] ."--price--<br>");
+                   
+                     $html = file_get_contents($diu_item['url']);
+                      if(empty($html)) $html = getHTTPS($diu_item['url']);
+                    $amazon_detail->load($html);
+                   foreach ( $amazon_detail->find("#landingImage") as $e) {
+                    
+                      $img_content = $e->src;
+                        echo ("--img_content--".$img_content ."--img_content--");
+                      if(false !== strpos($img_content , 'https')){
+                          $diu_item['img'] = $this->get_photo($img_content,0);
+                      }
+                      else{
+                           $diu_item['img'] = $img_content;
+                      }
+            //           preg_match('/https:.*?.jpg/', $e->outertext(), $imgs);
+           //            $img=$imgs[0];
+                   } 
+                   */
+                
+                $img = $imgandbtn->getElementByTagName('img')->src;
+                $diu_item['img'] = $this->get_photo($img,0);
+                $diu_detail = new simple_html_dom();
+                $diu_detail->load_file('http://guangdiu.com/' .$detal_url);
+                $content;
+                  foreach ( $diu_detail->find("#dabstract") as $e) {
+                      $content = $e;
+                   } 
+                  foreach ($content->find ("a") as $e) {
+                    $href = $e->href;
+                      if(strpos($href, "detail.tmall.com") !== false || strpos($href, "taoquan.taobao.com") !== false){
+                        //donothing
+                      }
+                      elseif(strpos($href, "uland.taobao.com") !== false){
+                          $e->href=$this->converturl($href);
+                      }
+                      elseif(strpos($href, "https://s.click.taobao.com/1D7zLZw") !== false){
+                           $e->href="https://s.click.taobao.com/e3rM4Zw";
+                      }
+                      elseif(strpos($href, "http://mo.m.taobao.com/union/1111yushou") !== false){
+                           $e->href="https://s.click.taobao.com/zOyM4Zw";
+                      }
+                      else{
+                         $e->href= $diu_item['url'];
+                      }
+                    }
+               
+
+                   
+                   $diu_item['title']  = $iteminfoarea_childs[0]->firstChild()->text();
+                   //    $diu_item['content'] = $content->innertext() . $dimage->innertext();
+                   
+                  $diu_item['content'] = $content->innertext();
+                   $diu_item['content']  =  preg_replace('/<img.*?>/',"",  $diu_item['content'] );
+                 $diu_item['content'] = $diu_item['content']  . '<p><img class="img_bao" src="' . $diu_item['img'] . '!watermark"></p>';
+                //  echo ("price:" . $iteminfoarea_childs[0]->firstChild()->lastChild(). "<br>");
+                   foreach ( $iteminfoarea->find(".abstractcontent") as $e) {
+                  $diu_item['intro'] =$e->text();
+                  }
+                  
+                  if(empty($url)){
+                            continue;
+                          }
+                          else
+                M("item_diu")->add($diu_item);
+             }
+            
+
+      //  echo($items[$i]->innertext());
+        /*
+       $url = 'http://guangdiu.com/go.php?id=3962326';
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        $content = curl_exec($ch);
+
+        preg_match('/var.*\'(.*?)\'/', $content, $matches); 
+        Log::record('1111'.$content.'1111','ALERT','WARN');
+*/
+// 从url中加载
+       // $html->load_file('http://guangdiu.com/go.php?id=3958191');
+       // $items = $html->find('.gooditem');
+      //  echo "<meta http-equiv='Content-Type'' content='text/html; charset=utf-8'>";
+      //  echo $r['content'];//.  $items[0]->innertext();
+
+    }
+}
+      
       function converturl($url) 
       {
         $parsed_url = parse_url($url);
@@ -1202,6 +1404,183 @@ function get_photo($url,$file_num,$savefile='ueditor/php/upload/image/')
         } else {
             $this->ajaxReturn(0, L('operation_failure'));
         }
+    }
+    public function converturl_us($url) {
+     //   $url = $this->_get('url', 'trim');
+        $parsed_url = parse_url($url);
+        $host = $parsed_url['host'];
+         $result = array();
+          $profile['us_amazon']="show00-20";
+         $profile['ch_amazon']="baicaiobl-23";
+         $profile['sid']="baoliao";
+         $profile['mm_pid']="mm_27883119_3410238_93410083";
+        if (empty($host) or substr_count(strtolower($url),'http')>=2){
+              $result['convert_url'] =$url;
+              $result['id'] =-1;
+               $this->ajaxReturn(1, L('operation_success'),  $result);
+          }
+        if (strcmp($host,'www.amazon.com')==0){
+            $result['id'] =493;
+            $pattern = '/product\/(([a-zA-Z]|\d){10})/';
+           $pattern_num = preg_match($pattern,$parsed_url['path'],$pattern_result);
+             if($pattern_num!=0){
+                  $result['convert_url'] = 'https://www.amazon.com/dp/' . $pattern_result[1] . '?t=' . $profile['us_amazon'] . '&tag=' . $profile['us_amazon'];
+             }
+         else{
+           $pattern1 = '/dp\/(([a-zA-Z]|\d){10})/';
+           $pattern_num1 = preg_match($pattern1,$parsed_url['path'],$pattern_result);
+             if($pattern_num1!=0){
+                 $result['convert_url'] = 'https://www.amazon.com/dp/' . $pattern_result[1] . '?t=' . $profile['us_amazon'] . '&tag=' . $profile['us_amazon'];
+             }
+             else{
+                    $pattern2 = '/creativeASIN=(([a-zA-Z]|\d){10})/';
+                    $pattern_num2 = preg_match($pattern2, $url,$pattern_result);
+
+                 if($pattern_num2!=0){
+                     $result['convert_url'] = 'https://www.amazon.com/dp/' . $pattern_result[1] . '?t=' . $profile['us_amazon'] . '&tag=' . $profile['us_amazon'];
+                 }
+                 else{
+                    $result['convert_url'] =$url;
+                 }
+             }
+           }
+        }
+         elseif (strcmp($host,'www.amazon.cn')==0){
+            $result['id'] =2;
+            $pattern = '/product\/(([a-zA-Z]|\d){10})/';
+           $pattern_num = preg_match($pattern,$parsed_url['path'],$pattern_result);
+             if($pattern_num!=0){
+                  $result['convert_url'] = 'https://www.amazon.cn/dp/' . $pattern_result[1] . '?t=' . $profile['ch_amazon'] . '&tag=' . $profile['ch_amazon'];
+             }
+         else{
+           $pattern1 = '/dp\/(([a-zA-Z]|\d){10})/';
+           $pattern_num1 = preg_match($pattern1,$parsed_url['path'],$pattern_result);
+             if($pattern_num1!=0){
+                 $result['convert_url'] = 'https://www.amazon.cn/dp/' . $pattern_result[1] . '?t=' . $profile['ch_amazon'] . '&tag=' . $profile['ch_amazon'];
+             }
+             else{
+                    $pattern2 = '/creativeASIN=(([a-zA-Z]|\d){10})/';
+                    $pattern_num2 = preg_match($pattern2, $url,$pattern_result);
+
+                 if($pattern_num2!=0){
+                     $result['convert_url'] = 'https://www.amazon.cn/dp/' . $pattern_result[1] . '?t=' . $profile['ch_amazon'] . '&tag=' . $profile['ch_amazon'];
+                 }
+                 else{
+                    $result['convert_url'] =$url;
+                 }
+             }
+           }
+           
+        }
+        elseif (strcmp($host,'www.amazon.co.jp')==0){
+            $result['id'] =49;
+            $pattern = '/product\/(([a-zA-Z]|\d){10})/';
+           $pattern_num = preg_match($pattern,$parsed_url['path'],$pattern_result);
+             if($pattern_num!=0){
+                  $result['convert_url'] = 'http://count.chanet.com.cn/click.cgi?a=524082&d=381499&u=' . $profile['sid'] . '&e=&url=https://www.amazon.co.jp/dp/'. $pattern_result[1] ;
+             }
+         else{
+           $pattern1 = '/dp\/(([a-zA-Z]|\d){10})/';
+           $pattern_num1 = preg_match($pattern1,$parsed_url['path'],$pattern_result);
+             if($pattern_num1!=0){
+                 $result['convert_url'] = 'http://count.chanet.com.cn/click.cgi?a=524082&d=381499&u=' . $profile['sid'] . '&e=&url=https://www.amazon.co.jp/dp/'. $pattern_result[1] ;
+             }
+             else{
+                    $pattern2 = '/creativeASIN=(([a-zA-Z]|\d){10})/';
+                    $pattern_num2 = preg_match($pattern2, $url,$pattern_result);
+
+                 if($pattern_num2!=0){
+                     $result['convert_url'] = 'http://count.chanet.com.cn/click.cgi?a=524082&d=381499&u=' . $profile['sid'] . '&e=&url=https://www.amazon.co.jp/dp/'. $pattern_result[1] ;
+                 }
+                 else{
+                    $result['convert_url'] =$url;
+                 }
+             }
+           }
+           
+        }elseif (strcmp($host,'uland.taobao.com')==0){
+            $result['id'] =3;
+            $parsed_orig_url = parse_url($url);
+             parse_str($parsed_orig_url['query'],$parsed_orig_query);
+             if(isset($parsed_orig_query['activityId']) &&isset($parsed_orig_query['itemId']) ){
+                 $result['convert_url'] =  "https://uland.taobao.com/coupon/edetail?activityId=" . $parsed_orig_query['activityId'] . "&itemId=" . $parsed_orig_query['itemId'] . "&pid=" . $profile['mm_pid']. "&dx=1";
+             }
+             else{
+                  $result['convert_url'] =  $url;
+             }
+        }
+         elseif (strcmp($host,'www.kaixinbao.com')==0 || strcmp($host,'u.kaixinbao.com')==0){
+            $result['id'] =942;
+            $pattern = '/-baoxian\/((\d){6,}).shtml/';
+           $pattern_num = preg_match($pattern,$parsed_url['path'],$pattern_result);
+             if($pattern_num!=0){
+                  $result['convert_url'] = "http://u.kaixinbao.com/link?aid=" . $pattern_result[1] . "&cpsUserId=a105930&cpsUserSource=8_swpt";
+             }
+             else{
+                 $result['convert_url'] = $url;
+             }
+        }
+        else{
+               $origs = M('item_orig')->where("url like '%" . $host . "%'")->Field('url ,id')->select();
+                if(count($origs)!=0){
+                     $result['id'] =$origs[0]['id'];
+                     $orig_url = $origs[0]['url'];
+                     $parsed_orig_url = parse_url($orig_url);
+                      parse_str($parsed_orig_url['query'],$parsed_orig_query);
+                       if(stripos($orig_url, 'sid=SS') !==false){
+                             $parsed_orig_query['sid']=$profile['sid'];
+                        }
+                        elseif(stripos($orig_url, 'sid=lh_m1nyfc__SS') !==false){
+                             $parsed_orig_query['sid']='lh_m1nyfc__' . $profile['sid'];
+                        }
+                         elseif(stripos($orig_url, 'euid=SS') !==false){
+                             $parsed_orig_query['euid']=$profile['sid'];
+                        }
+                        elseif(stripos($orig_url, 'customid=SS') !==false){
+                             $parsed_orig_query['customid']=$profile['sid'];
+                        }
+                        elseif(stripos($orig_url, 'u=SS') !==false){
+                             $parsed_orig_query['u']=$profile['sid'];
+                        }
+                         elseif(stripos($orig_url, 'e=SS') !==false){
+                             $parsed_orig_query['e']=$profile['sid'];
+                        }
+                        elseif(stripos($orig_url, 'sid/SS/') !==false){
+                             $parsed_orig_url['path']=str_replace('sid/SS/','sid/' . $profile['sid'] . '/',$parsed_orig_url['path']);
+                        }
+                        else{
+                             $parsed_orig_query['tag']=$profile['sid'];
+                        }
+
+                        if(isset($parsed_orig_query['url'])){
+                            $parsed_orig_query['url'] = $url;
+                        }
+                        elseif(isset($parsed_orig_query['mpre'])){
+                            $parsed_orig_query['mpre'] = $url;
+                        }
+                        elseif(isset($parsed_orig_query['new'])){
+                            $parsed_orig_query['new'] = $url;
+                        }
+                        elseif(isset($parsed_orig_query['t'])){
+                            $parsed_orig_query['t'] = $url;
+                        }
+                        $parsed_orig_url['query'] = http_build_query($parsed_orig_query);
+                        $parsed_orig_url['query']= urldecode($parsed_orig_url['query']);
+                           $result['convert_url'] =   $this->http_build_url($parsed_orig_url);
+                }
+              
+        }
+        
+        if( count($result)==0){
+              $result['convert_url'] =$url;
+              $result['id'] =-1;
+              $result['shopping_name'] ="白菜哦";
+          }
+          else{
+             $result['shopping_name'] = getly($result['id']);
+          }
+        
+       return $result;
     }
 
     public function seo(){

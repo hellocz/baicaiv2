@@ -202,11 +202,6 @@
     <img src="/static/images/wap/bc_topbtn.png" />
 
 </div>
-<div class="bc_fixed_right_img">
-
-    <a href="/"><img src="/images/float_img.png" /></a>
-
-</div>
 
 <include file="public:footer" />
 
@@ -320,7 +315,7 @@ $("#Get").click(function(){
 function getmore(){
 
   var cid=$("#cid").val(),page=$("#page").val(),l=$("#Loading"),g=$("#Gtmore"),I=$("#Items");
-
+if(l.is(":hidden")){
   l.show();g.hide();
 
   $.get('{:U("wap/ajax/getpbl")}',{para:para,p:page},
@@ -344,6 +339,7 @@ function getmore(){
     }
 
   },'json');
+}
 
   
 
@@ -356,11 +352,8 @@ function getmore(){
   $(function() { 
 
   function loadMeinv() {
-
+    if($(".jiazai").is(":hidden")){
     $('.jiazai').show();
-
-
-
     $.get('/index.php?m=ajax&a=getpbl', {para:para ,p:page,pagesize:pagesize}, function (result){
 
       if(result.status==1){
@@ -383,7 +376,8 @@ function getmore(){
 
       }
 
-    },'json');    
+    },'json');
+    }
 
   }
 
@@ -407,7 +401,7 @@ function getmore(){
 
         $("#Get").click();
 
-        loadMeinv();//加载新图片
+    //    loadMeinv();//加载新图片
 
         page=page+1;
 

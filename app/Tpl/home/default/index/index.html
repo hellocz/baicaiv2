@@ -192,7 +192,7 @@
        <ul>
          <h2>热门活动</h2>
          <volist name="hd" id="r">
-         <li>>><a href="{$r.hdurl}" title="{$r.hdname}"  rel="nofollow" target="_blank" <if condition="$r['is_color'] eq 1">style="color:#3dc399;"</if>>{$r.hdname}
+         <li>>><a href="{$r.hdurl}" title="{$r.hdname}" target="_blank" <if condition="$r['is_color'] eq 1">style="color:#3dc399;"</if>>{$r.hdname}
              <if condition="$r['is_status'] eq 1"><img src="/images/hot.png" /><elseif condition="$r['is_status'] eq 2"/><img src="/images/new.png" /></if></a>
          </li>
          </volist>
@@ -206,7 +206,7 @@
                <em>公告</em>
                 <ul class="infoList">
                 <volist name="thd" id="r">
-                    <li><a href="{:U('item/index',array('id'=>$r['id']))}"  rel="nofollow" target="_blank" title="{$r.title}">{$r.title} {$r.price}</a></li>
+                    <li><a href="{:U('item/index',array('id'=>$r['id']))}"   target="_blank" title="{$r.title}">{$r.title} {$r.price}</a></li>
                 </volist>
                 </ul>
             </div>
@@ -328,6 +328,10 @@
        </ul>
 
               </div>
+    </div>
+
+    <div class="w_rq" style="display: block;">
+        <img src="/images/xiami.png">
     </div>
 
     <div class="w_r3">

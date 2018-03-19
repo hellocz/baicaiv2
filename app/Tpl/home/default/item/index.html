@@ -27,7 +27,7 @@
 		  <volist name="item['tag_list']" id="tag">
 		<a href="{:U('book/index', array('tag'=>urlencode($tag)))}" target="_blank">{$tag}</a>
 		</volist>
-		  <br/><span>时间：</span><a>{$item.add_time|fdate}</a><span style="margin-left:15px;">商城：</span><a href="{:U('orig/show',array('id'=>$item['orig_id']))}" title="{:getly($item['orig_id'])}" style="margin-left:10px;">{:getly($item['orig_id'])}</a>
+		  <br/><span>时间：</span><a>{$item.add_time|fdate}</a><span style="margin-left:15px;">商城：</span><a href="{:U('orig/show',array('id'=>$item['orig_id']))}" title="{:getly($item['orig_id'])}" style="margin-left:10px;">{:getly($item['orig_id'])}</a><notempty name="brand"><span style="margin-left:15px;">品牌：</span><a href="{:U('brand/show',array('id'=>$brand['id']))}" title="{$item.title}" style="margin-left:10px;">{$brand.name}</a></notempty> 
 		</div>
 		<div class="w_zj">
         <div class="w_zdlj">
@@ -68,13 +68,17 @@
             </notempty>
 	  <div class="content">
 		{$item.content}
+    <p style="font-size:14px;">更多好价请点击：<a style="font-size:14px;" href="{:U('orig/show',array('id'=>$item['orig_id']))}" title="{:getly($item['orig_id'])}" target="_blank" style="margin-left:10px;">{:getly($item['orig_id'])}优惠&nbsp;&nbsp;</a> <a style="font-size:14px;" href="{:U('book/cate',array('cid'=>$item['cate_id']))}" target="_blank" title="{$cate_info.name}" style="margin-left:10px;">{$cate_info.name}优惠&nbsp;&nbsp;</a> <volist name="item['tag_list']" id="tag">
+    <a style="font-size:14px;" href="{:U('book/index', array('tag'=>urlencode($tag)))}" target="_blank">{$tag}推荐&nbsp;&nbsp;</a>
+    </volist><notempty name="brand"><a style="font-size:14px;" href="{:U('brand/show',array('id'=>$brand['id']))}" title="{$item.title}"  target="_blank" >{$brand.chn_name}品牌推荐&nbsp;&nbsp;</a></notempty>
+  </p>
     <if condition="$vote_tag">
    <include file="public:vote_list" />
    </if>
 		</div>
       <div class="w_spxx_3">
        <em>注意：</em>本站优惠信息为小编每日人工精选，因为价格过于给力，缺货和涨价比较常见，如果不想再错过白菜价，请偷偷下载本站APP，不要让黄牛知道。IOS请前往<a href="https://itunes.apple.com/cn/app/%E7%99%BD%E8%8F%9C%E5%93%A6/id1245140625?mt=8" target="_blank"  rel="nofollow">苹果商店下载，</a>安卓用户请前往<a href="http://sj.qq.com/myapp/detail.htm?apkName=com.cnxxp.cabbagenet" rel="nofollow" target="_blank" >应用宝下载。</a>
-       <div style="text-align:center"><img style="margin: 0 auto;"  src="/images/w_erm.jpg?v=20180206"></div>
+       <div style="text-align:center"><img src="/images/w_erm.jpg?v=20180206"><img src="/images/xiami200.png"></div>
       </div>
       <div class="w_spxx_4">
        <div class="w_spxx_4_l">
@@ -139,6 +143,9 @@
        </ul>
 
               </div>
+    </div>
+    <div class="w_r7" style="display: block;">
+        <img src="/images/xiami.png">
     </div>
     <include file="public:zt_right" />
   <!--   <include file="public:yhq_right" /> -->
@@ -252,7 +259,7 @@
 <include file="public:baidu_js_push" />
 <script>var t="item";</script>
 <script src="/js/clipboard.min.js"></script>
-<script src="/js/function.js?v=2018012301"></script>
+<script src="/js/function.js?v=20180223"></script>
 <script src="/static/js/lhg/lhgdialog.min.js?self=true&skin=idialog" type="text/javascript"></script>
 <script>
 $(document).ready(function() {

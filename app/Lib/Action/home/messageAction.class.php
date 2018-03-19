@@ -89,7 +89,7 @@ class messageAction extends userbaseAction {
         //获取最近联系人
         $uid = $this->visitor->info['id'];
         $message_mod = M('message');
-        $res_list = $message_mod->field('from_id,from_name,to_id,to_name')->where("from_id > 0 AND ((from_id = '".$uid."') OR (to_id = '".$uid."'))")->group('ftid')->order('id DESC')->select();
+        $res_list = $message_mod->field('from_id,from_name,to_id,to_name')->where("from_id > 0 AND ((from_id = '".$uid."') OR (to_id = '".$uid."'))")->group('ftid')->order('add_time DESC')->limit(10)->select();
         $last_user = array();
         foreach ($res_list as $key=>$val) {
             if ($val['from_id'] == $uid) {

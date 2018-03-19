@@ -37,13 +37,13 @@ class advertWidget extends Action {
         $board_info['height'] && $size_html .= ' height="'.$board_info['height'].'"';
         switch ($ad['type']) {
             case 'image':
-                $html  = '<a title="'.$ad['name'].'" href="'.U('advert/tgo',array('id'=>$ad['id'])).'" target="_blank">';
+                $html  = '<a title="'.$ad['name'].'" href="'.U('advert/tgo',array('id'=>$ad['id'])).'" rel="nofollow" target="_blank">';
                 //$html .= '<img alt="'.$ad['name'].'" src="'.__ROOT__.'/data/upload/advert/'.$ad['content'].'" '.$size_html.'>';
                 $html .= '<img alt="'.$ad['name'].'" src="'.attach($ad['content'],'advert').'" '.$size_html.'>';
                 $html .= '</a>';
                 break;
             case 'flash':
-                $html  = '<a title="'.$ad['name'].'" href="'.U('advert/tgo',array('id'=>$ad['id'])).'" target="_blank">';
+                $html  = '<a title="'.$ad['name'].'" href="'.U('advert/tgo',array('id'=>$ad['id'])).'" rel="nofollow" target="_blank">';
                 $html .= '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" '.$size_html.' codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0">';
                 $html .= '<param name="movie" value="'.__ROOT__.'data/upload/advert/'.$ad['content'].'" />';
                 $html .= '<param name="quality" value="autohigh" />';

@@ -200,7 +200,7 @@ padding-left: 6px;
 	float:right;
 	font-size:.8em;
 	padding-top:3px;
-	line-height: 16px;
+	line-height: 12px;
 }
 .list_preferential li a h2 {
 	font-size: 14px;
@@ -429,14 +429,31 @@ padding-left: 6px;
 	height:2.4em;
 	overflow:hidden
 }
-.icons{ width:16px; height:16px; display:block; float:left;}
-.icon_comment{ background:url(/images/w_dz_2.png) no-repeat center; background-size:12px auto;}
+.icons{
+  position: relative;
+  top: 1px;
+  float: left;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  -webkit-font-smoothing: antialiased;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -moz-osx-font-smoothing: grayscale; width:12px; height:12px; display:block; float:left;}
+ .icon_comment:before{
+ 	content:"\e007";
+  }
+.icon_comment{  background-size:12px auto;}
+.icon_zan:before{
+	content: "\e125";
+}
 .icon_zan {
-	background: url(/images/w_dz_1.png) no-repeat center;
 	background-size: 12px auto;
 }
+.icon_like:before{
+	content: "\e143";
+}
 .icon_like {
-	background: url(/images/w_dz_3.png) no-repeat center;
 	background-size: 12px auto;
 }
 .owl-carousel .owl-wrapper:after {
@@ -819,7 +836,7 @@ cursor: pointer;
 .w_fbgl li.w_fb_5 .w_fbss{ background:#3dc399; width:100%; padding:2%; border:0; border-radius:4px; color:#fff; font-size:1.3em;}
 
 .w_scfl{ width:96%; padding:0 2%; margin-top:3%; float:left;}
-.w_scfl dl{ margin-bottom:3%;}
+.w_scfl dl{background-color:#FFF; margin-bottom:3%;}
 .w_scfl dt{  border-bottom:1px solid #EAEAEA; padding:1% 0 1% 56px; cursor:pointer;}
 .w_scfl dt h3{ font-size: 14px;
 color: #000;
@@ -832,15 +849,6 @@ font-weight: 400;
 margin: 0 0 4px;
 }
 .w_scfl dd a{ width:96%; padding:1% 0 1% 4%; background:#fff;  border-bottom:1px solid #EAEAEA; display:block; color:#666666; font-size:1em;}
-
-.w_scfl dt.w_fl_1{background:url(/static/images/wap/scfl_1.png) no-repeat 1% center #FFF; background-size:35px auto;}
-.w_scfl dt.w_fl_2{background:url(/static/images/wap/scfl_2.png) no-repeat 1% center #FFF; background-size:35px auto;}
-.w_scfl dt.w_fl_3{background:url(/static/images/wap/scfl_3.png) no-repeat 1% center #FFF; background-size:35px auto;}
-.w_scfl dt.w_fl_4{background:url(/static/images/wap/scfl_4.png) no-repeat 1% center #FFF; background-size:35px auto;}
-.w_scfl dt.w_fl_5{background:url(/static/images/wap/scfl_5.png) no-repeat 1% center #FFF; background-size:35px auto;}
-.w_scfl dt.w_fl_6{background:url(/static/images/wap/scfl_6.png) no-repeat 1% center #FFF; background-size:35px auto;}
-.w_scfl dt.w_fl_7{background:url(/static/images/wap/scfl_7.png) no-repeat 1% center #FFF; background-size:35px auto;}
-
 .w_scfl dd{ display:none;}
 
 .w_grzx{ width:100%;}

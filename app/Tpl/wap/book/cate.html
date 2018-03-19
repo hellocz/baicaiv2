@@ -82,6 +82,8 @@
 
   <input type="hidden" id="page" value="2"/>
 
+  <input type="hidden" id="tag" value="{$tag}"/>
+
   <input type="hidden" id="cid" value="{$cate_info['id']}"/>
 
 </div>
@@ -131,9 +133,10 @@ $("#J_sign").click(function(){
 function getmore(){
 
   var cid=$("#cid").val(),page=$("#page").val(),l=$("#Loading"),g=$("#Gtmore"),I=$("#Items");
-
+if(l.is(":hidden")){
   l.show();g.hide();
 
+  if(cid !=""){
   $.get('{:U("wap/book/cate_ajax")}',{cid:cid,p:page},
 
   function(res){
@@ -155,13 +158,71 @@ function getmore(){
     }
 
   },'json');
+}else{
+  var tag = $("#tag").val();
+   $.get('{:U("wap/book/index_ajax")}',{tag:tag,p:page},
+
+  function(res){
+
+    if(res.data.isfull==0){
+
+      weui.Loading.error("已经到最后一页了");
+
+      l.hide();
+
+    }else{
+
+      I.append(res.data.html);
+
+      $("#page").val(parseInt(page)+1);
+
+      g.show();l.hide();
+
+    }
+
+  },'json');
+}
+}
 
   
 
 }
 
 </script>
+<script language="javascript">
 
+  $(function() { 
+
+
+  //无限加载
+
+  
+
+  $(window).scroll(function(){
+
+    var scrollTop = $(this).scrollTop();
+
+    var scrollHeight = $(document).height();
+
+    var windowHeight = $(this).height();
+
+    if (scrollTop + windowHeight == scrollHeight) {
+
+        //alert(333);
+
+        $("#Get").click();
+
+        page=page+1;
+
+    }
+
+    
+
+  })
+
+})
+
+</script>
 </body>
 
 </html>

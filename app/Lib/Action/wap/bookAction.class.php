@@ -83,16 +83,19 @@ class bookAction extends frontendAction {
     public function index_ajax() {
         $tag = $this->_get('tag', 'trim'); //标签
         $sort = $this->_get('sort', 'trim', 'hot'); //排序
-        switch ($sort) {
-            case 'hot':
-                $order = 'hits DESC,id DESC';
-                break;
-            case 'new':
-                $order = 'id DESC';
-                break;
-        }
+        $order = 'add_time DESC';
         $where = array();
-        $tag && $where['intro'] = array('like', '%' . $tag . '%');
+        $tag && $tag_id =  M("tag")->where(array('name'=>$tag))->getField('id'); 
+        $tag_id && $tag_items = M("item_tag")->where(array('tag_id'=>$tag_id))->field("item_id")->select();
+        foreach ($tag_items as $tag_item_id) {
+            if($str==""){
+                 $str=$tag_item_id['item_id'];
+            }
+            else{
+               $str.=",".$tag_item_id['item_id'];
+            }
+        }
+        $str && $where['id'] = array('in', $str);
         $this->wall_ajax($where, $order);
     }
 
@@ -268,8 +271,8 @@ class bookAction extends frontendAction {
 		$item_orig = M("item_orig");
 		$count = $item_orig->where($db_pre."item_orig.ismy='$tp' and i.status=1 and i.add_time<$time ".$where)->join($db_pre."item i ON i.orig_id=".$db_pre."item_orig.id")->count();
 		//$pager = $this->_pager($count, $page_size);
-        !$field && $field = 'i.id,i.uid,i.uname,i.title,i.intro,i.img,i.price,i.likes,i.comments,i.comments_cache,i.add_time,i.orig_id,i.url,i.go_link,i.zan';
-        $item_list = $item_orig->where($db_pre."item_orig.ismy='$tp' and i.status=1 and i.add_time<$time ".$where)->join($db_pre . 'item i ON i.orig_id = ' . $db_pre . 'item_orig.id')->field($field)->order($order."i.id desc")->limit($start. ',' . $pagesize)->select();
+        !$field && $field = 'i.id,i.uid,i.uname,i.title,i.intro,i.img,i.price,i.likes,i.comments,i.comments_cache,i.add_time,i.orig_id,i.url,i.go_link,i.zan,i.hits';
+        $item_list = $item_orig->where($db_pre."item_orig.ismy='$tp' and i.status=1 and i.add_time<$time ".$where)->join($db_pre . 'item i ON i.orig_id = ' . $db_pre . 'item_orig.id')->field($field)->order($order."i.add_time desc")->limit($start. ',' . $pagesize)->select();
 		foreach ($item_list as $key => $val) {
             isset($val['comments_cache']) && $item_list[$key]['comment_list'] = unserialize($val['comments_cache']);
             $item_list[$key]['orig_name']=getly($val['orig_id']);
@@ -280,10 +283,9 @@ class bookAction extends frontendAction {
 		if($more == 'more'){
 			$more_arr="";
 			foreach($item_list as $key=>$r){
-				$more_arr.="<li><a href='".U('wap/item/index',array('id'=>$r['id']))."' title='".$r['title']."'><div class='image_wrap'>";
-				$more_arr.="<div class='image'><img src='".attach($r['img'],'item')."' title='$r[title]' alt='$r[title]' /></div></div>";
-				$more_arr.="<address><span>".fdate($r['add_time'])."</span>".getly($r['orig_id'])."</address><h2>".$r['title']."</h2>";
-				$more_arr.="<div class='tips'><span><i class='icons icon_comment'></i>".$r['comments']."</span></div></a></li>";
+				$more_arr.="<li><a href='".U('wap/item/index',array('id'=>$r['id']))."' title='".$r['title'] . $r['price'] ."'><div class='image_wrap'>";
+				$more_arr.="<div class='image'><img src='".attach($r['img'],'item')."' title='$r[title]$r[price]' alt='$r[title]$r[price]' /></div></div>";
+				$more_arr.="<h2>$r[title]</h2><div class='price' >$r[price]</div><address>$r[orig_name]｜" . fdate($r['add_time']) . "<span><i class='icons icon_like'></i>$r[likes]</span><span><i class='icons icon_comment'></i>".$r['comments']."</span><span><i class=\"icons icon_zan\"></i>".$r['zan']."</span></address></a></li>";
 			}
 			echo $more_arr;
 			exit;

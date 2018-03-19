@@ -35,10 +35,10 @@
 
       <div><em>商品质量：{$info.fwzl}星</em><em>服务配送：{$info.fwps}星</em><em>客户服务：{$info.khfw}星</em></div>
 
-      <a target="_blank" href="{$info.url}"  title="直达商城"  class="w_dha">直达商城</a>
+      <a target="_blank" href="{$info.url}"  title="直达商城" rel="nofollow"  class="w_dha">直达商城</a>
 
       <volist name="gl_list" id="gl" >
-         <a target="_blank" href="{:U('article/show',array('id'=>$gl['id']))}"  title="{$gl.otitle}"  class="w_dha">{$gl.otitle}</a>
+         <a target="_blank" href="{:U('article/show',array('id'=>$gl['id']))}"   title="{$gl.otitle}"  class="w_dha">{$gl.otitle}</a>
       </volist>
 
     </div>

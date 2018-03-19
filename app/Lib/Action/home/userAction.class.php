@@ -1154,6 +1154,11 @@ class userAction extends userbaseAction {
 		$id = $this->_get('id','intval');
 		!id&&$this->ajaxReturn(0,'无效的文章信息');
 		$mod=M("article");
+        $item = $mod->where("id=$id")->find();
+            $time = time();
+            if($item['add_time'] !=0 && ($time-$item['add_time'] > 604800)){
+                $this->ajaxReturn(0,'该文章发布时间超过7天，不能删除，如需删除，请联系管理员。');
+            }
 		$r = $mod->where("uid=$user[id] and id=$id")->delete();
 		if($r){
 			//删除评论

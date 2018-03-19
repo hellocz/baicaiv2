@@ -114,34 +114,6 @@
 
 </volist>
 
-    <volist name="item_list" id="r">
-
-    <li> 
-
-      <a href="{:U('wap/item/index',array('id'=>$r['id']))}" title="{$r.title}">
-
-      <div class="image_wrap">
-
-        <div class="image"><img src="{:attach($r['img'],'item')}" alt="{$r.title}" title="{$r.title}"/></div>
-
-      </div>
-
-      <address>
-
-      <span>{$r.add_time|fdate}</span>{:getly($r['orig_id'])}
-
-      </address>
-
-      <h2>{$r.title}</h2>
-
-      <div class="tips"><span><i class="icons icon_comment"></i>{$r.comments}</span></div>
-
-      </a>
-
-    </li>
-
-    </volist>
-
   </ul>
 
   <if condition="$pagesize lt $count"><div class="clear"></div>
@@ -166,12 +138,12 @@
 
 //加载更多
 
-$(document).ready(function(){
 
   $("#more").click(function(){
 
     var more_id=$("#page").val(),l=$("#Loading"),g=$("#more");
 
+if(l.is(":hidden")){
     l.show();g.hide();
 
     $.ajax({
@@ -203,10 +175,10 @@ $(document).ready(function(){
        }
 
     });
+  }
 
   })
 
-});
 
 //签到
 
@@ -235,6 +207,41 @@ $("#J_sign").click(function(){
   },'json');
 
 });
+
+</script>
+
+<script language="javascript">
+
+  $(function() { 
+
+
+  //无限加载
+
+  
+
+  $(window).scroll(function(){
+
+    var scrollTop = $(this).scrollTop();
+
+    var scrollHeight = $(document).height();
+
+    var windowHeight = $(this).height();
+
+    if (scrollTop + windowHeight == scrollHeight) {
+
+        //alert(333);
+
+        $("#more").click();
+
+        page=page+1;
+
+    }
+
+    
+
+  })
+
+})
 
 </script>
 

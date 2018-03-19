@@ -15,6 +15,20 @@ class brandAction extends frontendAction {
     * 我的关注
     */
 
+    public function show(){
+      $id = $this->_get('id', 'intval');
+       !$id && $this->_404();
+      $item = M("brand")->where(array('id' => $id))->find();
+      !$item && $this->error('该信息不存在或已删除');
+      $item['name'] = str_replace("&nbsp;","",$item['name']);
+        $page_seo['title'] = $item['name'] . "怎么样_" . $item['name'] . "品牌介绍_" . $item['name'] . "旗舰店_白菜哦官网";
+        $page_seo['keywords'] = $item['name'] . "品牌介绍、" . $item['name'] . "怎么样、" . $item['name'] . "价格、" . $item['name'] . "旗舰店、" . $item['name'] . "官网";
+        $page_seo['description'] = "汇总了" . $item['name'] ."品牌介绍、" . $item['name'] . "官网和" . $item['name'] . "官方旗舰店的促销优惠，还可以搜索到" . $item['name'] ."的最新内部优惠券，想知道" . $item['name'] ."有什么知名产品，有没有折扣就快来这里看看吧！";
+    $this->assign('page_seo', $page_seo);
+      $this->assign('info', $item);
+      $this->display();
+    }
+
     public function fetch_category(){
       $diucollect = new simple_html_dom();
       $diucollect->load(getHTTPS('https://www.qiang100.com/pinpai/'));

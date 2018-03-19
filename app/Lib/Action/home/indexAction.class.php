@@ -155,8 +155,8 @@ class indexAction extends frontendAction {
 		$day_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_day and $time ORDER BY hits desc LIMIT 9");
 
 		$where1['cate_id']=16;
-		$where1['status']=1;
-		$article_list = M("article")->where($where1)->order("id desc")->limit(4)->select();
+		$where1['status']=array("in","1,4");
+		$article_list = M("article")->where($where1)->order("add_time desc")->limit(4)->select();
 		$this->assign("zx_list",$article_list);
 		$this->assign("article_hide",1);
 

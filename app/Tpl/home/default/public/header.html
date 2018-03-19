@@ -66,7 +66,7 @@
 
             <form class="form_search" action="{:U('search/index')}"  method="get">
                  <button type="submit" class="btn_search icon-search"><!--[if lt IE 8]>Go<![endif]--></button>
-                <input id="s" name="q" type="search" class="text_search" value="<if condition="$strpos1">{$strpos1}<else/>回血计划</if>" onblur="if(this.value==&#39;&#39;) {this.value=&#39;回血计划&#39;;this.style.color=&#39;#999&#39;;}" onfocus="if(this.value==&#39;回血计划&#39;) {this.value=&#39;&#39;;this.style.color=&#39;#333&#39;;}" style="color: rgb(153, 153, 153);" _hover-ignore="1">
+                <input id="s" name="q" type="search" class="text_search" value="<if condition="$strpos1">{$strpos1}<else/>小编说</if>" onblur="if(this.value==&#39;&#39;) {this.value=&#39;小编说&#39;;this.style.color=&#39;#999&#39;;}" onfocus="if(this.value==&#39;小编说&#39;) {this.value=&#39;&#39;;this.style.color=&#39;#333&#39;;}" style="color: rgb(153, 153, 153);" _hover-ignore="1">
             </form>
      </div>
 
@@ -84,7 +84,6 @@
                        <li><a href="{:U('item/share_item')}" title="我要爆料" alt="我要爆料海淘攻略">我要爆料</a></li>
                        <li><a href="{:U('article/publish',array('t'=>'gl'))}" title="发表攻略" alt="发表海淘攻略">发表攻略</a></li>
                        <li><a href="{:U('article/publish',array('t'=>'sd'))}" title="我要晒单" alt="我要晒海淘攻略单">我要晒单</a></li>
-                       <li><a href="{:U('zr/publish')}" title="发布转让" alt="发布转让海淘优惠劵">发布转让</a></li>
                    </ul>
                </div>
            </div>

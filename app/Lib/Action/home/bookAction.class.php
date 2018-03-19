@@ -348,8 +348,8 @@ class bookAction extends frontendAction {
         $this->assign('hour_list',$hour_list);
         $this->assign('day_list',$day_list);
         $where1['cate_id']=16;
-        $where1['status']=1;
-        $article_list = M("article")->where($where1)->order("id desc")->limit(4)->select();
+        $where1['status']=array("in","1,4");
+        $article_list = M("article")->where($where1)->order("add_time desc")->limit(4)->select();
         $this->assign("zx_list",$article_list);
 		$this->assign("lb_url",U('book/gny',array('tp'=>$tp,'tab'=>$tab,'dss'=>'lb',"$tab"=>'1',"ispost"=>$ispost)));
 		$this->assign("cc_url",U('book/gny',array('tp'=>$tp,'tab'=>$tab,'dss'=>'cc',"$tab"=>'1',"ispost"=>$ispost)));
@@ -408,8 +408,8 @@ class bookAction extends frontendAction {
         $this->assign('hour_list',$hour_list);
         $this->assign('day_list',$day_list);
         $where1['cate_id']=16;
-        $where1['status']=1;
-        $article_list = M("article")->where($where1)->order("id desc")->limit(4)->select();
+        $where1['status']=array("in","1,4");
+        $article_list = M("article")->where($where1)->order("add_time desc")->limit(4)->select();
         $this->assign("zx_list",$article_list);
         $this->assign("lb_url",U('book/baicai',array('dss'=>'lb',)));
         $this->assign("cc_url",U('book/baicai',array('dss'=>'cc')));
