@@ -28,9 +28,26 @@
 
 <link href="__STATIC__/css/card.min.css" rel="stylesheet"/>
 
-<link href="/static/css/wap/w_css.css?v=20180209" type="text/css" rel="stylesheet"/>
+<link href="/static/css/wap/w_css.css?v=20180314" type="text/css" rel="stylesheet"/>
 
 <script src="/static/js/wap/jquery-1.11.0.min.js" type="text/javascript"></script>
+<style type="text/css">
+	@font-face {
+  font-family: 'iconfont';
+  src: url('//g.517cdn.com/PlugJavascriptJq/tamlliconfont/iconfont.eot');
+  src: url('//g.517cdn.com/PlugJavascriptJq/tamlliconfont/iconfont.eot?#iefix') format('embedded-opentype'),
+  url('//g.517cdn.com/PlugJavascriptJq/tamlliconfont/iconfont.woff') format('woff'),
+  url('//g.517cdn.com/PlugJavascriptJq/tamlliconfont/iconfont.ttf') format('truetype'),
+  url('//g.517cdn.com/PlugJavascriptJq/tamlliconfont/iconfont.svg#iconfont') format('svg');
+
+  font-family: 'Glyphicons Halflings';
+  src: url('/fonts/glyphicons-halflings-regular.eot');
+  src: url('/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), 
+  url('/fonts/glyphicons-halflings-regular.woff') format('woff'), 
+  url('/fonts/glyphicons-halflings-regular.ttf') format('truetype'), 
+  url('/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+</style>
 
 
 
@@ -248,11 +265,6 @@
     <img src="/static/images/wap/bc_topbtn.png" />
 
 </div>
-<div class="bc_fixed_right_img">
-
-    <a href="/"><img src="/images/float_img.png" /></a>
-
-</div>
 
 <div class="clear"></div>
 
@@ -426,7 +438,7 @@ $("#Get").click(function(){
 function getmore(){
 
   var cid=$("#cid").val(),page=$("#page").val(),l=$("#Loading"),g=$("#Gtmore"),I=$("#Items");
-
+if(l.is(":hidden")){
   l.show();g.hide();
 
   $.get('<?php echo U("wap/ajax/getpbl");?>',{para:para,p:page},
@@ -450,6 +462,7 @@ function getmore(){
     }
 
   },'json');
+}
 
   
 
@@ -462,11 +475,8 @@ function getmore(){
   $(function() { 
 
   function loadMeinv() {
-
+    if($(".jiazai").is(":hidden")){
     $('.jiazai').show();
-
-
-
     $.get('/index.php?m=ajax&a=getpbl', {para:para ,p:page,pagesize:pagesize}, function (result){
 
       if(result.status==1){
@@ -489,7 +499,8 @@ function getmore(){
 
       }
 
-    },'json');    
+    },'json');
+    }
 
   }
 
@@ -513,7 +524,7 @@ function getmore(){
 
         $("#Get").click();
 
-        loadMeinv();//加载新图片
+    //    loadMeinv();//加载新图片
 
         page=page+1;
 

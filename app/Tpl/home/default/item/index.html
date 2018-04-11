@@ -116,7 +116,7 @@
          <volist name="hour_list" id="r">
                         <li class="re_pic" <if condition="!($i%3)">class="gogo"</if>>
                             <if condition="$i lt 4"><img class="re_tt" src="/images/tz_{$i}.png" /></if>
-                            <a href="{:U('item/index',array('id'=>$r['id']))}" title="{$r.title}" target="_blank">
+                            <a href="{:U('item/index',array('id'=>$r['id']))}" title="{$r.title} {$r.price}" target="_blank">
                                  <img src="<if condition="$r['img']==''">/images/nopic.jpg<else/> <if condition="preg_match('/img.baicaio.com/',$r['img'])">{:attach($r['img'],'item')}!thumb94<else/>{:attach($r['img'],'item')}</if></if>" alt="{$r.title}" style="width:94px; height:94px;">
                                 <div class="tabCon" style="z-index:999999;">
                                     <p>{$r.title|msubstr=0,16,""}</p>
@@ -130,7 +130,7 @@
                         <volist name="day_list" id="r">
                             <li class="re_pic" <if condition="!($i%3)">class="gogo"</if>>
                             <if condition="$i lt 4"><img class="re_tt" src="/images/tz_{$i}.png" /></if>
-                            <a href="{:U('item/index',array('id'=>$r['id']))}" title="{$r.title}" target="_blank">
+                            <a href="{:U('item/index',array('id'=>$r['id']))}" title="{$r.title} {$r.price}" target="_blank">
                                  <img src="<if condition="$r['img']==''">/images/nopic.jpg<else/> <if condition="preg_match('/img.baicaio.com/',$r['img'])">{:attach($r['img'],'item')}!thumb94<else/>{:attach($r['img'],'item')}</if></if>" style="width:94px; height:94px;">
                                 <div class="tabCon" style="z-index:999999;">
                                     <p>{$r.title|msubstr=0,16,""}</p>

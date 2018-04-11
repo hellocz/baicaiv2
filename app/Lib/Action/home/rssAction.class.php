@@ -27,12 +27,12 @@ class rssAction extends frontendAction {
 	  foreach($list as $key=>$val){
 		  $string .= '<item>';
 		  $string .= '<title><![CDATA['.$val['title'].']]></title>';
-		  $string .= '<link>http://'.$_SERVER['HTTP_HOST'].U('item/index',array('id'=>$val['id'])).'</link>';
-		  $string .= '<comments>http://'.$_SERVER['HTTP_HOST'].U('item/index',array('id'=>$val['id'])).'#comments</comments>';
+		  $string .= '<link>'.U('item/index',array('id'=>$val['id'])).'</link>';
+		  $string .= '<comments>'.U('item/index',array('id'=>$val['id'])).'#comments</comments>';
 		  $string .= '<pubDate>'.gmstrftime("%a, %d %b %Y %T %Z",$val['add_time']).'</pubDate>';
 		  $string .= '<dc:creator><![CDATA['.$val['uname'].']]></dc:creator>';
 		  $string .= '<category><![CDATA['.$val['catname'].']]></category>';
-		  $string .= '<guid isPermaLink="false">http://'.$_SERVER['HTTP_HOST'].U('item/index',array('id'=>$val['id'])).'</guid>';
+		  $string .= '<guid isPermaLink="false">'.U('item/index',array('id'=>$val['id'])).'</guid>';
 		  $string .= '<description><![CDATA['.$val['intro'].']]></description>';
 		  $string .= '<content:encoded><![CDATA['.$val['content'].']]></content:encoded>';
 		  $string .= '<slash:comments>0</slash:comments>';

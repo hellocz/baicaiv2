@@ -69,7 +69,7 @@ class itemAction extends frontendAction {
             $item['content']= str_replace($v,$v . " rel=\"nofollow\"",$item['content']);
         }
         if(strpos($v, "market.m.taobao.com") == true  || strpos($v, "taoquan.taobao.com") == true || strpos($v, "shop.m.taobao.com") == true){
-            $item['content']= str_replace($v,"",$item['content']);
+         //   $item['content']= str_replace($v,"",$item['content']);
         }
       }
 

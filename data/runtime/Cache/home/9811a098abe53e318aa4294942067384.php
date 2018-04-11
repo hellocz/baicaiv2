@@ -1,6 +1,9 @@
-<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <title><?php echo ($page_seo["title"]); ?></title>
@@ -8,8 +11,10 @@
 <meta name="keywords" content="<?php echo ($page_seo["keywords"]); ?>" />
 
 <meta name="description" content="<?php echo ($page_seo["description"]); ?>" />
+<meta property="article:published_time" content="<?php echo (fpubdate($item["add_time"])); ?>+08:00" />
+<meta name="360-site-verification" content="52d9b1bb4b02391c169381b95ad45301" />
 
-<link href="/css/bc_css.css?v=20171219" type="text/css" rel="stylesheet"/>
+<link href="/css/bc_css.css?v=201800330" type="text/css" rel="stylesheet"/>
 
 <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
 <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
@@ -36,23 +41,45 @@ table a{ color:#3dc399; text-decoration:none;outline:none;}
 
 <script type="text/javascript" src="/js/jquery.flexslider-min.js"></script>
 
-
-</head>
-
-<body style="background:#f5f5f5">
+
+<style type="text/css">
+	.w_sy_ha {
+    width: 1157px;
+    float: left;
+    height: 40px;
+    background: #fff;
+    box-shadow: 2px 2px 5px rgba(0,0,0,.1);
+    line-height: 40px;
+    padding: 0 25px 0 18px;
+    position: relative;
+    border-bottom: 1px solid #3dc399;
+}
+#sy1{
+	background: #3dc399;
+	color: white;
+}
+</style>
+
+</head>
+
+
+
+<body style="background:#f5f5f5">
+
 <div class="w_head_bd">
    <div class="w_head">
      <div class="w_hea_le">
-       <div class="w_logo w1"><a href="/" title="白菜网首页"><img src="/images/w_logo.png" title="白菜网首页" alt="白菜网首页"/></a></div>
-       <div class="w_h_l1 w1"><a href="/" title="首页" <?php if(isset($bcid) && $bcid == '0'): ?>style="color: #3dc399;"<?php endif; ?>>首页</a></div>
+       <div class="w_logo w1"><a href="/" title="白菜网首页"><img src="/images/w_logo.png" title="白菜网海淘攻略" alt="海淘攻略"/></a></div>
+       <h1 style="display:none">海淘攻略|亚马逊海淘攻略|天猫优惠劵</h1>
+       <div class="w_h_l1 w1"><a href="/" title="首页" alt="海淘攻略" <?php if(isset($bcid) && $bcid == '0'): ?>style="color: #3dc399;"<?php endif; ?>>首页</a></div>
        <div class="w_h_l2 w1">
-        <a href="<?php echo U('book/index');?>" title="分类" class="w_h_12_a" >分类</a>
+        <a href="<?php echo U('book/index');?>" title="分类" alt="海淘攻略" class="w_h_12_a" >分类</a>
         <div class="w_l2_z" >
           <i class="w_xsj1"></i>
           
           <!--<ul>
-		  <?php $item_cate = M("item_cate")->where('pid=0 and is_index=1')->select();?>
-		  <?php if(is_array($item_cate)): $i = 0; $__LIST__ = $item_cate;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$val): $mod = ($i % 2 );++$i;?><li>
+      <?php $item_cate = M("item_cate")->where('pid=0 and is_index=1')->select();?>
+      <?php if(is_array($item_cate)): $i = 0; $__LIST__ = $item_cate;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$val): $mod = ($i % 2 );++$i;?><li>
                 <?php if($val['cate_html'] != '' ): ?><img  src="http://img.baicaio.com//data/upload/item_cate/<?php echo ($val['img']); ?>"  style="position: absolute;margin: 15px;"/>
                     <a href="<?php echo str_replace('/c', '/', U('book/cate', array('cid'=>$val['cate_html']))) ?>" title="<?php echo ($val['name']); ?>" class="w_nav<?php echo ($i); ?>"><?php echo ($val['name']); ?></a>
                 <?php else: ?>
@@ -62,42 +89,42 @@ table a{ color:#3dc399; text-decoration:none;outline:none;}
           -->
             <ul>
 
-      <?php $item_cate = M("item_cate")->where('pid=0 and status=1')->select();?>
+      <?php $item_cate = M("item_cate")->where('pid=0 and status=1 and is_index=1')->select();?>
 
       <?php if(is_array($item_cate)): $i = 0; $__LIST__ = $item_cate;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$val): $mod = ($i % 2 );++$i;?><li>
             <?php if($val['cate_html'] != '' ): ?><a href="<?php echo str_replace('/c', '/', U('book/cate', array('cid'=>$val['cate_html']))) ?>" title="<?php echo ($val['name']); ?>" class="w_nav<?php echo ($i); ?>"><?php echo ($val['name']); ?></a>
                 <?php else: ?>
-                    <a href="<?php echo U('book/cate', array('cid'=>$val['id']));?>" title="<?php echo ($val['name']); ?>" class="w_nav<?php echo ($i); ?>"><?php echo ($val['name']); ?></a><?php endif; ?>
+                    <a href="<?php echo U('book/cate', array('cid'=>$val['id']));?>" title="<?php echo ($val['name']); ?>" alt="海淘攻略" class="w_nav<?php echo ($i); ?>"><?php echo ($val['name']); ?></a><?php endif; ?>
 
             </li><?php endforeach; endif; else: echo "" ;endif; ?>
 
           </ul>
         </div>
        </div>
-       <div class="w_h_l3 w1"><a href="<?php echo U('book/gny',array('tp'=>'0'));?>" <?php if($tp == '0'): ?>style="color: #3dc399;"<?php endif; ?>  title="国内">国内</a></div>
-       <div class="w_h_l4 w1"><a href="<?php echo U('book/gny',array('tp'=>'1'));?>" <?php if($tp == '1'): ?>style="color: #3dc399;"<?php endif; ?>  title="海淘">海淘</a></div>
-       <div class="w_h_l5 w1"><a href="<?php echo U('book/index',array('tag'=>'9.9包邮'));?>" title="9.9包邮" <?php if($bcid==='best'): ?>style="color: #3dc399;"<?php endif; ?>>9.9包邮</a></div>
-       <div class="w_h_l6 w1"><a href="<?php echo U('book/baicai');?>" style="color: #d62222;"  <?php if($tp == '2'): ?>style="color: #d62222;"<?php endif; ?> title="白菜">白菜</a></div>
-       <div class="w_h_l7 w1"><a href="<?php echo U('article/index',array('id'=>10));?>" <?php if($bcid == 10): ?>style="color: #3dc399;"<?php endif; ?> title="晒单">晒单</a></div>
+       <div class="w_h_l3 w1"><a href="<?php echo U('book/gny',array('tp'=>'0'));?>" <?php if($tp == '0'): ?>style="color: #3dc399;"<?php endif; ?>  title="国内" alt="国内海淘">国内</a></div>
+       <div class="w_h_l4 w1"><a href="<?php echo U('book/gny',array('tp'=>'1'));?>" <?php if($tp == '1'): ?>style="color: #3dc399;"<?php endif; ?>  title="海淘" alt="海淘攻略">海淘</a></div>
+       <div class="w_h_l5 w1"><a href="<?php echo U('book/index',array('tag'=>'9.9包邮'));?>" title="9.9包邮"  alt="9.9特价包邮"<?php if($bcid==='best'): ?>style="color: #3dc399;"<?php endif; ?>>9.9包邮</a></div>
+       <div class="w_h_l6 w1"><a href="<?php echo U('book/baicai');?>" style="color: #d62222;"  <?php if($tp == '2'): ?>style="color: #d62222;"<?php endif; ?> title="白菜" alt="海淘攻略">白菜</a></div>
+       <div class="w_h_l7 w1"><a href="<?php echo U('article/index',array('id'=>10));?>" <?php if($bcid == 10): ?>style="color: #3dc399;"<?php endif; ?> title="晒单" alt="白菜哦晒单" >晒单</a></div>
        
        <div class="w_h_l8 w1">
-          <a href="javascript:;" title="其他" class="w_h_18_a">其他</a>
+          <a href="javascript:;" title="其他" alt="海淘攻略" class="w_h_18_a">其他</a>
           <div class="w_xs2">
           <i class="w_xsj"></i>
           <ul>
         <!--    <li><a href="<?php echo U('zr/index');?>" title="闲置转让">闲置转让</a></li>-->
-            <li><a href="<?php echo U('article/index',array('id'=>9));?>"  title="攻略">攻略</a></li>
-            <li><a href="<?php echo U('tick/index');?>" title="优惠劵">优惠劵</a></li>
-            <li><a href="<?php echo U('exchange/lucky');?>" title="抽奖专区">抽奖专区</a></li>
-            <li><a href="<?php echo U('exchange/index');?>" title="礼品兑换">礼品兑换</a></li>
-            <li><a href="<?php echo U('orig/index');?>" title="商城导航">商城导航</a></li>
+            <li><a href="<?php echo U('article/index',array('id'=>9));?>"  title="海淘攻略" alt="海淘攻略">海淘攻略</a></li>
+            <li><a href="<?php echo U('tick/index');?>" title="优惠劵" alt="海淘优惠劵">优惠劵</a></li>
+            <li><a href="<?php echo U('exchange/lucky');?>" title="抽奖专区" alt="海淘优惠劵">抽奖专区</a></li>
+            <li><a href="<?php echo U('exchange/index');?>" title="礼品兑换" alt="海淘优惠劵">礼品兑换</a></li>
+            <li><a href="<?php echo U('orig/index');?>" title="商城导航" alt="海淘优惠劵">商城导航</a></li>
           </ul>
           </div>
       </div>
 
             <form class="form_search" action="<?php echo U('search/index');?>"  method="get">
                  <button type="submit" class="btn_search icon-search"><!--[if lt IE 8]>Go<![endif]--></button>
-                <input id="s" name="q" type="search" class="text_search" value="<?php if($strpos1): echo ($strpos1); else: ?>回血计划<?php endif; ?>" onblur="if(this.value==&#39;&#39;) {this.value=&#39;回血计划&#39;;this.style.color=&#39;#999&#39;;}" onfocus="if(this.value==&#39;回血计划&#39;) {this.value=&#39;&#39;;this.style.color=&#39;#333&#39;;}" style="color: rgb(153, 153, 153);" _hover-ignore="1">
+                <input id="s" name="q" type="search" class="text_search" value="<?php if($strpos1): echo ($strpos1); else: ?>小编说<?php endif; ?>" onblur="if(this.value==&#39;&#39;) {this.value=&#39;小编说&#39;;this.style.color=&#39;#999&#39;;}" onfocus="if(this.value==&#39;小编说&#39;) {this.value=&#39;&#39;;this.style.color=&#39;#333&#39;;}" style="color: rgb(153, 153, 153);" _hover-ignore="1">
             </form>
      </div>
 
@@ -108,30 +135,29 @@ table a{ color:#3dc399; text-decoration:none;outline:none;}
      </div>
 
            <div class="w_h_l8 w1">
-               <a href="javascript:;" title="爆料" class="w_h_18_a bl_tx"><img style="width:20px; height:20px;"  src="/images/bl_t.png" alt="" /></a>
+               <a href="javascript:;" title="爆料" alt="海淘攻略" class="w_h_18_a bl_tx"><img style="width:20px; height:20px;"  src="/images/bl_t.png" alt="" /></a>
                <div class="w_xs2">
                    <i class="w_xsj"></i>
                    <ul>
-                       <li><a href="<?php echo U('item/share_item');?>" title="我要爆料">我要爆料</a></li>
-                       <li><a href="<?php echo U('article/publish',array('t'=>'gl'));?>" title="发表攻略">发表攻略</a></li>
-                       <li><a href="<?php echo U('article/publish',array('t'=>'sd'));?>" title="我要晒单">我要晒单</a></li>
-                       <li><a href="<?php echo U('zr/publish');?>" title="发布转让">发布转让</a></li>
+                       <li><a href="<?php echo U('item/share_item');?>" title="我要爆料" alt="我要爆料海淘攻略">我要爆料</a></li>
+                       <li><a href="<?php echo U('article/publish',array('t'=>'gl'));?>" title="发表攻略" alt="发表海淘攻略">发表攻略</a></li>
+                       <li><a href="<?php echo U('article/publish',array('t'=>'sd'));?>" title="我要晒单" alt="我要晒海淘攻略单">我要晒单</a></li>
                    </ul>
                </div>
            </div>
 
-	 <?php if(!empty($visitor)): ?><div class="w_h_l8  w1">
-             <a href="<?php echo U('user/index', array('uid'=>$visitor['id']));?>" title="用户名" class="w_h_18_a grtx_a"><img src="<?php echo avatar($visitor['id'],'32');?>" alt="个人头像" /></a>
+   <?php if(!empty($visitor)): ?><div class="w_h_l8  w1">
+             <a href="<?php echo U('user/index', array('uid'=>$visitor['id']));?>" title="用户名" alt="海淘用户名" class="w_h_18_a grtx_a"><img src="<?php echo avatar($visitor['id'],'32');?>" alt="海淘攻略" /></a>
              <span><?php echo ($visitor['username']); ?></span>
 
-			 <div class="w_xs2">
+       <div class="w_xs2">
                  <i class="w_xsj"></i>
                  <ul class="xiaoxs_a">
-                     <li><a href="<?php echo U('message/system');?>" title="我的消息">我的消息</a><?php if((isset($visitor['message'])) AND ($visitor['message'] != 0)): ?><span><?php echo ($visitor['message']); ?></span><?php endif; ?></li>
+                     <li><a href="<?php echo U('message/system');?>" title="我的消息" alt="我的海淘攻略信息">我的消息</a><?php if((isset($visitor['message'])) AND ($visitor['message'] != 0)): ?><span><?php echo ($visitor['message']); ?></span><?php endif; ?></li>
                      <li><a href="<?php echo U('user/index', array('uid'=>$visitor['id']));?>" title="个人中心">个人中心</a></li>
-                     <li><a href="<?php echo U('user/keysfollow');?>" title="我的关注">我的关注</a></li>
-                     <li><a href="<?php echo U('user/publish');?>" title="我的文章">我的文章</a></li>
-                     <li><a href="<?php echo U('user/logout');?>" title="安全退出">安全退出</a></li>
+                     <li><a href="<?php echo U('user/keysfollow');?>" title="我的关注"  alt="我的关注海淘优惠劵">我的关注</a></li>
+                     <li><a href="<?php echo U('user/publish');?>" title="我的文章" alt="海淘优惠劵">我的文章</a></li>
+                     <li><a href="<?php echo U('user/logout');?>" title="安全退出" alt="海淘优惠劵">安全退出</a></li>
                  </ul>
              </div>
          </div>
@@ -140,77 +166,66 @@ table a{ color:#3dc399; text-decoration:none;outline:none;}
              <a href="<?php echo U('message/system');?>"><em></em>条新消息</a>
          </div>
      <!--<a href="<?php echo U('user/index', array('uid'=>$visitor['id']));?>" class="mb_name"><?php echo ($visitor["username"]); ?></a>
-	 <a href="<?php echo U('user/logout');?>">退出</a>-->
-	 <?php else: ?>
-	 <a href="<?php echo U('user/index');?>" title="登录" class="w_dl">登录</a>|<a href="<?php echo U('user/register');?>" title="注册">注册</a><?php endif; ?>
-	 </div>
+   <a href="<?php echo U('user/logout');?>">退出</a>-->
+   <?php else: ?>
+   <a href="<?php echo U('user/index');?>" title="登录" class="w_dl">登录</a>|<a href="<?php echo U('user/register');?>" title="注册">注册</a><?php endif; ?>
+   </div>
    </div>
 </div>
 <div class="clear"></div>
-
-<div class="w_bl_bd">
-    <div class="w_zh_dq1">
-	  <a href="/" title="首页">首页</a> > <?php echo ($strpos); ?>
-	  <a style="float:right">共<font color="#FF0000"><?php echo ($count); ?></font>条记录</a>
-	</div>
-    <div class="w_dhxx" >
-      <ul id="J_waterfall" data-uri="__ROOT__/?m=book&a=cate_ajax&cid=<?php echo ($cate_info["id"]); ?>&sort=<?php echo ($sort); ?>&min_price=<?php echo ($min_price); ?>&max_price=<?php echo ($max_price); ?>&p=<?php echo ($p); ?>">
+
+
+<div class="w_bl_bd">
+
+    <div class="w_zh_dq1" style="height: auto;">
+
+	   <ul id="cateid" style="height:50px; width: 80%;float: left; overflow:hidden" >
+      <a href="/" title="首页" alt="<?php echo ($cate_info["name"]); ?>">首页</a> > <?php echo ($strpos); ?>
+    <?php if(!empty($nav_cates)): ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 子分类:
+     
+
+    <?php if(is_array($nav_cates)): $i = 0; $__LIST__ = $nav_cates;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$r): $mod = ($i % 2 );++$i;?><li style="display: inline-block;"> <a href="<?php echo U('book/cate',array('cid'=>$r['id']));?>"><?php echo ($r["name"]); ?>(<?php echo ($r["count"]); ?>)</a></li><?php endforeach; endif; else: echo "" ;endif; endif; ?>
+    </ul>
+    <?php if(!empty($nav_cates)): ?><span style="float:left;margin-left:30px;cursor:pointer;" class="w_zq_more" onclick="show($('#cateid'));" data="0">更多</span><?php endif; ?>
+	  <a style="float:right">共<font color="#FF0000"><?php echo ($count); ?></font>条记录</a>
+
+   
+
+	</div>
+
+	<div class="w_sy_ha">
+        
+          <a ><span id="sy1" >编辑推荐</span></a>
+          <?php if($cate_info['top'] != ''): ?><a href="<?php echo U('category/index',array('cateid'=>$cate_info['id']));?>" ><span  id="sy2">品牌榜</span></a><?php endif; ?>
+          <a href="<?php echo U('quan/index',array('q'=>$cate_info['name']));?>"><span id="sy2">优惠券</span></a>
+
+         <!--<a href="<?php echo U('article/index',array('id'=>9));?>"><span id="ngl">海淘攻略</span></a>-->
+       </div>
+
+    <div class="w_dhxx" >
+
+      <ul id="J_waterfall" data-uri="__ROOT__/?m=book&a=cate_ajax&cid=<?php echo ($cate_info["id"]); ?>&sort=<?php echo ($sort); ?>&min_price=<?php echo ($min_price); ?>&max_price=<?php echo ($max_price); ?>&p=<?php echo ($p); ?>">
+
 	  <?php if(is_array($item_list)): $i = 0; $__LIST__ = $item_list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$item): $mod = ($i % 2 );++$i;?><li class="J_item wall_item" style="position:relative">
-
 		 <a href="<?php echo U('item/index', array('id'=>$item['id']));?>" title="<?php echo ($item["title"]); ?>" target="_blank"><img src="<?php if($item['img']==''): ?>/images/nopic.jpg<?php else: ?> <?php if(preg_match('/img.baicaio.com/',$item['img'])): echo attach($item['img'],'item');?>!thumb270<?php else: echo attach($item['img'],'item'); endif; endif; ?>" title="<?php echo ($item["title"]); ?>" alt="<?php echo ($item["title"]); ?>" class="J_img J_decode_img"/></a>
-
 		 <h2 style="word-wrap: break-word;"><a href="<?php echo U('item/index', array('id'=>$item['id']));?>" title="<?php echo ($item["title"]); ?>" target="_blank"><div class="title" style="overflow: hidden;height: 44px;line-height: 22px;font-size: 14px"><?php echo ($item["title"]); ?></div>
 		 </a>
 		 <div style="color:#d62222;overflow:hidden; height: 20px"><?php echo ($item["price"]); ?> </div>
-
-		 
-
 			<span style="height: 25px; position: absolute;top: 245px;right: 0;padding: 0 20px;background: rgba(255,255,255,0.7);"><a href="<?php echo U('orig/show',array('id'=>$item['orig_id']));?>" title="<?php echo getly($item['orig_id']);?>"><?php echo getly($item['orig_id']);?></a></span> 
-
-
-
 		 </h2>
-
-		 <div class="clear"></div>
-
-		 
-
-		<!-- 
-
-		 <p class="w_p1" style="height:24px;"><span><a href="<?php echo U('space/index', array('uid'=>$item['uid']));?>"  target="_blank" data-uid="<?php echo ($item['uid']); ?>" class="J_card"><img src="<?php echo avatar($r['id'],24);?>" title="<?php echo ($item["username"]); ?>" alt="<?php echo ($item["username"]); ?>" class="ava"/> <?php echo ($item["uname"]); ?></a></span><a href="<?php echo U('orig/show',array('id'=>$item['orig_id']));?>" title="<?php echo getly($item['orig_id']);?>"><?php echo getly($item['orig_id']);?></a></p>-->
-
-		 
-
-			
-
-		 
-
-		 <p style="height:24px"><?php echo (mdate($item['add_time'])); ?></p>
-
+		 <div class="clear"></div><p style="height:24px"><?php echo (mdate($item['add_time'])); ?></p>
 		 <div class="w_nr3_div">
-
 		  <div class="w_zzj_1">
-
 				<?php $llink = unserialize($item['go_link']);$lc = count($llink);?>
-
 				<?php if(is_array($llink)): $j = 0; $__LIST__ = $llink;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$rm): $mod = ($j % 2 );++$j; if($j == 1): ?><a href="__ROOT__/?m=item&a=tgo&to=<?php echo shortUrl($rm['link']);?>" title="<?php echo ($rm["title"]); ?>" class="w_zdlj_a" target="_blank" rel="nofollow" ><i class="<?php if($lc > 1): ?>w_down<?php else: ?>w_right<?php endif; ?>"></i><?php echo ($rm["name"]); ?></a><?php endif; endforeach; endif; else: echo "" ;endif; ?>
-
 				<?php if($lc > 1): ?><ul>
-
 				<?php if(is_array($llink)): $m = 0; $__LIST__ = $llink;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$rm): $mod = ($m % 2 );++$m;?><li><a href="__ROOT__/?m=item&a=tgo&to=<?php echo shortUrl($rm['link']);?>" target="_blank" rel="nofollow"  title="<?php echo ($rm["title"]); ?>" ><?php echo ($rm["name"]); ?></a></li><?php endforeach; endif; else: echo "" ;endif; ?>
-
-              </ul><?php endif; ?>
-
+				</ul><?php endif; ?>
 			</div>
-
 		  <div class="w_f2nr1_le"><a href="javascript:void(0)" onclick="jz_submit_click(this)" title="赞" class="w_z_1 Jz_submit" data="<?php echo ($item["id"]); ?>"  data-t="item"><?php echo ($item["zan"]); ?></a><a href="javascript:;" title="<?php echo ($item["title"]); ?>"  class="w_z_2 Jl_likes" data-id="<?php echo ($item["id"]); ?>" data-xid="1"><?php echo ($item["likes"]); ?></a><a href="<?php echo U('item/index', array('id'=>$item['id']));?>" title="<?php echo ($item["title"]); ?>"  class="w_z_3" target="_blank"><?php echo ($item["comments"]); ?></a></div>
-
 		 </div>
-
 	   </li><?php endforeach; endif; else: echo "" ;endif; ?>
-
 <script>
-
 $(document).ready(function(e) {
 
  $(".w_zzj_1").hover(
@@ -234,14 +249,18 @@ $(document).ready(function(e) {
 	); 
 
 }) 
-
 </script>
 
-
-	  </ul>
-	<div class="w_pag" id="J_wall_page"><?php echo ($page_bar); ?></div>
-	</div>   
-</div>
+
+
+	  </ul>
+
+	<div class="w_pag" id="J_wall_page"><?php echo ($page_bar); ?></div>
+
+	</div>   
+
+</div>
+
 <div class="clear"></div>
 <!--bottom-->
 <div class="w_bot_bd">
@@ -268,7 +287,7 @@ $(document).ready(function(e) {
     </p>
    </div>   -->  
    <div class="w_bot_3" style="margin-top:0;padding-top: 33px;">
-     <p><a href="<?php echo U('sitemap/index');?>" title="网站地图">网站地图</a>&nbsp;<a href="<?php echo U('aboutus/index', array('id'=>$val['id']));?>" title="关于我们">关于我们</a> <em>
+     <p><a href="/sitemap.xml" title="网站地图">网站地图</a>&nbsp;<a href="<?php echo U('aboutus/index', array('id'=>2));?>" title="关于我们">关于我们</a> <em>
    <script src="http://s13.cnzz.com/stat.php?id=3738275&web_id=3738275" language="JavaScript"></script>
       <script type="text/javascript">
     (function(win,doc){
@@ -297,7 +316,7 @@ $(document).ready(function(e) {
     -->
     <script src=" http://hm.baidu.com/h.js?49113e6b733eb50457f8170c967ff321" type="text/javascript"></script>
     </em></p>
-     <p>版权所有&copy;白菜哦-高性价比海淘购物推荐 所有资讯均受著作权保护，未经许可不得使用，不得转载、摘编。 <a href="http://www.miibeian.gov.cn" rel=nofollow>湘ICP备13002285号</a><img src="/images/gan.png" alt="公安备案">湘公网安备 43011102000623号</p>
+     <p>版权所有&copy;长沙佰成通网络科技有限公司 所有资讯均受著作权保护，未经许可不得使用，不得转载、摘编。 <a href="http://www.miibeian.gov.cn" rel="nofollow">湘ICP备13002285号</a><img src="/images/gan.png" alt="公安备案">湘公网安备 43011102000623号</p>
    </div>                                                      
   </div>
 </div>
@@ -367,8 +386,50 @@ $('.sxs .gb').click(function(){
     $('.sxs').hide();
 })
 </script>
-
-<script src="/js/function.js"></script>
-<script src="/static/js/lhg/lhgdialog.min.js?self=true&skin=idialog" type="text/javascript"></script>
-</body>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https'){
+   bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+
+    var src = (document.location.protocol == "http:") ? "http://js.passport.qihucdn.com/11.0.1.js?1f653c8f1681aca5df1e48bb5548b7eb":"https://jspassport.ssl.qhimg.com/11.0.1.js?1f653c8f1681aca5df1e48bb5548b7eb";
+document.write('<script src="' + src + '" id="sozz"><\/script>');
+
+})();
+</script>
+
+<script src="/js/function.js"></script>
+<script type="text/javascript">
+  function show(obj){
+
+  if($(this).attr('data')==0){
+    obj.css('height','50px');
+
+    $(this).attr('data','1');
+
+  
+
+  }else{
+
+      obj.css('height','auto');
+
+    $(this).attr('data','0');
+
+  }
+
+}
+</script>
+
+<script src="/static/js/lhg/lhgdialog.min.js?self=true&skin=idialog" type="text/javascript"></script>
+
+</body>
+
 </html>

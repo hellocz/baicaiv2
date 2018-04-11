@@ -1,0 +1,130 @@
+[ 2018-03-27T13:34:39+08:00 ] 127.0.0.1 /
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.002000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.003000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.008000s ]
+SQL: SHOW COLUMNS FROM `try_item` [ RunTime:0.014000s ]
+SQL: SELECT * FROM `try_item` WHERE status=1 and add_time<1522128876  and isnice=1  ORDER BY  add_time desc LIMIT 0,18   [ RunTime:1.321075s ]
+SQL: SHOW COLUMNS FROM `try_item_orig` [ RunTime:0.013001s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=857 LIMIT 1   [ RunTime:0.002000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=857 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=857 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=857 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=393 LIMIT 1   [ RunTime:0.001001s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=50 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=2 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.001000s ]
+SQL: select distinct uid,uname,sum(score) as num from try_score_log where add_time>1522080000 and add_time<1522166400 group by uname order by num desc,uid asc limit 4 [ RunTime:0.003000s ]
+SQL: SHOW COLUMNS FROM `try_user` [ RunTime:0.009001s ]
+SQL: SELECT * FROM `try_user` ORDER BY score desc,id asc LIMIT 4   [ RunTime:0.025001s ]
+NOTIC: [8] Undefined index: dss D:\repo\baicai\app\Lib\Action\wap\indexAction.class.php 第 73 行.
+SQL: SHOW COLUMNS FROM `try_hd` [ RunTime:0.008001s ]
+SQL: SELECT * FROM `try_hd` ORDER BY order_s asc,id desc LIMIT 8   [ RunTime:0.000000s ]
+SQL: SELECT * FROM `try_item` WHERE istop = 1 ORDER BY id desc LIMIT 8   [ RunTime:0.882050s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-3.387193s ]
+INFO: [ view_template ] --END-- [ RunTime:0.002001s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-3.394194s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.005000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-3.395194s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.006000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-3.396194s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.007000s ]
+NOTIC: [8] Undefined variable: item D:\repo\baicai\data\runtime\Cache\wap\0d8d2dd5d63ad2ed82a5bd57db222986.php 第 27 行.
+NOTIC: [8] Use of undefined constant isnice - assumed 'isnice' D:\repo\baicai\data\runtime\Cache\wap\0d8d2dd5d63ad2ed82a5bd57db222986.php 第 169 行.
+NOTIC: [8] Use of undefined constant isbao - assumed 'isbao' D:\repo\baicai\data\runtime\Cache\wap\0d8d2dd5d63ad2ed82a5bd57db222986.php 第 169 行.
+SQL: SHOW COLUMNS FROM `try_adboard` [ RunTime:0.008001s ]
+SQL: SELECT * FROM `try_adboard` WHERE ( `id` = 14 ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `try_ad` [ RunTime:0.011001s ]
+SQL: SELECT `id`,`type`,`name`,`url`,`content`,`desc`,`extimg`,`extval` FROM `try_ad` WHERE ( `board_id` = 14 ) AND ( `start_time` <= 1522128879 ) AND ( `end_time` >= 1522128879 ) AND ( `status` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-3.446197s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.057003s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-3.447197s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.005000s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-3.452197s ]
+INFO: Run TokenBuild Behavior [ RunTime:-3.452197s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-3.453197s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-3.454197s ]
+INFO: Run content_replace Behavior [ RunTime:-3.455197s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-3.455197s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+INFO: Run ParseTemplate Behavior [ RunTime:-3.455197s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.005000s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-3.485199s ]
+INFO: Run TokenBuild Behavior [ RunTime:-3.485199s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-3.485199s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-3.485199s ]
+INFO: Run content_replace Behavior [ RunTime:-3.485199s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.030002s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-3.485199s ]
+INFO: [ view_end ] --END-- [ RunTime:-0.029002s ]
+
+[ 2018-03-27T13:34:39+08:00 ] ERR: (ThinkException) 无法加载模块:1602/22/56ca719a9a0c4
+[ 2018-03-27T13:35:49+08:00 ] ERR: (ThinkException) 无法加载模块:home/item/test
+[ 2018-03-27T13:36:08+08:00 ] ERR: (ThinkException) 无法加载模块:home/item
+[ 2018-03-27T13:36:12+08:00 ] ERR: (ThinkException) 无法加载模块:home/item
+[ 2018-03-27T13:36:22+08:00 ] 127.0.0.1 /home-item-test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.001000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:-0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.002001s ]
+INFO: Run load_lang Behavior [ RunTime:-0.004001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.007001s ]
+
+[ 2018-03-27T13:36:53+08:00 ] 127.0.0.1 /home-item-test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.001000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.002001s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:-0.001001s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.002001s ]
+INFO: Run load_lang Behavior [ RunTime:-0.004001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004000s ]
+
+[ 2018-03-27T13:37:04+08:00 ] 127.0.0.1 /home-item-test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.001000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:-0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.002000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.005000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.008001s ]
+
+[ 2018-03-27T13:37:44+08:00 ] 127.0.0.1 /home-item-test
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.001000s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.001000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.002001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004001s ]
+SQL: SHOW COLUMNS FROM `try_item_orig` [ RunTime:0.010000s ]
+SQL: SELECT `url`,`id` FROM `try_item_orig` WHERE url like '%item.jd.com%'  [ RunTime:0.003000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=358 LIMIT 1   [ RunTime:0.001000s ]
+

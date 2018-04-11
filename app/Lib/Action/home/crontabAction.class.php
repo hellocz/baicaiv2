@@ -82,6 +82,7 @@ class crontabAction extends frontendAction {
      //    var_dump($items);
       //   var_dump($item_tags);
         foreach ($items as $item) {
+          $item['title'] = strip_tags($item['title']);
           $tags=array();
             foreach ($item_tags as $item_tag) {
                      if(stristr($item['title'],$item_tag['tag']) !== FALSE) {
@@ -101,20 +102,20 @@ class crontabAction extends frontendAction {
                        }
                       }
 
-                    var_dump($tags);
-               //     var_dump(mb_substr(strip_tags($item['content']),0,50,"utf-8"));
+                //    var_dump($tags);
+                //    var_dump($item);
                       $this->baicai_push(strip_tags($item['title']),$tags,$item['id'],mb_substr(strip_tags($item['content']),0,40,"utf-8"),$item['price'],$item['img']);
                       $h_tags=array();
                       foreach ($tags as $tag) {
                        array_push($h_tags,$tag . "_" . date("H",time()));
                       }
-                       var_dump($h_tags);
+                //       var_dump($h_tags);
                        $this->baicai_push_h(strip_tags($item['title']),$h_tags,$item['id'],mb_substr(strip_tags($item['content']),0,40,"utf-8"),$item['price']);
                       $silent_h_tags=array();
                       foreach ($tags as $tag) {
                        array_push($silent_h_tags,$tag . "_silent_" . date("H",time()));
                       }
-                       var_dump($silent_h_tags);
+                //       var_dump($silent_h_tags);
                        $this->baicai_push_silent(strip_tags($item['title']),$silent_h_tags,$item['id'],mb_substr(strip_tags($item['content']),0,40,"utf-8"),$item['price']);
                     }
         } 

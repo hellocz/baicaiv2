@@ -461,10 +461,10 @@ class ajaxAction extends frontendAction {
 				}
 				*/
 			}
-			$this->assign('url',$site_url.U("ajax/g_share",array('tg'=>$dm)));
+			$this->assign('url',U("ajax/g_share",array('tg'=>$dm)));
 			$this->assign('islogin','y');
 		}else{
-			$this->assign('url',$site_url."/$t/$id.html");
+			$this->assign('url',"/$t/$id.html");
 			$this->assign('islogin','n');
 		}		
 		$this->display();

@@ -24,11 +24,30 @@
 
 <meta name="description" content="<?php echo ($page_seo["description"]); ?>" />
 
+<meta property="article:published_time" content="<?php echo (fpubdate($item["add_time"])); ?>+08:00" />
+
 <link href="__STATIC__/css/card.min.css" rel="stylesheet"/>
 
-<link href="/static/css/wap/w_css.css?v=2017121502" type="text/css" rel="stylesheet"/>
+<link href="/static/css/wap/w_css.css?v=20180314" type="text/css" rel="stylesheet"/>
 
 <script src="/static/js/wap/jquery-1.11.0.min.js" type="text/javascript"></script>
+<style type="text/css">
+	@font-face {
+  font-family: 'iconfont';
+  src: url('//g.517cdn.com/PlugJavascriptJq/tamlliconfont/iconfont.eot');
+  src: url('//g.517cdn.com/PlugJavascriptJq/tamlliconfont/iconfont.eot?#iefix') format('embedded-opentype'),
+  url('//g.517cdn.com/PlugJavascriptJq/tamlliconfont/iconfont.woff') format('woff'),
+  url('//g.517cdn.com/PlugJavascriptJq/tamlliconfont/iconfont.ttf') format('truetype'),
+  url('//g.517cdn.com/PlugJavascriptJq/tamlliconfont/iconfont.svg#iconfont') format('svg');
+
+  font-family: 'Glyphicons Halflings';
+  src: url('/fonts/glyphicons-halflings-regular.eot');
+  src: url('/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), 
+  url('/fonts/glyphicons-halflings-regular.woff') format('woff'), 
+  url('/fonts/glyphicons-halflings-regular.ttf') format('truetype'), 
+  url('/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+</style>
 
 
 
@@ -66,7 +85,7 @@
 
    <div class="w_bjtjy_1">
 
-   <!-- <img src="<?php echo avatar($item['uid'], 48);?>" title="<?php echo ($item["uname"]); ?>" alt="<?php echo ($item["uname"]); ?>" />--><span style="color: #d62222 !important;"><?php echo ($item["price"]); ?></span>|<span><?php echo (fdate($item["add_time"])); ?></span>
+   <!-- <img src="<?php echo avatar($item['uid'], 48);?>" title="<?php echo ($item["uname"]); ?>" alt="<?php echo ($item["uname"]); ?>" />--><span ><?php echo ($orig["name"]); ?></span>|<span><?php echo (fdate($item["add_time"])); ?></span>
 
    </div>
 
@@ -76,9 +95,22 @@
 
    </div>
 
+   <div class="w_bjtjy_5">
+    相关标签:
+    <ul>
+    <?php if(is_array($item['tag_list'])): $i = 0; $__LIST__ = $item['tag_list'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$tag): $mod = ($i % 2 );++$i;?><li><a href="<?php echo U('book/index', array('tag'=>urlencode($tag)));?>" target="_blank"><?php echo ($tag); ?></a></li><?php endforeach; endif; else: echo "" ;endif; ?>
+    </ul>
+  所属商城:
+    <ul>
+    <li><a href="<?php echo U('orig/show',array('id'=>$item['orig_id']));?>" title="<?php echo ($orig["name)"]); ?>" ><?php echo ($orig["name"]); ?></a></li>
+  </ul>
+   </div>
+
    <div class="w_bjtjy_3">
 
-   <?php if(is_array($item['go_link'])): $i = 0; $__LIST__ = $item['go_link'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$r): $mod = ($i % 2 );++$i; if($i==1 && count($item['go_link'])==1): ?><a href="__ROOT__/?g=wap&m=item&a=tgo&to=<?php echo base64_encode($r['link']);?>" rel="nofollow"  target="_blank" title="<?php echo ($item["title"]); ?>" class="w_clb_a" onClick="$('.w_bjtjy_3 ul').slideToggle(500)"><?php echo ($item["title"]); ?><i class="w_clb_x"></i></a>
+   <?php if(is_array($item['go_link'])): $i = 0; $__LIST__ = $item['go_link'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$r): $mod = ($i % 2 );++$i; if($i==1 && count($item['go_link'])==1): ?><a target="_blank" class="w_clb_a J_ota" href="http://baicaio.com/wap" rel="nofollow" onclick="dataLayer.push({'event':'WAP站导航下载按钮','tag':'home_list','name':'列表页'})">打开APP,查看更多好价</a>
+
+<!--     <a href="__ROOT__/?g=wap&m=item&a=tgo&to=<?php echo base64_encode($r['link']);?>" rel="nofollow"  target="_blank" title="<?php echo ($item["title"]); ?>" class="w_clb_a" onClick="$('.w_bjtjy_3 ul').slideToggle(500)"><?php echo ($item["title"]); ?><i class="w_clb_x"></i></a>-->
 
 	<?php elseif($i==1 && count($item['go_link']) > 1): ?>
 
@@ -103,38 +135,8 @@
    </div>
 
   </div>
-<!--
-  <div class="w_xzzr3">
-
-     <h3>猜您喜欢</h3>
-
-     <ul  id="con_zk_1">
-
-
-	 <?php if(is_array($day_list)): $i = 0; $__LIST__ = $day_list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$mitem): $mod = ($i % 2 );++$i;?><li>
-
-       <a href="<?php echo U('wap/item/index', array('id'=>$mitem['id']));?>" title="<?php echo ($mitem["title"]); ?>">
-
-        <div class="w_zk_img">
-
-         <img src="<?php echo attach($mitem['img'],'item');?>" title="<?php echo ($mitem["title"]); ?>" alt="<?php echo ($mitem["title"]); ?>"/>
-
-        </div>
-
-        <address><span><?php echo (fdate($mitem["add_time"])); ?></span><?php echo ($mitem["orig_name"]); ?></address>
-
-        <h2><?php echo ($mitem["title"]); ?></h2>
-
-        <div class="w_jg"><em></em></div>
-
-        </a>
-
-      </li><?php endforeach; endif; else: echo "" ;endif; ?>
-
-    </ul>
-
-  </div>  
-  -->
+   
+  
 
 
   <a name="pl"></a>
@@ -185,13 +187,90 @@
 
   </div>
 
-  <div class="clear"></div>
+  <div class="w_xzzr3">
+
+     <h3>猜您喜欢</h3>
+
+     <ul class="list list_preferential" id="con_zk_1">
+
+      <?php if(is_array($day_list)): $i = 0; $__LIST__ = $day_list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$r): $mod = ($i % 2 );++$i;?><li> <a href="<?php echo U('wap/item/index',array('id'=>$r['id']));?>" title="<?php echo ($r["title"]); echo ($r["price"]); ?>">
+
+  <div class="image_wrap">
+
+  <div class="image"><img src="<?php if($r['img']==''): ?>/images/nopic.jpg<?php else: echo attach($r['img'],'item'); endif; ?>" title="<?php echo ($r["title"]); echo ($r["price"]); ?>" alt="<?php echo ($r["title"]); echo ($r["price"]); ?>"/></div>
+
+  </div>
+
+  <h2><?php echo ($r["title"]); ?></h2>
+
+  <div class="price" ><?php echo ($r["price"]); ?></div>
+
+  <address><?php echo ($r['orig_name']); ?>｜<?php echo (fdate($r['add_time'])); ?>
+<span><i class="icons icon_like"></i><?php echo ($r["likes"]); ?></span><span><i class="icons icon_comment"></i><?php echo ($r["comments"]); ?></span><span><i class="icons icon_zan"></i><?php echo ($r["zan"]); ?></span>
+  </address>
+
+  </a> </li><?php endforeach; endif; else: echo "" ;endif; ?>
+
+
+   
+
+    </ul>
+
+    <ul class="list list_preferential" id="Items">
+
+    <?php if(is_array($item_list)): $i = 0; $__LIST__ = $item_list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$r): $mod = ($i % 2 );++$i;?><li> <a href="<?php echo U('wap/item/index',array('id'=>$r['id']));?>" title="<?php echo ($r["title"]); echo ($r["price"]); ?>">
+
+	<div class="image_wrap">
+
+	<div class="image"><img src="<?php if($r['img']==''): ?>/images/nopic.jpg<?php else: echo attach($r['img'],'item'); endif; ?>" title="<?php echo ($r["title"]); echo ($r["price"]); ?>" alt="<?php echo ($r["title"]); echo ($r["price"]); ?>"/></div>
+
+	</div>
+
+	<h2><?php echo ($r["title"]); ?></h2>
+
+	<div class="price" ><?php echo ($r["price"]); ?></div>
+
+	<address><?php echo ($r['orig_name']); ?>｜<?php echo (fdate($r['add_time'])); ?>
+<span><i class="icons icon_like"></i><?php echo ($r["likes"]); ?></span><span><i class="icons icon_comment"></i><?php echo ($r["comments"]); ?></span><span><i class="icons icon_zan"></i><?php echo ($r["zan"]); ?></span>
+	</address>
+
+	</a> </li><?php endforeach; endif; else: echo "" ;endif; ?>
+
+  </ul>
+
+   <div class="clear"></div>
+
+   <div id="Gtmore" class="btn_getmore" ><a href="javascript:;" id="Get" onClick="return false;">加载更多</a></div>
+
+  <div id="Loading" style="display: none;text-align:center"><img src="/static/images/wap/jiazai.gif" style="width:30%;margin-top:10px;"/></div>
+
+  <input type="hidden" id="page" value="2"/>
+
+  </div> 
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https'){
+   bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+<script src="/static/js/wap/pl.js"></script>
+<script src="/js/clipboard.min.js"></script>
+<div class="clear"></div>
 
     <div class="w_bot">          
 
   <div class="w_bot1">
 
-      <a href="{:U('wap/aboutus/index', array('id'=>2))}" title="关于我们">关于我们</a>
+      <a href="<?php echo U('wap/aboutus/index', array('id'=>2));?>" title="关于我们">关于我们</a>
 
       <a href="<?php echo U('wap/aboutus/index', array('id'=>3));?>" title="联系我们">联系我们</a>
 
@@ -246,26 +325,54 @@ var PINER = {
         win.alimamatk_onload.push(o);
     })(window,document);
 </script>
-  <script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https'){
-   bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-  }
-  else{
-  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-  }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-
-<script src="/static/js/wap/pl.js"></script>
-
+<link rel="canonical" href="http://www.baicaio.com/item/<?php echo ($item["id"]); ?>.html"/>
+<script src="//msite.baidu.com/sdk/c.js?appid=1587722983761931"></script>
+<script type="application/ld+json">
+        {
+            "@context": "https://ziyuan.baidu.com/contexts/cambrian.jsonld",
+            "@id": "http://m.baicaio.com/item/<?php echo ($item["id"]); ?>.html",
+            "appid": "1587722983761931",
+            "title": "<?php echo ($page_seo["title"]); ?>",
+            "images": [
+                "<?php echo ($item["img"]); ?>"
+                ],
+            "description": "<?php echo ($page_seo["description"]); ?>",
+            "pubDate": "<?php echo (fpubdate($item["add_time"])); ?>"
+        }
+    </script>
 <script>
 
 $(function(){
+
+   var browser={
+    versions:function(){
+        var u = navigator.userAgent, app = navigator.appVersion;
+        return {
+            trident: u.indexOf('Trident') > -1, //IE内核
+            presto: u.indexOf('Presto') > -1, //opera内核
+            webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+            gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1,//火狐内核
+            mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+            ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+            android: u.indexOf('Android') > -1 || u.indexOf('Adr') > -1, //android终端
+            iPhone: u.indexOf('iPhone') > -1 , //是否为iPhone或者QQHD浏览器
+            iPad: u.indexOf('iPad') > -1, //是否iPad
+            webApp: u.indexOf('Safari') == -1, //是否web应该程序，没有头部与底部
+            weixin: u.indexOf('MicroMessenger') > -1, //是否微信 （2015-01-22新增）
+            qq: u.match(/\sQQ/i) == " qq" //是否QQ
+        };
+    }(),
+    language:(navigator.browserLanguage || navigator.language).toLowerCase()
+}
+if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+    //alert(navigator.userAgent);  
+   $(".J_ota").attr("href","https://itunes.apple.com/cn/app/白菜哦/id1245140625");
+} else if (/(Android)/i.test(navigator.userAgent)) {
+    //alert(navigator.userAgent); 
+   $(".J_ota").attr("href","http://sj.qq.com/myapp/detail.htm?apkName=com.cnxxp.cabbagenet");
+} else {
+   $(".J_ota").attr("href","/item/275535.html");
+};
 
 	//商品点赞
 
@@ -288,6 +395,11 @@ $(function(){
 		},'json')
 
 	});
+
+   var clipboard = new Clipboard('.baicaio_coupon');
+    clipboard.on('success', function(e) {
+        weui.Loading.success("优惠码:"+e.text+"已复制");
+    });
 
 	//详细页收藏商品
 
@@ -318,6 +430,114 @@ $(function(){
 		},'json');
 
 	});
+
+var page=<?php echo ($p); ?>;
+
+var para='<?php echo ($tab); ?>';
+
+$("#Get").click(function(){
+
+  getmore();
+
+});
+
+function getmore(){
+
+  var cid=$("#cid").val(),page=$("#page").val(),l=$("#Loading"),g=$("#Gtmore"),I=$("#Items");
+
+  l.show();g.hide();
+
+  $.get('<?php echo U("wap/ajax/getpbl");?>',{para:para,p:page},
+
+  function(res){
+
+    if(res.status==1){
+
+      I.append(res.data.resp);
+
+      $("#page").val(parseInt(page)+1);
+
+      g.show();l.hide();
+
+    }else{
+
+      weui.Loading.error("已经到最后一页了");
+
+      l.hide();
+
+    }
+
+  },'json');
+
+  
+
+}
+
+    $(function() { 
+
+  function loadMeinv() {
+
+    $('.jiazai').show();
+
+
+
+    $.get('/index.php?m=ajax&a=getpbl', {para:para ,p:page,pagesize:pagesize}, function (result){
+
+      if(result.status==1){
+
+        $('.jiazai').hide();
+
+        $("#C_drc").append(result.data.resp);
+
+        $("#J_page").html(result.data.pagebar);
+
+        if(pageend<page||pageend==null) {
+
+          $('#J_page').show();
+
+        }else{
+
+          $('#J_page').show();
+
+        }
+
+      }
+
+    },'json');    
+
+  }
+
+  page=page+1;
+
+  //无限加载
+
+  
+
+  $(window).scroll(function(){
+
+    var scrollTop = $(this).scrollTop();
+
+    var scrollHeight = $(document).height();
+
+    var windowHeight = $(this).height();
+
+    if (scrollTop + windowHeight == scrollHeight) {
+
+        //alert(333);
+
+        $("#Get").click();
+
+        loadMeinv();//加载新图片
+
+        page=page+1;
+
+    }
+
+    
+
+  })
+
+})
 
 })
 

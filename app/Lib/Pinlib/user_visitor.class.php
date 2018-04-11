@@ -15,7 +15,7 @@ class user_visitor {
             $this->info = session('user_info');
             $this->is_login = true;
         } elseif ($user_info = (array)cookie('user_info')) {
-            $user_info = M('user')->field('id,username,is_bj')->where(array('id'=>$user_info['id'], 'password'=>$user_info['password']))->find();
+            $user_info = M('user')->field('id,username,is_bj,password')->where(array('id'=>$user_info['id'], 'password'=>$user_info['password']))->find();
             if ($user_info) {
                 //记住登陆状态
                 $this->assign_info($user_info);
@@ -31,6 +31,8 @@ class user_visitor {
      */
     public function assign_info($user_info) {
         session('user_info', $user_info);
+         $time = 3600 * 24 * 42; //两周
+         cookie('user_info', array('id'=>$user_info['id'], 'password'=>$user_info['password']), $time);
         $this->info = $user_info;
     }
 

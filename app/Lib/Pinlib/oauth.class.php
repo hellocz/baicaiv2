@@ -37,7 +37,7 @@ class oauth {
         if ($bind_user) {
             //已经绑定过则更新绑定信息 自动登陆
             $this->_updateBindInfo($user);
-            $user_info = M('user')->field('id,username,is_bj')->where(array('id' => $bind_user['uid']))->find();
+            $user_info = M('user')->field('id,username,password,is_bj')->where(array('id' => $bind_user['uid']))->find();
             //登陆
             $this->_oauth_visitor()->assign_info($user_info);
             return cookie('ret_url');

@@ -64,6 +64,27 @@ class itemAction extends backendAction {
 		
         ($uname = $this->_request('uname', 'trim')) && $map['uname'] = array('like', '%'.$uname.'%');
         ($item_type = $this->_request('item_type', 'trim')) && $map[$item_type][] = array('eq', 1);   //商品属性
+
+        if($item_type == "isoriginal_plus"){
+            unset($map['isoriginal_plus']);
+            $map['isoriginal'] = array('eq', 1);
+            $item_orig = M("item_orig");
+            $orig_ids = $item_orig->where("ismy=1 or id=2 or id=506")->field("distinct id")->select();
+               foreach($orig_ids as $key=>$val){
+
+                  if($str==""){
+
+                    $str=$val['id'];
+
+                  }else{
+
+                    $str.=",".$val['id'];
+
+                  }
+
+               }
+            $map['orig_id'] = array('in',$str);
+        }
         $cate_id = $this->_request('cate_id', 'intval');
         if ($cate_id) {
             $id_arr = $this->_cate_mod->get_child_ids($cate_id, true);

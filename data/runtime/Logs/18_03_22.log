@@ -1,0 +1,166 @@
+[ 2018-03-22T08:17:35+08:00 ] 127.0.0.1 /
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.007001s ]
+SQL: SHOW COLUMNS FROM `try_item` [ RunTime:0.016001s ]
+SQL: SELECT * FROM `try_item` WHERE status=1 and add_time<1521677852  and isnice=1  ORDER BY  add_time desc LIMIT 0,18   [ RunTime:1.248072s ]
+SQL: SHOW COLUMNS FROM `try_item_orig` [ RunTime:0.014001s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=857 LIMIT 1   [ RunTime:0.002000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=857 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=857 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=857 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=393 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=50 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=2 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.001000s ]
+SQL: select distinct uid,uname,sum(score) as num from try_score_log where add_time>1521648000 and add_time<1521734400 group by uname order by num desc,uid asc limit 4 [ RunTime:0.005000s ]
+SQL: SHOW COLUMNS FROM `try_user` [ RunTime:0.011001s ]
+SQL: SELECT * FROM `try_user` ORDER BY score desc,id asc LIMIT 4   [ RunTime:0.025001s ]
+NOTIC: [8] Undefined index: dss D:\repo\baicai\app\Lib\Action\wap\indexAction.class.php 第 73 行.
+SQL: SHOW COLUMNS FROM `try_hd` [ RunTime:0.009001s ]
+SQL: SELECT * FROM `try_hd` ORDER BY order_s asc,id desc LIMIT 8   [ RunTime:0.000000s ]
+SQL: SELECT * FROM `try_item` WHERE istop = 1 ORDER BY id desc LIMIT 8   [ RunTime:0.890051s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-3.315190s ]
+INFO: [ view_template ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-3.321190s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.004000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-3.326190s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.009000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-3.327191s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.010001s ]
+NOTIC: [8] Undefined variable: item D:\repo\baicai\data\runtime\Cache\wap\0d8d2dd5d63ad2ed82a5bd57db222986.php 第 27 行.
+NOTIC: [8] Use of undefined constant isnice - assumed 'isnice' D:\repo\baicai\data\runtime\Cache\wap\0d8d2dd5d63ad2ed82a5bd57db222986.php 第 169 行.
+NOTIC: [8] Use of undefined constant isbao - assumed 'isbao' D:\repo\baicai\data\runtime\Cache\wap\0d8d2dd5d63ad2ed82a5bd57db222986.php 第 169 行.
+SQL: SHOW COLUMNS FROM `try_adboard` [ RunTime:0.015001s ]
+SQL: SELECT * FROM `try_adboard` WHERE ( `id` = 14 ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `try_ad` [ RunTime:0.009001s ]
+SQL: SELECT `id`,`type`,`name`,`url`,`content`,`desc`,`extimg`,`extval` FROM `try_ad` WHERE ( `board_id` = 14 ) AND ( `start_time` <= 1521677855 ) AND ( `end_time` >= 1521677855 ) AND ( `status` = 1 ) ORDER BY ordid  [ RunTime:0.002000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-3.424196s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.107006s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-3.424196s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.005000s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-3.429196s ]
+INFO: Run TokenBuild Behavior [ RunTime:-3.430196s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-3.432197s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-3.433197s ]
+INFO: Run content_replace Behavior [ RunTime:-3.434197s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.006001s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-3.435197s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+INFO: Run ParseTemplate Behavior [ RunTime:-3.435197s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.005000s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-3.464198s ]
+INFO: Run TokenBuild Behavior [ RunTime:-3.464198s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-3.464198s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-3.464198s ]
+INFO: Run content_replace Behavior [ RunTime:-3.464198s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.028001s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-3.464198s ]
+INFO: [ view_end ] --END-- [ RunTime:-0.028001s ]
+
+[ 2018-03-22T08:17:37+08:00 ] 127.0.0.1 HTTP://cz.baicaio.com/
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003000s ]
+SQL: SHOW COLUMNS FROM `try_item` [ RunTime:0.012001s ]
+SQL: SELECT * FROM `try_item` WHERE status=1 and add_time<1521677856  and isnice=1  ORDER BY  add_time desc LIMIT 0,18   [ RunTime:0.270015s ]
+SQL: SHOW COLUMNS FROM `try_item_orig` [ RunTime:0.007001s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=857 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=857 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=857 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=857 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=393 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=50 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=2 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=3 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.001001s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.001000s ]
+SQL: select distinct uid,uname,sum(score) as num from try_score_log where add_time>1521648000 and add_time<1521734400 group by uname order by num desc,uid asc limit 4 [ RunTime:0.002000s ]
+SQL: SHOW COLUMNS FROM `try_user` [ RunTime:0.009000s ]
+SQL: SELECT * FROM `try_user` ORDER BY score desc,id asc LIMIT 4   [ RunTime:0.024002s ]
+NOTIC: [8] Undefined index: dss D:\repo\baicai\app\Lib\Action\wap\indexAction.class.php 第 73 行.
+SQL: SHOW COLUMNS FROM `try_hd` [ RunTime:0.010000s ]
+SQL: SELECT * FROM `try_hd` ORDER BY order_s asc,id desc LIMIT 8   [ RunTime:0.001001s ]
+SQL: SELECT * FROM `try_item` WHERE istop = 1 ORDER BY id desc LIMIT 8   [ RunTime:0.851048s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.243128s ]
+INFO: [ view_template ] --END-- [ RunTime:0.001000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.247128s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.003000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.247128s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.003000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.247128s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.003000s ]
+NOTIC: [8] Undefined variable: item D:\repo\baicai\data\runtime\Cache\wap\0d8d2dd5d63ad2ed82a5bd57db222986.php 第 27 行.
+NOTIC: [8] Use of undefined constant isnice - assumed 'isnice' D:\repo\baicai\data\runtime\Cache\wap\0d8d2dd5d63ad2ed82a5bd57db222986.php 第 169 行.
+NOTIC: [8] Use of undefined constant isbao - assumed 'isbao' D:\repo\baicai\data\runtime\Cache\wap\0d8d2dd5d63ad2ed82a5bd57db222986.php 第 169 行.
+SQL: SHOW COLUMNS FROM `try_adboard` [ RunTime:0.006000s ]
+SQL: SELECT * FROM `try_adboard` WHERE ( `id` = 14 ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `try_ad` [ RunTime:0.006001s ]
+SQL: SELECT `id`,`type`,`name`,`url`,`content`,`desc`,`extimg`,`extval` FROM `try_ad` WHERE ( `board_id` = 14 ) AND ( `start_time` <= 1521677857 ) AND ( `end_time` >= 1521677857 ) AND ( `status` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.287131s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.043003s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-2.287131s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.005000s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-2.292131s ]
+INFO: Run TokenBuild Behavior [ RunTime:-2.292131s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-2.292131s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-2.293131s ]
+INFO: Run content_replace Behavior [ RunTime:-2.293131s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-2.294131s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+INFO: Run ParseTemplate Behavior [ RunTime:-2.294131s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.005000s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-2.323133s ]
+INFO: Run TokenBuild Behavior [ RunTime:-2.323133s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-2.323133s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-2.323133s ]
+INFO: Run content_replace Behavior [ RunTime:-2.323133s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.029002s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-2.323133s ]
+INFO: [ view_end ] --END-- [ RunTime:-0.028002s ]
+

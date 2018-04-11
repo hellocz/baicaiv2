@@ -259,7 +259,7 @@ class itemAction extends frontendAction {
             $item['content']= str_replace($v,$v . " rel=\"nofollow\"",$item['content']);
         }
         if(strpos($v, "market.m.taobao.com") == true  || strpos($v, "taoquan.taobao.com") == true || strpos($v, "shop.m.taobao.com") == true){
-            $item['content']= str_replace($v,"",$item['content']);
+         //   $item['content']= str_replace($v,"",$item['content']);
         }
       }
 
@@ -434,6 +434,7 @@ class itemAction extends frontendAction {
         $url = $this->_get('to');
         $map=array('show'=>$url);
         $str = M("go")->where($map)->find();
+        var_dump($str);
         if($str && $str['url']){
         redirect($str['url']);
         }else{
@@ -654,7 +655,13 @@ class itemAction extends frontendAction {
                    } 
                   foreach ($content->find ("a") as $e) {
                     $href = $e->href;
-                      if(strpos($href, "detail.tmall.com") !== false || strpos($href, "taoquan.taobao.com") !== false){
+                    $pattern = '/(((https|http)%3A%2F%2Fitem\.jd\.com\S+)\.html)/';
+                    $pattern_num = preg_match($pattern, $href,$pattern_result);
+                    $url = urldecode($pattern_result[1]);
+                      if(!empty($url)){
+                        $e->href=$this->converturl($url);
+                      }
+                      elseif(strpos($href, "tmall.com") !== false || strpos($href, "taobao.com") !== false){
                         //donothing
                       }
                       elseif(strpos($href, "uland.taobao.com") !== false){
@@ -709,6 +716,15 @@ class itemAction extends frontendAction {
 
     }
 }
+
+      public function test(){
+        $href = "http://guangdiu.com/to.php?u=https%3A%2F%2Fitem.jd.com%2F1242637.html";
+         $pattern = '/(((https|http)%3A%2F%2Fitem\.jd\.com\S+)\.html)/';
+                    $pattern_num = preg_match($pattern, $href,$pattern_result);
+
+                    $url = urldecode($pattern_result[1]);
+                    var_dump($this->converturl_us($url));
+      }
       public function fetch_diu_us(){
         $diucollect = new simple_html_dom();
         $diucollect->load_file('https://guangdiu.com/?c=us');

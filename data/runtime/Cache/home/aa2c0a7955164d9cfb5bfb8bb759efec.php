@@ -11,9 +11,10 @@
 <meta name="keywords" content="<?php echo ($page_seo["keywords"]); ?>" />
 
 <meta name="description" content="<?php echo ($page_seo["description"]); ?>" />
+<meta property="article:published_time" content="<?php echo (fpubdate($item["add_time"])); ?>+08:00" />
 <meta name="360-site-verification" content="52d9b1bb4b02391c169381b95ad45301" />
 
-<link href="/css/bc_css.css?v=2018012401" type="text/css" rel="stylesheet"/>
+<link href="/css/bc_css.css?v=201800330" type="text/css" rel="stylesheet"/>
 
 <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
 <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
@@ -106,7 +107,7 @@ table a{ color:#3dc399; text-decoration:none;outline:none;}
 
             <form class="form_search" action="<?php echo U('search/index');?>"  method="get">
                  <button type="submit" class="btn_search icon-search"><!--[if lt IE 8]>Go<![endif]--></button>
-                <input id="s" name="q" type="search" class="text_search" value="<?php if($strpos1): echo ($strpos1); else: ?>回血计划<?php endif; ?>" onblur="if(this.value==&#39;&#39;) {this.value=&#39;回血计划&#39;;this.style.color=&#39;#999&#39;;}" onfocus="if(this.value==&#39;回血计划&#39;) {this.value=&#39;&#39;;this.style.color=&#39;#333&#39;;}" style="color: rgb(153, 153, 153);" _hover-ignore="1">
+                <input id="s" name="q" type="search" class="text_search" value="<?php if($strpos1): echo ($strpos1); else: ?>小编说<?php endif; ?>" onblur="if(this.value==&#39;&#39;) {this.value=&#39;小编说&#39;;this.style.color=&#39;#999&#39;;}" onfocus="if(this.value==&#39;小编说&#39;) {this.value=&#39;&#39;;this.style.color=&#39;#333&#39;;}" style="color: rgb(153, 153, 153);" _hover-ignore="1">
             </form>
      </div>
 
@@ -124,7 +125,6 @@ table a{ color:#3dc399; text-decoration:none;outline:none;}
                        <li><a href="<?php echo U('item/share_item');?>" title="我要爆料" alt="我要爆料海淘攻略">我要爆料</a></li>
                        <li><a href="<?php echo U('article/publish',array('t'=>'gl'));?>" title="发表攻略" alt="发表海淘攻略">发表攻略</a></li>
                        <li><a href="<?php echo U('article/publish',array('t'=>'sd'));?>" title="我要晒单" alt="我要晒海淘攻略单">我要晒单</a></li>
-                       <li><a href="<?php echo U('zr/publish');?>" title="发布转让" alt="发布转让海淘优惠劵">发布转让</a></li>
                    </ul>
                </div>
            </div>
@@ -179,9 +179,9 @@ table a{ color:#3dc399; text-decoration:none;outline:none;}
 
       <div><em>商品质量：<?php echo ($info["fwzl"]); ?>星</em><em>服务配送：<?php echo ($info["fwps"]); ?>星</em><em>客户服务：<?php echo ($info["khfw"]); ?>星</em></div>
 
-      <a target="_blank" href="<?php echo ($info["url"]); ?>"  title="直达商城"  class="w_dha">直达商城</a>
+      <a target="_blank" href="<?php echo ($info["url"]); ?>"  title="直达商城" rel="nofollow"  class="w_dha">直达商城</a>
 
-      <?php if(is_array($gl_list)): $i = 0; $__LIST__ = $gl_list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$gl): $mod = ($i % 2 );++$i;?><a target="_blank" href="<?php echo U('article/show',array('id'=>$gl['id']));?>"  title="<?php echo ($gl["otitle"]); ?>"  class="w_dha"><?php echo ($gl["otitle"]); ?></a><?php endforeach; endif; else: echo "" ;endif; ?>
+      <?php if(is_array($gl_list)): $i = 0; $__LIST__ = $gl_list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$gl): $mod = ($i % 2 );++$i;?><a target="_blank" href="<?php echo U('article/show',array('id'=>$gl['id']));?>"   title="<?php echo ($gl["otitle"]); ?>"  class="w_dha"><?php echo ($gl["otitle"]); ?></a><?php endforeach; endif; else: echo "" ;endif; ?>
 
     </div>
 
@@ -327,7 +327,7 @@ $(document).ready(function(e) {
     -->
     <script src=" http://hm.baidu.com/h.js?49113e6b733eb50457f8170c967ff321" type="text/javascript"></script>
     </em></p>
-     <p>版权所有&copy;长沙佰成通网络科技有限公司 所有资讯均受著作权保护，未经许可不得使用，不得转载、摘编。 <a href="http://www.miibeian.gov.cn" rel=nofollow>湘ICP备13002285号</a><img src="/images/gan.png" alt="公安备案">湘公网安备 43011102000623号</p>
+     <p>版权所有&copy;长沙佰成通网络科技有限公司 所有资讯均受著作权保护，未经许可不得使用，不得转载、摘编。 <a href="http://www.miibeian.gov.cn" rel="nofollow">湘ICP备13002285号</a><img src="/images/gan.png" alt="公安备案">湘公网安备 43011102000623号</p>
    </div>                                                      
   </div>
 </div>
