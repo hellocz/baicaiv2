@@ -1,0 +1,1955 @@
+[ 2018-04-11T14:23:54+08:00 ] 127.0.0.1 /?g=admin&m=index&a=login
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.001001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004001s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.014001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.050061s ]
+INFO: [ view_template ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-1.052061s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.015001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.067062s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.068062s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.069062s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.070062s ]
+INFO: Run content_replace Behavior [ RunTime:-1.071062s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.004000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.072062s ]
+INFO: [ view_end ] --END-- [ RunTime:0.002000s ]
+
+[ 2018-04-11T14:23:55+08:00 ] 127.0.0.1 /?g=admin&m=index&a=verify_code&t=1523427834
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.005000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.011001s ]
+
+[ 2018-04-11T14:23:58+08:00 ] 127.0.0.1 /
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.002001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004001s ]
+SQL: SHOW COLUMNS FROM `try_item` [ RunTime:0.029001s ]
+SQL: SELECT * FROM `try_item` WHERE status=1 and add_time<1523427836  and isnice=1  ORDER BY  add_time desc LIMIT 0,18   [ RunTime:1.418082s ]
+SQL: SHOW COLUMNS FROM `try_item_orig` [ RunTime:0.012000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=-1 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=596 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=-1 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=762 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=579 LIMIT 1   [ RunTime:0.001001s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=688 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=801 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=596 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=-1 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=49 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=141 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=493 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=493 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=49 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=596 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=674 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=664 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=674 LIMIT 1   [ RunTime:0.001000s ]
+SQL: select distinct uid,uname,sum(score) as num from try_score_log where add_time>1523376000 and add_time<1523462400 group by uname order by num desc,uid asc limit 4 [ RunTime:0.003000s ]
+SQL: SHOW COLUMNS FROM `try_user` [ RunTime:0.009001s ]
+SQL: SELECT * FROM `try_user` ORDER BY score desc,id asc LIMIT 4   [ RunTime:0.024001s ]
+NOTIC: [8] Undefined index: dss D:\repo\baicai\app\Lib\Action\wap\indexAction.class.php 第 73 行.
+SQL: SHOW COLUMNS FROM `try_hd` [ RunTime:0.008000s ]
+SQL: SELECT * FROM `try_hd` ORDER BY order_s asc,id desc LIMIT 8   [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_item` WHERE istop = 1 ORDER BY id desc LIMIT 8   [ RunTime:0.930053s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-3.582205s ]
+INFO: [ view_template ] --END-- [ RunTime:0.001000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-3.590206s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.007001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-3.590206s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.007001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-3.591206s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.008001s ]
+NOTIC: [8] Undefined variable: item D:\repo\baicai\data\runtime\Cache\wap\0d8d2dd5d63ad2ed82a5bd57db222986.php 第 27 行.
+NOTIC: [8] Use of undefined constant isnice - assumed 'isnice' D:\repo\baicai\data\runtime\Cache\wap\0d8d2dd5d63ad2ed82a5bd57db222986.php 第 169 行.
+NOTIC: [8] Use of undefined constant isbao - assumed 'isbao' D:\repo\baicai\data\runtime\Cache\wap\0d8d2dd5d63ad2ed82a5bd57db222986.php 第 169 行.
+SQL: SHOW COLUMNS FROM `try_adboard` [ RunTime:0.008001s ]
+SQL: SELECT * FROM `try_adboard` WHERE ( `id` = 14 ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `try_ad` [ RunTime:0.008000s ]
+SQL: SELECT `id`,`type`,`name`,`url`,`content`,`desc`,`extimg`,`extval` FROM `try_ad` WHERE ( `board_id` = 14 ) AND ( `start_time` <= 1523427838 ) AND ( `end_time` >= 1523427838 ) AND ( `status` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-3.638209s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.055004s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-3.638209s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.005000s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-3.643209s ]
+INFO: Run TokenBuild Behavior [ RunTime:-3.644209s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-3.644209s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-3.645209s ]
+INFO: Run content_replace Behavior [ RunTime:-3.645209s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-3.646209s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+INFO: Run ParseTemplate Behavior [ RunTime:-3.646209s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.005000s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-3.674211s ]
+INFO: Run TokenBuild Behavior [ RunTime:-3.675211s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-3.675211s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-3.675211s ]
+INFO: Run content_replace Behavior [ RunTime:-3.675211s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.028002s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-3.675211s ]
+INFO: [ view_end ] --END-- [ RunTime:-0.028002s ]
+
+[ 2018-04-11T14:24:00+08:00 ] 127.0.0.1 /?g=admin&m=index&a=login
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.007000s ]
+SQL: SHOW COLUMNS FROM `try_admin` [ RunTime:0.009001s ]
+SQL: SELECT * FROM `try_admin` WHERE ( `username` = 'hellocz' ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.001000s ]
+SQL: UPDATE `try_admin` SET `last_time`=1523427840,`last_ip`='127.0.0.1' WHERE ( `id` = 19 ) [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.090062s ]
+INFO: [ view_template ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-1.092062s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.011001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.103063s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.104063s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.104063s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.105063s ]
+INFO: Run content_replace Behavior [ RunTime:-1.106063s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.106063s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-04-11T14:24:01+08:00 ] 127.0.0.1 HTTP://cz.baicaio.com/
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003000s ]
+SQL: SHOW COLUMNS FROM `try_item` [ RunTime:0.010001s ]
+SQL: SELECT * FROM `try_item` WHERE status=1 and add_time<1523427840  and isnice=1  ORDER BY  add_time desc LIMIT 0,18   [ RunTime:0.553032s ]
+SQL: SHOW COLUMNS FROM `try_item_orig` [ RunTime:0.007000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=-1 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=596 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=-1 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=762 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=579 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=688 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=801 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=596 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=-1 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=49 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=141 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=493 LIMIT 1   [ RunTime:0.002001s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=493 LIMIT 1   [ RunTime:0.002000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=49 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=596 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=674 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=664 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=674 LIMIT 1   [ RunTime:0.001000s ]
+SQL: select distinct uid,uname,sum(score) as num from try_score_log where add_time>1523376000 and add_time<1523462400 group by uname order by num desc,uid asc limit 4 [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `try_user` [ RunTime:0.008001s ]
+SQL: SELECT * FROM `try_user` ORDER BY score desc,id asc LIMIT 4   [ RunTime:0.027001s ]
+NOTIC: [8] Undefined index: dss D:\repo\baicai\app\Lib\Action\wap\indexAction.class.php 第 73 行.
+SQL: SHOW COLUMNS FROM `try_hd` [ RunTime:0.009001s ]
+SQL: SELECT * FROM `try_hd` ORDER BY order_s asc,id desc LIMIT 8   [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_item` WHERE istop = 1 ORDER BY id desc LIMIT 8   [ RunTime:1.218070s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.885165s ]
+INFO: [ view_template ] --END-- [ RunTime:0.001000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.888165s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.002000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.889165s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.003000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.889165s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.003000s ]
+NOTIC: [8] Undefined variable: item D:\repo\baicai\data\runtime\Cache\wap\0d8d2dd5d63ad2ed82a5bd57db222986.php 第 27 行.
+NOTIC: [8] Use of undefined constant isnice - assumed 'isnice' D:\repo\baicai\data\runtime\Cache\wap\0d8d2dd5d63ad2ed82a5bd57db222986.php 第 169 行.
+NOTIC: [8] Use of undefined constant isbao - assumed 'isbao' D:\repo\baicai\data\runtime\Cache\wap\0d8d2dd5d63ad2ed82a5bd57db222986.php 第 169 行.
+SQL: SHOW COLUMNS FROM `try_adboard` [ RunTime:0.008001s ]
+SQL: SELECT * FROM `try_adboard` WHERE ( `id` = 14 ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `try_ad` [ RunTime:0.009000s ]
+SQL: SELECT `id`,`type`,`name`,`url`,`content`,`desc`,`extimg`,`extval` FROM `try_ad` WHERE ( `board_id` = 14 ) AND ( `start_time` <= 1523427841 ) AND ( `end_time` >= 1523427841 ) AND ( `status` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.935167s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.049002s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-2.936167s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.005001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-2.941168s ]
+INFO: Run TokenBuild Behavior [ RunTime:-2.942168s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-2.942168s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-2.942168s ]
+INFO: Run content_replace Behavior [ RunTime:-2.943168s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-2.944168s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+INFO: Run ParseTemplate Behavior [ RunTime:-2.944168s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.005001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-2.980170s ]
+INFO: Run TokenBuild Behavior [ RunTime:-2.980170s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-2.980170s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-2.980170s ]
+INFO: Run content_replace Behavior [ RunTime:-2.980170s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.036002s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-2.981170s ]
+INFO: [ view_end ] --END-- [ RunTime:-0.036002s ]
+
+[ 2018-04-11T14:24:02+08:00 ] 127.0.0.1 /?g=admin&m=index&a=index
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.006000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.007000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.007001s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 0 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.095063s ]
+INFO: [ view_template ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-1.097063s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.013001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.110064s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.111064s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.112064s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.112064s ]
+INFO: Run content_replace Behavior [ RunTime:-1.113064s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.113064s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-04-11T14:24:03+08:00 ] 127.0.0.1 /?g=admin&m=index&a=panel
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.011001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.109063s ]
+INFO: [ view_template ] --END-- [ RunTime:0.001000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.112064s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.003001s ]
+NOTIC: [8] Undefined variable: sub_menu D:\repo\baicai\data\runtime\Cache\admin\ba3d2a4c7110487814df26e78e828b96.php 第 43 行.
+NOTIC: [8] Undefined variable: big_menu D:\repo\baicai\data\runtime\Cache\admin\ba3d2a4c7110487814df26e78e828b96.php 第 43 行.
+INFO: Run ParseTemplate Behavior [ RunTime:-1.112064s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.013001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.122064s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.123064s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.123064s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.123064s ]
+INFO: Run content_replace Behavior [ RunTime:-1.124064s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.124064s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-04-11T14:24:04+08:00 ] 127.0.0.1 /?g=admin&m=index&a=left
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004001s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.006000s ]
+SQL: SELECT * FROM `try_menu` WHERE ( `often` = 1 )  [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.095120s ]
+INFO: [ view_template ] --END-- [ RunTime:0.001000s ]
+INFO: [ view_parse ] --START--
+NOTIC: [8] Undefined index: data D:\repo\baicai\data\runtime\Cache\admin\8bbf59c365bdf6267b9eb5e67d22693d.php 第 5 行.
+INFO: Run ParseTemplate Behavior [ RunTime:-2.096120s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.013001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-2.109121s ]
+INFO: Run TokenBuild Behavior [ RunTime:-2.109121s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-2.109121s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-2.110121s ]
+INFO: Run content_replace Behavior [ RunTime:-2.111121s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-2.111121s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-04-11T14:24:05+08:00 ] 127.0.0.1 /index.php
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.003000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.003000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.009001s ]
+SQL: SHOW COLUMNS FROM `try_item` [ RunTime:0.007000s ]
+SQL: SELECT * FROM `try_item` WHERE status=1 and add_time<1523427844  and isnice=1  ORDER BY  add_time desc LIMIT 0,18   [ RunTime:0.261015s ]
+SQL: SHOW COLUMNS FROM `try_item_orig` [ RunTime:0.006001s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=-1 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=596 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=-1 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=762 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=579 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=688 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=801 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=596 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=-1 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=49 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=141 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=493 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=493 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=49 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=596 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=674 LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=664 LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=674 LIMIT 1   [ RunTime:0.000000s ]
+SQL: select distinct uid,uname,sum(score) as num from try_score_log where add_time>1523376000 and add_time<1523462400 group by uname order by num desc,uid asc limit 4 [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `try_user` [ RunTime:0.007000s ]
+SQL: SELECT * FROM `try_user` ORDER BY score desc,id asc LIMIT 4   [ RunTime:0.024001s ]
+NOTIC: [8] Undefined index: dss D:\repo\baicai\app\Lib\Action\wap\indexAction.class.php 第 73 行.
+SQL: SHOW COLUMNS FROM `try_hd` [ RunTime:0.007000s ]
+SQL: SELECT * FROM `try_hd` ORDER BY order_s asc,id desc LIMIT 8   [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_item` WHERE istop = 1 ORDER BY id desc LIMIT 8   [ RunTime:0.841048s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.273130s ]
+INFO: [ view_template ] --END-- [ RunTime:0.004000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.282131s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.004001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.284131s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.007001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.286131s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.009001s ]
+NOTIC: [8] Undefined variable: item D:\repo\baicai\data\runtime\Cache\wap\0d8d2dd5d63ad2ed82a5bd57db222986.php 第 27 行.
+NOTIC: [8] Use of undefined constant isnice - assumed 'isnice' D:\repo\baicai\data\runtime\Cache\wap\0d8d2dd5d63ad2ed82a5bd57db222986.php 第 169 行.
+NOTIC: [8] Use of undefined constant isbao - assumed 'isbao' D:\repo\baicai\data\runtime\Cache\wap\0d8d2dd5d63ad2ed82a5bd57db222986.php 第 169 行.
+SQL: SHOW COLUMNS FROM `try_adboard` [ RunTime:0.007000s ]
+SQL: SELECT * FROM `try_adboard` WHERE ( `id` = 14 ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `try_ad` [ RunTime:0.007001s ]
+SQL: SELECT `id`,`type`,`name`,`url`,`content`,`desc`,`extimg`,`extval` FROM `try_ad` WHERE ( `board_id` = 14 ) AND ( `start_time` <= 1523427845 ) AND ( `end_time` >= 1523427845 ) AND ( `status` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.334134s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.057004s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-2.336134s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.005000s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-2.342134s ]
+INFO: Run TokenBuild Behavior [ RunTime:-2.343134s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-2.344134s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-2.346134s ]
+INFO: Run content_replace Behavior [ RunTime:-2.347134s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.008001s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-2.349135s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+INFO: Run ParseTemplate Behavior [ RunTime:-2.349135s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.005000s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-2.378136s ]
+INFO: Run TokenBuild Behavior [ RunTime:-2.378136s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-2.378136s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-2.378136s ]
+INFO: Run content_replace Behavior [ RunTime:-2.378136s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.029001s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-2.378136s ]
+INFO: [ view_end ] --END-- [ RunTime:-0.028001s ]
+
+[ 2018-04-11T14:25:44+08:00 ] 127.0.0.1 /?g=admin&m=index&a=left
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.009000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.009001s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 29 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 29 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 254 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 31 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.000000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.065061s ]
+INFO: [ view_template ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-1.067061s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.011001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.078062s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.079062s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.079062s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.079062s ]
+INFO: Run content_replace Behavior [ RunTime:-1.080062s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.081062s ]
+INFO: [ view_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2018-04-11T14:25:45+08:00 ] 127.0.0.1 /?g=admin&m=index&a=left
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.010000s ]
+SQL: SELECT * FROM `try_menu` WHERE ( `often` = 1 )  [ RunTime:0.002000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.042059s ]
+INFO: [ view_template ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_parse ] --START--
+NOTIC: [8] Undefined index: data D:\repo\baicai\data\runtime\Cache\admin\8bbf59c365bdf6267b9eb5e67d22693d.php 第 5 行.
+INFO: Run ParseTemplate Behavior [ RunTime:-1.044059s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.016001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.061060s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.061060s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.062060s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.062060s ]
+INFO: Run content_replace Behavior [ RunTime:-1.063060s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003001s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.064061s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-04-11T14:25:47+08:00 ] 127.0.0.1 /?g=admin&m=index&a=left
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.002001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.006001s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.007000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.007001s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 50 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 50 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.000000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 51 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 288 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 290 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 293 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.042060s ]
+INFO: [ view_template ] --END-- [ RunTime:0.001000s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-1.043060s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.011001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.054061s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.054061s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.055061s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.055061s ]
+INFO: Run content_replace Behavior [ RunTime:-1.056061s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.056061s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-04-11T14:25:50+08:00 ] 127.0.0.1 /?g=admin&m=index&a=left
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.006001s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.009001s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.010001s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 1 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.002000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 1 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.002000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 2 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 60 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.202069s ]
+INFO: [ view_template ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-1.204069s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.014001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.218070s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.218070s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.219070s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.219070s ]
+INFO: Run content_replace Behavior [ RunTime:-1.220070s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.220070s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-04-11T14:25:53+08:00 ] 127.0.0.1 /?g=admin&m=menu&a=index&menuid=6
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.010000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.009001s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 6 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 19 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 26 行.
+SQL: SELECT * FROM `try_menu` ORDER BY ordid  [ RunTime:0.003000s ]
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.119064s ]
+INFO: [ view_template ] --END-- [ RunTime:0.001000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.123064s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.003000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.124064s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.004000s ]
+NOTIC: [8] Undefined variable: page D:\repo\baicai\data\runtime\Cache\admin\9e5823a01e4357cf26e91093bd181e08.php 第 99 行.
+INFO: Run ParseTemplate Behavior [ RunTime:-1.124064s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.016001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.137065s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.139065s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.140065s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.141065s ]
+INFO: Run content_replace Behavior [ RunTime:-1.142065s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.007000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.145065s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-04-11T14:25:55+08:00 ] 127.0.0.1 /?g=admin&m=menu&a=index&menuid=6
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.001001s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004001s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.009001s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.010000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 6 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 19 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 26 行.
+SQL: SELECT * FROM `try_menu` ORDER BY ordid  [ RunTime:0.003000s ]
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.233127s ]
+INFO: [ view_template ] --END-- [ RunTime:0.001000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.237127s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.003000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.237127s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.003000s ]
+NOTIC: [8] Undefined variable: page D:\repo\baicai\data\runtime\Cache\admin\9e5823a01e4357cf26e91093bd181e08.php 第 99 行.
+INFO: Run ParseTemplate Behavior [ RunTime:-2.237127s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.012001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-2.247128s ]
+INFO: Run TokenBuild Behavior [ RunTime:-2.249128s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-2.249128s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-2.250128s ]
+INFO: Run content_replace Behavior [ RunTime:-2.251128s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.005000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-2.252128s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-04-11T14:28:03+08:00 ] 127.0.0.1 /?g=admin&m=index&a=left
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.005000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.009001s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.009000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 50 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 50 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 51 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 288 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 290 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 293 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.058061s ]
+INFO: [ view_template ] --END-- [ RunTime:0.003000s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-1.061061s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.017001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.078062s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.078062s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.079062s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.079062s ]
+INFO: Run content_replace Behavior [ RunTime:-1.080062s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.081062s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-04-11T14:29:03+08:00 ] 127.0.0.1 /?g=admin&m=menu&a=index&menuid=6
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.006001s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.009000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 6 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 19 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 26 行.
+SQL: SELECT * FROM `try_menu` ORDER BY ordid  [ RunTime:0.002001s ]
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+NOTIC: [8] Undefined variable: parentid D:\repo\baicai\app\Lib\ORG\Tree.class.php 第 121 行.
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.126064s ]
+INFO: [ view_template ] --END-- [ RunTime:0.001000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.130064s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.003000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.131064s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.004000s ]
+NOTIC: [8] Undefined variable: page D:\repo\baicai\data\runtime\Cache\admin\9e5823a01e4357cf26e91093bd181e08.php 第 99 行.
+INFO: Run ParseTemplate Behavior [ RunTime:-1.131064s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.016001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.143065s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.145065s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.146065s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.146065s ]
+INFO: Run content_replace Behavior [ RunTime:-1.148065s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.006000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.149065s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-04-11T14:29:22+08:00 ] 127.0.0.1 /?g=admin&m=index&a=left
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.010001s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.010000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 50 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.002001s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 50 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 51 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.002000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 288 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.002000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 290 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 293 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.062061s ]
+INFO: [ view_template ] --END-- [ RunTime:0.003000s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-1.065061s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.014001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.079062s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.079062s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.080062s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.080062s ]
+INFO: Run content_replace Behavior [ RunTime:-1.081062s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.081062s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-04-11T14:29:26+08:00 ] ERR: (ThinkException) Table 'xl_baicai.try_activity' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `try_activity`
+[ 2018-04-11T14:29:27+08:00 ] ERR: (ThinkException) Table 'xl_baicai.try_activity' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `try_activity`
+[ 2018-04-11T14:30:10+08:00 ] ERR: (ThinkException) 模板不存在[./app/Tpl/admin/activity/index.html]
+[ 2018-04-11T14:30:11+08:00 ] ERR: (ThinkException) 模板不存在[./app/Tpl/admin/activity/index.html]
+[ 2018-04-11T14:31:44+08:00 ] 127.0.0.1 /?g=admin&m=activity&a=index&menuid=305
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.005001s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.009000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.010001s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 305 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 19 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 26 行.
+SQL: SHOW COLUMNS FROM `try_activity` [ RunTime:0.009001s ]
+NOTIC: [8] Undefined variable: map D:\repo\baicai\app\Lib\Action\admin\activityAction.class.php 第 47 行.
+SQL: SELECT COUNT(id) AS tp_count FROM `try_activity` LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_activity` ORDER BY id desc LIMIT 0,20   [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.075062s ]
+INFO: [ view_template ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.082062s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.005000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.083062s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.006000s ]
+INFO: Run ParseTemplate Behavior [ RunTime:-1.083062s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.019001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.096063s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.096063s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.097063s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.097063s ]
+INFO: Run content_replace Behavior [ RunTime:-1.098063s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.098063s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-04-11T14:31:49+08:00 ] ERR: (ThinkException) 模板不存在[./app/Tpl/admin/activity/add.html]
+[ 2018-04-11T14:32:22+08:00 ] 127.0.0.1 /?g=admin&m=activity&a=index&menuid=305
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.005000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.010001s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.009000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 305 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.002001s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 19 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 26 行.
+SQL: SHOW COLUMNS FROM `try_activity` [ RunTime:0.010000s ]
+NOTIC: [8] Undefined variable: map D:\repo\baicai\app\Lib\Action\admin\activityAction.class.php 第 47 行.
+SQL: SELECT COUNT(id) AS tp_count FROM `try_activity` LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_activity` ORDER BY id desc LIMIT 0,20   [ RunTime:0.002000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.074061s ]
+INFO: [ view_template ] --END-- [ RunTime:0.000000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.077062s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.003001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.077062s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.003001s ]
+INFO: Run ParseTemplate Behavior [ RunTime:-1.077062s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.015001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.090062s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.090062s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.091062s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.093062s ]
+INFO: Run content_replace Behavior [ RunTime:-1.094063s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.006001s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.096063s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-04-11T14:32:54+08:00 ] ERR: (ThinkException) 无法加载模块:static/images/admin_img/question
+[ 2018-04-11T14:32:58+08:00 ] 127.0.0.1 /?g=admin&m=tick&a=add
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.006001s ]
+SQL: SHOW COLUMNS FROM `try_tick` [ RunTime:0.012000s ]
+SQL: INSERT INTO `try_tick` (`name`,`je`,`dhjf`,`orig_id`,`ljdz`,`xl`,`intro`,`start_time`,`end_time`) VALUES ('白菜哦活动','',0,53,'',0,'白菜哦活动199-100','2018-04-03','2018-04-12') [ RunTime:0.002000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.067061s ]
+INFO: [ view_template ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-1.069061s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.013001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.082062s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.083062s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.083062s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.084062s ]
+INFO: Run content_replace Behavior [ RunTime:-1.085062s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.004000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.086062s ]
+INFO: [ view_end ] --END-- [ RunTime:0.002001s ]
+
+[ 2018-04-11T14:33:01+08:00 ] 127.0.0.1 /?g=admin&m=activity&a=index&menuid=305
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.006000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.010001s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.011001s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 305 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 19 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 26 行.
+SQL: SHOW COLUMNS FROM `try_activity` [ RunTime:0.006000s ]
+NOTIC: [8] Undefined variable: map D:\repo\baicai\app\Lib\Action\admin\activityAction.class.php 第 47 行.
+SQL: SELECT COUNT(id) AS tp_count FROM `try_activity` LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_activity` ORDER BY id desc LIMIT 0,20   [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.075061s ]
+INFO: [ view_template ] --END-- [ RunTime:0.001000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.078061s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.002000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.079061s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.003000s ]
+INFO: Run ParseTemplate Behavior [ RunTime:-1.079061s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.014001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.090062s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.090062s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.091062s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.091062s ]
+INFO: Run content_replace Behavior [ RunTime:-1.091062s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.092062s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-04-11T14:33:03+08:00 ] 127.0.0.1 /?g=admin&m=activity&a=index&menuid=305
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.009001s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.010000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 305 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 19 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 26 行.
+SQL: SHOW COLUMNS FROM `try_activity` [ RunTime:0.009001s ]
+NOTIC: [8] Undefined variable: map D:\repo\baicai\app\Lib\Action\admin\activityAction.class.php 第 47 行.
+SQL: SELECT COUNT(id) AS tp_count FROM `try_activity` LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_activity` ORDER BY id desc LIMIT 0,20   [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.103063s ]
+INFO: [ view_template ] --END-- [ RunTime:0.001000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.109064s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.005001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.110064s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.006001s ]
+INFO: Run ParseTemplate Behavior [ RunTime:-1.110064s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.018001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.123064s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.124064s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.124064s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.124064s ]
+INFO: Run content_replace Behavior [ RunTime:-1.125065s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003001s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.126065s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-04-11T14:33:04+08:00 ] 127.0.0.1 /?g=admin&m=activity&a=index&menuid=305
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:-0.001000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.010001s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.010000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 305 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.002000s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 19 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 26 行.
+SQL: SHOW COLUMNS FROM `try_activity` [ RunTime:0.016001s ]
+NOTIC: [8] Undefined variable: map D:\repo\baicai\app\Lib\Action\admin\activityAction.class.php 第 47 行.
+SQL: SELECT COUNT(id) AS tp_count FROM `try_activity` LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT * FROM `try_activity` ORDER BY id desc LIMIT 0,20   [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.079062s ]
+INFO: [ view_template ] --END-- [ RunTime:0.001000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.083062s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.003000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.083062s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.003000s ]
+INFO: Run ParseTemplate Behavior [ RunTime:-1.083062s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.015001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.096063s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.096063s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.097063s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.097063s ]
+INFO: Run content_replace Behavior [ RunTime:-1.097063s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.098063s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-04-11T14:33:05+08:00 ] 127.0.0.1 /?g=admin&m=activity&a=index&menuid=305
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.005000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.010001s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.010000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 305 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 19 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 26 行.
+SQL: SHOW COLUMNS FROM `try_activity` [ RunTime:0.008001s ]
+NOTIC: [8] Undefined variable: map D:\repo\baicai\app\Lib\Action\admin\activityAction.class.php 第 47 行.
+SQL: SELECT COUNT(id) AS tp_count FROM `try_activity` LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_activity` ORDER BY id desc LIMIT 0,20   [ RunTime:0.000000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.007115s ]
+INFO: [ view_template ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.012115s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.004000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.014115s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.006000s ]
+INFO: Run ParseTemplate Behavior [ RunTime:-2.014115s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.020001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-2.029116s ]
+INFO: Run TokenBuild Behavior [ RunTime:-2.029116s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-2.030116s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-2.031116s ]
+INFO: Run content_replace Behavior [ RunTime:-2.031116s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-2.032116s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-04-11T14:33:06+08:00 ] 127.0.0.1 /?g=admin&m=activity&a=index&menuid=305
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004001s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.010001s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.009000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 305 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 19 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 26 行.
+SQL: SHOW COLUMNS FROM `try_activity` [ RunTime:0.009001s ]
+NOTIC: [8] Undefined variable: map D:\repo\baicai\app\Lib\Action\admin\activityAction.class.php 第 47 行.
+SQL: SELECT COUNT(id) AS tp_count FROM `try_activity` LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT * FROM `try_activity` ORDER BY id desc LIMIT 0,20   [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.494143s ]
+INFO: [ view_template ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.499143s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.003000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-2.500143s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.004000s ]
+INFO: Run ParseTemplate Behavior [ RunTime:-2.500143s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.017001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-2.513144s ]
+INFO: Run TokenBuild Behavior [ RunTime:-2.513144s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-2.514144s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-2.514144s ]
+INFO: Run content_replace Behavior [ RunTime:-2.515144s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-2.516144s ]
+INFO: [ view_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2018-04-11T14:33:08+08:00 ] 127.0.0.1 /?g=admin&m=tick&a=index&menuid=289
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.005000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.010001s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.009001s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 289 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 19 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 26 行.
+SQL: SHOW COLUMNS FROM `try_tick` [ RunTime:0.009000s ]
+NOTIC: [8] Undefined variable: map D:\repo\baicai\app\Lib\Action\admin\tickAction.class.php 第 46 行.
+SQL: SELECT COUNT(id) AS tp_count FROM `try_tick` LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_tick` ORDER BY id ASC LIMIT 0,20   [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-3.123178s ]
+INFO: [ view_template ] --END-- [ RunTime:0.002001s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-3.128179s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.003000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-3.128179s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.003000s ]
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 107 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 109 行.
+SQL: SHOW COLUMNS FROM `try_item_orig` [ RunTime:0.007001s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=2 LIMIT 1   [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 113 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 107 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 109 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=16 LIMIT 1   [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 113 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 107 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 109 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 113 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 107 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 109 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=122 LIMIT 1   [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 113 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 107 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 109 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=53 LIMIT 1   [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 113 行.
+INFO: Run ParseTemplate Behavior [ RunTime:-3.128179s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.027001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-3.152180s ]
+INFO: Run TokenBuild Behavior [ RunTime:-3.153180s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-3.153180s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-3.153180s ]
+INFO: Run content_replace Behavior [ RunTime:-3.154180s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-3.154180s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-04-11T14:33:09+08:00 ] 127.0.0.1 /?g=admin&m=tick&a=index&menuid=289
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004001s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.008000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.007001s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 289 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 19 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 26 行.
+SQL: SHOW COLUMNS FROM `try_tick` [ RunTime:0.007000s ]
+NOTIC: [8] Undefined variable: map D:\repo\baicai\app\Lib\Action\admin\tickAction.class.php 第 46 行.
+SQL: SELECT COUNT(id) AS tp_count FROM `try_tick` LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_tick` ORDER BY id ASC LIMIT 0,20   [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-4.184240s ]
+INFO: [ view_template ] --END-- [ RunTime:0.001000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-4.188240s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.003000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-4.189240s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.004000s ]
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 107 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 109 行.
+SQL: SHOW COLUMNS FROM `try_item_orig` [ RunTime:0.007000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=2 LIMIT 1   [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 113 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 107 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 109 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=16 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 113 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 107 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 109 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 113 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 107 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 109 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=122 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 113 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 107 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 109 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=53 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 113 行.
+INFO: Run ParseTemplate Behavior [ RunTime:-4.189240s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.029001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-4.214241s ]
+INFO: Run TokenBuild Behavior [ RunTime:-4.214241s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-4.215241s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-4.216241s ]
+INFO: Run content_replace Behavior [ RunTime:-4.216241s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003001s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-4.217242s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-04-11T14:33:34+08:00 ] 127.0.0.1 /?g=admin&m=tick&a=index&menuid=289
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.006001s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.010000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.011001s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 289 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 19 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 26 行.
+SQL: SHOW COLUMNS FROM `try_tick` [ RunTime:0.009000s ]
+NOTIC: [8] Undefined variable: map D:\repo\baicai\app\Lib\Action\admin\tickAction.class.php 第 46 行.
+SQL: SELECT COUNT(id) AS tp_count FROM `try_tick` LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_tick` ORDER BY id ASC LIMIT 0,20   [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.088063s ]
+INFO: [ view_template ] --END-- [ RunTime:0.001000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.092063s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.003000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.094063s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.005000s ]
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 107 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 109 行.
+SQL: SHOW COLUMNS FROM `try_item_orig` [ RunTime:0.008000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=2 LIMIT 1   [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 113 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 107 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 109 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=16 LIMIT 1   [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 113 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 107 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 109 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 113 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 107 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 109 行.
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=122 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\95aca9497c184dee64c16d41e6be8d90.php 第 113 行.
+INFO: Run ParseTemplate Behavior [ RunTime:-1.094063s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.030001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.120064s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.120064s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.121064s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.121064s ]
+INFO: Run content_replace Behavior [ RunTime:-1.122065s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002001s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.123065s ]
+INFO: [ view_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2018-04-11T14:33:35+08:00 ] 127.0.0.1 /?g=admin&m=activity&a=index&menuid=305
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.001001s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004001s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.010001s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.009000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 305 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.002000s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 19 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 26 行.
+SQL: SHOW COLUMNS FROM `try_activity` [ RunTime:0.010001s ]
+NOTIC: [8] Undefined variable: map D:\repo\baicai\app\Lib\Action\admin\activityAction.class.php 第 47 行.
+SQL: SELECT COUNT(id) AS tp_count FROM `try_activity` LIMIT 1   [ RunTime:0.002000s ]
+SQL: SELECT * FROM `try_activity` ORDER BY id desc LIMIT 0,20   [ RunTime:0.004000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.115063s ]
+INFO: [ view_template ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.121064s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.004001s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.122064s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.005001s ]
+INFO: Run ParseTemplate Behavior [ RunTime:-1.122064s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.028002s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.145065s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.146065s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.149065s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.150065s ]
+INFO: Run content_replace Behavior [ RunTime:-1.152065s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.008000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.153065s ]
+INFO: [ view_end ] --END-- [ RunTime:0.002001s ]
+
+[ 2018-04-11T14:33:53+08:00 ] ERR: (ThinkException) 无法加载模块:static/images/admin_img/question
+[ 2018-04-11T14:33:57+08:00 ] 127.0.0.1 /?g=admin&m=activity&a=add
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.001001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003001s ]
+SQL: SHOW COLUMNS FROM `try_activity` [ RunTime:0.010001s ]
+SQL: INSERT INTO `try_activity` (`name`,`orig_id`,`intro`,`start_time`,`end_time`) VALUES ('白菜哦活动',16,'白菜哦活动199-100','2018-04-10','2018-04-12') [ RunTime:0.004000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.059061s ]
+INFO: [ view_template ] --END-- [ RunTime:0.003000s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-1.062061s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.010001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.072062s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.072062s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.073062s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.073062s ]
+INFO: Run content_replace Behavior [ RunTime:-1.074062s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.074062s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-04-11T14:34:00+08:00 ] 127.0.0.1 /?g=admin&m=activity&a=index&menuid=305
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.009000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.010000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 305 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 19 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 26 行.
+SQL: SHOW COLUMNS FROM `try_activity` [ RunTime:0.010001s ]
+NOTIC: [8] Undefined variable: map D:\repo\baicai\app\Lib\Action\admin\activityAction.class.php 第 47 行.
+SQL: SELECT COUNT(id) AS tp_count FROM `try_activity` LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_activity` ORDER BY id desc LIMIT 0,20   [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.103063s ]
+INFO: [ view_template ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.107063s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.002000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.108063s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.003000s ]
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\4503fe0c3a82c170e05dc986c8ed15aa.php 第 107 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\4503fe0c3a82c170e05dc986c8ed15aa.php 第 109 行.
+NOTIC: [8] Undefined index: je D:\repo\baicai\data\runtime\Cache\admin\4503fe0c3a82c170e05dc986c8ed15aa.php 第 109 行.
+SQL: SHOW COLUMNS FROM `try_item_orig` [ RunTime:0.006001s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=16 LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\4503fe0c3a82c170e05dc986c8ed15aa.php 第 113 行.
+NOTIC: [8] Undefined index: dhjf D:\repo\baicai\data\runtime\Cache\admin\4503fe0c3a82c170e05dc986c8ed15aa.php 第 113 行.
+NOTIC: [8] Undefined index: yl D:\repo\baicai\data\runtime\Cache\admin\4503fe0c3a82c170e05dc986c8ed15aa.php 第 119 行.
+NOTIC: [8] Undefined index: sy D:\repo\baicai\data\runtime\Cache\admin\4503fe0c3a82c170e05dc986c8ed15aa.php 第 121 行.
+INFO: Run ParseTemplate Behavior [ RunTime:-1.108063s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.025002s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.130065s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.131065s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.131065s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.132065s ]
+INFO: Run content_replace Behavior [ RunTime:-1.132065s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.133065s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-04-11T14:35:24+08:00 ] 127.0.0.1 /?g=admin&m=activity&a=index&menuid=305
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.011001s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.008000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 305 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 19 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 26 行.
+SQL: SHOW COLUMNS FROM `try_activity` [ RunTime:0.006000s ]
+NOTIC: [8] Undefined variable: map D:\repo\baicai\app\Lib\Action\admin\activityAction.class.php 第 47 行.
+SQL: SELECT COUNT(id) AS tp_count FROM `try_activity` LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_activity` ORDER BY id desc LIMIT 0,20   [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.068061s ]
+INFO: [ view_template ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.075061s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.005000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.077061s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.006000s ]
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\4503fe0c3a82c170e05dc986c8ed15aa.php 第 105 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\4503fe0c3a82c170e05dc986c8ed15aa.php 第 107 行.
+NOTIC: [8] Undefined index: je D:\repo\baicai\data\runtime\Cache\admin\4503fe0c3a82c170e05dc986c8ed15aa.php 第 107 行.
+SQL: SHOW COLUMNS FROM `try_item_orig` [ RunTime:0.007000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=16 LIMIT 1   [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\4503fe0c3a82c170e05dc986c8ed15aa.php 第 111 行.
+NOTIC: [8] Undefined index: dhjf D:\repo\baicai\data\runtime\Cache\admin\4503fe0c3a82c170e05dc986c8ed15aa.php 第 111 行.
+NOTIC: [8] Undefined index: yl D:\repo\baicai\data\runtime\Cache\admin\4503fe0c3a82c170e05dc986c8ed15aa.php 第 117 行.
+NOTIC: [8] Undefined index: sy D:\repo\baicai\data\runtime\Cache\admin\4503fe0c3a82c170e05dc986c8ed15aa.php 第 119 行.
+INFO: Run ParseTemplate Behavior [ RunTime:-1.077061s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.028001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.098062s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.099063s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.099063s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.100063s ]
+INFO: Run content_replace Behavior [ RunTime:-1.101063s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003001s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.101063s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-04-11T14:35:41+08:00 ] 127.0.0.1 /?g=admin&m=activity&a=index&menuid=305
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.011001s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.013001s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 305 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 19 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 26 行.
+SQL: SHOW COLUMNS FROM `try_activity` [ RunTime:0.009000s ]
+NOTIC: [8] Undefined variable: map D:\repo\baicai\app\Lib\Action\admin\activityAction.class.php 第 47 行.
+SQL: SELECT COUNT(id) AS tp_count FROM `try_activity` LIMIT 1   [ RunTime:0.001001s ]
+SQL: SELECT * FROM `try_activity` ORDER BY id desc LIMIT 0,20   [ RunTime:0.000000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.081062s ]
+INFO: [ view_template ] --END-- [ RunTime:0.001000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.086062s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.004000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.087062s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.005000s ]
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\4503fe0c3a82c170e05dc986c8ed15aa.php 第 105 行.
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\4503fe0c3a82c170e05dc986c8ed15aa.php 第 107 行.
+NOTIC: [8] Undefined index: je D:\repo\baicai\data\runtime\Cache\admin\4503fe0c3a82c170e05dc986c8ed15aa.php 第 107 行.
+SQL: SHOW COLUMNS FROM `try_item_orig` [ RunTime:0.007000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=16 LIMIT 1   [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\4503fe0c3a82c170e05dc986c8ed15aa.php 第 111 行.
+NOTIC: [8] Undefined index: dhjf D:\repo\baicai\data\runtime\Cache\admin\4503fe0c3a82c170e05dc986c8ed15aa.php 第 111 行.
+NOTIC: [8] Undefined index: yl D:\repo\baicai\data\runtime\Cache\admin\4503fe0c3a82c170e05dc986c8ed15aa.php 第 117 行.
+NOTIC: [8] Undefined index: sy D:\repo\baicai\data\runtime\Cache\admin\4503fe0c3a82c170e05dc986c8ed15aa.php 第 119 行.
+INFO: Run ParseTemplate Behavior [ RunTime:-1.087062s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.028001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.110063s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.111063s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.111063s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.112063s ]
+INFO: Run content_replace Behavior [ RunTime:-1.113064s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003001s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.113064s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-04-11T14:37:18+08:00 ] 127.0.0.1 /?g=admin&m=activity&a=index&menuid=305
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.005000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.013001s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.011000s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 305 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.001000s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 19 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 26 行.
+SQL: SHOW COLUMNS FROM `try_activity` [ RunTime:0.006001s ]
+NOTIC: [8] Undefined variable: map D:\repo\baicai\app\Lib\Action\admin\activityAction.class.php 第 47 行.
+SQL: SELECT COUNT(id) AS tp_count FROM `try_activity` LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_activity` ORDER BY id desc LIMIT 0,20   [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.070061s ]
+INFO: [ view_template ] --END-- [ RunTime:0.001000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.074061s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.003000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.076062s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.005001s ]
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\4503fe0c3a82c170e05dc986c8ed15aa.php 第 99 行.
+SQL: SHOW COLUMNS FROM `try_item_orig` [ RunTime:0.007001s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=16 LIMIT 1   [ RunTime:0.001000s ]
+INFO: Run ParseTemplate Behavior [ RunTime:-1.076062s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.025002s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.097063s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.097063s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.097063s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.098063s ]
+INFO: Run content_replace Behavior [ RunTime:-1.099063s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.004000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.100063s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-04-11T14:37:26+08:00 ] ERR: (ThinkException) 模板不存在[./app/Tpl/admin/activity/edit.html]
+[ 2018-04-11T14:37:36+08:00 ] ERR: (ThinkException) 模板不存在[./app/Tpl/admin/activity/edit.html]
+[ 2018-04-11T14:38:46+08:00 ] 127.0.0.1 /?g=admin&m=activity&a=edit
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004001s ]
+SQL: SHOW COLUMNS FROM `try_activity` [ RunTime:0.009001s ]
+SQL: UPDATE `try_activity` SET `name`='白菜哦活动',`orig_id`=19,`intro`='白菜哦活动199-100',`start_time`='2018-04-10',`end_time`='2018-04-12' WHERE ( `id` = 1 ) [ RunTime:0.006000s ]
+NOTIC: [8] Undefined variable: sb D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 168 行.
+NOTIC: [8] Undefined variable: score_article D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 181 行.
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.042060s ]
+INFO: [ view_template ] --END-- [ RunTime:0.003000s ]
+INFO: [ view_parse ] --START--
+INFO: Run ParseTemplate Behavior [ RunTime:-1.045060s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.011001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.057061s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.057061s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.057061s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.058061s ]
+INFO: Run content_replace Behavior [ RunTime:-1.058061s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.059061s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-04-11T14:38:48+08:00 ] 127.0.0.1 /?g=admin&m=activity&a=index&menuid=305
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.001000s ]
+INFO: Run check_ipban Behavior [ RunTime:0.000000s ]
+INFO: Run load_lang Behavior [ RunTime:-0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.006000s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.009001s ]
+SQL: SHOW COLUMNS FROM `try_menu` [ RunTime:0.010001s ]
+SQL: SELECT * FROM `try_menu` WHERE (  ( `pid` = 305 ) ) AND ( `display` = 1 ) ORDER BY ordid  [ RunTime:0.002000s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 19 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\repo\baicai\app\Lib\Action\backendAction.class.php 第 26 行.
+SQL: SHOW COLUMNS FROM `try_activity` [ RunTime:0.009000s ]
+NOTIC: [8] Undefined variable: map D:\repo\baicai\app\Lib\Action\admin\activityAction.class.php 第 47 行.
+SQL: SELECT COUNT(id) AS tp_count FROM `try_activity` LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT * FROM `try_activity` ORDER BY id desc LIMIT 0,20   [ RunTime:0.001000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.080062s ]
+INFO: [ view_template ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_parse ] --START--
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.087062s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.005000s ]
+INFO: [ view_template ] --START--
+INFO: Run basic_template Behavior [ RunTime:-1.089062s ]
+INFO: [ view_template ] --END-- [ RunTime:-0.007000s ]
+NOTIC: [8] Undefined index: colors D:\repo\baicai\data\runtime\Cache\admin\4503fe0c3a82c170e05dc986c8ed15aa.php 第 99 行.
+SQL: SHOW COLUMNS FROM `try_item_orig` [ RunTime:0.007000s ]
+SQL: SELECT `name` FROM `try_item_orig` WHERE id=19 LIMIT 1   [ RunTime:0.001000s ]
+INFO: Run ParseTemplate Behavior [ RunTime:-1.089062s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.027001s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:-1.109063s ]
+INFO: Run TokenBuild Behavior [ RunTime:-1.110063s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:-1.110063s ]
+INFO: Run ShowRuntime Behavior [ RunTime:-1.111063s ]
+INFO: Run content_replace Behavior [ RunTime:-1.111063s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003000s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:-1.112063s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001000s ]
+
