@@ -263,7 +263,13 @@ class bookAction extends frontendAction {
 		$pager = $this->_pager($count, $page_size);
                             $field = 'id,uid,uname,title,intro,img,price,likes,content,comments,comments_cache,add_time,orig_id,url,go_link,zan,hits';
 
-        $orig_ids = $item_orig->where("ismy='$tp'")->field("distinct id")->select();
+        
+
+       if($orig_id){
+         $item_list = M("item")->where(" status=1 and add_time<$time ".$where)->field($field)->order($order)->limit($pager->firstRow . ',' . $page_size)->select();
+       }
+        else{
+            $orig_ids = $item_orig->where("ismy='$tp'")->field("distinct id")->select();
        foreach($orig_ids as $key=>$val){
 
           if($str==""){
@@ -277,11 +283,10 @@ class bookAction extends frontendAction {
           }
 
        }
-
         //$orig = M("item_orig")->where("id in(".$str.") and ismy='$tp'")->limit(20)->select();
           $item_list = M("item")->where("orig_id in (".$str.")   and status=1 and add_time<$time ".$where)->field($field)->order($order)->limit($pager->firstRow . ',' . $page_size)->select();
       //  $item_list = $item_orig->where($db_pre."item_orig.ismy='$tp' and i.status=1 and i.add_time<$time ".$where)->join('inner join ' . $db_pre . 'item i ON i.orig_id = ' . $db_pre . 'item_orig.id')->field($field)->order($order)->limit($pager->firstRow . ',' . $page_size)->select();
-		
+		}
 		foreach ($item_list as $key => $val) {
             isset($val['comments_cache']) && $item_list[$key]['comment_list'] = unserialize($val['comments_cache']);
         }

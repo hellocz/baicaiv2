@@ -40,7 +40,7 @@ class backendAction extends baseAction
      */
     public function index() {
         $map = $this->_search();
-        if($this->_name == 'item' && $this->_request('keyword', 'trim')!="" && ($this->_request('status', 'trim')=="" || $this->_request('status', 'trim')=="1")){ 
+        if($this->_name == 'item' && $this->_request('keyword', 'trim')!="" && ($this->_request('status', 'trim')=="" || $this->_request('status', 'trim')=="1") && $this->_request('time_start', 'trim')=="" && $this->_request('time_end', 'trim')==""){ 
               $p = $this->_get('p', 'intval', 1);
             $keyword = $this->_request('keyword', 'trim');
         require LIB_PATH . 'Pinlib/php/lib/XS.php';
