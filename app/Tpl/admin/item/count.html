@@ -1,0 +1,161 @@
+<include file="public:header" />
+
+<!--商品列表-->
+
+<div class="pad_lr_10" >
+
+    <form name="searchform" method="get" >
+
+    <table width="100%" cellspacing="0" class="search_form">
+
+        <tbody>
+
+            <tr>
+
+                <td>
+
+                <div class="explain_col">
+
+                    <input type="hidden" name="g" value="admin" />
+
+                    <input type="hidden" name="m" value="item" />
+
+                    <input type="hidden" name="a" value="count" />
+
+                    <input type="hidden" name="menuid" value="{$menuid}" />
+
+					<if condition="$sm neq ''"><input type="hidden" name="sm" value="{$sm}" /></if>
+
+                    发表时间 :
+
+                    <input type="text" name="time_start" id="J_time_start" class="date" size="12" value="{$search.time_start}">
+
+                    -
+
+                    <input type="text" name="time_end" id="J_time_end" class="date" size="12" value="{$search.time_end}">
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+
+                    <input type="radio" <if condition="$search.type eq '0'"> checked </if> name="type" value="0">原创
+
+                    <input type="radio" <if condition="$search.type eq '1'"> checked </if> name="type" value="1">非原创
+
+                    <input type="radio" <if condition="$search.type eq '2'"> checked </if> name="type" value="2">点击量
+
+                    &nbsp;&nbsp;分类 :
+
+					<select name="status">
+
+					<option value="0" <if condition="$search.status eq '0'">selected="selected"</if>>全部</option>
+
+					<option value="1" <if condition="$search.status eq '1'">selected="selected"</if>>国内</option>
+
+                    <option value="2" <if condition="$search.status eq '2'">selected="selected"</if>>海淘</option>
+
+                    <option value="3" <if condition="$search.status eq '3'">selected="selected"</if>>淘宝系</option>
+
+
+					</select>
+
+                    <input type="submit" name="search" class="btn" value="确定" />
+
+					
+
+                </div>
+
+                </td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+    </form>
+
+    <div class="J_tablelist table_list" data-acturi="{:U('item/ajax_edit')}">
+
+    <table width="100%" cellspacing="0">
+
+        <thead>
+
+            <tr>
+
+
+                <th width=140><span data-tdtype="order_by" data-field="id">商城名称</span></th>
+
+                <volist name="admin_list" id="val">
+                		 <th width="70"><span data-tdtype="order_by" data-field="price">{$val.username}</span></th>
+                </volist>
+                <th width="70"><span data-tdtype="order_by" data-field="price">汇总</span></th>
+
+            </tr>
+
+        </thead>
+
+    	<tbody>
+    		 <volist name="list" id="val">
+    		 	<tr>
+    		 	<td>{$val.orig_name}</td>
+    		 	<volist name="admin_list" id="admin">
+    		 		<td align="center">{$val['count'][$admin['id']]}</td>
+    		 	</volist>
+    		 	<td align="center">{$val['count']['sum']}</td>
+            </tr>
+    		</volist>
+
+
+    	</tbody>
+
+    	<tfoot>
+    		
+    	</tfoot>
+
+    </table>
+
+    </div>
+
+</div>
+
+<include file="public:footer" />
+
+<link rel="stylesheet" href="__STATIC__/js/calendar/calendar-blue.css"/>
+
+<script src="__STATIC__/js/calendar/calendar.js"></script>
+
+<script>
+
+Calendar.setup({
+
+	inputField : "J_time_start",
+
+	ifFormat   : "%Y-%m-%d",
+
+	showsTime  : false,
+
+	timeFormat : "24"
+
+});
+
+Calendar.setup({
+
+	inputField : "J_time_end",
+
+	ifFormat   : "%Y-%m-%d",
+
+	showsTime  : false,
+
+	timeFormat : "24"
+
+});
+
+$('.J_preview').preview(); //查看大图
+
+$('.J_cate_select').cate_select({top_option:lang.all}); //分类联动
+
+$('.J_tooltip[title]').tooltip({offset:[10, 2], effect:'slide'}).dynamic({bottom:{direction:'down', bounce:true}});
+
+</script>
+
+</body>
+
+</html>

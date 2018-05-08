@@ -43,6 +43,82 @@ class itemAction extends backendAction {
             }
     }
 
+    public function count(){
+        $type = $this->_request('type', 'trim','0');
+        $status = $this->_request('status', 'trim','0');
+        $where['status'] = 1;
+       ($time_start = $this->_request('time_start', 'trim')) && $where['add_time'][] = array('egt', strtotime($time_start));
+        ($time_end = $this->_request('time_end', 'trim')) && $where['add_time'][] = array('elt', strtotime($time_end)+(24*60*60-1));
+   /*     $origs = M('item')->field('distinct orig_id')->where($where)->select();
+
+        foreach ($origs as $orig) {
+            $where['orig_id'] = $orig['orig_id'];
+            $list[$orig['orig_id']] = M('item')->field('count(id) as count,orig_id, uid,uname, sum(hits) as hits ,sum(isoriginal) as original ')->where($where)->group('uid')->select();
+        }
+        $sum_list = Array();
+        foreach ($list as $key=>$items) {
+         //   $list[$key]['orig_name']=getly($val['orig_id']);
+            foreach ($items as $item) {
+               $sum[$item['uid'] . 'count'] = $item['count']; 
+               $sum[$item['uid'] . 'hits'] = $item['hits'];
+               $sum[$item['uid'] . 'original'] = $item['original']; 
+            }
+            array_push($sum_list,$sum);
+        }
+        */
+         //管理员
+        $admins = array();
+        $admin_list = M("admin")->order("username asc")->where("zhubian=1")->field("id,username")->select();
+        foreach ($admin_list as $key=>$val) {
+            $admins[$val['id']] = $val['username'];
+        }
+        
+        //商品来源
+        $origs = array();
+        $orig_list = M("item_orig")->order("id asc")->field("id,name")->select();
+        foreach ($orig_list as $key=>$val) {
+            $origs[$val['id']] = $val['name'];
+        }
+        $stats = M('item')->field('count(id) as item_count,orig_id, uid,uname, sum(hits) as hits ,sum(isoriginal) as original ')->where($where)->group('orig_id,uid')->select();
+
+        $list = array();
+        $data = array();
+        $sumlist = array();
+        foreach ($stats as $key=>$val) {            
+            if(isset($origs[$val['orig_id']]) && isset($admins[$val['uid']])){
+                $data[$val['orig_id']][$val['uid']] = $val['item_count'];
+            }
+        }
+        foreach ($origs as $key_o=>$val_o) {            
+            if(isset($data[$key_o])){
+                $list[$key_o]['orig_name'] = $val_o;
+                $sum = 0;
+                foreach ($admins as $key_a=>$val_a) {        
+                    $list[$key_o]['count'][$key_a] = isset($data[$key_o][$key_a]) ? $data[$key_o][$key_a] : 0;
+                    $sum += $list[$key_o]['count'][$key_a];
+                    $sumlist['count'][$key_a] += $list[$key_o]['count'][$key_a];
+                }
+                $list[$key_o]['count']['sum'] = $sum;
+                $sumlist['count']['sum'] += $list[$key_o]['count']['sum'];
+            }
+        }
+        $sumlist['orig_name'] = "汇总";
+        array_push($list,$sumlist);
+        $this->assign('admin_list', $admin_list);
+        $this->assign('list', $list);
+
+
+        
+        $this->assign('list',$list);
+        $this->assign('search', array(
+            'time_start' => $time_start,
+            'time_end' => $time_end,
+            'type' => $type,
+            'status' =>$status,
+        ));
+        $this->display();
+    }
+
     protected function _search() {
         $map = array();
         //'status'=>1
