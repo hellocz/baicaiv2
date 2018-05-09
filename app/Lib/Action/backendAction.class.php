@@ -55,21 +55,18 @@ class backendAction extends baseAction
         
 
         $item_list = Array();
-        foreach ($docs as $doc) {
 
-            $item['title'] = $doc->title;
-            $item['img'] = $doc->img;
-            $item['id'] = $doc->id;
-            $item['price'] = $doc->price;
-            $item['add_time'] = $doc->add_time;
-            $item['cate_id'] = $doc->cate_id;
-            $item['uname'] = $doc->uname;
-            $item['likes'] = $doc->likes;
-            $item['hits'] = $doc->hits;
-            $item['status'] = $doc->status;
-            array_push($item_list,$item);
-            # code...
+         foreach ($docs as $doc) {
+            if($str==""){
+                 $str=$doc->id;
+            }
+            else{
+               $str.=",".$doc->id;
+            }
         }
+        $field = 'id,uid,uname,orig_id,title,intro,img,price,likes,comments,comments_cache,url,zan,hits,go_link,add_time,cate_id,status';
+        $str && $where['id'] = array('in', $str);
+        $str && $item_list = M("item")->field($field)->where($where)->order("add_time desc")->select();
 
         foreach ($item_list as $key=>$val) {
             /*
