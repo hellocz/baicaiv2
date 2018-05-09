@@ -71,18 +71,6 @@ class backendAction extends baseAction
             # code...
         }
 
-         foreach ($docs as $doc) {
-            if($str==""){
-                 $str=$doc->id;
-            }
-            else{
-               $str.=",".$doc->id;
-            }
-        }
-        $field = 'id,uid,uname,orig_id,title,intro,img,price,likes,comments,comments_cache,url,zan,hits,go_link,add_time,cate_id,status';
-        $str && $where['id'] = array('in', $str);
-        $str && $item_list = M("item")->field($field)->where($where)->order("add_time desc")->select();
-
         foreach ($item_list as $key=>$val) {
             /*
             if($val["sh_time"]>$val["ds_time"]){
