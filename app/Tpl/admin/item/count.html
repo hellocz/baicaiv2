@@ -24,7 +24,7 @@
 
                     <input type="hidden" name="menuid" value="{$menuid}" />
 
-					<if condition="$sm neq ''"><input type="hidden" name="sm" value="{$sm}" /></if>
+                    <!-- <if condition="$sm neq ''"><input type="hidden" name="sm" value="{$sm}" /></if> -->
 
                     发表时间 :
 
@@ -34,31 +34,46 @@
 
                     <input type="text" name="time_end" id="J_time_end" class="date" size="12" value="{$search.time_end}">
                     &nbsp;&nbsp;&nbsp;&nbsp;
-
-                    <input type="radio" <if condition="$search.type eq '0'"> checked </if> name="type" value="0">原创
-
-                    <input type="radio" <if condition="$search.type eq '1'"> checked </if> name="type" value="1">非原创
-
-                    <input type="radio" <if condition="$search.type eq '2'"> checked </if> name="type" value="2">点击量
-
-                    &nbsp;&nbsp;分类 :
-
-					<select name="status">
-
-					<option value="0" <if condition="$search.status eq '0'">selected="selected"</if>>全部</option>
-
-					<option value="1" <if condition="$search.status eq '1'">selected="selected"</if>>国内</option>
-
-                    <option value="2" <if condition="$search.status eq '2'">selected="selected"</if>>海淘</option>
-
-                    <option value="3" <if condition="$search.status eq '3'">selected="selected"</if>>淘宝系</option>
+                    <!-- 注：限时间范围在90天以内
+                    <div class="bk8"></div> -->
 
 
-					</select>
+                    <input type="radio" <if condition="$search.original eq ''"> checked </if> name="original" value="">全部
 
-                    <input type="submit" name="search" class="btn" value="确定" />
+                    <input type="radio" <if condition="$search.original eq '1'"> checked </if> name="original" value="1">原创
 
-					
+                    <input type="radio" <if condition="$search.original eq '0'"> checked </if> name="original" value="0">非原创
+
+                    
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;分类 :
+
+                    <select name="my">
+
+                    <option value="" <if condition="$search.my eq ''">selected="selected"</if>>全部</option>
+
+                    <option value="0" <if condition="$search.my eq '0'">selected="selected"</if>>国内</option>
+
+                    <option value="1" <if condition="$search.my eq '1'">selected="selected"</if>>海淘</option>
+
+                    <option value="2" <if condition="$search.my eq '2'">selected="selected"</if>>淘宝系</option>
+
+
+                    </select>
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;统计类型 :
+                    <select name="type">
+
+                    <option value="0" <if condition="$search.type eq '0'">selected="selected"</if>>发贴数</option>
+
+                    <option value="1" <if condition="$search.type eq '1'">selected="selected"</if>>点击量</option>
+
+
+                    </select>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="button" name="search" class="btn" onclick="count_check()" value="确定" />
+
+                    
 
                 </div>
 
@@ -72,7 +87,11 @@
 
     </form>
 
-    <div class="J_tablelist table_list" data-acturi="{:U('item/ajax_edit')}">
+<div id='errorinfo'><if condition="$errorinfo">{$errorinfo}</if></div>
+
+<if condition="$list">
+
+    <div id="datainfo" class="J_tablelist table_list" data-acturi="{:U('item/ajax_edit')}">
 
     <table width="100%" cellspacing="0">
 
@@ -84,7 +103,7 @@
                 <th width=140><span data-tdtype="order_by" data-field="id">商城名称</span></th>
 
                 <volist name="admin_list" id="val">
-                		 <th width="70"><span data-tdtype="order_by" data-field="price">{$val.username}</span></th>
+                         <th width="70"><span data-tdtype="order_by" data-field="price">{$val.username}</span></th>
                 </volist>
                 <th width="70"><span data-tdtype="order_by" data-field="price">汇总</span></th>
 
@@ -92,27 +111,30 @@
 
         </thead>
 
-    	<tbody>
-    		 <volist name="list" id="val">
-    		 	<tr>
-    		 	<td>{$val.orig_name}</td>
-    		 	<volist name="admin_list" id="admin">
-    		 		<td align="center">{$val['count'][$admin['id']]}</td>
-    		 	</volist>
-    		 	<td align="center">{$val['count']['sum']}</td>
+        <tbody>
+             <volist name="list" id="val">
+                <tr>
+                <td>{$val.orig_name}</td>
+                <volist name="admin_list" id="admin">
+                    <td align="center">{$val['count'][$admin['id']]}</td>
+                </volist>
+                <td align="center">{$val['count']['sum']}</td>
             </tr>
-    		</volist>
+            </volist>
 
 
-    	</tbody>
+        </tbody>
 
-    	<tfoot>
-    		
-    	</tfoot>
+        <tfoot>
+            
+        </tfoot>
 
     </table>
 
     </div>
+
+</if>
+
 
 </div>
 
@@ -126,33 +148,43 @@
 
 Calendar.setup({
 
-	inputField : "J_time_start",
+    inputField : "J_time_start",
 
-	ifFormat   : "%Y-%m-%d",
+    ifFormat   : "%Y-%m-%d",
 
-	showsTime  : false,
+    showsTime  : false,
 
-	timeFormat : "24"
+    timeFormat : "24"
 
 });
 
 Calendar.setup({
 
-	inputField : "J_time_end",
+    inputField : "J_time_end",
 
-	ifFormat   : "%Y-%m-%d",
+    ifFormat   : "%Y-%m-%d",
 
-	showsTime  : false,
+    showsTime  : false,
 
-	timeFormat : "24"
+    timeFormat : "24"
 
 });
 
-$('.J_preview').preview(); //查看大图
+// $('.J_preview').preview(); //查看大图
 
-$('.J_cate_select').cate_select({top_option:lang.all}); //分类联动
+// $('.J_cate_select').cate_select({top_option:lang.all}); //分类联动
 
-$('.J_tooltip[title]').tooltip({offset:[10, 2], effect:'slide'}).dynamic({bottom:{direction:'down', bounce:true}});
+// $('.J_tooltip[title]').tooltip({offset:[10, 2], effect:'slide'}).dynamic({bottom:{direction:'down', bounce:true}});
+
+function count_check() {
+    if($('#J_time_start').val() == '' || $('#J_time_end').val() == ''){
+        $('#datainfo') && $('#datainfo').hide();
+        $('#errorinfo').html('请选择发表时间范围!');
+    }else{
+        $('#errorinfo').html('');
+        $('form[name="searchform"]').submit();
+    }
+}
 
 </script>
 

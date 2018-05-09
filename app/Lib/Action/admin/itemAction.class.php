@@ -44,10 +44,25 @@ class itemAction extends backendAction {
     }
 
     public function count(){
+        $where = array();
+        $where_orig = array();
         $type = $this->_request('type', 'trim','0');
-        $status = $this->_request('status', 'trim','0');
+        $original = $this->_request('original', 'trim','');
+        if ($original != '') {
+            $where['isoriginal'] = $original;
+        }
+        $my = $this->_request('my', 'trim','');
+        if ($my != '') {
+            if($my == '2'){  //国内，淘宝系
+                // 天猫商城，天猫国际，天猫电器城，天猫美妆，天猫超市，淘宝网，聚划算，飞猪网
+                $id_arr = array(3,268,297,841,50,5,29,835);
+                $where_orig['id'] = array('IN', $id_arr);
+            }else{
+                $where_orig['ismy'] = $my;
+            }
+        }
         $where['status'] = 1;
-       ($time_start = $this->_request('time_start', 'trim')) && $where['add_time'][] = array('egt', strtotime($time_start));
+        ($time_start = $this->_request('time_start', 'trim')) && $where['add_time'][] = array('egt', strtotime($time_start));
         ($time_end = $this->_request('time_end', 'trim')) && $where['add_time'][] = array('elt', strtotime($time_end)+(24*60*60-1));
    /*     $origs = M('item')->field('distinct orig_id')->where($where)->select();
 
@@ -66,55 +81,83 @@ class itemAction extends backendAction {
             array_push($sum_list,$sum);
         }
         */
-         //管理员
-        $admins = array();
-        $admin_list = M("admin")->order("username asc")->where("zhubian=1")->field("id,username")->select();
-        foreach ($admin_list as $key=>$val) {
-            $admins[$val['id']] = $val['username'];
-        }
-        
-        //商品来源
-        $origs = array();
-        $orig_list = M("item_orig")->order("id asc")->field("id,name")->select();
-        foreach ($orig_list as $key=>$val) {
-            $origs[$val['id']] = $val['name'];
-        }
-        $stats = M('item')->field('count(id) as item_count,orig_id, uid,uname, sum(hits) as hits ,sum(isoriginal) as original ')->where($where)->group('orig_id,uid')->select();
 
         $list = array();
-        $data = array();
-        $sumlist = array();
-        foreach ($stats as $key=>$val) {            
-            if(isset($origs[$val['orig_id']]) && isset($admins[$val['uid']])){
-                $data[$val['orig_id']][$val['uid']] = $val['item_count'];
-            }
-        }
-        foreach ($origs as $key_o=>$val_o) {            
-            if(isset($data[$key_o])){
-                $list[$key_o]['orig_name'] = $val_o;
-                $sum = 0;
-                foreach ($admins as $key_a=>$val_a) {        
-                    $list[$key_o]['count'][$key_a] = isset($data[$key_o][$key_a]) ? $data[$key_o][$key_a] : 0;
-                    $sum += $list[$key_o]['count'][$key_a];
-                    $sumlist['count'][$key_a] += $list[$key_o]['count'][$key_a];
-                }
-                $list[$key_o]['count']['sum'] = $sum;
-                $sumlist['count']['sum'] += $list[$key_o]['count']['sum'];
-            }
-        }
-        $sumlist['orig_name'] = "汇总";
-        array_push($list,$sumlist);
-        $this->assign('admin_list', $admin_list);
-        $this->assign('list', $list);
 
-
+        $errorinfo = '';
+        $days = ((strtotime($time_end)+(24*60*60-1))- strtotime($time_start))/86400;
         
+        if($time_start == '' && $time_end == ''){
+            //skip
+        }elseif ($time_start == '' || $time_end == '') {
+            $errorinfo = '请选择发表时间范围!';
+        }else if($days<=0){
+            $errorinfo = '发表时间范围有误，请重新选择！';
+        }else if($days>90){
+            $errorinfo = '统计时间范围不能超过90天，请重新选择！';
+        }else{
+             //管理员
+            $admins = array();
+            $admin_list = M("admin")->order("username asc")->where("zhubian=1")->field("id,username")->select();
+            foreach ($admin_list as $key=>$val) {
+                $admins[$val['id']] = $val['username'];
+            }
+            
+            //商品来源
+            $origs = array();
+            $orig_list = M("item_orig")->order("id asc")->field("id,name")->where($where_orig)->select();
+            foreach ($orig_list as $key=>$val) {
+                $origs[$val['id']] = $val['name'];
+            }
+            // echo "<pre>";print_r($where); echo "</pre>";
+            // $stats = M('item')->field('count(id) as item_count,orig_id, uid,uname, sum(hits) as hits ,sum(isoriginal) as original ')->where($where)->group('orig_id,uid')->select();
+            $stats = M('item')->field('orig_id, uid, count(id) as item_count,sum(hits) as hits')->where($where)->group('orig_id,uid')->select();
+
+            
+            $data = array();
+            $sumlist = array();
+            if($type=='1'){  //点击
+                foreach ($stats as $key=>$val) {            
+                    if(isset($origs[$val['orig_id']]) && isset($admins[$val['uid']])){
+                        $data[$val['orig_id']][$val['uid']] = $val['hits'];
+                    }
+                }
+            }else{  //发贴数
+                foreach ($stats as $key=>$val) {            
+                    if(isset($origs[$val['orig_id']]) && isset($admins[$val['uid']])){
+                        $data[$val['orig_id']][$val['uid']] = $val['item_count'];
+                    }
+                }
+            }
+
+            foreach ($origs as $key_o=>$val_o) {            
+                if(isset($data[$key_o])){
+                    $list[$key_o]['orig_name'] = $val_o;
+                    $sum = 0;
+                    foreach ($admins as $key_a=>$val_a) {        
+                        $list[$key_o]['count'][$key_a] = isset($data[$key_o][$key_a]) ? $data[$key_o][$key_a] : 0;
+                        $sum += $list[$key_o]['count'][$key_a];
+                        $sumlist['count'][$key_a] += $list[$key_o]['count'][$key_a];
+                    }
+                    $list[$key_o]['count']['sum'] = $sum;
+                    $sumlist['count']['sum'] += $list[$key_o]['count']['sum'];
+                }
+            }
+            $sumlist['orig_name'] = "汇总";
+            array_push($list,$sumlist);
+            $this->assign('admin_list', $admin_list);
+        }
+
         $this->assign('list',$list);
+        if($errorinfo != ''){
+            $this->assign('errorinfo',$errorinfo);
+        }
         $this->assign('search', array(
             'time_start' => $time_start,
             'time_end' => $time_end,
+            'original' => $original,
             'type' => $type,
-            'status' =>$status,
+            'my' =>$my,
         ));
         $this->display();
     }
