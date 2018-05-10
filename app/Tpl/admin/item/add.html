@@ -327,6 +327,7 @@
 		</div>
 
         </div>
+        <input  type="hidden" value="4"  name="statusA" id="statusA"/>
 
 		<!--<div class="mt10"><input type="button" onclick="ajx()" value="{:L('submit')}" class="btn btn_submit"></div>-->
 
@@ -349,7 +350,7 @@
 
 <input type="hidden" name="id" id="id" value="0" />
 
-<input type="hidden" name="status" id="status" value="1" />
+<input type="hidden" name="status" id="status" value="2" />
 
 </form>
 
@@ -422,7 +423,7 @@ $(function() {
 
 	$('#save_msg').click(function(){
 
-		$('#status').val("2");
+		$('#statusA').val("2");
 
 		$('#send_time').hide();
 
@@ -430,7 +431,7 @@ $(function() {
 
 	$('#send_msg').click(function(){
 
-		$('#status').val("1");
+		$('#statusA').val("1");
 
 		$('#send_time').show();
 
