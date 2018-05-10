@@ -98,7 +98,7 @@ class itemAction extends backendAction {
         }else{
              //管理员
             $admins = array();
-            $admin_list = M("admin")->order("username asc")->where("zhubian=1")->field("id,username")->select();
+            $admin_list = M("admin")->order("username asc")->field("id,username")->select();
             foreach ($admin_list as $key=>$val) {
                 $admins[$val['id']] = $val['username'];
             }
