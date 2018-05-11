@@ -98,7 +98,7 @@ class itemAction extends backendAction {
         }else{
              //管理员
             $admins = array();
-            $admin_list = M("admin")->order("username asc")->field("id,username")->select();
+            $admin_list = M("admin")->order("username asc")->where("zhubian=1")->field("id,username")->select();
             foreach ($admin_list as $key=>$val) {
                 $admins[$val['id']] = $val['username'];
             }
@@ -186,7 +186,7 @@ class itemAction extends backendAction {
              //管理员
             $admins = array();
             // $admin_list = M("admin")->order("username asc")->where("zhubian=1")->field("id,username")->select();
-            $admin_list = M("admin")->order("username asc")->field("id,username")->select();
+            $admin_list = M("admin")->order("username asc")->where("zhubian=1")->field("id,username")->select();
             foreach ($admin_list as $key=>$val) {
                 $admins[$val['id']] = $val['username'];
             }
@@ -923,6 +923,7 @@ class itemAction extends backendAction {
           //  file_put_contents($file_name, 'img123'.$data['img'].'img123', FILE_APPEND);
             $this->_mod->where(array('id'=>$item_id))->save($data);
             //更新索引
+            /*
              require LIB_PATH . 'Pinlib/php/lib/XS.php';
              $xs = new XS('baicai');
              $index = $xs->index; 
@@ -933,11 +934,12 @@ class itemAction extends backendAction {
              $doc->setFields($xu_data);  
             //更新到索引数据库中  
             $index->update($doc);
+
             }
             else{
                 $index->del($data['id']);
             }
-
+            */
              if($_POST['article_list']){
                 $vote = M("vote")->where(array('item_id'=>$item_id))->find();
                 if($vote){
