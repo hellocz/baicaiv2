@@ -923,7 +923,7 @@ class itemAction extends backendAction {
           //  file_put_contents($file_name, 'img123'.$data['img'].'img123', FILE_APPEND);
             $this->_mod->where(array('id'=>$item_id))->save($data);
             //更新索引
-            /*
+            
              require LIB_PATH . 'Pinlib/php/lib/XS.php';
              $xs = new XS('baicai');
              $index = $xs->index; 
@@ -939,7 +939,6 @@ class itemAction extends backendAction {
             else{
                 $index->del($data['id']);
             }
-            */
              if($_POST['article_list']){
                 $vote = M("vote")->where(array('item_id'=>$item_id))->find();
                 if($vote){
