@@ -16,6 +16,10 @@ class menuModel extends Model {
         }
         $map['_complex'] = $condition;
         $map['display'] = 1;
+        if($_SESSION['admin']['role_id'] != 1){
+        $auths = M("admin_auth")->where("role_id = " .$_SESSION['admin']['role_id'])->getField("menu_id",true);
+        $map['id'] = array("in",implode(',',$auths));
+        }
         $menus = M("menu")->where($map)->order('ordid')->select();
         return $menus;
     }
