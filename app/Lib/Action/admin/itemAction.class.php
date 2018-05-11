@@ -162,6 +162,197 @@ class itemAction extends backendAction {
         $this->display();
     }
 
+    //商城分类统计
+    public function count_orig(){
+        $where = array();
+        $where['status'] = 1;
+        ($time_start = $this->_request('time_start', 'trim')) && $where['add_time'][] = array('egt', strtotime($time_start));
+        ($time_end = $this->_request('time_end', 'trim')) && $where['add_time'][] = array('elt', strtotime($time_end)+(24*60*60-1));
+
+        $list = array();
+
+        $errorinfo = '';
+        $days = ((strtotime($time_end)+(24*60*60-1))- strtotime($time_start))/86400;
+        
+        if($time_start == '' && $time_end == ''){
+            //skip
+        }elseif ($time_start == '' || $time_end == '') {
+            $errorinfo = '请选择发表时间范围!';
+        }else if($days<=0){
+            $errorinfo = '发表时间范围有误，请重新选择！';
+        }else if($days>90){
+            $errorinfo = '统计时间范围不能超过90天，请重新选择！';
+        }else{
+             //管理员
+            $admins = array();
+            // $admin_list = M("admin")->order("username asc")->where("zhubian=1")->field("id,username")->select();
+            $admin_list = M("admin")->order("username asc")->field("id,username")->select();
+            foreach ($admin_list as $key=>$val) {
+                $admins[$val['id']] = $val['username'];
+            }
+
+            $ismys = array(
+                '1' => '海淘', 
+                '0' => '国内-其他', 
+                '2' => '国内-淘宝系', 
+            );
+            
+            //商品来源
+            $origs = array();
+            // $orig_list = M("item_orig")->order("id asc")->field("id,name,ismy")->where($where_orig)->select();
+            $orig_list = M("item_orig")->order("id asc")->field("id,name,ismy")->select();
+            foreach ($orig_list as $key=>$val) {
+                $id_arr = array(3,268,297,841,50,5,29,835);
+                if($val['ismy'] == '0' && in_array($val['id'], $id_arr)){  //国内-淘宝系:  天猫商城，天猫国际，天猫电器城，天猫美妆，天猫超市，淘宝网，聚划算，飞猪网
+                    $orig_list[$key]['ismy'] = 2;
+                }
+                $origs[$val['id']] = $orig_list[$key];
+            }
+            
+            $stats = M('item')->field('orig_id, uid, count(id) as item_count,sum(case when isoriginal=1 then 1 else 0 end) as item_count_original')->where($where)->group('orig_id,uid')->select();
+
+            $data = array();
+            foreach ($stats as $key=>$val) {            
+                if(isset($origs[$val['orig_id']]) && isset($admins[$val['uid']])){
+                    $data[$origs[$val['orig_id']]['ismy']][$val['uid']]['item_count'] += $val['item_count'];
+                    $data[$origs[$val['orig_id']]['ismy']][$val['uid']]['item_count_original'] += $val['item_count_original'];
+                }
+            }
+            
+
+            $sumlist = array();
+
+            //按编辑汇总
+            $sum_list['all']['total']['title'] = '';
+            $sum_list['original']['total']['title'] = '';
+
+            $sum_list['all']['total']['title_my'] = '汇总';
+            $sum_list['original']['total']['title_my'] = '汇总';
+
+            //按编辑汇总加权
+            $sum_list['all']['total_rate']['title'] = '';
+            $sum_list['original']['total_rate']['title'] = '';
+
+            $sum_list['all']['total_rate']['title_my'] = '汇总加权';
+            $sum_list['original']['total_rate']['title_my'] = '汇总加权';
+
+            $i = 0;
+            foreach ($ismys as $key_m=>$val_m) { 
+                
+                $sum = 0;
+                $sum_original = 0;
+
+                if($key_m == 0){  //国内-其他
+                    $rate_no_original = 2;
+                    $rate_original = 2;
+                }elseif($key_m == 1){  //海淘
+                    $rate_no_original = 2;
+                    $rate_original = 3;
+                }else{  //国内-淘宝系
+                    $rate_no_original = 1;
+                    $rate_original = 1;
+                }
+
+                if($i==0){
+                    $list['all'][$key_m]['title'] = '所有';
+                    $list['original'][$key_m]['title'] = '原创';
+                }else{
+                    $list['all'][$key_m]['title'] = '';
+                    $list['original'][$key_m]['title'] = '';
+                }
+
+
+                foreach ($admins as $key_a=>$val_a) { 
+
+                    $list['all'][$key_m]['title_my'] = $val_m;
+                    $list['original'][$key_m]['title_my'] = $val_m;
+
+                    $item_count = isset($data[$key_m]) && isset($data[$key_m][$key_a]) ? $data[$key_m][$key_a]['item_count'] : 0;
+                    $item_count_original = isset($data[$key_m]) && isset($data[$key_m][$key_a]) ? $data[$key_m][$key_a]['item_count_original'] : 0;
+
+                    $list['all'][$key_m][$key_a] = $item_count;
+                    $list['original'][$key_m][$key_a] = $item_count_original;
+
+                    //按商城来源分类汇总
+                    $sum += $item_count;  
+                    $sum_original += $item_count_original;
+
+                    //按编辑汇总
+                    $sum_list['all']['total'][$key_a] += $item_count;
+                    $sum_list['original']['total'][$key_a] += $item_count_original;
+
+                    //按编辑汇总加权
+                    $sum_list['all']['total_rate'][$key_a] += ($item_count - $item_count_original)*$rate_no_original + $item_count_original*$rate_original;  //非原创*权重 + 原创*权重
+                    $sum_list['original']['total_rate'][$key_a] += $item_count_original*$rate_original;  //原创*权重
+                }
+
+                //按商城来源分类汇总
+                $list['all'][$key_m]['total'] = $sum;
+                $list['original'][$key_m]['total'] = $sum_original;
+
+                //按编辑汇总
+                $sum_list['all']['total']['total'] += $sum;
+                $sum_list['original']['total']['total'] += $sum_original;
+
+                //按编辑汇总加权
+                $sum_list['all']['total_rate']['total'] += ($sum - $sum_original) *$rate_no_original+ $sum_original*$rate_original; //非原创*权重 + 原创*权重
+                $sum_list['original']['total_rate']['total'] += $sum_original*$rate_original;  //原创*权重
+
+                $i++;
+            }
+
+            //按编辑汇总
+            $list['all']['total']['title'] = '';
+            $list['original']['total']['title'] = '';
+
+            $list['all']['total']['title_my'] = '汇总';
+            $list['original']['total']['title_my'] = '汇总';
+
+            //按编辑汇总加权
+            $list['all']['total_rate']['title'] = '';
+            $list['original']['total_rate']['title'] = '';
+
+            $list['all']['total_rate']['title_my'] = '汇总加权';
+            $list['original']['total_rate']['title_my'] = '汇总加权';
+
+            foreach ($admins as $key_a=>$val_a) { 
+                //按编辑汇总
+                $list['all']['total'][$key_a] = $sum_list['all']['total'][$key_a];
+                $list['original']['total'][$key_a] = $sum_list['original']['total'][$key_a];
+
+                //按编辑汇总加权
+                $list['all']['total_rate'][$key_a] = $sum_list['all']['total_rate'][$key_a];
+                $list['original']['total_rate'][$key_a] = $sum_list['original']['total_rate'][$key_a];
+            }
+
+            //按编辑汇总
+            $list['all']['total']['total'] = $sum_list['all']['total']['total'];
+            $list['original']['total']['total'] = $sum_list['original']['total']['total'];
+
+            //按编辑汇总加权
+            $list['all']['total_rate']['total'] = $sum_list['all']['total_rate']['total'];
+            $list['original']['total_rate']['total'] = $sum_list['original']['total_rate']['total'];
+
+            // echo "<pre>";print_r($list);  echo "</pre>";exit;
+
+            unset($stats);
+            unset($data);
+            unset($sum_list);
+            
+        }
+
+        $this->assign('admin_list', $admin_list);
+        $this->assign('list',$list);
+        if($errorinfo != ''){
+            $this->assign('errorinfo',$errorinfo);
+        }
+        $this->assign('search', array(
+            'time_start' => $time_start,
+            'time_end' => $time_end,
+        ));
+        $this->display();
+    }
+
     protected function _search() {
         $map = array();
         //'status'=>1
