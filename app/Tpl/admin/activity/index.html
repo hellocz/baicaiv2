@@ -24,7 +24,7 @@
 
                 <th align="left" width="120"><span data-tdtype="order_by" data-field="end_time">结束时间</span></th>
 
-                <th align="left" width="50"><span data-tdtype="order_by" data-field="status">状态</span></th>
+               <!--<th align="left" width="50"><span data-tdtype="order_by" data-field="status">状态</span></th>-->
 
                 <th width="120">{:L('operations_manage')}</th>
 
@@ -51,12 +51,10 @@
                     <td align="left">{$val.start_time}</td>
 
                     <td align="left">{$val.end_time}</td>
-
+                    <!--
                     <td align="left"><img data-tdtype="toggle" data-id="{$val.id}" data-field="status" data-value="{$val.status}" src="__STATIC__/images/admin/toggle_<if condition="$val.status eq 0">disabled<else/>enabled</if>.gif" /></td>
-
+    -->
                     <td align="center">
-
-                        <a href="{:U('activity/tk',array('id'=>$val['id']))}">优惠券</a> |
 
                         <a href="javascript:;" class="J_showdialog" data-uri="{:U('activity/edit', array('id'=>$val['id']))}" data-title="{:L('edit')} - {$val.name}"  data-id="edit" data-acttype="ajax" data-width="500" data-height="140">{:L('edit')}</a> |
 
