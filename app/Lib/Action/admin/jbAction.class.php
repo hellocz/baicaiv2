@@ -81,4 +81,53 @@ class jbAction extends backendAction{
 			$this->ajaxReturn(1);
 		}
 	}
+	//举报回复
+    public function reply()
+    {
+        if (IS_POST) { 
+
+            $id = $this->_request('id', 'intval');
+            $reply = $this->_request('reply', 'trim');
+            // print_r($this->_request());
+
+            $jb=$this->_mod->where(array('id' => $id))->find();
+            // $user = M('user')->where(array('id' => $jb['uid']))->find();
+            // echo $user['uid'];
+
+            $xc = array();
+            $xc['ftid']=$jb['uid'];
+            $xc['to_id']=$jb['uid'];
+            $xc['to_name']=$jb['uname'];
+            $xc['from_id']=0;
+            $xc['from_name']='tryine';
+            $xc['add_time']=time();
+            $xc['info'] =$reply;
+            $messageid = M('message')->add($xc);
+            
+            // $data = array('messageid' => $messageid);
+            $data = array('isreplied' => 1);
+
+            if (false !== $this->_mod->where(array('id' => $id))->save($data)) {
+                IS_AJAX && $this->ajaxReturn(1, L('operation_success'), '', 'reply');
+                $this->success(L('operation_success'));
+            } else {
+                IS_AJAX && $this->ajaxReturn(0, L('operation_failure'));
+                $this->error(L('operation_failure'));
+            }
+        } else {
+            $id = $this->_get('id', 'intval');
+            $itemid = $this->_get('itemid', 'intval');
+            $xid = $this->_get('xid', 'intval');
+            // $info = $mod->find($id);
+            $this->assign('id', $id);
+            $this->assign('itemid', $itemid);
+            $this->assign('xid', $xid);
+            if (IS_AJAX) {
+                $response = $this->fetch();
+                $this->ajaxReturn(1, '', $response);
+            } else {
+                $this->display();
+            }
+        }
+    }
 }

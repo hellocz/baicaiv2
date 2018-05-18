@@ -358,7 +358,16 @@ class ajaxAction extends frontendAction {
 		$data['uname']=$user['username'];
 		$data['itemid']=$itemid;
 		$data['xid']=$xid;
-		$data['addtime']=time();		
+		$data['addtime']=time();
+		//商品举报原因
+		$reasonid=$this->_get('reasonid','intval');
+		if($reasonid===0){  //其它原因
+			$reason = $this->_get('reason','trim');
+		}
+		$data['reasonid']=$reasonid;
+		$data['reason']=$reason;
+		// echo "<pre>";print_r($data);echo "</pre>";exit;
+				
 		$r=M('jb')->add($data);
 		if($r){			
 			$this->ajaxReturn(1, '举报成功！');
