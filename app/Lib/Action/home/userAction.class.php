@@ -130,6 +130,7 @@ class userAction extends userbaseAction {
                     'pin_uid' => $uid,
                     'keyid' => $user_bind_info['keyid'],
                     'bind_info' => $user_bind_info['bind_info'],
+                    'keyname' => $user_bind_info['keyname'],
                 );
                 $oauth->bindByData($bind_info);
                 //临时头像转换

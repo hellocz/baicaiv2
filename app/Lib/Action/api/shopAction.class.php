@@ -40,11 +40,11 @@ class shopAction extends userbaseAction
         if(!empty($data['cid'])){
             $where .= ' and cate_id = '.$data['cid'];
         }
-        /*
+        
         else{
-            $where .= ' and cate_id != 342';
+            $where .= ' and cate_id != 342 and cate_id != 349 and cate_id != 3672 and cate_id != 3673 and cate_id != 3675 ';
         }
-        */
+        
 
         if(!empty($data['orig_id'])){
             $where .= ' and orig_id = '.$data['orig_id'];
@@ -88,6 +88,7 @@ class shopAction extends userbaseAction
             }
         }
         $str && $where1['id'] = array('in', $str);
+        $where1['cate_id'] = array('not in','342,349,3672,3673,3675');
         $str && $item_list = $item_mod->field($field)->where($where1)->order('add_time DESC')->select();
     }
     else{
@@ -110,7 +111,7 @@ class shopAction extends userbaseAction
             $val['go_link'] = array_shift(unserialize($val['go_link']));
             $item_list[$key]['name']=getly($val['orig_id']);
             if($val['cate_id'] == 349 || $val['cate_id'] == 3672 || $val['cate_id'] == 3673 || $val['cate_id'] == 3675){
-             //   unset($item_list[$key]);
+                unset($item_list[$key]);
             }
         }
         $code = 10001;
@@ -199,6 +200,8 @@ class shopAction extends userbaseAction
  
           $where['add_time'] =array('lt', $time);
 
+          $where['cate_id'] = array('not in','342,349,3672,3673,3675');
+
 //        $field = 'i.id,i.uid,i.uname,i.title,i.intro,i.img,i.price,i.likes,i.intro,i.content,i.comments,i.comments_cache,i.add_time,i.orig_id,i.url,i.go_link,i.zan';
         $field = 'id,title,img,price,comments,likes,add_time,zan,go_link,hits,orig_id,cate_id';
      
@@ -237,6 +240,7 @@ class shopAction extends userbaseAction
         $where = 'istop = 1';
         $time = time();
         $field = 'name,i.id,i.title,i.img,i.price,i.comments,i.likes,i.add_time,i.zan,i.go_link,i.hits,i.cate_id';
+        $where['cate_id'] = array('not in','342,349,3672,3673,3675');
         $item_list = $item_orig
             ->where($where." and i.status=1 and i.add_time<$time ")
             ->join($db_pre . 'item i ON i.orig_id = ' . $db_pre . 'item_orig.id')
@@ -288,11 +292,11 @@ class shopAction extends userbaseAction
         if(!empty($data['cid'])){
             $where['cate_id'] = $data['cid'];
         }
-        /*
+        
         else{
-            $where['cate_id'] = array('neq','342');
+            $where['cate_id'] = array('not in','342,349,3672,3673,3675');
         }
-        */
+        
 
         if(!empty($data['key'])){
             $where['title'] = array('like', '%' . $data['key'] . '%');
@@ -317,7 +321,7 @@ class shopAction extends userbaseAction
             }
             $val['go_link'] = array_shift(unserialize($val['go_link']));
             if($val['cate_id'] == 349 || $val['cate_id'] == 3672 || $val['cate_id'] == 3673 || $val['cate_id'] == 3675){
-             //   unset($item_list[$key]);
+                unset($item_list[$key]);
             }
         }
         $code = 10001;
@@ -466,9 +470,9 @@ class shopAction extends userbaseAction
         $time_day = $time - 86400;
 
         if($data['type'] == 1){
-            $list=M()->query("SELECT id,title,orig_id,img,price,go_link,comments,likes,add_time,zan,hits from try_item  WHERE add_time between $time_hour and $time ORDER BY hits desc LIMIT 9");
+            $list=M()->query("SELECT id,title,orig_id,img,price,go_link,comments,likes,add_time,zan,hits from try_item  WHERE cate_id not in (349,3672,3673,3675) and add_time between $time_hour and $time ORDER BY hits desc LIMIT 9");
         }else{
-            $list=M()->query("SELECT id,title,img,orig_id,price,go_link,comments,likes,add_time,zan,hits from try_item  WHERE add_time between $time_day and $time ORDER BY hits desc LIMIT 9");
+            $list=M()->query("SELECT id,title,img,orig_id,price,go_link,comments,likes,add_time,zan,hits from try_item  WHERE cate_id not in (349,3672,3673,3675) and add_time between $time_day and $time ORDER BY hits desc LIMIT 9");
         }
 
         foreach ($list as $key => &$val) {
@@ -479,6 +483,9 @@ class shopAction extends userbaseAction
             $list[$key]['name'] = getly($list[$key]['orig_id']);
             $val['go_link'] = array_shift(unserialize($val['go_link']));
             $list[$key]['zan'] = $list[$key]['zan']   +intval($list[$key]['hits'] /10);
+            if($val['cate_id'] == 349 || $val['cate_id'] == 3672 || $val['cate_id'] == 3673 || $val['cate_id'] == 3675){
+                unset($list[$key]);
+            }
         }
         $code = 10001;
         if(count($list) < 1){

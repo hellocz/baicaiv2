@@ -1,24 +1,5 @@
 	<style type="text/css">
- .sdtag{
-    background-color: #3DC399;
-    float: left;
-    height: 20px;
-    left: -20px;
-    position: absolute;
-    text-align: center;
-    transform: rotate(-45deg);
-    width: 100px;
-}
-.sdtagcc  {
-    background-color: #3DC399;
-    float: left;
-    height: 20px;
-    left: -30px;
-    position: absolute;
-    text-align: center;
-    transform: rotate(-45deg);
-    width: 100px;
-}
+
 
   </style>	
   <if condition="$dss eq lb">
@@ -46,13 +27,15 @@
 
               <div class="w_f2nr1_le"><a href="javascript:void(0)" onclick="jz_submit_click(this)" title="赞" class="w_z_1 Jz_submit" data="{$r.id}"   <if condition="$r['status'] eq 4">data-t="article"<else/>data-t="item"</if>>{$r.zan}</a><a href="javascript:;" title="{$r.title}"  class="w_z_2 Jl_likes" data-id="{$r.id}" data-xid=" <if condition="$r['status'] eq 4">3<else/>1</if>">{$r.likes}</a><a <if condition="$tab eq 'isbao'">href="{:U('item/index',array('id'=>$r['id'],'isbao'=>1))}" <elseif condition="$r['status'] eq 4"/> href="{:U('article/show',array('id'=>$r['id']))}"<else/> href="{:U('item/index',array('id'=>$r['id']))}" </if> title="{$r.title}"  class="w_z_3" target="_blank">{$r.comments}</a></div><div class="w_f2nr1_rig">
 
+                
               <div class="w_zzj_1">
 
                     <?php $llink = unserialize($r['go_link']);$lc = count($llink);?>
 
                     <volist name="llink" id="rm">
 
-                    <if condition="$i eq 1"><a <if condition="($tab eq 'isbao') AND ($r['orig_id'] eq 3)"> isconvert="1" href="{$rm['link']}"<else/> href="__ROOT__/?m=item&a=tgo&to={:shortUrl($rm['link'])}" </if> title="{$rm.title}" class="w_zdlj_a" target="_blank" ><i class="<if condition="$lc gt 1">w_down<else/>w_right</if>"></i>{$rm.name}</a></if>
+                    <if condition="$i eq 1">
+                      <a <if condition="($tab eq 'isbao') AND ($r['orig_id'] eq 3)"> isconvert="1" href="{$rm['link']}"<else/> href="__ROOT__/?m=item&a=tgo&to={:shortUrl($rm['link'])}" </if> title="{$rm.title}" class="w_zdlj_a" target="_blank" ><i class="<if condition="$lc gt 1">w_down<else/>w_right</if>"></i>{$rm.name}</a></if>
 
                     </volist>
 
@@ -71,7 +54,33 @@
                   </if>
 
                 </div>
+                <if condition="$lc gt 1">
 
+                    <ul>
+
+                    <volist name="llink" id="rm">
+
+                    <li><a href="__ROOT__/?m=item&a=tgo&to={:shortUrl($rm['link'])}" target="_blank" rel="nofollow"  title="{$rm.title}">{$rm.name}</a></li>
+
+                    </volist>
+
+                  </ul>
+
+                  </if>
+                  <volist name="llink" id="rm">
+                     <if condition="$i eq 1">
+                  <div class="art-qrcode JartQrc">
+      <a href="javascript:;" _hover-ignore="1">
+        <span _hover-ignore="1">扫码购买</span>
+        <i class="icon-qrcode"></i>
+      </a>
+      <div class="pop-qrc" style="display:none">
+        <i class="tria"  ></i>
+        <img title="" class="verify_img" src="{:U('index/qrcode', array('url'=>urlencode($rm['link'])))}" />
+      </div>
+    </div>
+  </if>
+  </volist>
             </div></div>
 
             </div>
@@ -149,7 +158,6 @@
        </div> 
 
 	   </if>
-
 	   <script>
 
 	   $(document).ready(function(e) {
@@ -172,7 +180,15 @@
 
 				  }
 
-				); 
+				);
+
+        $(".art-qrcode").hover(
+          function(){
+            $(this).find(".pop-qrc").show();
+          },
+          function(){
+            $(this).find(".pop-qrc").hide();
+          }) 
 
 			 $(".w_p1 .w_dj1").each(function(){
 
@@ -184,6 +200,8 @@
 
 			 })
 
+
         }) 
+
 
 	   </script>

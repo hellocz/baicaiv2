@@ -74,6 +74,7 @@ return array(
             '/^sitemap.html$/' => 'sitemap/index',
             '/^go\/(\S+)$/' => 'go/index?to=:1',
             '/^rss$/' => 'rss/index',
+            '/^index-qrcode?url=(\S+)$/' => 'index/qrcode?url=:1',
               
 
 
