@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+    <title>d_11</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="74.4791667%" y1="0%" x2="0%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#00B2FF" offset="0%"></stop>
+            <stop stop-color="#007AFF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="开发资源" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="开发文档" transform="translate(-560.000000, -1811.000000)">
+            <g id="icon10" transform="translate(560.000000, 1811.000000)">
+                <g id="icon">
+                    <path d="M12,10.5 C11.1729284,10.5 10.5,11.1728201 10.5,12 C10.5,12.8271799 11.1729284,13.5 12,13.5 C12.8272679,13.5 13.5,12.8271799 13.5,12 C13.5,11.1728201 12.827268,10.5 12,10.5 Z" id="Shape" fill="#009EFF" fill-rule="nonzero"></path>
+                    <path d="M11.9998981,1.20217927e-15 C5.38304427,1.20217927e-15 -2.81983758e-08,5.38329373 0,12 C0,18.6171137 5.38304429,24 11.9998981,24 C18.6167519,24 24,18.6171137 24,12 C24,5.38349743 18.616752,-2.81986152e-08 11.9998981,1.20217927e-15 Z M12,16 C9.79442821,16 7.99999997,14.2057364 8,12.0001061 C8.00000003,9.79447582 9.79442821,8 12,8 C14.205784,8 16,9.79447585 16,12.0001061 C16,14.2057364 14.205784,16 12,16 Z" id="Shape" fill="url(#linearGradient-1)" fill-rule="nonzero"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

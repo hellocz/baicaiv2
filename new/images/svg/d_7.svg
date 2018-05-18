@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+    <title>d_7</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="100%" y1="0%" x2="50%" y2="99.304552%" id="linearGradient-1">
+            <stop stop-color="#83B713" offset="2.99178107%"></stop>
+            <stop stop-color="#4D8B0A" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="100%" y1="0%" x2="50%" y2="99.304552%" id="linearGradient-2">
+            <stop stop-color="#ABE630" offset="0%"></stop>
+            <stop stop-color="#69BC0E" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="开发资源" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="开发文档" transform="translate(-384.000000, -1811.000000)">
+            <g id="icon6" transform="translate(384.000000, 1811.000000)">
+                <g id="icon">
+                    <g id="paper-卫生纸" transform="translate(2.000000, 0.000000)">
+                        <path d="M21,0 L7,0 L7,21 L21,21 C21,21 19.8947368,19.3983051 19.8947368,17.5474576 C19.8947368,15.6966102 21,15.2694915 21,12.8135593 C21,10.3576271 19.8947368,10.0372881 19.8947368,7.68813559 C19.8947368,5.37457627 21,3.31016949 21,1.45932203 L21,0 Z" id="Shape" fill="url(#linearGradient-1)" fill-rule="nonzero"></path>
+                        <path d="M-6.21724894e-15,3 L1.11863381e-16,21.2622107 C1.11863381e-16,22.7588689 3.56363636,24 8,24 C12.4363636,24 16,22.7588689 16,21.2622107 L16,3 L-6.21724894e-15,3 Z" id="Shape" fill="url(#linearGradient-2)" fill-rule="nonzero"></path>
+                        <path d="M0,2.5 C8.07434927e-16,3.88071187 3.581722,5 8,5 C12.418278,5 16,3.88071187 16,2.5 C16,1.11928813 12.418278,0 8,0 C3.581722,0 8.07434927e-16,1.11928813 0,2.5 Z" id="Shape" fill="#CAE699" fill-rule="nonzero"></path>
+                        <path d="M8.5,4 C6.75,4 5,3.475 5,2.5 C5,1.525 6.75,1 8.5,1 C10.25,1 12,1.525 12,2.5 C12,3.475 10.25,4 8.5,4 Z" id="Path" fill="#5C8E25"></path>
+                        <path d="M12,5.19855495 L13,5 L13,7.18723196 L12,7.18723196 L12,5.19855495 Z M12,8.25725617 L13,8.25725617 L13,10.3973046 L12,10.3973046 L12,8.25725617 Z M12,11.4673288 L13,11.4673288 L13,13.6073772 L12,13.6073772 L12,11.4673288 Z M12,14.6774014 L13,14.6774014 L13,16.8174498 L12,16.8174498 L12,14.6774014 Z M12,17.887474 L13,17.887474 L13,20.0275224 L12,20.0275224 L12,17.887474 Z M12,21.0975466 L13,21.0975466 L13,22.7873061 L12,23 L12,21.0975466 Z" id="Combined-Shape" fill="#F0FDDC" opacity="0.41236413"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

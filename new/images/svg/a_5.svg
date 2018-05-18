@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+    <title>a_5</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="开发资源" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="开发文档" transform="translate(-272.000000, -1557.000000)">
+            <g id="ic/whatshot/grey600" transform="translate(272.000000, 1557.000000)">
+                <g id="ic_whatshot_24px">
+                    <path d="M7.98534927,0 C7.98534927,0 8.47105016,1.73933427 8.47105016,3.15049226 C8.47105016,4.50257853 7.58497421,5.59868729 6.23288795,5.59868729 C4.87423816,5.59868729 3.85032818,4.50257853 3.85032818,3.15049226 L3.87001875,2.91420534 C2.54418659,4.48945148 1.75,6.53070792 1.75,8.74917956 C1.75,11.6502579 4.09974215,14 7.00082044,14 C9.90189873,14 12.2516409,11.6502579 12.2516409,8.74917956 C12.2516409,5.21143929 10.5516878,2.0543835 7.98534927,0 Z" id="Shape" fill="#EB3C3C" fill-rule="nonzero"></path>
+                    <polygon id="Shape" points="0 0 14 0 14 14 0 14"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

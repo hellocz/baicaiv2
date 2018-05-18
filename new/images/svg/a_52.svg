@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+    <title>a_52</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="开发资源" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="开发文档" transform="translate(-766.000000, -1701.000000)">
+            <g id="ic/perm_phone_msg/grey600" transform="translate(766.000000, 1701.000000)">
+                <g id="ic_perm_phone_msg_24px">
+                    <polygon id="Shape" points="0 0 24 0 24 24 0 24"></polygon>
+                    <path d="M19.1111111,15.1111111 C18,15.1111111 16.9333333,14.9333333 15.9377778,14.6044444 C15.6266667,14.5066667 15.28,14.5777778 15.0311111,14.8177778 L13.0755556,16.7733333 C10.56,15.4933333 8.49777778,13.44 7.21777778,10.9244444 L9.17333333,8.96 C9.42222222,8.72 9.49333333,8.37333333 9.39555556,8.06222222 C9.06666667,7.06666667 8.88888889,6 8.88888889,4.88888889 C8.88888889,4.4 8.48888889,4 8,4 L4.88888889,4 C4.4,4 4,4.4 4,4.88888889 C4,13.2355556 10.7644444,20 19.1111111,20 C19.6,20 20,19.6 20,19.1111111 L20,16 C20,15.5111111 19.6,15.1111111 19.1111111,15.1111111 Z M12,4 L12,12.8888889 L14.6666667,10.2222222 L20,10.2222222 L20,4 L12,4 Z" id="Shape" fill="#99A5A0" fill-rule="nonzero"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

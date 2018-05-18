@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+    <title>b_6</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="开发资源" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="开发文档" transform="translate(-330.000000, -1501.000000)">
+            <g id="ic_sort_24px" transform="translate(330.000000, 1501.000000)">
+                <rect id="Rectangle" opacity="0" x="0" y="0" width="22" height="22"></rect>
+                <path d="M1,19 L11,19 C11.5522847,19 12,18.5522847 12,18 L12,18 C12,17.4477153 11.5522847,17 11,17 L1,17 C0.44771525,17 -6.76353751e-17,17.4477153 0,18 L0,18 C6.76353751e-17,18.5522847 0.44771525,19 1,19 Z" id="Path" fill="#33CC99"></path>
+                <path d="M1,12 L15,12 C15.5522847,12 16,11.5522847 16,11 L16,11 C16,10.4477153 15.5522847,10 15,10 L1,10 C0.44771525,10 -6.76353751e-17,10.4477153 0,11 L0,11 C6.76353751e-17,11.5522847 0.44771525,12 1,12 Z" id="Path" fill="#333333"></path>
+                <path d="M0,4 L0,4 C6.76353751e-17,4.55228475 0.44771525,5 1,5 L19,5 C19.5522847,5 20,4.55228475 20,4 L20,4 C20,3.44771525 19.5522847,3 19,3 L1,3 C0.44771525,3 -6.76353751e-17,3.44771525 0,4 Z" id="Path" fill="#333333"></path>
+            </g>
+        </g>
+    </g>
+</svg>

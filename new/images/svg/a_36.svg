@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+    <title>a_36</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="开发资源" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="开发文档" transform="translate(-598.000000, -1622.000000)">
+            <g id="ic/mode_edit/grey600" transform="translate(598.000000, 1622.000000)">
+                <g id="Group">
+                    <path d="M2,10.7453831 L2,11 C2,11.5522847 2.44771525,12 3,12 L3.2546169,12 C3.78504988,12 4.2937577,11.7892863 4.66883046,11.4142136 L10.2266352,5.85640883 L8.14359117,3.77336481 L2.58578644,9.33116954 C2.21071368,9.7062423 2,10.2149501 2,10.7453831 Z M11.8375226,4.24552146 C12.0541591,4.02888488 12.0541591,3.67893348 11.8375226,3.4622969 L10.5377031,2.16247743 C10.3210665,1.94584086 9.97111512,1.94584086 9.75447854,2.16247743 L8.73795306,3.17900292 L10.8209971,5.26204694 L11.8375226,4.24552146 Z" id="Shape" fill="#23B16C" fill-rule="nonzero"></path>
+                    <polygon id="Shape" points="0 0 14 0 14 14 0 14"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,6 +1,6 @@
 <?php
 return array(
-    'APP_GROUP_LIST' => 'home,admin,wap,api', //分组
+    'APP_GROUP_LIST' => 'home,admin,wap,api,ab', //分组
     'DEFAULT_GROUP' => 'home', //默认分组
     'DEFAULT_MODULE' => 'index', //默认控制器
     'TAGLIB_PRE_LOAD' => 'pin', //自动加载标签

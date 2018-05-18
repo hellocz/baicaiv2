@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+    <title>a_53</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="开发资源" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="开发文档" transform="translate(-802.000000, -1701.000000)">
+            <g id="ic/message/grey600" transform="translate(802.000000, 1701.000000)">
+                <g id="ic_message_24px">
+                    <path d="M18.4,5 C19.28,5 20,5.72 20,6.6 L20,16.2 C20,17.08 19.28,17.8 18.4,17.8 L7.2,17.8 L4,21 L4.008,6.6 C4.008,5.72 4.72,5 5.6,5 L18.4,5 Z M8.5,13 C9.32842712,13 10,12.3284271 10,11.5 C10,10.6715729 9.32842712,10 8.5,10 C7.67157288,10 7,10.6715729 7,11.5 C7,12.3284271 7.67157288,13 8.5,13 Z M12.5,13 C13.3284271,13 14,12.3284271 14,11.5 C14,10.6715729 13.3284271,10 12.5,10 C11.6715729,10 11,10.6715729 11,11.5 C11,12.3284271 11.6715729,13 12.5,13 Z M16.5,13 C17.3284271,13 18,12.3284271 18,11.5 C18,10.6715729 17.3284271,10 16.5,10 C15.6715729,10 15,10.6715729 15,11.5 C15,12.3284271 15.6715729,13 16.5,13 Z" id="Combined-Shape" fill="#99A5A0"></path>
+                    <polygon id="Shape" points="0 0 24 0 24 24 0 24"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

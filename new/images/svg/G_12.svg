@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="137px" height="45px" viewBox="0 0 137 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+    <title>G_12</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#00CFFF" offset="0%"></stop>
+            <stop stop-color="#00A2FF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="开发资源" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="开发文档" transform="translate(-848.000000, -2565.000000)">
+            <g id="D_12" transform="translate(848.000000, 2565.000000)">
+                <rect id="Rectangle-14" fill="url(#linearGradient-1)" x="0" y="0" width="137" height="45" rx="5"></rect>
+                <text id="App-Store" font-family="LucidaGrande, Lucida Grande" font-size="16" font-weight="normal" fill="#FFFFFF">
+                    <tspan x="47" y="33">App</tspan>
+                    <tspan x="78.1796875" y="33" font-family="CorsivaHebrew, Corsiva Hebrew"> </tspan>
+                    <tspan x="82.1796875" y="33">Store</tspan>
+                </text>
+                <text id="Download-on-the" opacity="0.399999976" font-family="LucidaGrande-Bold, Lucida Grande" font-size="8" font-weight="bold" fill="#FFFFFF">
+                    <tspan x="47" y="15">Download on the</tspan>
+                </text>
+                <g id="iOS" transform="translate(14.000000, 10.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                    <path d="M16.3559414,12.7503543 C16.3257162,9.70981557 18.8404584,8.25289077 18.9522919,8.18049699 C17.5407719,6.1172743 15.3403724,5.833732 14.5545155,5.80055153 C12.6805489,5.61353427 10.9002807,6.90154025 9.95120727,6.90154025 C9.00213387,6.90154025 7.5362084,5.83071561 5.98262966,5.85786327 C3.94242412,5.88802736 2.05938995,7.04331139 1.00755064,8.8682379 C-1.11426313,12.5422222 0.463495834,17.9838212 2.53090413,20.9610153 C3.54042806,22.4179401 4.74641622,24.0558494 6.32719771,23.9985376 C7.8505512,23.9382095 8.42483126,23.0151888 10.2655501,23.0151888 C12.1062689,23.0151888 12.6231209,23.9985376 14.2371502,23.9683735 C15.8753597,23.9382094 16.9151089,22.4812847 17.9185878,21.0183271 C19.079238,19.3261225 19.5567973,17.6882132 19.584,17.6067702 C19.5477297,17.5886718 16.3861667,16.3821088 16.3559414,12.7503543 Z M13.3273696,3.83083745 C14.1676321,2.81430815 14.7328446,1.40564587 14.5786957,0 C13.369685,0.0482625233 11.9037595,0.802364389 11.0362944,1.81587729 C10.259505,2.7177831 9.57641394,4.15359304 9.76078807,5.52907485 C11.108835,5.63464909 12.4871072,4.84435035 13.3273696,3.83083745 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

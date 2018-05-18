@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+    <title>e_4</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="开发资源" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="开发文档" transform="translate(-183.000000, -1919.000000)">
+            <g id="筛选3" transform="translate(183.000000, 1919.000000)">
+                <g id="筛选">
+                    <rect id="Rectangle" fill="#D8D8D8" opacity="0" x="0" y="0" width="20" height="20"></rect>
+                    <g id="垃圾桶2" transform="translate(2.000000, 1.000000)" fill="#99A5A0" fill-rule="nonzero">
+                        <polygon id="Shape" points="10.0611063 1.41194941 10.0611063 0.01204738 5.73494775 0.01204738 5.73494775 1.41194941 0.0121801848 1.41194941 0.0121801848 2.87671284 15.9201373 2.87671284 15.9201373 1.41194941"></polygon>
+                        <path d="M1.57571185,4.28015772 L1.57571185,17.0564412 L14.3520635,17.0564412 L14.3520635,4.28015772 L1.57571185,4.28015772 Z M5.8326259,14.2176885 L4.4132609,14.2176885 L4.4132609,7.1188423 L5.8326259,7.1188423 L5.8326259,14.2176885 Z M8.67355881,14.2176885 L7.25419381,14.2176885 L7.25419381,7.1188423 L8.67355881,7.1188423 L8.67355881,14.2176885 Z M11.5121071,14.2176885 L10.0927421,14.2176885 L10.0927421,7.1188423 L11.5121071,7.1188423 L11.5121071,14.2176885 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

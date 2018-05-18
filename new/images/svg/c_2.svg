@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+    <title>c_2</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="开发资源" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="开发文档" transform="translate(-164.000000, -1747.000000)">
+            <g id="ic/insert_chart/grey600" transform="translate(164.000000, 1747.000000)">
+                <g id="ic_insert_chart_24px">
+                    <path d="M17.4444444,5 L6.55555556,5 C5.7,5 5,5.7 5,6.55555556 L5,17.4444444 C5,18.3 5.7,19 6.55555556,19 L17.4444444,19 C18.3,19 19,18.3 19,17.4444444 L19,6.55555556 C19,5.7 18.3,5 17.4444444,5 Z M9.66666667,15.8888889 L8.11111111,15.8888889 L8.11111111,10.4444444 L9.66666667,10.4444444 L9.66666667,15.8888889 Z M12.7777778,15.8888889 L11.2222222,15.8888889 L11.2222222,8.11111111 L12.7777778,8.11111111 L12.7777778,15.8888889 Z M15.8888889,15.8888889 L14.3333333,15.8888889 L14.3333333,12.7777778 L15.8888889,12.7777778 L15.8888889,15.8888889 Z" id="Shape" fill="#99A5A0" fill-rule="nonzero"></path>
+                    <polygon id="Shape" points="0 0 24 0 24 24 0 24"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

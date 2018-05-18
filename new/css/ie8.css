@@ -1,0 +1,27 @@
+/*
+ *IE8 兼容样式
+ * */
+#header .top .nav-box ul>li i,#header .top .top-right i{
+	background: url('../images/ie8/a_56.png') no-repeat;
+}
+.more{
+	background: url('../images/ie8/a_22.png') left no-repeat;
+}
+.more:hover{
+	background: url('../images/ie8/a_59.png') left no-repeat;
+}
+
+#header .top .nav-box ul li .gd .tab-list .jf-list li .pic span{
+	background-color: #000000;
+}
+
+/*
+ *首页
+ * */
+
+.i-sq-top .sq-search span{
+	background: url('../images/ie8/icon_search1.png') left no-repeat;
+	background-size: 16px;
+	behavior:url(css/backgroundsize.min.htc);
+}
+

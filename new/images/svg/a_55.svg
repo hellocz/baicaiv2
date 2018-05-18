@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+    <title>a_55</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="开发资源" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="开发文档" transform="translate(-867.000000, -1700.000000)">
+            <g id="ic/text_rotation_none/grey600" transform="translate(867.000000, 1700.000000)">
+                <g id="ic_text_rotation_none_24px">
+                    <path d="M12.3194444,5 L10.9027778,5 L6.41666667,15.3888889 L8.4,15.3888889 L9.25,13.3111111 L13.9722222,13.3111111 L14.8222222,15.3888889 L16.8055556,15.3888889 L12.3194444,5 Z M9.845,11.6111111 L11.6111111,6.87 L13.3772222,11.6111111 L9.845,11.6111111 Z M19.6388889,19.1666667 L16.8055556,16.3333333 L16.8055556,18.2222222 L5,18.2222222 L5,20.1111111 L16.8055556,20.1111111 L16.8055556,22 L19.6388889,19.1666667 Z" id="Shape" fill="#99A5A0" fill-rule="nonzero"></path>
+                    <polygon id="Shape" points="0 0 24 0 24 24 0 24"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
