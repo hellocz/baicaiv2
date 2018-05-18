@@ -146,7 +146,7 @@ class oauth {
      */
     private function _updateBindInfo($user) {
         $info = serialize($user['bind_info']);
-        M('user_bind')->where(array('keyid' => $user['keyid']))->save(array('info' => $info));
+        M('user_bind')->where(array('keyid' => $user['keyid']))->save(array('info' => $info,'nickname'=>$user['keyname']));
     }
 
     /**
@@ -158,7 +158,7 @@ class oauth {
             'uid' => $user['pin_uid'],
             'type' => $this->_type,
             'keyid' => $user['keyid'],
-            'info' => $bind_info
+            'nickname' => $user['keyname']
         );
         M('user_bind')->add($bind_user);
     }

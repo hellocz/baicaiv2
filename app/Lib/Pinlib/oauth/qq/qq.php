@@ -24,9 +24,9 @@ class qq_oauth
         $oauth = new QqTOAuthV2($this->setting['app_key'], $this->setting['app_secret']);
         $keys = array('code'=>$request_args['code'], 'state'=>$request_args['state'], 'redirect_uri'=>$this->redirect_uri);
         $token = $oauth->getAccessToken($keys);
-        $openid = $oauth->getOpenid($token["access_token"]);
-        $user = $oauth->getUserInfo($token["access_token"], $openid);
-        $result['keyid'] = $openid;
+        $info = $oauth->getOpenid($token["access_token"]);
+        $user = $oauth->getUserInfo($token["access_token"], $info['openid']);
+        $result['keyid'] = $info['unionid'];
         $result['keyname'] = $user['nickname'];
         //$result['keyavatar_small'] = $user['figureurl'];
         //$result['keyavatar_big'] = $user['figureurl_2'];

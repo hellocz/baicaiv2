@@ -66,7 +66,10 @@ class QqTOAuthV2 {
             echo "<h3>msg  :</h3>" . $user->error_description;
             exit;
         }
-        return $user->unionid;
+        $info['openid'] = $user->openid;
+        $info['unionid'] = $user->unionid;
+        return $info;
+        //return $user->unionid;
     }
     function getUserInfo($access_token, $openid) {
         $get_user_info = "https://graph.qq.com/user/get_user_info?"

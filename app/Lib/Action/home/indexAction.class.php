@@ -164,4 +164,13 @@ class indexAction extends frontendAction {
 		$this->assign('day_list',$day_list);
         $this->display();
     }
+    public function qrcode($url="www.baidu.com",$level=7,$size=4)
+    {
+              Vendor('phpqrcode.phpqrcode');
+              $errorCorrectionLevel =intval($level) ;//容错级别 
+              $matrixPointSize = intval($size);//生成图片大小 
+             //生成二维码图片 
+              $object = new \QRcode();
+              $object->png($url, false, $errorCorrectionLevel, $matrixPointSize, 2);   
+    }
 }

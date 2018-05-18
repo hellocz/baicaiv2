@@ -41,12 +41,26 @@
 
                     </volist>
 
+
                   </ul>
 
                   </if>
-
+               
                 </div>
-
+ <volist name="llink" id="rm">
+                                     <if condition="$i eq 1">
+                                  <div class="art-qrcode JartQrc">
+                      <a href="javascript:;" _hover-ignore="1">
+                        <span _hover-ignore="1">扫码购买</span>
+                        <i class="icon-qrcode"></i>
+                      </a>
+                      <div class="pop-qrc" style="display:none">
+                        <i class="tria"  ></i>
+                        <img title="" class="verify_img" src="{:U('index/qrcode', array('url'=>urlencode($rm['link'])))}" />
+                      </div>
+                    </div>
+                  </if>
+                  </volist>
             </div></div>
 
             </div>
@@ -150,6 +164,13 @@
 				  }
 
 				); 
+              $(".art-qrcode").hover(
+          function(){
+            $(this).find(".pop-qrc").show();
+          },
+          function(){
+            $(this).find(".pop-qrc").hide();
+          }) 
 
 
 
