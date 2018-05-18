@@ -78,7 +78,7 @@
 
                     <input type="hidden" name="menuid" value="<?php echo ($menuid); ?>" />
 
-					<?php if($sm != ''): ?><input type="hidden" name="sm" value="<?php echo ($sm); ?>" /><?php endif; ?>
+                    <!-- <?php if($sm != ''): ?><input type="hidden" name="sm" value="<?php echo ($sm); ?>" /><?php endif; ?> -->
 
                     发表时间 :
 
@@ -88,31 +88,46 @@
 
                     <input type="text" name="time_end" id="J_time_end" class="date" size="12" value="<?php echo ($search["time_end"]); ?>">
                     &nbsp;&nbsp;&nbsp;&nbsp;
-
-                    <input type="radio" <?php if($search["type"] == '0'): ?>checked<?php endif; ?> name="type" value="0">原创
-
-                    <input type="radio" <?php if($search["type"] == '1'): ?>checked<?php endif; ?> name="type" value="1">非原创
-
-                    <input type="radio" <?php if($search["type"] == '2'): ?>checked<?php endif; ?> name="type" value="2">点击量
-
-                    &nbsp;&nbsp;分类 :
-
-					<select name="status">
-
-					<option value="0" <?php if($search["status"] == '0'): ?>selected="selected"<?php endif; ?>>全部</option>
-
-					<option value="1" <?php if($search["status"] == '1'): ?>selected="selected"<?php endif; ?>>国内</option>
-
-                    <option value="2" <?php if($search["status"] == '2'): ?>selected="selected"<?php endif; ?>>海淘</option>
-
-                    <option value="3" <?php if($search["status"] == '3'): ?>selected="selected"<?php endif; ?>>淘宝系</option>
+                    <!-- 注：限时间范围在90天以内
+                    <div class="bk8"></div> -->
 
 
-					</select>
+                    <input type="radio" <?php if($search["original"] == ''): ?>checked<?php endif; ?> name="original" value="">全部
 
-                    <input type="submit" name="search" class="btn" value="确定" />
+                    <input type="radio" <?php if($search["original"] == '1'): ?>checked<?php endif; ?> name="original" value="1">原创
 
-					
+                    <input type="radio" <?php if($search["original"] == '0'): ?>checked<?php endif; ?> name="original" value="0">非原创
+
+                    
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;分类 :
+
+                    <select name="my">
+
+                    <option value="" <?php if($search["my"] == ''): ?>selected="selected"<?php endif; ?>>全部</option>
+
+                    <option value="0" <?php if($search["my"] == '0'): ?>selected="selected"<?php endif; ?>>国内</option>
+
+                    <option value="1" <?php if($search["my"] == '1'): ?>selected="selected"<?php endif; ?>>海淘</option>
+
+                    <option value="2" <?php if($search["my"] == '2'): ?>selected="selected"<?php endif; ?>>淘宝系</option>
+
+
+                    </select>
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;统计类型 :
+                    <select name="type">
+
+                    <option value="0" <?php if($search["type"] == '0'): ?>selected="selected"<?php endif; ?>>发贴数</option>
+
+                    <option value="1" <?php if($search["type"] == '1'): ?>selected="selected"<?php endif; ?>>点击量</option>
+
+
+                    </select>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="button" name="search" class="btn" onclick="count_check()" value="确定" />
+
+                    
 
                 </div>
 
@@ -126,7 +141,9 @@
 
     </form>
 
-    <div class="J_tablelist table_list" data-acturi="<?php echo U('item/ajax_edit');?>">
+<div id='errorinfo'><?php if($errorinfo): echo ($errorinfo); endif; ?></div>
+
+<?php if($list): ?><div id="datainfo" class="J_tablelist table_list" data-acturi="<?php echo U('item/ajax_edit');?>">
 
     <table width="100%" cellspacing="0">
 
@@ -137,79 +154,31 @@
 
                 <th width=140><span data-tdtype="order_by" data-field="id">商城名称</span></th>
 
-                <th width="70"><span data-tdtype="order_by" data-field="price">baicaiozc</span></th>
-
-                <th width="70"><span data-tdtype="order_by" data-field="price">baicaiozb</span></th>
-
-                <th width="70"><span data-tdtype="order_by" data-field="price">baicaiozyt</span></th>
-
-                <th width="70"><span data-tdtype="order_by" data-field="price">baicaiozyt</span></th>
-
-                <th width="70"><span data-tdtype="order_by" data-field="price">baicaiozyt</span></th>
-
-                <th width="70"><span data-tdtype="order_by" data-field="price">baicaiozyt</span></th>
-
-                <th width="70"><span data-tdtype="order_by" data-field="price">baicaiozyt</span></th>
-
-                <th width="70"><span data-tdtype="order_by" data-field="price">baicaiozyt</span></th>
-
-                <th width="70"><span data-tdtype="order_by" data-field="price">baicaiozyt</span></th>
-
-                <th width="70"><span data-tdtype="order_by" data-field="price">baicaiozyt</span></th>
-
-                <th width="70"><span data-tdtype="order_by" data-field="price"><strong>汇总:</strong></span></th>
+                <?php if(is_array($admin_list)): $i = 0; $__LIST__ = $admin_list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$val): $mod = ($i % 2 );++$i;?><th width="70"><span data-tdtype="order_by" data-field="price"><?php echo ($val["username"]); ?></span></th><?php endforeach; endif; else: echo "" ;endif; ?>
+                <th width="70"><span data-tdtype="order_by" data-field="price">汇总</span></th>
 
             </tr>
 
         </thead>
 
-    	<tbody>
+        <tbody>
+             <?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$val): $mod = ($i % 2 );++$i;?><tr>
+                <td><?php echo ($val["orig_name"]); ?></td>
+                <?php if(is_array($admin_list)): $i = 0; $__LIST__ = $admin_list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$admin): $mod = ($i % 2 );++$i;?><td align="center"><?php echo ($val['count'][$admin['id']]); ?></td><?php endforeach; endif; else: echo "" ;endif; ?>
+                <td align="center"><?php echo ($val['count']['sum']); ?></td>
+            </tr><?php endforeach; endif; else: echo "" ;endif; ?>
 
 
-            <tr>
+        </tbody>
 
-                <td>亚马逊海外购</td>
-                <td align="center">12</td>
-                <td align="center">12</td>
-                <td align="center">12</td>
-                <td align="center">12</td>
-                <td align="center">12</td>
-                <td align="center">12</td>
-                <td align="center">12</td>
-                <td align="center">12</td>
-                <td align="center">12</td>
-                <td align="center">12</td>
-                <td align="center">12</td>
-
-            </tr>
-
-            <tr>
-
-                <td ><strong>汇总:</strong></td>
-                <td align="center">12</td>
-                <td align="center">12</td>
-                <td align="center">12</td>
-                <td align="center">12</td>
-                <td align="center">12</td>
-                <td align="center">12</td>
-                <td align="center">12</td>
-                <td align="center">12</td>
-                <td align="center">12</td>
-                <td align="center">12</td>
-                <td align="center">12</td>
-
-            </tr>
-
-
-    	</tbody>
-
-    	<tfoot>
-    		
-    	</tfoot>
+        <tfoot>
+            
+        </tfoot>
 
     </table>
 
-    </div>
+    </div><?php endif; ?>
+
 
 </div>
 
@@ -261,33 +230,43 @@ $(function(){
 
 Calendar.setup({
 
-	inputField : "J_time_start",
+    inputField : "J_time_start",
 
-	ifFormat   : "%Y-%m-%d",
+    ifFormat   : "%Y-%m-%d",
 
-	showsTime  : false,
+    showsTime  : false,
 
-	timeFormat : "24"
+    timeFormat : "24"
 
 });
 
 Calendar.setup({
 
-	inputField : "J_time_end",
+    inputField : "J_time_end",
 
-	ifFormat   : "%Y-%m-%d",
+    ifFormat   : "%Y-%m-%d",
 
-	showsTime  : false,
+    showsTime  : false,
 
-	timeFormat : "24"
+    timeFormat : "24"
 
 });
 
-$('.J_preview').preview(); //查看大图
+// $('.J_preview').preview(); //查看大图
 
-$('.J_cate_select').cate_select({top_option:lang.all}); //分类联动
+// $('.J_cate_select').cate_select({top_option:lang.all}); //分类联动
 
-$('.J_tooltip[title]').tooltip({offset:[10, 2], effect:'slide'}).dynamic({bottom:{direction:'down', bounce:true}});
+// $('.J_tooltip[title]').tooltip({offset:[10, 2], effect:'slide'}).dynamic({bottom:{direction:'down', bounce:true}});
+
+function count_check() {
+    if($('#J_time_start').val() == '' || $('#J_time_end').val() == ''){
+        $('#datainfo') && $('#datainfo').hide();
+        $('#errorinfo').html('请选择发表时间范围!');
+    }else{
+        $('#errorinfo').html('');
+        $('form[name="searchform"]').submit();
+    }
+}
 
 </script>
 

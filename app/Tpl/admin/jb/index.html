@@ -1,71 +1,157 @@
-<include file="public:header" />
-<!--商品来源-->
-<div class="subnav">
-<div class="content_menu ib_a blue line_x">
-<a href="{:U('jb/index')}" class="on"><em>举报管理</em> </a>
-</div>
-</div>
-<div class="pad_lr_10" >
-    <div class="J_tablelist table_list" data-acturi="{:U('jb/ajax_edit')}">
-	<table width="100%" cellspacing="0">
-        <thead>
-            <tr>
-                <th width="25"><input type="checkbox" id="checkall_t" class="J_checkall"></th>
-                <th width="40"><span tdtype="order_by" fieldname="id">ID</span></th>
-				<th align="center" >举报内容</th>
-				<th align="center" width="60"><span data-tdtype="order_by" data-field="xid">类别</span></th>
-                <th align="center" width="80"><span data-tdtype="order_by" data-field="uid">用户名</span></th> 
-				<th align="center" width="120"><span data-tdtype="order_by" data-field="add_time">时间</span></th>	
-				<th align="center" width="40"><span data-tdtype="order_by" data-field="status">状态</span></th> 
-                <th width="150">{:L('operations_manage')}</th>
-            </tr>
-        </thead>
-    	<tbody>
-            <volist name="list" id="val" >
-            <tr>
-                <td align="center">
-                <input type="checkbox" class="J_checkitem" value="{$val.id}"></td>
-                <td align="center">{$val.id}</td>
-				<td align="center">{:get_item_name($val['itemid'],$val['xid'])}</td>
-				<td align="center"><if condition="$val['xid'] eq 1">商品<elseif condition="$val['xid'] eq 2"/>闲置转让<elseif condition="$val['xid'] eq 3"/>文章<elseif condition="$val['xid'] eq 4"/>评论</if></td>
-                <td align="center">{$val.uname}</td>
-				<td align="center">{$val.addtime|date='Y-m-d H:i:s',###}</td>
-				<td align="center" class="status"><if condition="$val['status'] eq 0">未处理<elseif condition="$val['status'] eq 1"/><font color="green">有效</font><elseif condition="$val['status'] eq 2"/><font color="red">无效</font></if></td>
-                <td align="center">
-					<a href="<if condition="$val['xid'] eq 1">{:U("item/edit",array("id"=>$val['itemid']))}<elseif condition="$val['xid'] eq 2"/>{:U("zr/edit",array("id"=>$val['itemid']))}<elseif condition="$val['xid'] eq 3"/>{:U("article/edit",array("id"=>$val['itemid']))}<elseif condition="$val['xid'] eq 4"/>{:U("comment/index",array("id"=>$val['itemid']))}</if>">编辑</a> | 
-					<if condition="$val['status'] eq 0"><a href="javascript:;" data-id="{$val.id}" class='J_ok'>有效</a> | <a href="javascript:;" data-id='{$val.id}' class='J_fail'>无效</a> | </if>
-                    <a href="javascript:;" class="J_confirmurl" data-acttype="ajax" data-uri="{:U('jb/delete', array('id'=>$val['id']))}" data-msg="{:sprintf(L('confirm_delete_one'),$val['name'])}">{:L('delete')}</a>
-					</td>
-            </tr>
-            </volist>
-    	</tbody>
-    </table>
-    </div>
-
-    <div class="btn_wrap_fixed">
-    	<label><input type="checkbox" name="checkall" class="J_checkall">{:L('select_all')}/{:L('cancel')}</label>
-    	<input type="button" class="btn" data-tdtype="batch_action" data-acttype="ajax" data-uri="{:U('comment/delete')}" data-name="id" data-msg="{:L('confirm_delete')}" value="{:L('delete')}" />
-    	<div id="pages">{$page}</div>
-    </div>
-</div>
-<include file="public:footer" />
-<script>
-$(".J_ok").click(function(){
-	var obj=$(this);
-	$.get('/index.php?g=admin&m=jb&a=sets',{status:1,id:$(this).attr("data-id")},function(res){
-		if(res.status==1){
-			obj.parent().siblings(".status").html("<font color='green'>有效</font>");
-		}
-	},'json');
-});
-$(".J_fail").click(function(){
-	var obj=$(this);
-	$.get('/index.php?g=admin&m=jb&a=sets',{status:2,id:$(this).attr("data-id")},function(res){
-		if(res.status==1){
-			obj.parent().siblings(".status").html("<font color='red'>无效</font>");
-		}
-	},'json');
-});
-</script>
-</body>
-</html>
+<include file="public:header" />
+
+<!--商品来源-->
+
+<div class="subnav">
+
+<div class="content_menu ib_a blue line_x">
+
+<a href="{:U('jb/index')}" class="on"><em>举报管理</em> </a>
+
+</div>
+
+</div>
+
+<div class="pad_lr_10" >
+
+    <div class="J_tablelist table_list" data-acturi="{:U('jb/ajax_edit')}">
+
+	<table width="100%" cellspacing="0">
+
+        <thead>
+
+            <tr>
+
+                <th width="25"><input type="checkbox" id="checkall_t" class="J_checkall"></th>
+
+                <th width="40"><span tdtype="order_by" fieldname="id">ID</span></th>
+
+				<th align="center" >举报内容</th>
+
+                <th align="center" >举报原因</th>
+
+				<th align="center" width="60"><span data-tdtype="order_by" data-field="xid">类别</span></th>
+
+                <th align="center" width="80"><span data-tdtype="order_by" data-field="uid">用户名</span></th> 
+
+				<th align="center" width="120"><span data-tdtype="order_by" data-field="add_time">时间</span></th>	
+
+				<th align="center" width="40"><span data-tdtype="order_by" data-field="status">状态</span></th> 
+
+                <th width="150">{:L('operations_manage')}</th>
+
+            </tr>
+
+        </thead>
+
+    	<tbody>
+
+            <volist name="list" id="val" >
+
+            <tr>
+
+                <td align="center">
+
+                <input type="checkbox" class="J_checkitem" value="{$val.id}"></td>
+
+                <td align="center">{$val.id}</td>
+
+				<td align="center">{:get_item_name($val['itemid'],$val['xid'])}</td>
+
+                <td align="center">
+                                            <if condition="$val['xid'] eq 1">
+                                                <if condition="$val['reasonid'] eq 1">缺货涨价举报<elseif condition="$val['reasonid'] eq 2"/>文章错误举报<elseif condition="$val['reasonid'] eq 3"/>假冒伪劣举报<elseif condition="$val['reasonid'] heq '0'"/>其它：{$val.reason}<else />无货举报</if>
+                                            </if>
+                                            <if condition="$val['xid'] eq 2">
+                                                黄牛举报
+                                            </if>
+                                            </td>
+
+				<td align="center"><if condition="$val['xid'] eq 1">商品<elseif condition="$val['xid'] eq 2"/>闲置转让<elseif condition="$val['xid'] eq 3"/>文章<elseif condition="$val['xid'] eq 4"/>评论</if></td>
+
+                <td align="center">{$val.uname}</td>
+
+				<td align="center">{$val.addtime|date='Y-m-d H:i:s',###}</td>
+
+				<td align="center" class="status"><if condition="$val['status'] eq 0">未处理<elseif condition="$val['status'] eq 1"/><font color="green">有效</font><elseif condition="$val['status'] eq 2"/><font color="red">无效</font></if></td>
+
+                <td align="center">
+
+					<a href="<if condition="$val['xid'] eq 1">{:U("item/edit",array("id"=>$val['itemid']))}<elseif condition="$val['xid'] eq 2"/>{:U("zr/edit",array("id"=>$val['itemid']))}<elseif condition="$val['xid'] eq 3"/>{:U("article/edit",array("id"=>$val['itemid']))}<elseif condition="$val['xid'] eq 4"/>{:U("comment/index",array("id"=>$val['itemid']))}</if>">编辑</a> | 
+
+                    <if condition="$val['isreplied'] eq 0">
+                                                        <a href="javascript:;" class="J_showdialog" data-uri="{:U('jb/reply',array('id'=>$val['id'], 'itemid'=>$val['itemid'], 'xid'=>$val['xid']))}"  data-id="reply" data-title="举报回复" data-width="500" data-height="350">回复</a> | 
+                                                    </if>
+
+					<if condition="$val['status'] eq 0"><a href="javascript:;" data-id="{$val.id}" class='J_ok'>有效</a> | <a href="javascript:;" data-id='{$val.id}' class='J_fail'>无效</a> | </if>
+
+                    <a href="javascript:;" class="J_confirmurl" data-acttype="ajax" data-uri="{:U('jb/delete', array('id'=>$val['id']))}" data-msg="{:sprintf(L('confirm_delete_one'),$val['name'])}">{:L('delete')}</a>
+
+					</td>
+
+            </tr>
+
+            </volist>
+
+    	</tbody>
+
+    </table>
+
+    </div>
+
+
+
+    <div class="btn_wrap_fixed">
+
+    	<label><input type="checkbox" name="checkall" class="J_checkall">{:L('select_all')}/{:L('cancel')}</label>
+
+    	<input type="button" class="btn" data-tdtype="batch_action" data-acttype="ajax" data-uri="{:U('comment/delete')}" data-name="id" data-msg="{:L('confirm_delete')}" value="{:L('delete')}" />
+
+    	<div id="pages">{$page}</div>
+
+    </div>
+
+</div>
+
+<include file="public:footer" />
+
+<script>
+
+$(".J_ok").click(function(){
+
+	var obj=$(this);
+
+	$.get('/index.php?g=admin&m=jb&a=sets',{status:1,id:$(this).attr("data-id")},function(res){
+
+		if(res.status==1){
+
+			obj.parent().siblings(".status").html("<font color='green'>有效</font>");
+
+		}
+
+	},'json');
+
+});
+
+$(".J_fail").click(function(){
+
+	var obj=$(this);
+
+	$.get('/index.php?g=admin&m=jb&a=sets',{status:2,id:$(this).attr("data-id")},function(res){
+
+		if(res.status==1){
+
+			obj.parent().siblings(".status").html("<font color='red'>无效</font>");
+
+		}
+
+	},'json');
+
+});
+
+</script>
+
+</body>
+
+</html>
+
