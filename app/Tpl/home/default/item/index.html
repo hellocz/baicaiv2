@@ -7,6 +7,25 @@
   .w_r_tab{
     margin-top: 30px;
   }
+  .art-qrcode {
+    float: left;
+    top: 10px;
+    height: 20px;
+    left: 10px;
+    position: relative;
+}
+.w_xgxq .pop-qrc img{
+    width: 112px;
+    height: 112px;
+    margin-right: 19px;
+    float: left;
+}
+.pop-qrc {
+    position: absolute;
+    top: -70px;
+    right: -120px;
+    /* left: 50px; */
+}
 </style>
 </head>
 
@@ -53,6 +72,21 @@
 		  </if>
         </div>
       </div>
+
+        <volist name="item['go_link']" id="rm">
+                                     <if condition="$i eq 1">
+                                  <div class="art-qrcode JartQrc">
+                      <a href="javascript:;" _hover-ignore="1">
+                        <span _hover-ignore="1">扫码购买</span>
+                        <i class="icon-qrcode"></i>
+                      </a>
+                      <div class="pop-qrc" style="display:none">
+                        <i class="tria"  ></i>
+                        <img title="" class="verify_img" src="{:U('index/qrcode', array('url'=>urlencode($rm['link'])))}" />
+                      </div>
+                    </div>
+                  </if>
+                  </volist>
 	   <div class="w_xxgg">
 	     <a href="javascript:;"  data-id="{$item.id}" title="分享+" class="T_share w_xxgg_1">分享</a>
 		 <a href="javascript:;" data="{$item.id}" title="点赞" class="z_submit w_xxgg_2">点赞</a>
@@ -341,6 +375,14 @@ $(document).ready(function(e) {
 			$(".S_float").hide();
 		}
 	});
+   $(".art-qrcode").hover(
+          function(){
+            $(this).find(".pop-qrc").show();
+          },
+          function(){
+            $(this).find(".pop-qrc").hide();
+          }) 
+
 }) 
 window.onload =function(){
 	var qrcode = new QRCode(document.getElementById("qrcode"), {
