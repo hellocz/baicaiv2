@@ -60,7 +60,7 @@
 
                 <td align="center">
                                             <if condition="$val['xid'] eq 1">
-                                                <if condition="$val['reasonid'] eq 1">缺货涨价举报<elseif condition="$val['reasonid'] eq 2"/>文章错误举报<elseif condition="$val['reasonid'] eq 3"/>假冒伪劣举报<elseif condition="$val['reasonid'] heq '0'"/>其它：{$val.reason}<else />无货举报</if>
+                                                <if condition="$val['reasonid'] eq 1">缺货涨价举报<elseif condition="$val['reasonid'] eq 2"/>文章错误举报<elseif condition="$val['reasonid'] eq 3"/>假冒伪劣举报<elseif condition="$val['reasonid'] heq '0'"/>其他：{$val.reason}<else />无货举报</if>
                                             </if>
                                             <if condition="$val['xid'] eq 2">
                                                 黄牛举报
