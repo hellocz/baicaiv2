@@ -2870,10 +2870,13 @@ button.baicaio_coupon {
 .w_f2_nr1_1 .pop-qrc img{
     width: 112px;
     height: 112px;
-    margin-right: 19px;
+    margin: 8px;
     float: left;
 }
 .pop-qrc{
       position: absolute;
     top: -110px;
+    border: 1px solid #ececec;
+    background-color: #fff;
+    margin: -22px;
 }
