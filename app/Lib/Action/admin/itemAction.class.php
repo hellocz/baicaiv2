@@ -703,7 +703,9 @@ class itemAction extends backendAction {
                 $this->error($this->_mod->getError());
             }
 
-            if($_SESSION['admin']['role_id'] == 2 && $data['status'] == 1){
+            $item_uid=M("item")->where("id=$data[id]")->getField("uid");
+
+            if($_SESSION['admin']['role_id'] == 2 && $data['status'] == 1 && $_SESSION['admin']['id'] != $item_uid){
                  IS_AJAX && $this->ajaxReturn(0,'已发布商品,请通知管理员修改!');
                  $this->error('已发布商品,请通知管理员修改!');
             }
@@ -797,7 +799,7 @@ class itemAction extends backendAction {
 			
 			
 			
-            $item_uid=M("item")->where("id=$data[id]")->getField("uid");
+            
             if($_SESSION['admin']['zhubian'] ==1 &&  $data['status'] !=3){
                 //$data['status']=$_POST['status'];
 				//echo $data['status'];

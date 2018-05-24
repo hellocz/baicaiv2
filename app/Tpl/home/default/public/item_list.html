@@ -48,25 +48,12 @@
                     <li><a href="__ROOT__/?m=item&a=tgo&to={:shortUrl($rm['link'])}" target="_blank" rel="nofollow"  title="{$rm.title}">{$rm.name}</a></li>
 
                     </volist>
-
+  
                   </ul>
 
                   </if>
 
                 </div>
-                <if condition="$lc gt 1">
-
-                    <ul>
-
-                    <volist name="llink" id="rm">
-
-                    <li><a href="__ROOT__/?m=item&a=tgo&to={:shortUrl($rm['link'])}" target="_blank" rel="nofollow"  title="{$rm.title}">{$rm.name}</a></li>
-
-                    </volist>
-
-                  </ul>
-
-                  </if>
                   <volist name="llink" id="rm">
                      <if condition="$i eq 1">
                   <div class="art-qrcode JartQrc">
