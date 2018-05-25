@@ -70,7 +70,7 @@ class shopAction extends userbaseAction
             require LIB_PATH . 'Pinlib/php/lib/XS.php';
         $xs = new XS('baicai');
         $search = $xs->search;   //  获取搜索对象
-        $search->setLimit(10,10*($data['page']-1)); 
+        $search->setLimit(30,10*($data['page']-1)); 
         $search->setSort('add_time',false);
         $search->setQuery($data['key']);
         $docs = $search->search();
@@ -89,7 +89,8 @@ class shopAction extends userbaseAction
         }
         $str && $where1['id'] = array('in', $str);
         $where1['cate_id'] = array('not in','342,349,3672,3673,3675');
-        $str && $item_list = $item_mod->field($field)->where($where1)->order('add_time DESC')->select();
+        $where1['add_time'] = array('lt',time());
+        $str && $item_list = $item_mod->field($field)->where($where1)->order('add_time DESC')->limit(10)->select();
     }
     else{
         

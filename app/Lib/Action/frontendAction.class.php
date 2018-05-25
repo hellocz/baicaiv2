@@ -167,7 +167,7 @@ class frontendAction extends baseAction {
         require LIB_PATH . 'Pinlib/php/lib/XS.php';
         $xs = new XS('baicai');
         $search = $xs->search;   //  获取搜索对象
-        $search->setLimit(20,20*($p-1)); 
+        $search->setLimit(50,20*($p-1)); 
         $search->setSort('add_time',false);
         //$search->setFuzzy(true);
        // $search->addQueryTerm('title',$q,XS_CMD_QUERY_OP_OR);
@@ -205,7 +205,8 @@ class frontendAction extends baseAction {
             }
         }
         $str && $where1['id'] = array('in', $str);
-        $str && $item_list = $item_mod->field($field)->where($where1)->order($order)->select();
+        $where1['add_time'] = array('lt',time());
+        $str && $item_list = $item_mod->field($field)->where($where1)->order($order)->limit(20)->select();
     
         //$prefix = "/usr/local/xunsearch";  
         //require_once("$prefix/sdk/php/lib/XS.php");

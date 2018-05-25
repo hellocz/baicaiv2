@@ -49,7 +49,7 @@ class searchAction extends frontendAction {
             require LIB_PATH . 'Pinlib/php/lib/XS.php';
         $xs = new XS('baicai');
         $search = $xs->search;   //  获取搜索对象
-        $search->setLimit(18,18*($p-1)); 
+        $search->setLimit(50,18*($p-1)); 
         $search->setSort('add_time',false);
         $search->setQuery($q);
 
@@ -68,7 +68,8 @@ class searchAction extends frontendAction {
             }
         }
         $str && $where1['id'] = array('in', $str);
-        $str && $item_list = $item_mod->field($field)->where($where1)->order('add_time DESC')->select();
+        $where1['add_time'] = array('lt',time());
+        $str && $item_list = $item_mod->field($field)->where($where1)->order('add_time DESC')->limit(18)->select();
 
 
 			if($more == 'more'){
