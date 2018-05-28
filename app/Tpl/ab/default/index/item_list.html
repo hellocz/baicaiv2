@@ -1,0 +1,65 @@
+<assign name="type" value="[type]" />
+						<!--列表循环start-->
+						<volist name="[list]" id="r">
+						<li class="fl flow mr-12 radius-3 white-bg">
+							<div class="img">
+								<a <if condition="$type eq 'isbao'">href="{:U('item/index',array('id'=>$r['id'],'isbao'=>1))}"<elseif condition="$r['status'] eq 4"/> href="{:U('article/show',array('id'=>$r['id']))}"<else/> href="{:U('item/index',array('id'=>$r['id']))}"</if> target="_blank">
+									<img class="lazyimg" src="<if condition="$r['img']==''">/images/nopic.jpg<else/><if condition="preg_match('/img.baicaio.com/',$r['img'])">{:attach($r['img'],'item')}!thumb208<else/>{:attach($r['img'],'item')}</if></if>">
+								</a>
+							</div>
+							<div class="user">
+								<img src="/new/images/Head.jpg" width="24" height="24" class="radius-100 mr-5">
+								Madonna
+								<span class="fr">59秒前</span>
+							</div>
+							<!--瀑布流排列-->
+							<div class="info">
+								<p class="title">
+									<a <if condition="$type eq 'isbao'">href="{:U('item/index',array('id'=>$r['id'],'isbao'=>1))}"<elseif condition="$r['status'] eq 4"/> href="{:U('article/show',array('id'=>$r['id']))}"<else/> href="{:U('item/index',array('id'=>$r['id']))}"</if> target="_blank">{$r.title}</a>
+								</p>
+								<p class="fc-red">{$r.price}</p>
+								<p class="content mt-15">
+									<span class="fc-aux-a icon_3 icon_3-e_21"><a href="{:U('orig/show',array('id'=>$r['orig_id']))}">{:getly($r['orig_id'])}</a></span>
+									<span class="fc-aux-a fr icon_3 icon_3-e_23">{$r.comments}</span>
+									<span class="attr fc-aux-a fr icon_3 icon_3-e_22">{$r.zan}</span>
+								</p>
+								<div class="info-box">
+									<div class="comments"><span>“</span>大厂的酒就是好喝，不上头，买一瓶还送瓶…强烈推荐优惠购买！<span class="sy">”</span></div>
+									<div class="operation">
+										<p class="cz1">
+											<span class="fc-aux-a icon3 icon3-c_6">{$r.zan}</span>
+											<span class="fc-aux-a icon3 icon3-c_7">{$r.zan}</span>
+											<span class="fc-aux-a icon3 icon3-a_43">{$r.comments}</span>
+										</p>
+										<p class="cz2">
+											<a <if condition="$type eq 'isbao'">href="{:U('item/index',array('id'=>$r['id'],'isbao'=>1))}"<elseif condition="$r['status'] eq 4"/> href="{:U('article/show',array('id'=>$r['id']))}"<else/> href="{:U('item/index',array('id'=>$r['id']))}"</if> target="_blank" class="btn-2">查看详情</a>
+											<a href="page/details.html" target="_blank" class="btn-3">去购买</a>
+										</p>
+									</div>
+								</div>
+							</div>
+							<!--瀑布流排列-->
+							<!--横向排列-->
+							<div class="info1">
+								<p class="title">
+									<!--<span class="layui-badge layui-bg-green green-bg radius-3">白菜</span>-->
+									<a <if condition="$type eq 'isbao'">href="{:U('item/index',array('id'=>$r['id'],'isbao'=>1))}"<elseif condition="$r['status'] eq 4"/> href="{:U('article/show',array('id'=>$r['id']))}"<else/> href="{:U('item/index',array('id'=>$r['id']))}"</if> target="_blank">{$r.title}</a>
+									<span class="fc-red">{$r.price}</span>
+								</p>
+								<if condition="$type eq 'isbao'"><if condition="$r['uid'] neq 0"><p class="member"><a href="{:U('space/index', array('uid'=>$r['uid']))}" data-uid="{$r['uid']}"><img src="{:avatar($r['uid'],'')}" class="radius-100">{$r.uname}</a> · <span class="fc-aux-9">58秒前</span></p></if></if>
+								<p class="comments font-13">{$r.content|strip_tags|msubstr=0,130}<a <if condition="$type eq 'isbao'">href="{:U('item/index',array('id'=>$r['id'],'isbao'=>1))}"<elseif condition="$r['status'] eq 4"/> href="{:U('article/show',array('id'=>$r['id']))}"<else/> href="{:U('item/index',array('id'=>$r['id']))}"</if> target="_blank" class="fc-green">…阅读全文</a></p>
+								<div class="content mt-15 clearfix">
+									<div class="fl" style="width:338px;margin-top: 12px;">
+										<span class="attr fc-aux-a icon3 icon3-a_42">{$r.zan}</span>
+										<span class="fc-aux-a icon3 icon3-a_43">{$r.comments}</span>
+									</div>
+									<div class="fr" style="width:300px;">
+										<span class="attr fc-aux-a icon_3 icon_3-e_21" style="line-height: 20px;">天猫商场 | 食品保健 </span>
+										<a href="page/details.html" target="_blank" class="btn radius-3">去购买</a>
+									</div>
+								</div>
+							</div>
+							<!--横向排列-->
+						</li>
+						</volist>
+						<!--列表循环end-->
