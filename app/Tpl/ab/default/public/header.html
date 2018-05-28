@@ -1,12 +1,13 @@
-	<div id="header">
+<div id="header">
 		<div class="w-1200 top clearfix">
-			<div class="fl logo">
-				<a href="http://www.baicaio.com/">
+			<div class="fl logo text-center">
+				<a href="http://www.baicaio.com/" id="logo">
 					<svg class="icon-logo">
-						<desc><img src="/new/images/ie8/logo_BAI.png" width="127" height="40"></desc>
+						<!--[if lte IE 8]><desc><img src="/new/images/ie8/logo_BAI.png" width="127" height="40"></desc><![endif]-->
 						<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-logo_BAI"></use>
 					</svg>
 				</a>
+				<a href="index.html" class="index none fc-white font-14">首页</a>
 			</div>
 			<!--导航-->
 			<div class="fl nav-box">
@@ -31,7 +32,7 @@
 										<li class="mr-65">
 											<p class="font-22" style="height:36px;line-height: 36px;">
 												<svg class="icon">
-													<desc><img src="/new/images/ie8/t_1.png" width="36" height="36"></desc>
+													<!--[if lte IE 8]><desc><img src="/new/images/ie8/t_1.png" width="36" height="36"></desc><![endif]-->
 													<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-t_1"></use>
 												</svg>
 												<span>首页推荐</span>
@@ -46,7 +47,7 @@
 										<li class="mr-65">
 											<p class="font-22" style="height:36px;line-height: 36px;">
 												<svg class="icon">
-													<desc><img src="/new/images/ie8/t_2.png" width="36" height="36"></desc>
+													<!--[if lte IE 8]><desc><img src="/new/images/ie8/t_2.png" width="36" height="36"></desc><![endif]-->
 													<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-t_2"></use>
 												</svg>
 												<span>热门优惠</span>
@@ -61,7 +62,7 @@
 										<li>
 											<p class="font-22">
 												<svg class="icon">
-													<desc><img src="/new/images/ie8/t_3.png" width="36" height="36"></desc>
+													<!--[if lte IE 8]><desc><img src="/new/images/ie8/t_3.png" width="36" height="36"></desc><![endif]-->
 													<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-t_3"></use>
 												</svg>
 												<span>全部特价</span>
@@ -98,14 +99,14 @@
 						<div class="triangle_border_up"></div>
 						<div class="sub sc radius-3">
 							<div class="tb clearfix">
-								<a href="#" class="fl"><img src="/new/images/mall_1.png"><br>国美</a>
-								<a href="#" class="fl"><img src="/new/images/mall_2.jpg"><br>亚马逊</a>
-								<a href="#" class="fl"><img src="/new/images/mall_3.png"><br>唯品会</a>
-								<a href="#" class="fl"><img src="/new/images/mall_4.png"><br>聚美优品</a>
-								<a href="#" class="fl"><img src="/new/images/mall_5.png"><br>1号店</a>
-								<a href="#" class="fl"><img src="/new/images/mall_6.png"><br>京东</a>
-								<a href="#" class="fl"><img src="/new/images/mall_7.png"><br>淘宝</a>
-								<a href="#" class="fl"><img src="/new/images/mall_8.png"><br>苏宁易购</a>
+								<a href="#" class="fl"><img src="/new/images/mall/mall_1.png"><br>国美</a>
+								<a href="#" class="fl"><img src="/new/images/mall/mall_2.jpg"><br>亚马逊</a>
+								<a href="#" class="fl"><img src="/new/images/mall/mall_3.png"><br>唯品会</a>
+								<a href="#" class="fl"><img src="/new/images/mall/mall_4.png"><br>聚美优品</a>
+								<a href="#" class="fl"><img src="/new/images/mall/mall_5.png"><br>1号店</a>
+								<a href="#" class="fl"><img src="/new/images/mall/mall_6.png"><br>京东</a>
+								<a href="#" class="fl"><img src="/new/images/mall/mall_7.png"><br>淘宝</a>
+								<a href="#" class="fl"><img src="/new/images/mall/mall_8.png"><br>苏宁易购</a>
 							</div>
 							<div class="wz clearfix font-14">
 								<a href="#" class="fl">梦露时尚</a>
@@ -143,7 +144,7 @@
 						<!--商场下拉菜单内容end-->
 					</li>
 					<li>
-						<a href="page/mall.html" class="nav">分类<i class="haver-on"></i></a>
+						<a href="page/category.html" class="nav">分类<i class="haver-on"></i></a>
 						<!--分类下拉菜单内容start-->
 						<div class="triangle_border_up"></div>
 						<div class="sub fenlei radius-3">
@@ -208,7 +209,7 @@
 						<!--分类下拉菜单end-->
 					</li>
 					<li>
-						<a href="page/mall.html" class="nav">圈子<i class="haver-on"></i></a>
+						<a href="page/circle.html" class="nav">圈子<i class="haver-on"></i></a>
 						<!--圈子下拉菜单start-->
 						<div class="triangle_border_up"></div>
 						<div class="sub qz radius-3">
@@ -242,7 +243,7 @@
 						<!--圈子下拉菜单end-->
 					</li>
 					<li style="padding-right: 30px;">
-						<a href="page/mall.html" class="nav">更多<i class="haver-on"></i></a>
+						<a href="javascript: void(0);" class="nav">更多<i class="haver-on"></i></a>
 						<!--更多下拉菜单start-->
 						<div class="triangle_border_up"></div>
 						<div class="sub gd radius-3">
@@ -358,7 +359,7 @@
 			<div class="fl top-search radius-3">
 				<input type="text" placeholder="输入关键词搜索全网优惠" />
 				<svg role="img" class="icon-search">
-					<desc><img src="/new/images/ie8/icon_search.png" width="16" height="16"></desc>
+					<!--[if lte IE 8]><desc><img src="/new/images/ie8/icon_search.png" width="16" height="16"></desc><![endif]-->
 					<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-Shape2"></use>
 				</svg>
 			</div>
@@ -366,19 +367,25 @@
 			<!--投稿-->
 			<div class="fr top-right clearfix">
 				<div class="fl top-contribute r-sub">
-					<div class="info"><img src="/new/images/ie8/bu_1@2x.png" width="24" height="24" class="mr-10">投稿爆料<i class="haver-on"></i></div>
+					<div class="info">
+						<svg role="img" class="icon-bu-1">
+							<!--[if lte IE 8]><desc><img src="/new/images/ie8/bu_1@2x.png" width="24" height="24"></desc><![endif]-->
+							<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-bu_1"></use>
+						</svg>
+						投稿爆料<i class="haver-on"></i>
+					</div>
 					<div class="arrow_up"></div>
 					<div class="sub-box radius-3">
 						<a href="#" class="sub-radius-2">
 							<svg role="img" class="icon">
-								<desc><img src="/new/images/ie8/b_5.png" width="20" height="20"></desc>
+								<!--[if lte IE 8]><desc><img src="/new/images/ie8/b_5.png" width="20" height="20"></desc><![endif]-->
 								<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-e_21"></use>
 							</svg>
 							好价爆料
 						</a>
 						<a href="#" class="sub-radius-3">
 							<svg role="img" class="icon">
-								<desc><img src="/new/images/ie8/e_21.png" width="20" height="20"></desc>
+								<!--[if lte IE 8]><desc><img src="/new/images/ie8/e_21.png" width="20" height="20"></desc><![endif]-->
 								<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-b_5"></use>
 							</svg>
 							圈子原创
@@ -386,7 +393,7 @@
 					</div>
 				</div>
 				<div class="fl top-member">
-					<div class="member-btn">
+					<div class="member-btn clearfix">
 						<a href="javascript: void(0);" id="login" class="fl button radius-3 font-16 fc-white">登录</a>
 						<a href="page/registered.html" class="fl button radius-3 font-16 fc-white">注册</a>
 					</div>
@@ -403,21 +410,21 @@
 							</div>
 							<a href="#">
 								<svg role="img" class="icon">
-									<desc><img src="/new/images/ie8/e_2@2x.png" width="20" height="20"></desc>
+									<!--[if lte IE 8]><desc><img src="/new/images/ie8/e_2@2x.png" width="20" height="20"></desc><![endif]-->
 									<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-e_2"></use>
 								</svg>
 								个人中心
 							</a>
 							<a href="#">
 								<svg role="img" class="icon">
-									<desc><img src="/new/images/ie8/e_14@2x.png" width="20" height="20"></desc>
+									<!--[if lte IE 8]><desc><img src="/new/images/ie8/e_14@2x.png" width="20" height="20"></desc><![endif]-->
 									<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-e_14"></use>
 								</svg>
 								我的关注
 							</a>
 							<a href="#">
 								<svg role="img" class="icon">
-									<desc><img src="/new/images/ie8/e_5@2x.png" width="20" height="20"></desc>
+									<!--[if lte IE 8]><desc><img src="/new/images/ie8/e_5@2x.png" width="20" height="20"></desc><![endif]-->
 									<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-e_5"></use>
 								</svg>
 								我的收藏
@@ -425,28 +432,28 @@
 							<a href="#">
 								<span class="fr number radius-100">18</span>
 								<svg role="img" class="icon">
-									<desc><img src="/new/images/ie8/e_19@2x.png" width="20" height="20"></desc>
+									<!--[if lte IE 8]><desc><img src="/new/images/ie8/e_19@2x.png" width="20" height="20"></desc><![endif]-->
 									<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-e_19"></use>
 								</svg>
 								我的消息
 							</a>
 							<a href="#">
 								<svg role="img" class="icon">
-									<desc><img src="/new/images/ie8/e_15@2x.png" width="20" height="20"></desc>
+									<!--[if lte IE 8]><desc><img src="/new/images/ie8/e_15@2x.png" width="20" height="20"></desc><![endif]-->
 									<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-e_15"></use>
 								</svg>
 								账户设置
 							</a>
 							<a href="#">
 								<svg role="img" class="icon">
-									<desc><img src="/new/images/ie8/e_11@2x.png" width="20" height="20"></desc>
+									<!--[if lte IE 8]><desc><img src="/new/images/ie8/e_11@2x.png" width="20" height="20"></desc><![endif]-->
 									<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-e_11"></use>
 								</svg>
 								加入合伙人
 							</a>
 							<a href="javascript: void(0);" id="outlogin" class="sub-radius-3">
 								<svg role="img" class="icon">
-									<desc><img src="/new/images/ie8/e_16@2x.png" width="20" height="20"></desc>
+									<!--[if lte IE 8]><desc><img src="/new/images/ie8/e_16@2x.png" width="20" height="20"></desc><![endif]-->
 									<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-e_16"></use>
 								</svg>
 								退出登录

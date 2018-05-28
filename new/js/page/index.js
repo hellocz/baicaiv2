@@ -5,7 +5,7 @@ $(function(e) {
 		numtoMove: 1,
 		speed: 300,
 		scrollobj:".atop-box",
-		scrollobjSize: Math.ceil($(".atop-box").children("li.i-list1").length / 1) * 896,
+		scrollobjSize: Math.ceil($(".atop-box").children("li.atop-list").length / 1) * 896,
 //		loop:"cycle",
 	});
 	
@@ -57,29 +57,26 @@ $(function(e) {
 	},function(){
 		$(this).find(".info-box").hide();
 	});
-	
+
+
+	//滚动后置顶菜单
+	navFixed("news-tab","fixed");
+	navFixed("right-ad","fixed1");
 	
 });
 
-
-$(document).ready(function() {
-	var navOffset = $("#news-tab").offset().top;
-	$(window).scroll(function() {
-		var scrollPos = $(window).scrollTop();
-		if(scrollPos >= navOffset) {
-			$("#news-tab").addClass("fixed");
-		} else {
-			$("#news-tab").removeClass("fixed");
+//layui分页插件
+layui.use(['laypage', 'layer'], function(){
+	var laypage = layui.laypage
+	,layer = layui.layer;
+	//总页数大于页码总数
+	laypage.render({
+		elem: 'pages-index'
+		,count: 70 //数据总数
+		,jump: function(obj){
+//			console.log(obj)
 		}
-	});
-	
-	var navOffset1 = $("#right-ad").offset().top;
-	$(window).scroll(function() {
-		var scrollPos = $(window).scrollTop();
-		if(scrollPos >= navOffset1) {
-			$("#right-ad").addClass("fixed1");
-		} else {
-			$("#right-ad").removeClass("fixed1");
-		}
+		,prev:'<i class="icon5 icon5-a_14" style="margin-top: 5px;"></i>'
+		,next:'<i class="icon5 icon5-a_15" style="margin-top: 5px;"></i>'
 	});
 });

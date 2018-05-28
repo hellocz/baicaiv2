@@ -4,6 +4,12 @@
 #header .top .nav-box ul>li i,#header .top .top-right i{
 	background: url('../images/ie8/a_56.png') no-repeat;
 }
+#header .top .top-right .top-contribute .info{
+	position: relative;
+	top: 7px;
+	margin-top: 3px;
+}
+
 .more{
 	background: url('../images/ie8/a_22.png') left no-repeat;
 }
