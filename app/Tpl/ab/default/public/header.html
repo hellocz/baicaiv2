@@ -393,18 +393,20 @@
 					</div>
 				</div>
 				<div class="fl top-member">
+					<empty name="visitor">
 					<div class="member-btn clearfix">
 						<a href="javascript: void(0);" id="login" class="fl button radius-3 font-16 fc-white">登录</a>
 						<a href="page/registered.html" class="fl button radius-3 font-16 fc-white">注册</a>
 					</div>
-					<div class="member-info r-sub none">
-						<div class="info text-center"><span class="layui-badge-dot"></span><img src="/new/images/Head.jpg" class="radius-100 mr-10" width="28" height="28">迪迦奥特曼...<i class="haver-on"></i></div>
+					<else /> 
+					<div class="member-info r-sub">
+						<div class="info text-center"><span class="layui-badge-dot"></span><img src="{:avatar($visitor['id'],'32')}" class="radius-100 mr-10" width="28" height="28">{$visitor['username']}...<i class="haver-on"></i></div>
 						<div class="arrow_up"></div>
 						<div class="sub-box radius-3">
 							<div class="head clearfix">
-								<img src="/new/images/Head.jpg" class="radius-100 fl" width="48" height="48">
+								<img src="{:avatar($visitor['id'],'32')}" class="radius-100 fl" width="48" height="48">
 								<div class="fl head-info">
-									<p class="name">迪迦奥特曼<span class="radius-100 fc-green">LV10</span></p>
+									<p class="name">{$visitor['username']}<span class="radius-100 fc-green">LV10</span></p>
 									<p class="layui-elip fc-aux-9">我就是我，不一样的烟火烟火烟火</p>
 								</div>
 							</div>
@@ -460,6 +462,7 @@
 							</a>
 						</div>
 					</div>
+					</empty>
 				</div>
 			</div>
 

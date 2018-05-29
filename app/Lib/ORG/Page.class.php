@@ -326,4 +326,94 @@ class Page {
             array($this->config['header'],$this->nowPage,$this->totalRows,$this->totalPages,$upPage,$downPage,$theFirst,$linkPage,$theEnd),$this->config['theme']);
         return $pageStr;
     }
+
+
+    /**
+     * 分页显示输出 for new website
+     * @access public
+     */
+    public function newshow() {
+        if(0 == $this->totalRows) return '';
+        $p              =   $this->varPage;
+        // $middle         =   ceil($this->rollPage/2); //中间位置
+        $middle         =   ceil($this->totalPages/2); //中间位置
+
+        // 分析分页参数
+        if($this->url){
+            $depr       =   C('URL_PATHINFO_DEPR');
+            $url        =   U($this->url,array("$p"=>'__PAGE__'));
+        }else{
+            if($this->parameter && is_string($this->parameter)) {
+                parse_str($this->parameter,$parameter);
+            }elseif(empty($this->parameter)){
+                unset($_GET[C('VAR_URL_PARAMS')]);
+                if(empty($_GET)) {
+                    $parameter  =   array();
+                }else{
+                    $parameter  =   $_GET;
+                }
+            }
+            $parameter[$p]  =   '__PAGE__';
+            $url            =   U($this->path, $parameter);
+        }
+        //上下翻页字符串
+        $upRow          =   $this->nowPage-1;
+        $downRow        =   $this->nowPage+1;
+        if ($upRow>0){
+            $upPage     =   "<a href='".str_replace('__PAGE__',$upRow,$url)."'>".$this->config['prev']."</a>";
+        }else{
+            $upPage     =   '<a href="javascript:;" class="layui-laypage-prev layui-disabled" data-page="0"><i class="icon5 icon5-a_14" style="margin-top: 5px;"></i></a>';
+        }
+
+        if ($downRow <= $this->totalPages){
+            $downPage   =   "<a href='".str_replace('__PAGE__',$downRow,$url)."'>".$this->config['next']."</a>";
+        }else{
+            $downPage   =   '<a href="javascript:;" class="layui-laypage-next" data-page="2"><i class="icon5 icon5-a_15" style="margin-top: 5px;"></i></a>';
+        }
+
+        // << < > >>
+        $theFirst = $theEnd = '';
+        if ($this->totalPages > $this->rollPage) {
+            if($this->nowPage - $middle < 1){
+                $theFirst   =   '';
+            }else{
+                $theFirst   =   "<a href='".str_replace('__PAGE__',1,$url)."' >1</a> <span class=\"layui-laypage-spr\">…</span>";
+            }
+            if($this->nowPage + $middle > $this->totalPages){
+                $theEnd     =   '';
+            }else{
+                $theEndRow  =   $this->totalPages;
+                $theEnd     =   "<span class=\"layui-laypage-spr\">…</span> <a href='".str_replace('__PAGE__',$theEndRow,$url)."' >".$theEndRow."</a>";
+            }
+        }
+
+        // 1 2 3 4 5
+        $linkPage = "";
+        if ($this->totalPages != 1) {
+            if ($this->nowPage < $middle) { //刚开始
+                $start = 1;
+                $end = $this->rollPage;
+            } elseif ($this->totalPages < $this->nowPage + $middle - 1) {
+                $start = $this->totalPages - $this->rollPage + 1;
+                $end = $this->totalPages;
+            } else {
+                $start = $this->nowPage - $middle + 1;
+                $end = $this->nowPage + $middle - 1;
+            }
+            $start < 1 && $start = 1;
+            $end > $this->totalPages && $end = $this->totalPages;
+            for ($page = $start; $page <= $end; $page++) {
+                if ($page != $this->nowPage) {
+                    $linkPage .= " <a href='".str_replace('__PAGE__',$page,$url)."'>&nbsp;".$page."&nbsp;</a>";
+                } else {
+                    $linkPage .= " <span class='layui-laypage-curr'><em>".$page."</em></span>";
+                }
+            }
+        }
+
+        $pageStr     =   str_replace(
+            array('%header%','%nowPage%','%totalRow%','%totalPage%','%upPage%','%downPage%','%first%','%linkPage%','%end%'),
+            array($this->config['header'],$this->nowPage,$this->totalRows,$this->totalPages,$upPage,$downPage,$theFirst,$linkPage,$theEnd),$this->config['theme']);
+        return $pageStr;
+    }
 }

@@ -50,7 +50,7 @@
 			<!--置顶区end-->
 			
 			<!--左侧广告AD start-->
-			<div class="i-ad-l mt-12">{:R('advert/index', array(17), 'Widget')}</div>
+			<if condition="$p eq '1'"><div class="i-ad-l mt-12">{:R('advert/index', array(17), 'Widget')}</div></if>
 			<!--左侧广告AD end-->
 			
 			<!--最新优惠start-->
@@ -76,14 +76,14 @@
 				<div class="i-new-list">
 					<ul class="i-list clearfix" id="tab1">
 						<!--首页推荐start-->
-						<include file="item_list" list="item_homepage_list" type=""/>
+						<include file="item_list" list="item_homepage_0_list" type=""/>
 						<!--首页推荐end-->
 					</ul>
 					
-					<ul class="i-list clearfix none" id="tab2">这里放热门优惠</ul>
+					<!-- <ul class="i-list clearfix none" id="tab2">这里放热门优惠</ul>
 					<ul class="i-list clearfix none" id="tab3">这里放全网特价</ul>
 					<ul class="i-list clearfix none" id="tab4">这里放小时排行</ul>
-					<ul class="i-list clearfix none" id="tab5">这里放我的关注</ul>
+					<ul class="i-list clearfix none" id="tab5">这里放我的关注</ul> -->
 				</div>
 			</div>
 			<!--最新优惠end-->
@@ -95,11 +95,11 @@
 			<!--你可能错过的start-->
 			<div class="mt-40">
 				<div class="i-l-title mb-13 font-22 icon2 icon2-b_4 clearfix">
-					你可能错过的：2018.5.26,首页推荐
+					<if condition="$date_list['1'] neq null"><if condition="$p eq '1'">你可能错过的：</if>{$date_list['1']},首页推荐</if>
 				</div>
 				<ul class="i-list clearfix">
 					<!--列表循环start-->
-					<include file="item_list" list="item_homepage_list" type=""/>
+					<include file="item_list" list="item_homepage_1_list" type=""/>
 					<!--列表循环end-->
 				</ul>
 			</div>
@@ -112,71 +112,29 @@
 			<!--首页推荐start-->
 			<div class="mt-40">
 				<div class="i-l-title mb-13 font-22 icon2 icon2-b_4 clearfix">
-					2018.5.25,首页推荐
+					<if condition="$date_list['2'] neq null">{$date_list['2']},首页推荐</if>
 				</div>
 				<ul class="i-list clearfix">
 					<!--列表循环start-->
-					<include file="item_list" list="item_homepage_list" type=""/>
+					<include file="item_list" list="item_homepage_2_list" type=""/>
 					<!--列表循环end-->
 				</ul>
 			</div>
 			<!--首页推荐end-->
 			
 			<!--分页start-->
-			<div id="pages-index" class="pages" style="text-align: center;"></div>
-			<!-- <div id="page" class="pages" style="text-align: center;"><div class="layui-box layui-laypage layui-laypage-default">{$pagebar}</div></div> -->
+			<!-- <div id="pages-index" class="pages" style="text-align: center;"></div> -->
+			<div id="page" class="pages" style="text-align: center;"><div class="layui-box layui-laypage layui-laypage-default">{$pagebar}</div></div>
 			<!--分页end-->
+			<!--分页end-->
+
 		</div>
 		<!--左边区域end-->
 		
 		<!--右边区域start-->
 		<div class="fl i-r">
 			<!--用户登录信息start-->
-			<div class="i-member radius-3">
-				<div class="login">
-					<svg role="img" class="icon-a_33">
-						<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_33.png" width="48" height="48"></desc><![endif]-->
-						<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_33"></use>
-					</svg>
-					<p class="font-14">Hi 欢迎你...</p>
-					<p class="clearfix">
-						<a href="page/login.html" class="fl btn-1 button mr-4">登录</a>
-						<a href="page/registered.html" class="fl btn-1 button">注册</a>
-					</p>
-				</div>
-				<div class="info none">
-					<div class="clearfix">
-						<div class="fl"><img src="/new/images/Head.jpg" class="radius-100" width="48" height="48"></div>
-						<div class="fl ml-12">
-							<p class="font-14 mt-5 font-w-b">迪迦奥特曼<span class="radius-100 text-center level">LV10</span></p>
-							<p class=" mt-5 fc-grey">
-								<span class="jf">积分3356</span>
-								<span class="ml-5 yp">油票657</span>
-							</p>
-						</div>
-					</div>
-					<a href="#" class="btn-1 button mr-4">签到领积分</a>
-				</div>
-				<div class="fc-aux-9 text-center"><a href="#">新手入门</a> · <a href="#">积分兑换</a> · <a href="#">用户排名</a></div>
-				<div class="note">
-					<div class="i-r-title font-14">
-						<a href="#" class="fr font-12 fc-aux-9 more">更多</a><font class="font-w-b">活动公告</font>
-					</div>
-					<ul>
-						<!--列表循环start-->
-						<li class="layui-elip">
-							<a href="#" target="_blank" title="史上最厚气垫，Nike Air Max 270新款上脚 多图欣赏" class="fc-grey">史上最厚气垫，Nike Air Max 270新款上脚 多图欣赏</a>
-						</li>
-						<li class="layui-elip">
-							<a href="#" target="_blank" title="抢先看，Dyson V10 新款家用旗舰手持无绳吸尘器有什么不一样？" class="fc-grey">抢先看，Dyson V10 新款家用旗舰手持无绳吸尘器有什么不一样？</a>
-						</li>
-						<li class="layui-elip">
-							<a href="#" target="_blank" title="新款配色即将上市台湾美妆达人分享的 2017年最好用护肤品榜单" class="fc-grey">新款配色即将上市台湾美妆达人分享的 2017年最好用护肤品榜单</a>
-						</li>
-						<!--列表循环end-->
-					</ul>
-				</div>
-			</div>
+			<include file="right_user" />
 			<!--用户登录信息end-->
 			<!--搜券start-->
 			<div class="mt-12 white-bg radius-3">
@@ -205,73 +163,11 @@
 			<!--搜券end-->
 			
 			<!--热门圈子start-->
-			<div class="mt-12 i-hot-circle white-bg radius-3">
-				<div class="i-r-title font-16">
-					<a href="#" class="fr font-12 fc-aux-9 more">浏览更多</a><font class="font-w-b">热门圈子</font>
-				</div>
-				<ul class="i-hot-circle-list">
-					<!--列表循环start-->
-					<li class="clearfix">
-						<div class="fl pic"><a href="#" target="_blank"><img src="/new/images/circle.jpg" class="radius-3"></a></div>
-						<div class="fl info">
-							<p class="font-14 title"><a href="#" target="_blank">中国沈酒 泸州浓香型52度老罐白酒500m</a></p>
-							<p class="tb">
-								<span class="attr fc-aux-a icon_3 icon_3-e_22">25</span>
-								<span class="attr fc-aux-a icon_3 icon_3-e_24">220</span>
-							</p>
-						</div>
-					</li>
-					
-					<li class="clearfix mt-20">
-						<div class="fl pic"><a href="#" target="_blank"><img src="/new/images/circle.jpg" class="radius-3"></a></div>
-						<div class="fl info">
-							<p class="font-14 title"><a href="#" target="_blank">Prada高腰丝绸仙女裙来自潮品达人穿衣搭配…</a></p>
-							<p class="tb">
-								<span class="attr fc-aux-a icon_3 icon_3-e_22">25</span>
-								<span class="attr fc-aux-a icon_3 icon_3-e_24">220</span>
-							</p>
-						</div>
-					</li>
-					
-					<li class="clearfix mt-20">
-						<div class="fl pic"><a href="#" target="_blank"><img src="/new/images/circle.jpg" class="radius-3"></a></div>
-						<div class="fl info">
-							<p class="font-14 title"><a href="#" target="_blank">Christian Dior克丽丝汀·迪奥夏季大片</a></p>
-							<p class="tb">
-								<span class="attr fc-aux-a icon_3 icon_3-e_22">25</span>
-								<span class="attr fc-aux-a icon_3 icon_3-e_24">220</span>
-							</p>
-						</div>
-					</li>
-					
-					<li class="clearfix mt-20">
-						<div class="fl pic"><a href="#" target="_blank"><img src="/new/images/circle.jpg" class="radius-3"></a></div>
-						<div class="fl info">
-							<p class="font-14 title"><a href="#" target="_blank">中国沈酒 泸州浓香型52度老罐白酒500m</a></p>
-							<p class="tb">
-								<span class="attr fc-aux-a icon_3 icon_3-e_22">25</span>
-								<span class="attr fc-aux-a icon_3 icon_3-e_24">220</span>
-							</p>
-						</div>
-					</li>
-					
-					<li class="clearfix mt-20">
-						<div class="fl pic"><a href="#" target="_blank"><img src="/new/images/circle.jpg" class="radius-3"></a></div>
-						<div class="fl info">
-							<p class="font-14 title"><a href="#" target="_blank">Prada高腰丝绸仙女裙来自潮品达人穿衣搭配…</a></p>
-							<p class="tb">
-								<span class="attr fc-aux-a icon_3 icon_3-e_22">25</span>
-								<span class="attr fc-aux-a icon_3 icon_3-e_24">220</span>
-							</p>
-						</div>
-					</li>
-					<!--列表循环end-->
-				</ul>
-			</div>
+			<include file="right_hotcircle_list" />
 			<!--热门圈子end-->
 			
 			<!--右侧广告AD1 start-->
-			<div class="i-ad-r mt-12"><a href="#" target="_blank"><img class="radius-3" src="/new/images/AD_2.jpg"></a></div>
+			<div class="i-ad-r mt-12">{:R('advert/index', array(2), 'Widget')}</a></div>
 			<!--右侧广告AD1 end-->
 			
 			<!--油菜排行start-->
@@ -333,83 +229,15 @@
 			<!--油菜排行end-->
 			
 			<!--右侧广告AD2 start-->
-			<div class="i-ad-r mt-12" id="right-ad"><a href="#" target="_blank"><img class="radius-3" src="/new/images/AD_2.jpg"></a></div>
+			<div class="i-ad-r mt-12" id="right-ad">{:R('advert/index', array(10), 'Widget')}</div>
 			<!--右侧广告AD2 end-->
 		</div>
 		<!--右边区域end-->
 	</div>
 	
-	<!--底部统一区域start-->
+	<!--底部统一区域+右边悬浮按钮start-->
 	<include file="public:footer" />
-	<!--底部统一区域end-->
-	
-	<!--右边悬浮按钮start-->
-	<div id="sidebar-r" class="radius-3">
-		<p>
-			<a href="#" id="icon1">
-				<svg role="img" class="icon">
-					<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_24@2x.png" width="20" height="20"></desc><![endif]-->
-					<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_24"></use>
-				</svg>
-				<br>app
-			</a>
-		</p>
-		<p>
-			<a href="#" id="icon2">
-				<svg role="img" class="icon">
-					<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_25@2x.png" width="20" height="20"></desc><![endif]-->
-					<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_25"></use>
-				</svg>
-				<br>微信
-			</a>
-		</p>
-		<p>
-			<a href="#" id="icon3">
-				<svg role="img" class="icon">
-					<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_26@2x.png" width="20" height="20"></desc><![endif]-->
-					<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_26"></use>
-				</svg>
-				<br>微博
-			</a>
-		</p>
-		<p>
-			<a href="#" id="icon4">
-				<svg role="img" class="icon">
-					<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_27@2x.png" width="20" height="20"></desc><![endif]-->
-					<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_27"></use>
-				</svg>
-				<br>分享
-			</a>
-		</p>
-		<p>
-			<a href="#" id="icon5">
-				<svg role="img" class="icon">
-					<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_28@2x.png" width="20" height="20"></desc><![endif]-->
-					<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_28"></use>
-				</svg>
-				<br>帮助
-			</a>
-		</p>
-		<p>
-			<a href="#" id="icon6">
-				<svg role="img" class="icon">
-					<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_29@2x.png" width="20" height="20"></desc><![endif]-->
-					<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_29"></use>
-				</svg>
-				<br>反馈
-			</a>
-		</p>
-		<p id="actGotop" id="icon7">
-			<a href="javascript: void(0);">
-				<svg role="img" class="icon">
-					<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_30@2x.png" width="20" height="20"></desc><![endif]-->
-					<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_30"></use>
-				</svg>
-				<br>回顶部
-			</a>
-		</p>
-	</div>
-	<!--右边悬浮按钮end-->
+	<!--底部统一区域+右边悬浮按钮end-->
 	
 	<!--页面end-->
 		
@@ -419,5 +247,16 @@
 	<script src="/new/js/page/nav.js"></script>
 	<script src="/new/js/page/footer.js"></script>
 	<script src="/new/js/page/index.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			if(<if condition="$dss eq 'lb'">1<else/>0</if>){
+				$("#arr2").click();
+			}else{
+				$("#arr1").click();
+			}
+		});
+	</script>
+
 </body>
 </html>

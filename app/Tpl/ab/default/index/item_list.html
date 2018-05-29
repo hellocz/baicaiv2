@@ -4,7 +4,7 @@
 						<li class="fl flow mr-12 radius-3 white-bg">
 							<div class="img">
 								<a <if condition="$type eq 'isbao'">href="{:U('item/index',array('id'=>$r['id'],'isbao'=>1))}"<elseif condition="$r['status'] eq 4"/>href="{:U('article/show',array('id'=>$r['id']))}"<else/> href="{:U('item/index',array('id'=>$r['id']))}"</if> target="_blank">
-									<img class="lazyimg" src="<if condition="$r['img']==''">/images/nopic.jpg<else/><if condition="preg_match('/img.baicaio.com/',$r['img'])">{:attach($r['img'],'item')}!thumb208<else/>{:attach($r['img'],'item')}</if></if>">
+									<img class="lazyimg" src="<if condition="$r['img']==''">/images/nopic.jpg<else/><if condition="preg_match('/img.baicaio.com/',$r['img'])">{:attach($r['img'],'item')}!thumb287<else/>{:attach($r['img'],'item')}</if></if>">
 								</a>
 							</div>
 							<div class="user">
@@ -46,15 +46,17 @@
 									<a <if condition="$type eq 'isbao'">href="{:U('item/index',array('id'=>$r['id'],'isbao'=>1))}"<elseif condition="$r['status'] eq 4"/>href="{:U('article/show',array('id'=>$r['id']))}"<else/> href="{:U('item/index',array('id'=>$r['id']))}"</if> target="_blank">{$r.title}</a>
 									<span class="fc-red">{$r.price}</span>
 								</p>
-								<if condition="$type eq 'isbao'"><if condition="$r['uid'] neq 0"><p class="member"><a href="{:U('space/index', array('uid'=>$r['uid']))}" data-uid="{$r['uid']}"><img src="{:avatar($r['uid'],'')}" class="radius-100">{$r.uname}</a> · <span class="fc-aux-9">58秒前</span></p></if></if>
-								<p class="comments font-13">{$r.content|strip_tags|msubstr=0,130}<a <if condition="$type eq 'isbao'">href="{:U('item/index',array('id'=>$r['id'],'isbao'=>1))}"<elseif condition="$r['status'] eq 4"/>href="{:U('article/show',array('id'=>$r['id']))}"<else/> href="{:U('item/index',array('id'=>$r['id']))}"</if> target="_blank" class="fc-green">阅读全文</a></p>
+								<p class="member"><if condition="$type eq 'isbao'"><if condition="$r['uid'] neq 0"><a href="{:U('space/index', array('uid'=>$r['uid']))}" data-uid="{$r['uid']}"><img src="{:avatar($r['uid'],'')}" class="radius-100">{$r.uname}</a> · <span class="fc-aux-9">58秒前</span></if></if></p>
+								<p class="comments font-13">
+									<if condition="mb_strlen($r['content'],'utf-8') gt 130">{$r.content|strip_tags|msubstr=0,130}<else/>{$r.content}</if>
+									<a <if condition="$type eq 'isbao'">href="{:U('item/index',array('id'=>$r['id'],'isbao'=>1))}"<elseif condition="$r['status'] eq 4"/>href="{:U('article/show',array('id'=>$r['id']))}"<else/> href="{:U('item/index',array('id'=>$r['id']))}"</if> target="_blank" class="fc-green">阅读全文</a></p>
 								<div class="content mt-15 clearfix">
 									<div class="fl" style="width:338px;margin-top: 12px;">
 										<span class="attr fc-aux-a icon3 icon3-a_42">{$r.zan}</span>
 										<span class="fc-aux-a icon3 icon3-a_43">{$r.comments}</span>
 									</div>
 									<div class="fr" style="width:300px;">
-										<span class="attr fc-aux-a icon_3 icon_3-e_21" style="line-height: 20px;">天猫商场 | 食品保健 </span>
+										<span class="attr fc-aux-a icon_3 icon_3-e_21" style="line-height: 20px;"><a href="{:U('orig/show',array('id'=>$r['orig_id']))}">{:getly($r['orig_id'])}</a> | 食品保健 </span>
 										<a <if condition="$type eq 'isbao'">href="{:U('item/index',array('id'=>$r['id'],'isbao'=>1))}"<elseif condition="$r['status'] eq 4"/>href="{:U('article/show',array('id'=>$r['id']))}"<else/> href="{:U('item/index',array('id'=>$r['id']))}"</if> target="_blank" class="btn radius-3">去购买</a>
 									</div>
 								</div>
