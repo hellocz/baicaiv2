@@ -22,60 +22,100 @@ class indexAction extends frontendAction {
 		$p = $this->_get('p', 'intval', 1);
 		$type = $this->_get('type','trim');
 		$dss = $this->_get('dss','trim');
+		$dss = ($dss=="") ? $_COOKIE['dss'] : $dss;
+		// $dss = ($dss=="")?"lb":$dss;
+		if($p<1){$p=1;}
 
 		$time=time();		
 		$pagesize=2;
 		$count = 200; //$mod->where("status=1 and add_time<$time ".$where)->count();
 		$pager = $this->_pager($count,$pagesize);
 
-		//首页推荐
+		
 		$mod=M("item");
 		$queryArr = array();
 		$queryArr['where']=" and isnice=1 ";
 		$queryArr['order'] =" add_time desc";
 		if($p==1){
 			//置顶区
-			$front_list = $mod->where("status=1 and isfront=1 and add_time<$time ".$queryArr['where'])->order($queryArr['order'])->select();
+			// $front_list = $mod->where("status=1 and isfront=1 and add_time<$time ".$queryArr['where'])->order($queryArr['order'])->select();
+			//置顶区 for test
+			$front_list = $mod->where("status=1 and add_time<$time ".$queryArr['where'])->limit(13)->order($queryArr['order'])->select();
 
 			foreach($front_list as $key=>$val){
 				$front_list[$key]['zan'] = $front_list[$key]['zan']   +intval($front_list[$key]['hits'] /10);
 			}
-		}
-		$homepage_list = $mod->where("status=1 and add_time<$time ".$queryArr['where'])->limit(20)->order($queryArr['order'])->select();
 
-		$article_begin_time =0;
-		$article_end_time =0;
-		foreach($homepage_list as $key=>$val){
-			if($article_end_time==0){
-				$article_end_time = $homepage_list[$key]['add_time'];
+			//小时排行榜
+			$time_hour_s = strtotime(date("Y-m-d H:00:00", $time)) - 3600 - 24*60*60*365;
+			// $time_hour_s = strtotime(date("Y-m-d H:00:00", $time)) - 3600;
+			$time_hour_e = strtotime(date("Y-m-d H:00:00", $time)) - 1;
+			$hour = date("H", $time_hour_s);
+			//删除上一天当前小时的缓存文件
+			$hour_cur = date("H", $time);
+			$filename = DATA_PATH . 'hour_list_' . $hour_cur . '.php';
+			is_file($filename) && unlink($filename);
+			if (false === $hour_list = F('hour_list_' . $hour)) {
+				$cate_data = array();
+				$hour_list=$mod->query("SELECT * from try_item  WHERE status=1 and add_time between $time_hour_s and $time_hour_e ORDER BY hits desc, add_time desc LIMIT 4");
+				F('hour_list_' . $hour, $hour_list);
 			}
-			$homepage_list[$key]['zan'] = $homepage_list[$key]['zan']   +intval($homepage_list[$key]['hits'] /10);
-			$article_begin_time =$homepage_list[$key]['add_time'];
-		}
-		
-		if($p<1){
-			$article_end_time=time();
-		}
-		$article_list = M("article")->where("add_time > $article_begin_time and add_time < $article_end_time and status=4")->select();
-		if(count($article_list)>=1){
-			$homepage_list = array_merge($homepage_list, $article_list); 
-			usort($homepage_list, 'sortByAddTime');
 		}
 
-		//小时排行榜
-		$time_hour_s = strtotime(date("Y-m-d H:00:00", $time)) - 3600 - 24*60*60*365;
-		// $time_hour_s = strtotime(date("Y-m-d H:00:00", $time)) - 3600;
-		$time_hour_e = strtotime(date("Y-m-d H:00:00", $time)) - 1;
-		$hour = date("H", $time_hour_s);
-		//删除上一天当前小时的缓存文件
-		$hour_cur = date("H", $time);
-		$filename = DATA_PATH . 'hour_list_' . $hour_cur . '.php';
-		is_file($filename) && unlink($filename);
-		if (false === $hour_list = F('hour_list_' . $hour)) {
-			$cate_data = array();
-			$hour_list=$mod->query("SELECT * from try_item  WHERE status=1 and add_time between $time_hour_s and $time_hour_e ORDER BY hits desc, add_time desc LIMIT 4");
-			F('hour_list_' . $hour, $hour_list);
+		//计算首页推荐的时间范围		
+		$date_list = array();
+		$time = strtotime('2017-02-08 20:00:00');
+		$time_homepage_s = strtotime("-" . ($p*2) . " day", strtotime(date("Y-m-d 00:00:00", $time)));
+		$time_homepage_e = strtotime("-" . ($p*2 - 2) . " day", strtotime(date("Y-m-d 00:00:00", $time))) - 1;
+		$date_list['2'] = date("Y.m.d", $time_homepage_s);
+		$date_list['1'] = date("Y.m.d", $time_homepage_e);
+		if($p==1){			
+			$time_homepage_e = $time;
+			$date_list['0'] = date("Y.m.d", $time);
 		}
+		// echo "start time: " . date("Y-m-d H:i:s", $time_homepage_s) . "<br>";
+		// echo "end time: " . date("Y-m-d H:i:s", $time_homepage_e) . "<br>";
+
+		//首页推荐
+		$list = $mod->where("status=1 and add_time between $time_homepage_s and $time_homepage_e".$queryArr['where'])->order($queryArr['order'])->select();
+		
+		$homepage_list = array();
+		if(count($list)>=1){
+			foreach($list as $key=>$val){
+				$list[$key]['zan'] = $list[$key]['zan']   +intval($list[$key]['hits'] /10);
+				$d = date("Y.m.d", $list[$key]['add_time']);
+				$homepage_list[$d][] = $list[$key];
+			}
+		}
+
+		$article_list = M("article")->where("add_time > $time_homepage_s and add_time < $time_homepage_e and status=4")->select();
+
+		if(count($article_list)>=1){
+			foreach($article_list as $key=>$val){
+				$d = date("Y.m.d", $article_list[$key]['add_time']);
+				$homepage_list[$d][] = $article_list[$key];
+			}
+		}
+
+		if(count($homepage_list)>=1){
+			$i = 0;
+			foreach($homepage_list as $d=>$val){
+				usort($homepage_list[$d], 'sortByAddTime');
+				$i++;
+			}
+		}
+
+		if(isset($date_list['0'])){
+			$homepage_0_list = isset($homepage_list[$date_list['0']]) ? $homepage_list[$date_list['0']] : array();
+		}
+		if(isset($date_list['1'])){
+			$homepage_1_list = isset($homepage_list[$date_list['1']]) ? $homepage_list[$date_list['1']] : array();
+		}
+		if(isset($date_list['2'])){
+			$homepage_2_list = isset($homepage_list[$date_list['2']]) ? $homepage_list[$date_list['2']] : array();
+		}
+
+		// echo "<pre>";print_r($date_list);print_r($homepage_list);echo "</pre>";exit;
 
 		//最新原创
 		$queryArr = array();
@@ -83,12 +123,15 @@ class indexAction extends frontendAction {
 		$queryArr['order'] =" add_time desc";
 		$original_list = $mod->where("status=1 and add_time<$time ".$queryArr['where'])->limit(4)->order($queryArr['order'])->select();
 
-
 		// //小时榜和24小时榜
 		// $time_hour = $time - 3600;
 		// $time_day = $time - 86400;
 		// $hour_list=$mod->query("SELECT * from try_item  WHERE add_time between $time_hour and $time ORDER BY hits desc LIMIT 9");
 		// $day_list=$mod->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_day and $time ORDER BY hits desc LIMIT 9");
+		
+
+		//热门活动 活动公告
+		$hd_list = M("hd")->limit(3)->order("order_s asc,id desc")->select();
 		
 
 		//我的关注
@@ -101,18 +144,20 @@ class indexAction extends frontendAction {
 		$tags = $notify_tag->field('tag')->where(array('userid' => $user['id'],'f_sign'=> 1 ))->select();
 		$this->assign('tags',$tags);
 
-		if($p<1){$p=1;}
-		$this->assign('p',$p);
 		$this->assign('front_list',$front_list);
-		$this->assign('item_homepage_list',$homepage_list);
-		// $this->assign('item_nice_list',$homepage_list);
-		// $this->assign('item_bao_list',$bao_list);
+		$this->assign('item_homepage_0_list',$homepage_0_list);
+		$this->assign('item_homepage_1_list',$homepage_1_list);
+		$this->assign('item_homepage_2_list',$homepage_2_list);
+		$this->assign('date_list',$date_list);
 		$this->assign('hour_list',$hour_list);
 		$this->assign('original_list',$original_list);
 		// $this->assign('hour_list',$hour_list);
 		// $this->assign('day_list',$day_list);
 		// $this->assign('item_myitems_list',$myitems_list);
-		$this->assign('pagebar',$pager->fshow());
+		$this->assign('hd_list',$hd_list);
+
+		$this->assign('p',$p);
+		$this->assign('pagebar',$pager->newshow());
 
 		// //每天排名
 		// $time_s = strtotime(date('Y-m-d'),time());
@@ -154,21 +199,20 @@ class indexAction extends frontendAction {
 		// $this->assign('pma',$pma);
 		// //表现形式
 
-        $dss =$this->_get("dss","trim");
-	//	$dss = ($dss=="")?$_SESSION['dss']:$dss;
-		$dss = ($dss=="")?"lb":$dss;
-		$_SESSION['dss']=$dss;
+		// $dss =$this->_get("dss","trim");
+		// $dss = ($dss=="")?$_SESSION['dss']:$dss;
+		// $dss = ($dss=="")?"lb":$dss;
+		// $_SESSION['dss']=$dss;
 		$this->assign("dss",$dss);
-		$this->assign("tab",$tab);
-		$this->assign("lb_url",U('index/index',array('type'=>$type,'tab'=>$tab,'dss'=>'lb')));
-		$this->assign("cc_url",U('index/index',array('type'=>$type,'tab'=>$tab,'dss'=>'cc')));
-        $this->_config_seo();
+		// $this->assign("tab",$tab);
+		// $this->assign("lb_url",U('index/index',array('type'=>$type,'tab'=>$tab,'dss'=>'lb')));
+		// $this->assign("cc_url",U('index/index',array('type'=>$type,'tab'=>$tab,'dss'=>'cc')));
+
+		$this->_config_seo();
 		$this->assign("bcid",0);
-		//热门活动
-		$hd = M("hd")->limit(8)->order("order_s asc,id desc")->select();
-		$thd = M("item")->where('istop = 1')->limit(8)->order("id desc")->select();
-		$this->assign('hd',$hd);
-		$this->assign('thd',$thd);
+		
+		// $thd = M("item")->where('istop = 1')->limit(8)->order("id desc")->select();
+		// $this->assign('thd',$thd);
 
 		
 
@@ -179,6 +223,18 @@ class indexAction extends frontendAction {
 		$this->assign("article_hide",1);
 
 		$this->display();
+    }
+
+    /**
+     * 前台分页统一
+     */
+    protected function _pager($count, $pagesize) {
+        $pager = new Page($count, $pagesize);
+        $pager->rollPage = 5;
+        $pager->setConfig('prev', '<i class="icon5 icon5-a_14" style="margin-top: 5px;"></i>');
+        $pager->setConfig('next', '<i class="icon5 icon5-a_15" style="margin-top: 5px;"></i>');
+        $pager->setConfig('theme', '%upPage% %first% %linkPage% %end% %downPage%');
+        return $pager;
     }
 
     public function qrcode($url="www.baidu.com",$level=7,$size=4)
