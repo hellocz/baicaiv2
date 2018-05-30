@@ -10,13 +10,13 @@ $(function(e) {
 	});
 	
 	//最新优惠tab菜单
-	$("#i-news-title li").click(function(){
-		var ethis = $("#i-news-title li");
-		ethis.removeClass("fc-green font-w-b");
-		$(this).addClass("fc-green font-w-b");
-		$(".i-new-list").find("ul").stop().hide();
-		$("#tab" + (ethis.index(this)+1)).show();
-	});
+	// $("#i-news-title li").click(function(){
+	// 	var ethis = $("#i-news-title li");
+	// 	ethis.removeClass("fc-green font-w-b");
+	// 	$(this).addClass("fc-green font-w-b");
+	// 	$(".i-new-list").find("ul").stop().hide();
+	// 	$("#tab" + (ethis.index(this)+1)).show();
+	// });
 	
 	
 	//瀑布流与横向排列切换特效

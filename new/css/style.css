@@ -555,7 +555,36 @@ a:hover{
 	top:-34px;
 	right: -56px;
 }
-
+/*品牌搜索框样式*/
+.brand-search{
+	border: 1px solid #E0E6E9;
+	
+}
+.brand-search input{
+	border: none;
+	font-size: 12px;
+}
+.brand-search button{
+	margin-top: 2px;
+	width: 62px;
+	border: none;
+	font-size: 12px;
+	background: url(../images/svg/Shape2.svg) left no-repeat;
+	cursor: pointer;
+	padding-left: 20px;
+}
+.brand-search input::-webkit-input-placeholder{
+	color:#CCCCCC;
+}
+.brand-search input::-moz-placeholder{   /* Mozilla Firefox 19+ */
+	color:#CCCCCC;
+}
+.brand-search input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+	color:#CCCCCC;
+}
+.brand-search input:-ms-input-placeholder{  /* Internet Explorer 10-11 */ 
+    color:#CCCCCC;
+}
 
 /*全局下拉选择样式*/
 

@@ -16,9 +16,9 @@
 					<div class="clearfix">
 						<div class="fl"><img src="{:avatar($visitor['id'],'32')}" class="radius-100" width="48" height="48"></div>
 						<div class="fl ml-12">
-							<p class="font-14 mt-5 font-w-b">{$visitor['username']}<span class="radius-100 text-center level">LV10</span></p>
+							<p class="font-14 mt-5 font-w-b">{$visitor['username']}<span class="radius-100 text-center level">LV{$user['grade']}</span></p>
 							<p class=" mt-5 fc-grey">
-								<span class="jf">积分3356</span>
+								<span class="jf">积分{$user['score']}</span>
 								<span class="ml-5 yp">油票657</span>
 							</p>
 						</div>
@@ -28,6 +28,6 @@
 </empty>
 				<div class="fc-aux-9 text-center"><a href="#">新手入门</a> · <a href="#">积分兑换</a> · <a href="#">用户排名</a></div>
 				<!--活动公告start-->
-				<include file="right_hd_list" list="hd_list"/>
+				<include file="right_activity" list="hd_list"/>
 				<!--活动公告end-->
 			</div>

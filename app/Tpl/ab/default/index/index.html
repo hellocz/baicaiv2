@@ -46,7 +46,7 @@
 		<!--左边区域start-->
 		<div class="fl i-l">
 			<!--置顶区start-->
-			<include file="front_list" list="front_list"/>
+			<include file="front" list="front_list"/>
 			<!--置顶区end-->
 			
 			<!--左侧广告AD start-->
@@ -63,8 +63,8 @@
 								<li class="layui-col-xs5 br fc-green font-w-b">首页推荐</li>
 								<li class="layui-col-xs5 br">热门优惠</li>
 								<li class="layui-col-xs5 br">全网特价</li>
-								<li class="layui-col-xs5 br">小时排行</li>
-								<li class="layui-col-xs5">我的关注<span class="dot radius-100">18</span></li>
+								<li class="layui-col-xs5 br"><a href="{:U('hour/index')}">小时排行</a></li>
+								<li class="layui-col-xs5">我的关注<span class="dot radius-100">{$user['tag_count']}</span></li>
 							</ul>
 						</div>
 						<div class="fr arrow">
@@ -76,7 +76,7 @@
 				<div class="i-new-list">
 					<ul class="i-list clearfix" id="tab1">
 						<!--首页推荐start-->
-						<include file="item_list" list="item_homepage_0_list" type=""/>
+						<include file="item_list" list="item_list_homepage_0" type=""/>
 						<!--首页推荐end-->
 					</ul>
 					
@@ -89,7 +89,7 @@
 			<!--最新优惠end-->
 			
 			<!--小时排行榜start-->
-			<include file="hour_list" list="hour_list"/>
+			<include file="hour" list="hour_list"/>
 			<!--小时排行榜end-->
 			
 			<!--你可能错过的start-->
@@ -99,14 +99,14 @@
 				</div>
 				<ul class="i-list clearfix">
 					<!--列表循环start-->
-					<include file="item_list" list="item_homepage_1_list" type=""/>
+					<include file="item_list" list="item_list_homepage_1" type=""/>
 					<!--列表循环end-->
 				</ul>
 			</div>
 			<!--你可能错过的end-->
 			
 			<!--最新原创start-->
-			<include file="original_list" list="original_list"/>
+			<include file="original" list="original_list"/>
 			<!--最新原创end-->
 			
 			<!--首页推荐start-->
@@ -116,7 +116,7 @@
 				</div>
 				<ul class="i-list clearfix">
 					<!--列表循环start-->
-					<include file="item_list" list="item_homepage_2_list" type=""/>
+					<include file="item_list" list="item_list_homepage_2" type=""/>
 					<!--列表循环end-->
 				</ul>
 			</div>
@@ -134,36 +134,14 @@
 		<!--右边区域start-->
 		<div class="fl i-r">
 			<!--用户登录信息start-->
-			<include file="right_user" />
+			<include file="right_login" />
 			<!--用户登录信息end-->
 			<!--搜券start-->
-			<div class="mt-12 white-bg radius-3">
-				<div class="i-sq-top">
-					<div class="i-r-title font-16">
-						<a href="#" class="fr font-12 fc-aux-9">领券教程？</a><font class="font-w-b">搜券</font>
-					</div>
-					<div class="sq-search radius-3">
-						<span class="fr fc-green font-14">搜券</span>
-						<input type="text" id="" name="" placeholder="淘宝/天猫优惠券" class="sq-input">
-					</div>
-				</div>
-				<ul class="i-sq-content layui-row">
-					<!--列表循环start-->
-					<li class="layui-col-xs3"><a href="#" target="_blank" class="fc-grey"><i class="icon4 icon4-G_2"></i><br>9.9包邮</a></li>
-					<li class="layui-col-xs3"><a href="#" target="_blank" class="fc-grey"><i class="icon4 icon4-d_8"></i><br>美食</a></li>
-					<li class="layui-col-xs3"><a href="#" target="_blank" class="fc-grey"><i class="icon4 icon4-d_10"></i><br>家居</a></li>
-					<li class="layui-col-xs3"><a href="#" target="_blank" class="fc-grey"><i class="icon4 icon4-G_3"></i><br>鞋包</a></li>
-					<li class="layui-col-xs3"><a href="#" target="_blank" class="fc-grey"><i class="icon4 icon4-d_6"></i><br>母婴</a></li>
-					<li class="layui-col-xs3"><a href="#" target="_blank" class="fc-grey"><i class="icon4 icon4-G_24"></i><br>男装</a></li>
-					<li class="layui-col-xs3"><a href="#" target="_blank" class="fc-grey"><i class="icon4 icon4-d_1"></i><br>女装</a></li>
-					<li class="layui-col-xs3"><a href="#" target="_blank" class="fc-grey"><i class="icon4 icon4-G_4"></i><br>内衣</a></li>
-					<!--列表循环end-->
-				</ul>
-			</div>
+			<include file="right_searchcoupon" />
 			<!--搜券end-->
 			
 			<!--热门圈子start-->
-			<include file="right_hotcircle_list" />
+			<include file="right_hotcircle" list="original_best_list" />
 			<!--热门圈子end-->
 			
 			<!--右侧广告AD1 start-->
@@ -171,61 +149,7 @@
 			<!--右侧广告AD1 end-->
 			
 			<!--油菜排行start-->
-			<div class="mt-12 i-top10 white-bg radius-3">
-				<div class="i-r-title font-16" style="padding: 20px 20px 0px 20px;">
-					<a href="#" class="fr font-12 fc-aux-9 more">浏览更多</a><font class="font-w-b">油菜排行</font>
-				</div>
-				<div class="layui-tab">
-					<ul class="layui-tab-title" style="padding-left: 10px; color: #999;">
-						<li class="layui-this">声誉</li>
-						<li>等级</li>
-						<li>评论</li>
-						<li>爆料</li>
-					</ul>
-					<div class="layui-tab-content">
-						<ul class="layui-tab-item layui-show">
-							<li class="clearfix">
-								<div class="fl pic"><img src="/new/images/Head.jpg" class="radius-100"></div>
-								<div class="fl info">
-									<p class="font-14 mt-8">老师说不能打鸟<span class="badge radius-100">LV5</span></p>
-									<P class="fc-aux-9 mt-5">初出茅庐</P>
-								</div>
-							</li>
-							<li class="clearfix">
-								<div class="fl pic"><img src="/new/images/Head.jpg" class="radius-100"></div>
-								<div class="fl info">
-									<p class="font-14 mt-8">老师说不能打鸟<span class="badge radius-100">LV5</span></p>
-									<P class="fc-aux-9 mt-5">初出茅庐</P>
-								</div>
-							</li>
-							<li class="clearfix">
-								<div class="fl pic"><img src="/new/images/Head.jpg" class="radius-100"></div>
-								<div class="fl info">
-									<p class="font-14 mt-8">老师说不能打鸟<span class="badge radius-100">LV5</span></p>
-									<P class="fc-aux-9 mt-5">初出茅庐</P>
-								</div>
-							</li>
-							<li class="clearfix">
-								<div class="fl pic"><img src="/new/images/Head.jpg" class="radius-100"></div>
-								<div class="fl info">
-									<p class="font-14 mt-8">老师说不能打鸟<span class="badge radius-100">LV5</span></p>
-									<P class="fc-aux-9 mt-5">初出茅庐</P>
-								</div>
-							</li>
-							<li class="clearfix">
-								<div class="fl pic"><img src="/new/images/Head.jpg" class="radius-100"></div>
-								<div class="fl info">
-									<p class="font-14 mt-8">老师说不能打鸟<span class="badge radius-100">LV5</span></p>
-									<P class="fc-aux-9 mt-5">初出茅庐</P>
-								</div>
-							</li>
-						</ul>
-						<div class="layui-tab-item">这里放等级列表</div>
-						<div class="layui-tab-item">这里放评论列表</div>
-						<div class="layui-tab-item">这里放爆料列表</div>
-					</div>
-				</div>
-			</div>
+			<include file="right_topuser" list1="user_list_offer" list2="user_list_exp" list3="user_list_offer" list4="user_list_shares" />
 			<!--油菜排行end-->
 			
 			<!--右侧广告AD2 start-->
@@ -246,7 +170,7 @@
 	<script src="/new/js/common.js"></script>
 	<script src="/new/js/page/nav.js"></script>
 	<script src="/new/js/page/footer.js"></script>
-	<script src="/new/js/page/index.js"></script>
+	<script src="/new/js/page/index.js?v=20180530"></script>
 
 	<script type="text/javascript">
 		$(document).ready(function() {

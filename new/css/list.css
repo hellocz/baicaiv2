@@ -101,27 +101,27 @@
 	font-size: 14px;
 }
 
-.hour .list .score .rmtj{
+.hour .list .score .sytj{
 	border: 1px solid #E91E63;
 	color: #E91E63;
 }
-.hour .list li:hover .score .rmtj{
+.hour .list li:hover .score .sytj{
 	background: #E91E63;
 	color: #FFFFFF;
 }
-.hour .list .score .qwhj{
+.hour .list .score .rmtj{
 	border: 1px solid #59B932;
 	color: #59B932;
 }
-.hour .list li:hover .score .qwhj{
+.hour .list li:hover .score .rmtj{
 	background: #59B932;
 	color: #FFFFFF;
 }
-.hour .list .score .sytj{
+.hour .list .score .qwhj{
 	border: 1px solid #F0F0F0;
 	color: #999999;
 }
-.hour .list li:hover .score .sytj{
+.hour .list li:hover .score .qwhj{
 	border: 1px solid #33CC99;
 	background: #33CC99;
 	color: #FFFFFF;
@@ -342,7 +342,11 @@
 
 
 /*品牌导航*/
-
+.brand-search{
+	width: 252px;
+	height: 26px;
+	padding: 6px 14px 0 14px;
+}
 .brand-hot{
 	padding: 20px 24px;
 }

@@ -281,6 +281,7 @@
 	padding-left: 18px;
 	line-height: 20px;
 	height: 20px;
+	overflow: hidden;
 }
 
 .i-list .flow .info .content .attr{
@@ -301,11 +302,17 @@
 	display: none;
 }
 
+.i-list .flow .info .not-comments{
+	height: 104px;
+	margin-top:-104px;
+}
+
 .i-list .flow .info .info-box .comments{
 	padding: 12px;
 	font-size: 14px;
 	height: 50px;
 	overflow:hidden;
+	border-bottom: 1px solid #F4F7F8;
 }
 
 .i-list .flow .info .info-box .comments span{
@@ -320,8 +327,7 @@
 }
 
 .i-list .flow .info .info-box .operation{
-	margin-top: 5px;
-	border-top: 1px solid #F4F7F8;
+	
 	padding: 12px 12px 0px 12px;
 }
 
@@ -380,10 +386,11 @@
 }
 
 .i-list .transverse .info1 .title{
-	font-size: 15px;
+	font-size: 18px;
 	color: #222222;
 	line-height: 24px;
 	margin-bottom: 10px;
+	font-weight: bold;
 }
 
 .i-list .transverse .info1 .member{
@@ -540,6 +547,12 @@
 
 .i-member .note ul li{
 	height: 27px;
+}
+
+.i-member .note ul li .icon-a_5{
+	width: 14px;
+	height: 14px;
+	fill: #EB3C3C;
 }
 
 .i-sq-top{
