@@ -1,0 +1,59 @@
+<!--绑定前端账户-->
+
+
+<div class="dialog_content">
+
+
+	<table width="100%" class="table_form">
+		<tr>
+
+			<th width="100">绑定状态 :</th>
+			<td><label>
+				<if condition="$info['uid'] !='' ">已经绑定<else/>没有绑定</if>
+	</label></td>
+	</tr>
+		<tr>
+
+			<th width="100">用户名 :</th>
+
+			<td><input type="text" name="font_username" id="font_username" class="input-text" value="{$info.username}" size="30"></td>
+
+		</tr>
+
+        <tr>
+
+			<th>密码 :</th>
+
+			<td><input type="password" name="font_password"  id="font_password" class="input-text" size="30">
+
+            <label class="gray">&nbsp;&nbsp;不修改则留空</label>
+
+            </td>
+
+		</tr>
+		 <tr>
+
+			<th></th>
+
+			<td><input type="button" class="bind" value="&nbsp;&nbsp;绑定&nbsp;&nbsp;" /><span class="message"></span>
+
+            </td>
+
+		</tr>
+	</table>
+
+		
+
+</div>
+<script type="text/javascript">
+	$(".bind").click(function(){
+		$.post('{:U("user/bind")}',{username:$("#font_username").val(),password:$("#font_password").val()},function(data){
+					if(data.status==1){
+						$(".message").html("绑定成功");
+					}else{
+						$(".message").html("绑定失败");
+					}					
+					
+				},"json");
+	})
+</script>

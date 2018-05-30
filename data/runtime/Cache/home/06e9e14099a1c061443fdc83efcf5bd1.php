@@ -181,5 +181,3 @@
 		});
 
 	</script><?php endforeach; endif; else: echo "" ;endif; ?>
-
-<script src="/js/function.js" type="text/javascript"></script>

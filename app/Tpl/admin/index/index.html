@@ -49,8 +49,10 @@
         	<span class="cut">|</span>
 
         	{$my_admin.rolename}：<span class="mr10">{$my_admin.username}</span>
-
-        	<a href="{:u('index/logout')}">[{:L('logout')}]</a>
+            [
+        	<a href="{:u('index/logout')}">{:L('logout')} | </a>
+            <a href="javascript:;" class="J_showdialog" data-uri="{:U('user/binding', array('id'=>$_SESSION['admin']['id']))}" data-title="绑定前端账号" data-id="binding" data-acttype="ajax" data-width="500" data-height="140">绑定</a>
+            ]
 
         </div>
 
@@ -131,6 +133,50 @@
 <script src="__STATIC__/js/pinphp.js"></script>
 
 <script>
+
+    //弹窗表单
+    $('.J_showdialog').live('click', function(){
+        var self = $(this),
+            dtitle = self.attr('data-title'),
+            did = self.attr('data-id'),
+            duri = self.attr('data-uri'),
+            dwidth = parseInt(self.attr('data-width')),
+            dheight = parseInt(self.attr('data-height')),
+            dpadding = (self.attr('data-padding') != undefined) ? self.attr('data-padding') : '',
+            dcallback = self.attr('data-callback');
+                if($('#add_time').val()!==null && $('#add_time').val()!==''){
+                    duri+='&add_time='+$('#add_time').val();
+        }
+        $.dialog({id:did}).close();
+        $.dialog({
+            id:did,
+            title:dtitle,
+            width:dwidth ? dwidth : 'auto',
+            height:dheight ? dheight : 'auto',
+            padding:dpadding,
+            lock:true,
+            ok:function(){
+                var info_form = this.dom.content.find('#info_form');
+                if(info_form[0] != undefined){
+                    info_form.submit();
+                    if(dcallback != undefined){
+                        eval(dcallback+'()');
+                    }
+                    return false;
+                }
+                if(dcallback != undefined){
+                    eval(dcallback+'()');
+                }
+            },
+            cancel:function(){}
+        });
+        $.getJSON(duri, function(result){
+            if(result.status == 1){
+                $.dialog.get(did).content(result.data);
+            }
+        });
+        return false;
+    });
 
 //初始化弹窗
 

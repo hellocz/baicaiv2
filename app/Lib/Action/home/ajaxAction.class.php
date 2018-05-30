@@ -145,16 +145,24 @@ class ajaxAction extends frontendAction {
 			M("user")->where("id=$data[uid]")->setInc("score");
 			//积分日志
 			//set_score_log(array('id'=>$data['uid'],'username'=>$data['uname']),'comment',1,'','',1);
-			/*$xc = array();
-			$xc['ftid']=$data['uid'];
-			$xc['to_id']=$data['uid'];
-			$xc['to_name']=$data['uname'];
+
+			$xc = array();
+			if($data['xid'] == 1){
+				$author = M("admin")->where(array('id'=>$item['uid']))->find();
+				$xc['ftid']=$author['uid'];
+				$xc['to_id']=$author['uid'];
+			}
+			else{
+				$xc['ftid']=$item['uid'];
+				$xc['to_id']=$item['uid'];
+			}
 			$xc['from_id']=0;
 			$xc['from_name']='tryine';
 			$xc['add_time']=time();
-			
-			$xc['info'] ='感谢您对<a href="'.U('home/item/index',array('id'=>$item['id'])).'">'.$item['title'].'</a>的评论,系统给您奖励积分：1，经验：1.';
-			M('message')->add($xc);*/
+			$xc['info'] =$data['uname'] . '给你的文章 <a href="'.U('item/index',array('id'=>$item['id'])).'">'.$item['title'].'</a>做了评论';
+			if($xc['ftid']){
+			M('message')->add($xc);
+			}
             $this->assign('cmt_list', array(
                 array(
 					'id' => $comment_id,

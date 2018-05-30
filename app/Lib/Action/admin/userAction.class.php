@@ -168,5 +168,33 @@ class userAction extends backendAction
             $this->ajaxReturn();
         }
     }
+    public function binding(){
+         $id = $this->_get('id', 'intval');
+         if (IS_AJAX) {
+            $info = M("admin")->find($id);
+            $this->assign('info', $info);
+                $response = $this->fetch();
+                $this->ajaxReturn(1, '', $response);
+            } else {
+                $this->display();
+            }
+    }
 
+    public function bind(){
+        $username = $this->_post('username');
+        $password = $this->_post('password');
+        $user = M('user')->where(array('username'=>$username,'email'=>$username,'_logic'=>'OR'))->field('id,password')->find();//查找用户
+        $wp_hasher = new PasswordHash(8, TRUE); //验证加密
+        $sok = $wp_hasher->CheckPassword($password,$user['password']);
+        if ($user['id']&&$sok){
+            $data['uid'] = $user['id'];
+             if(false !==M("admin")->where(array('id'=>$_SESSION['admin']['id']))->save($data)){
+                $this->ajaxReturn(1, "通过");
+             }
+                $this->ajaxReturn(2, "绑定失败");
+            }
+         else{
+             $this->ajaxReturn(0, "失败");
+         }
+    }
 }
