@@ -32,8 +32,7 @@
 										<span class="fc-aux-a icon3 icon3-a_43">{$r.comments}</span>
 									</p>
 									<p class="cz2">
-										<a <if condition="$type eq 'isbao'">href="{:U('item/index',array('id'=>$r['id'],'isbao'=>1))}"<elseif condition="$r['status'] eq 4"/>href="{:U('article/show',array('id'=>$r['id']))}"<else/> href="{:U('item/index',array('id'=>$r['id']))}"</if> target="_blank" class="btn-2">查看详情</a>
-										<a href="page/details.html" target="_blank" class="btn-3">去购买</a>
+										<a <if condition="$type eq 'isbao'">href="{:U('item/index',array('id'=>$r['id'],'isbao'=>1))}"<elseif condition="$r['status'] eq 4"/>href="{:U('article/show',array('id'=>$r['id']))}"<else/> href="{:U('item/index',array('id'=>$r['id']))}"</if> target="_blank" class="btn-2">查看详情</a>&nbsp;<a href="page/details.html" target="_blank" class="btn-3">去购买</a>
 									</p>
 								</div>
 							</div>
