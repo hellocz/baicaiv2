@@ -4,37 +4,6 @@
 <include file="public:head" />
     <!--当前页面css-->
     <link rel="stylesheet" href="/new/css/index.css">
-<style type="text/css">
-				/*分页样式*/
-#page{
-	margin-top: 30px;
-	margin-bottom: 0;
-	font-size: 14px;
-}
-
-#page .layui-laypage-default a{
-	margin-right: 10px;
-	border-radius: 3px;
-	color: #595959;
-}
-
-#page .layui-laypage-default span{
-	margin-right: 10px;
-	border-radius: 3px;
-}
-
-#page .layui-laypage-default .layui-laypage-curr em{
-	color: #33CC99;
-}
-
-#page .layui-laypage-default .layui-laypage-curr .layui-laypage-em{
-	display: none;
-}
-
-#page .layui-laypage-default .layui-laypage-curr{
-	border:1px solid #33CC99;
-}
-			</style>
 </head>
 <body>
 	<!--页面start-->
@@ -151,9 +120,13 @@
 			<!--油菜排行start-->
 			<include file="right_topuser" list1="user_list_offer" list2="user_list_exp" list3="user_list_offer" list4="user_list_shares" />
 			<!--油菜排行end-->
-			
+
 			<!--右侧广告AD2 start-->
-			<div class="i-ad-r mt-12" id="right-ad">{:R('advert/index', array(10), 'Widget')}</div>
+			<div class="i-ad-r mt-12 i-r" style="display: block;">{:R('advert/index', array(10), 'Widget')}</div>
+			<!--右侧广告AD2 end-->
+
+			<!--右侧广告AD2 start-->
+			<div class="i-ad-r mt-12 i-r" id="right-ad">{:R('advert/index', array(15), 'Widget')}</div>
 			<!--右侧广告AD2 end-->
 		</div>
 		<!--右边区域end-->
@@ -167,9 +140,6 @@
 		
 
 	<!--引入页面单独JS文件-->
-	<script src="/new/js/common.js"></script>
-	<script src="/new/js/page/nav.js"></script>
-	<script src="/new/js/page/footer.js"></script>
 	<script src="/new/js/page/index.js?v=20180530"></script>
 
 	<script type="text/javascript">

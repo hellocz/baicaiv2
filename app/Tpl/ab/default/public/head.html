@@ -1,18 +1,17 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=1220">
-    <title>白菜哦-高性价比电商购物推荐</title>
-    <meta name="keywords" content="白菜哦,白菜,baicaio,海淘推荐,海淘攻略,天猫9.9包邮,优惠券">
-    <meta name="description" content="白菜哦是国内最早的导购网站之一，专业挖掘国内和海淘主流电商独家优惠信息，提供淘宝天猫各类独家优惠券，另有丰富的海淘教程、好物晒单和购物攻略给大家作为购物参考。">
+    <title>{$page_seo.title}</title>
+    <meta name="keywords" content="{$page_seo.keywords}">
+    <meta name="description" content="{$page_seo.description}">
     <!--引入网站ico图标-->
     <link href="favicon.ico" rel="shortcut icon">
     <!--引入layui CSS文件-->
     <link rel="stylesheet" href="/new/js/lib/layui/css/layui.css">
     <!--引入全局公共样式文件-->
     <link rel="stylesheet" href="/new/css/style.css">
-
-    <link rel="stylesheet" href="/new/css/list.css">
-    
+    <!--当前页面css-->
+    <link rel="stylesheet" href="/new/css/list.css">    
     <!-- HTML5 shim for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
         <script src="/new/js/html5.min.js"></script>
@@ -26,3 +25,34 @@
     <script src="/new/js/base.js"></script>
     <!--其他JS文件-->
     <script src="/new/js/zzsc.js"></script>
+<style type="text/css">
+/*分页样式*/
+#page{
+    margin-top: 30px;
+    margin-bottom: 0;
+    font-size: 14px;
+}
+
+#page .layui-laypage-default a{
+    margin-right: 10px;
+    border-radius: 3px;
+    color: #595959;
+}
+
+#page .layui-laypage-default span{
+    margin-right: 10px;
+    border-radius: 3px;
+}
+
+#page .layui-laypage-default .layui-laypage-curr em{
+    color: #33CC99;
+}
+
+#page .layui-laypage-default .layui-laypage-curr .layui-laypage-em{
+    display: none;
+}
+
+#page .layui-laypage-default .layui-laypage-curr{
+    border:1px solid #33CC99;
+}
+</style>

@@ -53,12 +53,13 @@ class indexAction extends frontendAction {
 			$hour = date("H", $time_hour_s);
 			//删除上一天当前小时的缓存文件
 			$hour_cur = date("H", $time);
-			$filename = DATA_PATH . 'hour_list_' . $hour_cur . '.php';
-			is_file($filename) && unlink($filename);
-			if (false === $hour_list = F('hour_list_' . $hour)) {
+			if (false !== $hour_cur_list = F('index_hour_list_' . $hour_cur)) {
+				F('index_hour_list_' . $hour_cur, NULL);
+			}
+			if (false === $hour_list = F('index_hour_list_' . $hour)) {
 				$cate_data = array();
 				$hour_list=$mod->query("SELECT * from try_item  WHERE status=1 and add_time between $time_hour_s and $time_hour_e ORDER BY hits desc, add_time desc LIMIT 4");
-				F('hour_list_' . $hour, $hour_list);
+				F('index_hour_list_' . $hour, $hour_list);
 			}
 		}
 
@@ -77,14 +78,14 @@ class indexAction extends frontendAction {
 		// echo "end time: " . date("Y-m-d H:i:s", $time_homepage_e) . "<br>";
 
 		//首页推荐
-		$list = $mod->where("status=1 and add_time between $time_homepage_s and $time_homepage_e".$queryArr['where'])->order($queryArr['order'])->select();
+		$item_list = $mod->where("status=1 and add_time between $time_homepage_s and $time_homepage_e".$queryArr['where'])->order($queryArr['order'])->select();
 		
 		$homepage_list = array();
-		if(count($list)>=1){
-			foreach($list as $key=>$val){
-				$list[$key]['zan'] = $list[$key]['zan']   +intval($list[$key]['hits'] /10);
-				$d = date("Y.m.d", $list[$key]['add_time']);
-				$homepage_list[$d][] = $list[$key];
+		if(count($item_list)>=1){
+			foreach($item_list as $key=>$val){
+				$item_list[$key]['zan'] = $item_list[$key]['zan']   +intval($item_list[$key]['hits'] /10);
+				$d = date("Y.m.d", $item_list[$key]['add_time']);
+				$homepage_list[$d][] = $item_list[$key];
 			}
 		}
 

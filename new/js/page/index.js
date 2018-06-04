@@ -9,7 +9,7 @@ $(function(e) {
 //		loop:"cycle",
 	});
 	
-	//最新优惠tab菜单
+	// //最新优惠tab菜单
 	// $("#i-news-title li").click(function(){
 	// 	var ethis = $("#i-news-title li");
 	// 	ethis.removeClass("fc-green font-w-b");
@@ -18,6 +18,29 @@ $(function(e) {
 	// 	$("#tab" + (ethis.index(this)+1)).show();
 	// });
 	
+	function setCookie(name,value)
+	{
+	var Days = 30;
+	var exp = new Date();
+	exp.setTime(exp.getTime() + Days*24*60*60*1000);
+	document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+	}
+	function getCookie(name)
+	{
+	var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+	if(arr=document.cookie.match(reg))
+	return unescape(arr[2]);
+	else
+	return null;
+	}
+	function delCookie(name)
+	{
+	var exp = new Date();
+	exp.setTime(exp.getTime() - 1);
+	var cval=getCookie(name);
+	if(cval!=null)
+	document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+	}
 	
 	//瀑布流与横向排列切换特效
 	$("#arr1").click(function(){
@@ -32,6 +55,7 @@ $(function(e) {
 			$(".i-list").find("li").removeClass("transverse clearfix");
 			$(".i-list").find("li").addClass("fl flow");
 			$(".i-list").find("li").children(".user").show();
+			delCookie('dss');
 //  		layer.close(ii);
     	}, 0);
 	});
@@ -46,7 +70,8 @@ $(function(e) {
     		$(".i-list").find("li").css("width","856px");
     		$(".i-list").find("li").removeClass("fl flow");
     		$(".i-list").find("li").addClass("transverse clearfix");
-    		$(".i-list").find("li").children(".user").hide()
+    		$(".i-list").find("li").children(".user").hide();
+    		setCookie('dss', 'lb');
 //  		layer.close(ii);
     	}, 0);
 	});
