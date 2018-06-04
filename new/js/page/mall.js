@@ -10,7 +10,7 @@ $(function(){
 		var c = ".sidebar-mall";
 		var $scroll=$(this).scrollTop();
 		$(b).find(".list").each(function(index){
-			var d = $(this).offset().top;
+			var d = $(this).offset().top - 60;
 			if(d > $scroll){//妤煎眰鐨則op澶т簬婊氬姩鏉＄殑璺濈
 				$(c).find("a").removeClass("active");
 				$(c).find('a:eq('+index+')').addClass("active");
@@ -32,7 +32,7 @@ function mallClick(a,b,c){
 		$(c).find("a").siblings().removeClass("active");
 		$(c).find('a:eq('+i+')').addClass("active");
 		$("html,body").animate({
-			scrollTop: $(b).find('.list:eq('+i+')').offset().top - 60
+			scrollTop: $(b).find('.list:eq('+i+')').offset().top - 100
 		},100);
 	});
 }

@@ -2,36 +2,22 @@
 class origAction extends frontendAction {
 
     public function index() {
-		$p = $this->_get('p','trim');
-		$t = $this->_get('t','trim');
-		$k = $this->_get('k','trim');
-		!$k&&$k=0;
 		
 		
-		
-		if($t=="e"){
-			$hot_list = M("express")->order("is_hot desc,id asc")->limit(21)->select();
-			if($p){
-				$list = M()->query("select e.* from try_express e,try_cosler c  where CONV( HEX( LEFT( CONVERT( e.name  USING gbk ) , 1 ) ) , 16, 10 ) BETWEEN c.cBegin AND c.cEnd AND c.fPY = '$p' order by e.id asc");						
-			}else{
-				$list = M("express")->order("id asc")->select();
-			}
-		}else{		
-			$hot_list = M("item_orig")->where("ismy=$k")->order("is_hot desc,id asc")->limit(21)->select();	
-			$count = M()->query("SELECT COUNT(name) FROM try_item_orig  where ismy=".$k);					
-			if($p){
-				$list = M()->query("select i.* from try_item_orig i where fristPinyin(i.name) = '$p' AND i.ismy='$k' order by i.id asc");
-				
 
-			}else{
-				$list = M("item_orig")->where("ismy=$k")->order("id asc")->select();
-			}
-			
-			
-			
-			
+		$letters = array("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
+
+		if (false === $list = F('orig_list')) {
+    	$list=array();
+		$list['0']['items'] = M("item_orig")->field("id,img,name,ismy")->where("name REGEXP '^[0-9]'")->order("id")->select();
+		$list['0']['key'] = "0~9";
+		foreach ($letters as $letter) {
+			$list[$letter]['items'] = M("item_orig")->field("id,img,name,ismy")->where("fristPinyin(name) = '$letter'")->order("id")->select();
+			$list[$letter]['key'] = $letter; 
+			//M()->query("select i.* from try_item_orig i where fristPinyin(i.name) = '$letter' order by i.id asc");
 		}
-		
+    	F('orig_list',$list);
+    	}
 		$this->assign("hot_list",$hot_list);
 		$this->assign("list",$list);
 		$this->_config_seo(array(
@@ -39,9 +25,6 @@ class origAction extends frontendAction {
             'seo_keywords' => '商城导航',
             'seo_description' => '商城导航',
         ));
-		$this->assign('t',$t);
-		$this->assign('p',$p);
-		$this->assign('k',$k);
         $this->display();
     }
 
