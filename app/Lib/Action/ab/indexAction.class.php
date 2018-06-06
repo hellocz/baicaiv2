@@ -222,7 +222,8 @@ class indexAction extends frontendAction {
         $pager->rollPage = 5;
         $pager->setConfig('prev', '<i class="icon5 icon5-a_14" style="margin-top: 5px;"></i>');
         $pager->setConfig('next', '<i class="icon5 icon5-a_15" style="margin-top: 5px;"></i>');
-        $pager->setConfig('theme', '%upPage% %first% %linkPage% %end% %downPage%');
+        // $pager->setConfig('theme', '%upPage% %first% %linkPage% %end% %downPage%');
+        $pager->setConfig('theme', '%upPage% %first% %linkPage% %downPage%');
         return $pager;
     }
 

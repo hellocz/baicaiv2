@@ -335,8 +335,7 @@ class Page {
     public function newshow() {
         if(0 == $this->totalRows) return '';
         $p              =   $this->varPage;
-        // $middle         =   ceil($this->rollPage/2); //中间位置
-        $middle         =   ceil($this->totalPages/2); //中间位置
+        $middle         =   ceil($this->rollPage/2); //中间位置
 
         // 分析分页参数
         if($this->url){
@@ -362,13 +361,13 @@ class Page {
         if ($upRow>0){
             $upPage     =   "<a href='".str_replace('__PAGE__',$upRow,$url)."'>".$this->config['prev']."</a>";
         }else{
-            $upPage     =   '<a href="javascript:;" class="layui-laypage-prev layui-disabled" data-page="0"><i class="icon5 icon5-a_14" style="margin-top: 5px;"></i></a>';
+            $upPage     =   '<a href="javascript:;" class="layui-laypage-prev layui-disabled" data-page="'.$upRow.'"><i class="icon5 icon5-a_14" style="margin-top: 5px;"></i></a>';
         }
 
         if ($downRow <= $this->totalPages){
             $downPage   =   "<a href='".str_replace('__PAGE__',$downRow,$url)."'>".$this->config['next']."</a>";
         }else{
-            $downPage   =   '<a href="javascript:;" class="layui-laypage-next" data-page="2"><i class="icon5 icon5-a_15" style="margin-top: 5px;"></i></a>';
+            $downPage   =   '<a href="javascript:;" class="layui-laypage-next layui-disabled" data-page="'.$downRow.'"><i class="icon5 icon5-a_15" style="margin-top: 5px;"></i></a>';
         }
 
         // << < > >>
@@ -389,27 +388,29 @@ class Page {
 
         // 1 2 3 4 5
         $linkPage = "";
-        if ($this->totalPages != 1) {
-            if ($this->nowPage < $middle) { //刚开始
-                $start = 1;
-                $end = $this->rollPage;
-            } elseif ($this->totalPages < $this->nowPage + $middle - 1) {
-                $start = $this->totalPages - $this->rollPage + 1;
-                $end = $this->totalPages;
+        // if ($this->totalPages != 1) {
+        if ($this->totalPages == 1){
+            $start = $end = 1;
+        }else if ($this->nowPage < $middle) { //刚开始
+            $start = 1;
+            $end = $this->rollPage;
+        } elseif ($this->totalPages < $this->nowPage + $middle - 1) {
+            $start = $this->totalPages - $this->rollPage + 1;
+            $end = $this->totalPages;
+        } else {
+            $start = $this->nowPage - $middle + 1;
+            $end = $this->nowPage + $middle - 1;
+        }
+        $start < 1 && $start = 1;
+        $end > $this->totalPages && $end = $this->totalPages;
+        for ($page = $start; $page <= $end; $page++) {
+            if ($page != $this->nowPage) {
+                $linkPage .= " <a href='".str_replace('__PAGE__',$page,$url)."'>&nbsp;".$page."&nbsp;</a>";
             } else {
-                $start = $this->nowPage - $middle + 1;
-                $end = $this->nowPage + $middle - 1;
-            }
-            $start < 1 && $start = 1;
-            $end > $this->totalPages && $end = $this->totalPages;
-            for ($page = $start; $page <= $end; $page++) {
-                if ($page != $this->nowPage) {
-                    $linkPage .= " <a href='".str_replace('__PAGE__',$page,$url)."'>&nbsp;".$page."&nbsp;</a>";
-                } else {
-                    $linkPage .= " <span class='layui-laypage-curr'><em>".$page."</em></span>";
-                }
+                $linkPage .= " <span class='layui-laypage-curr'><em>".$page."</em></span>";
             }
         }
+        // }
 
         $pageStr     =   str_replace(
             array('%header%','%nowPage%','%totalRow%','%totalPage%','%upPage%','%downPage%','%first%','%linkPage%','%end%'),

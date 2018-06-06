@@ -18,8 +18,10 @@
 			</svg>
 			品牌导航
 			<div class="fr brand-search radius-100 white-bg clearfix">
-				<input type="text" class="fl" style="width: 180px; height: 20px;" placeholder="输入品牌关键字来搜索…" />
+				<form name="searchform" method="get" >
+				<input name="q" type="text" class="fl" style="width: 180px; height: 20px;" placeholder="输入品牌关键字来搜索…" />
 				<button class="fr fc-green">搜品牌</button>
+				</form>
 			</div>
 		</div>
 		<!--标题end-->
@@ -40,7 +42,7 @@
 						</div>
 						<div class="list clearfix" style="border: none;">
 							<volist name="cate_brand_list['data']" id="r" offset="$firstRow" length='$listRows'>
-							<a href="brandNav.html">{$r.name}</a>
+							<a href="{:U('brand/nav',array('p1'=>$cate_brand_list['p1']['id'], 'p2'=>$cate_brand_list['p2']['id'], 'brandid'=>$r['id']))}">{$r.name}</a>
 							</volist>
 						</div>
 					</div>
@@ -49,7 +51,7 @@
 				
 				<!--评论分页start-->
 				<!-- <div id="pages-brand" class="pages" style="text-align: center; padding-bottom: 30px;"></div> -->
-				<div id="page" class="pages" style="text-align: center; padding-bottom: 30px;"><div class="layui-box layui-laypage layui-laypage-default">{$pagebar}</div></div>
+				<div id="page-brand" class="pages" style="text-align: center; padding-bottom: 30px;"><div class="layui-box layui-laypage layui-laypage-default">{$pagebar}</div></div>
 				<!--评论分页end-->
 			</div>
 		</div>
