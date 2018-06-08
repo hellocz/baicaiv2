@@ -14,7 +14,7 @@
 <meta property="article:published_time" content="<?php echo (fpubdate($item["add_time"])); ?>+08:00" />
 <meta name="360-site-verification" content="52d9b1bb4b02391c169381b95ad45301" />
 
-<link href="/css/bc_css.css?v=201800330" type="text/css" rel="stylesheet"/>
+<link href="/css/bc_css.css?v=20180522" type="text/css" rel="stylesheet"/>
 
 <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
 <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">

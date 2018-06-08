@@ -29,7 +29,7 @@ class indexAction extends frontendAction {
 		$time=time();		
 		$pagesize=2;
 		$count = 200; //$mod->where("status=1 and add_time<$time ".$where)->count();
-		$pager = $this->_pager($count,$pagesize);
+		$pager = $this->_new_pager($count,$pagesize);
 
 		
 		$mod=M("item");
@@ -65,7 +65,7 @@ class indexAction extends frontendAction {
 
 		//计算首页推荐的时间范围		
 		$date_list = array();
-		$time = strtotime('2017-02-08 20:00:00');
+		$time = strtotime('2018-05-31 21:00:00');
 		$time_homepage_s = strtotime("-" . ($p*2) . " day", strtotime(date("Y-m-d 00:00:00", $time)));
 		$time_homepage_e = strtotime("-" . ($p*2 - 2) . " day", strtotime(date("Y-m-d 00:00:00", $time))) - 1;
 		$date_list['2'] = date("Y.m.d", $time_homepage_s);
@@ -217,7 +217,7 @@ class indexAction extends frontendAction {
     /**
      * 前台分页统一
      */
-    protected function _pager($count, $pagesize) {
+    protected function _new_pager($count, $pagesize) {
         $pager = new Page($count, $pagesize);
         $pager->rollPage = 5;
         $pager->setConfig('prev', '<i class="icon5 icon5-a_14" style="margin-top: 5px;"></i>');

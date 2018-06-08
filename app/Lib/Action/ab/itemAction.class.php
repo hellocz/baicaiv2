@@ -11,6 +11,291 @@ class itemAction extends frontendAction {
             $this->redirect('user/login');
         }
     }
+
+    /**
+     * 商品详细页
+     */
+    public function index() {
+        $id = $this->_get('id', 'intval');
+        !$id && $this->_404();
+
+        $isbao = $this->_get('isbao', 'intval');
+        if($isbao==1){
+          $mod = M('item_diu');
+        }else{
+          $mod = M('item');
+        }
+        $item_mod = M('item');
+
+        //$item = $item_mod->field('id,cate_id,title,uid,uname,intro,price,url,likes,comments,tag_cache,seo_title,seo_keys,seo_desc,add_time,content,zan,status,orig_id,go_link,ds_time,remark')->where(array('id' => $id))->find();
+        $item = $mod->where(array('id' => $id))->find();
+        !$item && $this->error('该信息不存在或已删除');
+        if(M('admin')->where("username = '".$item['uname']."'")->find()){
+            $item['uid'] = 0;
+        }
+        ($item['status']==0)&&$this->error('该信息未通过审核');
+        if(isset($_SESSION['admin']['role_id']) && $_SESSION['admin']['role_id'] >0 ) {
+           
+        }
+        else{
+          ($item['add_time']>time() || $item['add_time']==0)&&$this->error('该信息暂未发布' );
+        }
+        $item['zan'] = $item['zan']   +intval($item['hits'] /10);
+
+        //来源
+        $orig = M('item_orig')->field('name,img,img_url')->find($item['orig_id']);
+        //商品相册
+        $img_list = M('item_img')->field('url')->where(array('item_id' => $id))->order('ordid')->select();
+
+        $vote =M("vote")->where(array('item_id'=>$id))->find();
+        if($vote && $vote['article_list'] != ""){
+          $vote_tag =1;
+           $this->assign('vote_tag', $vote_tag);
+          $where['id']=array('in',$vote['article_list']);
+          $where['status']=array('in','1,4');
+          $article_list = M('article') -> where($where)->order('vote desc')->select();
+          $this->assign('article_list',$article_list);
+        }
+
+        //标签
+        $item['tag_list'] = unserialize($item['tag_cache']);
+
+        foreach ($item['tag_list'] as $tag_value) {
+          $tag_map['chn_name'] = $tag_value;
+          $brand = M("brand")->where($tag_map)->field("id,name,chn_name")->find();
+          if(!empty($brand)){break;}
+        }
+         $this->assign('brand', $brand);
+        
+        
+        //可能还喜欢
+        /*
+        $item_tag_mod = M('item_tag');
+        $db_pre = C('DB_PREFIX');
+        $item_tag_table = $db_pre . 'item_tag';
+        $maylike_list = array_slice($item['tag_list'], 0, 3, true);
+        foreach ($maylike_list as $key => $val) {
+            $maylike_list[$key] = array('name' => $val);
+            //$maylike_list[$key]['list'] = $item_tag_mod->field('i.id,i.img,i.intro,i.title,' . $item_tag_table . '.tag_id')->where(array($item_tag_table . '.tag_id' => $key, 'i.id' => array('neq', $id)))->join($db_pre . 'item i ON i.id = ' . $item_tag_table . '.item_id')->order('i.id DESC')->limit(9)->select();
+            $maylike_list[$key]['list'] = $item_mod->field("id,img,intro,title")->where('tag_cache like "%'.$val.'%"')->order('add_time desc,id desc')->limit(8)->select();
+            
+        }
+        */
+    
+        $is_hot = $item_mod->field("id,img,intro,price,title")->where('ishot=1 AND status=1')->order('add_time desc,id desc')->limit(5)->select();
+        
+        //第一页评论不使用AJAX利于SEO
+        $item_comment_mod = M('item_comment');
+        $p = $this->_get('p', 'intval', 1);
+        $pagesize = 10;
+        $map = array('item_id' => $id);
+        $count = $item_comment_mod->where($map)->count('id');
+        $pager = $this->_pager($count, $pagesize);
+        $pager_bar = $pager->fshow();
+        $cmt_list = $item_comment_mod->where($map)->order('id DESC')->limit($pager->firstRow . ',' . $pager->listRows)->select();
+        
+        $mod->where(array('id' => $id))->setInc('hits'); //点击量
+        /*
+          require LIB_PATH . 'Pinlib/php/lib/XS.php';
+             $xs = new XS('baicai');
+             $index = $xs->index; 
+             $doc = new XSDocument;  
+             $xu_data = M("item")->where("id=$id")->find();
+             $doc->setFields($xu_data);  
+            //更新到索引数据库中  
+            $index->update($doc);
+            */
+       
+
+        //凑单品等链接
+        $item['go_link']=unserialize($item['go_link']);
+        //文章内的超链接转化成站内链接
+        //$item['content']=preg_replace('/href=[\'|\"](\S+)[\'|\"]/i', "href='/?m=item&a=tgo1&to=".'${1}'."'", $item['content']);
+        preg_match_all('/href=[\'|\"](\S+)[\'|\"]/i',$item['content'],$arr);
+        foreach($arr[1] as $key=>$v){
+            if(strpos($v, "baicaio.com") == false  && strpos($v, "tmall.com") == false && strpos($v, "taobao.com") == false){
+            $url= '/?m=item&a=tgo&to='.shortUrl($v);
+            $item['content']= $this->str_replace_once($v,$url,$item['content']);
+        }
+        }
+        foreach($arr[0] as $key=>$v){
+            if(strpos($v, "baicaio.com") == true  || strpos($v, "tmall.com") == true || strpos($v, "taobao.com") == true){
+            $item['content']= str_replace($v,$v . " rel=\"nofollow\"",$item['content']);
+        }
+        if(strpos($v, "market.m.taobao.com") == true  || strpos($v, "taoquan.taobao.com") == true || strpos($v, "shop.m.taobao.com") == true){
+         //   $item['content']= str_replace($v,"",$item['content']);
+        }
+      }
+
+
+        $orig_name=getly($item['orig_id']);
+
+        $base1 = stripos($item['content'],$orig_name);
+
+        $base2 = stripos($item['content'],"前往" . $orig_name);
+
+        if($base2 == false || $base2-$base1 > 6){
+        $item['content'] = preg_replace("/($orig_name)/i","<a href=" . U('orig/show',array('id'=>$item['orig_id'])) . " target='_blank'>$1</a>",$item['content'],1);
+        }
+
+        if(!empty($brand)){
+          $brand_name = $brand['chn_name'];
+          $item['content'] = preg_replace("/($brand_name)/i","<a href=" . U('brand/show',array('id'=>$brand['id'])) . " target='_blank'>$1</a>",$item['content'],1);
+        }
+
+      //  $item['content'] = preg_replace("/title=[\'|\"](\S+)[\'|\"]/","title=\"" . trim($item['title'])  . trim($item['price']) . "\"",$item['content']);
+        $item['content'] = preg_replace("/alt=[\'|\"](\S+)[\'|\"]/","alt=\"" . trim($item['title'])  . trim($item['price']) . "\"",$item['content']);
+        preg_match_all('/src=\"http\:\/\/img.baidu.com(\S+)\"/i',$item['content'],$arr_img);
+        foreach($arr_img[0] as $key=>$v){
+            $item['content']= str_replace($v,$v . " style=\"display:inline\"",$item['content']);
+      }
+
+        $this->assign('is_hot', $is_hot);
+        $this->assign('item', $item);
+        $this->assign('orig', $orig);
+        $this->assign('maylike_list', $maylike_list);
+        $this->assign('img_list', $img_list);
+        $this->assign('cmt_list', $cmt_list);
+        $this->assign('page_bar', $pager_bar);
+        $this->_config_seo(C('pin_seo_config.item'), array(
+            'item_title' => trim($item['title'])  . trim($item['price']) . "_" . trim(getly($item['orig_id'])) . "优惠_" . "白菜哦",
+            'item_intro' => substr(strip_tags($item['content']),0,200),
+            'item_tag' => implode(' ', $item['tag_list']),
+            'user_name' => $item['uname'],
+            'seo_title' => $item['seo_title'],
+            'seo_keywords' => $item['seo_keys'],
+            'seo_description' => $item['seo_desc'],
+        ));
+        //面包屑
+        if($item['cate_id'])
+        {
+            $strpos = getpos($item['cate_id'],'');
+        }
+        if (false === $cate_data = F('cate_data')) {
+            $cate_data = D('item_cate')->cate_data_cache();
+        }
+        //当前分类信息
+        if (isset($cate_data[$item['cate_id']])) {
+            $cate_info = $cate_data[$item['cate_id']];
+        } else {
+            //$this->_404();
+        }
+        $this->assign('cate_info', $cate_info);
+        $this->assign("strpos",$strpos);
+        $add_time = intval($item['add_time']);
+        $time = time();
+        $pre = $item_mod->where("add_time<$add_time and status=1")->field("id,title")->order("add_time desc,id desc")->find();
+        $next = $item_mod->where("add_time>$add_time and add_time <$time and status=1")->field("id,title")->find();
+        $this->assign("pre",$pre);
+        $this->assign("next",$next);
+        
+        
+        //小时榜和24小时榜
+        // $time = time();
+        $time = strtotime('2018-05-31 21:00:00');
+        $time_hour = $time - 3600;
+        $time_6hour = $time - 3600*6;
+        $time_day = $time - 86400;
+        $hour_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_hour and $time ORDER BY hits desc,add_time desc LIMIT 9");
+        $sixhour_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_6hour and $time ORDER BY hits desc,add_time desc LIMIT 9");
+        $day_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_day and $time ORDER BY hits desc,add_time desc LIMIT 9");
+        $this->assign('hour_list',$hour_list);
+        $this->assign('sixhour_list',$sixhour_list);
+        $this->assign('day_list',$day_list);
+
+        //热门订阅
+        $follow_tag_list = M()->query("SELECT tag,COUNT(1) AS tag_count FROM try_notify_tag WHERE f_sign=1 GROUP BY tag ORDER BY 2 DESC LIMIT 9");
+        $this->assign('follow_tag_list',$follow_tag_list);
+
+        //热门优惠
+        $queryArr = array();
+        $queryArr['where']=" and isnice=1 ";
+        $queryArr['order'] =" add_time desc";
+        $item_list = $item_mod->where("status=1 and add_time<$time ".$queryArr['where'])->limit(5)->order($queryArr['order'])->select();
+        $this->assign('item_list', $item_list);
+
+      //评论
+      $this->assign('xid',1);
+      $this->assign('itemid',$id);    
+      $itemid = $id;
+      $xid = 1;
+
+      $comment_mod = M('comment');
+      $pagesize = 10;
+
+      $map = array('itemid' => $itemid,'xid'=>$xid,'status'=>1,'pid'=>0);
+
+      $count = $comment_mod->where($map)->count('id');
+
+      $pager = $this->_pager($count, $pagesize);
+
+      $pager_bar = $pager->fshow();
+      $this->assign('pager_bar',$pager_bar);
+
+      $pager_hot = $this->_pager($count, $pagesize);
+
+      $pager_bar_hot = $pager_hot->fshow();
+
+      $this->assign('pager_bar_hot',$pager_bar_hot);
+
+ //   $hot_list=M()->query("select * from try_comment where itemid=$itemid and xid=$xid and status=1  order by zan desc,id desc limit $pager_hot->firstRow , $pager_hot->listRows ");
+  //  $hot_list_tmp=M("comment")->where(array('itemid'=>$itemid,'xid'=>$xid,'status'=>1))->order("zan desc")->limit($pager_hot->firstRow , $pager_hot->listRows)->select();
+   /* 
+    foreach($hot_list_tmp as $key=>$v){
+      if($v['pid'] == '0'){
+      $hot_list[$v['id']]=$v;
+      }
+    }
+
+
+    foreach($hot_list_tmp as $key=>$v){
+       if($v['pid'] !== '0'){
+        $hot_list[$v['pid']]['list'][$v['id']]= $v;
+      }
+
+   // $hot_list[$key]['list1']=M()->query("select count(*) from try_comment where status=1 and pid='".$v['id']."' order by id asc");
+
+    //$hot_list[$key]['list']=M()->query("select * from try_comment where status=1 and pid='".$v['id']."' order by id asc");
+
+    }*/
+
+  //  $this->assign('hot_list',$hot_list);
+
+
+
+
+      $sql = "select * from try_comment where itemid=$itemid and xid=$xid and status=1 and pid=0 order by id desc  limit $pager->firstRow , $pager->listRows ";
+
+      $cmt_list = M()->query($sql);
+/*
+      foreach($cmt_list_tmp as $key=>$v){
+      if($v['pid'] == '0'){
+      $cmt_list[$v['id']]=$v;
+      }
+    }
+*/
+      foreach($cmt_list as $key=>$v){
+
+      $cmt_list[$key]['list']=M()->query("select * from try_comment where status=1 and pid='".$v['id']."' order by id asc");
+
+    //  $cmt_list[$key]['list1']=M()->query("select count(*) from try_comment where status=1 and pid='".$v['id']."' order by id asc");
+
+
+
+      }
+
+      $this->assign('cmt_list',$cmt_list);
+
+
+      $where1['cate_id']=16;
+      $where1['status']=array("in","1,4");
+      $article_list = M("article")->where($where1)->order("add_time desc")->limit(4)->select();
+      $this->assign("zx_list",$article_list);
+        
+        $this->display();
+    }
+
+
     /**
     * 我的关注
     */
@@ -149,273 +434,7 @@ class itemAction extends frontendAction {
 
     }
 
-    /**
-     * 商品详细页
-     */
-    public function index() {
-        $id = $this->_get('id', 'intval');
-        !$id && $this->_404();
-        $item_mod = M('item');
-        $item_mod_diu = M('item_diu');
-        $isbao = $this->_get('isbao', 'intval');
-        if($isbao==1){
-        $item =  $item_mod_diu->field('id,cate_id,title,uid,uname,intro,price,url,likes,comments,tag_cache,seo_title,seo_keys,seo_desc,add_time,content,zan,status,orig_id,go_link,ds_time,remark')->where(array('id' => $id))->find();
-        }else{
-        $item = $item_mod->field('id,cate_id,title,uid,uname,intro,price,url,likes,comments,tag_cache,seo_title,seo_keys,seo_desc,add_time,content,zan,status,orig_id,go_link,ds_time,remark')->where(array('id' => $id))->find();
-        }
-        !$item && $this->error('该信息不存在或已删除');
-        if(M('admin')->where("username = '".$item['uname']."'")->find()){
-            $item['uid'] = 0;
-        }
-        ($item['status']==0)&&$this->error('该信息未通过审核');
-           if(isset($_SESSION['admin']['role_id']) && $_SESSION['admin']['role_id'] >0 ) {
-           
-        }
-        else{
-        ($item['add_time']>time() || $item['add_time']==0)&&$this->error('该信息暂未发布' );
-       }
-        //来源
-        $orig = M('item_orig')->field('name,img')->find($item['orig_id']);
-        //商品相册
-        $img_list = M('item_img')->field('url')->where(array('item_id' => $id))->order('ordid')->select();
-
-        $vote =M("vote")->where(array('item_id'=>$id))->find();
-        if($vote && $vote['article_list'] != ""){
-          $vote_tag =1;
-           $this->assign('vote_tag', $vote_tag);
-          $where['id']=array('in',$vote['article_list']);
-          $where['status']=array('in','1,4');
-          $article_list = M('article') -> where($where)->order('vote desc')->select();
-          $this->assign('article_list',$article_list);
-        }
-
-        //标签
-        $item['tag_list'] = unserialize($item['tag_cache']);
-
-        foreach ($item['tag_list'] as $tag_value) {
-          $tag_map['chn_name'] = $tag_value;
-          $brand = M("brand")->where($tag_map)->field("id,name,chn_name")->find();
-          if(!empty($brand)){break;}
-        }
-         $this->assign('brand', $brand);
-        
-        
-        //可能还喜欢
-        /*
-        $item_tag_mod = M('item_tag');
-        $db_pre = C('DB_PREFIX');
-        $item_tag_table = $db_pre . 'item_tag';
-        $maylike_list = array_slice($item['tag_list'], 0, 3, true);
-        foreach ($maylike_list as $key => $val) {
-            $maylike_list[$key] = array('name' => $val);
-            //$maylike_list[$key]['list'] = $item_tag_mod->field('i.id,i.img,i.intro,i.title,' . $item_tag_table . '.tag_id')->where(array($item_tag_table . '.tag_id' => $key, 'i.id' => array('neq', $id)))->join($db_pre . 'item i ON i.id = ' . $item_tag_table . '.item_id')->order('i.id DESC')->limit(9)->select();
-            $maylike_list[$key]['list'] = $item_mod->field("id,img,intro,title")->where('tag_cache like "%'.$val.'%"')->order('add_time desc,id desc')->limit(8)->select();
-            
-        }
-        */
     
-        $is_hot = $item_mod->field("id,img,intro,price,title")->where('ishot=1 AND status=1')->order('add_time desc,id desc')->limit(5)->select();
-        
-        //第一页评论不使用AJAX利于SEO
-        $item_comment_mod = M('item_comment');
-        $p = $this->_get('p', 'intval', 1);
-        $pagesize = 10;
-        $map = array('item_id' => $id);
-        $count = $item_comment_mod->where($map)->count('id');
-        $pager = $this->_pager($count, $pagesize);
-        $pager_bar = $pager->fshow();
-        $cmt_list = $item_comment_mod->where($map)->order('id DESC')->limit($pager->firstRow . ',' . $pager->listRows)->select();
-        if($isbao==1){
-               $item_mod_diu->where(array('id' => $id))->setInc('hits'); //点击量
-        }
-            else{
-        $item_mod->where(array('id' => $id))->setInc('hits'); //点击量
-        /*
-          require LIB_PATH . 'Pinlib/php/lib/XS.php';
-             $xs = new XS('baicai');
-             $index = $xs->index; 
-             $doc = new XSDocument;  
-             $xu_data = M("item")->where("id=$id")->find();
-             $doc->setFields($xu_data);  
-            //更新到索引数据库中  
-            $index->update($doc);
-            */
-        }
-       
-
-        //凑单品等链接
-        $item['go_link']=unserialize($item['go_link']);
-        //文章内的超链接转化成站内链接
-        //$item['content']=preg_replace('/href=[\'|\"](\S+)[\'|\"]/i', "href='/?m=item&a=tgo1&to=".'${1}'."'", $item['content']);
-        preg_match_all('/href=[\'|\"](\S+)[\'|\"]/i',$item['content'],$arr);
-        foreach($arr[1] as $key=>$v){
-            if(strpos($v, "baicaio.com") == false  && strpos($v, "tmall.com") == false && strpos($v, "taobao.com") == false){
-            $url= '/?m=item&a=tgo&to='.shortUrl($v);
-            $item['content']= $this->str_replace_once($v,$url,$item['content']);
-        }
-        }
-        foreach($arr[0] as $key=>$v){
-            if(strpos($v, "baicaio.com") == true  || strpos($v, "tmall.com") == true || strpos($v, "taobao.com") == true){
-            $item['content']= str_replace($v,$v . " rel=\"nofollow\"",$item['content']);
-        }
-        if(strpos($v, "market.m.taobao.com") == true  || strpos($v, "taoquan.taobao.com") == true || strpos($v, "shop.m.taobao.com") == true){
-         //   $item['content']= str_replace($v,"",$item['content']);
-        }
-      }
-
-
-        $orig_name=getly($item['orig_id']);
-
-        $base1 = stripos($item['content'],$orig_name);
-
-        $base2 = stripos($item['content'],"前往" . $orig_name);
-
-        if($base2 == false || $base2-$base1 > 6){
-        $item['content'] = preg_replace("/($orig_name)/i","<a href=" . U('orig/show',array('id'=>$item['orig_id'])) . " target='_blank'>$1</a>",$item['content'],1);
-        }
-
-        if(!empty($brand)){
-          $brand_name = $brand['chn_name'];
-          $item['content'] = preg_replace("/($brand_name)/i","<a href=" . U('brand/show',array('id'=>$brand['id'])) . " target='_blank'>$1</a>",$item['content'],1);
-        }
-
-      //  $item['content'] = preg_replace("/title=[\'|\"](\S+)[\'|\"]/","title=\"" . trim($item['title'])  . trim($item['price']) . "\"",$item['content']);
-        $item['content'] = preg_replace("/alt=[\'|\"](\S+)[\'|\"]/","alt=\"" . trim($item['title'])  . trim($item['price']) . "\"",$item['content']);
-        preg_match_all('/src=\"http\:\/\/img.baidu.com(\S+)\"/i',$item['content'],$arr_img);
-        foreach($arr_img[0] as $key=>$v){
-            $item['content']= str_replace($v,$v . " style=\"display:inline\"",$item['content']);
-      }
-
-        $this->assign('is_hot', $is_hot);
-        $this->assign('item', $item);
-        $this->assign('orig', $orig);
-        $this->assign('maylike_list', $maylike_list);
-        $this->assign('img_list', $img_list);
-        $this->assign('cmt_list', $cmt_list);
-        $this->assign('page_bar', $pager_bar);
-        $this->_config_seo(C('pin_seo_config.item'), array(
-            'item_title' => trim($item['title'])  . trim($item['price']) . "_" . trim(getly($item['orig_id'])) . "优惠_" . "白菜哦",
-            'item_intro' => substr(strip_tags($item['content']),0,200),
-            'item_tag' => implode(' ', $item['tag_list']),
-            'user_name' => $item['uname'],
-            'seo_title' => $item['seo_title'],
-            'seo_keywords' => $item['seo_keys'],
-            'seo_description' => $item['seo_desc'],
-        ));
-        //面包削
-        if($item['cate_id'])
-        {
-            $strpos = getpos($item['cate_id'],'');
-        }
-        if (false === $cate_data = F('cate_data')) {
-            $cate_data = D('item_cate')->cate_data_cache();
-        }
-        //当前分类信息
-        if (isset($cate_data[$item['cate_id']])) {
-            $cate_info = $cate_data[$item['cate_id']];
-        } else {
-            //$this->_404();
-        }
-        $this->assign('cate_info', $cate_info);
-        $this->assign("strpos",$strpos);
-        $add_time = intval($item['add_time']);
-        $time = time();
-        $pre = $item_mod->where("add_time<$add_time and status=1")->field("id,title")->order("add_time desc,id desc")->find();
-        $next = $item_mod->where("add_time>$add_time and add_time <$time and status=1")->field("id,title")->find();
-        $this->assign("pre",$pre);
-        $this->assign("next",$next);
-        //评论
-        $this->assign('xid',1);
-        $this->assign('itemid',$id);    
-        $time = time();
-        $itemid = $id;
-        $xid = 1;
-        $time_hour = $time - 3600;
-        $time_day = $time - 86400;
-
-        //小时榜和24小时榜
-        $hour_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_hour and $time ORDER BY hits desc,add_time desc LIMIT 9");
-        $day_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_day and $time ORDER BY hits desc,add_time desc LIMIT 9");
-        $this->assign('hour_list',$hour_list);
-        $this->assign('day_list',$day_list);
-
-         $comment_mod = M('comment');
-
-         
-
-      $pagesize = 10;
-
-      $map = array('itemid' => $itemid,'xid'=>$xid,'status'=>1,'pid'=>0);
-
-      $count = $comment_mod->where($map)->count('id');
-
-      $pager = $this->_pager($count, $pagesize);
-
-      $pager_bar = $pager->fshow();
-      $this->assign('pager_bar',$pager_bar);
-
-      $pager_hot = $this->_pager($count, $pagesize);
-
-      $pager_bar_hot = $pager_hot->fshow();
-
-      $this->assign('pager_bar_hot',$pager_bar_hot);
-
- //   $hot_list=M()->query("select * from try_comment where itemid=$itemid and xid=$xid and status=1  order by zan desc,id desc limit $pager_hot->firstRow , $pager_hot->listRows ");
-  //  $hot_list_tmp=M("comment")->where(array('itemid'=>$itemid,'xid'=>$xid,'status'=>1))->order("zan desc")->limit($pager_hot->firstRow , $pager_hot->listRows)->select();
-   /* 
-    foreach($hot_list_tmp as $key=>$v){
-      if($v['pid'] == '0'){
-      $hot_list[$v['id']]=$v;
-      }
-    }
-
-
-    foreach($hot_list_tmp as $key=>$v){
-       if($v['pid'] !== '0'){
-        $hot_list[$v['pid']]['list'][$v['id']]= $v;
-      }
-
-   // $hot_list[$key]['list1']=M()->query("select count(*) from try_comment where status=1 and pid='".$v['id']."' order by id asc");
-
-    //$hot_list[$key]['list']=M()->query("select * from try_comment where status=1 and pid='".$v['id']."' order by id asc");
-
-    }*/
-
-  //  $this->assign('hot_list',$hot_list);
-
-
-
-
-      $sql = "select * from try_comment where itemid=$itemid and xid=$xid and status=1 and pid=0 order by id desc  limit $pager->firstRow , $pager->listRows ";
-
-      $cmt_list = M()->query($sql);
-/*
-      foreach($cmt_list_tmp as $key=>$v){
-      if($v['pid'] == '0'){
-      $cmt_list[$v['id']]=$v;
-      }
-    }
-*/
-      foreach($cmt_list as $key=>$v){
-
-      $cmt_list[$key]['list']=M()->query("select * from try_comment where status=1 and pid='".$v['id']."' order by id asc");
-
-    //  $cmt_list[$key]['list1']=M()->query("select count(*) from try_comment where status=1 and pid='".$v['id']."' order by id asc");
-
-
-
-      }
-
-      $this->assign('cmt_list',$cmt_list);
-
-
-      $where1['cate_id']=16;
-      $where1['status']=array("in","1,4");
-      $article_list = M("article")->where($where1)->order("add_time desc")->limit(4)->select();
-      $this->assign("zx_list",$article_list);
-        
-        $this->display();
-    }
 
   function str_replace_once($needle, $replace, $haystack) {
       // Looks for the first occurence of $needle in $haystack

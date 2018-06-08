@@ -6,7 +6,7 @@
 					<!--列表循环start-->
 					<volist name="[list]" id="r">
 					<li class="clearfix <if condition="$i neq '1'">mt-20</if>">
-						<div class="fl pic"><a href="#" target="_blank"><img src="/new/images/circle.jpg" class="radius-3"></a></div>
+						<div class="fl pic"><a href="href="{:U('item/index',array('id'=>$r['id']))}"" target="_blank"><img src="<if condition="$r['img']==''">/images/nopic.jpg<else/><if condition="preg_match('/img.baicaio.com/',$r['img'])">{:attach($r['img'],'item')}!thumb287<else/>{:attach($r['img'],'item')}</if></if>" class="radius-3"></a></div>
 						<div class="fl info">
 							<p class="font-14 title"><a href="#" target="_blank">{$r.title}</a></p>
 							<p class="tb">
