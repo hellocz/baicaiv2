@@ -12,12 +12,25 @@ class itemAction extends frontendAction {
         }
     }
 
+    protected function _new_pager($count, $pagesize) {
+        $pager = new Page($count, $pagesize);
+        $pager->rollPage = 5;
+        $pager->setConfig('prev', '<i class="icon5 icon5-a_14" style="margin-top: 5px;"></i>');
+        $pager->setConfig('next', '<i class="icon5 icon5-a_15" style="margin-top: 5px;"></i>');
+        // $pager->setConfig('theme', '%upPage% %first% %linkPage% %end% %downPage%');
+        $pager->setConfig('theme', '%upPage% %first% %linkPage% %downPage%');
+        return $pager;
+    }
+
+
     /**
      * 商品详细页
      */
     public function index() {
         $id = $this->_get('id', 'intval');
         !$id && $this->_404();
+
+        $p = $this->_get('p', 'intval', 1);
 
         $isbao = $this->_get('isbao', 'intval');
         if($isbao==1){
@@ -47,6 +60,7 @@ class itemAction extends frontendAction {
         //商品相册
         $img_list = M('item_img')->field('url')->where(array('item_id' => $id))->order('ordid')->select();
 
+        //投票列表 ??
         $vote =M("vote")->where(array('item_id'=>$id))->find();
         if($vote && $vote['article_list'] != ""){
           $vote_tag =1;
@@ -81,19 +95,22 @@ class itemAction extends frontendAction {
             
         }
         */
-    
-        $is_hot = $item_mod->field("id,img,intro,price,title")->where('ishot=1 AND status=1')->order('add_time desc,id desc')->limit(5)->select();
+
+        // //热门推荐
+        // $is_hot = $item_mod->field("id,img,intro,price,title")->where('ishot=1 AND status=1')->order('add_time desc,id desc')->limit(5)->select();
         
-        //第一页评论不使用AJAX利于SEO
-        $item_comment_mod = M('item_comment');
-        $p = $this->_get('p', 'intval', 1);
-        $pagesize = 10;
-        $map = array('item_id' => $id);
-        $count = $item_comment_mod->where($map)->count('id');
-        $pager = $this->_pager($count, $pagesize);
-        $pager_bar = $pager->fshow();
-        $cmt_list = $item_comment_mod->where($map)->order('id DESC')->limit($pager->firstRow . ',' . $pager->listRows)->select();
+        // //第一页评论不使用AJAX利于SEO
+        // $item_comment_mod = M('item_comment');
+        // $p = $this->_get('p', 'intval', 1);
+        // $pagesize = 10;
+        // $map = array('item_id' => $id);
+        // $count = $item_comment_mod->where($map)->count('id');
+        // $pager = $this->_pager($count, $pagesize);
+        // $pager_bar = $pager->fshow();
+        // $cmt_list = $item_comment_mod->where($map)->order('id DESC')->limit($pager->firstRow . ',' . $pager->listRows)->select();
         
+
+        //设置该文章点击量加1
         $mod->where(array('id' => $id))->setInc('hits'); //点击量
         /*
           require LIB_PATH . 'Pinlib/php/lib/XS.php';
@@ -116,16 +133,16 @@ class itemAction extends frontendAction {
             if(strpos($v, "baicaio.com") == false  && strpos($v, "tmall.com") == false && strpos($v, "taobao.com") == false){
             $url= '/?m=item&a=tgo&to='.shortUrl($v);
             $item['content']= $this->str_replace_once($v,$url,$item['content']);
-        }
+          }
         }
         foreach($arr[0] as $key=>$v){
             if(strpos($v, "baicaio.com") == true  || strpos($v, "tmall.com") == true || strpos($v, "taobao.com") == true){
             $item['content']= str_replace($v,$v . " rel=\"nofollow\"",$item['content']);
+            }
+            if(strpos($v, "market.m.taobao.com") == true  || strpos($v, "taoquan.taobao.com") == true || strpos($v, "shop.m.taobao.com") == true){
+              //   $item['content']= str_replace($v,"",$item['content']);
+            }
         }
-        if(strpos($v, "market.m.taobao.com") == true  || strpos($v, "taoquan.taobao.com") == true || strpos($v, "shop.m.taobao.com") == true){
-         //   $item['content']= str_replace($v,"",$item['content']);
-        }
-      }
 
 
         $orig_name=getly($item['orig_id']);
@@ -143,20 +160,20 @@ class itemAction extends frontendAction {
           $item['content'] = preg_replace("/($brand_name)/i","<a href=" . U('brand/show',array('id'=>$brand['id'])) . " target='_blank'>$1</a>",$item['content'],1);
         }
 
-      //  $item['content'] = preg_replace("/title=[\'|\"](\S+)[\'|\"]/","title=\"" . trim($item['title'])  . trim($item['price']) . "\"",$item['content']);
+        //$item['content'] = preg_replace("/title=[\'|\"](\S+)[\'|\"]/","title=\"" . trim($item['title'])  . trim($item['price']) . "\"",$item['content']);
         $item['content'] = preg_replace("/alt=[\'|\"](\S+)[\'|\"]/","alt=\"" . trim($item['title'])  . trim($item['price']) . "\"",$item['content']);
         preg_match_all('/src=\"http\:\/\/img.baidu.com(\S+)\"/i',$item['content'],$arr_img);
         foreach($arr_img[0] as $key=>$v){
             $item['content']= str_replace($v,$v . " style=\"display:inline\"",$item['content']);
-      }
+        }
 
-        $this->assign('is_hot', $is_hot);
+        // $this->assign('is_hot', $is_hot);
         $this->assign('item', $item);
         $this->assign('orig', $orig);
-        $this->assign('maylike_list', $maylike_list);
+        // $this->assign('maylike_list', $maylike_list);
         $this->assign('img_list', $img_list);
-        $this->assign('cmt_list', $cmt_list);
-        $this->assign('page_bar', $pager_bar);
+        // $this->assign('cmt_list', $cmt_list);
+        // $this->assign('page_bar', $pager_bar);
         $this->_config_seo(C('pin_seo_config.item'), array(
             'item_title' => trim($item['title'])  . trim($item['price']) . "_" . trim(getly($item['orig_id'])) . "优惠_" . "白菜哦",
             'item_intro' => substr(strip_tags($item['content']),0,200),
@@ -166,21 +183,24 @@ class itemAction extends frontendAction {
             'seo_keywords' => $item['seo_keys'],
             'seo_description' => $item['seo_desc'],
         ));
+
         //面包屑
         if($item['cate_id'])
         {
             $strpos = getpos($item['cate_id'],'');
         }
-        if (false === $cate_data = F('cate_data')) {
-            $cate_data = D('item_cate')->cate_data_cache();
-        }
-        //当前分类信息
-        if (isset($cate_data[$item['cate_id']])) {
-            $cate_info = $cate_data[$item['cate_id']];
-        } else {
-            //$this->_404();
-        }
-        $this->assign('cate_info', $cate_info);
+        
+        // //当前分类信息
+        // if (false === $cate_data = F('cate_data')) {
+        //     $cate_data = D('item_cate')->cate_data_cache();
+        // }
+        // if (isset($cate_data[$item['cate_id']])) {
+        //     $cate_info = $cate_data[$item['cate_id']];
+        // } else {
+        //     //$this->_404();
+        // }
+        // $this->assign('cate_info', $cate_info);
+
         $this->assign("strpos",$strpos);
         $add_time = intval($item['add_time']);
         $time = time();
@@ -212,85 +232,83 @@ class itemAction extends frontendAction {
         $queryArr['where']=" and isnice=1 ";
         $queryArr['order'] =" add_time desc";
         $item_list = $item_mod->where("status=1 and add_time<$time ".$queryArr['where'])->limit(5)->order($queryArr['order'])->select();
+        if(count($item_list) > 0){
+          foreach ($item_list as $key => $val) {
+            $pos = strpos($val['price'], '（');
+            if($pos > 0){
+              $item_list[$key]['price'] = substr($val['price'] , 0, $pos);
+            }            
+          }
+        }
         $this->assign('item_list', $item_list);
 
-      //评论
-      $this->assign('xid',1);
-      $this->assign('itemid',$id);    
-      $itemid = $id;
-      $xid = 1;
+        //评论
+        $this->assign('xid',1);
+        $this->assign('itemid',$id);    
+        $itemid = $id;
+        $xid = 1;
 
-      $comment_mod = M('comment');
-      $pagesize = 10;
+        $comment_mod = M('comment');
+        $pagesize = 10;
+        $map = array('itemid' => $itemid,'xid'=>$xid,'status'=>1,'pid'=>0);
+        $count = $comment_mod->where($map)->count('id');
+        $pager = $this->_new_pager($count, $pagesize);
+        $pager_bar = $pager->newfshow();
+        $this->assign('pager_bar',$pager_bar);
 
-      $map = array('itemid' => $itemid,'xid'=>$xid,'status'=>1,'pid'=>0);
+        $pager_hot = $this->_pager($count, $pagesize);
+        $pager_bar_hot = $pager_hot->fshow();
+        $this->assign('pager_bar_hot',$pager_bar_hot);
 
-      $count = $comment_mod->where($map)->count('id');
+        $sql = "select * from try_comment where itemid=$itemid and xid=$xid and status=1 and pid=0 order by id desc limit $pager->firstRow, $pager->listRows";
+        $cmt_list = M()->query($sql);
+        $uids = array();
+        $i = 1;
+        if(count($cmt_list) > 0){
+          foreach($cmt_list as $key=>$v){
+            $uids[$cmt_list[$key]['uid']] = $cmt_list[$key]['uid'];
+            $cmt_list[$key]['lc'] = $i;
+            $i++;
 
-      $pager = $this->_pager($count, $pagesize);
+            $cmt_list[$key]['list']=M()->query("select * from try_comment where status=1 and pid='".$v['id']."' order by id asc");
+            $j=1;
+            foreach($cmt_list[$key]['list'] as $key2=>$v2){
+              $cmt_list[$key]['list'][$key2]['lc'] = $j;
+              $j++;
+            }
+          }
+        }
+        $this->assign('cmt_list',$cmt_list);
 
-      $pager_bar = $pager->fshow();
-      $this->assign('pager_bar',$pager_bar);
-
-      $pager_hot = $this->_pager($count, $pagesize);
-
-      $pager_bar_hot = $pager_hot->fshow();
-
-      $this->assign('pager_bar_hot',$pager_bar_hot);
-
- //   $hot_list=M()->query("select * from try_comment where itemid=$itemid and xid=$xid and status=1  order by zan desc,id desc limit $pager_hot->firstRow , $pager_hot->listRows ");
-  //  $hot_list_tmp=M("comment")->where(array('itemid'=>$itemid,'xid'=>$xid,'status'=>1))->order("zan desc")->limit($pager_hot->firstRow , $pager_hot->listRows)->select();
-   /* 
-    foreach($hot_list_tmp as $key=>$v){
-      if($v['pid'] == '0'){
-      $hot_list[$v['id']]=$v;
-      }
-    }
-
-
-    foreach($hot_list_tmp as $key=>$v){
-       if($v['pid'] !== '0'){
-        $hot_list[$v['pid']]['list'][$v['id']]= $v;
-      }
-
-   // $hot_list[$key]['list1']=M()->query("select count(*) from try_comment where status=1 and pid='".$v['id']."' order by id asc");
-
-    //$hot_list[$key]['list']=M()->query("select * from try_comment where status=1 and pid='".$v['id']."' order by id asc");
-
-    }*/
-
-  //  $this->assign('hot_list',$hot_list);
-
-
-
-
-      $sql = "select * from try_comment where itemid=$itemid and xid=$xid and status=1 and pid=0 order by id desc  limit $pager->firstRow , $pager->listRows ";
-
-      $cmt_list = M()->query($sql);
-/*
-      foreach($cmt_list_tmp as $key=>$v){
-      if($v['pid'] == '0'){
-      $cmt_list[$v['id']]=$v;
-      }
-    }
-*/
-      foreach($cmt_list as $key=>$v){
-
-      $cmt_list[$key]['list']=M()->query("select * from try_comment where status=1 and pid='".$v['id']."' order by id asc");
-
-    //  $cmt_list[$key]['list1']=M()->query("select count(*) from try_comment where status=1 and pid='".$v['id']."' order by id asc");
-
-
-
-      }
-
-      $this->assign('cmt_list',$cmt_list);
-
-
-      $where1['cate_id']=16;
-      $where1['status']=array("in","1,4");
-      $article_list = M("article")->where($where1)->order("add_time desc")->limit(4)->select();
-      $this->assign("zx_list",$article_list);
+        //用户列表, 获得用户等级
+        // $exp = M("user")->where("id=$id")->getField('exp');
+        // $grade = M("grade")->where("min<=$exp and max>=$exp")->getField("grade");
+        $user_list = array();
+        if(count($uids) > 0){
+          array_push($uids, $this->visitor->info['id']);
+          array_push($uids, $item['uid']);
+          $grade_list = M("grade")->field("grade, min, max")->select();
+          $users = M("user")->where(array('id' => array("IN", $uids)))->field("id,username,exp,shares")->select();
+          if(count($users) > 0){
+            foreach ($users as $val) {
+              $user_list[$val['id']] = $val;
+              $grade = 1;
+              foreach ($grade_list as $val_g) {
+                if($val_g['min'] <= $val['exp'] && $val_g['max']>=$val['exp']){
+                  $grade = $val_g['grade'];
+                  break;
+                }
+              }
+              $user_list[$val['id']]['grade'] = $grade;
+            }
+          }
+        }
+        $this->assign("user_list",$user_list);
+                
+        // $where1['cate_id']=16;
+        // $where1['status']=array("in","1,4");
+        // $article_list = M("article")->where($where1)->order("add_time desc")->limit(4)->select();
+        // $this->assign("zx_list",$article_list);
         
         $this->display();
     }

@@ -4,28 +4,6 @@
 <include file="public:head" />
     <!--当前页面css-->
     <link rel="stylesheet" href="/new/css/details.css">
-<style type="text/css">
-#J_login {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    font-size: 14px;
-    color: #909090;
-}
-</style>
-<script type="text/javascript">
-var PINER = {
-    root: "__ROOT__",
-    uid: "<?php echo $visitor['id'];?>", 
-    async_sendmail: "<?php echo $async_sendmail;?>",
-    config: {
-        wall_distance: "<?php echo C('pin_wall_distance');?>",
-        wall_spage_max: "<?php echo C('pin_wall_spage_max');?>"
-    },
-    //URL
-    url: {}
-};
-</script>
 </head>
 <body>
 	<!--顶部统一区域start-->
@@ -53,7 +31,7 @@ var PINER = {
 						</svg>
 					</span>
 					<span class="icon-2 text-center font-13 mr-22">+132</span>
-					<span class="pl fc-aux-a"><i class="icon3 icon3-a_43"></i>{$item.comments}评论</span>
+					<span class="pl fc-aux-a"><i class="icon3 icon3-a_43"></i><span id="pls1">{$item.comments}</span>评论</span>
 					<img src="<if condition="$orig['img_url']">{:attach($orig['img_url'],'item_orig')}<else/>/images/nopic.jpg</if>" title="{$orig.name}" alt="{$orig.name}" class="fr img">
 				</div>
 				<!--商品详情start-->
@@ -106,7 +84,7 @@ var PINER = {
 								<a href="{:U('book/index', array('tag'=>urlencode($tag)))}" class="label radius-100 fc-aux-a mr-5" target="_blank">{$tag}</a>
 								</volist>
 							</div>
-							<div class="fc-grey mt-12 mb-12"><span class="font-w-b">爆料人：<span class="fc-green mr-20">欧阳娜娜</span></span><span class="fc-aux-9">发表时间：10.29</span></div>
+							<div class="fc-grey mt-12 mb-12"><span class="font-w-b">爆料人：<span class="fc-green mr-20">{$item.uname}</span></span><span class="fc-aux-9">发表时间：{$item.add_time|fdate}</span></div>
 							<div class="inst radius-3">
 								<p><span class="font-w-b">商场运费：</span>普通会员满99包邮，淘宝会员全场包邮</p>
 								<p class="mt-8"><span class="font-w-b">折扣类型： </span><span class="layui-badge-rim">用券</span> 1000元满减券</p>
@@ -182,30 +160,18 @@ var PINER = {
 							<div class="prev" id="prev"></div>
 							<div class="next" id="next"></div>
 							<ul>
-								<li class="radius-3"><a href="javascript:;"><img src="/new/images/item/img@2x.jpg" class="radius-3" alt=""></a></li>
-								<li class="radius-3"><a href="javascript:;"><img src="/new/images/item/2.jpg" class="radius-3" alt=""></a></li>
-								<li class="radius-3"><a href="javascript:;"><img src="/new/images/item/3.jpg" class="radius-3" alt=""></a></li>
-								<li class="radius-3"><a href="javascript:;"><img src="/new/images/item/4.jpg" class="radius-3" alt=""></a></li>
-								<li class="radius-3"><a href="javascript:;"><img src="/new/images/item/5.jpg" class="radius-3" alt=""></a></li>
-								<li class="radius-3"><a href="javascript:;"><img src="/new/images/item/6.jpg" class="radius-3" alt=""></a></li>
-								<li class="radius-3"><a href="javascript:;"><img src="/new/images/item/7.jpg" class="radius-3" alt=""></a></li>
-								<li class="radius-3"><a href="javascript:;"><img src="/new/images/item/8.jpg" class="radius-3" alt=""></a></li>
-								<li class="radius-3"><a href="javascript:;"><img src="/new/images/item/9.jpg" class="radius-3" alt=""></a></li>
+								<volist name="img_list" id="val">
+								<li class="radius-3"><a href="javascript:;"><img src="{$val.url}" class="radius-3" alt=""></a></li>
+								</volist>
 							</ul>
 						</div>
 						<div class="min_pic">
 							<div class="prev_btn radius-3" id="prev_btn"><img src="/new/images/feel3.png" width="24" height="24"  alt=""></div>
 							<div class="num clearfix" id="ban_num">
 								<ul>
-									<li><a href="javascript:;"><img src="/new/images/item/1.jpg" alt="" class="radius-3"></a></li>
-									<li><a href="javascript:;"><img src="/new/images/item/2.jpg" alt="" class="radius-3"></a></li>
-									<li><a href="javascript:;"><img src="/new/images/item/3.jpg" alt="" class="radius-3"></a></li>
-									<li><a href="javascript:;"><img src="/new/images/item/4.jpg" alt="" class="radius-3"></a></li>
-									<li><a href="javascript:;"><img src="/new/images/item/5.jpg" alt="" class="radius-3"></a></li>
-									<li><a href="javascript:;"><img src="/new/images/item/6.jpg" alt="" class="radius-3"></a></li>
-									<li><a href="javascript:;"><img src="/new/images/item/7.jpg" alt="" class="radius-3"></a></li>
-									<li><a href="javascript:;"><img src="/new/images/item/8.jpg" alt="" class="radius-3"></a></li>
-									<li><a href="javascript:;"><img src="/new/images/item/9.jpg" alt="" class="radius-3"></a></li>
+									<volist name="img_list" id="val">
+									<li><a href="javascript:;"><img src="{$val.url}" alt="" class="radius-3"></a></li>
+									</volist>
 								</ul>
 							</div>
 							<div class="next_btn radius-3" id="next_btn"><img src="/new/images/feel4.png" width="24" height="24"  alt=""></div>
@@ -218,14 +184,14 @@ var PINER = {
 								<!--[if lte IE 8]><desc><img src="/new/images/ie8/c_6@2x.png" width="24" height="24"></desc><![endif]-->
 								<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-c_6"></use>
 							</svg>
-							{$item.comments}
+							{$item.zan}
 						</button>
 						<button class="button fc-ad6 radius-3">
 							<svg class="icon-2">
 								<!--[if lte IE 8]><desc><img src="/new/images/ie8/c_7@2x.png" width="24" height="24"></desc><![endif]-->
 								<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-c_7"></use>
 							</svg>
-							{$item.comments}
+							{$item.zan}
 						</button>
 						<a href="#" class="fr jb">
 							<svg class="icon">
@@ -253,8 +219,8 @@ var PINER = {
 						</div>
 					</div>
 					<div class="sxp clearfix font-w-b">
-						<div class="fl">上一篇：<a href="#">HEXBUG 赫宝 VEX探索者系列 救援队套装 *2件…</a></div>
-						<div class="fr text-right">下一篇：<a href="#">HEXBUG 赫宝 VEX探索者系列 救援队套装 *2件…</a></div>
+						<div class="fl">上一篇：<if condition="$pre"><a href="{:U('item/index',array('id'=>$pre['id']))}" title="{$pre['title']}">{$pre['title']}</a><else/>无</if></div>
+						<div class="fr text-right">下一篇：<if condition="$next"><a href="{:U('item/index',array('id'=>$next['id']))}" title="{$next['title']}">{$next['title']}</a><else/>无</if></div>
 					</div>
 				</div>
 				<!--商品详情end-->
@@ -329,7 +295,37 @@ var PINER = {
 	<script src="/new/js/pic_tab.js"></script>
 	<script src="/new/js/page/details.js" ></script>
 
+<!--拷贝代码，测试用，可删除-->
+<style type="text/css">
+/* 提示信息 */
+.tipbox{height:54px;line-height:54px;position:fixed;display:none;}
+.tipbox .tip-l{float:left;width:45px;height:54px;background-image:url(/images/tip_layer.png);background-repeat:no-repeat;background-position:-5px 0;}
+.tipbox .tip-c{float:left;height:54px;line-height:52px;padding:0 10px 0 5px; background-image:url(/images/tip_layer.png);background-repeat:repeat-x;background-position:0 -161px;}
+.tipbox .tip-r{float:left;width:5px;height:54px;background-image:url(/images/tip_layer.png);background-repeat:no-repeat;background-position:0 0;}
+.tip-success .tip-l{background-position:-6px 0;}
+.tip-alert .tip-l{background-position:-6px -54px;}
+.tip-error .tip-l{background-position:-6px -108px;}
+</style>
+<div class="tipbox " style="z-index: 3001; left: 40%; top: 323.126px; "><div class="tip-l"></div><div class="tip-c"></div><div class="tip-r"></div></div>
+<script type="text/javascript">
+var PINER = {
+    root: "__ROOT__",
+    uid: "<?php echo $visitor['id'];?>", 
+    async_sendmail: "<?php echo $async_sendmail;?>",
+    config: {
+        wall_distance: "<?php echo C('pin_wall_distance');?>",
+        wall_spage_max: "<?php echo C('pin_wall_spage_max');?>"
+    },
+    //URL
+    url: {}
+};
+</script>
+<!--拷贝代码，测试用，可删除-->
+
 <script src="/new/js/function.js?v=20180223"></script>
+
+<!--拷贝代码，测试用，可删除-->
 <script src="/static/js/lhg/lhgdialog.min.js?self=true&skin=idialog" type="text/javascript"></script>
+<!--拷贝代码，测试用，可删除-->
 </body>
 </html>

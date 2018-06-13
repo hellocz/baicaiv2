@@ -1,5 +1,6 @@
 
-var jq = $.noConflict();
+// var jq = $.noConflict();
+var jq = $;
 //ban_qh
 jq.fn.banqh = function(can){
 	can = jq.extend({
