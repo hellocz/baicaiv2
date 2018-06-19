@@ -56,7 +56,7 @@ class itemAction extends frontendAction {
         $item['zan'] = $item['zan']   +intval($item['hits'] /10);
 
         //来源
-        $orig = M('item_orig')->field('name,img,img_url')->find($item['orig_id']);
+        $orig = M('item_orig')->field('name,img,img_url,shipping')->find($item['orig_id']);
         //商品相册
         $img_list = M('item_img')->field('url')->where(array('item_id' => $id))->order('ordid')->select();
 
@@ -145,7 +145,8 @@ class itemAction extends frontendAction {
         }
 
 
-        $orig_name=getly($item['orig_id']);
+        // $orig_name=getly($item['orig_id']);
+        $orig_name=$orig['name'];
 
         $base1 = stripos($item['content'],$orig_name);
 
@@ -175,7 +176,7 @@ class itemAction extends frontendAction {
         // $this->assign('cmt_list', $cmt_list);
         // $this->assign('page_bar', $pager_bar);
         $this->_config_seo(C('pin_seo_config.item'), array(
-            'item_title' => trim($item['title'])  . trim($item['price']) . "_" . trim(getly($item['orig_id'])) . "优惠_" . "白菜哦",
+            'item_title' => trim($item['title'])  . trim($item['price']) . "_" . trim($orig_name) . "优惠_" . "白菜哦",
             'item_intro' => substr(strip_tags($item['content']),0,200),
             'item_tag' => implode(' ', $item['tag_list']),
             'user_name' => $item['uname'],
@@ -205,23 +206,60 @@ class itemAction extends frontendAction {
         $add_time = intval($item['add_time']);
         $time = time();
         $pre = $item_mod->where("add_time<$add_time and status=1")->field("id,title")->order("add_time desc,id desc")->find();
-        $next = $item_mod->where("add_time>$add_time and add_time <$time and status=1")->field("id,title")->find();
+        // $next = $item_mod->where("add_time>$add_time and add_time <$time and status=1")->field("id,title")->find();
+        $next = $item_mod->where("add_time>$add_time and add_time <$time and status=1")->field("id,title")->order("add_time asc,id asc")->find();
         $this->assign("pre",$pre);
         $this->assign("next",$next);
         
         
-        //小时榜和24小时榜
-        // $time = time();
-        $time = strtotime('2018-05-31 21:00:00');
-        $time_hour = $time - 3600;
-        $time_6hour = $time - 3600*6;
-        $time_day = $time - 86400;
-        $hour_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_hour and $time ORDER BY hits desc,add_time desc LIMIT 9");
-        $sixhour_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_6hour and $time ORDER BY hits desc,add_time desc LIMIT 9");
-        $day_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_day and $time ORDER BY hits desc,add_time desc LIMIT 9");
+        // //小时榜和24小时榜
+        // // $time = time();
+        // $time = strtotime('2018-05-31 21:00:00');
+        // $time_hour = $time - 3600;
+        // $time_6hour = $time - 3600*6;
+        // $time_day = $time - 86400;
+        // $hour_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_hour and $time ORDER BY hits desc,add_time desc LIMIT 9");
+        // $sixhour_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_6hour and $time ORDER BY hits desc,add_time desc LIMIT 9");
+        // $day_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_day and $time ORDER BY hits desc,add_time desc LIMIT 9");
+        // $this->assign('hour_list',$hour_list);
+        // $this->assign('sixhour_list',$sixhour_list);
+        // $this->assign('day_list',$day_list);
+
+        //小时排行榜，六小时排行榜，二十四小时排行榜
+        $time = time();
+        // $time_hour = strtotime(date("Y-m-d H:00:00", $time - 3600)) ;
+        $hour = date("H", $time - 3600);      
+        $hourplus = date("H", $time + 3600);
+        $hourminus = date("H", $time - 3600 - 3600);
+
+        $hour_list = $hour6_list = $hour24_list = array();
+
+        if (false !== F('item_hour_list_' . $hourplus)) { //删除下一个小时的缓存文件
+          F('item_hour_list_' . $hourplus, NULL);
+        }
+        if (false === $hour_list = F('item_hour_list_' . $hour)) { //判断创建上一个小时的缓存文件
+          $hour_list = D('item')->item_hour_cache();
+        }
+        // $hour_list = array_slice($hour_list, 0, 9);
+
+        // if (false !== F('item_6hour_list_' . $hourminus)) { //删除上上个小时的缓存文件
+        //   F('item_6hour_list_' . $hourminus, NULL);
+        // }
+        // if (false === $hour6_list = F('item_6hour_list_' . $hour)) { //判断创建上一个小时的缓存文件
+        //   $hour6_list = D('item')->item_6hour_cache();
+        // }
+
+        // if (false !== F('item_24hour_list_' . $hourminus)) { //删除上上个小时的缓存文件
+        //   F('item_24hour_list_' . $hourminus, NULL);
+        // }
+        // if (false === $hour24_list = F('item_24hour_list_' . $hour)) { //判断创建上一个小时的缓存文件
+        //   $hour24_list = D('item')->item_24hour_cache();
+        // }
         $this->assign('hour_list',$hour_list);
-        $this->assign('sixhour_list',$sixhour_list);
-        $this->assign('day_list',$day_list);
+        $this->assign('hour6_list',$hour6_list);
+        $this->assign('hour24_list',$hour24_list);
+
+
 
         //热门订阅
         $follow_tag_list = M()->query("SELECT tag,COUNT(1) AS tag_count FROM try_notify_tag WHERE f_sign=1 GROUP BY tag ORDER BY 2 DESC LIMIT 9");

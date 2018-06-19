@@ -6,6 +6,69 @@ class itemModel extends Model
     );
 
     /**
+     * 读取小时整数据写入缓存(默认取上一个小时)
+     */
+    public function item_hour_cache($time = '') {
+        //默认取上一个小时数据
+        if($time == ''){
+            $time = time() - 3600;
+        }
+        $hour = date("H", $time);
+        //测试，取一年内的数据
+        // $time_hour_s = strtotime(date("Y-m-d H:00:00", $time)) - 60*60*24*365;
+        $time_hour_s = strtotime(date("Y-m-d H:00:00", $time));
+        $time_hour_e = strtotime(date("Y-m-d H:59:59", $time));
+
+        $where = "status=1 and add_time between $time_hour_s and $time_hour_e";
+        $order = "hits desc, add_time desc ";
+        $item_list = M("item")->where($where)->limit(10)->order($order)->select();
+        F('item_hour_list_' . $hour, $item_list);
+        return $item_list;
+    }
+
+    /**
+     * 读取六小时整数据写入缓存(默认取上六个小时)
+     */
+    public function item_6hour_cache($time = '') {
+        //默认取上一个小时数据
+        if($time == ''){
+            $time = time() - 3600;
+        }
+        $hour = date("H", $time);
+        //测试，取一年内的数据
+        // $time_hour_s = strtotime(date("Y-m-d H:00:00", $time)) - 60*60*5 - 60*60*24*365;
+        $time_hour_s = strtotime(date("Y-m-d H:00:00", $time)) - 60*60*5;
+        $time_hour_e = strtotime(date("Y-m-d H:59:59", $time));
+
+        $where = "status=1 and add_time between $time_hour_s and $time_hour_e";
+        $order = "hits desc, add_time desc ";
+        $item_list = M("item")->where($where)->limit(9)->order($order)->select();
+        F('item_6hour_list_' . $hour, $item_list);
+        return $item_list;
+    }
+
+    /**
+     * 读取二十四小时整数据写入缓存(默认取上二十四个小时)
+     */
+    public function item_24hour_cache($time = '') {
+        //默认取上一个小时数据
+        if($time == ''){
+            $time = time() - 3600;
+        }
+        $hour = date("H", $time);
+        //测试，取一年内的数据
+        // $time_hour_s = strtotime(date("Y-m-d H:00:00", $time)) - 60*60*23 - 60*60*24*365;
+        $time_hour_s = strtotime(date("Y-m-d H:00:00", $time)) - 60*60*23;
+        $time_hour_e = strtotime(date("Y-m-d H:59:59", $time)) ;
+
+        $where = "status=1 and add_time between $time_hour_s and $time_hour_e";
+        $order = "hits desc, add_time desc ";
+        $item_list = M("item")->where($where)->limit(9)->order($order)->select();
+        F('item_24hour_list_' . $hour, $item_list);
+        return $item_list;
+    }
+
+    /**
      * 发布一个商品
      * $item 商品信息
      * $album_id 专辑ID

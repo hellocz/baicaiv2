@@ -85,8 +85,7 @@ class ajaxAction extends frontendAction {
 		//查询当天评论次数
 		$num = M("comment")->where("uid=".$this->visitor->info['id']." and add_time>$st and add_time<$ed ")->count();
 		$last_comment = M("comment")->where("uid=".$this->visitor->info['id'])->order("add_time desc")->find();
-		// $last_comment['add_time']=intval($last_comment['add_time'])+30;
-
+		$last_comment['add_time']=intval($last_comment['add_time'])+30;
 		if(time() < $last_comment['add_time']){
 			$this->ajaxReturn(0, '评论需间隔30秒,请不要灌水哦!');
 		}
@@ -196,7 +195,7 @@ class ajaxAction extends frontendAction {
 		$pid = $this->_post('psid','intval');
 		//查找上级评论xid 和itemid
 		$last_comment = M("comment")->where("uid=".$this->visitor->info['id'])->order("add_time desc")->find();
-		// $last_comment['add_time']=intval($last_comment['add_time'])+30;
+		$last_comment['add_time']=intval($last_comment['add_time'])+30;
 		if(time() < $last_comment['add_time']){
 			$this->ajaxReturn(0, '评论需间隔30秒,请不要灌水哦!');
 		}
@@ -308,7 +307,8 @@ class ajaxAction extends frontendAction {
 				'add_time' => time(),
 				'zan'=>0,
 				'lc'=>$data['lc'],
-				'pid'=>$id
+				'pid'=>$id,
+				'uavatar' => avatar($data['uid'],'24')
 
 			);
 

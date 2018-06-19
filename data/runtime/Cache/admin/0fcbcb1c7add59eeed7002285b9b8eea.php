@@ -8,7 +8,7 @@
 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<link href="__STATIC__/css/admin/style.css" rel="stylesheet"/>
+	<link href="__STATIC__/css/admin/style.css?v=20180123" rel="stylesheet"/>
 
 	<link href="__STATIC__/css/card.min.css" rel="stylesheet"/>
 

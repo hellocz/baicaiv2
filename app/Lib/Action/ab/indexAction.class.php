@@ -47,20 +47,17 @@ class indexAction extends frontendAction {
 			}
 
 			//小时排行榜
-			$time_hour_s = strtotime(date("Y-m-d H:00:00", $time)) - 3600 - 24*60*60*365;
-			// $time_hour_s = strtotime(date("Y-m-d H:00:00", $time)) - 3600;
-			$time_hour_e = strtotime(date("Y-m-d H:00:00", $time)) - 1;
-			$hour = date("H", $time_hour_s);
-			//删除上一天当前小时的缓存文件
-			$hour_cur = date("H", $time);
-			if (false !== $hour_cur_list = F('index_hour_list_' . $hour_cur)) {
-				F('index_hour_list_' . $hour_cur, NULL);
+			$time = time();
+			// $time_hour = strtotime(date("Y-m-d H:00:00", $time - 3600)) ;
+			$hour = date("H", $time - 3600);			
+			$hourplus = date("H", $time + 3600);
+			if (false !== F('item_hour_list_' . $hourplus)) { //删除下一个小时的缓存文件
+				F('item_hour_list_' . $hourplus, NULL);
 			}
-			if (false === $hour_list = F('index_hour_list_' . $hour)) {
-				$cate_data = array();
-				$hour_list=$mod->query("SELECT * from try_item  WHERE status=1 and add_time between $time_hour_s and $time_hour_e ORDER BY hits desc, add_time desc LIMIT 4");
-				F('index_hour_list_' . $hour, $hour_list);
+			if (false === $hour_list = F('item_hour_list_' . $hour)) { //判断创建上一个小时的缓存文件
+				$hour_list = D('item')->item_hour_cache();
 			}
+			$hour_list = array_slice($hour_list, 0, 4);
 		}
 
 		//计算首页推荐的时间范围		

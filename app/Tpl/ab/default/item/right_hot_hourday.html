@@ -19,7 +19,7 @@
 							</volist>
 						</ul>
 						<ul class="layui-tab-item clearfix">
-							<volist name="sixhour_list" id="r">
+							<volist name="hour6_list" id="r">
 							<a href="{:U('item/index',array('id'=>$r['id']))}" class="fl">
 								<img src="<if condition="$r['img']==''">/images/nopic.jpg<else/><if condition="preg_match('/img.baicaio.com/',$r['img'])">{:attach($r['img'],'item')}!thumb287<else/>{:attach($r['img'],'item')}</if></if>" width="80" height="80" class="radius-3">
 								<div class="tabCon">{$r.title}</div>
@@ -27,7 +27,7 @@
 							</volist>
 						</ul>
 						<ul class="layui-tab-item clearfix">
-							<volist name="day_list" id="r">
+							<volist name="hour24_list" id="r">
 							<a href="{:U('item/index',array('id'=>$r['id']))}" class="fl">
 								<img src="<if condition="$r['img']==''">/images/nopic.jpg<else/><if condition="preg_match('/img.baicaio.com/',$r['img'])">{:attach($r['img'],'item')}!thumb287<else/>{:attach($r['img'],'item')}</if></if>" width="80" height="80" class="radius-3">
 								<div class="tabCon">{$r.title}</div>

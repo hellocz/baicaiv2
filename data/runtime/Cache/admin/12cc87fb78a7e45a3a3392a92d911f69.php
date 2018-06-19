@@ -78,6 +78,18 @@
 
 		</tr>
 
+		<!-- <tr>
+
+			<th>商场运费 :</th>
+
+			<td>
+
+               <input type="text" name="shipping" class="input-text fl mr10" size="30" value="<?php echo ($info["shipping"]); ?>" placeholder="">
+
+			</td>
+
+		</tr> -->
+
 		<tr>
 
 			<th>口碑指数 :</th>

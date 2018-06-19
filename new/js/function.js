@@ -271,6 +271,25 @@ $(function(){
 									'</span>'+
 									'<span>刚刚'+client+'</span>'+
 								'</p>'+
+								'<div class="write write-hf radius-3 mt-5 ml-34" style="margin-top:5px; margin-left: 34px;">'+
+									'<div class="info">'+
+										'<textarea placeholder="" rows="3" class="J_hf_content">回复 '+result.data.uname+'：</textarea>'+
+									'</div>'+
+									'<div class="member clearfix">'+
+										'<img src="'+result.data.uavatar+'" class="radius-100" width="24" height="24">'+
+										'<span class="fc-aux-9 ml-5">'+result.data.uname+'</span>'+
+										'<div class="fr">'+
+											'<span class="mr-15">'+
+												'<svg class="icon">'+
+													'<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_33@2x.png" width="8" height="8"></desc><![endif]-->'+
+													'<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_33"></use>'+
+												'</svg>'+
+											'</span>'+
+											'<button type="reset" class="no-btn fc-aux-9 mr-20">取消</button>'+
+											'<button type="submit" class="button btn-1 cursor-pointer J_hf_submit" data-id="'+result.data.id+'" psid="'+result.data.pid+'">回复</button>'+
+										'</div>'+
+									'</div>'+
+								'</div>'+
 							'</div>');
 			}else{
 				tips(result.msg, 0);
