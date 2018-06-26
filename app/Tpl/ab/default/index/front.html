@@ -24,7 +24,7 @@
 										</p>
 										<p class="fc-red price">{$r.price}</p>
 										<p class="content mt-15">
-											<span class="attr1 fc-aux-a icon_3 icon_3-e_21"><a href="{:U('orig/show',array('id'=>$r['orig_id']))}">{:getly($r['orig_id'])}</a></span>
+											<span class="attr1 fc-aux-a icon_3 icon_3-e_21"><a href="{:U('orig/show',array('id'=>$r['orig_id']))}">{$origs[$r['orig_id']]['name']}</a></span>
 											<span class="attr3 fc-aux-a fr icon_3 icon_3-e_23">{$r.comments}</span>
 											<span class="attr2 fc-aux-a fr icon_3 icon_3-e_22"><a href="javascript:void(0)">{$r.zan}</a></span>
 										</p>

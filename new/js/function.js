@@ -97,10 +97,11 @@ $(function(){
 	//评论
 	if(PINER.uid==""){
 		$("#J_cmt_content").attr("readonly", true).attr('placeholder','');
-		$("#J_login").show();
+		// $("#J_login").show();
 	}
 	$("#J_lo_btn").click(function(){
-		$.get("index.php?m=user&a=login",function(res){opdg(res.data,524,262,'用户登录');},'json');
+		// $.get("index.php?m=user&a=login",function(res){opdg(res.data,524,262,'用户登录');},'json');
+		LoginPopup();
 	});
 	$("#J_cmt_submit").on('click', function(){
 		if(PINER.uid==""){
@@ -215,9 +216,13 @@ $(function(){
 	// 	},'json');
 	// });
 	// });
+
 	// $(".list .content").on("click",".hf", function() {
 	$(".J_hf_submit").on("click", function() {
-		if(PINER.uid==""){$.get("index.php?m=user&a=login",function(res){opdg(res.data,524,262,'用户登录');},'json');}
+		// if(PINER.uid==""){$.get("index.php?m=user&a=login",function(res){opdg(res.data,524,262,'用户登录');},'json');}
+		if(PINER.uid==""){
+			$("#J_lo_btn").trigger("click");return false;
+		}
 		var id=$(this).attr("data-id"), content=$(this).parents().children(".write-hf").children().children(".J_hf_content").val();
 		var psid=$(this).attr("psid");
 		obj = $(this);
@@ -273,19 +278,19 @@ $(function(){
 								'</p>'+
 								'<div class="write write-hf radius-3 mt-5 ml-34" style="margin-top:5px; margin-left: 34px;">'+
 									'<div class="info">'+
-										'<textarea placeholder="" rows="3" class="J_hf_content">回复 '+result.data.uname+'：</textarea>'+
+										'<textarea placeholder="" rows="3" class="J_hf_content emotion">回复 '+result.data.uname+'：</textarea>'+
 									'</div>'+
 									'<div class="member clearfix">'+
 										'<img src="'+result.data.uavatar+'" class="radius-100" width="24" height="24">'+
 										'<span class="fc-aux-9 ml-5">'+result.data.uname+'</span>'+
 										'<div class="fr">'+
-											'<span class="mr-15">'+
+											'<span class="mr-15 face">'+
 												'<svg class="icon">'+
 													'<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_33@2x.png" width="8" height="8"></desc><![endif]-->'+
 													'<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_33"></use>'+
 												'</svg>'+
 											'</span>'+
-											'<button type="reset" class="no-btn fc-aux-9 mr-20">取消</button>'+
+											'<button type="reset" class="no-btn fc-aux-9 mr-20 qx cursor-pointer">取消</button>'+
 											'<button type="submit" class="button btn-1 cursor-pointer J_hf_submit" data-id="'+result.data.id+'" psid="'+result.data.pid+'">回复</button>'+
 										'</div>'+
 									'</div>'+
@@ -296,6 +301,38 @@ $(function(){
 			}
 		},'json');
 	});
+
+
+	function sinaEmo(){
+		//绑定新浪表情
+		objs = $(".comments").find(".emotion");
+		var len = objs.length;
+		for(i=0; i < len; i++){
+			// $('#face-'+(i+1)).SinaEmotion($('#emotion-'+(i+1)));
+			$(objs.eq(i).parent().parent(".write").find(".face")).SinaEmotion(objs.eq(i));
+		}
+	}
+	//加载新浪表情插件
+	sinaEmo();
+
+
+	//隐藏当前回复以外的所有回复框
+	$(".list .content").on("click",".hf", function() {
+		if(PINER.uid==""){
+			$("#J_lo_btn").trigger("click");return false;
+		}
+
+		$(".comments").find(".write-hf").hide();
+		// $(this).parents().children(".write-hf").show();
+		$(this).parent().siblings(".write-hf").show();
+		$('html, body').animate({
+			scrollTop: $(this).parents().children(".write-hf").offset().top-117,
+		},'fast');
+
+		// $($(this).parent().siblings(".write-hf").find(".face")).SinaEmotion($(this).parent().siblings(".write-hf").find(".emotion"));
+
+	});
+	
 	// $(".J_zan").on('click',function(){
 	// 	var obj=$(this);
 	// 	$.post(PINER.root+"/?m=ajax&a=comment_zan",{id:$(this).attr("data-id")},function(result){

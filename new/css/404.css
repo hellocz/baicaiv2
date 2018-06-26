@@ -1,0 +1,13 @@
+/*
+ * 出错/退出登录页等
+ * 独立样式文件
+ * 
+ * */
+
+.pageMain{
+	text-align: center;
+	height: 600px;
+}
+.pageMain .prompt{
+	margin-top: 200px;
+}

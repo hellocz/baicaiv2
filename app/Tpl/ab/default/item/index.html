@@ -4,6 +4,8 @@
 <include file="public:head" />
     <!--当前页面css-->
     <link rel="stylesheet" href="/new/css/details.css">
+    <!--新浪表情css-->
+    <link rel="stylesheet" href="/new/js/lib/sinaEmotion/jquery.sinaEmotion.css">
 </head>
 <body>
 	<!--顶部统一区域start-->
@@ -39,43 +41,75 @@
 					<div class="clearfix">
 						<div class="fl goods-pic mr-15">
 							<p><img src="<if condition="$item['img']==''">/images/nopic.jpg<else/> <if condition="preg_match('/img.baicaio.com/',$item['img'])">{:attach($item['img'],'item')}!thumb208<else/>{:attach($item['img'],'item')}</if></if>" width="296" height="296" class="radius-3"></p>
-							<p class="cz mt-12">
-								<span class="fc-aux-a mr-10 cursor-pointer fx">
-									<svg class="icon">
-										<!--[if lte IE 8]><desc><img src="/new/images/ie8/c_9@2x.png" width="24" height="24"></desc><![endif]-->
-										<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-c_9"></use>
-									</svg>
-									分享
-								</span>
-								<span class="fc-aux-a mr-10 cursor-pointer fx">
-									<svg class="icon">
-										<!--[if lte IE 8]><desc><img src="/new/images/ie8/c_8@2x.png" width="24" height="24"></desc><![endif]-->
-										<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-c_8"></use>
-									</svg>
+							<div class="cz mt-12 clearfix">
+								<div class="fl share-c">
+									<span class="fc-aux-a cursor-pointer radius-3 fx shareButton">分享</span>
+									<div class="shareBox none">
+										<div class="font-w-b font-14">分享优惠信息，得贡献值，兑换精美礼品！</div>
+										<div class="fc-grey mt-8">录之后才能获取贡献值哦，<a href="#" class="a-green">立即登录</a></div>
+										<div class="font-w-b font-14 mt-15">方法一：</div>
+										<div class="fc-grey mt-5">复制该网页链接，粘贴到自己的博客、微博，或者 直接发送给QQ好友。</div>
+										<div class="copylink radius-3 mt-5">
+											<p class="fc-green font-14 content" data-copy='<a href="http://www.baicaio.com" target="_blank">才米公社 菜油专享返现活动 3万/5万/ 10万/15万多种短期理财方案中间的</a>'>才米公社 菜油专享返现活动 3万/5万/ 10万/15万多种短期理财方案</p>
+											<p class="mt-5"><span href="javascript:;" onclick="copylink('.share-c .shareBox .copylink .content','.copybut')" class="btn-3 cursor-pointer copybut">复制链接</span></p>
+										</div>
+										<div class="font-w-b font-14 mt-15">方法二：</div>
+										<div class="qrCode mt-5 clearfix">
+											<img src="/new/images/qrCode.jpg" class="fl">
+											<div class="fl info">
+												<p>①、微信扫一扫左侧二维码</p>
+												<p class="mt-5">②、从浏览器右上角菜单分享给 朋友或发至朋友圈</p>
+											</div>
+										</div>
+										<div class="font-w-b font-14 mt-15">方法三：</div>
+										<div class="mt-5">一键分享到以下网站，同样可以获得贡献值！</div>
+										<div class="mt-15 icon-share clearfix">
+											<a href="#" class="icon-1"></a>
+											<a href="#" class="icon-2"></a>
+											<a href="#" class="icon-3"></a>
+											<a href="#" class="icon-4"></a>
+											<a href="#" class="icon-5"></a>
+											<a href="#" class="icon-6"></a>
+										</div>
+										<div class="arrow-down">
+											<span></span>
+										</div>
+									</div>
+								</div>
+								<div class="fl fc-aux-a cursor-pointer radius-3 fx sc" onclick="tipsPopup('tips_1','收藏成功')">
 									收藏
-								</span>
-								<span class="fc-aux-a cursor-pointer fx">
-									<svg class="icon">
-										<!--[if lte IE 8]><desc><img src="/new/images/ie8/c_5@2x.png" width="24" height="24"></desc><![endif]-->
-										<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-c_5"></use>
-									</svg>
-									举报
-								</span>
-								<span class="fr">
-									<em class="up radius-3 cursor-pointer">
+								</div>
+								<div class="fl jb1">
+									<span class="fc-aux-a cursor-pointer radius-3 fx jb">举报</span>
+									<div class="jbBox radius-3 none">
+										<ul>
+											<li><i></i>缺货涨价</li>
+											<li><i></i>文章错误</li>
+											<li><i></i>假冒伪劣</li>
+											<li class="other"><i></i>其他原因</li>
+										</ul>
+										<div class="input none"><input type="text" placeholder="输入举报原因" class="input-2"></div>
+										<div class="button1 mt-8"><button class="btn-3 cursor-pointer">提交</button></div>
+										<div class="arrow-down">
+											<span></span>
+										</div>
+									</div>
+								</div>
+								<div class="fr">
+									<em class="up radius-3 cursor-pointer" onclick="tipsPopup('tips_1','顶成功')">
 										<svg class="icons">
 											<!--[if lte IE 8]><desc><img src="/new/images/ie8/c_6@2x.png" width="16" height="16"></desc><![endif]-->
 											<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-c_6"></use>
 										</svg>
 									</em>
-									<em class="up radius-3 cursor-pointer">
+									<em class="up radius-3 cursor-pointer" onclick="tipsPopup('tips_1','踩成功')">
 										<svg class="icons">
 											<!--[if lte IE 8]><desc><img src="/new/images/ie8/c_7@2x.png" width="16" height="16"></desc><![endif]-->
 											<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-c_7"></use>
 										</svg>
 									</em>
-								</span>
-							</p>
+								</div>
+							</div>
 						</div>
 						<div class="fl goods-info">
 							<div class="font-24">{$item.title}<span class="fc-red">{$item.price}</span></div>
@@ -89,15 +123,36 @@
 								<p><span class="font-w-b">商场运费：</span><if condition="$orig['shipping']">{$orig.shipping}<else/>--</if></p>
 								<p class="mt-8"><span class="font-w-b">折扣类型： </span><span class="layui-badge-rim">用券</span> 1000元满减券</p>
 							</div>
-							<div class="mt-15">
-								<button class="button btn-3 cursor-pointer">去购买</button>
-								<span class="font-14 fc-aux-a ml-12">
-									<svg class="icon">
-										<!--[if lte IE 8]><desc><img src="/new/images/ie8/shao@2x.png" width="24" height="24"></desc><![endif]-->
-										<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-shao"></use>
-									</svg>
-									扫码购买
-								</span>
+							<div class="mt-15 clearfix">
+								<div class="fl moreButton">
+									<!--单链接样式（打开注释即可）-->
+									<!--<button class="button btn-3 cursor-pointer">去购买</button>-->
+									<!--单链接样式（打开注释即可）-->
+									
+									<!--多链接样式-->
+									<button class="button btn-more cursor-pointer">去购买</button>
+									<div class="moreUrl radius-3 none">
+										<a href="#">直达链接</a>
+										<a href="#">凑单品</a>
+									</div>
+									<!--多链接样式-->
+								</div>
+								<div class="fl smgm">
+									<span href="#" class="font-14 fc-aux-a ml-12 smgmButton cursor-pointer">
+										<svg class="icon">
+											<!--[if lte IE 8]><desc><img src="/new/images/ie8/shao@2x.png" width="24" height="24"></desc><![endif]-->
+											<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-shao"></use>
+										</svg>
+										扫码购买
+									</span>
+									<div class="qrCodeBox radius-3 none">
+										<div class="text-center"><img src="/new/images/qrCode.jpg" width="160" height="160"></div>
+										<div class="text-center fc-grey mt-12" style="line-height: 20px;">打开微信扫一扫<br>从浏览器右上角菜单分享至朋友圈</div>
+										<div class="arrow-down">
+											<span></span>
+										</div>
+									</div>
+								</div>
 							</div>
 							<div class="fc-aux-9 mt-5 text-center" style="width: 280px;">*通过本站链接购物，可获得油票奖励 <a href="#" class="font-w-b" style="color: #5C917C;">详情</a></div>
 						</div>
@@ -123,13 +178,18 @@
 								<a href="details.html"><img src="/new/images/item/14.jpg" width="116" height="116" class="radius-3 fl"></a>
 								<div class="fl info ml-17">
 									<p class="font-16 font-w-b" style="line-height: 24px;"><a href="details.html">大希地 澳洲进口整切微腌家庭牛排套餐（眼肉130g*5片+西120g*5片）赠煎锅+刀叉酱料￥149包邮</a><span class="fc-red">（需用￥50优惠券）</span></p>
-									<p class="mt-24" style="line-height: 34px;">
-										<span class="fc-aux-a">
-											<img src="/new/images/ie8/a_9@2x.png" class="bz">
-											天猫商城
-										</span>
-										<a href="#" target="_blank" class="fr button btn-3">去购买</a>
-									</p>
+									<div class="mt-24 clearfix">
+										<div class="fl fc-aux-a mall"><img src="/new/images/ie8/a_9@2x.png"> 天猫商城</div>
+										<div class="fr moreButton">
+											<!--多链接样式-->
+											<a href="javascript: void(0);" class="button btn-more">去购买</a>
+											<div class="moreUrl radius-3 none">
+												<a href="#">直达链接</a>
+												<a href="#">凑单品</a>
+											</div>
+											<!--多链接样式-->
+										</div>
+									</div>
 								</div>
 							</li>
 							<li class="clearfix radius-3">
@@ -137,11 +197,10 @@
 								<div class="fl info ml-17">
 									<p class="font-16 font-w-b" style="line-height: 24px;"><a href="details.html">大希地 澳洲进口整切微腌家庭牛排套餐（眼肉130g*5片+西120g*5片）赠煎锅+刀叉酱料￥149包邮</a><span class="fc-red">（需用￥50优惠券）</span></p>
 									<p class="mt-24" style="line-height: 34px;">
-										<span class="fc-aux-a">
-											<img src="/new/images/ie8/a_9@2x.png" class="bz">
-											天猫商城
-										</span>
-										<a href="#" target="_blank" class="fr button btn-3">去购买</a>
+										<div class="fl fc-aux-a mall"><img src="/new/images/ie8/a_9@2x.png"> 天猫商城</div>
+										<!--单链接样式-->
+										<div class="fr"><a href="#" target="_blank" class="fr button btn-3">去购买</a></div>
+										<!--单链接样式-->
 									</p>
 								</div>
 							</li>
@@ -181,27 +240,36 @@
 					</notempty>
 					
 					<div class="caiding">
-						<button class="button fc-green radius-3 mr-10">
+						<button class="button fc-green radius-3 mr-10" onclick="tipsPopup('tips_2','对不起，失败！')">
 							<svg class="icon-1">
 								<!--[if lte IE 8]><desc><img src="/new/images/ie8/c_6@2x.png" width="24" height="24"></desc><![endif]-->
 								<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-c_6"></use>
 							</svg>
 							{$item.zan}
 						</button>
-						<button class="button fc-ad6 radius-3">
+						<button class="button fc-ad6 radius-3" onclick="tipsPopup('tips_4','感谢您的评论，积分<span style=color:#ff0000>+8</span>')">
 							<svg class="icon-2">
 								<!--[if lte IE 8]><desc><img src="/new/images/ie8/c_7@2x.png" width="24" height="24"></desc><![endif]-->
 								<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-c_7"></use>
 							</svg>
 							{$item.zan}
 						</button>
-						<a href="#" class="fr jb">
-							<svg class="icon">
-								<!--[if lte IE 8]><desc><img src="/new/images/ie8/c_5@2x.png" width="24" height="24"></desc><![endif]-->
-								<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-c_5"></use>
-							</svg>
-							举报
-						</a>
+						<div class="fr jb2">
+							<span class="radius-3 jb cursor-pointer">举报</span>
+							<div class="jbBox radius-3 none">
+								<ul>
+									<li><i></i>缺货涨价</li>
+									<li><i></i>文章错误</li>
+									<li><i></i>假冒伪劣</li>
+									<li class="other"><i></i>其他原因</li>
+								</ul>
+								<div class="input none"><input type="text" placeholder="输入举报原因" class="input-2"></div>
+								<div class="button1 mt-8"><button class="btn-3 cursor-pointer">提交</button></div>
+								<div class="arrow-down">
+									<span></span>
+								</div>
+							</div>
+						</div>
 					</div>
 					
 					<div class="updateRecord">
@@ -234,7 +302,7 @@
 			
 			<!--加入关注清单start-->
 			<div class="mt-12 jrgz white-bg radius-3">
-				<span class="fr button btn-7 cursor-pointer">将脱毛器加入关注清单</span>
+				<span class="fr button btn-7 cursor-pointer">将{$cate_info.name}加入关注清单</span>
 				<span style="color: #AD6161;" class="font-16 font-w-b">需要更多相关优惠? </span>加入关注清单可自定义推送
 			</div>
 			<!--加入关注清单end-->
@@ -275,19 +343,112 @@
 	<!--底部统一区域+右边悬浮按钮start-->
 	<include file="public:footer" />
 	<!--底部统一区域+右边悬浮按钮end-->
+
+	<!--左边悬浮按钮start-->
+	<div class="sidebar-l radius-3">
+		<div class="button">
+			<a href="javascript:;" onclick="GoToBottom()" class="btn">
+				<svg role="img" class="icon">
+					<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_37@2x.png" width="22" height="22"></desc><![endif]-->
+					<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_37"></use>
+				</svg>
+				<br>评论
+			</a>
+		</div>
+		<div class="button">
+			<a href="javascript:;" class="btn" onclick="tipsPopup('tips_1','收藏成功')">
+				<svg role="img" class="icon">
+					<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_38@2x.png" width="22" height="22"></desc><![endif]-->
+					<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_38"></use>
+				</svg>
+				<br>收藏
+			</a>
+		</div>
+		<div class="share-l button">
+			<a href="javascript:;" class="btn shareButton">
+				<svg role="img" class="icon">
+					<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_39@2x.png" width="22" height="22"></desc><![endif]-->
+					<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_39"></use>
+				</svg>
+				<br>分享
+			</a>
+			<div class="shareBox none">
+				<div class="font-w-b font-14">分享优惠信息，得贡献值，兑换精美礼品！</div>
+				<div class="fc-grey mt-8">录之后才能获取贡献值哦，<a href="#" class="a-green">立即登录</a></div>
+				<div class="font-w-b font-14 mt-15">方法一：</div>
+				<div class="fc-grey mt-5">复制该网页链接，粘贴到自己的博客、微博，或者 直接发送给QQ好友。</div>
+				<div class="copylink radius-3 mt-5">
+					<p class="fc-green font-14 content" data-copy='<a href="http://www.baicaio.com" target="_blank">才米公社 菜油专享返现活动 3万/5万/ 10万/15万多种短期理财方案左边的</a>'>才米公社 菜油专享返现活动 3万/5万/ 10万/15万多种短期理财方案</p>
+					<p class="mt-5"><span href="javascript:;" onclick="copylink('.share-l .shareBox .copylink .content','.copybut')" class="btn-3 cursor-pointer copybut">复制链接</span></p>
+				</div>
+				<div class="font-w-b font-14 mt-15">方法二：</div>
+				<div class="qrCode mt-5 clearfix">
+					<img src="/new/images/qrCode.jpg" class="fl">
+					<div class="fl info">
+						<p>①、微信扫一扫左侧二维码</p>
+						<p class="mt-5">②、从浏览器右上角菜单分享给 朋友或发至朋友圈</p>
+					</div>
+				</div>
+				<div class="font-w-b font-14 mt-15">方法三：</div>
+				<div class="mt-5">一键分享到以下网站，同样可以获得贡献值！</div>
+				<div class="mt-15 icon-share clearfix">
+					<a href="#" class="icon-1"></a>
+					<a href="#" class="icon-2"></a>
+					<a href="#" class="icon-3"></a>
+					<a href="#" class="icon-4"></a>
+					<a href="#" class="icon-5"></a>
+					<a href="#" class="icon-6"></a>
+				</div>
+			</div>
+		</div>
+		<div class="button saoma">
+			<a href="javascript:;" class="btn saomaButton">
+				<svg role="img" class="icon">
+					<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_40@2x.png" width="22" height="22"></desc><![endif]-->
+					<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_40"></use>
+				</svg>
+				<br>扫码
+			</a>
+			<div class="saomaBox none">
+				<div class="text-center"><img src="/new/images/qrCode.jpg" width="160" height="160"></div>
+				<div class="text-center fc-grey mt-12" style="line-height: 20px;">打开微信扫一扫<br>从浏览器右上角菜单分享至朋友圈</div>
+			</div>
+		</div
+	</div>
+	<!--左边悬浮按钮end-->
 	
 	<!--置顶购买按钮start-->
 	<div id="buyButton" class="w-100 white-bg">
 		<div class="w-1200">
 			<div class="fr">
-				<a href="#" class="button btn-3 mr-20">去购买</a>
-				<a href="#" class="fc-aux-a font-14 sm">
-					<svg role="img" class="icon">
-						<!--[if lte IE 8]><desc><img src="/new/images/ie8/shao@2x.png" width="24" height="24"></desc><![endif]-->
-						<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-shao"></use>
-					</svg>
-					扫码购买
-				</a>
+				<div class="fl moreButton">
+					<!--单链接样式（打开注释即可）-->
+					<!--<a href="#" class="button btn-3 mr-20">去购买</a>-->
+					<!--单链接样式（打开注释即可）-->
+					<!--多链接样式-->
+					<a href="javascript: void(0);" class="button mr-20 btn-more">去购买</a>
+					<div class="moreUrl radius-3 none">
+						<a href="#">直达链接</a>
+						<a href="#">凑单品</a>
+					</div>
+					<!--多链接样式-->
+				</div>
+				<div class="fl ml-20 smgm">
+					<a href="javascript:;" class="fc-aux-a font-14 sm smgmButton">
+						<svg role="img" class="icon">
+							<!--[if lte IE 8]><desc><img src="/new/images/ie8/shao@2x.png" width="24" height="24"></desc><![endif]-->
+							<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-shao"></use>
+						</svg>
+						扫码购买
+					</a>
+					<div class="qrCodeBox radius-3 none">
+						<div class="arrow-up">
+							<span></span>
+						</div>
+						<div class="text-center"><img src="/new/images/qrCode.jpg" width="160" height="160"></div>
+						<div class="text-center fc-grey mt-12" style="line-height: 20px;">打开微信扫一扫<br>从浏览器右上角菜单分享至朋友圈</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -296,6 +457,9 @@
 	<!--引入页面单独JS文件-->
 	<script src="/new/js/pic_tab.js"></script>
 	<script src="/new/js/page/details.js" ></script>
+	<!--新浪表情JS-->
+	<script src="/new/js/lib/sinaEmotion/jquery-1.8.0.min.js"></script>
+	<script src="/new/js/lib/sinaEmotion/jquery.sinaEmotion.js"></script>
 
 <!--拷贝代码，测试用，可删除-->
 <style type="text/css">

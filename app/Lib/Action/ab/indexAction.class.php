@@ -30,7 +30,6 @@ class indexAction extends frontendAction {
 		$pagesize=2;
 		$count = 200; //$mod->where("status=1 and add_time<$time ".$where)->count();
 		$pager = $this->_new_pager($count,$pagesize);
-
 		
 		$mod=M("item");
 		$queryArr = array();
@@ -62,7 +61,7 @@ class indexAction extends frontendAction {
 
 		//计算首页推荐的时间范围		
 		$date_list = array();
-		$time = strtotime('2018-05-31 21:00:00');
+		$time = strtotime('2018-05-31 23:59:59');
 		$time_homepage_s = strtotime("-" . ($p*2) . " day", strtotime(date("Y-m-d 00:00:00", $time)));
 		$time_homepage_e = strtotime("-" . ($p*2 - 2) . " day", strtotime(date("Y-m-d 00:00:00", $time))) - 1;
 		$date_list['2'] = date("Y.m.d", $time_homepage_s);
@@ -74,6 +73,12 @@ class indexAction extends frontendAction {
 		// echo "start time: " . date("Y-m-d H:i:s", $time_homepage_s) . "<br>";
 		// echo "end time: " . date("Y-m-d H:i:s", $time_homepage_e) . "<br>";
 
+
+		//分类数据
+		if (false === $cate_list = F('cate_data')) {
+			$cate_list = D('item_cate')->cate_data_cache();
+		}
+
 		//首页推荐
 		$item_list = $mod->where("status=1 and add_time between $time_homepage_s and $time_homepage_e".$queryArr['where'])->order($queryArr['order'])->select();
 		
@@ -81,6 +86,20 @@ class indexAction extends frontendAction {
 		if(count($item_list)>=1){
 			foreach($item_list as $key=>$val){
 				$item_list[$key]['zan'] = $item_list[$key]['zan']   +intval($item_list[$key]['hits'] /10);
+
+				//商品一级分类
+				$cate_id = $item_list[$key]['cate_id'];
+				$cate_name = '';
+				if(isset($cate_list[$cate_id]) && $cate_list[$cate_id]['pid']==0){
+					$cate_name = $cate_list[$cate_id]['name'];
+				}else if(isset($cate_list[$cate_id])){
+					list($p1,$p2) = explode('|', $cate_list[$cate_id]['spid']."||");
+					if(isset($cate_list[$p1])){
+						$cate_name = $cate_list[$p1]['name'];
+					}
+				}
+				$item_list[$key]['cate_name'] = $cate_name;
+
 				$d = date("Y.m.d", $item_list[$key]['add_time']);
 				$homepage_list[$d][] = $item_list[$key];
 			}
@@ -180,7 +199,16 @@ class indexAction extends frontendAction {
 			$this->assign('user',array('tag_count' => $tag_count, 'grade' => $user['grade'], 'score' => $user['score']));
 		}
 
+		//商城列表
+		$orig_list = M("item_orig")->order("ordid asc")->select();
+		$origs = array();
+		if(count($orig_list) > 0){
+			foreach ($orig_list as $key => $val) {
+				$origs[$val['id']] = $val;
+			}
+		}
 
+		$this->assign('origs',$origs);
 		$this->assign('front_list',$front_list);
 		$this->assign('item_list_homepage_0',$homepage_list_0);
 		$this->assign('item_list_homepage_1',$homepage_list_1);

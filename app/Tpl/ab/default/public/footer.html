@@ -92,71 +92,113 @@
 
 	<!--右边悬浮按钮start-->
 	<div id="sidebar-r" class="radius-3">
-		<p>
-			<a href="#" id="icon1">
+		<div class="app button">
+			<a href="javascript: void(0);" id="icon1" class="btn appButton">
 				<svg role="img" class="icon">
 					<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_24@2x.png" width="20" height="20"></desc><![endif]-->
 					<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_24"></use>
 				</svg>
 				<br>app
 			</a>
-		</p>
-		<p>
-			<a href="#" id="icon2">
+			<div class="appBox qrCodeBox none">
+				<div class="text-center"><img src="/new/images/qrCode.jpg" width="160" height="160"></div>
+				<div class="text-center fc-grey mt-12" style="line-height: 20px;">打开微信扫一扫<br>从浏览器右上角菜单分享至朋友圈</div>
+			</div>
+		</div>
+		<div class="wx button">
+			<a href="javascript: void(0);" id="icon2" class="btn appButton">
 				<svg role="img" class="icon">
 					<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_25@2x.png" width="20" height="20"></desc><![endif]-->
 					<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_25"></use>
 				</svg>
 				<br>微信
 			</a>
-		</p>
-		<p>
-			<a href="#" id="icon3">
+			<div class="wxBox qrCodeBox none">
+				<div class="text-center"><img src="/new/images/qrCode.jpg" width="160" height="160"></div>
+				<div class="text-center fc-grey mt-12" style="line-height: 20px;">打开微信扫一扫<br>从浏览器右上角菜单分享至朋友圈</div>
+			</div>
+		</div>
+		<div class="wb button">
+			<a href="javascript: void(0);" id="icon3" class="btn appButton">
 				<svg role="img" class="icon">
 					<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_26@2x.png" width="20" height="20"></desc><![endif]-->
 					<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_26"></use>
 				</svg>
 				<br>微博
 			</a>
-		</p>
-		<p>
-			<a href="#" id="icon4">
+			<div class="wbBox qrCodeBox none">
+				<div class="text-center"><img src="/new/images/qrCode.jpg" width="160" height="160"></div>
+				<div class="text-center fc-grey mt-12" style="line-height: 20px;">打开微信扫一扫<br>从浏览器右上角菜单分享至朋友圈</div>
+			</div>
+		</div>
+		<div class="share-r button">
+			<a href="javascript: void(0);" id="icon4" class="btn shareButton">
 				<svg role="img" class="icon">
 					<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_27@2x.png" width="20" height="20"></desc><![endif]-->
 					<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_27"></use>
 				</svg>
 				<br>分享
 			</a>
-		</p>
-		<p>
-			<a href="#" id="icon5">
+			<div class="shareBox none">
+				<div class="font-w-b font-14">分享优惠信息，得贡献值，兑换精美礼品！</div>
+				<div class="fc-grey mt-8">录之后才能获取贡献值哦，<a href="#" class="a-green">立即登录</a></div>
+				<div class="font-w-b font-14 mt-15">方法一：</div>
+				<div class="fc-grey mt-5">复制该网页链接，粘贴到自己的博客、微博，或者 直接发送给QQ好友。</div>
+				<div class="copylink radius-3 mt-5">
+					<p class="fc-green font-14 content" data-copy='<a href="http://www.baicaio.com" target="_blank">才米公社 菜油专享返现活动 3万/5万/ 10万/15万多种短期理财方案</a>'>才米公社 菜油专享返现活动 3万/5万/ 10万/15万多种短期理财方案</p>
+					<p class="mt-5"><span href="javascript:;" onclick="copylink('.share-r .shareBox .copylink .content','.copybut')" class="btn-3 cursor-pointer copybut">复制链接</span></p>
+				</div>
+				<div class="font-w-b font-14 mt-15">方法二：</div>
+				<div class="qrCode mt-5 clearfix">
+					<img src="/new/images/qrCode.jpg" class="fl">
+					<div class="fl info">
+						<p>①、微信扫一扫左侧二维码</p>
+						<p class="mt-5">②、从浏览器右上角菜单分享给 朋友或发至朋友圈</p>
+					</div>
+				</div>
+				<div class="font-w-b font-14 mt-15">方法三：</div>
+				<div class="mt-5">一键分享到以下网站，同样可以获得贡献值！</div>
+				<div class="mt-15 icon-share clearfix">
+					<a href="#" class="icon-1"></a>
+					<a href="#" class="icon-2"></a>
+					<a href="#" class="icon-3"></a>
+					<a href="#" class="icon-4"></a>
+					<a href="#" class="icon-5"></a>
+					<a href="#" class="icon-6"></a>
+				</div>
+			</div>
+		</div>
+		<div class="button">
+			<a href="#" id="icon5" class="btn">
 				<svg role="img" class="icon">
 					<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_28@2x.png" width="20" height="20"></desc><![endif]-->
 					<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_28"></use>
 				</svg>
 				<br>帮助
 			</a>
-		</p>
-		<p>
-			<a href="#" id="icon6">
+		</div>
+		<div class="button">
+			<a href="#" class="btn" id="icon6">
 				<svg role="img" class="icon">
 					<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_29@2x.png" width="20" height="20"></desc><![endif]-->
 					<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_29"></use>
 				</svg>
 				<br>反馈
 			</a>
-		</p>
-		<p id="actGotop" id="icon7">
-			<a href="javascript: void(0);">
+		</div>
+		<div class="button" id="actGotop" id="icon7">
+			<a href="javascript: void(0);" class="btn">
 				<svg role="img" class="icon">
 					<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_30@2x.png" width="20" height="20"></desc><![endif]-->
 					<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_30"></use>
 				</svg>
 				<br>回顶部
 			</a>
-		</p>
+		</div>
 	</div>
 	<!--右边悬浮按钮end-->
+
+	<!-- <input type="checkbox" placeholder="" class="input-3 loginInput" /><label></label> -->
 
 	<!--引入layui JS文件-->
 	<script src="/new/js/lib/layui/layui.js"></script>

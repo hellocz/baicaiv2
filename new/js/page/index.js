@@ -81,6 +81,7 @@ $(function(e) {
 		$(this).find(".info-box").stop().slideDown("show");
 	},function(){
 		$(this).find(".info-box").hide();
+		$(this).find(".moreUrl").hide();
 	});
 
 
@@ -88,6 +89,8 @@ $(function(e) {
 	navFixed("news-tab","fixed");
 	navFixed("right-ad","fixed1");
 	
+	moreUrl(".cz2 .btn-more",".moreUrl");
+	moreUrl(".moreLink .btn-gd",".moreUrl");
 });
 
 //layui分页插件

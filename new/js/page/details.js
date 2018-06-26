@@ -1,14 +1,12 @@
 $(document).ready(function() {
 	photo();
-	$("#sidebar-l").css("left",($(document.body).width() - 1200)/2-58);
+	$(".sidebar-l").css("left",($(document.body).width() - 1200)/2-58);
 	
 	//显示举报
 	$(".list li").hover(function(){
-		$(this).find(".jb").show();
-		$(this).find(".lc").css("top","-10px");
+		$(this).find(".jb3").show();
 	},function(){
-		$(this).find(".jb").hide();
-		$(this).find(".lc").css("top","0px");
+		$(this).find(".jb3").hide();
 	});
 	
 	//显示用户信息
@@ -20,10 +18,16 @@ $(document).ready(function() {
 	
 	//显示回复
 	$(".list .content").on("click",".hf", function() {
-		$(this).parents().children(".write-hf").toggle();
+		$(".comments").find(".write-hf").hide();
+		$(this).parents().children(".write-hf").show();
 		$('html, body').animate({
 			scrollTop: $(this).parents().children(".write-hf").offset().top-117,
 		},'fast');
+	});
+	
+	//取消回复
+	$(".list .content").on("click",".qx",function(){
+		$(this).parents().children(".write-hf").hide();
 	});
 	
 	//展开回复
@@ -82,8 +86,8 @@ $(document).ready(function() {
 	});
 	
 	//右边悬浮菜单按钮颜色
-	$("#sidebar-l p a").hover(function(){
-		var index = $("#sidebar-l p a").index(this);
+	$(".sidebar-l div .btn").hover(function(){
+		var index = $(".sidebar-l div .btn").index(this);
 		var color = "#666666";
 		
 		switch(index){
@@ -111,6 +115,22 @@ $(document).ready(function() {
 	
 	buyButton();
 	zhankaiCon();
+	
+	//加载新浪表情插件
+	sinaEmo();
+
+	//最新评论/最热评论
+	newCom();
+	
+	//举报弹层
+	toReport();
+	
+	//分享弹层
+	shareShow(".share-l .shareButton",".share-l",".shareBox");
+	shareShow(".saoma .saomaButton",".saoma",".saomaBox");
+	shareShow(".share-c .shareButton",".share-c",".shareBox");
+	shareShow(".smgm .smgmButton",".smgm",".qrCodeBox");
+	moreLink(".moreButton",".moreUrl")
 });
 
 //图片切换设置
@@ -216,3 +236,82 @@ function zhankaiCon() {
     	}
     });
 }
+
+
+function sinaEmo(){
+	//绑定新浪表情
+	var len = $(".comments").find(".emotion").length;
+    for(i=0; i < len; i++){
+    	$('#face-'+(i+1)).SinaEmotion($('#emotion-'+(i+1)));
+    }
+}
+
+//最新or最热评论切换
+function newCom(){
+	$(".newsCom").click(function(event){
+		event.stopPropagation();
+		display = $(this).children(".op").css("display");
+		if(display=="block"){
+			$(this).children(".op").hide();
+		}else{
+			$(this).children(".op").slideDown(200);
+		}
+	});
+	$(".newsCom .op li").click(function(){
+		$(this).parent().find("li").removeClass("active");
+		$(this).addClass("active");
+		var textInfo = $(this).text();
+		$("#newsComContent").text(textInfo);
+	});
+	
+	$(document).click(function(event){
+		var _con = $(".newsCom .op");
+		if(!_con.is(event.target) && _con.has(event.target).length === 0){
+			$(".newsCom .op").hide();
+		}
+	});
+}
+
+//显示举报弹层
+function toReport(){
+	$(".jb").click(function(){
+		$(".jbBox").hide();
+		$(this).siblings(".jbBox").show();
+	});
+	
+	$(document).click(function(event){
+		var _con = $(".jb");
+		var _con1 = $(".jbBox");
+		if(!_con.is(event.target) && _con.has(event.target).length === 0 && !_con1.is(event.target) && _con1.has(event.target).length === 0){
+			$(".jbBox").hide();
+			$(".jbBox .input").hide();
+			$(".jbBox  ul li").children("i").removeClass("active");
+		}
+	});
+	
+	$(".other").click(function(){
+		var active = $(this).children("i").is(".active");
+		if(!active){
+			$(this).parent().siblings(".input").show();
+		}else{
+			$(this).parent().siblings(".input").hide();
+		}
+	});
+	
+	$(".jbBox ul li").click(function(){
+		var active = $(this).children("i").is(".active");
+		if(!active){
+			$(this).children("i").addClass("active");
+		}else{
+			$(this).children("i").removeClass("active");
+		}
+	});
+	
+	$(".jbBox .button1 button").click(function(){
+		$(".jbBox").hide();
+		$(".jbBox .input").hide();
+		$(".jbBox ul li").children("i").removeClass("active");
+	});
+
+}
+

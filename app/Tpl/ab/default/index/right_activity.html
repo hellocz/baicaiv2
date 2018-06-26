@@ -9,16 +9,13 @@
 						<li class="layui-elip">
 							<a href="{$r.hdurl}" target="_blank" title="{$r.hdname}" class="fc-grey" <if condition="$r['is_color'] eq 1">style="color:#3dc399;"</if>>
 								<if condition="mb_strlen($r['hdname'],'utf-8') gt 18">{$r.hdname|msubstr=0,18}<else/>{$r.hdname}</if>
-								<if condition="$r['is_status'] eq 1">
 								<span>
-								<svg role="img" class="icon-a_5">
-									<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_5@2x.png" width="12" height="12"></desc><![endif]-->
-									<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_5"></use>
-								</svg>
-								</span>
+								<if condition="$r['is_status'] eq 1">								
+									<img src="/new/images/ie8/a_5@2x.png" />	
 								<elseif condition="$r['is_status'] eq 2"/>
-									<img src="/images/new.png" />
+									<img src="/new/images/ie8/a_5_new@2x.png" />
 								</if>
+								</span>
 							</a>
 						</li>
 						</volist>

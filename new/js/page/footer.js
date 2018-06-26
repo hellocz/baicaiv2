@@ -11,8 +11,8 @@ $(document).ready(function() {
 		$('html,body').animate({ scrollTop: '0px' }, 800);
 	});
 	
-	$("#sidebar-r p a").hover(function(){
-		var index = $("#sidebar-r p a").index(this);
+	$("#sidebar-r .button .btn").hover(function(){
+		var index = $("#sidebar-r .button .btn").index(this);
 		var color = "#7777777";
 		
 		switch(index){
@@ -63,4 +63,11 @@ $(document).ready(function() {
 		$(this).find(".icon").css("fill","#FFFFFF");
 	});
 	
+	//右边菜单弹层
+	shareShow(".app .appButton",".app",".appBox");
+	shareShow(".wx .appButton",".wx",".wxBox");
+	shareShow(".wb .appButton",".wb",".wbBox");
+	shareShow(".share-r .shareButton",".share-r",".shareBox");
 });
+
+

@@ -590,6 +590,41 @@
   height: 24px;
   background-position: 0 -900px;
 }
+.icon4-d_17 {
+  width: 24px;
+  height: 24px;
+  background-position: 0 -925px;
+}
+.icon4-d_18 {
+  width: 24px;
+  height: 24px;
+  background-position: 0 -950px;
+}
+.icon4-d_19 {
+  width: 24px;
+  height: 24px;
+  background-position: 0 -975px;
+}
+.icon4-d_20 {
+  width: 24px;
+  height: 24px;
+  background-position: 0 -1000;
+}
+.icon4-d_21 {
+  width: 24px;
+  height: 24px;
+  background-position: 0 -1025;
+}
+.icon4-d_22 {
+  width: 24px;
+  height: 24px;
+  background-position: 0 -1050px;
+}
+.icon4-d_23 {
+  width: 24px;
+  height: 24px;
+  background-position: 0 -1075px;
+}
 
 
 .icon5 {
@@ -607,4 +642,53 @@
   width: 16px;
   height: 16px;
   background-position: 0 -26px;
+}
+
+.tips{
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-image: url(../images/svg_sprite/tips_sprite.svg);
+  background-image: url(../images/svg_sprite/tips_sprite.png)\0;
+}
+.tips_1 {
+  width: 42px;
+  height: 42px;
+  background-position: 0 0;
+}
+.tips_2 {
+  width: 42px;
+  height: 42px;
+  background-position: 0 -43px;
+}
+.tips_3 {
+  width: 42px;
+  height: 42px;
+  background-position: 0 -86px;
+}
+.tips_4 {
+  width: 42px;
+  height: 42px;
+  background-position: 0 -129px;
+}
+.tips_5 {
+  width: 42px;
+  height: 42px;
+  background-position: 0 -172px;
+}
+
+.prompt {
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-image: url(../images/svg_sprite/prompt_sprite.svg);
+  background-image: url(../images/svg_sprite/prompt_sprite.png)\0;
+}
+.prompt_1 {
+  width: 80px;
+  height: 80px;
+  background-position: 0 0;
+}
+.prompt_2 {
+  width: 80px;
+  height: 80px;
+  background-position: 0 -81px;
 }

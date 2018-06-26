@@ -191,16 +191,16 @@ class itemAction extends frontendAction {
             $strpos = getpos($item['cate_id'],'');
         }
         
-        // //当前分类信息
-        // if (false === $cate_data = F('cate_data')) {
-        //     $cate_data = D('item_cate')->cate_data_cache();
-        // }
-        // if (isset($cate_data[$item['cate_id']])) {
-        //     $cate_info = $cate_data[$item['cate_id']];
-        // } else {
-        //     //$this->_404();
-        // }
-        // $this->assign('cate_info', $cate_info);
+        //当前分类信息
+        if (false === $cate_data = F('cate_data')) {
+            $cate_data = D('item_cate')->cate_data_cache();
+        }
+        if (isset($cate_data[$item['cate_id']])) {
+            $cate_info = $cate_data[$item['cate_id']];
+        } else {
+            //$this->_404();
+        }
+        $this->assign('cate_info', $cate_info);
 
         $this->assign("strpos",$strpos);
         $add_time = intval($item['add_time']);
@@ -240,26 +240,24 @@ class itemAction extends frontendAction {
         if (false === $hour_list = F('item_hour_list_' . $hour)) { //判断创建上一个小时的缓存文件
           $hour_list = D('item')->item_hour_cache();
         }
-        // $hour_list = array_slice($hour_list, 0, 9);
+        $hour_list = array_slice($hour_list, 0, 9);
 
-        // if (false !== F('item_6hour_list_' . $hourminus)) { //删除上上个小时的缓存文件
-        //   F('item_6hour_list_' . $hourminus, NULL);
-        // }
-        // if (false === $hour6_list = F('item_6hour_list_' . $hour)) { //判断创建上一个小时的缓存文件
-        //   $hour6_list = D('item')->item_6hour_cache();
-        // }
+        if (false !== F('item_6hour_list_' . $hourminus)) { //删除上上个小时的缓存文件
+          F('item_6hour_list_' . $hourminus, NULL);
+        }
+        if (false === $hour6_list = F('item_6hour_list_' . $hour)) { //判断创建上一个小时的缓存文件
+          $hour6_list = D('item')->item_6hour_cache();
+        }
 
-        // if (false !== F('item_24hour_list_' . $hourminus)) { //删除上上个小时的缓存文件
-        //   F('item_24hour_list_' . $hourminus, NULL);
-        // }
-        // if (false === $hour24_list = F('item_24hour_list_' . $hour)) { //判断创建上一个小时的缓存文件
-        //   $hour24_list = D('item')->item_24hour_cache();
-        // }
+        if (false !== F('item_24hour_list_' . $hourminus)) { //删除上上个小时的缓存文件
+          F('item_24hour_list_' . $hourminus, NULL);
+        }
+        if (false === $hour24_list = F('item_24hour_list_' . $hour)) { //判断创建上一个小时的缓存文件
+          $hour24_list = D('item')->item_24hour_cache();
+        }
         $this->assign('hour_list',$hour_list);
         $this->assign('hour6_list',$hour6_list);
         $this->assign('hour24_list',$hour24_list);
-
-
 
         //热门订阅
         $follow_tag_list = M()->query("SELECT tag,COUNT(1) AS tag_count FROM try_notify_tag WHERE f_sign=1 GROUP BY tag ORDER BY 2 DESC LIMIT 9");

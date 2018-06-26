@@ -1,11 +1,15 @@
 <div class="comments radius-3 white-bg mt-12">
 				<div class="title font-16 font-w-b">
-					<span class="fr font-w-n font-14 fc-grey">
-						最新评论
+					<span class="fr font-w-n font-14 fc-grey newsCom cursor-pointer">
+						<span id="newsComContent">最新评论</span>
 						<svg class="icon">
 							<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_16@2x.png" width="8" height="8"></desc><![endif]-->
 							<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_16"></use>
 						</svg>
+						<ul class="op radius-3 none">
+							<li class="active">最新评论</li>
+							<li>最热评论</li>
+						</ul>
 					</span>
 					<span id="pls">{$item.comments}</span>评论
 				</div>
@@ -80,16 +84,27 @@
 								</div>
 							</div>
 							<div class="fl content">
-								<div class="fc-blue font-14 font-w-b mt-10">
-									<div class="fr lc">
-										<a href="#" class="jb">
-											<svg class="icon">
-												<!--[if lte IE 8]><desc><img src="/new/images/ie8/c_5@2x.png" width="24" height="24"></desc><![endif]-->
-												<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-c_5"></use>
-											</svg>		
-											举报
-										</a>
-										<span class="fc-aux-a font-13 font-w-n">
+								
+								<div class="mt-10 clearfix">
+									<div class="fl fc-blue font-14 font-w-b name">{$val.uname}</div>
+									<div class="fr lc clearfix">
+										<div class="fl jb3">
+											<span class="jb radius-3 cursor-pointer">举报</span>
+											<div class="jbBox radius-3 none">
+												<ul>
+													<li><i></i>缺货涨价</li>
+													<li><i></i>文章错误</li>
+													<li><i></i>假冒伪劣</li>
+													<li class="other"><i></i>其他原因</li>
+												</ul>
+												<div class="input none"><input type="text" placeholder="输入举报原因" class="input-2"></div>
+												<div class="button1 mt-8"><button class="btn-3 cursor-pointer">提交</button></div>
+												<div class="arrow-down">
+													<span></span>
+												</div>
+											</div>
+										</div>
+										<div class="fr luo fc-aux-a font-13">
 											<if condition="$val['lc'] eq '1'">
 												沙发
 											<elseif condition="$val['lc'] eq '2'"/>
@@ -99,9 +114,8 @@
 											<else />
 												{$val.lc}楼
 											</if>
-										</span>
+										</div>
 									</div>
-									{$val.uname}
 								</div>
 								<div class="mt-10 font-13 reply" style="line-height: 20px;">
 									<for start="0" end="count($val['list'])" name="i">
@@ -148,19 +162,19 @@
 											<!--回复start-->
 											<div class="write write-hf radius-3 mt-5 ml-34" style="margin-top:5px;    margin-left: 34px;">
 												<div class="info">
-													<textarea placeholder="" rows="3" class="J_hf_content">回复 {$val['list'][$i]['uname']}：</textarea>
+													<textarea placeholder="" rows="3" class="J_hf_content emotion">回复 {$val['list'][$i]['uname']}：</textarea>
 												</div>
 												<div class="member clearfix">
 													<img src="{:avatar($visitor['id'],'24')}" class="radius-100" width="24" height="24">
 													<span class="fc-aux-9 ml-5">{$visitor['username']}</span>
 													<div class="fr">
-														<span class="mr-15">
+														<span class="mr-15 cursor-pointer face">
 															<svg class="icon">
 																<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_33@2x.png" width="8" height="8"></desc><![endif]-->
 																<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_33"></use>
 															</svg>
 														</span>
-														<button type="reset" class="no-btn fc-aux-9 mr-20">取消</button>
+														<button type="reset" class="no-btn fc-aux-9 mr-20 qx cursor-pointer">取消</button>
 														<button type="submit" class="button btn-1 cursor-pointer J_hf_submit" data-id="{$val['list'][$i]['id']}" psid="{$val.id}">回复</button>
 													</div>
 												</div>
@@ -203,19 +217,19 @@
 								<!--回复start-->
 								<div class="write write-hf radius-3">
 									<div class="info">
-										<textarea placeholder="回复：<if condition="stripos($val['info'],'|android') !== false OR stripos($val['info'],'|iphone') !== false">{$infos[0]}<else/>{$val.info}</if>" rows="3" class="J_hf_content"></textarea>
+										<textarea placeholder="回复：<if condition="stripos($val['info'],'|android') !== false OR stripos($val['info'],'|iphone') !== false">{$infos[0]}<else/>{$val.info}</if>" rows="3" class="J_hf_content emotion"></textarea>
 									</div>
 									<div class="member clearfix">
 										<img src="{:avatar($visitor['id'],'24')}" class="radius-100" width="24" height="24">
 										<span class="fc-aux-9 ml-5">{$visitor['username']}</span>
 										<div class="fr">
-											<span class="mr-15">
+											<span class="mr-15 cursor-pointer face">
 												<svg class="icon">
 													<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_33@2x.png" width="8" height="8"></desc><![endif]-->
 													<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_33"></use>
 												</svg>
 											</span>
-											<button type="reset" class="no-btn fc-aux-9 mr-20">取消</button>
+											<button type="reset" class="no-btn fc-aux-9 mr-20 qx cursor-pointer">取消</button>
 											<button type="submit" class="button btn-1 cursor-pointer J_hf_submit" data-id="{$val.id}" psid="{$val.id}">回复</button>
 										</div>
 									</div>
@@ -336,19 +350,19 @@
 								<!--回复start-->
 								<div class="write write-hf radius-3">
 									<div class="info">
-										<textarea placeholder="回复：#put info here#" rows="3" class="J_hf_content"></textarea>
+										<textarea placeholder="回复：#put info here#" rows="3" class="J_hf_content emotion"></textarea>
 									</div>
 									<div class="member clearfix">
 										<img src="{:avatar($visitor['id'],'24')}" class="radius-100" width="24" height="24">
 										<span class="fc-aux-9 ml-5">{$visitor['username']}</span>
 										<div class="fr">
-											<span class="mr-15">
+											<span class="mr-15 cursor-pointer face">
 												<svg class="icon">
 													<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_33@2x.png" width="8" height="8"></desc><![endif]-->
 													<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_33"></use>
 												</svg>
 											</span>
-											<button type="reset" class="no-btn fc-aux-9 mr-20">取消</button>
+											<button type="reset" class="no-btn fc-aux-9 mr-20 qx cursor-pointer">取消</button>
 											<button type="submit" class="button btn-1 cursor-pointer J_hf_submit" data-id="#id#" psid="#pid#">回复</button>
 										</div>
 									</div>
@@ -368,7 +382,7 @@
 				
 				<!--写评论start-->
 				<div class="write radius-3">
-					<style type="text/css">
+					<!-- <style type="text/css">
 					#J_login {
 					    position: absolute;
 					    top: 10px;
@@ -376,18 +390,21 @@
 					    font-size: 14px;
 					    color: #909090;
 					}
-					</style>
+					</style> -->
 					<div class="info">
-						<textarea id="J_cmt_content" placeholder="Friends, say something..." rows="3"></textarea>
-						<span id="J_login" style="display: none;">需要您<a href="javascript:;" id="J_lo_btn">登录</a>后才可以发起讨论</span>
+						<textarea id="J_cmt_content emotion" placeholder="Friends, say something..." rows="3" class="emotion"></textarea>
+						<!-- <span id="J_login" style="display: none;">需要您<a href="javascript:;" id="J_lo_btn">登录</a>后才可以发起讨论</span> -->
 					</div>
 					<div class="member clearfix">
 						<notempty name="visitor">
 						<img src="{:avatar($visitor['id'],'24')}" class="radius-100" width="24" height="24">
 						<span class="fc-aux-9 ml-5">{$visitor['username']}</span>
 						</notempty>
+						<empty name="visitor">
+						<div class="fl font-14"><a href="javascript:;" id="J_lo_btn" class="a-green">登录</a>后发起讨论...</div>
+						</empty>
 						<div class="fr">
-							<span class="mr-15">
+							<span class="mr-15 cursor-pointer face">
 								<svg class="icon">
 									<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_33@2x.png" width="8" height="8"></desc><![endif]-->
 									<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_33"></use>
@@ -398,7 +415,7 @@
 							<input type="hidden" name="itemid" id="itemid" value="{$itemid}"/>
 							<input type="hidden" name="xid" id="xid" value="{$xid}"/>
 						</div>
-					</div>					
+					</div>	
 				</div>
 				<!--写评论end-->
 				
