@@ -296,15 +296,18 @@ class itemAction extends frontendAction {
         $pager_bar_hot = $pager_hot->fshow();
         $this->assign('pager_bar_hot',$pager_bar_hot);
 
-        $sql = "select * from try_comment where itemid=$itemid and xid=$xid and status=1 and pid=0 order by id desc limit $pager->firstRow, $pager->listRows";
-        $cmt_list = M()->query($sql);
+        // $sql = "select * from try_comment where itemid=$itemid and xid=$xid and status=1 and pid=0 order by id desc limit $pager->firstRow, $pager->listRows";
+        $cmt_list = $comment_mod->where($map)->order("id desc")->limit($pager->firstRow . ',' . $pager->listRows)->select();
         $uids = array();
-        $i = 1;
+        $i = $pager->firstRow + $pager->listRows;
+        if($i > $count){
+            $i = $count;
+        }
         if(count($cmt_list) > 0){
           foreach($cmt_list as $key=>$v){
             $uids[$cmt_list[$key]['uid']] = $cmt_list[$key]['uid'];
             $cmt_list[$key]['lc'] = $i;
-            $i++;
+            $i--;
 
             $cmt_list[$key]['list']=M()->query("select * from try_comment where status=1 and pid='".$v['id']."' order by id asc");
             $j=1;

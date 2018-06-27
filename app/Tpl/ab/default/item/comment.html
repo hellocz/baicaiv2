@@ -1,4 +1,7 @@
-<div class="comments radius-3 white-bg mt-12">
+<!--新浪表情JS-->
+	<script src="/new/js/lib/sinaEmotion/jquery-1.8.0.min.js"></script>
+	<script src="/new/js/lib/sinaEmotion/jquery.sinaEmotion.js"></script>
+	<div class="comments radius-3 white-bg mt-12">
 				<div class="title font-16 font-w-b">
 					<span class="fr font-w-n font-14 fc-grey newsCom cursor-pointer">
 						<span id="newsComContent">最新评论</span>
@@ -127,9 +130,10 @@
 										<!--引用回复内容start-->
 										<div class="p10">
 											<p class="fc-aux-a font-w-b">{$val['list'][$i]['lc']}楼<span class="fc-blue ml-12">{$val['list'][$i]['uname']}</span></p>
-											<p class="mt-5 ml-34">
+											<p class="mt-5 ml-34 comment_info">
 												<?php $infos=explode("|",$val['list'][$i]['info']);  ?>
-												<if condition="stripos($val['list'][$i]['info'],'|android') !== false OR stripos($val['list'][$i]['info'],'|iphone') !== false">{$infos[0]}<else/>{$val['list'][$i]['info']}</if></p>
+												<if condition="stripos($val['list'][$i]['info'],'|android') !== false OR stripos($val['list'][$i]['info'],'|iphone') !== false">{$infos[0]}<else/>{$val['list'][$i]['info']}</if>
+											</p>
 											<p class="font-12 fc-aux-a mt-5 ml-34">
 												<span class="mr-10 hf cursor-pointer">
 													<svg class="icon">	
@@ -185,8 +189,10 @@
 									</div>
 									<!--引用回复-->
 									</for>
-									<?php $infos=explode("|",$val['info']);  ?>
-									<if condition="stripos($val['info'],'|android') !== false OR stripos($val['info'],'|iphone') !== false">{$infos[0]}<else/>{$val.info}</if>
+									<div class="comment_info">
+										<?php $infos=explode("|",$val['info']);  ?>
+										<if condition="stripos($val['info'],'|android') !== false OR stripos($val['info'],'|iphone') !== false">{$infos[0]}<else/>{$val.info}</if>
+									</div>
 								</div>
 								<div class="mt-8 cz fc-aux-a">
 									<span class="mr-10 hf cursor-pointer">
@@ -307,18 +313,29 @@
 								</div>
 							</div>
 							<div class="fl content">
-								<div class="fc-blue font-14 font-w-b mt-10">
-									<span class="fr lc">
-										<a href="#" class="jb">
-											<svg class="icon">
-												<!--[if lte IE 8]><desc><img src="/new/images/ie8/c_5@2x.png" width="24" height="24"></desc><![endif]-->
-												<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-c_5"></use>
-											</svg>		
-											举报
-										</a>
-										<span class="fc-aux-a font-13 font-w-n comment_lc">#put lc here#</span>
-									</span>
-									{$visitor['username']}
+								<div class="mt-10 clearfix">
+									<div class="fl fc-blue font-14 font-w-b name">{$visitor['username']}</div>
+									<div class="fr lc clearfix">
+										<div class="fl jb3">
+											<span class="jb radius-3 cursor-pointer">举报</span>
+											<div class="jbBox radius-3 none">
+												<ul>
+													<li><i></i>缺货涨价</li>
+													<li><i></i>文章错误</li>
+													<li><i></i>假冒伪劣</li>
+													<li class="other"><i></i>其他原因</li>
+												</ul>
+												<div class="input none"><input type="text" placeholder="输入举报原因" class="input-2"></div>
+												<div class="button1 mt-8"><button class="btn-3 cursor-pointer">提交</button></div>
+												<div class="arrow-down">
+													<span></span>
+												</div>
+											</div>
+										</div>
+										<div class="fr luo fc-aux-a font-13 comment_lc">
+											#put lc here#
+										</div>
+									</div>
 								</div>
 								<div class="mt-10 font-13 reply comment_info" style="line-height: 20px;">
 									#put info here#
@@ -392,7 +409,7 @@
 					}
 					</style> -->
 					<div class="info">
-						<textarea id="J_cmt_content emotion" placeholder="Friends, say something..." rows="3" class="emotion"></textarea>
+						<textarea id="J_cmt_content" placeholder="Friends, say something..." rows="3" class="emotion"></textarea>
 						<!-- <span id="J_login" style="display: none;">需要您<a href="javascript:;" id="J_lo_btn">登录</a>后才可以发起讨论</span> -->
 					</div>
 					<div class="member clearfix">
