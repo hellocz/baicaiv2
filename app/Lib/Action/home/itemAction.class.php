@@ -320,8 +320,9 @@ class itemAction extends frontendAction {
         $this->assign("strpos",$strpos);
         $add_time = intval($item['add_time']);
         $time = time();
-        $pre = $item_mod->where("add_time<$add_time and status=1")->field("id,title")->order("add_time desc,id desc")->find();
-        $next = $item_mod->where("add_time>$add_time and add_time <$time and status=1")->field("id,title")->find();
+        // remove the and status=1 to improve the sql exec
+        $pre = $item_mod->where("add_time<$add_time")->field("id,title")->order("add_time desc,id desc")->find();
+        $next = $item_mod->where("add_time>$add_time and add_time <$time")->field("id,title")->find();
         $this->assign("pre",$pre);
         $this->assign("next",$next);
         //评论
@@ -661,11 +662,11 @@ class itemAction extends frontendAction {
                       if(!empty($url)){
                         $e->href=$this->converturl($url);
                       }
-                      elseif(strpos($href, "tmall.com") !== false || strpos($href, "taobao.com") !== false){
-                        //donothing
-                      }
                       elseif(strpos($href, "uland.taobao.com") !== false){
                           $e->href=$this->converturl($href);
+                      }
+                      elseif(strpos($href, "tmall.com") !== false || strpos($href, "taobao.com") !== false){
+                        //donothing
                       }
                       elseif(strpos($href, "https://s.click.taobao.com/1D7zLZw") !== false){
                            $e->href="https://s.click.taobao.com/e3rM4Zw";
@@ -986,8 +987,29 @@ class itemAction extends frontendAction {
            }
            
         }elseif (strcmp($host,'uland.taobao.com')==0){
-
-          $result['convert_url']= preg_replace('/mm_\d+_\d+_\d+/',  $profile['mm_pid'], $url);
+          $uland_params_url = parse_url($url);
+          parse_str($uland_params_url['query'],$uland_url);
+          $e = $uland_url['e'];
+          if($e){
+            $applinzi_parse_url = "http://1.alimama.applinzi.com/getCouponParm.php?appkey=4799843&e={$e}";
+            $applinzi_parse_data = $this->http($applinzi_parse_url);
+            if($applinzi_parse_data[0] == 200)
+            {
+            $applinzi_parse_result = json_decode($applinzi_parse_data[1], TRUE);
+            }
+            if($applinzi_parse_result['data']['result']['item']['itemId']){
+                $applinzi_high_url = "http://1.alimama.applinzi.com/getHighapi.php?appkey=4799843&pid=" . $profile['mm_pid'] . "&goodsId=" . $applinzi_parse_result['data']['result']['item']['itemId'];
+                $applinzi_high_data = $this->http($applinzi_high_url);
+                 if($applinzi_high_data[0] == 200)
+                {
+                $applinzi_high_result = json_decode($applinzi_high_data[1], TRUE);
+                $result['convert_url'] = $applinzi_high_result['result']['data']['coupon_click_url'];
+                }
+            }
+          }
+          else{
+             $result['convert_url'] =  $url;
+          }
           /*
             $result['id'] =3;
             $parsed_orig_url = parse_url($url);
@@ -1049,6 +1071,7 @@ class itemAction extends frontendAction {
               $result['convert_url'] =$url;
               $result['id'] =-1;
           }
+          IS_AJAX && $this->ajaxReturn(1,"获取成功",$result['convert_url']);
         
         return $result['convert_url'] ;
     }
@@ -1614,4 +1637,45 @@ function get_photo($url,$file_num,$savefile='ueditor/php/upload/image/')
 
 
     }
+    public function http($url, $method, $postfields = null, $headers = array(), $debug = false)
+{
+$ci = curl_init();
+/* Curl settings */
+curl_setopt($ci, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+curl_setopt($ci, CURLOPT_CONNECTTIMEOUT, 30);
+curl_setopt($ci, CURLOPT_SSL_VERIFYPEER, FALSE);
+curl_setopt($ci, CURLOPT_SSL_VERIFYHOST, FALSE);
+curl_setopt($ci, CURLOPT_TIMEOUT, 30);
+curl_setopt($ci, CURLOPT_RETURNTRANSFER, true);
+
+switch ($method) {
+case 'POST':
+curl_setopt($ci, CURLOPT_POST, true);
+if (!empty($postfields)) {
+curl_setopt($ci, CURLOPT_POSTFIELDS, $postfields);
+$this->postdata = $postfields;
+}
+break;
+}
+curl_setopt($ci, CURLOPT_URL, $url);
+curl_setopt($ci, CURLOPT_HTTPHEADER, $headers);
+curl_setopt($ci, CURLINFO_HEADER_OUT, true);
+
+$response = curl_exec($ci);
+$http_code = curl_getinfo($ci, CURLINFO_HTTP_CODE);
+
+if ($debug) {
+echo "=====post data======\r\n";
+var_dump($postfields);
+
+echo '=====info=====' . "\r\n";
+print_r(curl_getinfo($ci));
+
+echo '=====$response=====' . "\r\n";
+print_r($response);
+}
+curl_close($ci);
+return array($http_code, $response);
+}
+
 }

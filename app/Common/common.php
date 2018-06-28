@@ -395,6 +395,11 @@ function getly($orig_id){
 	$str = M("item_orig")->where("id=$orig_id")->getField('name');
 	return $str;
 }
+/*获取活动名称*/
+function get_activityname($activity_id){
+	$str = M("activity")->where("id=$activity_id")->getField('name');
+	return $str;
+}
 /*获取用户名*/
 function get_uname($uid){
 	$uname = M("user")->where("id='$uid'")->getField("username");

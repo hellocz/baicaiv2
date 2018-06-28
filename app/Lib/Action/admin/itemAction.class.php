@@ -43,6 +43,70 @@ class itemAction extends backendAction {
             }
     }
 
+    public function add_activity(){
+        $this->assign('open_validator', true);
+            if (IS_AJAX) {
+                $response = $this->fetch();
+                $this->ajaxReturn(1, '', $response);
+            } else {
+                $this->display();
+            }
+    }
+
+    public function activity_ajax_add(){
+        $mod = D("activity");
+        $data = $mod->create();
+        if($mod->add($data)){
+            $this->ajaxReturn(1, L('operation_success'), $data, 'add');
+        }
+        else{
+            $this->ajaxReturn(0, L('operation_failure'));
+        }
+       
+    }
+
+    public function activity_remove(){
+        $mod = D("item_activity");
+        $pk = $mod->getPk();
+        $ids = trim($this->_request($pk), ',');
+        if ($ids) {
+            if (false !== $mod->delete($ids)) {
+                $this->ajaxReturn(1, L('operation_success'));
+            } else {
+                $this->ajaxReturn(0, L('operation_failure'));
+            }
+        } else {
+            $this->ajaxReturn(0, L('illegal_parameters'));
+        }
+    }
+
+    public function activity_ajax_bind(){
+        $mod = D("item_activity");
+        $data = $mod->create();
+        $result = $mod->add($data);
+        if($result){
+            $data['id'] = $result;
+            $this->ajaxReturn(1, L('operation_success'), $data, 'bind');
+        }
+        else{
+            $this->ajaxReturn(0, L('operation_failure'));
+        }
+       
+    }
+
+    public function bind_activity(){
+        $orig_id = $this->_get("orig_id",'trim',"1");
+        $id = $this->_get("id");
+        $this->assign('id',$id);
+          $this->assign('orig_id', $orig_id);
+            if (IS_AJAX) {
+                $response = $this->fetch();
+                $this->ajaxReturn(1, '', $response);
+            } else {
+                $this->display();
+            }
+    }
+
     public function count(){
         $where = array();
         $where_orig = array();
@@ -922,6 +986,9 @@ class itemAction extends backendAction {
             if(empty($data['img'])){
                 $data['img'] = $item_img;
             }
+            preg_match("/￥(\d+\.?\d+)/", $data['price'],$match_prices);
+            $data['pure_price'] = floatval($match_prices[1]);
+
           //  file_put_contents($file_name, 'img123'.$data['img'].'img123', FILE_APPEND);
             $this->_mod->where(array('id'=>$item_id))->save($data);
             //更新索引
@@ -1014,8 +1081,13 @@ class itemAction extends backendAction {
         } else {
             $id = $this->_get('id','intval');
             $item = $this->_mod->where(array('id'=>$id))->find();
+            $activity_list = M("item_activity")->where(array('item_id'=>$id))->select();
+            foreach ($activity_list as $key => $value) {
+                $activity_list[$key]['name'] = get_activityname($activity_list[$key]['activity_id']);
+            }
             $vote =M("vote")->where(array('item_id'=>$id))->find();
             $this->assign('article_list', $vote['article_list']);
+            $this->assign("activity_list",$activity_list);
            // print_r($item);exit;
             //分类
             $spid = $this->_cate_mod->where(array('id'=>$item['cate_id']))->getField('spid');
@@ -1435,6 +1507,22 @@ class itemAction extends backendAction {
         $this->ajaxReturn(1, L('operation_success'),  $result);
     }
 
+    public function ajax_convertcontent(){
+        $content = $this->_post('content', 'trim');
+        $diucollect = new simple_html_dom();
+        $diucollect->load($content);
+        $as = $diucollect->find('a');
+        foreach ($as as $a) {
+            if(!$a->rel){
+                $a->rel="nofollow";
+            }
+            if(!$a->isconvert){
+                $a->isconvert="1";
+            }
+        }
+        $this->ajaxReturn(1, L('operation_success'),  $diucollect->root->innertext());
+    }
+
 
     public function ajax_converturl() {
         $url = $this->_get('url', 'trim');
@@ -1528,6 +1616,28 @@ class itemAction extends backendAction {
            
         }elseif (strcmp($host,'uland.taobao.com')==0){
             $result['id'] =3;
+            $uland_params_url = parse_url($url);
+          parse_str($uland_params_url['query'],$uland_url);
+          $e = $uland_url['e'];
+          if($e){
+            $applinzi_parse_url = "http://1.alimama.applinzi.com/getCouponParm.php?appkey=4799843&e={$e}";
+            $applinzi_parse_data = $this->http($applinzi_parse_url);
+            if($applinzi_parse_data[0] == 200)
+            {
+            $applinzi_parse_result = json_decode($applinzi_parse_data[1], TRUE);
+            }
+            if($applinzi_parse_result['data']['result']['item']['itemId']){
+                $applinzi_high_url = "http://1.alimama.applinzi.com/getHighapi.php?appkey=4799843&pid=" . $_SESSION['admin']['mm_pid'] . "&goodsId=" . $applinzi_parse_result['data']['result']['item']['itemId'];
+                $applinzi_high_data = $this->http($applinzi_high_url);
+                 if($applinzi_high_data[0] == 200)
+                {
+                $applinzi_high_result = json_decode($applinzi_high_data[1], TRUE);
+                $result['convert_url'] = $applinzi_high_result['result']['data']['coupon_click_url'];
+                }
+            }
+          }
+          !$result['convert_url'] && $result['convert_url'] =  $url;
+          /*
             $parsed_orig_url = parse_url($url);
              parse_str($parsed_orig_url['query'],$parsed_orig_query);
              if(isset($parsed_orig_query['activityId']) &&isset($parsed_orig_query['itemId']) ){
@@ -1536,6 +1646,7 @@ class itemAction extends backendAction {
              else{
                   $result['convert_url'] =  $url;
              }
+             */
         }
          elseif (strcmp($host,'www.kaixinbao.com')==0 || strcmp($host,'u.kaixinbao.com')==0){
             $result['id'] =942;
@@ -1698,6 +1809,30 @@ class itemAction extends backendAction {
            
         }elseif (strcmp($host,'uland.taobao.com')==0){
             $result['id'] =3;
+            $uland_params_url = parse_url($url);
+          parse_str($uland_params_url['query'],$uland_url);
+          $e = $uland_url['e'];
+          if($e){
+            $applinzi_parse_url = "http://1.alimama.applinzi.com/getCouponParm.php?appkey=4799843&e={$e}";
+            $applinzi_parse_data = $this->http($applinzi_parse_url);
+            if($applinzi_parse_data[0] == 200)
+            {
+            $applinzi_parse_result = json_decode($applinzi_parse_data[1], TRUE);
+            }
+            if($applinzi_parse_result['data']['result']['item']['itemId']){
+                $applinzi_high_url = "http://1.alimama.applinzi.com/getHighapi.php?appkey=4799843&pid=" . $_SESSION['admin']['mm_pid'] . "&goodsId=" . $applinzi_parse_result['data']['result']['item']['itemId'];
+                $applinzi_high_data = $this->http($applinzi_high_url);
+                 if($applinzi_high_data[0] == 200)
+                {
+                $applinzi_high_result = json_decode($applinzi_high_data[1], TRUE);
+                $result['convert_url'] = $applinzi_high_result['result']['data']['coupon_click_url'];
+                }
+            }
+          }
+          else{
+             $result['convert_url'] =  $url;
+          }
+          /*
             $parsed_orig_url = parse_url($url);
              parse_str($parsed_orig_url['query'],$parsed_orig_query);
              if(isset($parsed_orig_query['activityId']) &&isset($parsed_orig_query['itemId']) ){
@@ -1706,6 +1841,7 @@ class itemAction extends backendAction {
              else{
                   $result['convert_url'] =  $url;
              }
+             */
         }
          elseif (strcmp($host,'www.kaixinbao.com')==0 || strcmp($host,'u.kaixinbao.com')==0){
             $result['id'] =942;
@@ -1952,4 +2088,44 @@ class itemAction extends backendAction {
 			$this->error('数据写入错误！');
 		}
 	}
+    public function http($url, $method, $postfields = null, $headers = array(), $debug = false)
+{
+$ci = curl_init();
+/* Curl settings */
+curl_setopt($ci, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+curl_setopt($ci, CURLOPT_CONNECTTIMEOUT, 30);
+curl_setopt($ci, CURLOPT_SSL_VERIFYPEER, FALSE);
+curl_setopt($ci, CURLOPT_SSL_VERIFYHOST, FALSE);
+curl_setopt($ci, CURLOPT_TIMEOUT, 30);
+curl_setopt($ci, CURLOPT_RETURNTRANSFER, true);
+
+switch ($method) {
+case 'POST':
+curl_setopt($ci, CURLOPT_POST, true);
+if (!empty($postfields)) {
+curl_setopt($ci, CURLOPT_POSTFIELDS, $postfields);
+$this->postdata = $postfields;
+}
+break;
+}
+curl_setopt($ci, CURLOPT_URL, $url);
+curl_setopt($ci, CURLOPT_HTTPHEADER, $headers);
+curl_setopt($ci, CURLINFO_HEADER_OUT, true);
+
+$response = curl_exec($ci);
+$http_code = curl_getinfo($ci, CURLINFO_HTTP_CODE);
+
+if ($debug) {
+echo "=====post data======\r\n";
+var_dump($postfields);
+
+echo '=====info=====' . "\r\n";
+print_r(curl_getinfo($ci));
+
+echo '=====$response=====' . "\r\n";
+print_r($response);
+}
+curl_close($ci);
+return array($http_code, $response);
+}
 }

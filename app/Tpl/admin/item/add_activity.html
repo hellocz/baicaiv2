@@ -1,0 +1,161 @@
+<!--添加商品来源分类-->
+
+<div class="dialog_content">
+
+	<form id="activity_form" name="activity_form"  method="post">
+
+	<table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+
+		<tr>
+
+			<th width="100">优惠券名称 :</th>
+
+			<td><input type="text" name="name" id="name" class="input-text" size="30"></td>
+
+		</tr>
+
+
+		<tr>
+
+			<th>商城 :</th>
+
+			<td>
+
+				<select style="width:50%" name="orig_id">
+
+                <?php $orig_list =M()->query('SELECT *,fristPinyin(name) as t FROM `try_item_orig` WHERE 1 order by t');?>
+
+				<volist name="orig_list" id="r">
+
+				<option value="{$r.id}">{$r.name}</option>
+
+				</volist>
+
+				</select>
+
+			</td>
+
+		</tr>
+<!--
+		<tr>
+
+			<th>链接地址 :</th>
+
+			<td>
+
+				<input type="text" name="ljdz"  class="input-text" size="30" value="">
+
+			</td>
+
+		</tr>
+-->
+		<tr>
+
+			<th>描述 :</th>
+
+			<td>
+
+			<textarea name="intro" id="intro" style="width:80%;height:50px;"></textarea>
+
+			</td>
+
+		</tr>
+
+		<tr>
+
+			<th>开始时间 :</th>
+
+			<td>
+
+               <input type="text" name="start_time" id="start_time" class="input-text fl mr10" size="30" placeholder="">
+
+			</td>
+
+		</tr>
+
+		<tr>
+
+			<th>结束时间 :</th>
+
+			<td>
+
+               <input type="text" name="end_time" id="end_time" class="input-text fl mr10" size="30" placeholder="">
+
+			</td>
+
+		</tr>
+
+		<tr>
+			<th>操作 :</th>
+			<td><input type="button" name="add" id="add" class="btn add_activity" value="添加"></td>
+		</tr>
+
+	</table>
+</form>
+</div>
+
+<link rel="stylesheet" type="text/css" href="__STATIC__/js/calendar/calendar-blue.css"/>
+
+
+<script>
+
+Calendar.setup({
+
+	inputField : "start_time",
+
+	ifFormat   : "%Y-%m-%d",
+
+	showsTime  : false,
+
+	timeFormat : "24"
+
+});
+
+Calendar.setup({
+
+	inputField : "end_time",
+
+	ifFormat   : "%Y-%m-%d",
+
+	showsTime  : false,
+
+	timeFormat : "24"
+
+});
+
+$(".add_activity").click(function(){
+	var formData = new FormData($( "#activity_form" )[0]);
+	$.ajax({
+
+			type: "POST",
+
+			url:"{:u('item/activity_ajax_add')}",
+
+			data:formData,
+
+			dataType: "json",
+			async: false,
+
+				cache: false,
+
+				contentType: false,
+
+				processData: false,
+
+			error: function(request) {
+
+				alert("Connection error");
+			},
+
+			success: function(data) {
+
+				alert(data.msg);
+				$.dialog({id:"add"}).close();
+
+			}
+
+		 });
+});
+
+</script>
+

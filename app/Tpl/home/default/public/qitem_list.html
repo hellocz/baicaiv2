@@ -269,10 +269,10 @@ em.quan-right {
                         <div class="itemImageAndName">
                                 <div class="itemImageLink">
                                    <div class="imageContainer">
-                                      <a  isconvert="1" href="{$r.coupon_url}" rel="nofollow" title="" target="_blank"><img src="{$r.img}" title="" alt="{$r.title}"/></a>
+                                      <a   data-uri="{$r.coupon_url}" class="uland" rel="nofollow" title="" target="_blank"><img src="{$r.img}" title="" alt="{$r.title}"/></a>
                                   </div>
                                  <a class="itemStore"  href="" title=""></a>
-                                 <a class="itemTitle"  isconvert="1" href="{$r.coupon_url}" rel="nofollow"  title="" target="_blank">{$r.title}<em style="color:red;"></em></a>
+                                 <a class="itemTitle uland"   data-uri="{$r.coupon_url}" rel="nofollow"  title="" target="_blank">{$r.title}<em style="color:red;"></em></a>
                                 </div>
                          </div>
 	                 <div class="itemInfoLine">
@@ -287,7 +287,7 @@ em.quan-right {
                                 <p><i>￥</i>{$r.zk_final_price}</p>
                                 <span>券后价</span>
                             </div>
-                            <div class="go-buy"><a data-goodsid="536022462362" isconvert="1" rel="nofollow"  style="color:white" href="{$r.coupon_url}" target="_blank" _hover-ignore="1">去抢券</a>
+                            <div class="go-buy"><a data-goodsid="536022462362" class="uland"  rel="nofollow"  style="color:white" data-uri="{$r.coupon_url}" target="_blank" _hover-ignore="1">去抢券</a>
                         </div>
                           <!--     <a   isconvert="1" href="{$r['coupon_url']}" title=""  target="_blank" rel="nofollow" > <div class="coupon">{$r.coupon}元 优惠券</div><div class="coupon_tag">领券</div></a>
 -->                            </div>
@@ -304,6 +304,8 @@ em.quan-right {
 
 	   $(document).ready(function(e) {
         $('.fpGridBox').slice(20,).addClass("inactive");
-        }) 
+        });
+
+      
 
 	   </script>

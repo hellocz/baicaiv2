@@ -1,0 +1,103 @@
+<!--添加商品来源分类-->
+
+<div class="dialog_content">
+
+	<form id="activity_form" name="activity_form"  method="post">
+
+	<table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+
+
+
+		<tr>
+
+			<th>活动 :</th>
+
+			<td>
+
+				<select style="width:50%" name="activity_id" class="activity_sel">
+
+                <?php $activity_list =M("activity")->where("orig_id=$orig_id")->select();?>
+
+				<volist name="activity_list" id="r">
+
+				<option value="{$r.id}">{$r.name}</option>
+
+				</volist>
+
+				</select>
+
+				<input type="hidden" name="item_id" id="id" value="{$id}" />
+
+			</td>
+
+		</tr>
+<!--
+		<tr>
+
+			<th>链接地址 :</th>
+
+			<td>
+
+				<input type="text" name="ljdz"  class="input-text" size="30" value="">
+
+			</td>
+
+		</tr>
+-->
+		
+
+		<tr>
+			<th>操作 :</th>
+			<td><input type="button" name="bind" id="bind" class="btn bind_activity_item" value="绑定"></td>
+		</tr>
+
+	</table>
+</form>
+</div>
+
+<link rel="stylesheet" type="text/css" href="__STATIC__/js/calendar/calendar-blue.css"/>
+
+
+<script>
+
+
+$(".bind_activity_item").click(function(){
+	id = $("#id").val();
+	if(id == 0){
+		alert("关联帖子未找到!");
+		return 0;
+	}
+	var formData = new FormData($( "#activity_form" )[0]);
+	$.ajax({
+
+			type: "POST",
+
+			url:"{:u('item/activity_ajax_bind')}",
+
+			data:formData,
+
+			dataType: "json",
+			async: false,
+
+				cache: false,
+
+				contentType: false,
+
+				processData: false,
+
+			error: function(request) {
+
+				alert("Connection error");
+			},
+
+			success: function(data) {
+				$.pinphp.tip({content:data.msg});
+				$('.activity_show').append("<input type='button' class='btn activitys' value='" + $(".activity_sel option:selected").text() + "' id='" + data.data.id + "'/>");
+
+			}
+
+		 });
+});
+
+</script>
+

@@ -180,7 +180,17 @@ $(document).ready(function(){
     });
 });
 
+ $(".uland").click(function(){
+        url = $(this).attr("data-uri");
+        $.getJSON('{:U("item/converturl")}', {url:url}, function(result){
+      if(result.status == 1){
+        location.href = result.data;
+      }else{
+        location.href = url;
+      }
 
+    });
+       })
 
 //右边滚动
 $(window).scroll(function () {

@@ -151,15 +151,16 @@ class ajaxAction extends frontendAction {
 				$author = M("admin")->where(array('id'=>$item['uid']))->find();
 				$xc['ftid']=$author['uid'];
 				$xc['to_id']=$author['uid'];
+				$xc['info'] =$data['uname'] . '给你的文章 <a href="'.U('item/index',array('id'=>$item['id'])).'">'.$item['title'].'</a>做了评论';
 			}
 			else{
 				$xc['ftid']=$item['uid'];
 				$xc['to_id']=$item['uid'];
+				$xc['info'] =$data['uname'] . '给你的文章 <a href="'.U('article/show',array('id'=>$item['id'])).'">'.$item['title'].'</a>做了评论';
 			}
 			$xc['from_id']=0;
 			$xc['from_name']='tryine';
 			$xc['add_time']=time();
-			$xc['info'] =$data['uname'] . '给你的文章 <a href="'.U('item/index',array('id'=>$item['id'])).'">'.$item['title'].'</a>做了评论';
 			if($xc['ftid']){
 			M('message')->add($xc);
 			}

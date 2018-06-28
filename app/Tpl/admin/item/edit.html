@@ -97,7 +97,7 @@
 
 				<volist name="go_link" id="r">
 
-				<span><input type="text" name="link_type[]" placeholder="链接类型" class="input-text" value="{$r.name}"> ：<input type="text" id="J_link" style="width:1000px;" name="link_url[]" placeholder="链接地址" class="input-text" value="{$r.link}"/> &nbsp;<input type="button"  value=" + " id="J_add_link">
+				<span><input type="text" name="link_type[]" placeholder="链接类型" class="input-text" value="{$r.name}"> ：<input type="text" id="J_link" style="width:800px;" name="link_url[]" placeholder="链接地址" class="input-text" value="{$r.link}"/> &nbsp;<input type="button"  value=" + " id="J_add_link">
 				 <input type="button" value="{:L('auto_convert')}" id="J_convert" name="tags_btn" class="btn">
 				  <input type="button" value="强制直营" id="J_smid" name="tags_btn" class="btn">
 				 <br><br></span>
@@ -105,7 +105,7 @@
 
 				<else />
 
-					<span><input type="text" name="link_type[]" placeholder="链接类型" value="直达链接" class="input-text" value=""> ：<input id="J_link" type="text" style="width:1000px;" name="link_url[]" placeholder="链接地址" class="input-text"/> &nbsp;<input type="button" value=" + " id="J_add_link"></span>
+					<span><input type="text" name="link_type[]" placeholder="链接类型" value="直达链接" class="input-text" value=""> ：<input id="J_link" type="text" style="width:800px;" name="link_url[]" placeholder="链接地址" class="input-text"/> &nbsp;<input type="button" value=" + " id="J_add_link"></span>
 				 <input type="button" value="{:L('auto_convert')}" id="J_convert" name="tags_btn" class="btn">
 				 <input type="button" value="强制直营" id="J_smid" name="tags_btn" class="btn">
 					
@@ -204,7 +204,7 @@
 
 				<label><input type="checkbox" value="{$info['ishot']}"  name="ishot" id="ishot" <if condition="$info['ishot'] eq 1">checked</if>>热门</label> &nbsp;&nbsp;
 
-				<label><input type="checkbox" value="{$info['istop']}" name="istop" id="istop"  <if condition="$info['istop'] eq 1">checked</if>>置顶</label> &nbsp;&nbsp;
+				<label><input type="checkbox" value="{$info['istop']}" name="istop" id="istop"  <if condition="$info['istop'] eq 1">checked</if>>手机端置顶</label> &nbsp;&nbsp;
 
 				<label><input type="checkbox" value="{$info['isbao']}" name="isbao" id="isbao" disabled <if condition="$info['isbao'] eq 1">checked</if>>
 					<input type="hidden" name="isbao" value="{$info['isbao']}"/>网友爆料</label>
@@ -308,6 +308,22 @@
 				</td>
 
 			</tr>
+
+			<tr>
+				<th><input type="button" class="btn bind_activity J_showdialog" href="javascript:void(0);" data-uri="{:U('item/bind_activity')}" data-title="绑定商城活动" data-id="bind_activity" data-width="500" data-height="140" value="绑定商城活动"></th>
+				<td class="activity_show">
+					<volist name="activity_list" id="act">
+				<input type='button' class='btn activitys' value='{$act.name}' id='{$act.id}'/>
+            	</volist>
+				</td>
+			</tr>
+
+			<tr>
+				<th>其他操作 :</th>
+				<td><input type="button" value="合集转换" id="J_transfer" name="tags_btn" class="btn">	
+					<input type="button" class="btn J_showdialog" href="javascript:void(0);" data-uri="{:U('item/add_activity')}" data-title="添加商城活动" data-id="add" data-width="500" data-height="140" value="添加商城活动"></td>
+			</tr>
+
 			<tr>
 
 				<th>投票文章列表:</th>
@@ -630,7 +646,23 @@
 
 $('.J_cate_select').cate_select('请选择');
 
+$('.activitys').live('click',function(){
+	self = $(this);
+	id = self.attr('id');
+	$.getJSON('{:U("item/activity_remove")}', {id:id}, function(result){
 
+			if(result.status == 1){
+				$.pinphp.tip({content:"删除成功"});
+				self.remove();
+			}else{
+
+				$.pinphp.tip({content:"删除失败"});
+
+			}
+
+		});
+	
+})
 
 $(function() {
 
@@ -640,7 +672,7 @@ $(function() {
 		$('#J_rm_publish').show();
 	}
 
-
+	$("#orig_id").change();
 
 	$('#save_msg').click(function(){
 
@@ -749,6 +781,8 @@ $(function() {
 				$('#J_link').val(result.data.convert_url);
 				if(result.data.id!=-1)
 				 $("#orig_id").val(result.data.id);
+				$("#orig_id").change();
+
 
 			}else{
 
@@ -867,6 +901,10 @@ $("#J_del_link").live('click',function(){
 	$(this).parent().remove();
 
 });
+
+$("#orig_id").live('change',function(){
+	$(".bind_activity").attr('data-uri',"?g=admin&m=item&a=bind_activity&orig_id=" + $(this).val() + "&id=" + $("#id").val());
+})
 
 
 
@@ -1077,7 +1115,31 @@ $("#search_cate").change(function(){
 		$('.J_cate_select').attr("data-selected",spid);
 		$(".J_cate_select").cate_select();
 	});
+$('#J_transfer').live('click', function() {
 
+		var content = ue.getContent(); 
+
+		if(content == ''){
+
+			$.pinphp.tip({content:lang.article_title_isempty, icon:'alert'});
+
+			return false;
+
+		}
+
+		$.post('{:U("item/ajax_convertcontent")}', {content:content}, function(result){
+
+			if(result.status == 1){
+				ue.setContent(result.data); 
+				$.pinphp.tip({content:"转换成功"});
+			}else{
+
+				$.pinphp.tip({content:"转换失败"});
+
+			}
+
+		},'json');
+	});
 function ajaxFileUpload() {
 
 

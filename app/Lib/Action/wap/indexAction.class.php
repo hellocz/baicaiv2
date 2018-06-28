@@ -8,11 +8,11 @@ class indexAction extends frontendAction {
 		$mod=M("item");
 		if($type==""||$type=='isnice'){
 			$where=" and isnice=1 ";
-			$order =" add_time desc";
+			$order ="istop desc, add_time desc";
 			$tab = "isnice";
 		}else{
 			$where=" and isbao=1 ";
-			$order =" add_time desc";
+			$order ="istop desc, add_time desc";
 			$tab = "isbao";
 		}	
 		$time=time();		

@@ -38,6 +38,7 @@ class articleAction extends frontendAction {
 				$this->assign('cate',$cate['name']);
 			}
 		}
+		!$cate && $this->_404();
 		//SEO信息
 		$seo = M("article_cate")->where("id='$cate_id'")->find();
 		$this->_config_seo(C('pin_seo_config.cate'), array(

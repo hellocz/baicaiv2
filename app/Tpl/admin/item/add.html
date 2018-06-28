@@ -97,6 +97,7 @@
 				<input type="file"  name="img"  id="img" class="w_bl_in2" style="display: none" /> 
 				
 		</div>
+
 		<input style="top:15px;left: 15px;"  type="button" name="J_img_d" class="btn" id="J_img_d"   value="选取第一张" />
 		<input type="text" style="top:15px;left: 15px;position:relative" size="80" id="R_img" name="img_usb"   placeholder="远程图片地址" class="input-text" value="">
 				 </td>
@@ -109,7 +110,7 @@
 
 				<td id="Link_form">
 
-				<span><input type="text" name="link_type[]" placeholder="链接类型" value="直达链接" class="input-text" value=""> ：<input id="J_link" type="text" style="width:1000px;" name="link_url[]" placeholder="链接地址" class="input-text"/> &nbsp;<input type="button" value=" + " id="J_add_link"></span>
+				<span><input type="text" name="link_type[]" placeholder="链接类型" value="直达链接" class="input-text" value=""> ：<input id="J_link" type="text" style="width:800px;" name="link_url[]" placeholder="链接地址" class="input-text"/> &nbsp;<input type="button" value=" + " id="J_add_link"></span>
 				 <input type="button" value="{:L('auto_convert')}" id="J_convert" name="tags_btn" class="btn">
 				 <input type="button" value="强制直营" id="J_smid" name="tags_btn" class="btn">
 				</td>
@@ -174,7 +175,7 @@
 
 					<label><input type="checkbox" value="1" name="ishot" id="ishot" <if condition="$info['ishot'] eq 1">checked</if>>热门</label> &nbsp;&nbsp;
 
-					<label><input type="checkbox" value="1" name="istop" id="istop" <if condition="$info['istop'] eq 1">checked</if>>置顶</label> &nbsp;&nbsp;
+					<label><input type="checkbox" value="1" name="istop" id="istop" <if condition="$info['istop'] eq 1">checked</if>>手机端置顶</label> &nbsp;&nbsp;
 
 					<label><input type="checkbox" value="1" name="ispost" id="ispost" <if condition="$info['ispost'] eq 1">checked</if>>可直邮</label> &nbsp;&nbsp;
 
@@ -215,6 +216,19 @@
 				</td>
 
 			</tr>
+
+			<tr>
+				<th><input type="button" class="btn bind_activity J_showdialog" href="javascript:void(0);" data-uri="{:U('item/bind_activity')}" data-title="绑定商城活动" data-id="bind_activity" data-width="500" data-height="140" value="绑定商城活动"></th>
+				<td class="activity_show">
+				</td>
+			</tr>
+
+			<tr>
+				<th>其他操作 :</th>
+				<td><input type="button" value="合集转换" id="J_transfer" name="tags_btn" class="btn">	
+					<input type="button" class="btn J_showdialog" href="javascript:void(0);" data-uri="{:U('item/add_activity')}" data-title="添加商城活动" data-id="add" data-width="500" data-height="140" value="添加商城活动"></td>
+			</tr>
+
 
 			<!--<tr>
 
@@ -413,13 +427,34 @@
 
 <script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
 
+<script src="__STATIC__/js/calendar/calendar.js"></script>
+
 <script type="text/javascript">
 
 	var ue = UE.getEditor('content');
 
 $('.J_cate_select').cate_select('请选择');
 
+$('.activitys').live('click',function(){
+	self = $(this);
+	id = self.attr('id');
+	$.getJSON('{:U("item/activity_remove")}', {id:id}, function(result){
+
+			if(result.status == 1){
+				$.pinphp.tip({content:"删除成功"});
+				self.remove();
+			}else{
+
+				$.pinphp.tip({content:"删除失败"});
+
+			}
+
+		});
+	
+})
 $(function() {
+
+	$("#orig_id").change();
 
 	$('#save_msg').click(function(){
 
@@ -517,6 +552,31 @@ $(function() {
 		$("#add_time").val($("#hide_time").val());
 
 	});
+	$('#J_transfer').live('click', function() {
+
+		var content = ue.getContent(); 
+
+		if(content == ''){
+
+			$.pinphp.tip({content:"文章内容为空", icon:'alert'});
+
+			return false;
+
+		}
+
+		$.post('{:U("item/ajax_convertcontent")}', {content:content}, function(result){
+
+			if(result.status == 1){
+				ue.setContent(result.data); 
+				$.pinphp.tip({content:"转换成功"});
+			}else{
+
+				$.pinphp.tip({content:"转换失败"});
+
+			}
+
+		},'json');
+	});
 	$('#J_rm_publish').live('click', function() {
 		$('#J_rm_publish').hide();
 		$("#add_time").hide()
@@ -544,6 +604,7 @@ $(function() {
 				$('#J_link').val(result.data.convert_url);
 				if(result.data.id!=-1)
 				 $("#orig_id").val(result.data.id);
+				$("#orig_id").change();
 
 			}else{
 
@@ -609,6 +670,7 @@ $(function() {
 			if(result.status == 1){
 
 				$('#id').val(result.msg);
+				$("#orig_id").change();
 
 			}else{
 
@@ -658,7 +720,7 @@ function del_attr(obj)
 
 $("#J_add_link").live('click',function(){
 
-	$("#Link_form").append('<span><br><br><input name="link_type[]" value="直达链接"  class="input-text"> ：<input type="text" name="link_url[]"  value="" class="input-text"/>&nbsp;&nbsp;<input type="button" value=" - " id="J_del_link"/></span>');
+	$("#Link_form").append('<span><br><br><input name="link_type[]" value="直达链接"  class="input-text"> ：<input type="text" style="width:800px;" name="link_url[]"  value="" class="input-text"/>&nbsp;&nbsp;<input type="button" value=" - " id="J_del_link"/></span>');
 
 });
 
@@ -667,6 +729,10 @@ $("#J_del_link").live('click',function(){
 	$(this).parent().remove();
 
 });
+
+$("#orig_id").live('change',function(){
+	$(".bind_activity").attr('data-uri',"?g=admin&m=item&a=bind_activity&orig_id=" + $(this).val() + "&id=" + $("#id").val());
+})
 
 </script>
 
@@ -733,11 +799,6 @@ KindEditor.ready(function(K) {
 });*/
 
 </script>
-
-<link rel="stylesheet" href="__STATIC__/js/calendar/calendar-blue.css"/>
-
-<script src="__STATIC__/js/calendar/calendar.js"></script>
-
 <script src="/js/car1.6/iscroll-zoom.js"></script>
 
 <script src="/js/car1.6/hammer.js"></script>
