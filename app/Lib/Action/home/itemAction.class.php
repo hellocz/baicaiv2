@@ -619,6 +619,7 @@ class itemAction extends frontendAction {
                         }
                           $arr[0]=array('name'=>"直达链接",'link'=>$diu_item['url']);
                           $diu_item['go_link'] =serialize($arr);
+                          shortUrlCreate($diu_item['url']);
                      }
 
       /*
@@ -677,6 +678,10 @@ class itemAction extends frontendAction {
                       else{
                         $e->removeAttribute("href");
                       }
+                      if(!empty($e->href)){
+                         shortUrlCreate($e->href);
+                      }
+                     
                     }
                
 

@@ -13,9 +13,11 @@ class baoAction extends frontendAction {
 		$pagesize=21;
 		$count = 1000; //$mod->where("status=1 and add_time<$time ".$where)->count();
 		$pager = $this->_pager($count,$pagesize);
-		$list = M("item_diu")->where("status=1 and add_time<$time and ds_time < $time")->limit($pager->firstRow.",".$pager->listRows)->order($order)->select();	
+		$list = M("item_diu")->where("status=1")->limit($pager->firstRow.",".$pager->listRows)->order($order)->select();	
 		foreach($list as $key=>$val){
 			$list[$key]['zan'] = $list[$key]['zan']   +intval($list[$key]['hits']);
+			$list[$key]['orig_name'] = getly($list[$key]['orig_id']);
+			$list[$key]['go_url'] = shortUrl($list[$key]['url']);
 		}
 		$this->assign('item_list',$list);
 		$this->assign('pagebar',$pager->fshow());

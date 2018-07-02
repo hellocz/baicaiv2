@@ -975,6 +975,7 @@ class itemAction extends backendAction {
                 }
             }
 			foreach($_POST['link_type'] as $key=>$val){
+                shortUrlCreate($_POST['link_url'][$key]);
 				if($_POST['link_url'][$key]!=''){
 					$arr[$key]=array('name'=>$val,'link'=>$_POST['link_url'][$key]);
 				}
@@ -983,6 +984,14 @@ class itemAction extends backendAction {
 			$data['go_link']=serialize($arr);
             //更新商品
             //$file_name='log.txt';
+
+            preg_match_all('/href=[\'|\"](\S+)[\'|\"]/i',$data['content'],$links);
+        foreach($links[1] as $key=>$v){
+            if(strpos($v, "baicaio.com") == false  && strpos($v, "tmall.com") == false && strpos($v, "taobao.com") == false){
+            shortUrlCreate($v);
+        }
+        }
+
             if(empty($data['img'])){
                 $data['img'] = $item_img;
             }
