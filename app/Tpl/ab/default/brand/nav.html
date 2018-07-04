@@ -41,7 +41,7 @@
 							</svg>
 						</div>
 						<div class="list clearfix" style="border: none;">
-							<volist name="cate_brand_list['data']" id="r" offset="$firstRow" length='$listRows'>
+							<volist name="cate_brand_list['data']" id="r">	
 							<a href="{:U('brand/nav',array('p1'=>$cate_brand_list['p1']['id'], 'p2'=>$cate_brand_list['p2']['id'], 'brandid'=>$r['id']))}">{$r.name}</a>
 							</volist>
 						</div>
@@ -51,7 +51,7 @@
 				
 				<!--分页start-->
 				<!-- <div id="pages-brand" class="pages" style="text-align: center; padding-bottom: 30px;"></div> -->
-				<div id="page-brand" class="pages" style="text-align: center; padding-bottom: 30px;"><div class="layui-box layui-laypage layui-laypage-default">{$pagebar}</div></div>
+				<!-- <div id="page-brand" class="pages" style="text-align: center; padding-bottom: 30px;"><div class="layui-box layui-laypage layui-laypage-default">{$pagebar}</div></div> -->
 				<!--分页end-->
 			</div>
 		</div>

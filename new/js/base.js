@@ -165,6 +165,7 @@ function arrClick(a,b,c){
 		$(a).find(c).hide();
 		$(a).find(b).show();
 		$(a).parent().addClass("clearfix");
+		$(this).parent().parent().siblings(".attribute").hide();
 	})
 	$(".operation .arr-2").click(function(){
 //		$(this).addClass("active");
@@ -174,6 +175,8 @@ function arrClick(a,b,c){
 		$(a).find(b).hide();
 		$(a).find(c).show();
 		$(a).parent().removeClass("clearfix");
+		
+		$(this).parent().parent().siblings(".attribute").show();
 	})
 }
 
@@ -283,15 +286,17 @@ function shareShow(a,b,c){
 //	=         info = 提示的文字内容（可使用html标签）
 //  ========== 
 function tipsPopup(icon,info){
-	layer.open({
-		type: 1,
-		title: false,
-		closeBtn: 0,
-		shadeClose: true,
-		time:2000,
-		shade:0.01,
-		anim:0,
-		content: '<div id="tipsPopup"><div class="tips '+ icon +'"></div><div class="info">'+ info +'</div></div>'
+	layui.use(['layer'], function(){
+		layer.open({
+			type: 1,
+			title: false,
+			closeBtn: 0,
+			shadeClose: true,
+			time:2000,
+			shade:0.01,
+			anim:0,
+			content: '<div id="tipsPopup"><div class="tips '+ icon +'"></div><div class="info">'+ info +'</div></div>'
+		});
 	});
 }
 
@@ -406,4 +411,30 @@ function settime(val){
 			settime(val)
 		},1000)
 	}
+}
+
+//搜索树状菜单
+function treeNav(a){
+	$(a).click(function(){
+		if($(this).siblings("li").is(':hidden')){
+			$(this).siblings("li").show();
+			$(this).parent().addClass("active");
+		}else{
+			$(this).siblings("li").hide();
+			$(this).parent().removeClass("active");
+		}
+	})
+}
+
+function newMsg(){
+	$(".newMsg").show();
+	$(".newMsgTitle").click(function(){
+		if($(this).siblings("ul").is(':hidden')){
+			$(this).siblings("ul").show();
+			$(this).parent().addClass("newMsg-down");
+		}else{
+			$(this).siblings("ul").hide();
+			$(this).parent().removeClass("newMsg-down");
+		}
+	});
 }

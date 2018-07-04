@@ -1,7 +1,4 @@
-<!--新浪表情JS-->
-	<script src="/new/js/lib/sinaEmotion/jquery-1.8.0.min.js"></script>
-	<script src="/new/js/lib/sinaEmotion/jquery.sinaEmotion.js"></script>
-	<div class="comments radius-3 white-bg mt-12">
+<div class="comments radius-3 white-bg mt-12">
 				<div class="title font-16 font-w-b">
 					<span class="fr font-w-n font-14 fc-grey newsCom cursor-pointer">
 						<span id="newsComContent">最新评论</span>
@@ -91,7 +88,7 @@
 								<div class="mt-10 clearfix">
 									<div class="fl fc-blue font-14 font-w-b name">{$val.uname}</div>
 									<div class="fr lc clearfix">
-										<div class="fl jb3">
+										<!-- <div class="fl jb3">
 											<span class="jb radius-3 cursor-pointer">举报</span>
 											<div class="jbBox radius-3 none">
 												<ul>
@@ -106,7 +103,7 @@
 													<span></span>
 												</div>
 											</div>
-										</div>
+										</div> -->
 										<div class="fr luo fc-aux-a font-13">
 											<if condition="$val['lc'] eq '1'">
 												沙发
@@ -142,12 +139,12 @@
 													</svg>
 													回复
 												</span>
-												<span class="mr-10 cursor-pointer">
+												<span class="mr-10 cursor-pointer J_zan_cmt" data-id="{$val['list'][$i]['id']}">
 													<svg class="icon">
 														<!--[if lte IE 8]><desc><img src="/new/images/ie8/c_6@2x.png" width="14" height="14"></desc><![endif]-->
 														<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-c_6"></use>
 													</svg>
-													赞（{$val['list'][$i]['zan']}）
+													赞（<span>{$val['list'][$i]['zan']}</span>）
 												</span>
 												<span class="mr-15 cursor-pointer">
 													<svg class="icon">
@@ -202,12 +199,12 @@
 										</svg>
 										回复
 									</span>
-									<span class="mr-10 cursor-pointer">
+									<span class="mr-10 cursor-pointer J_zan_cmt" data-id="{$val.id}">
 										<svg class="icon">
 											<!--[if lte IE 8]><desc><img src="/new/images/ie8/c_6@2x.png" width="14" height="14"></desc><![endif]-->
 											<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-c_6"></use>
 										</svg>
-										赞（{$val.zan}）
+										赞（<span>{$val.zan}</span>）
 									</span>
 									<span class="mr-15 cursor-pointer">
 										<svg class="icon">
@@ -316,7 +313,7 @@
 								<div class="mt-10 clearfix">
 									<div class="fl fc-blue font-14 font-w-b name">{$visitor['username']}</div>
 									<div class="fr lc clearfix">
-										<div class="fl jb3">
+										<!-- <div class="fl jb3">
 											<span class="jb radius-3 cursor-pointer">举报</span>
 											<div class="jbBox radius-3 none">
 												<ul>
@@ -331,7 +328,7 @@
 													<span></span>
 												</div>
 											</div>
-										</div>
+										</div> -->
 										<div class="fr luo fc-aux-a font-13 comment_lc">
 											#put lc here#
 										</div>
@@ -348,12 +345,12 @@
 										</svg>
 										回复
 									</span>
-									<span class="mr-10 cursor-pointer">
+									<span class="mr-10 cursor-pointer J_zan_cmt" data-id="#id#">
 										<svg class="icon">
 											<!--[if lte IE 8]><desc><img src="/new/images/ie8/c_6@2x.png" width="14" height="14"></desc><![endif]-->
 											<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-c_6"></use>
 										</svg>
-										赞（0）
+										赞（<span>0</span>）
 									</span>
 									<span class="mr-15 cursor-pointer">
 										<svg class="icon">
@@ -398,7 +395,7 @@
 				<!--暂无评论end-->
 				
 				<!--写评论start-->
-				<div class="write radius-3">
+				<div class="write radius-3"" id="comments">
 					<!-- <style type="text/css">
 					#J_login {
 					    position: absolute;

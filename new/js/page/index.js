@@ -8,7 +8,7 @@ $(function(e) {
 		scrollobjSize: Math.ceil($(".atop-box").children("li.atop-list").length / 1) * 896,
 //		loop:"cycle",
 	});
-	
+
 	// //最新优惠tab菜单
 	// $("#i-news-title li").click(function(){
 	// 	var ethis = $("#i-news-title li");
@@ -91,6 +91,9 @@ $(function(e) {
 	
 	moreUrl(".cz2 .btn-more",".moreUrl");
 	moreUrl(".moreLink .btn-gd",".moreUrl");
+	
+	//最新消息调用此方法即可
+	newMsg();
 });
 
 //layui分页插件
@@ -101,8 +104,11 @@ layui.use(['laypage', 'layer'], function(){
 	laypage.render({
 		elem: 'pages-index'
 		,count: 70 //数据总数
-		,jump: function(obj){
+		,jump: function(obj,first){
 //			console.log(obj)
+			if(!first){
+				$(".page-loading").show();
+			}
 		}
 		,prev:'<i class="icon5 icon5-a_14" style="margin-top: 5px;"></i>'
 		,next:'<i class="icon5 icon5-a_15" style="margin-top: 5px;"></i>'

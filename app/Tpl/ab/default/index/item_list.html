@@ -19,7 +19,7 @@
 							</p>
 							<p class="fc-red price">{$r.price}</p>
 							<p class="content mt-15">
-								<span class="fc-aux-a icon_3 icon_3-e_21"><a href="{:U('orig/show',array('id'=>$r['orig_id']))}">{$origs[$r['orig_id']]['name']}</a></span>
+								<span class="fc-aux-a icon_3 icon_3-e_21"><a href="{:U('orig/show',array('id'=>$r['orig_id']))}" class="hover-underline">{$origs[$r['orig_id']]['name']}</a></span>
 								<span class="fc-aux-a fr icon_3 icon_3-e_23">{$r.comments}</span>
 								<span class="attr fc-aux-a fr icon_3 icon_3-e_22">{$r.zan}</span>
 							</p>
@@ -66,13 +66,14 @@
 								<a <if condition="$type eq 'isbao'">href="{:U('item/index',array('id'=>$r['id'],'isbao'=>1))}"<elseif condition="$r['status'] eq 4"/>href="{:U('article/show',array('id'=>$r['id']))}"<else/> href="{:U('item/index',array('id'=>$r['id']))}"</if> target="_blank" class="fc-green">…阅读全文</a></p>
 							<div class="content mt-15 clearfix">
 								<div class="fl" style="width:338px;margin-top: 12px;">
-									<span class="fc-aux-a icon3 icon3-a_42 mr-20">{$r.zan}</span>
-									<span class="fc-aux-a icon3 icon3-a_43">{$r.comments}</span>
-								</div>
+										<span class="fc-aux-a icon3 icon3-c_6 mr-20 cursor-pointer" onclick="tipsPopup('tips_1','点赞成功')">{$r.zan}</span>
+										<span class="fc-aux-a icon3 icon3-c_7 mr-20 cursor-pointer" onclick="tipsPopup('tips_1','点踩成功')">{$r.zan}</span>
+										<a href="page/details.html#comments"><span class="fc-aux-a icon3 icon3-a_43">{$r.comments}</span></a>
+									</div>
 								<?php $llink = unserialize($r['go_link']);$lc = count($llink);?><if condition="$lc gt 1">
 								<!--多链接样式-->
 								<div class="fr moreLink" style="width:300px;">
-									<span class="attr fc-aux-a icon_3 icon_3-e_21 layui-elip" style="line-height: 20px;"><a href="{:U('orig/show',array('id'=>$r['orig_id']))}">{$origs[$r['orig_id']]['name']}</a> | {$r['cate_name']}</span>
+									<span class="attr fc-aux-a icon_3 icon_3-e_21 layui-elip" style="line-height: 20px;"><a href="{:U('orig/show',array('id'=>$r['orig_id']))}">{$origs[$r['orig_id']]['name']}</a> | <a href="#" class="hover-underline">{$r['cate_name']}</a></span>
 									<a href="page/details.html" target="_blank" class="btn-gd radius-3">去购买</a>
 									<div class="moreUrl radius-3 none">
 										<volist name="llink" id="rm">
@@ -84,7 +85,7 @@
 								<elseif condition="$lc eq 1"/>
 								<!--单链接样式-->
 								<div class="fr" style="width:300px;">
-									<span class="attr fc-aux-a icon_3 icon_3-e_21 layui-elip" style="line-height: 20px;"><a href="{:U('orig/show',array('id'=>$r['orig_id']))}">{$origs[$r['orig_id']]['name']}</a> | {$r['cate_name']} </span>
+									<span class="attr fc-aux-a icon_3 icon_3-e_21 layui-elip" style="line-height: 20px;"><a href="{:U('orig/show',array('id'=>$r['orig_id']))}" class="hover-underline">{$origs[$r['orig_id']]['name']}</a> | <a href="#" class="hover-underline">{$r['cate_name']}</a> </span>
 									<a <if condition="($type eq 'isbao') AND ($r['orig_id'] eq 3)">isconvert="1" href="{$llink[0]['link']}"<else/>href="__ROOT__/?m=item&a=tgo&to={:shortUrl($llink[0]['link'])}"</if> target="_blank" class="btn radius-3">去购买</a>
 								</div>
 								<!--单链接样式-->

@@ -199,7 +199,8 @@
 	color: #33CC99;
 }
 .mbox-l .item .content a:hover{
-	color: #EB3C3C;
+	color: #33CC99;
+	text-decoration:underline !important;
 }
 /*单品推荐*/
 .mbox-l .item .recom li{
@@ -616,6 +617,7 @@
 
 /*写评论*/
 .mbox-l .comments .write{
+	position: relative;
 	margin: 0px 24px;
 	border: 1px solid #EBEBEB;
 }
@@ -754,8 +756,11 @@
 .mbox-r .layui-tab-content .layui-tab-item .tabCon{
 	width: 0;
 	padding: 0;
+}
+.mbox-r .layui-tab-content .layui-tab-item .tabCon .tit{
 	overflow: hidden;
 	line-height: 24px;
+	height: 48px;
 }
 
 .mbox-r .layui-tab-content .layui-tab-item .active .tabCon{

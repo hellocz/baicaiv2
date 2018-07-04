@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<include file="public:head" />
+</head>
+<body>
+	<!--顶部统一区域start-->
+	<include file="public:header" />
+	<!--顶部统一区域end-->
+	
+	<!--热门优惠start-->
+	
+	<!--面包屑start-->
+	<div class="w-1200 mt-20 breadcrumb fc-aux-a">
+		<a href="/">首页</a>
+		<span>热门优惠</span>
+	</div>
+	<!--面包屑end-->
+	
+	<div class="w-1200 mt-20 font-22">热门优惠</div>
+	
+	<div class="w-1200 mt-12 clearfix">
+		<!--搜索筛选start-->
+		<div class="fl l-search white-bg radius-3">
+			<div class="title font-w-b font-16">
+				<svg class="icon">
+					<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_18@2x.png" width="22" height="22"></desc><![endif]-->
+					<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_18"></use>
+				</svg>
+				从搜索结果中筛选
+			</div>
+			<form class="layui-form ml-20" action="" method="get" lay-filter="itemfilter">
+				<div class="fc-aux-9 mt-10">按推荐</div>
+				<div class="layui-form-item">
+					<input type="checkbox" name="t[1]" lay-skin="primary" title="首页推荐（{$total_count}）" <present name="filter['t'][1]">checked=""</present>><br>
+					<input type="checkbox" name="t[2]" lay-skin="primary" title="热门优惠（0）" <present name="filter['t'][2]">checked=""</present>><br>
+					<input type="checkbox" name="t[3]" lay-skin="primary" title="全网特价（0）" <present name="filter['t'][3]">checked=""</present>><br>
+					<input type="checkbox" name="t[4]" lay-skin="primary" title="圈子（0）" <present name="filter['t'][4]">checked=""</present>>
+				</div>
+				<div class="fc-aux-9 mt-32">按属性</div>
+				<div class="layui-form-item">
+					<input type="checkbox" name="property[1]" lay-skin="primary" title="海淘（{$ismy_list[1]['count']}）" <present name="filter['property'][1]">checked=""</present>><br>
+					<input type="checkbox" name="property[0]" lay-skin="primary" title="国内（{$ismy_list[0]['count']}）" <present name="filter['property'][0]">checked=""</present>><br>
+					<!-- <input type="checkbox" name="property[2]" lay-skin="primary" title="不看过期（0）"> -->
+				</div>
+				<div class="fc-aux-9 mt-32">按分类</div>
+				<div class="input mt-12"><input type="text" name="fenlei" class="input-1" placeholder="请输入关键字搜索"></div>
+				<div class="mt-12 treeNav category">
+					<volist name="cate_list['p']" id="r">
+					<ul>
+						<span>{$r.name}（{$r.count}）</span>
+						<present name="cate_list['s'][$r['id']]">
+						<li class="none">
+							<volist name="cate_list['s'][$r['id']]" id="rm">
+							<dl data-id="{$rm.id}">{$rm.name}（{$rm.count}）</dl>
+							</volist>
+						</li>
+						</present>
+					</ul>
+					</volist>
+					<input type="hidden" name="cid" value="{$filter['cid']}">
+				</div>
+				<div class="fc-aux-9 mt-32">按商场</div>
+				<div class="input mt-12"><input type="text" name="fenlei" class="input-1" placeholder="请输入关键字搜索"></div>
+				<div class="layui-form-item">
+				<volist name="orig_list" id="r">
+					<if condition="$i elt 5">
+					<input type="checkbox" name="orig[{$r.id}]" lay-skin="primary" title="{$r.name}（{$r.count}）" <present name="filter['orig'][$r['id']]">checked=""</present>><br>
+					</if>
+				</volist>
+				<if condition="count($orig_list) gt 5">
+					<p class="font-12 fc-aux-a check-more mt-5 cursor-pointer">查看更多<i class="icon"></i></p>
+					<div class="none" id="checkMore">
+						<volist name="orig_list" id="r" offset="5" length="5">
+						<input type="checkbox" name="orig[{$r.id}]" lay-skin="primary" title="{$r.name}（{$r.count}）" <present name="filter['orig'][$r['id']]">checked=""</present>><br>
+						</volist>
+					</div>
+				</if>
+				</div>
+				<div class="fc-aux-9 mt-32">按标签</div>
+				<div class="layui-form-item">
+					<volist name="tag_list" id="r">
+					<input type="checkbox" name="tag[{$key}]" lay-skin="primary" title="{$r}" <present name="filter['tag'][$key]">checked=""</present>><br>
+					</volist>
+				</div>
+				<div class="fc-aux-9 mt-32">按价格</div>
+				<ul class="price">
+					<li data-id="1"><a href="javascript:;">0~49元</a></li>
+					<li data-id="2"><a href="javascript:;">50~99元</a></li>
+					<li data-id="3"><a href="javascript:;">100~149元</a></li>
+					<li data-id="4"><a href="javascript:;">150~199元</a></li>
+					<li data-id="5"><a href="javascript:;">200~499元</a></li>
+					<li data-id="6"><a href="javascript:;">500元以上</a></li>
+					<input type="hidden" name="price" value="{$filter['price']}">
+				</ul>
+				<div class="clearfix start">
+					<input type="text" name="pricemin" class="fl input-1" placeholder="最小" value="{$filter['pricemin']}">
+					<input type="text" name="pricemax" class="fl input-1" placeholder="最大" value="{$filter['pricemax']}">
+					<!-- <button type="submit" class="fl btn-10 cursor-pointer" lay-submit lay-filter="formDemo">开始</button> -->
+					<button class="fl btn-10 cursor-pointer" lay-submit lay-filter="formDemo">开始</button>
+				</div>
+				<div class="fc-aux-9 mb-12 mt-32">按时间</div>
+				<div class="select"><select name="period" lay-verify="required">
+					<option value="0"<if condition="$filter['period'] eq 0"> selected</if>>过去一周</option>
+					<option value="1"<if condition="$filter['period'] eq 1"> selected</if>>过去一月</option>
+					<option value="2"<if condition="$filter['period'] eq 2"> selected</if>>过去一年</option>
+				</select>
+				</div>
+			</form>
+		</div>
+		<!--搜索筛选end-->
+		<!--右边内容start-->
+		<div class="fl r-list">
+			<div class="r-list-box white-bg radius-3">
+				<div class="title-tab clearfix">
+					<div class="fl tabNav clearfix">
+						<a href="javascript:void(0);" class="active">首页推荐</a>
+						<a href="javascript:void(0);">热门优惠</a>
+						<a href="javascript:void(0);">全网特价</a>
+						<a href="javascript:void(0);">圈子</a>
+					</div>
+					<div class="fr operation clearfix">
+						<!--<div class="fl selectTime select-1">
+							<div class="select layui-elip">按时间排序</div>
+							<ul class="op">
+								<li class="active">过去一周</li>
+								<li>过去一月</li>
+								<li>过去三月</li>
+								<li>过去半年</li>
+							</ul>
+						</div>-->
+						<div class="fl z-new radius-3 z-active">最新</div>
+						<div class="fl z-new ml-5 radius-3">最热</div>
+						<div class="fl radius-3 arr arr-1"></div>
+						<div class="fl radius-3 arr arr-2"></div>
+						<a href="#" class="fr btn-5">发表爆料</a>
+					</div>
+				</div>
+				<div class="attribute none">
+					<ul class="clearfix">
+						<li class="w-400 mr-40">标题</li>
+						<li class="w-200">价格</li>
+						<li class="w-90 text-center">评分</li>
+						<li class="w-152 text-right">评论</li>
+					</ul>
+				</div>
+				<div class="list-box">
+					<ul class="clearfix">
+						<!--列表start-->
+						<include file="list" />
+						<!--列表end-->
+					</ul>
+					<!--分页start-->
+					<div id="pages-brand" class="pages mt-20" style="text-align: center; padding-bottom: 30px;"></div>
+					<!--分页end-->
+				</div>
+				<div class="list-box none">
+					<ul>这里是热门优惠列表</ul>
+				</div>
+				<div class="list-box none">
+					<ul>这里是全网特价列表</ul>
+				</div>
+				<div class="list-box none">
+					<ul>这里是圈子列表</ul>
+				</div>
+			</div>
+			<!--没有适合优惠start-->
+			<div class="white-bg mt-12 radius-3 noDiscount">
+				<span class="fc-ad6 font-16">没找到适合的优惠？</span>加入关注及时把握好价<a href="#" class="fc-green ml-5">详情</a> <span class="fr btn-7 cursor-pointer radius-3">将“Amope”加入关注</span>
+			</div>
+			<!--没有适合优惠end-->
+		</div>
+		<!--右边内容end-->
+	</div>
+	
+	<!--热门优惠end-->
+
+	<!--底部统一区域+右边悬浮按钮start-->
+	<include file="public:footer" />
+	<!--底部统一区域+右边悬浮按钮end-->
+	<script src="/new/js/page/brandDetails.js" ></script>
+
+<script type="text/javascript">
+$(function(){
+	//for list page, \new\js\page\brandDetails.js
+	//layui表单插件
+	layui.use('form', function(){
+		var form = layui.form;
+		//各种基于事件的操作，下面会有进一步介绍
+		//监听提交
+		form.on('submit(formDemo)', function(data){
+		layer.msg(JSON.stringify(data.field));
+		return false;
+		});
+
+		//单击checkbox，select下拉框提交
+		form.on('checkbox', function(data){
+			// alert($(this).attr('name'));
+			$(this).parents('form').submit();
+		}); 
+		form.on('select', function(data){
+			$(this).parents('form').submit();
+		}); 
+
+	});
+
+	//单击价格范围链接提交
+	$("form .price li").click(function(){
+		$(this).parent('.price').find("input:hidden").val($(this).data('id'));
+		$(this).parents('form').submit();
+	});
+	//单击子分类链接提交
+	$("form .category dl").click(function(){
+		$(this).parents('.category').find("input[name=cid]").val($(this).data('id'));
+		// $(this).parents('.category').find("input[name=cpid]").val($(this).data('pid'));
+		$(this).parents('form').submit();
+	});
+});
+</script>
+</body>
+</html>

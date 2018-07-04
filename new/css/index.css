@@ -484,6 +484,9 @@
 	line-height: 20px;
 	display: inline-block;
 	width: 120px;
+	position: relative;
+	top:5px;
+	overflow:hidden;
 }
 
 .i-list .transverse:hover .info1 .title a{

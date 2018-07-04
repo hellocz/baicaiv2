@@ -16,7 +16,7 @@ class hourAction extends frontendAction {
     	$item_list = M("item")->where($where)->limit(10)->order($order)->select();
     	F('hour_list_' . $hour,$item_list);
     	}
-    	var_dump(F('hour_list_' . $hour));
+    	// var_dump(F('hour_list_' . $hour));
 		}
 
 		$this->display();

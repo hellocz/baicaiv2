@@ -1,5 +1,5 @@
 $(function(){
-	$(".sidebar-mall").css("right",($(document.body).width() - 1200)/2-56);
+	$(".sidebar-mall").css("left",($(document.body).width() - 1200)/2-56);
 	mallClick(".title-box",".list-box",".sidebar-mall")
 	mallClick(".sidebar-mall",".list-box",".title-box")
 	

@@ -1,9 +1,9 @@
 <?php
 class ajaxAction extends frontendAction {
 	public function _initialize() {
-        parent::_initialize();
-    }
-    public function zan() {//对商品点赞
+		parent::_initialize();
+	}
+	public function zan() {//对商品点赞
 		$id = $_REQUEST['id'];
 		$t = $_REQUEST['t'];
 		$ip = trim(getip());
@@ -20,8 +20,9 @@ class ajaxAction extends frontendAction {
 			$r=M($t)->save($data);
 			$this->ajaxReturn(1, '',$data['zan']);
 		}
-    }
-     public function vote() {//对晒单投票
+	}
+
+	public function vote() {//对晒单投票
 		$id = $_REQUEST['id'];
 		$t = $_REQUEST['t'];
 		$ip = trim(getip());
@@ -38,7 +39,7 @@ class ajaxAction extends frontendAction {
 			$r=M($t)->save($data);
 			$this->ajaxReturn(1, '',$data['vote']);
 		}
-    }
+	}
 	public function setlikes(){//收藏商品
 		!$this->visitor->is_login && $this->ajaxReturn(0, '请登录！');
 		$user = $this->visitor->get();
@@ -169,6 +170,7 @@ class ajaxAction extends frontendAction {
 			// 	)
 			// ));
 			// $resp = $this->fetch('comment');
+
 			$resp = array(
 				'id' => $comment_id,
 				'uid' => $data['uid'],
@@ -179,6 +181,22 @@ class ajaxAction extends frontendAction {
 				'lc'=> $data['lc']
 				);
 			$this->ajaxReturn(1, L('comment_success'), $resp);
+
+			// $cmt = array(
+			// 	'id' => $comment_id,
+			// 	'uid' => $data['uid'],
+			// 	'uname' => $data['uname'],
+			// 	'info' => $data['info'],
+			// 	'add_time' => time(),
+			// 	'zan'=> 0,
+			// 	'lc'=> $data['lc']
+			// 	);
+			// $this->assign('cmt_list', array($cmt));
+
+			// $resp = $cmt_list;
+			// $resp['html'] = $this->fetch('comment');
+
+			// $this->ajaxReturn(1, L('comment_success'), $resp);
 		} else {
 			$this->ajaxReturn(0, L('comment_failed'));
 		}
@@ -318,14 +336,14 @@ class ajaxAction extends frontendAction {
 		}
 	}
 	/**
-     * AJAX获取评论列表
-     */
-    public function comment_list() {
-        $xid = $this->_get('xid', 'intval');
-        !$xid && $this->ajaxReturn(0, L('invalid_object'));
+	* AJAX获取评论列表
+	*/
+	public function comment_list() {
+		$xid = $this->_get('xid', 'intval');
+		!$xid && $this->ajaxReturn(0, L('invalid_object'));
 		$itemid = $this->_get('itemid', 'intval');
-        !$itemid && $this->ajaxReturn(0, L('invalid_object'));
-        //验证评论对象
+		!$itemid && $this->ajaxReturn(0, L('invalid_object'));
+		//验证评论对象
 		switch($xid){
 			case "1":$item_mod=M("item");break;
 			case "2":$item_mod=M("zr");break;
@@ -338,26 +356,27 @@ class ajaxAction extends frontendAction {
 			$order ='id desc';
 			$by ='id';
 		}
-        $item = $item_mod->where(array('id' => $itemid))->count('id');
-        !$item && $this->ajaxReturn(0, L('invalid_object'));
-        $comment_mod = M('comment');
-        $pagesize = 10;
-        $map = array('itemid' => $itemid,'xid'=>$xid,'status'=>1,'pid'=>0);
-        $count = $comment_mod->where($map)->count('id');
-        $pager = $this->_pager($count, $pagesize);
-        $pager->path = 'ajax/comment_list';
+		$item = $item_mod->where(array('id' => $itemid))->count('id');
+		!$item && $this->ajaxReturn(0, L('invalid_object'));
+		$comment_mod = M('comment');
+		$pagesize = 10;
+		$map = array('itemid' => $itemid,'xid'=>$xid,'status'=>1,'pid'=>0);
+		$count = $comment_mod->where($map)->count('id');
+		$pager = $this->_pager($count, $pagesize);
+		$pager->path = 'ajax/comment_list';
 		$pager->parameter ="itemid=$itemid&xid=$xid";
 		$sql="select * from try_comment where itemid=$itemid and xid=$xid and status=1 and pid=0  order by $order  limit $pager->firstRow , $pager->listRows ";
-        $cmt_list = M()->query($sql);
+		$cmt_list = M()->query($sql);
 		foreach($cmt_list as $key=>$v){
 			$cmt_list[$key]['list']=M()->query("select * from try_comment where status=1 and pid='".$v['id']."' order by id asc");
 		}
-        $this->assign('cmt_list', $cmt_list);
-        $data = array();
-        $data['list'] = $this->fetch('comment');
-        $data['page'] = $pager->jshow();
-        $this->ajaxReturn(1, '', $data);
-    }
+		$this->assign('cmt_list', $cmt_list);
+		$data = array();
+		$data['list'] = $this->fetch('comment');
+		$data['page'] = $pager->jshow();
+		$this->ajaxReturn(1, '', $data);
+	}
+
 	//赞评论
 	public function comment_zan(){
 		$id = $this->_post('id','intval');
@@ -375,6 +394,7 @@ class ajaxAction extends frontendAction {
 			$this->ajaxReturn(0,'操作失败');
 		}
 	}
+
 	//举报
 	public function jb(){
 		!$this->visitor->is_login && $this->ajaxReturn(0, '请登录！');
@@ -458,7 +478,7 @@ class ajaxAction extends frontendAction {
 		}
 	}
 
-		//分享
+	//分享
 	public function share(){
 		$id=$this->_get('id','intval');
 		$t = $this->_get("t","trim");
@@ -507,9 +527,13 @@ class ajaxAction extends frontendAction {
 		}else{
 			$this->assign('url',"/$t/$id.html");
 			$this->assign('islogin','n');
-		}		
-		$this->display();
+		}
+
+		// $this->display();
+		$resp = $this->fetch();
+		$this->ajaxReturn(1, '', $resp);
 	}
+
 	public function g_share(){
 		$tg = $this->_get('tg','trim');
 		$info = M('share')->where("dm='$tg'")->find();

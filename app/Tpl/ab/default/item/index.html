@@ -43,9 +43,9 @@
 							<p><img src="<if condition="$item['img']==''">/images/nopic.jpg<else/> <if condition="preg_match('/img.baicaio.com/',$item['img'])">{:attach($item['img'],'item')}!thumb208<else/>{:attach($item['img'],'item')}</if></if>" width="296" height="296" class="radius-3"></p>
 							<div class="cz mt-12 clearfix">
 								<div class="fl share-c">
-									<span class="fc-aux-a cursor-pointer radius-3 fx shareButton">分享</span>
+									<span class="fc-aux-a cursor-pointer radius-3 fx shareButton T_share" data-id="{$item.id}">分享</span>
 									<div class="shareBox none">
-										<div class="font-w-b font-14">分享优惠信息，得贡献值，兑换精美礼品！</div>
+										<!-- <div class="font-w-b font-14">分享优惠信息，得贡献值，兑换精美礼品！</div>
 										<div class="fc-grey mt-8">录之后才能获取贡献值哦，<a href="#" class="a-green">立即登录</a></div>
 										<div class="font-w-b font-14 mt-15">方法一：</div>
 										<div class="fc-grey mt-5">复制该网页链接，粘贴到自己的博客、微博，或者 直接发送给QQ好友。</div>
@@ -70,39 +70,39 @@
 											<a href="#" class="icon-4"></a>
 											<a href="#" class="icon-5"></a>
 											<a href="#" class="icon-6"></a>
-										</div>
+										</div> -->
 										<div class="arrow-down">
 											<span></span>
 										</div>
 									</div>
 								</div>
-								<div class="fl fc-aux-a cursor-pointer radius-3 fx sc" onclick="tipsPopup('tips_1','收藏成功')">
+								<div class="fl fc-aux-a cursor-pointer radius-3 fx sc J_fav" data-id="{$item.id}" data-xid="1">
 									收藏
 								</div>
 								<div class="fl jb1">
 									<span class="fc-aux-a cursor-pointer radius-3 fx jb">举报</span>
 									<div class="jbBox radius-3 none">
 										<ul>
-											<li><i></i>缺货涨价</li>
-											<li><i></i>文章错误</li>
-											<li><i></i>假冒伪劣</li>
-											<li class="other"><i></i>其他原因</li>
+											<li><i data-reasonid=1></i>缺货涨价</li>
+											<li><i data-reasonid=2></i>文章错误</li>
+											<li><i data-reasonid=3></i>假冒伪劣</li>
+											<li class="other"><i data-reasonid=0></i>其他原因</li>
 										</ul>
-										<div class="input none"><input type="text" placeholder="输入举报原因" class="input-2"></div>
-										<div class="button1 mt-8"><button class="btn-3 cursor-pointer">提交</button></div>
+										<div class="input none"><input name="reason" type="text" placeholder="输入举报原因" class="input-2"></div>
+										<div class="button1 mt-8"><button class="btn-3 cursor-pointer J_jb" data-id="{$item.id}" data-xid='1'>提交</button></div>
 										<div class="arrow-down">
 											<span></span>
 										</div>
 									</div>
 								</div>
 								<div class="fr">
-									<em class="up radius-3 cursor-pointer" onclick="tipsPopup('tips_1','顶成功')">
+									<em class="up radius-3 cursor-pointer J_zan" data-id="{$item.id}">
 										<svg class="icons">
 											<!--[if lte IE 8]><desc><img src="/new/images/ie8/c_6@2x.png" width="16" height="16"></desc><![endif]-->
 											<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-c_6"></use>
 										</svg>
 									</em>
-									<em class="up radius-3 cursor-pointer" onclick="tipsPopup('tips_1','踩成功')">
+									<em class="up radius-3 cursor-pointer J_cai_item" data-id="{$item.id}">
 										<svg class="icons">
 											<!--[if lte IE 8]><desc><img src="/new/images/ie8/c_7@2x.png" width="16" height="16"></desc><![endif]-->
 											<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-c_7"></use>
@@ -118,10 +118,10 @@
 								<a href="{:U('book/index', array('tag'=>urlencode($tag)))}" class="label radius-100 fc-aux-a mr-5" target="_blank">{$tag}</a>
 								</volist>
 							</div>
-							<div class="fc-grey mt-12 mb-12"><span class="font-w-b">爆料人：<span class="fc-green mr-20">{$item.uname}</span></span><span class="fc-aux-9">发表时间：{$item.add_time|fdate}</span></div>
+							<div class="fc-grey mt-12 mb-12"><span class="font-w-b">爆料人：</span><a href="#" class="a-green mr-20 hover-underline">{$item.uname}</a><span class="fc-aux-9">发表时间：{$item.add_time|fdate}</span></div>
 							<div class="inst radius-3">
-								<p><span class="font-w-b">商场运费：</span><if condition="$orig['shipping']">{$orig.shipping}<else/>--</if></p>
-								<p class="mt-8"><span class="font-w-b">折扣类型： </span><span class="layui-badge-rim">用券</span> 1000元满减券</p>
+								<p><span class="font-w-b">商场运费：</span>{$orig.shipping}</p>
+								<p class="mt-8"><span class="font-w-b">折扣类型： </span><span class="layui-badge-rim">用券</span> <a href="#" class="a-green hover-underline">1000元满减券</a></p>
 							</div>
 							<div class="mt-15 clearfix">
 								<div class="fl moreButton">
@@ -130,12 +130,44 @@
 									<!--单链接样式（打开注释即可）-->
 									
 									<!--多链接样式-->
-									<button class="button btn-more cursor-pointer">去购买</button>
+									<!-- <button class="button btn-more cursor-pointer">去购买</button>
 									<div class="moreUrl radius-3 none">
 										<a href="#">直达链接</a>
 										<a href="#">凑单品</a>
-									</div>
+									</div> -->
 									<!--多链接样式-->
+										<if condition="count($item['go_link']) eq 1">
+										<!--单链接样式（打开注释即可）-->
+										<volist name="item['go_link']" id="r" >
+										<if condition="stripos($r['link'],'tmall.com') !== false or stripos($r['link'],'taobao.com') !== false ">
+										<a href="{$r.link}" rel="nofollow" isconvert="1" target="_blank"  title="{$item.title}" class="button btn-3 cursor-pointer" style="display: block;">去购买</a>
+										<else/>
+										<a href="__ROOT__/?m=item&a=tgo&to={:shortUrl($r['link'])}" rel="nofollow" target="_blank" title="{$item.title}" class="button btn-3 cursor-pointer" style="display: block;">去购买</a>
+										</if>
+										</volist>
+										<!--单链接样式（打开注释即可）-->
+										<elseif condition="count($item['go_link']) gt 1"/>
+										<!--多链接样式-->
+										<volist name="item['go_link']" id="r" >
+										<if condition="$i==1">
+										<if condition="stripos($r['link'],'tmall.com') !== false or stripos($r['link'],'taobao.com') !== false ">
+										<a href="{$r.link}" rel="nofollow" isconvert="1" target="_blank"  title="{$item.title}" class="button btn-more cursor-pointer" style="display: block;">去购买</a>
+										<else/>
+										<a href="__ROOT__/?m=item&a=tgo&to={:shortUrl($r['link'])}" rel="nofollow" target="_blank" title="{$item.title}" class="button btn-more cursor-pointer" style="display: block;">去购买</a>
+										</if>
+										</if>
+										</volist>
+										<div class="moreUrl radius-3 none">
+											<volist name="item['go_link']" id="r" >
+											<if condition="stripos($r['link'],'tmall.com') !== false or stripos($r['link'],'taobao.com') !== false ">
+											<a href="{$r.link}" rel="nofollow" isconvert="1" target="_blank"  title="{$item.title}">{$r.name}</a>
+											<else/>
+											<a href="__ROOT__/?m=item&a=tgo&to={:shortUrl($r['link'])}" rel="nofollow" target="_blank" title="{$item.title}">{$r.name}</a>
+											</if>
+											</volist>
+										</div>
+										<!--多链接样式-->
+										</if>
 								</div>
 								<div class="fl smgm">
 									<span href="#" class="font-14 fc-aux-a ml-12 smgmButton cursor-pointer">
@@ -145,13 +177,17 @@
 										</svg>
 										扫码购买
 									</span>
+									<volist name="item['go_link']" id="r" >
+									<if condition="$i==1">	
 									<div class="qrCodeBox radius-3 none">
-										<div class="text-center"><img src="/new/images/qrCode.jpg" width="160" height="160"></div>
-										<div class="text-center fc-grey mt-12" style="line-height: 20px;">打开微信扫一扫<br>从浏览器右上角菜单分享至朋友圈</div>
+										<div class="text-center"><img src="/?g=ab&m=index&a=qrcode&url=<?php echo urlencode($r['link'])?>" width="160" height="160"></div>
+										<div class="text-center fc-grey mt-12" style="line-height: 20px;">微信扫码打开购买链接</div>
 										<div class="arrow-down">
 											<span></span>
 										</div>
 									</div>
+									</if>
+									</volist>
 								</div>
 							</div>
 							<div class="fc-aux-9 mt-5 text-center" style="width: 280px;">*通过本站链接购物，可获得油票奖励 <a href="#" class="font-w-b" style="color: #5C917C;">详情</a></div>
@@ -240,14 +276,14 @@
 					</notempty>
 					
 					<div class="caiding">
-						<button class="button fc-green radius-3 mr-10" onclick="tipsPopup('tips_2','对不起，失败！')">
+						<button class="button fc-green radius-3 mr-10 J_zan" data-id="{$item.id}">
 							<svg class="icon-1">
 								<!--[if lte IE 8]><desc><img src="/new/images/ie8/c_6@2x.png" width="24" height="24"></desc><![endif]-->
 								<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-c_6"></use>
 							</svg>
 							{$item.zan}
 						</button>
-						<button class="button fc-ad6 radius-3" onclick="tipsPopup('tips_4','感谢您的评论，积分<span style=color:#ff0000>+8</span>')">
+						<button class="button fc-ad6 radius-3 J_zan" data-id="{$item.id}">
 							<svg class="icon-2">
 								<!--[if lte IE 8]><desc><img src="/new/images/ie8/c_7@2x.png" width="24" height="24"></desc><![endif]-->
 								<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-c_7"></use>
@@ -258,13 +294,13 @@
 							<span class="radius-3 jb cursor-pointer">举报</span>
 							<div class="jbBox radius-3 none">
 								<ul>
-									<li><i></i>缺货涨价</li>
-									<li><i></i>文章错误</li>
-									<li><i></i>假冒伪劣</li>
-									<li class="other"><i></i>其他原因</li>
+									<li><i data-reasonid=1></i>缺货涨价</li>
+									<li><i data-reasonid=2></i>文章错误</li>
+									<li><i data-reasonid=3></i>假冒伪劣</li>
+									<li class="other"><i data-reasonid=0></i>其他原因</li>
 								</ul>
-								<div class="input none"><input type="text" placeholder="输入举报原因" class="input-2"></div>
-								<div class="button1 mt-8"><button class="btn-3 cursor-pointer">提交</button></div>
+								<div class="input none"><input name="reason" type="text" placeholder="输入举报原因" class="input-2"></div>
+								<div class="button1 mt-8"><button class="btn-3 cursor-pointer J_jb" data-id="{$item.id}" data-xid='1'>提交</button></div>
 								<div class="arrow-down">
 									<span></span>
 								</div>
@@ -356,7 +392,7 @@
 			</a>
 		</div>
 		<div class="button">
-			<a href="javascript:;" class="btn" onclick="tipsPopup('tips_1','收藏成功')">
+			<a href="javascript:;" class="btn J_fav" data-id="{$item.id}" data-xid="1">
 				<svg role="img" class="icon">
 					<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_38@2x.png" width="22" height="22"></desc><![endif]-->
 					<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_38"></use>
@@ -365,7 +401,7 @@
 			</a>
 		</div>
 		<div class="share-l button">
-			<a href="javascript:;" class="btn shareButton">
+			<a href="javascript:;" class="btn shareButton T_share" data-id="{$item.id}">
 				<svg role="img" class="icon">
 					<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_39@2x.png" width="22" height="22"></desc><![endif]-->
 					<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_39"></use>
@@ -373,7 +409,8 @@
 				<br>分享
 			</a>
 			<div class="shareBox none">
-				<div class="font-w-b font-14">分享优惠信息，得贡献值，兑换精美礼品！</div>
+				<!-- <iframe src="{:U('ab/ajax/share', array('id'=>$item['id'], 't'=>'item'))}" frameborder="0" scrolling="auto" style="height:100%;width:100%;"></iframe> -->
+				<!-- <div class="font-w-b font-14">分享优惠信息，得贡献值，兑换精美礼品！</div>
 				<div class="fc-grey mt-8">录之后才能获取贡献值哦，<a href="#" class="a-green">立即登录</a></div>
 				<div class="font-w-b font-14 mt-15">方法一：</div>
 				<div class="fc-grey mt-5">复制该网页链接，粘贴到自己的博客、微博，或者 直接发送给QQ好友。</div>
@@ -398,9 +435,11 @@
 					<a href="#" class="icon-4"></a>
 					<a href="#" class="icon-5"></a>
 					<a href="#" class="icon-6"></a>
-				</div>
+				</div> -->
 			</div>
 		</div>
+		<volist name="item['go_link']" id="r" >
+		<if condition="$i==1">			
 		<div class="button saoma">
 			<a href="javascript:;" class="btn saomaButton">
 				<svg role="img" class="icon">
@@ -410,10 +449,12 @@
 				<br>扫码
 			</a>
 			<div class="saomaBox none">
-				<div class="text-center"><img src="/new/images/qrCode.jpg" width="160" height="160"></div>
-				<div class="text-center fc-grey mt-12" style="line-height: 20px;">打开微信扫一扫<br>从浏览器右上角菜单分享至朋友圈</div>
+				<div class="text-center"><!-- <img src="{:U('index/qrcode', array('url'=>urlencode($r['link'])))}" width="160" height="160"> --><img src="/?g=ab&m=index&a=qrcode&url=<?php echo urlencode($r['link'])?>" width="160" height="160"></div>
+				<div class="text-center fc-grey mt-12" style="line-height: 20px;">微信扫码打开购买链接</div>
 			</div>
-		</div
+		</div>
+		</if>
+		</volist>
 	</div>
 	<!--左边悬浮按钮end-->
 	
@@ -422,16 +463,38 @@
 		<div class="w-1200">
 			<div class="fr">
 				<div class="fl moreButton">
+					<if condition="count($item['go_link']) eq 1">
 					<!--单链接样式（打开注释即可）-->
-					<!--<a href="#" class="button btn-3 mr-20">去购买</a>-->
+					<volist name="item['go_link']" id="r" >
+					<if condition="stripos($r['link'],'tmall.com') !== false or stripos($r['link'],'taobao.com') !== false ">
+					<a href="{$r.link}" rel="nofollow" isconvert="1" target="_blank"  title="{$item.title}" class="button btn-3 cursor-pointer">去购买</a>
+					<else/>
+					<a href="__ROOT__/?m=item&a=tgo&to={:shortUrl($r['link'])}" rel="nofollow" target="_blank" title="{$item.title}" class="button btn-3 cursor-pointer">去购买</a>
+					</if>
+					</volist>
 					<!--单链接样式（打开注释即可）-->
+					<elseif condition="count($item['go_link']) gt 1"/>
 					<!--多链接样式-->
-					<a href="javascript: void(0);" class="button mr-20 btn-more">去购买</a>
+					<volist name="item['go_link']" id="r" >
+					<if condition="$i==1">
+					<if condition="stripos($r['link'],'tmall.com') !== false or stripos($r['link'],'taobao.com') !== false ">
+					<a href="{$r.link}" rel="nofollow" isconvert="1" target="_blank"  title="{$item.title}" class="button btn-more cursor-pointer">去购买</a>
+					<else/>
+					<a href="__ROOT__/?m=item&a=tgo&to={:shortUrl($r['link'])}" rel="nofollow" target="_blank" title="{$item.title}" class="button btn-more cursor-pointer">去购买</a>
+					</if>
+					</if>
+					</volist>
 					<div class="moreUrl radius-3 none">
-						<a href="#">直达链接</a>
-						<a href="#">凑单品</a>
+						<volist name="item['go_link']" id="r" >
+						<if condition="stripos($r['link'],'tmall.com') !== false or stripos($r['link'],'taobao.com') !== false ">
+						<a href="{$r.link}" rel="nofollow" isconvert="1" target="_blank"  title="{$item.title}">{$r.name}</a>
+						<else/>
+						<a href="__ROOT__/?m=item&a=tgo&to={:shortUrl($r['link'])}" rel="nofollow" target="_blank" title="{$item.title}">{$r.name}</a>
+						</if>
+						</volist>
 					</div>
 					<!--多链接样式-->
+					</if>
 				</div>
 				<div class="fl ml-20 smgm">
 					<a href="javascript:;" class="fc-aux-a font-14 sm smgmButton">
@@ -441,13 +504,17 @@
 						</svg>
 						扫码购买
 					</a>
+					<volist name="item['go_link']" id="r" >
+					<if condition="$i==1">	
 					<div class="qrCodeBox radius-3 none">
 						<div class="arrow-up">
 							<span></span>
 						</div>
-						<div class="text-center"><img src="/new/images/qrCode.jpg" width="160" height="160"></div>
-						<div class="text-center fc-grey mt-12" style="line-height: 20px;">打开微信扫一扫<br>从浏览器右上角菜单分享至朋友圈</div>
+						<div class="text-center"><img src="/?g=ab&m=index&a=qrcode&url=<?php echo urlencode($r['link'])?>" width="160" height="160"></div>
+						<div class="text-center fc-grey mt-12" style="line-height: 20px;">微信扫码打开购买链接</div>
 					</div>
+					</if>
+					</volist>
 				</div>
 			</div>
 		</div>
@@ -457,11 +524,13 @@
 	<!--引入页面单独JS文件-->
 	<script src="/new/js/pic_tab.js"></script>
 	<script src="/new/js/page/details.js" ></script>
-
+	<!--新浪表情JS-->
+	<script src="/new/js/lib/sinaEmotion/jquery-1.8.0.min.js"></script>
+	<script src="/new/js/lib/sinaEmotion/jquery.sinaEmotion.js"></script>
 	
 
 <!--拷贝代码，测试用，可删除-->
-<style type="text/css">
+<!-- <style type="text/css">
 /* 提示信息 */
 .tipbox{height:54px;line-height:54px;position:fixed;display:none;}
 .tipbox .tip-l{float:left;width:45px;height:54px;background-image:url(/images/tip_layer.png);background-repeat:no-repeat;background-position:-5px 0;}
@@ -470,8 +539,8 @@
 .tip-success .tip-l{background-position:-6px 0;}
 .tip-alert .tip-l{background-position:-6px -54px;}
 .tip-error .tip-l{background-position:-6px -108px;}
-</style>
-<div class="tipbox " style="z-index: 3001; left: 40%; top: 323.126px; "><div class="tip-l"></div><div class="tip-c"></div><div class="tip-r"></div></div>
+</style> -->
+<!-- <div class="tipbox " style="z-index: 3001; left: 40%; top: 323.126px; "><div class="tip-l"></div><div class="tip-c"></div><div class="tip-r"></div></div> -->
 <script type="text/javascript">
 var PINER = {
     root: "__ROOT__",
@@ -488,7 +557,19 @@ var PINER = {
 <script src="/new/js/function.js?v=20180223"></script>
 
 <!--拷贝代码，测试用，可删除-->
-<script src="/static/js/lhg/lhgdialog.min.js?self=true&skin=idialog" type="text/javascript"></script>
+<!-- <script src="/static/js/lhg/lhgdialog.min.js?self=true&skin=idialog" type="text/javascript"></script> -->
 <!--拷贝代码，测试用，可删除-->
+
+<script type="text/javascript">
+//百度分享JS	
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"{$item.title}",'bdDesc':'',"bdUrl":"{$url}","bdMini":"2","bdMiniList":false,"bdPic":"{$item['img']}","bdStyle":"0","bdSize":"32"},"share":{}
+};
+with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+// var script = document.createElement("script");
+// script.setAttribute("type","text/javascript");
+// script.src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5);     //填自己的js路径
+// document.getElementsByTagName("head")[0].appendChild(script); 
+</script>
+
 </body>
 </html>

@@ -36,4 +36,12 @@ $(function(){
 	select(".operation",1);
 	arrClick(".item",".cross",".vertical");
 	crossUp(".cross",".infoBox");
+	treeNav(".treeNav ul span");
+	moreUrl(".cz2 .btn-more",".moreUrl");
+	
+	
+	$(".operation").find(".z-new").click(function(){
+		$(".operation").find(".z-new").removeClass("z-active");
+		$(this).addClass("z-active");
+	});
 });
