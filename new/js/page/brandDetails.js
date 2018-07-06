@@ -31,8 +31,8 @@ $(function(){
 		$(this).hide();
 		$("#checkMore").show();
 	});
-	//tab菜单切换
-	tabClass(".r-list-box .tabNav a","a","active",".r-list-box",".list-box");
+	// //tab菜单切换
+	// tabClass(".r-list-box .tabNav a","a","active",".r-list-box",".list-box");
 	select(".operation",1);
 	arrClick(".item",".cross",".vertical");
 	crossUp(".cross",".infoBox");
