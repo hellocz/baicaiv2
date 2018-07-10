@@ -8,39 +8,19 @@
 	<include file="public:header" />
 	<!--顶部统一区域end-->
 	
-	<!--品牌详情start-->
-	
-	<!--面包屑start-->
-	<div class="w-1200 mt-20 breadcrumb fc-aux-a">
-		<a href="/new/index.html">首页</a>
-		<a href="class.html">品牌导航</a>
-		<a href="class.html">运动户外</a>
-		<span>{$info.name}</span>
-	</div>
-	<!--面包屑end-->
-	
-	<!--品牌介绍start-->
-	<div class="w-1200 white-bg radius-3 mt-10 clearfix">
-		<div class="fl bd-logo">
-			<p class="m-logo"><img src="<if condition="$info['img']">{:attach($info['img'],'item_orig')}<else/>/images/nopic.jpg</if>" title="{$info.name}" alt="{$info.name}"></p>
-			<p class="m-button text-center mt-24">
-				<a href="{$info.tb}" isconvert="1" rel="nofollow" title="天猫旗舰店" target="_blank" class="radius-3">
-					<img src="/new/images/ie8/a_34@2x.png">
-					天猫旗舰店
-				</a>
-				<a href="http://cps.youmai.com/track.php?site_id=56396&aid=2352&euid=SS&t=http://search.jd.com/Search?enc=utf-8&keyword={$info.name}" isconvert="1" rel="nofollow" title="JD旗舰店" target="_blank" class="mt-8 radius-3">
-					<img src="/new/images/ie8/a_35@2x.png">
-					京东旗舰店
-				</a>
-			</p>
+	<!--搜索结果start-->
+	<div class="w-1200 mt-40">
+		<!--标题start-->
+		<div class="title font-20">
+			<svg class="icon">
+				<!--[if lte IE 8]><desc><img src="/new/images/ie8/b_10@2x.png" width="22" height="22"></desc><![endif]-->
+				<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-b_10"></use>
+			</svg>
+			搜索到{$options['type'][1]['count']}个关于 “<span class="fc-green">{$info.name}</span>” 的结果
+			<span class="btn-3 cursor-pointer search-gz">+关注</span>
 		</div>
-		<div class="fl bd-info">
-			<div class="font-24 font-w-b bd-title">{$info.name}<span class="btn-3 cursor-pointer font-w-n ml-10">+关注</span></div>
-			<div class="fc-grey font-13 bd-content mt-20">{$info.abstract}<a href="#" class="fc-green font-w-b ml-5">查看详情</a></div>
-		</div>
+		<!--标题end-->
 	</div>
-	<!--品牌介绍end-->
-	
 	<div class="w-1200 mt-12 clearfix">
 		<!--搜索筛选start-->
 		<include file="public:left_filter" />
@@ -49,11 +29,6 @@
 		<div class="fl r-list">
 			<!--右边相关优惠start-->
 			<div class="r-list-top white-bg radius-3 mb-12">
-				<div class="top-title">
-					<li class="active">相关优惠券</li>
-					<li>人气单品</li>
-					<li>官方旗舰店</li>
-				</div>
 				<!--天猫领券start-->
 				<include file="public:coupon" />
 				<!--天猫领券end-->
@@ -61,12 +36,12 @@
 			<!--右边相关优惠end-->
 			<!--右边列表start-->
 			<include file="public:list" />
-			<!--右边列表end-->
+			<!--右边列表start-->
 		</div>
 		<!--右边内容end-->
 	</div>
 	
-	<!--品牌详情end-->
+	<!--搜索结果end-->
 
 	<!--底部统一区域+右边悬浮按钮start-->
 	<include file="public:footer" />

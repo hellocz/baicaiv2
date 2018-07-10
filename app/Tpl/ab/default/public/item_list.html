@@ -14,7 +14,7 @@
 									</div>
 									<div class="fc-red price layui-elip">{$r.price}</div>
 									<div class="content mt-15">
-										<span class="attr1 fc-aux-a icon_3 icon_3-e_21 layui-elip"><a href="{:U('orig/show',array('id'=>$r['orig_id']))}" class="hover-underline">{$origs[$r['orig_id']]['name']}</a></span>
+										<span class="attr1 fc-aux-a icon_3 icon_3-e_21 layui-elip"><a href="{:U('orig/show',array('id'=>$r['orig_id']))}" class="hover-underline">{$options['orig'][$r['orig_id']]['name']}</a></span>
 										<span class="attr3 fc-aux-a fr icon_3 icon_3-e_23">{$r.comments}</span>
 										<span class="attr2 fc-aux-a fr icon_3 icon_3-e_22">{$r.zan}</span>
 									</div>
@@ -54,7 +54,7 @@
 								<div class="fl w-200 h-75 vcenter">
 									<div>
 										<p class="fc-red font-14 font-w-b">￥850</p>
-										<p class="fc-aux-9 font-w-n font-12 mt-5"><a href="{:U('orig/show',array('id'=>$r['orig_id']))}" class="hover-underline">{$origs[$r['orig_id']]['name']}</a></p>
+										<p class="fc-aux-9 font-w-n font-12 mt-5"><a href="{:U('orig/show',array('id'=>$r['orig_id']))}" class="hover-underline">{$options['orig'][$r['orig_id']]['name']}</a></p>
 									</div>
 								</div>
 								<div class="fl w-90 h-75 lvcenter">

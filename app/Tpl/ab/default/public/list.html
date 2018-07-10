@@ -1,14 +1,14 @@
 			<div class="r-list-box white-bg radius-3">
 				<div class="title-tab clearfix">
 					<div class="fl tabNav clearfix">
-						<a href="{$url.tuijan}" <present name="filter['t'][1]">class="active"</present>>{$type_list[1]}</a>
-						<a href="{$url.remen}" <present name="filter['t'][2]">class="active"</present>>{$type_list[2]}</a>
-						<a href="{$url.quanwang}" <present name="filter['t'][3]">class="active"</present>>{$type_list[3]}</a>
+						<a href="{$urls.tuijan}" <present name="filters['t'][1]">class="active"</present>>{$options['type'][1]['name']}</a>
+						<a href="{$urls.remen}" <present name="filters['t'][2]">class="active"</present>>{$options['type'][2]['name']}</a>
+						<a href="{$urls.quanwang}" <present name="filters['t'][3]">class="active"</present>>{$options['type'][3]['name']}</a>
 						<!-- <a href="javascript:void(0);">圈子</a> -->
 					</div>
 					<div class="fr operation clearfix">
-						<div class="fl z-new radius-3 <if condition="!isset($filter['sortby']) OR $filter['sortby'] eq 'newest'">z-active</if>"><a href="{$url.newest}">最新</a></div>
-						<div class="fl z-new ml-5 radius-3 <if condition="isset($filter['sortby']) AND $filter['sortby'] eq 'hottest'">z-active</if>"><a href="{$url.hottest}">最热</a></div>
+						<div class="fl z-new radius-3 <if condition="!isset($filters['sortby']) OR $filters['sortby'] eq 'newest'">z-active</if>"><a href="{$urls.newest}">最新</a></div>
+						<div class="fl z-new ml-5 radius-3 <if condition="isset($filters['sortby']) AND $filters['sortby'] eq 'hottest'">z-active</if>"><a href="{$urls.hottest}">最热</a></div>
 						<div class="fl radius-3 arr arr-1"></div>
 						<div class="fl radius-3 arr arr-2"></div>
 						<a href="#" class="fr btn-5">发表爆料</a>

@@ -3,13 +3,67 @@
 /**
  * 搜索页面
  */
-class searchAction extends frontendAction {
+class searchAction extends newfrontendAction {
 
     public function _initialize() {
         parent::_initialize();
     }
 
-    public function index() {
+    public function index(){
+        $q = $this->_get('q', 'trim');
+
+        //过滤筛选及查询结果
+        if ($q && $q!="白菜帮你搜"){
+            $q_list=explode(" ",$q);
+            $q_info="";
+            $search_content= Array();
+             if(count($q_list) > 0){
+                foreach($q_list as $key=>$r){
+                   $search_content[$key] ="%$r%";
+                }
+                $where1['title'] =array('like',$search_content,'AND');
+                $where1['intro'] =array('like',$search_content,'AND');
+                $where1['content'] =array('like',$search_content,'AND');
+            }
+
+            if(count($q_list) ==1){
+                $tag_id =  M("tag")->where(array('name'=>$q))->getField('id'); 
+                $tag_id && $tag_items = M("item_tag")->where(array('tag_id'=>$tag_id))->field("item_id")->select();
+                foreach ($tag_items as $tag_item_id) {
+                    if($str==""){
+                         $str=$tag_item_id['item_id'];
+                    }else{
+                       $str.=",".$tag_item_id['item_id'];
+                    }
+                }
+                $str && $where1['id'] = array('in', $str);
+                // $where1['tag_cache'] =array('like',$tag_content,'AND');
+                if(strlen($q) == 10){
+                    $where1['go_link'] =array('like',$search_content,'AND');
+                }
+            }
+
+            $where1['_logic'] = 'or';
+            $where['_complex'] = $where1;
+        }
+        // print_r($where);exit;
+
+        $params = array('q' => $q);
+        $this->filter($params, $where);
+
+        //天猫领券
+        $info = array();
+        $info['name'] = $q;
+        $item_list = $this->search_quan($q);
+        $info['recommend']=array_slice($item_list,0,4);
+
+        $this->assign('info', $info);
+
+        $this->_config_seo(C('pin_seo_config.book'), array('tag_name' => $q)); 
+        $this->display();
+    }
+
+    public function old_index() {
         $q = $this->_get('q', 'trim');
         $t = $this->_get('t', 'trim', 'item');
         $tp = $this->_get('tp', 'trim');
@@ -45,6 +99,7 @@ class searchAction extends frontendAction {
             // print_r($ss_cate);
             // $this->assign('ss_cate', $ss_cate);
         }
+
         if($q==" "){
             $q="";
         }
@@ -147,6 +202,7 @@ class searchAction extends frontendAction {
                     $order = 'add_time DESC';
                     break;
             }
+            print_r($where);
             IS_AJAX && $this->wall_ajax($where, $order);
             if($tp != ''){
                 $q_info1="";
