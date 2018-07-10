@@ -34,7 +34,7 @@ class listAction extends frontendAction {
         $period = $this->_get('period','intval',0);
         $sortby = $this->_get('sortby','trim');
         // $dss = $this->_get('dss','trim');
-        // $dss = ($dss=="") ? $_COOKIE['dss'] : $dss;
+        $dss_l = $_COOKIE['dss_l'];
         if($p<1){$p=1;}
         $time=time();
         $time = strtotime('2018-05-31 23:59:59'); //测试
@@ -198,6 +198,16 @@ class listAction extends frontendAction {
                 $queryArr['where'].="and orig_id in(". implode(', ', array_keys($filter['orig'])) .") ";
             }
         }
+        $orig_more = false;
+        $arr = array_slice($orig_list, 5, null, TRUE);
+        if(isset($filter['orig']) and count($filter['orig'])>0){
+            foreach ($filter['orig'] as $k => $v) {
+                if(array_key_exists($k, $arr)){
+                    $orig_more = true;
+                    break;
+                }
+            }
+        }
         //标签
         if(count($tag) > 0){
             if(isset($filter['tag'])) unset($filter['tag']);
@@ -270,6 +280,9 @@ class listAction extends frontendAction {
         $data =  $mod->field("orig_id, cate_id, {$queryAllArr['group']['tag']} as tag, {$queryAllArr['group']['price']} as price, {$queryAllArr['group']['price_range']} as price_range, count(id) as item_count")->where($queryAllArr['where'])->group("orig_id, cate_id, {$queryAllArr['group']['tag']}, {$queryAllArr['group']['price']}, {$queryAllArr['group']['price_range']}")->select();
 
         //统计
+        $count = array();
+        $count['total'] = 0;
+        $count['list'] = 0;
         if(count($data) > 0){
             foreach ($data as $k => $val) {
 
@@ -421,21 +434,22 @@ class listAction extends frontendAction {
         // print_r($cate_list);exit;
 
          //生成URL
-        $url['raw_pure'] = U('list/index');
+        $path = (defined('GROUP_NAME')?GROUP_NAME:'')."/".MODULE_NAME."/".ACTION_NAME;
+        $url['raw_pure'] = U($path);
         $arr = $filter;
-        $url['raw'] = U('list/index') . "?" . http_build_query($arr);
+        $url['raw'] = U($path) . "?" . http_build_query($arr);
         $arr = $filter;
         $arr['t']= array('1' => 'on');
-        $url['tuijan'] = U('list/index') . "?" . http_build_query($arr);
+        $url['tuijan'] = U($path) . "?" . http_build_query($arr);
         $arr['t']= array('2' => 'on');
-        $url['remen'] = U('list/index') . "?" . http_build_query($arr);
+        $url['remen'] = U($path) . "?" . http_build_query($arr);
         $arr['t']= array('3' => 'on');
-        $url['quanwang'] = U('list/index') . "?" . http_build_query($arr);
+        $url['quanwang'] = U($path) . "?" . http_build_query($arr);
         $arr = $filter;
         $arr['sortby'] = 'newest';
-        $url['newest'] = U('list/index') . "?" . http_build_query($arr);
+        $url['newest'] = U($path) . "?" . http_build_query($arr);
         $arr['sortby'] = 'hottest';
-        $url['hottest'] = U('list/index') . "?" . http_build_query($arr);
+        $url['hottest'] = U($path) . "?" . http_build_query($arr);
         // echo "<br>$url";exit;
 
         // 生成URL, param is array
@@ -484,16 +498,20 @@ class listAction extends frontendAction {
         $this->assign('filter', $filter);
         $this->assign("url", $url);
 
+        $this->assign('type_list',$type_list);
         $this->assign('cate_list',$cate_list);
         $this->assign('orig_list',$orig_list);
+        $this->assign('orig_more',$orig_more);
         $this->assign('ismy_list',$ismy_list);
         $this->assign('tag_list',$tag_list);
+        $this->assign('period_list',$period_list);
 
         $this->assign('origs',$origs);
         $this->assign('list',$list);
 
         $this->assign('p',$p);
         $this->assign('pagebar',$pager->newshow());
+        $this->assign("dss_l",$dss_l);
         
         $this->display();
     }

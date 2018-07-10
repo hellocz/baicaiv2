@@ -1,0 +1,87 @@
+<div class="fl l-search white-bg radius-3">
+			<div class="title font-w-b font-16">
+				<svg class="icon">
+					<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_18@2x.png" width="22" height="22"></desc><![endif]-->
+					<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_18"></use>
+				</svg>
+				从搜索结果中筛选
+			</div>
+			<form class="layui-form ml-20" action="{$url.raw_pure}" method="get">
+				<div class="fc-aux-9 mt-10">按推荐</div>
+				<div class="layui-form-item">
+					<input type="checkbox" name="t[1]" lay-skin="primary" title="{$type_list[1]}（{$total_count}）" <present name="filter['t'][1]">checked=""</present>><br>
+					<input type="checkbox" name="t[2]" lay-skin="primary" title="{$type_list[2]}（{$total_count}）" <present name="filter['t'][2]">checked=""</present>><br>
+					<input type="checkbox" name="t[3]" lay-skin="primary" title="{$type_list[3]}（{$total_count}）" <present name="filter['t'][3]">checked=""</present>><br>
+					<!-- <input type="checkbox" name="t[4]" lay-skin="primary" title="圈子（0）" <present name="filter['t'][4]">checked=""</present>> -->
+				</div>
+				<div class="fc-aux-9 mt-32">按属性</div>
+				<div class="layui-form-item">
+					<input type="checkbox" name="property[1]" lay-skin="primary" title="{$ismy_list[1]['name']}（{$ismy_list[1]['count']}）" <present name="filter['property'][1]">checked=""</present>><br>
+					<input type="checkbox" name="property[0]" lay-skin="primary" title="{$ismy_list[0]['name']}（{$ismy_list[0]['count']}）" <present name="filter['property'][0]">checked=""</present>><br>
+					<!-- <input type="checkbox" name="property[2]" lay-skin="primary" title="不看过期（0）"> -->
+				</div>
+				<div class="fc-aux-9 mt-32">按分类</div>
+				<div class="input mt-12"><input type="text" name="fenlei" class="input-1" placeholder="请输入关键字搜索"></div>
+				<div class="mt-12 treeNav category">
+					<volist name="cate_list['p']" id="r">
+					<ul>
+						<span>{$r.name}（{$r.count}）</span>
+						<present name="cate_list['s'][$r['id']]">
+						<li <if condition="!isset($filter['cid']) OR !isset($cate_list['s'][$r['id']][$filter['cid']])">class="none"</if>>
+							<volist name="cate_list['s'][$r['id']]" id="rm">
+							<dl data-id="{$rm.id}" <if condition="isset($filter['cid']) AND $rm['id'] eq $filter['cid']">class="btn-10"</if>>{$rm.name}（{$rm.count}）</dl>
+							</volist>
+						</li>
+						</present>
+					</ul>
+					</volist>
+					<input type="hidden" name="cid" value="{$filter['cid']}">
+				</div>
+				<div class="fc-aux-9 mt-32">按商场</div>
+				<div class="input mt-12"><input type="text" name="fenlei" class="input-1" placeholder="请输入关键字搜索"></div>
+				<div class="layui-form-item">
+				<volist name="orig_list" id="r">
+					<if condition="$i elt 5">
+					<input type="checkbox" name="orig[{$r.id}]" lay-skin="primary" title="{$r.name}（{$r.count}）" <present name="filter['orig'][$r['id']]">checked=""</present>><br>
+					</if>
+				</volist>
+				<if condition="count($orig_list) gt 5">
+					<if condition="!$orig_more"><p class="font-12 fc-aux-a check-more mt-5 cursor-pointer">查看更多<i class="icon"></i></p></if>
+					<div <if condition="!$orig_more">class="none"</if> id="checkMore">
+						<volist name="orig_list" id="r" offset="5">
+						<input type="checkbox" name="orig[{$r.id}]" lay-skin="primary" title="{$r.name}（{$r.count}）" <present name="filter['orig'][$r['id']]">checked=""</present>><br>
+						</volist>
+					</div>
+				</if>
+				</div>
+				<div class="fc-aux-9 mt-32">按标签</div>
+				<div class="layui-form-item">
+					<volist name="tag_list" id="r">
+					<input type="checkbox" name="tag[{$key}]" lay-skin="primary" title="{$r}" <present name="filter['tag'][$key]">checked=""</present>><br>
+					</volist>
+				</div>
+				<div class="fc-aux-9 mt-32">按价格</div>
+				<ul class="price">
+					<li data-id="1" <if condition="isset($filter['price']) AND $filter['price'] eq '1'">class="btn-10"</if>><a href="javascript:;">0~49元</a></li>
+					<li data-id="2" <if condition="isset($filter['price']) AND $filter['price'] eq '2'">class="btn-10"</if>><a href="javascript:;">50~99元</a></li>
+					<li data-id="3" <if condition="isset($filter['price']) AND $filter['price'] eq '3'">class="btn-10"</if>><a href="javascript:;">100~149元</a></li>
+					<li data-id="4" <if condition="isset($filter['price']) AND $filter['price'] eq '4'">class="btn-10"</if>><a href="javascript:;">150~199元</a></li>
+					<li data-id="5" <if condition="isset($filter['price']) AND $filter['price'] eq '5'">class="btn-10"</if>><a href="javascript:;">200~499元</a></li>
+					<li data-id="6" <if condition="isset($filter['price']) AND $filter['price'] eq '6'">class="btn-10"</if>><a href="javascript:;">500元以上</a></li>
+					<input type="hidden" name="price" value="{$filter['price']}">
+				</ul>
+				<div class="clearfix start">
+					<input type="text" name="pricemin" class="fl input-1" placeholder="最小" value="{$filter['pricemin']}">
+					<input type="text" name="pricemax" class="fl input-1" placeholder="最大" value="{$filter['pricemax']}">
+					<!-- <button type="submit" class="fl btn-10 cursor-pointer" lay-submit lay-filter="formDemo">开始</button> -->
+					<button class="fl btn-10 cursor-pointer" lay-submit lay-filter="formDemo">开始</button>
+				</div>
+				<div class="fc-aux-9 mb-12 mt-32">按时间</div>
+				<div class="select"><select name="period" lay-verify="required">
+					<option value="0"<if condition="$filter['period'] eq 0"> selected</if>>{$period_list[0]}</option>
+					<option value="1"<if condition="$filter['period'] eq 1"> selected</if>>{$period_list[1]}</option>
+					<option value="2"<if condition="$filter['period'] eq 2"> selected</if>>{$period_list[2]}</option>
+				</select>
+				</div>
+			</form>
+		</div>

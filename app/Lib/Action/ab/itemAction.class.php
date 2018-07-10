@@ -22,6 +22,16 @@ class itemAction extends frontendAction {
         return $pager;
     }
 
+    protected function _404($url = '') {
+        if ($url) {
+            redirect($url);
+        } else {
+            send_http_status(404);
+            // $this->display(TMPL_PATH . '404.html');
+            $this->display('public:404');
+            exit;
+        }
+    }
 
     /**
      * 商品详细页

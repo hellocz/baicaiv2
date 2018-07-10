@@ -116,7 +116,7 @@
 						</div>
 						<div class="list clearfix">
 							<volist name="r2.data" id="r3" offset="0" length='27'>
-							<a href="brandNav.html">{$r3.name}</a>
+							<a href="{:U('brand/show',array('id'=>$r3['id']))}">{$r3.name}</a>
 							</volist>
 							<if condition="count($r2['data']) egt 28"><a href="{:U('brand/nav',array('p1'=>$r1['p']['id'], 'p2'=>$r2['p']['id']))}" class="brand-more radius-100">查看更多</a></if>
 						</div>
