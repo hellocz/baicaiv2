@@ -31,10 +31,10 @@
 			<div class="white-bg radius-3 mt-12 pl-24">
 				<!--循环 start-->
 				<div class="category-list">
-					<div class="font-w-b font-16"><a href="brandNav.html">{$cate_brand_list['p1']['name']}</a></div>
+					<div class="font-w-b font-16"><a href="{:U('category/cate',array('id'=>$cate_brand_list['p1']['id']))}">{$cate_brand_list['p1']['name']}</a></div>
 					<div class="clearfix mt-20">
 						<div class="box-title fc-green font-14">
-							<a href="brandNav.html" class="fc-green">{$cate_brand_list['p2']['name']}</a>
+							<a href="{:U('category/cate',array('id'=>$cate_brand_list['p2']['id']))}" class="fc-green">{$cate_brand_list['p2']['name']}</a>
 							<svg class="icon">
 								<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_15@2x.png" width="14" height="14"></desc><![endif]-->
 								<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_15"></use>
@@ -42,7 +42,7 @@
 						</div>
 						<div class="list clearfix" style="border: none;">
 							<volist name="cate_brand_list['data']" id="r">	
-							<a href="{:U('brand/nav',array('p1'=>$cate_brand_list['p1']['id'], 'p2'=>$cate_brand_list['p2']['id'], 'brandid'=>$r['id']))}">{$r.name}</a>
+							<a href="{:U('brand/show',array('id'=>$r['id'], 'cid'=>$cate_brand_list['p2']['id']))}">{$r.name}</a>
 							</volist>
 						</div>
 					</div>

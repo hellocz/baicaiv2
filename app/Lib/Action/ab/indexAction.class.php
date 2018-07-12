@@ -33,7 +33,7 @@ class indexAction extends frontendAction {
 		
 		$mod=M("item");
 		$queryArr = array();
-		$queryArr['where']=" and isnice=1 ";
+		$queryArr['where']=" and isnice=1 and hits>600";//测试条件
 		$queryArr['order'] =" add_time desc";
 		if($p==1){
 			//置顶区
@@ -85,7 +85,7 @@ class indexAction extends frontendAction {
 		$homepage_list = array();
 		if(count($item_list)>=1){
 			foreach($item_list as $key=>$val){
-				$item_list[$key]['zan'] = $item_list[$key]['zan']   +intval($item_list[$key]['hits'] /10);
+				$item_list[$key]['zan'] = $item_list[$key]['zan']+intval($item_list[$key]['hits'] /10);
 
 				//商品一级分类
 				$cate_id = $item_list[$key]['cate_id'];

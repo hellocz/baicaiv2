@@ -114,8 +114,8 @@
 						<div class="fl goods-info">
 							<div class="font-24">{$item.title}<span class="fc-red">{$item.price}</span></div>
 							<div class="mt-15 biaoqian">
-								<volist name="item['tag_list']" id="tag">
-								<a href="{:U('book/index', array('tag'=>urlencode($tag)))}" class="label radius-100 fc-aux-a mr-5" target="_blank">{$tag}</a>
+								<volist name="item['tag_list']" id="r">
+								<a href="{:U('tag/index', array('q'=>$r['tag_encode']))}" class="label radius-100 fc-aux-a mr-5" target="_blank">{$r.tag}</a>
 								</volist>
 							</div>
 							<div class="fc-grey mt-12 mb-12"><span class="font-w-b">爆料人：</span><a href="#" class="a-green mr-20 hover-underline">{$item.uname}</a><span class="fc-aux-9">发表时间：{$item.add_time|fdate}</span></div>
@@ -364,12 +364,12 @@
 			<include file="right_hot_followtag" />
 			<!--热门订阅end-->
 			
-			<div class="mt-12">
+			<div class="mt-12 mb-12">
 				{:R('advert/index', array(15), 'Widget')}
 			</div>
 			
 			<!--热门优惠start-->
-			<include file="right_hot_item" />
+			<include file="public:right_hot_item" />
 			<!--热门优惠end-->
 		</div>
 		<!--右边内容end-->
@@ -527,49 +527,20 @@
 	<!--新浪表情JS-->
 	<script src="/new/js/lib/sinaEmotion/jquery-1.8.0.min.js"></script>
 	<script src="/new/js/lib/sinaEmotion/jquery.sinaEmotion.js"></script>
-	
 
-<!--拷贝代码，测试用，可删除-->
-<!-- <style type="text/css">
-/* 提示信息 */
-.tipbox{height:54px;line-height:54px;position:fixed;display:none;}
-.tipbox .tip-l{float:left;width:45px;height:54px;background-image:url(/images/tip_layer.png);background-repeat:no-repeat;background-position:-5px 0;}
-.tipbox .tip-c{float:left;height:54px;line-height:52px;padding:0 10px 0 5px; background-image:url(/images/tip_layer.png);background-repeat:repeat-x;background-position:0 -161px;}
-.tipbox .tip-r{float:left;width:5px;height:54px;background-image:url(/images/tip_layer.png);background-repeat:no-repeat;background-position:0 0;}
-.tip-success .tip-l{background-position:-6px 0;}
-.tip-alert .tip-l{background-position:-6px -54px;}
-.tip-error .tip-l{background-position:-6px -108px;}
-</style> -->
-<!-- <div class="tipbox " style="z-index: 3001; left: 40%; top: 323.126px; "><div class="tip-l"></div><div class="tip-c"></div><div class="tip-r"></div></div> -->
-<script type="text/javascript">
-var PINER = {
-    root: "__ROOT__",
-    uid: "<?php echo $visitor['id'];?>", 
-    async_sendmail: "<?php echo $async_sendmail;?>",
-    config: {
-        wall_distance: "<?php echo C('pin_wall_distance');?>",
-        wall_spage_max: "<?php echo C('pin_wall_spage_max');?>"
-    },
-    //URL
-    url: {}
-};
-</script>
-<script src="/new/js/function.js?v=20180223"></script>
+	<script src="/new/js/function.js?v=20180223"></script>
 
-<!--拷贝代码，测试用，可删除-->
-<!-- <script src="/static/js/lhg/lhgdialog.min.js?self=true&skin=idialog" type="text/javascript"></script> -->
-<!--拷贝代码，测试用，可删除-->
 
-<script type="text/javascript">
-//百度分享JS	
-window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"{$item.title}",'bdDesc':'',"bdUrl":"{$url}","bdMini":"2","bdMiniList":false,"bdPic":"{$item['img']}","bdStyle":"0","bdSize":"32"},"share":{}
-};
-with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
-// var script = document.createElement("script");
-// script.setAttribute("type","text/javascript");
-// script.src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5);     //填自己的js路径
-// document.getElementsByTagName("head")[0].appendChild(script); 
-</script>
+	<script type="text/javascript">
+	//百度分享JS	
+	window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"{$item.title}",'bdDesc':'',"bdUrl":"{$url}","bdMini":"2","bdMiniList":false,"bdPic":"{$item['img']}","bdStyle":"0","bdSize":"32"},"share":{}
+	};
+	with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+	// var script = document.createElement("script");
+	// script.setAttribute("type","text/javascript");
+	// script.src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5);     //填自己的js路径
+	// document.getElementsByTagName("head")[0].appendChild(script); 
+	</script>
 
 </body>
 </html>

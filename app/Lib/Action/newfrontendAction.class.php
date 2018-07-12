@@ -92,6 +92,33 @@ class newfrontendAction extends baseAction {
         return $pager;
     }
 
+    protected function _404($url = '') {
+        if ($url) {
+            redirect($url);
+        } else {
+            send_http_status(404);
+            // $this->display(TMPL_PATH . '404.html');
+            $this->display('public:404');
+            exit;
+        }
+    }
+
+    protected function param_encode($str = '') {
+        //字符串处理，避免URL获取参数出错
+        // $str = urlencode($str);
+        $search = array("-",  ".");
+        $replace = array("_minus_",  "_dot_");
+        return str_replace ($search,  $replace,  $str);
+    }
+
+    protected function param_decode($str = '') {
+        //字符串处理，避免URL获取参数出错
+        // $str = urldecode($str);
+        $search = array("_minus_",  "_dot_");
+        $replace = array("-",  ".");
+        return str_replace ($search,  $replace,  $str);
+    }
+
     /**
      * 天猫淘宝搜券
      */
@@ -114,7 +141,8 @@ class newfrontendAction extends baseAction {
             foreach ($q as $key => $value) {
                 $req->setQ(trim($value));
                 $resp = $c->execute($req);
-                $lists=$resp->results->tbk_coupon;                
+                $lists=$resp->results->tbk_coupon; 
+                $item_list[$key] = array();               
                 foreach ($lists as $list) {
                     $item['title'] = $list->title;
                     $item['user_type'] = intval($list->user_type);
@@ -157,17 +185,40 @@ class newfrontendAction extends baseAction {
     }
 
     /**
+     * 页面右边-热门优惠（文章页、优惠券详情页）
+     */
+    public function right_hot_item(){
+        //热门优惠
+        $time = time();
+        $queryArr = array();
+        $queryArr['where']=" and isnice=1 ";
+        $queryArr['order'] =" add_time desc";
+        $item_list = M('item')->where("status=1 and add_time<$time ".$queryArr['where'])->limit(5)->order($queryArr['order'])->select();
+        if(count($item_list) > 0){
+          foreach ($item_list as $key => $val) {
+            $item_list[$key]['zan'] = $item_list[$key]['zan']+intval($item_list[$key]['hits'] /10);
+            $pos = strpos($val['price'], '（');
+            if($pos > 0){
+              $item_list[$key]['price'] = substr($val['price'] , 0, $pos);
+            }            
+          }
+        }
+        $this->assign('right_hot_item_list', $item_list);
+    }
+   
+
+    /**
      * 筛选过滤及结果查询
      */
     public function filter($params = array(), $where = ''){
 
         $p = $this->_get('p', 'intval', 1);
-        $t = $this->_get('t','trim');
-        if(!is_array($t)){
-            $t = array_flip(explode(',', $t));
+        $type = $this->_get('type','trim');
+        if(!is_array($type)){
+            $type = array_flip(explode(',', $type));
         }
         $property = $this->_get('property','trim');
-        $cid = $this->_get('cid','intval',0);
+        $cateid = $this->_get('cateid','intval',0);
         // $cpid = $this->_get('cpid','intval',0);
         $orig = $this->_get('orig','trim');
         if(!is_array($orig)){
@@ -266,9 +317,9 @@ class newfrontendAction extends baseAction {
 
         //默认过滤选项
         $default_filters = array(
-            't' => array('1' => 'on'),  //必选
+            'type' => array('1' => 'on'),  //必选
             // 'property' => array('1' => 'on', '0' => 'on'),  //国外，国内
-            // 'cid' => '',
+            // 'cateid' => '',
             // 'orig' => array(),
             // 'tag' => array(),
             // 'price' => '',
@@ -309,11 +360,11 @@ class newfrontendAction extends baseAction {
         $all_where1.="and add_time between $time_s and $time_e ";
         $where1.="and add_time between $time_s and $time_e ";
         //文章类型
-        if(count($t) > 0){
-            foreach ($t as $k => $val) {
+        if(count($type) > 0){
+            foreach ($type as $k => $val) {
                 if(!isset($options['type'][$k])) continue;
-                if(isset($filters['t'])) unset($filters['t']);  //有选择并且t在type list列表内时，清掉默认选择
-                $filters['t'][$k] = $val;
+                if(isset($filters['type'])) unset($filters['type']);  //有选择并且type在type list列表内时，清掉默认选择
+                $filters['type'][$k] = $val;
                 break;  //单选
             }
         }
@@ -326,13 +377,13 @@ class newfrontendAction extends baseAction {
             }
         }
         //分类过滤
-        if($cid > 0 && count($options['cate']) > 0){
+        if($cateid > 0 && count($options['cate']) > 0){
             foreach ($options['cate']['s'] as $k => $val) {
-                if(isset($options['cate']['s'][$k][$cid])){  //判断传过来的是否二级分类
-                    $filters['cid']= $cid;
-                    $arr = array($cid);
-                    if(isset($cate_list['s'][$cid])){
-                        $arr = array_merge($arr, array_keys($cate_list['s'][$cid]));
+                if(isset($options['cate']['s'][$k][$cateid])){  //判断传过来的是否二级分类
+                    $filters['cateid']= $cateid;
+                    $arr = array($cateid);
+                    if(isset($cate_list['s'][$cateid])){
+                        $arr = array_merge($arr, array_keys($cate_list['s'][$cateid]));
                     }
                     $where1.="and cate_id in(". implode(', ', $arr) .") ";
                 }
@@ -490,7 +541,7 @@ class newfrontendAction extends baseAction {
                     $cate_count = false;
                     $list_count = false;
                 }
-                if(isset($filters['cid']) && $filters['cid'] != $cate_spid){
+                if(isset($filters['cateid']) && $filters['cateid'] != $cate_spid){
                     $ismy_count = false;
                     // $cate_count = false;
                     $orig_count = false;
@@ -574,7 +625,7 @@ class newfrontendAction extends baseAction {
                     foreach ($options['cate']['s'][$k] as $k2 => $val2) {
                         if(!isset($val2['count'])){
                             //若无数据，但是为过滤条件，显示0
-                            if(isset($filters['cid']) && $filters['cid'] == $k2){
+                            if(isset($filters['cateid']) && $filters['cateid'] == $k2){
                                 $options['cate']['s'][$k][$k2]['count'] = 0;
                                 $check = 1;
                             }else{
@@ -616,8 +667,8 @@ class newfrontendAction extends baseAction {
 
         // 生成URL, param is array
         $arr = array();
-        $params = array_merge($params, $filters);
-        foreach ($params as $key => $value) {
+        $all_params = array_merge($params, $filters);
+        foreach ($all_params as $key => $value) {
             if($value === '' || (is_array($value) && count($value) == 0)) continue;
             if(is_array($value)){
                 $v= implode(',', array_keys($value));

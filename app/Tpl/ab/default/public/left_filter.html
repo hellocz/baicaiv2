@@ -9,10 +9,10 @@
 			<form class="layui-form ml-20" action="{$urls.raw_pure}" method="get">
 				<div class="fc-aux-9 mt-10">按推荐</div>
 				<div class="layui-form-item">
-					<input type="checkbox" name="t[1]" lay-skin="primary" title="{$options['type'][1]['name']}（{$options['type'][1]['count']}）" <present name="filters['t'][1]">checked=""</present>><br>
-					<input type="checkbox" name="t[2]" lay-skin="primary" title="{$options['type'][2]['name']}（{$options['type'][2]['count']}）" <present name="filters['t'][2]">checked=""</present>><br>
-					<input type="checkbox" name="t[3]" lay-skin="primary" title="{$options['type'][3]['name']}（{$options['type'][3]['count']}）" <present name="filters['t'][3]">checked=""</present>><br>
-					<!-- <input type="checkbox" name="t[4]" lay-skin="primary" title="圈子（0）" <present name="filters['t'][4]">checked=""</present>> -->
+					<input type="checkbox" name="type[1]" lay-skin="primary" title="{$options['type'][1]['name']}（{$options['type'][1]['count']}）" <present name="filters['type'][1]">checked=""</present>><br>
+					<input type="checkbox" name="type[2]" lay-skin="primary" title="{$options['type'][2]['name']}（{$options['type'][2]['count']}）" <present name="filters['type'][2]">checked=""</present>><br>
+					<input type="checkbox" name="type[3]" lay-skin="primary" title="{$options['type'][3]['name']}（{$options['type'][3]['count']}）" <present name="filters['type'][3]">checked=""</present>><br>
+					<!-- <input type="checkbox" name="type[4]" lay-skin="primary" title="圈子（0）" <present name="filters['type'][4]">checked=""</present>> -->
 				</div>
 				<div class="fc-aux-9 mb-12 mt-32">按时间</div>
 				<div class="select"><select name="period" lay-verify="required">
@@ -28,29 +28,29 @@
 					<ul>
 						<span>{$r.name}（{$r.count}）</span>
 						<present name="options['cate']['s'][$r['id']]">
-						<li <if condition="!isset($filters['cid']) OR !isset($options['cate']['s'][$r['id']][$filters['cid']])">class="none"</if>>
+						<li <if condition="!isset($filters['cateid']) OR !isset($options['cate']['s'][$r['id']][$filters['cateid']])">class="none"</if>>
 							<volist name="options['cate']['s'][$r['id']]" id="rm">
-							<dl data-id="{$rm.id}" <if condition="isset($filters['cid']) AND $rm['id'] eq $filters['cid']">class="btn-10"</if>>{$rm.name}（{$rm.count}）</dl>
+							<dl data-id="{$rm.id}" <if condition="isset($filters['cateid']) AND $rm['id'] eq $filters['cateid']">class="btn-10"</if>>{$rm.name}（{$rm.count}）</dl>
 							</volist>
 						</li>
 						</present>
 					</ul>
 					</volist>
-					<input type="hidden" name="cid" value="{$filters['cid']}">
+					<input type="hidden" name="cateid" value="{$filters['cateid']}">
 				</div>
 				<div class="fc-aux-9 mt-32">按商场</div>
 				<div class="input mt-12"><input type="text" name="fenlei" class="input-1" placeholder="请输入关键字搜索"></div>
 				<div class="layui-form-item">
-				<volist name="orig_list" id="r">
+				<volist name="options['orig']" id="r">
 					<if condition="$i elt 5">
-					<input type="checkbox" name="options['orig'][{$r.id}]" lay-skin="primary" title="{$r.name}（{$r.count}）" <present name="filters['orig'][$r['id']]">checked=""</present>><br>
+					<input type="checkbox" name="orig[{$r.id}]" lay-skin="primary" title="{$r.name}（{$r.count}）" <present name="filters['orig'][$r['id']]">checked=""</present>><br>
 					</if>
 				</volist>
-				<if condition="count($orig_list) gt 5">
+				<if condition="count($options['orig']) gt 5">
 					<if condition="!$options['orig_more']"><p class="font-12 fc-aux-a check-more mt-5 cursor-pointer">查看更多<i class="icon"></i></p></if>
 					<div <if condition="!$options['orig_more']">class="none"</if> id="checkMore">
-						<volist name="orig_list" id="r" offset="5">
-						<input type="checkbox" name="options['orig'][{$r.id}]" lay-skin="primary" title="{$r.name}（{$r.count}）" <present name="filters['orig'][$r['id']]">checked=""</present>><br>
+						<volist name="options['orig']" id="r" offset="5">
+						<input type="checkbox" name="orig[{$r.id}]" lay-skin="primary" title="{$r.name}（{$r.count}）" <present name="filters['orig'][$r['id']]">checked=""</present>><br>
 						</volist>
 					</div>
 				</if>

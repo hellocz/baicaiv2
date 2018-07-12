@@ -199,3 +199,17 @@
 	<script src="/new/js/common.js"></script>
 	<script src="/new/js/page/nav.js"></script>
 	<script src="/new/js/page/footer.js"></script>
+
+	<script type="text/javascript">
+	var PINER = {
+	    root: "__ROOT__",
+	    uid: "<?php echo $visitor['id'];?>", 
+	    async_sendmail: "<?php echo $async_sendmail;?>",
+	    config: {
+	        wall_distance: "<?php echo C('pin_wall_distance');?>",
+	        wall_spage_max: "<?php echo C('pin_wall_spage_max');?>"
+	    },
+	    //URL
+	    url: {}
+	};
+	</script>

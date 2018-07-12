@@ -1,6 +1,6 @@
 <?php
 
-class quanAction extends frontendAction {
+class quanAction extends newfrontendAction {
 
     public function index(){
             $q = $this->_get('q', 'trim');

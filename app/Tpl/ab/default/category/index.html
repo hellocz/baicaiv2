@@ -156,11 +156,11 @@
 				<!--循环 start-->
 				<volist name="cate_list" id="r1">
 				<div class="category-list" id="list-{++$a}">
-					<div class="font-w-b font-16"><a href="#">{$r1.p.name}</a></div>
+					<div class="font-w-b font-16"><a href="{:U('category/cate',array('id'=>$r1['p']['id']))}">{$r1.p.name}</a></div>
 					<volist name="r1.data" id="r2">
 					<div class="clearfix mt-20">
 						<div class="box-title fc-green font-14">
-							<a href="#" class="fc-green">{$r2.p.name}</a>
+							<a href="{:U('category/cate',array('id'=>$r2['p']['id']))}" class="fc-green">{$r2.p.name}</a>
 							<svg class="icon">
 								<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_15@2x.png" width="14" height="14"></desc><![endif]-->
 								<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_15"></use>
@@ -168,7 +168,7 @@
 						</div>
 						<div class="list clearfix">
 							<volist name="r2.data" id="r3">
-							<a href="directory.html">{$r3.name}</a>
+							<a href="{:U('category/cate',array('id'=>$r3['id']))}">{$r3.name}</a>
 							</volist>
 						</div>
 					</div>

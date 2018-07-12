@@ -1,7 +1,7 @@
 <?php
 
 
-class itemAction extends frontendAction {
+class itemAction extends newfrontendAction {
 
     public function _initialize() {
         parent::_initialize();
@@ -9,27 +9,6 @@ class itemAction extends frontendAction {
         if (!$this->visitor->is_login && in_array(ACTION_NAME, array('share_item', 'fetch_item', 'publish_item', 'like', 'unlike', 'delete', 'comment','publish','myitems'))) {
             IS_AJAX && $this->ajaxReturn(0, L('login_please'));
             $this->redirect('user/login');
-        }
-    }
-
-    protected function _new_pager($count, $pagesize) {
-        $pager = new Page($count, $pagesize);
-        $pager->rollPage = 5;
-        $pager->setConfig('prev', '<i class="icon5 icon5-a_14" style="margin-top: 5px;"></i>');
-        $pager->setConfig('next', '<i class="icon5 icon5-a_15" style="margin-top: 5px;"></i>');
-        // $pager->setConfig('theme', '%upPage% %first% %linkPage% %end% %downPage%');
-        $pager->setConfig('theme', '%upPage% %first% %linkPage% %downPage%');
-        return $pager;
-    }
-
-    protected function _404($url = '') {
-        if ($url) {
-            redirect($url);
-        } else {
-            send_http_status(404);
-            // $this->display(TMPL_PATH . '404.html');
-            $this->display('public:404');
-            exit;
         }
     }
 
@@ -82,9 +61,18 @@ class itemAction extends frontendAction {
         }
 
         //标签
-        $item['tag_list'] = unserialize($item['tag_cache']);
+        $tag_list = unserialize($item['tag_cache']);
 
-        foreach ($item['tag_list'] as $tag_value) {
+        $item['tag_list'] = array();
+        if(count($tag_list) > 0){
+            foreach ($tag_list as $key => $value) {
+                $item['tag_list'][$key]['tag'] = $value;
+                $item['tag_list'][$key]['tag_encode'] = $this->param_encode($value);
+            }
+        }
+        // print_r($item['tag_list']);exit;
+
+        foreach ($tag_list as $tag_value) {
           $tag_map['chn_name'] = $tag_value;
           $brand = M("brand")->where($tag_map)->field("id,name,chn_name")->find();
           if(!empty($brand)){break;}
@@ -274,19 +262,20 @@ class itemAction extends frontendAction {
         $this->assign('follow_tag_list',$follow_tag_list);
 
         //热门优惠
-        $queryArr = array();
-        $queryArr['where']=" and isnice=1 ";
-        $queryArr['order'] =" add_time desc";
-        $item_list = $item_mod->where("status=1 and add_time<$time ".$queryArr['where'])->limit(5)->order($queryArr['order'])->select();
-        if(count($item_list) > 0){
-          foreach ($item_list as $key => $val) {
-            $pos = strpos($val['price'], '（');
-            if($pos > 0){
-              $item_list[$key]['price'] = substr($val['price'] , 0, $pos);
-            }            
-          }
-        }
-        $this->assign('item_list', $item_list);
+        // $queryArr = array();
+        // $queryArr['where']=" and isnice=1 ";
+        // $queryArr['order'] =" add_time desc";
+        // $item_list = $item_mod->where("status=1 and add_time<$time ".$queryArr['where'])->limit(5)->order($queryArr['order'])->select();
+        // if(count($item_list) > 0){
+        //   foreach ($item_list as $key => $val) {
+        //     $pos = strpos($val['price'], '（');
+        //     if($pos > 0){
+        //       $item_list[$key]['price'] = substr($val['price'] , 0, $pos);
+        //     }            
+        //   }
+        // }
+        // $this->assign('hot_item_list', $item_list);
+        $this->right_hot_item();
 
         //评论
         $this->assign('xid',1);
@@ -298,7 +287,7 @@ class itemAction extends frontendAction {
         $pagesize = 10;
         $map = array('itemid' => $itemid,'xid'=>$xid,'status'=>1,'pid'=>0);
         $count = $comment_mod->where($map)->count('id');
-        $pager = $this->_new_pager($count, $pagesize);
+        $pager = $this->_pager($count, $pagesize);
         $pager_bar = $pager->newfshow();
         $this->assign('pager_bar',$pager_bar);
 

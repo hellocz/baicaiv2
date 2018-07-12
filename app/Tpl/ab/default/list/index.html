@@ -77,7 +77,7 @@ $(function(){
 	});
 	//单击子分类链接提交
 	$("form .category dl").click(function(){
-		obj = $(this).parents('.category').find("input[name=cid]");
+		obj = $(this).parents('.category').find("input:hidden");
 		// $(this).parents('.category').find("input[name=cpid]").val($(this).data('pid'));
 		val = obj.val();
 		newval = $(this).data('id');
