@@ -1,0 +1,121 @@
+/*
+ * 积分规则页面
+ * 独立样式文件
+ * 
+ * */
+body{
+	background: #FFFFFF !important;
+}
+
+.topBox{
+	width: 100%;
+	background: #D8E4E9;
+	height: 580px;
+}
+.topBox .box{
+	position: relative;
+	width: 1319px;	
+	height: 580px;
+	margin: 0px auto;
+}
+.topBox .box .experience{
+	position: absolute;
+	top:40px;
+	left: 500px;
+}
+.topBox .box .experienceInfo{
+	position: absolute;
+	top:80px;
+	left: 570px;
+	width: 200px;
+	text-align: center;
+	color: #86A1AC;
+}
+.topBox .box .experienceInfo .fc-white{
+	text-shadow:2px 2px 3px rgb(0,0,0,0.1);
+}
+.topBox .box .level{
+	position: relative;
+	width: 520px;
+	height: 170px;
+	margin: 0px auto;
+	padding-top: 150px;
+}
+.topBox .box .level .level-1{
+	position: absolute;
+	left: 15px;
+	bottom: 30px;
+}
+.topBox .box .level .level-2{
+	position: absolute;
+	left: 135px;
+	bottom: 58px;
+}
+.topBox .box .level .level-3{
+	position: absolute;
+	left: 233px;
+	bottom: 79px;
+}
+.topBox .box .level .level-4{
+	position: absolute;
+	left: 354px;
+	bottom: 106px;
+}
+.topBox .box .level .level-5{
+	position: absolute;
+	left: 468px;
+	bottom: 132px;
+}
+.topBox .box .level .info{
+	background:rgba(0,0,0,0.04);
+	border-radius:15px;
+	border:1px solid rgba(255,255,255,1);
+	color: #FFFFFF;
+	text-align: center;
+	width: 80px;
+	height: 26px;
+	line-height: 26px;
+}
+.topBox .box .level .icon{
+	margin-top: 6px;
+	margin-left: 27px;
+	background: url(../images/ie8/G_5@2x.png) no-repeat;
+	width: 24px;
+	height: 24px;
+}
+.topBox .box .level .active .info{
+	background:#33CC99;
+	border:1px solid #33CC99;
+	color: #FFFFFF;
+	
+}
+.topBox .box .background{
+	position: absolute;
+	width: 1319px;
+	height: 390px;
+	bottom: 0;
+	background: url(../images/integralRules_bg.png) center bottom no-repeat;
+	z-index: 99;
+}
+.topBox .box .background .topTitle{
+	position: absolute;
+	left: 550px;
+	bottom: 20px;
+}
+
+.layui-table td, .layui-table th, .layui-table-fixed-r, .layui-table-header, .layui-table-page, .layui-table-tips-main, .layui-table-tool, .layui-table-view, .layui-table[lay-skin=line], .layui-table[lay-skin=row]{
+	border-color: #ECF1F3;
+}
+.layui-table thead tr, .layui-table-click, .layui-table-header, .layui-table-hover, .layui-table-mend, .layui-table-patch, .layui-table-tool, .layui-table[lay-even] tr:nth-child(even){
+	background: #FBFDFE;
+}
+.layui-table .td-1{
+	background: #FBFDFE;
+}
+.layui-table tbody tr:hover{
+	background: none;
+}
+
+.layui-tab thead{
+	color: #222222;
+}

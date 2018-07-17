@@ -196,6 +196,31 @@ a:hover{
 	border:1px solid #33CC99;
 }
 
+.labe{
+	display: inline-block;
+	font-size: 12px;
+	padding: 0 10px;
+	border-radius: 100px;
+}
+.labe-1{
+	border:1px solid #33CC99;
+	color: #33CC99;
+}
+.labe-1:hover{
+	border:1px solid #33CC99;
+	background: #33CC99;
+	color: #FFFFFF;
+}
+.labe-2{
+	border:1px solid #9255C6;
+	color: #9255C6;
+}
+.labe-2:hover{
+	border:1px solid #9255C6;
+	background: #9255C6;
+	color: #FFFFFF;
+}
+
 .hover-underline:hover{
 	text-decoration: underline !important;
 }
@@ -212,6 +237,7 @@ a:hover{
 }
 
 /*全局字号*/
+.font-8{font-size:8.4px;-webkit-transform-origin-x: 0; -webkit-transform:scale(0.7);}
 .font-12{font-size: 12px;}
 .font-13{font-size: 13px;}
 .font-14{font-size: 14px;}
@@ -222,8 +248,10 @@ a:hover{
 .font-22{font-size: 22px;}
 .font-24{font-size: 24px;}
 .font-36{font-size: 36px;}
+.font-48{font-size: 48px;}
 
 /*全局字体颜色*/
+.fc-2{ color: #222222;}
 .fc-white{ color: #ffffff;}
 .fc-green{ color: #33CC99;}
 .fc-red{ color: #EB3C3C;}
@@ -275,6 +303,9 @@ a:hover{
 .mt-12{
 	margin-top: 12px;
 }
+.mt-14{
+	margin-top:14px;
+}
 .mt-15{
 	margin-top:15px;
 }
@@ -290,6 +321,9 @@ a:hover{
 .mt-40{
 	margin-top: 40px;
 }
+.mt-60{
+	margin-top: 60px;
+}
 
 .mb-12{
 	margin-bottom: 12px;
@@ -302,6 +336,9 @@ a:hover{
 }
 .mb-35{
 	margin-bottom: 35px;
+}
+.mb-48{
+	margin-bottom: 48px;
 }
 
 .ml-5{
@@ -340,6 +377,9 @@ a:hover{
 }
 .mr-7{
 	margin-right: 7px;
+}
+.mr-8{
+	margin-right: 8px;
 }
 .mr-10{
 	margin-right: 10px;
@@ -703,6 +743,20 @@ a:hover{
 	z-index: 99;
 	top:-34px;
 	right: -56px;
+}
+
+/*默认placeholder样式*/
+.i-placeholder input::-webkit-input-placeholder{
+	color:#ACB8B3;
+}
+.i-placeholder input::-moz-placeholder{   /* Mozilla Firefox 19+ */
+	color:#ACB8B3;
+}
+.i-placeholder input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+	color:#ACB8B3;
+}
+.i-placeholder input:-ms-input-placeholder{  /* Internet Explorer 10-11 */ 
+    color:#ACB8B3;
 }
 /*品牌搜索框样式*/
 .brand-search{
@@ -1458,6 +1512,23 @@ a:hover{
 	margin-right: 12px;
 }
 
+/*顶部公共样式二*/
+.header{
+	padding: 25px 0;
+	height: 40px;
+}
+.header .logo{
+	height: 40px;
+}
+.header .logo .icon-logo{
+	fill: #33CC99;
+	width: 127px;
+	height: 40px;
+}
+.header .logo .tit{
+	height: 40px;
+}
+
 /*底部统一区域样式*/
 footer{
 	color: #B4B8C3;
@@ -1499,7 +1570,7 @@ footer .footer-info .layui-row .f-app-down{
 
 footer .footer-info .layui-row .f-app-down .down a{
 	display: inline-block;
-	width: 137px;
+	width: 136px;
 	height: 45px;
 	background: url(../images/ie8/icon_down.png) no-repeat;
 }
@@ -1654,6 +1725,10 @@ footer .footer-copyright{
 	float: left;
 	width: 890px;
 	margin-right: 14px;
+}
+.mbox-left{
+	float: left;
+	width: 904px;
 }
 /*右边296px*/
 .mbox-r{
@@ -1908,6 +1983,32 @@ footer .footer-copyright{
 	line-height: 48px;
 	font-size: 16px!important;
 }
+.loginPopup .thirdLogin{
+	margin-top: 30px;
+	text-align: center;
+}
+.loginPopup .thirdLogin a{
+	display: inline-block;
+	height: 24px;
+	background: url(../images/svg_sprite/icon_sprite_login.png) no-repeat;
+	padding-left: 28px;
+	line-height: 24px;
+	color: #99A5A0;
+	font-size: 13px;
+}
+.loginPopup .thirdLogin a:hover{
+	background: url(../images/svg_sprite/icon_sprite_login_1.png) no-repeat;
+	color: #33CC99;
+}
+.loginPopup .thirdLogin .wx,.loginPopup .thirdLogin .wx:hover{
+	background-position: 0 0;
+}
+.loginPopup .thirdLogin .qq,.loginPopup .thirdLogin .qq:hover{
+	background-position: 0 -24px;
+}
+.loginPopup .thirdLogin .wb,.loginPopup .thirdLogin .wb:hover{
+	background-position: 0 -48px;
+}
 
 /*修改layui默认样式*/
 .loginPopup .layui-layer-setwin .layui-layer-close2{
@@ -1924,6 +2025,24 @@ footer .footer-copyright{
 	background: url(../images/svg_sprite/close_sprite.png) no-repeat !important;
 }
 
+.tipsBox .layui-layer-setwin .layui-layer-close2{
+	top: -24px !important;
+	right: -24px !important;
+	width: 24px !important;
+	height: 24px !important;
+	background-position: 0 -48px !important;
+}
+.tipsBox .layui-layer-setwin .layui-layer-close2:hover{
+	background-position: 0 -72px !important;
+}
+.tipsBox .layui-layer-ico{
+	background: url(../images/svg_sprite/close_sprite.png) no-repeat !important;
+}
+
+.askBox .layui-layer-btn .layui-layer-btn0{
+	border-color: #33CC99;
+	background-color: #33CC99;
+}
 
 /*分页加载中样式*/
 .page-loading{

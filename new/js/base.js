@@ -1,5 +1,4 @@
 $(document).ready(function() {
-	
 	//svg兼容性
 	svg4everybody();
 	
@@ -189,6 +188,7 @@ function crossUp(a,b){
 	});
 }
 
+// 单选按钮
 function radio(){
 	$(".radio-1 div").click(function(){
 		$(this).siblings().children("i").removeClass("active")
@@ -290,12 +290,28 @@ function tipsPopup(icon,info){
 		layer.open({
 			type: 1,
 			title: false,
-			closeBtn: 0,
-			shadeClose: true,
-			time:2000,
+			closeBtn: 1,
+			shadeClose: false,
+			time:5000,
 			shade:0.01,
+			skin: 'tipsBox',
 			anim:0,
+			area: '230px',
 			content: '<div id="tipsPopup"><div class="tips '+ icon +'"></div><div class="info">'+ info +'</div></div>'
+		});
+	});
+}
+
+//
+
+function askPopup(info){
+	layui.use(['layer'], function(){
+		layer.confirm(info, {
+			title:'提示',
+			skin:'askBox',
+		}, function(index){
+			layer.close(index);
+			tipsPopup('tips_1','已成功兑换<br><a href="myExchange.html" class="fc-green">查看我的兑换</a>');
 		});
 	});
 }
@@ -345,6 +361,7 @@ function LoginPopup(type){
 				 	'</div>'+
 				 	'<div class="button btn-3 cursor-pointer mt-24">登录</div>'+
 				 	'<div class="font-14 mt-32 text-center"><span class="fc-green loginType cursor-pointer">手机快捷登录</span> or 没有账户？<span class="fc-green cursor-pointer registeredButton">注册</span></div>'+
+					'<div class="thirdLogin"><a href="#" class="wx mr-15">微信登录</a><a href="#" class="qq mr-15">QQ登录</a><a href="#" class="wb">微博登录</a></div>'+
 				 '</div>'+
 				 '<div class="mobileBox none">'+
 				 	'<div class="text-center">'+

@@ -1,5 +1,5 @@
 /*
- * 列表页list.html
+ * 列表页
  * 独立样式文件
  * 
  * */
@@ -456,7 +456,7 @@
 	margin-right: 14px;
 	padding: 15px;
 }
-.title .icon{
+.l-search .title .icon{
 	width: 18px;
 	height: 18px;
 }
@@ -1590,4 +1590,679 @@
 	display: inline-block;
 	width: 66px;
 	height: 30px;
+}
+
+/*领取优惠券页面样式*/
+.cr-first{
+	padding: 33px 24px 50px 24px;
+}
+.cr-first .cr-title{
+	width: 602px;
+	font-size: 36px;
+	line-height: 69px;
+}
+.cr-first .cr-search{
+	width: 550px;
+	
+}
+.cr-first .cr-search .i-placeholder{
+	position: relative;
+}
+.cr-first .cr-search .i-placeholder .input-1{
+	width: 462px;
+	padding-right: 73px;
+}
+.cr-first .cr-search .i-placeholder .cr-s-button{
+	position: absolute;
+	top:8px;
+	right: 10px;
+	cursor: pointer;
+	border:0;
+	background: url(../images/ie8/a_6@2x.png) no-repeat;
+	background-position: 0 3px;
+	color: #33CC99;
+	padding-left: 20px;
+	font-size: 14px;
+	z-index: 9;
+}
+.cr-first .cr-search .hotWords{
+	color: #999999;
+	padding-left: 10px;
+	padding-top: 15px;
+}
+.cr-first .cr-search .hotWords a{
+	color: #999999;
+}
+.cr-first .cr-search .hotWords a:hover{
+	color: #33CC99;
+}
+
+.cr-send{
+	padding: 0 24px;
+}
+.cr-send .cr-tab li{
+	float: left;
+	margin-right: 20px;
+	font-size: 16px;
+	color: #666666;
+	cursor: pointer;
+	height: 44px;
+	line-height: 34px;
+}
+.cr-send .cr-tab .active{
+	color: #33CC99;
+	border-bottom: 2px solid #33CC99;
+}
+.cr-send .btn-3{
+	width: 146px;
+	height: 36px;
+	line-height: 36px;
+}
+
+.cr-list{
+	margin-top: 16px;
+}
+.cr-list .list-box li .img img{
+	-moz-border-radius: 3px 3px 0px 0px;
+	-webkit-border-radius: 3px 3px 0px 0px;
+	border-radius: 3px 3px 0px 0px;
+	position:relative;
+	behavior: url(css/pie.htc);
+	width: 288.75px;
+	height: 288.75px;
+	
+}
+.cr-list .list-box li .info{
+	width: 264.75px;
+	padding: 12px;
+	-moz-border-radius: 0px 0px 5px 5px;
+	-webkit-border-radius: 0px 0px 5px 5px;
+	border-radius: 0px 0px 5px 5px;
+	position:relative;
+	behavior: url(css/pie.htc);
+	height: 107px;
+	background: #FFFFFF;
+}
+.cr-list .list-box li:hover .info{
+	box-shadow:0px 2px 4px 0px rgba(0,0,0,0.06);
+}
+.cr-list .list-box li .info .title{
+	line-height: 21px;
+	margin-bottom: 5px;
+    overflow: hidden;
+	height: 42px;
+}
+.cr-list .list-box li .info .sales{
+	margin-top: 5px;
+	height: 20px;
+}
+.cr-list .list-box li .info .sales .coupons{
+	display: inline-block;
+	width: 30px;
+	height: 18px;
+	background:url(../images/ie8/a_122@2x.png) no-repeat;
+	background-size: 30px;
+	color: #FFFFFF;
+	text-align: center;
+	line-height: 18px;
+}
+.cr-list .list-box li .info .sales .xl{
+	background: url(../images/ie8/a_34@2x.png) right no-repeat;
+	padding-right: 25px;
+}
+.cr-list .list-box li .info .price{
+	margin-top: 5px;
+	height: 30px;
+}
+.cr-list .list-box li .info .price .n-price{
+	margin-top: 7px;
+	height: 30px;
+}
+.cr-list .list-box li .info .price .y-price{
+	line-height: 15px;
+	margin-left: 10px;
+}
+.cr-list .list-box li .info .price .btn{
+	display: inline-block;
+	width: 71px;
+	height: 24px;
+	font-size: 14px;
+	border:1px solid #D8DDDB;
+	color: #99A5A0;
+	text-align: center;
+	line-height: 24px;
+	border-radius: 50px;
+}
+.cr-list .list-box li:hover .info .price .btn{
+	border-color: #33CC99;
+	background: #33CC99;
+	color: #FFFFFF;
+}
+
+/*用户排名页面样式*/
+.urBox .urTab{
+	width: 1152px;
+	padding: 0 24px;
+	height: 52px;
+	background:linear-gradient(180deg,rgba(255,255,255,1),rgba(250,250,250,1));
+	border-radius:5px 5px 0px 0px;
+	border-bottom:1px solid #ECF1F3;
+	font-size: 14px;
+}
+.urBox .urTab .tabBox li{
+	float: left;
+	margin-right: 20px;
+	height: 50px;
+	line-height:50px;
+	cursor: pointer;
+}
+.urBox .urTab .tabBox .active{
+	color: #33CC99;
+	border-bottom: 2px solid #33CC99;
+}
+.urBox .urTab .selected{
+	margin-top: 10px;
+}
+.urBox .urTab .selected li{
+	float: left;
+	border: 1px solid #ECF1F3;
+	background: #ffffff;
+	color: #999999;
+	width: 58px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	margin-left: 4px;
+	cursor: pointer;
+}
+.urBox .urTab .selected .active{
+	color: #222222;
+	font-weight: bold;
+}
+.urlist ul{
+	padding: 18px;
+}
+.urlist .my{
+	background: #EFFBF7;
+	border-left: 3px solid #DBECE6;
+}
+.urlist .my:hover{
+	background: #EFFBF7;
+}
+.urlist ul li{
+	float: left;
+	height: 54px;
+}
+.urlist ul:hover{
+	background: #FAFAFA;
+}
+.urlist ul .ur-1{
+	width: 60px;
+	height: 54px;
+}
+.urlist ul .ur-1 span{
+	display: inline-block;
+	border-radius: 100%;
+	width: 28px;
+	height: 28px;
+	text-align: center;
+	line-height: 28px;
+	background-color: #F0F2F1;
+	color: #99A5A0;
+	font-size: 16px;
+}
+.urlist ul .ur-1 .No1{
+	background:linear-gradient(180deg,rgba(251,210,73,1),rgba(245,166,35,1));
+	color: #FFFFFF;
+}
+.urlist ul .ur-1 .No2{
+	background:linear-gradient(180deg,rgba(190,199,208,1),rgba(138,150,163,1));
+	color: #FFFFFF;
+}
+.urlist ul .ur-1 .No3{
+	background:linear-gradient(180deg,rgba(220,182,182,1),rgba(182,127,127,1));
+	color: #FFFFFF;
+}
+.urlist ul .ur-2{
+	width: 54px;
+	height: 54px;
+}
+.urlist ul .ur-2 img{
+	width: 54px;
+	height: 54px;
+}
+.urlist ul .ur-3{
+	width: 450px;
+	margin-left: 15px;
+	height: 54px;
+}
+.urlist ul .ur-3 .name span{
+	display: inline-block;
+	padding: 0px 8px;
+	border:1px solid #33CC99;
+	color: #33CC99;
+	margin-left: 10px;
+}
+.urlist ul .ur-4{
+	width: 515px;
+	height: 54px;
+}
+.urlist ul .ur-5{
+	float: right;
+	width: 70px;
+}
+.urlist ul .ur-5{
+	width: 70px;
+	height: 54px;
+}
+.urlist ul .ur-5 span{
+	width: 70px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	border: 1px solid #D8DDDB;
+	color: #99A5A0;
+	cursor: pointer;
+}
+.urlist ul:hover .ur-5 span{
+	border: 1px solid #33CC99;
+	background: #33CC99;
+	color: #FFFFFF;	
+}
+
+/*积分抽奖&积分兑换页面样式*/
+.title .tabSub{
+	color: #999999;
+	cursor: pointer;
+}
+.title .active{
+	color: #222222;
+	border-bottom: 2px solid #33CC99;
+}
+.integralMall .listBox{
+	width: 904px;
+}
+.integralMall .listBox .list li{
+	float: left;
+	width: 212px;
+	min-height: 380px;
+	margin-right: 14px;
+	margin-bottom: 14px;
+	background: #FFFFFF;
+}
+.integralMall .listBox .list li .photo{
+	width: 212px;
+	height: 212px;
+	position: relative;
+}
+.integralMall .listBox .list li .photo img{
+	-moz-border-radius: 3px 3px 0px 0px;
+	-webkit-border-radius: 3px 3px 0px 0px;
+	border-radius: 3px 3px 0px 0px;
+	position:relative;
+	behavior: url(css/pie.htc);
+	width: 212px;
+	height: 212px;
+}
+.integralMall .listBox .list li .photo span{
+	display: inline-block;
+	width:58px;
+	height:24px;
+	background:rgba(0,0,0,0.8);
+	border-radius:14px;
+	color: #FFFFFF;
+	text-align: center;
+	line-height: 24px;
+	position: absolute;
+	left: 10px;
+	bottom:10px;
+	z-index: 9;
+}
+.integralMall .listBox .list li:hover .photo span{
+	background:#33CC99;
+}
+.integralMall .listBox .list li .content{
+	padding: 12px;
+}
+.integralMall .listBox .list li .content .c-title{
+	height: 42px;
+	line-height: 21px;
+	overflow: hidden;
+}
+.integralMall .listBox .list li .content .button{
+	display: inline-block;
+	width: 188px;
+	height: 34px;
+	line-height: 34px;
+	text-align: center;
+	background: #F2F6F5;
+	color: #5C917C;
+	font-size: 14px;
+}
+.integralMall .listBox .list li .content .button:hover{
+	background: #33CC99;
+	color: #FFFFFF;
+}
+.integralMall .listBox .list li .content .button-1{
+	display: inline-block;
+	width: 188px;
+	height: 34px;
+	line-height: 34px;
+	text-align: center;
+	background: #F5A623;
+	color: #FFFFFF;
+	font-size: 14px;
+}
+.integralMall .listBox .list li .content .button-2{
+	display: inline-block;
+	width: 188px;
+	height: 34px;
+	line-height: 34px;
+	text-align: center;
+	background: #F7F7F7;
+	color: #CCCCCC;
+	font-size: 14px;
+}
+.integralMall .listBox .list li .content .info{
+	line-height: 20px;
+}
+
+.integralMall .rightBox{
+	width: 296px;
+}
+.integralMall .rightBox .title-1{
+	height: 48px;
+	line-height: 48px;
+	border-bottom: 1px solid #F4F7F8;
+	font-size: 16px;
+	text-align: center;
+}
+.integralMall .rightBox .myWealth li{
+	float: left;
+	width: 50%;
+	text-align: center;
+}
+
+.integralMall .rightBox .myWealth-btn{
+	padding: 10px 18px 18px 18px;
+}
+.integralMall .rightBox .myWealth-btn a{
+	display: inline-block;
+	width: 256px;
+	border: 1px solid #33CC99;
+	height: 40px;
+	line-height: 40px;
+}
+
+.integralMall .rightBox .title-2{
+	height: 20px;
+	line-height: 20px;
+	font-size: 16px;
+}
+.integralMall .rightBox .list{
+	padding: 18px;
+}
+.integralMall .rightBox .list li{
+	margin-top: 20px;
+}
+
+/*积分抽奖详情页面样式*/
+.integralMall .infoBox{
+	width: 890px;
+	margin-right: 14px;
+}
+.integralMall .infoBox .info{
+	padding: 24px;
+}
+.integralMall .infoBox .info .pic{
+	width: 300px;
+	height: 300px;
+}
+.integralMall .infoBox .info .pic img{
+	width: 300px;
+	height: 300px;
+}
+.integralMall .infoBox .info .content{
+	margin-left: 30px;
+	width: 512px;
+}
+.integralMall .infoBox .info .content .cysl input,.integralMall .infoBox .info .content .cysl label{
+	float: left;
+}
+.integralMall .infoBox .info .content .cysl .button{
+	width: 35px;
+	height: 35px;
+	border:1px solid #EEEEEE;
+	background: #FAFAFA;
+	color: #99A5A0;
+	font-size: 20px;
+	cursor: pointer;
+}
+.integralMall .infoBox .info .content .cysl .input{
+	width: 70px;
+	height: 33px;
+	border:0;
+	border-top:1px solid #EEEEEE;
+	border-bottom:1px solid #EEEEEE;
+	background: #FFFFFF;
+	color: #999999;
+	font-size: 14px;
+	text-align: center;
+}
+
+.integralMall .infoBox .info .content .but .btn-3{
+	display: inline-block;
+	width: 160px;
+	height: 40px;
+	line-height: 40px;
+}
+.integralMall .infoBox .info .content .but .btn{
+	display: inline-block;
+	width: 160px;
+	height: 40px;
+	line-height: 40px;
+	background: #F7F7F7;
+	color: #CCCCCC;
+	border-radius: 3px;
+	text-align: center;
+	font-size: 14px;
+}
+
+.integralMall .infoBox .drawRecord .dr-title{
+	font-size: 16px;
+	padding: 0 24px 13px 24px;
+}
+.integralMall .infoBox .drawRecord .jl{
+	width: 310px;
+}
+.integralMall .infoBox .drawRecord .sj{
+	width: 260px;
+	text-align: center;
+}
+.integralMall .infoBox .drawRecord .zjhm{
+	width: 172px;
+	text-align: center;
+}
+.integralMall .infoBox .drawRecord .zt{
+	width: 100px;
+	text-align: right;
+}
+.integralMall .infoBox .drawRecord .dr-tab{
+	background:#FAFAFA;
+	border-top: 1px solid #ECF1F3;
+	height: 42px;
+	line-height: 42px;
+	padding: 0 24px;
+	font-size: 13px;
+	color: #999999;
+}
+.integralMall .infoBox .drawRecord .dr-tab li{
+	float: left;
+}
+.integralMall .infoBox .drawRecord .dr-list li{
+	padding: 0 24px;
+	height: 40px;
+	line-height: 40px;
+	font-size: 14px;
+	color: #666666;
+}
+.integralMall .infoBox .drawRecord .dr-list .zj{
+	color: #33CC99;
+}
+.integralMall .infoBox .drawRecord .dr-list li:hover{
+	background-color: #FAFAFA;
+}
+.integralMall .infoBox .drawRecord .dr-list li dt{
+	float: left;
+}
+
+/*圈子全部页面样式*/
+.circleAll .articlesHot{
+	position:relative;
+	width: 904px;	
+}
+
+.circleAll .articlesHot a{
+	transition:none;
+}
+
+.circleAll .articlesHot a.abtn {
+	display:block;
+	height:22px;
+	width:24px;
+	position:absolute;
+	overflow:hidden;
+	background:url(../images/i_atop_btn.png) no-repeat;
+	text-indent:-999em;
+	outline:none;
+	top:5px;
+}
+.circleAll .articlesHot a.aleft {
+	right:44px;
+	background-position:0 -32px;
+}
+.circleAll .articlesHot a.agrayleft {
+	cursor:default;
+	background-position:0 0;
+}
+.circleAll .articlesHot a.aright {
+	right:14px;
+	background-position:-34px 0;
+}
+.circleAll .articlesHot a.agrayright {
+	cursor:default;
+	background-position:-34px -32px;
+}
+.circleAll .articlesHot .scrollcontainer {
+	width:904px;
+	height:300px;
+	overflow:hidden;
+	position:relative;
+	margin:0 auto;
+}
+.circleAll .articlesHot .scrollcontainer .hot-box {
+	width:20000px;
+	position:absolute;
+	left:0px;
+	top:0px;
+}
+.circleAll .articlesHot .scrollcontainer .hot-list {
+	width:904px;
+	height: 300px;
+	float:left;
+}
+.circleAll .articlesHot .scrollcontainer .hot-list li{
+	width:287px;
+	height: 300px;
+	float:left;
+	margin-right: 14px;
+}
+.circleAll .articlesHot .scrollcontainer .hot-list li .img{
+	position: relative;
+}
+.circleAll .articlesHot .scrollcontainer .hot-list li .img img{
+	-moz-border-radius: 3px 3px 0px 0px;
+	-webkit-border-radius: 3px 3px 0px 0px;
+	border-radius: 3px 3px 0px 0px;
+	position:relative;
+	behavior: url(css/pie.htc);
+	width: 287px;
+	height: 180px;
+}
+.circleAll .articlesHot .scrollcontainer .hot-list li .img span{
+	position: absolute;
+	bottom: 8px;
+	left: 10px;
+	display: inline-block;
+	width:72px;
+	height:24px;
+	background:rgba(0,0,0,0.8);
+	border-radius:14px;
+	text-align: center;
+	line-height: 24px;
+	color: #FFFFFF;
+}
+.circleAll .articlesHot .scrollcontainer .hot-list li .content{
+	padding: 14px;
+}
+.circleAll .articlesHot .scrollcontainer .hot-list li .content .c-title{
+	font-size: 14px;
+	height: 42px;
+	line-height: 21px;
+	overflow: hidden;
+}
+.circleAll .articlesHot .scrollcontainer .hot-list li .content .c-user{
+	height: 22px;
+	line-height: 22px;
+	margin-top: 20px;
+}
+.circleAll .articlesHot .scrollcontainer .hot-list li .content .c-user .zan{
+	display: inline-block;
+	background: url(../images/ie8/e_14@2x.png) left no-repeat;
+	padding-left: 24px;
+	height: 20px;
+}
+.circleAll .articlesHot .scrollcontainer .hot-list li .content .c-user .zan:hover{
+	background: url(../images/ie8/e_14_s@2x.png) left no-repeat;
+}
+
+.circleAll .tabBox{
+	width: 862px;
+	margin: 14px 14px 0 0;
+	-moz-border-radius: 3px 3px 0px 0px;
+	-webkit-border-radius: 3px 3px 0px 0px;
+	border-radius: 3px 3px 0px 0px;
+	position:relative;
+	behavior: url(css/pie.htc);
+	background: #FFFFFF;
+	height: 41px;
+	padding: 11px 14px 0 14px;
+	border-bottom: 1px solid #ECF1F3;
+}
+.circleAll .tabBox .tabNav{
+	display: -webkit-flex;
+    display: flex;
+    width: 400px;
+	margin-top: 5px;
+}
+.circleAll .tabBox .tabNav li{
+	font-size: 16px;
+	margin-right: 30px;
+	height: 34px;
+}
+.circleAll .tabBox .tabNav .active{
+	border-bottom: 2px solid #33CC99;
+	color: #33CC99;
+}
+.circleAll .operation{
+	background: #FAFAFA;
+	width: 860px;
+	margin-right: 14px;
+	height: 38px;
+	padding: 15px 15px 0 15px;
+}
+
+.circleAll .tjzg{
+	margin-top: 43px;
+	height: 1000px;
 }

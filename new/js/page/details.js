@@ -192,9 +192,10 @@ function photo(){
 }
 
 //layui分页插件
-layui.use(['laypage', 'layer'], function(){
+layui.use(['element','laypage', 'layer'], function(){
 	var laypage = layui.laypage
-	,layer = layui.layer;
+	,layer = layui.layer
+	,element = layui.element;
 	//总页数大于页码总数
 	laypage.render({
 		elem: 'pages-comments'

@@ -19,10 +19,10 @@ layui.use('form', function(){
   var form = layui.form;
   //各种基于事件的操作，下面会有进一步介绍
   //监听提交
-  form.on('submit(formDemo)', function(data){
-    layer.msg(JSON.stringify(data.field));
-    return false;
-  });
+  // form.on('submit(formDemo)', function(data){
+  //   layer.msg(JSON.stringify(data.field));
+  //   return false;
+  // });
 });
 
 $(function(){
@@ -31,7 +31,7 @@ $(function(){
 		$(this).hide();
 		$("#checkMore").show();
 	});
-	// //tab菜单切换
+	//tab菜单切换
 	// tabClass(".r-list-box .tabNav a","a","active",".r-list-box",".list-box");
 	select(".operation",1);
 	arrClick(".item",".cross",".vertical");

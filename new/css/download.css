@@ -1,0 +1,148 @@
+/*
+ * appDown下载页面
+ * 独立样式文件
+ * 
+ * */
+body{
+	background: #FFFFFF !important;
+}
+
+.update{
+	width:1200px;
+	height: 418px;
+	background: url(../images/download_IMG.png) center no-repeat;
+	background-size: 1048px;
+	position: relative;
+}
+.update .content{
+	position: absolute;
+	width: 382px;
+	height: 209px;
+	top:19px;
+	left:376px;
+	padding: 25px 10px 0px 25px;
+}
+.update .content ul{
+	width: 100%;
+	height: 165px;
+	overflow:auto;
+}
+.update .content ul::-webkit-scrollbar {
+ width: 8px;
+}
+.update .content ul::-webkit-scrollbar-thumb {
+ background-color:#CCCCCC;
+ -webkit-border-radius: 2em;
+ -moz-border-radius: 2em;
+ border-radius:2em;
+}
+.update .content ul li{
+	margin-bottom: 14px;
+}
+.update .content ul li .date{
+	float: left;
+	width: 70px;
+	font-weight: bold;
+}
+.update .content ul li .info{
+	float: left;
+	width: 280px;
+	line-height: 20px;
+}
+.appDown{
+	width: 294px;
+	margin: 0px auto;
+}
+.appDown a{
+	float: left;
+	display: inline-block;
+	width:141px;
+	height:49px;
+	box-shadow:0px 1px 2px 0px rgba(0,0,0,0.06);
+	border-radius:3px;
+	border:1px solid rgba(231,231,231,1);
+	position: relative;
+}
+.appDown .ios{
+	background:#f9f9f9 url(../images/ie8/a_44@2x.png) no-repeat;
+	background-position: 16px 12px;
+}
+.appDown .android{
+	background:#f9f9f9 url(../images/ie8/a_45@2x.png) no-repeat;
+	background-position: 16px 12px;
+}
+.appDown a .info{
+	position: absolute;
+	top:8px;
+	right: 0;
+}
+.appDown a .info .info1{
+	color: #999999;
+}
+
+.appDown a:hover{
+	color: #ffffff;
+}
+.appDown .ios:hover{
+	background:#00A2FF url(../images/ie8/a_44_1@2x.png) no-repeat;
+	background-position: 16px 12px;
+	border:1px solid #00A2FF;
+}
+.appDown .android:hover{
+	background:#7FD322 url(../images/ie8/a_45_1@2x.png) no-repeat;
+	background-position: 16px 12px;
+	border:1px solid #7FD322;
+}
+.appDown a:hover .info .info1{
+	color: #ffffff;
+}
+
+.clientBrowser{
+	margin-top: 120px;
+}
+.clientBrowser .layui-col-md3{
+	padding-left: 95px;
+	margin-top: 50px;
+	min-height: 72px;
+}
+.clientBrowser .layui-col-md3 a:hover{
+	text-decoration: underline !important;
+}
+.clientBrowser .chrome{
+	background: url(../images/ie8/a_31@2x.png) no-repeat;
+}
+.clientBrowser .firefox{
+	background: url(../images/ie8/a_41@2x.png) no-repeat;
+}
+.clientBrowser .qq{
+	background: url(../images/ie8/a_51@2x.png) no-repeat;
+}
+.clientBrowser .b360{
+	background: url(../images/ie8/a_61@2x.png) no-repeat;
+}
+.clientBrowser .ios{
+	background: url(../images/ie8/a_62@2x.png) no-repeat;
+}
+.clientBrowser .android{
+	background: url(../images/ie8/a_63@2x.png) no-repeat;
+}
+.clientBrowser .weibo{
+	background: url(../images/ie8/a_71@2x.png) no-repeat;
+}
+.clientBrowser .weixin{
+	background: url(../images/ie8/a_72@2x.png) no-repeat;
+	position: relative;
+}
+.clientBrowser .weixin .wxCode{
+	position: absolute;
+	top:-5px;
+	left: -35px;
+	background: url(../images/qrCode.jpg) no-repeat;
+	background-size: 120px;
+	width: 120px;
+	height: 120px;
+	display: none;
+}
+.clientBrowser .weixin:hover .wxCode{
+	display: block;
+}
