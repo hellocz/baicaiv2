@@ -21,7 +21,7 @@ class itemModel extends Model
 
         $where = "status=1 and add_time between $time_hour_s and $time_hour_e";
         $order = "hits desc, add_time desc ";
-        $item_list = M("item")->where($where)->limit(10)->order($order)->select();
+        $item_list = $this->where($where)->limit(10)->order($order)->select();
         F('item_hour_list_' . $hour, $item_list);
         return $item_list;
     }
@@ -42,7 +42,7 @@ class itemModel extends Model
 
         $where = "status=1 and add_time between $time_hour_s and $time_hour_e";
         $order = "hits desc, add_time desc ";
-        $item_list = M("item")->where($where)->limit(9)->order($order)->select();
+        $item_list = $this->where($where)->limit(9)->order($order)->select();
         F('item_6hour_list_' . $hour, $item_list);
         return $item_list;
     }
@@ -63,7 +63,7 @@ class itemModel extends Model
 
         $where = "status=1 and add_time between $time_hour_s and $time_hour_e";
         $order = "hits desc, add_time desc ";
-        $item_list = M("item")->where($where)->limit(9)->order($order)->select();
+        $item_list = $this->where($where)->limit(9)->order($order)->select();
         F('item_24hour_list_' . $hour, $item_list);
         return $item_list;
     }
@@ -253,4 +253,30 @@ class itemModel extends Model
         //删除商品和专辑关系
         //D('album')->del_item($data['id']);
     }
+    /**
+    * 获得置顶区list
+    */
+    public function front_list(){
+        $time=time();
+        $queryArr['where']=" and isnice=1 and hits>600";//测试条件
+        $queryArr['order'] =" add_time desc";
+        $item_list = $this->where("status=1 and add_time<$time ".$queryArr['where'])->limit(13)->order($queryArr['order'])->select();
+        return $item_list;
+    }
+
+    public function hour_item_list(){
+            $time = time();
+            // $time_hour = strtotime(date("Y-m-d H:00:00", $time - 3600)) ;
+            $hour = date("H", $time - 3600);            
+            $hourplus = date("H", $time + 3600);
+            if (false !== F('item_hour_list_' . $hourplus)) { //删除下一个小时的缓存文件
+                F('item_hour_list_' . $hourplus, NULL);
+            }
+            if (false === $hour_list = F('item_hour_list_' . $hour)) { //判断创建上一个小时的缓存文件
+                $hour_list = $this->item_hour_cache();
+            }
+            return $hour_list;
+    }
+
+
 }

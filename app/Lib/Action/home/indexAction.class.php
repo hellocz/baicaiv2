@@ -32,6 +32,7 @@ class indexAction extends frontendAction {
 		$pager = $this->_new_pager($count,$pagesize);
 		
 		$mod=M("item");
+		$mod_d = D("item");
 		$queryArr = array();
 		$queryArr['where']=" and isnice=1 and hits>600";//测试条件
 		$queryArr['order'] =" add_time desc";
@@ -39,29 +40,17 @@ class indexAction extends frontendAction {
 			//置顶区
 			// $front_list = $mod->where("status=1 and isfront=1 and add_time<$time ".$queryArr['where'])->order($queryArr['order'])->select();
 			//置顶区 for test
-			$front_list = $mod->where("status=1 and add_time<$time ".$queryArr['where'])->limit(13)->order($queryArr['order'])->select();
-
-			foreach($front_list as $key=>$val){
-				$front_list[$key]['zan'] = $front_list[$key]['zan']   +intval($front_list[$key]['hits'] /10);
-			}
+			$front_list = $mod_d->front_list();
+			$front_list = mock_zan($front_list);
 
 			//小时排行榜
-			$time = time();
-			// $time_hour = strtotime(date("Y-m-d H:00:00", $time - 3600)) ;
-			$hour = date("H", $time - 3600);			
-			$hourplus = date("H", $time + 3600);
-			if (false !== F('item_hour_list_' . $hourplus)) { //删除下一个小时的缓存文件
-				F('item_hour_list_' . $hourplus, NULL);
-			}
-			if (false === $hour_list = F('item_hour_list_' . $hour)) { //判断创建上一个小时的缓存文件
-				$hour_list = D('item')->item_hour_cache();
-			}
+			$hour_list = $mod_d->hour_item_list();
 			$hour_list = array_slice($hour_list, 0, 4);
 		}
 
 		//计算首页推荐的时间范围		
 		$date_list = array();
-		$time = strtotime('2018-05-31 23:59:59');
+		$time = time();
 		$time_homepage_s = strtotime("-" . ($p*2) . " day", strtotime(date("Y-m-d 00:00:00", $time)));
 		$time_homepage_e = strtotime("-" . ($p*2 - 2) . " day", strtotime(date("Y-m-d 00:00:00", $time))) - 1;
 		$date_list['2'] = date("Y.m.d", $time_homepage_s);
@@ -156,7 +145,7 @@ class indexAction extends frontendAction {
 		$user_list['exp'] = M("user")->field("id,username,exp")->order("exp desc,id asc")->limit(5)->select();
 		$user_list['shares'] = M("user")->field("id,username,shares,exp")->order("shares desc,id asc")->limit(5)->select();
 
-		$grade_list = M("grade")->field("grade,min,max")->order("min asc,id asc")->select();
+		$grade_list = D("grade")->grade_cache();
 
 		if(count($user_list)>0){
 			foreach ($user_list as $k1 => $arr) {

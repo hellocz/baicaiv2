@@ -583,6 +583,17 @@ function set_score($user,$score,$coin,$offer,$exp){
 function set_seo($str){
 	return array('title'=>$str."-".C('pin_site_name'),'keywords'=>$str."-".C('pin_site_name'),'description'=>$str."-".C('pin_site_name'));
 }
+/*
+* 获得mock zan
+*/
+
+function mock_zan($item_list){
+	foreach($item_list as $key=>$val){
+		$item_list[$key]['zan'] = $item_list[$key]['zan']   +intval($item_list[$key]['hits'] /10);
+	}
+	return $item_list;
+}
+
 function getHTTPS($url) {
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_ENCODING, 'gzip');
