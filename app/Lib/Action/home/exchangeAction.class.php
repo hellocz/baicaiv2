@@ -2,40 +2,39 @@
 
 class exchangeAction extends frontendAction {
 
+    private $_user = null;
+
     public function _initialize() {
         parent::_initialize();
         $this->assign('nav_curr', 'exchange');
+        if ($this->visitor->is_login) {
+            $user = M('user')->find($this->visitor->info['id']);
+        }
+        $this->_user = $user;
+        $this->assign('user', $this->_user);
     }
 
     /**
      * 积分兑换首页
      */
-    public function index() {
-        $cid = $this->_get('cid', 'intval');
-        $sort = $this->_get('sort', 'trim', 'hot');
-        //排序：最热(hot)，最新(new)
-        switch ($sort) {
-            case 'hot':
-                $sort_order = 'buy_num DESC,id DESC';
-                break;
-            case 'new':
-                $sort_order = 'id DESC';
-                break;
-        }
-        $cname = D('score_item_cate')->get_name($cid);
-        $where = array('status'=>'1');
-        $cid && $where['cate_id'] = $cid;
-        !$where['cate_id'] && $where['cate_id'] = array('NEQ','8');
+    public function index() {    
+        $p = $this->_get('p', 'intval', 1);
+        if($p<1){$p=1;}
 
         $score_item = M('score_item');
-        $count = $score_item->where($where)->count('id');
-        $pager = $this->_pager($count, 20);
-        $item_list = $score_item->where($where)->order($sort_order)->limit($pager->firstRow.','.$pager->listRows)->select();
-        $this->assign('item_list', $item_list);
-        $this->assign('page_bar', $pager->fshow());
-        $this->assign('cid', $cid);
-        $this->assign('sort', $sort);
-        $this->assign('cname', $cname);
+        $where = array('status'=>'1', 'cate_id' => array('NEQ','8'));
+        // $sort_order = 'id DESC';
+        $pagesize = 2;
+        $count = $score_item->where($where)->count('id');        
+        // $pager = $this->_pager($count, $pagesize);
+        // $item_list = $score_item->where($where)->order($sort_order)->limit($pager->firstRow.','.$pager->listRows)->select();
+        // $this->assign('item_list', $item_list);
+        $this->get_score_item_list('exchange', $p, $pagesize);
+
+        // $this->assign('page_bar', $pager->fshow());
+        $this->assign('page_count', $count);
+        $this->assign('page_size', $pagesize);
+        $this->assign('page', $p);
         $this->assign('page_seo',set_seo("礼品兑换"));
         $this->display();
     }
@@ -44,75 +43,35 @@ class exchangeAction extends frontendAction {
      * 抽奖页面
      */
     public function lucky() {
-        $num = $this->_get('num', 'intval');
-        $sort = $this->_get('sort', 'trim', 'new');
-        //排序：最热(hot)，最新(new)
-        switch ($sort) {
-            case 'hot':
-                $sort_order = 'buy_num DESC,id DESC';
-                break;
-            case 'new':
-                $sort_order = 'sign_date DESC';
-                break;
-        }
-        $cname = D('score_item_cate')->get_name($cid);
-        $where = array('status'=>'1');
-        $where['cate_id'] = 8;
-        $where['win'] = '';
-        
+        $p = $this->_get('p', 'intval', 1);
+        if($p<1){$p=1;}
 
         $score_item = M('score_item');
-        $count = $score_item->where($where)->count('id');
-        $pager = $this->_pager($count, 20);
-        $item_list = $score_item->where($where)->order($sort_order)->limit($pager->firstRow.','.$pager->listRows)->select();
+        $where = array('status'=>'1');
+        $where['cate_id'] = 8;
+        $where['win'] = ''; 
+
+        // $pager = $this->_pager($count, 20);
+        // $item_list = $score_item->where($where)->order($sort_order)->limit($pager->firstRow.','.$pager->listRows)->select();
+        $this->get_score_item_list('lucky', $p, 100);
 
         $where['win'] = array('NEQ','');
-        $item_finish = $score_item->where($where)->order($sort_order)->limit(5)->select();
+        $pagesize = 8;
+        $count = $score_item->where($where)->count('id');
+        // $expired_item_list = $score_item->where($where)->order($sort_order)->limit(5)->select();
+        $this->get_score_item_list('lucky_expired', $p, $pagesize);
 
-        $this->assign('item_list', $item_list);
-        $this->assign('item_finish', $item_finish);
-        $this->assign('page_bar', $pager->fshow());
-        $this->assign('cid', $cid);
-        $this->assign('sort', $sort);
-        $this->assign('cname', $cname);
+        //右边最新中奖名单
+        $this->right_lucky_item();
+
+        // $this->assign('page_bar', $pager->fshow());
+        $this->assign('page_count', $count);
+        $this->assign('page_size', $pagesize);
+        $this->assign('page', $p);
         $this->assign('page_seo',set_seo("礼品兑换"));
         $this->display();
     }
 
-    /**
-     * 抽奖过期页面
-     */
-    public function lucky_expired() {
-        $cid = $this->_get('cid', 'intval');
-        $sort = $this->_get('sort', 'trim', 'new');
-        //排序：最热(hot)，最新(new)
-        switch ($sort) {
-            case 'hot':
-                $sort_order = 'buy_num DESC,id DESC';
-                break;
-            case 'new':
-                $sort_order = 'sign_date DESC';
-                break;
-        }
-        $cname = D('score_item_cate')->get_name($cid);
-        $where = array('status'=>'1');
-        $where['cate_id'] = 8;
-        $where['win'] = array('NEQ','');
-        
-
-        $score_item = M('score_item');
-        $count = $score_item->where($where)->count('id');
-        $pager = $this->_pager($count, 20);
-        $item_list = $score_item->where($where)->order($sort_order)->limit($pager->firstRow.','.$pager->listRows)->select();
-        $item_finish = $score_item->where($where)->order($sort_order)->limit(5)->select();
-        $this->assign('item_list', $item_list);
-        $this->assign('page_bar', $pager->fshow());
-        $this->assign('cid', $cid);
-        $this->assign('sort', $sort);
-        $this->assign('cname', $cname);
-        $this->assign('page_seo',set_seo("礼品兑换"));
-        $this->display();
-    }
 
     /**
      * 积分商品详细页
@@ -120,45 +79,150 @@ class exchangeAction extends frontendAction {
     public function detail() {
         $id = $this->_get('id', 'intval');
         !$id && $this->_404();
+
+        $p = $this->_get('p', 'intval', 1);
+        if($p<1){$p=1;}
+
         $item_mod = M('score_item');
-        $item = $item_mod->field('id,title,img,score,coin,stock,user_num,buy_num,desc,cate_id,win,sign_date')->find($id);
-        $exchange_desc = M('article_page')->where(array('cate_id'=>'7'))->getField('info');
-        $this->assign('exchange_desc', $exchange_desc);
-        $this->assign('item', $item);
-		//兑换记录(首页不做分页)
+        $item = $item_mod->field('id,title,img,score,coin,stock,user_num,buy_num,desc,cate_id,win,win_user,sign_date,lottery')->find($id);
+        !$item && $this->error('该信息不存在或已删除');
+        // 中奖用户ID 
+        if($item['win'] != ""){
+            $order = M("score_order")->where(array('item_id'=>$item['id'],'luckdraw_num'=>$item['win']))->find();
+            $item['uid'] = $order['uid'];
+        }
+        $this->assign('item', $item);        
+
+        //兑换记录(首页不做分页)
         $count = M("score_order")->where("item_id=$id")->count('id');
         $pagesize = 20;
-        $pager = $this->_pager($count, $pagesize);
-        $pager_bar = $pager->fshow();
-		$list = M("score_order")->where("item_id=$id")->order('add_time desc,id desc')->limit($pager->firstRow . ',' . $pager->listRows)->select();
-        
-		foreach($list as $key=>$val){
-			$list[$key]['uname']=get_uname($val['uid']);
+        $this->get_score_order_list($id, $p, $pagesize);
+
+        $expire = 0; //未开奖
+        if($item['win'] != ""){ //已开奖
+            $expire = 2;
+        }else if($item['sign_date'] < time()){ //等待开奖
+            $expire = 1;
+        }
+
+        //右边最新中奖名单
+        $this->right_lucky_item();
+
+        $this->assign('expire',$expire);
+        // $this->assign('pagebar', $pager_bar);
+        $this->assign('page_count', $count);
+        $this->assign('page_size', $pagesize);
+        $this->assign('page', $p);
+        $this->_config_seo();
+        $this->display();
+    }
+
+    /**
+     * 积分兑换&抽奖列表，ajax分页请求
+     */
+    public function get_score_item_list($t = 'exchange', $p = 1, $pagesize = 8) {
+        if (IS_AJAX) {
+            $t = $this->_get('t', 'trim');
+            $p = $this->_get('p', 'intval', 1);
+            $pagesize = $this->_get('pagesize', 'intval', 8);
+        }
+        if($p<1){$p=1;}
+        if($pagesize<1){$pagesize=8;}
+
+        $score_item = M('score_item');
+        switch ($t) {
+            case 'lucky':
+                $where = array('status'=>'1', 'cate_id' => 8, 'win' => '');
+                break;
+            case 'lucky_expired':
+                $where = array('status'=>'1', 'cate_id' => 8, 'win' => array('NEQ',''));
+                break;
+            default:
+                $where = array('status'=>'1', 'cate_id' => array('NEQ','8'));
+                break;
+        }
+        $sort_order = 'sign_date DESC,id DESC';
+        $item_list = $score_item->where($where)->order($sort_order)->limit($pagesize*($p-1) . ',' . $pagesize)->select();
+        // 中奖用户ID 
+        if($t == 'lucky_expired' && count($item_list)>0){
+            foreach ($item_list as $key => $val) {
+                // $order = M("score_order")->where(array('item_id'=>$val['id'],'luckdraw_num'=>$val['win'],'uname'=>$val['win_user']))->find();
+                $order = M("score_order")->where(array('item_id'=>$val['id'],'luckdraw_num'=>$val['win']))->find();
+                $item_list[$key]['uid'] = $order['uid'];
+            }
+        }
+
+        $this->assign("{$t}_item_list", $item_list);
+
+        //AJAX分页请求
+        if (IS_AJAX) {
+            $data = array(
+                'list' => $this->fetch("{$t}_item_list"),
+            ); 
+            $this->ajaxReturn(1, "", $data);
+        }
+    }
+
+    /**
+     * 积分兑换/抽奖详情页：兑换/抽奖记录，ajax分页请求
+     */
+    public function get_score_order_list($id = '', $p = 1, $pagesize = 20) {
+        if (IS_AJAX) {
+            $id = $this->_get('id', 'trim');
+            $p = $this->_get('p', 'intval', 1);
+            $pagesize = $this->_get('pagesize', 'intval', 20);
+        }
+        if($p<1){$p=1;}
+        if($pagesize<1){$pagesize=20;}
+        !$id && $this->_404();
+
+        $item_mod = M('score_item');
+        $item = $item_mod->field('id,title,img,score,coin,stock,user_num,buy_num,desc,cate_id,win,sign_date')->find($id);
+        !$item && $this->error('该信息不存在或已删除');
+
+        //抽奖/兑换记录
+        $list = M("score_order")->where("item_id=$id")->order('add_time desc,id desc')->limit($pagesize*($p-1) . ',' . $pagesize)->select();
+        foreach($list as $key=>$val){
+            $list[$key]['uname']=get_uname($val['uid']);
             if($item['cate_id'] == 8 ){
                 if( $item['sign_date'] !=""){
                     if($item['sign_date'] >time()){
-                        $list[$key]['zero_info'] = "未开奖";}
+                        $list[$key]['zero_info'] = "未开奖";
+                    }
+                    else{
+                        if($item['win'] !="" && $list[$key]['luckdraw_num'] == $item['win']){
+                            $list[$key]['zero_info'] = "中奖";
+                        }
                         else{
-                            if($item['win'] !="" && $list[$key]['luckdraw_num'] == $item['win']){
-                                $list[$key]['zero_info'] = "中奖";
-                            }
-                            else{
-                                $list[$key]['zero_info'] = "未中奖";
-                            }
+                            $list[$key]['zero_info'] = "未中奖";
+                        }
 
                     }
                 }
             }
-		}
-         $expire = 0;
-        if($item['sign_date'] < time()){
-            $expire = 1;
         }
-        $this->assign('pagebar', $pager_bar);
-        $this->assign('expire',$expire);
-		$this->assign('list',$list);
-        $this->_config_seo();
-        $this->display();
+
+        $this->assign('order_list',$list);
+
+        //AJAX分页请求
+        if (IS_AJAX) {
+            $this->assign('item', $item);    
+            $data = array(
+                'list' => $this->fetch("order_list"),
+            ); 
+            $this->ajaxReturn(1, "", $data);
+        }
+    }
+
+    /**
+     * 页面右边-最新中奖名单（积分抽奖、积分抽奖详情页）
+     */
+    public function right_lucky_item(){
+        $score_item = M('score_item');
+        $where = array('status'=>'1', 'cate_id' => 8, 'win' => array('NEQ',''));
+        $sort_order = 'sign_date DESC,id DESC';
+        $item_list = $score_item->where($where)->order($sort_order)->limit(10)->select();
+        $this->assign('right_lucky_item_list', $item_list);
     }
 
     /**
@@ -172,17 +236,17 @@ class exchangeAction extends frontendAction {
         $item_mod = M('score_item');
         $user_mod = M('user');
         $order_mod = D('score_order');
-         $uid = $this->visitor->info['id'];
+        $uid = $this->visitor->info['id'];
         $uname = $this->visitor->info['username'];
         $mobile = M("user")->field('mobile')->find($uid);
         if($mobile['mobile'] ==""){
-            $this->ajaxReturn(0, '没有绑定手机号' . $mobile['mobile'] );
+            $this->ajaxReturn(0, '没有绑定手机号，<a href="'. U("user/phone_bind") .'" target="_blank" class=fc-green>绑定我的手机号</a>');
         }
        
         $item = $item_mod->find($id);
         !$item && $this->ajaxReturn(0, L('invalid_item'));
         $item['sign_date']<time() && $this->ajaxReturn(0,"抽奖已过期,不能再兑换,请关注其他抽奖商品");
-	!$item['stock'] && $this->ajaxReturn(0, L('no_stock'));
+        !$item['stock'] && $this->ajaxReturn(0, L('no_stock'));
         //金币够不
         $order_coin = $num * $item['coin'];
         $order_score = $num * $item['score'];
@@ -218,17 +282,17 @@ class exchangeAction extends frontendAction {
                 }
                 $order_id = $order_mod->add();
             } 
-        //    $this->ajaxReturn(0, '进入抽奖兑换');
+            // $this->ajaxReturn(0, '进入抽奖兑换');
         }
         else{
-        if (false === $order_mod->create($data)) {
-            $this->ajaxReturn(0, L('ec_failed'));
-        }
-        $order_id = $order_mod->add();
+            if (false === $order_mod->create($data)) {
+                $this->ajaxReturn(0, L('ec_failed'));
+            }
+            $order_id = $order_mod->add();
         }
         //扣除用户积分并记录日志
         $user_mod->where(array('id'=>$uid))->setDec('coin', $order_coin);
-         $user_mod->where(array('id'=>$uid))->setDec('score', $order_score);
+        $user_mod->where(array('id'=>$uid))->setDec('score', $order_score);
         $score_log_mod = D('score_log');
         $score_log_mod->create(array(
             'uid' => $uid,

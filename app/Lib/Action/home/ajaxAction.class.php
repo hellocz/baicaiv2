@@ -1,9 +1,9 @@
 <?php
 class ajaxAction extends frontendAction {
 	public function _initialize() {
-        parent::_initialize();
-    }
-    public function zan() {//对商品点赞
+		parent::_initialize();
+	}
+	public function zan() {//对商品点赞
 		$id = $_REQUEST['id'];
 		$t = $_REQUEST['t'];
 		$ip = trim(getip());
@@ -20,8 +20,9 @@ class ajaxAction extends frontendAction {
 			$r=M($t)->save($data);
 			$this->ajaxReturn(1, '',$data['zan']);
 		}
-    }
-     public function vote() {//对晒单投票
+	}
+
+	public function vote() {//对晒单投票
 		$id = $_REQUEST['id'];
 		$t = $_REQUEST['t'];
 		$ip = trim(getip());
@@ -38,7 +39,7 @@ class ajaxAction extends frontendAction {
 			$r=M($t)->save($data);
 			$this->ajaxReturn(1, '',$data['vote']);
 		}
-    }
+	}
 	public function setlikes(){//收藏商品
 		!$this->visitor->is_login && $this->ajaxReturn(0, '请登录！');
 		$user = $this->visitor->get();
@@ -78,27 +79,26 @@ class ajaxAction extends frontendAction {
 	//评论
 	public function comment(){
 		foreach ($_POST as $key=>$val) {
-            $_POST[$key] = Input::deleteHtmlTags($val);
-        }
+			$_POST[$key] = Input::deleteHtmlTags($val);
+		}
 		$st = strtotime("today");
 		$ed = strtotime(date('Y-m-d',strtotime('+1 day')));
 		//查询当天评论次数
 		$num = M("comment")->where("uid=".$this->visitor->info['id']." and add_time>$st and add_time<$ed ")->count();
 		$last_comment = M("comment")->where("uid=".$this->visitor->info['id'])->order("add_time desc")->find();
 		$last_comment['add_time']=intval($last_comment['add_time'])+30;
-
 		if(time() < $last_comment['add_time']){
 			$this->ajaxReturn(0, '评论需间隔30秒,请不要灌水哦!');
 		}
 		if($num>49){
 			$this->ajaxReturn(0, '您今天评论的次数已达上限');
 		}
-        $data = array();
+		$data = array();
 		$data['xid'] = $this->_post('xid','intval');
 		!$data['xid'] && $this->ajaxReturn(0, L('invalid_object'));
-        $data['itemid'] = $this->_post('itemid', 'intval');
-        !$data['itemid'] && $this->ajaxReturn(0, L('invalid_object'));
-        $data['info'] = $this->_post('content', 'trim');
+		$data['itemid'] = $this->_post('itemid', 'intval');
+		!$data['itemid'] && $this->ajaxReturn(0, L('invalid_object'));
+		$data['info'] = $this->_post('content', 'trim');
 		//过滤字符
 		$kill_word = C("pin_kill_word");
 		$kill_words = explode(",",$kill_word);
@@ -107,88 +107,110 @@ class ajaxAction extends frontendAction {
 				$this->ajaxReturn(0,'您发表的内容有非法字符');
 			}
 		}
-        !$data['info'] && $this->ajaxReturn(0, L('please_input') . '评论内容');
-        //敏感词处理
-        $check_result = D('badword')->check($data['info']);
-        switch ($check_result['code']) {
-            case 1: //禁用。直接返回
-                $this->ajaxReturn(0, L('has_badword'));
-                break;
-            case 3: //需要审核
-                $data['status'] = 0;
-                break;
-        }
-        $data['info'] = $check_result['content'];
-        $data['uid'] = $this->visitor->info['id'];
-        $data['uname'] = $this->visitor->info['username'];
+		!$data['info'] && $this->ajaxReturn(0, L('please_input') . '评论内容');
+		//敏感词处理
+		$check_result = D('badword')->check($data['info']);
+		switch ($check_result['code']) {
+			case 1: //禁用。直接返回
+			$this->ajaxReturn(0, L('has_badword'));
+			break;
+		case 3: //需要审核
+			$data['status'] = 0;
+			break;
+		 }
+		$data['info'] = $check_result['content'];
+		$data['uid'] = $this->visitor->info['id'];
+		$data['uname'] = $this->visitor->info['username'];
 		$data['add_time'] = time();
-        //验证评论对象
+		//验证评论对象
 		switch($data['xid']){
 			case "1":$item_mod=M("item");break;
 			case "2":$item_mod=M("zr");break;
 			case "3":$item_mod=M("article");break;
 		}
-        $item = $item_mod->where(array('id' => $data['itemid']))->find();
-        !$item && $this->ajaxReturn(0, L('invalid_object'));
-       // if()
-        //$minScore = $item_mod->where(array('id' => $data['itemid']))->max('lc');
-		$data['lc']=intval($item['comments'])+1;
+		$item = $item_mod->where(array('id' => $data['itemid']))->find();
+		!$item && $this->ajaxReturn(0, L('invalid_object'));
 
-        //写入评论
-        $comment_mod = D('comment');
-        if (false === $comment_mod->create($data)) {
-            $this->ajaxReturn(0, $comment_mod->getError());
-        }
-        $comment_id = $comment_mod->add();
-        if ($comment_id) {
+		// $minScore = $item_mod->where(array('id' => $data['itemid']))->max('lc');
+		// $data['lc']=intval($item['comments'])+1;
+		$lc = M("comment")->where(array('pid' => 0, 'itemid' => $data['itemid']))->count('id');
+		$data['lc'] = $lc + 1;
+		
+		//写入评论
+		$comment_mod = D('comment');
+		if (false === $comment_mod->create($data)) {
+		    $this->ajaxReturn(0, $comment_mod->getError());
+		}
+		$comment_id = $comment_mod->add();
+		if ($comment_id) {
 			$item_mod->where(array('id'=>$data['itemid']))->setInc('comments');//评论数量加1
 			M("user")->where("id=$data[uid]")->setInc("score");
 			//积分日志
 			//set_score_log(array('id'=>$data['uid'],'username'=>$data['uname']),'comment',1,'','',1);
-
-			$xc = array();
-			if($data['xid'] == 1){
-				$author = M("admin")->where(array('id'=>$item['uid']))->find();
-				$xc['ftid']=$author['uid'];
-				$xc['to_id']=$author['uid'];
-				$xc['info'] =$data['uname'] . '给你的文章 <a href="'.U('item/index',array('id'=>$item['id'])).'">'.$item['title'].'</a>做了评论';
-			}
-			else{
-				$xc['ftid']=$item['uid'];
-				$xc['to_id']=$item['uid'];
-				$xc['info'] =$data['uname'] . '给你的文章 <a href="'.U('article/show',array('id'=>$item['id'])).'">'.$item['title'].'</a>做了评论';
-			}
+			/*$xc = array();
+			$xc['ftid']=$data['uid'];
+			$xc['to_id']=$data['uid'];
+			$xc['to_name']=$data['uname'];
 			$xc['from_id']=0;
 			$xc['from_name']='tryine';
 			$xc['add_time']=time();
-			if($xc['ftid']){
-			M('message')->add($xc);
-			}
-            $this->assign('cmt_list', array(
-                array(
-					'id' => $comment_id,
-                    'uid' => $data['uid'],
-                    'uname' => $data['uname'],
-                    'info' => $data['info'],
-                    'add_time' => time(),
-					'zan'=>0,
-					'lc'=>$data['lc']
-                )
-            ));
-            $resp = $this->fetch('comment');
-            $this->ajaxReturn(1, L('comment_success'), $resp);
-        } else {
-            $this->ajaxReturn(0, L('comment_failed'));
-        }
+			
+			$xc['info'] ='感谢您对<a href="'.U('home/item/index',array('id'=>$item['id'])).'">'.$item['title'].'</a>的评论,系统给您奖励积分：1，经验：1.';
+			M('message')->add($xc);*/
+			
+			// $this->assign('cmt_list', array(
+			// 	array(
+			// 	'id' => $comment_id,
+			// 	'uid' => $data['uid'],
+			// 	'uname' => $data['uname'],
+			// 	'info' => $data['info'],
+			// 	'add_time' => time(),
+			// 	'zan'=>0,
+			// 	'lc'=>$data['lc']
+			// 	)
+			// ));
+			// $resp = $this->fetch('comment');
+
+			$resp = array(
+				'id' => $comment_id,
+				'uid' => $data['uid'],
+				'uname' => $data['uname'],
+				'info' => $data['info'],
+				'add_time' => time(),
+				'zan'=> 0,
+				'lc'=> $data['lc']
+				);
+			$this->ajaxReturn(1, L('comment_success'), $resp);
+
+			// $cmt = array(
+			// 	'id' => $comment_id,
+			// 	'uid' => $data['uid'],
+			// 	'uname' => $data['uname'],
+			// 	'info' => $data['info'],
+			// 	'add_time' => time(),
+			// 	'zan'=> 0,
+			// 	'lc'=> $data['lc']
+			// 	);
+			// $this->assign('cmt_list', array($cmt));
+
+			// $resp = $cmt_list;
+			// $resp['html'] = $this->fetch('comment');
+
+			// $this->ajaxReturn(1, L('comment_success'), $resp);
+		} else {
+			$this->ajaxReturn(0, L('comment_failed'));
+		}
 	}
+
 	//回复
 	public function hf(){
 		foreach ($_POST as $key=>$val) {
-            $_POST[$key] = Input::deleteHtmlTags($val);
-        }
-        $data = array();
+			$_POST[$key] = Input::deleteHtmlTags($val);
+		}
+		$data = array();
 		$id = $this->_post('id','intval');
 		!$id && $this->ajaxReturn(0, L('invalid_object'));
+		$pid = $this->_post('psid','intval');
 		//查找上级评论xid 和itemid
 		$last_comment = M("comment")->where("uid=".$this->visitor->info['id'])->order("add_time desc")->find();
 		$last_comment['add_time']=intval($last_comment['add_time'])+30;
@@ -196,46 +218,50 @@ class ajaxAction extends frontendAction {
 			$this->ajaxReturn(0, '评论需间隔30秒,请不要灌水哦!');
 		}
 		$data=M("comment")->where("id=$id")->field("xid,itemid,pid")->find();
-        $data['info'] = $this->_post('content', 'trim');
-        !$data['info'] && $this->ajaxReturn(0, L('please_input') . '评论内容');
-        //敏感词处理
-        $check_result = D('badword')->check($data['info']);
-        switch ($check_result['code']) {
-            case 1: //禁用。直接返回
-                $this->ajaxReturn(0, L('has_badword'));
-                break;
-            case 3: //需要审核
-                $data['status'] = 0;
-                break;
-        }
-        $data['info'] = $check_result['content'];
-        $data['uid'] = $this->visitor->info['id'];
-        $data['uname'] = $this->visitor->info['username'];
+
+		$data['info'] = $this->_post('content', 'trim');
+		!$data['info'] && $this->ajaxReturn(0, L('please_input') . '评论内容');
+
+		//敏感词处理
+		$check_result = D('badword')->check($data['info']);
+		switch ($check_result['code']) {
+		    case 1: //禁用。直接返回
+		        $this->ajaxReturn(0, L('has_badword'));
+		        break;
+		    case 3: //需要审核
+		        $data['status'] = 0;
+		        break;
+		}
+		$data['info'] = $check_result['content'];
+		$data['uid'] = $this->visitor->info['id'];
+		$data['uname'] = $this->visitor->info['username'];
 		$data['add_time'] = time();
-        //验证评论对象
+		//验证评论对象
 		switch($data['xid']){
 			case "1":$item_mod=M("item");$item_url =U('item/index',array('id'=>$data['itemid'])); break;
 			case "2":$item_mod=M("zr");$item_url =U('zr/index',array('id'=>$data['itemid'])); break;
 			case "3":$item_mod=M("article");$item_url =U('article/show',array('id'=>$data['itemid']));break;
 		}
-        $item = $item_mod->where(array('id' => $data['itemid']))->find();
-        !$item && $this->ajaxReturn(0, L('invalid_object'));
-		$data['lc']=intval($item['comments'])+1;
+		$item = $item_mod->where(array('id' => $data['itemid']))->find();
+		!$item && $this->ajaxReturn(0, L('invalid_object'));
+
+		// $data['lc']=intval($item['comments'])+1;
+		$lc = M("comment")->where(array('pid' => $pid, 'itemid' => $data['itemid']))->count('id');
+		$data['lc'] = $lc + 1;
  		
  		$data_pid = $id;
  		if($data['pid']!== "0"){
-
  			$data_pid = $data['pid'];
  		}
 
 		$data['pid']=$data_pid;
-        //写入评论
-        $comment_mod = D('comment');
-        if (false === $comment_mod->create($data)) {
-            $this->ajaxReturn(0, $comment_mod->getError());
-        }
-        $comment_id = $comment_mod->add();
-        if ($comment_id) {
+		//写入评论
+		$comment_mod = D('comment');
+		if (false === $comment_mod->create($data)) {
+		    $this->ajaxReturn(0, $comment_mod->getError());
+		}
+		$comment_id = $comment_mod->add();
+		if ($comment_id) {
 			$item_mod->where(array('id'=>$data['itemid']))->setInc('comments');//评论数量加1
 			M("user")->where("id=$data[uid]")->setInc("score");
 			//积分日志
@@ -249,7 +275,7 @@ class ajaxAction extends frontendAction {
 			$xc['from_name']='tryine';
 			$xc['add_time']=time();
 			$xc['info'] ='感谢您的回复,系统给您奖励积分：1，经验：1.';
-		//	M('message')->add($xc);
+			// M('message')->add($xc);
 
 			$pcomment=M("comment")->where(array('id' => $id))->find();
 			$xc1 = array();
@@ -263,46 +289,61 @@ class ajaxAction extends frontendAction {
 			M('message')->add($xc1);
 
 			if($data['xid'] == 3){
-			$xc2 = array();
-			$xc2['ftid']=$id;
-			$xc2['to_id']=$item['uid'];
-			$xc2['to_name']=$item['uname'];
-			$xc2['from_id']=0;
-			$xc2['from_name']='tryine';
-			$xc2['add_time']=time();
-			$xc2['info'] =$this->visitor->info['username'] ."在您的晒单>> <a href='" . $item_url . "'>".$item['title']."</a>里做了评论 ";
-			M('message')->add($xc2);
+				$xc2 = array();
+				$xc2['ftid']=$id;
+				$xc2['to_id']=$item['uid'];
+				$xc2['to_name']=$item['uname'];
+				$xc2['from_id']=0;
+				$xc2['from_name']='tryine';
+				$xc2['add_time']=time();
+				$xc2['info'] =$this->visitor->info['username'] ."在您的晒单>> <a href='" . $item_url . "'>".$item['title']."</a>里做了评论 ";
+				M('message')->add($xc2);
 			}
-            $this->assign('data', array(
-                    'uid' => $data['uid'],
-                    'uname' => $data['uname'],
-                    'info' => $data['info'],
-                    'add_time' => time(),
-					'zan'=>0,
-					'lc'=>$data['lc'],
-					'pid'=>$id
 
-            ));
-				$resp = $this->fetch('comment_lc');
-			$resp = "<div class=\"lh_a1\">
-    <div class=\"hf_zr\"> <img src=\"".avatar($data['uid'], 48)."\" /><span>".$data['uname']."</span></div> <p class=\"J_pl_i\">".$data['info']."</p>
-    <div class=\"lrhf\"><div><span>".fdate($data['add_time'])."</span><a href=\"javascript:;\" class=\"J_hf\" data-id=\"".$comment_id."\"  psid=\"".$_POST['psid']."\" title=\"回复\">回复</a></div></div>
-</div>";
+			// $this->assign('data', array(
+			// 	'uid' => $data['uid'],
+			// 	'uname' => $data['uname'],
+			// 	'info' => $data['info'],
+			// 	'add_time' => time(),
+			// 	'zan'=>0,
+			// 	'lc'=>$data['lc'],
+			// 	'pid'=>$id
 
-            $this->ajaxReturn(1, L('comment_success').$data['pid'], $resp,$data['pid']);
-        } else {
-            $this->ajaxReturn(0, L('comment_failed'));
-        }
+			// ));
+
+			// $resp = $this->fetch('comment_lc');
+			// $resp = "<div class=\"lh_a1\">
+			//     <div class=\"hf_zr\"> <img src=\"".avatar($data['uid'], 48)."\" /><span>".$data['uname']."</span></div> <p class=\"J_pl_i\">".$data['info']."</p>
+			//     <div class=\"lrhf\"><div><span>".fdate($data['add_time'])."</span><a href=\"javascript:;\" class=\"J_hf\" data-id=\"".$comment_id."\"  psid=\"".$_POST['psid']."\" title=\"回复\">回复</a></div></div>
+			// </div>";
+			
+			$resp = array(
+				'id' => $comment_id, 
+				'uid' => $data['uid'],
+				'uname' => $data['uname'],
+				'info' => $data['info'],
+				'add_time' => time(),
+				'zan'=>0,
+				'lc'=>$data['lc'],
+				'pid'=>$id,
+				'uavatar' => avatar($data['uid'],'24')
+
+			);
+
+			$this->ajaxReturn(1, L('comment_success').$data['pid'], $resp, $data['pid']);
+		} else {
+			$this->ajaxReturn(0, L('comment_failed'));
+		}
 	}
 	/**
-     * AJAX获取评论列表
-     */
-    public function comment_list() {
-        $xid = $this->_get('xid', 'intval');
-        !$xid && $this->ajaxReturn(0, L('invalid_object'));
+	* AJAX获取评论列表
+	*/
+	public function comment_list() {
+		$xid = $this->_get('xid', 'intval');
+		!$xid && $this->ajaxReturn(0, L('invalid_object'));
 		$itemid = $this->_get('itemid', 'intval');
-        !$itemid && $this->ajaxReturn(0, L('invalid_object'));
-        //验证评论对象
+		!$itemid && $this->ajaxReturn(0, L('invalid_object'));
+		//验证评论对象
 		switch($xid){
 			case "1":$item_mod=M("item");break;
 			case "2":$item_mod=M("zr");break;
@@ -315,26 +356,27 @@ class ajaxAction extends frontendAction {
 			$order ='id desc';
 			$by ='id';
 		}
-        $item = $item_mod->where(array('id' => $itemid))->count('id');
-        !$item && $this->ajaxReturn(0, L('invalid_object'));
-        $comment_mod = M('comment');
-        $pagesize = 10;
-        $map = array('itemid' => $itemid,'xid'=>$xid,'status'=>1,'pid'=>0);
-        $count = $comment_mod->where($map)->count('id');
-        $pager = $this->_pager($count, $pagesize);
-        $pager->path = 'ajax/comment_list';
+		$item = $item_mod->where(array('id' => $itemid))->count('id');
+		!$item && $this->ajaxReturn(0, L('invalid_object'));
+		$comment_mod = M('comment');
+		$pagesize = 10;
+		$map = array('itemid' => $itemid,'xid'=>$xid,'status'=>1,'pid'=>0);
+		$count = $comment_mod->where($map)->count('id');
+		$pager = $this->_pager($count, $pagesize);
+		$pager->path = 'ajax/comment_list';
 		$pager->parameter ="itemid=$itemid&xid=$xid";
 		$sql="select * from try_comment where itemid=$itemid and xid=$xid and status=1 and pid=0  order by $order  limit $pager->firstRow , $pager->listRows ";
-        $cmt_list = M()->query($sql);
+		$cmt_list = M()->query($sql);
 		foreach($cmt_list as $key=>$v){
 			$cmt_list[$key]['list']=M()->query("select * from try_comment where status=1 and pid='".$v['id']."' order by id asc");
 		}
-        $this->assign('cmt_list', $cmt_list);
-        $data = array();
-        $data['list'] = $this->fetch('comment');
-        $data['page'] = $pager->jshow();
-        $this->ajaxReturn(1, '', $data);
-    }
+		$this->assign('cmt_list', $cmt_list);
+		$data = array();
+		$data['list'] = $this->fetch('comment');
+		$data['page'] = $pager->jshow();
+		$this->ajaxReturn(1, '', $data);
+	}
+
 	//赞评论
 	public function comment_zan(){
 		$id = $this->_post('id','intval');
@@ -352,6 +394,7 @@ class ajaxAction extends frontendAction {
 			$this->ajaxReturn(0,'操作失败');
 		}
 	}
+
 	//举报
 	public function jb(){
 		!$this->visitor->is_login && $this->ajaxReturn(0, '请登录！');
@@ -435,7 +478,7 @@ class ajaxAction extends frontendAction {
 		}
 	}
 
-		//分享
+	//分享
 	public function share(){
 		$id=$this->_get('id','intval');
 		$t = $this->_get("t","trim");
@@ -484,9 +527,13 @@ class ajaxAction extends frontendAction {
 		}else{
 			$this->assign('url',"/$t/$id.html");
 			$this->assign('islogin','n');
-		}		
-		$this->display();
+		}
+
+		// $this->display();
+		$resp = $this->fetch();
+		$this->ajaxReturn(1, '', $resp);
 	}
+
 	public function g_share(){
 		$tg = $this->_get('tg','trim');
 		$info = M('share')->where("dm='$tg'")->find();

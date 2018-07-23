@@ -1,131 +1,88 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-
 <include file="public:head" />
-
 </head>
-
-<style type="text/css">
-  
-  .lucky-title.green {
-    color: #29cf87;
-    border-bottom: 1px solid #29cf87;
-}
-.lucky-title {
-    font-size: 25px;
-    font-weight: normal;
-    text-align: center;
-    padding-bottom: 8px;
-}
-.lucky-wrap * {
-    box-sizing: content-box;
-}
-.lucky-title.green a {
-    display: block;
-    font-size: 14px;
-    margin: 10px auto 0;
-    width: 135px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    color: #333;
-    border: 1px solid #17d5b3;
-    border-radius: 15px;
-    -moz-border-radius: 15px;
-    -webkit-border-radius: 15px;
-}
-</style>
-
-
-<body style="background:#f5f5f5">
-
-<include file="public:header" />
-
-<div class="w_bl_bd">
-
- <div class="w_zh_dq1">
-
-	  <a href="/" title="首页">首页</a>><a href="{:U('exchange/lucky')}" title="幸运抽奖" class="w_zh_dq1_1">幸运抽奖</a> 
-
+<body>
+	<!--顶部统一区域start-->
+	<include file="public:header" />
+	<!--顶部统一区域end-->
+	
+	<!--积分商城start-->
+	<div class="w-1200 mt-40">
+		<!--标题start-->
+		<div class="title font-22">
+			<svg class="icon" style="fill: #EB3C3C;">
+				<!--[if lte IE 8]><desc><img src="/public/images/ie8/b_13@2x.png" width="22" height="22"></desc><![endif]-->
+				<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-b_13"></use>
+			</svg>
+			<span class="active tabSub">积分抽奖</span>
+			<span class="tabSub ml-17"><a href="{:U('exchange/index')}">积分兑换</a></span>
+		</div>
+		<!--标题end-->
+		
+		<div class="integralMall mt-14 clearfix">
+			<div class="fl listBox">
+				<!--积分抽奖列表start-->
+				<div class="listItem">
+					<ul class="list clearfix">
+						<!--循环start-->
+						<include file="lucky_item_list"/>
+						<!--循环end-->
+					</ul>
+					
+					<div class="title mt-32 font-22">
+						<svg class="icon" style="fill: #EB3C3C;">
+							<!--[if lte IE 8]><desc><img src="/public/images/ie8/b_14@2x.png" width="22" height="22"></desc><![endif]-->
+							<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-b_14"></use>
+						</svg>
+						往期开奖
+					</div>
+					<ul class="list mt-14 clearfix list-expired">
+						<!--循环start-->
+						<include file="lucky_expired_item_list"/>
+						<!--循环end-->
+					</ul>
+					
+					<!--分页加载中start-->
+					<div class="page-loading"></div>
+					<!--分页加载中end-->
+					
+					<!--分页start-->
+					<script type="text/javascript">
+						var page_count={$page_count}, page={$page}, page_size={$page_size}, page_url = '/index.php?m=exchange&a=get_score_item_list&t=lucky_expired', page_content_obj = $(".listBox .listItem .list-expired");
+					</script>
+					<div id="pages-incj" class="pages" style="text-align: center; padding-bottom: 20px;"></div>
+					<!--分页end-->
+				</div>
+				<!--积分抽奖列表end-->
+			</div>
+			<div class="fl rightBox">
+				<!--我的财富start-->
+				<include file="right_exchange_myscore"/>
+				<!--我的财富end-->
+				
+				<!--常见问题start-->
+				<include file="right_exchange_faq"/>
+				<!--常见问题end-->
+				
+				<!--最新中奖名单start-->
+				<include file="right_lucky_item"/>
+				<!--最新中奖名单end-->
+				
+				<!--AD-->
+				<div class="mb-12"><img src="/public/images/AD_2.jpg" width="296" class="radius-3"></div>
+				<!--AD-->
+			</div>
+		</div>
 	</div>
+	<!--积分商城end-->
 
-  <div class="w_jszx_1">
-
-    <div class="w_jszx_h">
-
-	<a href="{:U('exchange/index')}" ><span <if condition="$cid eq ''">class="w_js_qd"</if>>全部</span></a>
-
-	</div>
-
-    <ul   id="con_jszx_1" >
-
-	  <volist name="item_list" id="item">
-
-      <li>
-
-       <a href="{:U('exchange/detail', array('id'=>$item['id']))}" title="{$item.title}">
-
-         <img src="{:attach($item['img'], 'score_item')}" title="{$item.title}" alt="{$item.title}"/><br/>
-
-         <h2 style="height:25px;overflow:hidden;">{$item.title}</h2>
-
-         <p>金币: {$item.coin}</p>
-
-         <p>积分: {$item.score}</p>
-
-         <p>已兑: {$item.buy_num}</p>
-
-         <p>结束时间: {$item.sign_date|date='Y-m-d H:i:s',###}</p>
-
-       </a>
-
-      </li>
-
-	  </volist>
-
-    </ul>
-
-     <div class="w_pag">{$page_bar}</div>
-    
-    <h2 class="lucky-title green">往期抽奖<a target="_blank" href="{:U('exchange/lucky_expired')}">查看更多</a></h2>
-
-    <ul   id="con_jszx_1" >
-
-    <volist name="item_finish" id="item">
-
-      <li>
-
-       <a href="{:U('exchange/detail', array('id'=>$item['id']))}" title="{$item.title}">
-
-         <img src="{:attach($item['img'], 'score_item')}" title="{$item.title}" alt="{$item.title}"/><br/>
-
-         <h2 style="height:50px;overflow:hidden;">【已开奖】{$item.title}</h2>
-
-         <p>中奖号: {$item.win}</p>
-
-         <p>中奖用户: {$item.win_user}</p>
-
-         <p>参与人数: {$item.buy_num}</p>
-
-         <p>结束时间: {$item.sign_date|date='Y-m-d H:i:s',###}</p>
-
-       </a>
-
-      </li>
-
-    </volist>
-
-    </ul>
-  </div>  
-
-</div>
-
-<include file="public:footer" />
-
+	<!--底部统一区域+右边悬浮按钮start-->
+	<include file="public:footer" />
+	<!--底部统一区域+右边悬浮按钮end-->
+	
+	<!--引入页面单独JS文件-->
+	<script src="/public/js/page/exchange.js"></script>
 </body>
-
 </html>
-

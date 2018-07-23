@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 /**
  * 搜索页面
@@ -9,11 +9,65 @@ class searchAction extends frontendAction {
         parent::_initialize();
     }
 
-    public function index() {
+    public function index(){
+        $q = $this->_get('q', 'trim');
+
+        //过滤筛选及查询结果
+        if ($q && $q!="白菜帮你搜"){
+            $q_list=explode(" ",$q);
+            $q_info="";
+            $search_content= Array();
+             if(count($q_list) > 0){
+                foreach($q_list as $key=>$r){
+                   $search_content[$key] ="%$r%";
+                }
+                $where1['title'] =array('like',$search_content,'AND');
+                $where1['intro'] =array('like',$search_content,'AND');
+                $where1['content'] =array('like',$search_content,'AND');
+            }
+
+            if(count($q_list) ==1){
+                $tag_id =  M("tag")->where(array('name'=>$q))->getField('id'); 
+                $tag_id && $tag_items = M("item_tag")->where(array('tag_id'=>$tag_id))->field("item_id")->select();
+                foreach ($tag_items as $tag_item_id) {
+                    if($str==""){
+                         $str=$tag_item_id['item_id'];
+                    }else{
+                       $str.=",".$tag_item_id['item_id'];
+                    }
+                }
+                $str && $where1['id'] = array('in', $str);
+                // $where1['tag_cache'] =array('like',$tag_content,'AND');
+                if(strlen($q) == 10){
+                    $where1['go_link'] =array('like',$search_content,'AND');
+                }
+            }
+
+            $where1['_logic'] = 'or';
+            $where['_complex'] = $where1;
+        }
+        // print_r($where);exit;
+
+        $params = array('q' => $q);
+        $this->filter($params, $where);
+
+        //天猫领券
+        $info = array();
+        $info['name'] = $q;
+        $item_list = $this->search_quan($q);
+        $info['recommend']=array_slice($item_list,0,4);
+
+        $this->assign('info', $info);
+
+        $this->_config_seo(C('pin_seo_config.book'), array('tag_name' => $q)); 
+        $this->display();
+    }
+
+    public function old_index() {
         $q = $this->_get('q', 'trim');
         $t = $this->_get('t', 'trim', 'item');
-		$tp = $this->_get('tp', 'trim');
-		$isbest = $this->_get('isbest', 'trim');
+        $tp = $this->_get('tp', 'trim');
+        $isbest = $this->_get('isbest', 'trim');
         $action = '_search_' . $t;
 
         if ($q=="白菜帮你搜"){
@@ -40,11 +94,12 @@ class searchAction extends frontendAction {
             $where1['seo_title']=array('like',"%$q%");
             $where1['seo_keys']=array('like',"%$q%");
             $where1['_logic'] = 'or';
-             $where['_complex'] =  $where1;
-        //    $ss_cate = M('item_cate')->field('id,name')->where( $where)->select();;
-        //    print_r($ss_cate);
-        //    $this->assign('ss_cate', $ss_cate);
+            $where['_complex'] =  $where1;
+            // $ss_cate = M('item_cate')->field('id,name')->where( $where)->select();;
+            // print_r($ss_cate);
+            // $this->assign('ss_cate', $ss_cate);
         }
+
         if($q==" "){
             $q="";
         }
@@ -55,12 +110,12 @@ class searchAction extends frontendAction {
             $notify_tag = M("notify_tag");
             $list = $notify_tag->where(array("tag"=>$q,'userid' =>$user['id']))->find();
             if(empty($list)){
-            $fsign = 0;
-            $psign = 0;
+                $fsign = 0;
+                $psign = 0;
             }
             else{
-            $fsign = $list['f_sign'];
-            $psign = $list['p_sign'];
+                $fsign = $list['f_sign'];
+                $psign = $list['p_sign'];
             }
         }
         else{
@@ -71,10 +126,10 @@ class searchAction extends frontendAction {
         $this->assign('psign', $psign);
         $this->assign('q', $q);
         $this->assign('t', $t);
-		$this->assign('tp', $tp);
-		$this->assign('isbest', $isbest);
+        $this->assign('tp', $tp);
+        $this->assign('isbest', $isbest);
         $this->assign('search_history', $search_history);
-		$this->assign('strpos1',$q);
+        $this->assign('strpos1',$q);
         $this->display($t);
     }
 
@@ -88,34 +143,33 @@ class searchAction extends frontendAction {
      */
     private function _search_item($q) {
         $sort = $this->_get('sort', 'trim', 'new'); //排序
-		$isbest = $this->_get('isbest', 'trim');
-		$tp = $this->_get('tp', 'trim');
+        $isbest = $this->_get('isbest', 'trim');
+        $tp = $this->_get('tp', 'trim');
         $day = $this->_get('day', 'trim');
         $day_w=$day > 0 ? (time()-($day*86400)) : 0;
         if ($q) {
             if($tp == ''){
-				$where = array('status' => '1');
-			}
-			
-			if($isbest == 1){
-				$where = array('isbest' => '1');
-			}
-               if ($q!="白菜帮你搜"){
-                    $q_list=explode(" ",$q);
-                    $q_info="";
-                    $search_content= Array();
-                    foreach($q_list as $key=>$r){
-                        $and=$key == 0 ? "" : " and ";
-                  //      $q_info.="$or title like '%".$r."%' or intro like '%".$r."%' ";
-                  //      $q_info.="$and title like %".$r."% ";
-                   //     Array_push( $where['title'],'like',"%$r%");
-                   //     $where['title']=array('like',"%$r%");
-                        $search_content[$key] ="%$r%";
-                    }
+                $where = array('status' => '1');
+            }
+            if($isbest == 1){
+                $where = array('isbest' => '1');
+            }
+           if ($q!="白菜帮你搜"){
+                $q_list=explode(" ",$q);
+                $q_info="";
+                $search_content= Array();
+                foreach($q_list as $key=>$r){
+                   $and=$key == 0 ? "" : " and ";
+                   // $q_info.="$or title like '%".$r."%' or intro like '%".$r."%' ";
+                   // $q_info.="$and title like %".$r."% ";
+                   // Array_push( $where['title'],'like',"%$r%");
+                   // $where['title']=array('like',"%$r%");
+                   $search_content[$key] ="%$r%";
+                }
 
-                    $where1['title'] =array('like',$search_content,'AND');
+                $where1['title'] =array('like',$search_content,'AND');
 
-                    if(count($q_list) ==1){
+                if(count($q_list) ==1){
 
                     $tag_id =  M("tag")->where(array('name'=>$q))->getField('id'); 
                     $tag_id && $tag_items = M("item_tag")->where(array('tag_id'=>$tag_id))->field("item_id")->select();
@@ -130,15 +184,16 @@ class searchAction extends frontendAction {
                     $str && $where1['id'] = array('in', $str);
                    // $where1['tag_cache'] =array('like',$tag_content,'AND');
                     if(strlen($q) == 10){
-                    $where1['go_link'] =array('like',$search_content,'AND');}
+                        $where1['go_link'] =array('like',$search_content,'AND');
                     }
-
-                    $where1['_logic'] = 'or';
-                    $where['_complex'] = $where1;
                 }
 
+                $where1['_logic'] = 'or';
+                $where['_complex'] = $where1;
+            }
+
             //$where['intro'] = array('like', '%' . $q . '%');
-			$where['_string'] ="add_time > ".$day_w."";
+            $where['_string'] ="add_time > ".$day_w."";
             switch ($sort) {
                 case 'hot':
                     $order = 'likes DESC,zan DESC,hits DESC,id DESC';
@@ -147,6 +202,7 @@ class searchAction extends frontendAction {
                     $order = 'add_time DESC';
                     break;
             }
+            print_r($where);
             IS_AJAX && $this->wall_ajax($where, $order);
             if($tp != ''){
                 $q_info1="";
@@ -154,12 +210,12 @@ class searchAction extends frontendAction {
                     $or=$key == 0 ? "" : " or ";
                     $q_info1.="$or i.title like '%".$r."%' or i.intro like '%".$r."%' ";
                 }
-				$where = array('i.status' => '1');
-				$where['_string'] ="($q_info1) and (add_time > ".$day_w.")";
-				$this->waterfall_tp($where, $order,$tp);
-			}else{
-				$this->waterfall_xs($where, $order,$q);
-			}
+                $where = array('i.status' => '1');
+                $where['_string'] ="($q_info1) and (add_time > ".$day_w.")";
+                $this->waterfall_tp($where, $order,$tp);
+            }else{
+                $this->waterfall_xs($where, $order,$q);
+            }
 			
         }
         $this->assign('day', $day);
@@ -170,8 +226,8 @@ class searchAction extends frontendAction {
         ));
     }
 
-      private function _search_amazon($q) {
-         $sort = $this->_get('sort', 'trim', 'new'); //排序
+    private function _search_amazon($q) {
+        $sort = $this->_get('sort', 'trim', 'new'); //排序
         $isbest = $this->_get('isbest', 'trim');
         $tp = $this->_get('tp', 'trim');
         $day = $this->_get('day', 'trim');

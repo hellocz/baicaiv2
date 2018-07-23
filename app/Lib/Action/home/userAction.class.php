@@ -89,14 +89,14 @@ class userAction extends userbaseAction {
     public function login() {
         $this->visitor->is_login && $this->redirect('user/index');
         if (IS_POST) {
-			//封IP start
-			$kill_ip=C('pin_kill_ip');
-			$kill_ip = explode("\n",$kill_ip);
-			$myip = get_client_ip();
-			if(in_array($myip,$kill_ip)){
-				$this->error('您的账户已被禁用');
-			}
-			//封IP end
+            //封IP start
+            $kill_ip=C('pin_kill_ip');
+            $kill_ip = explode("\n",$kill_ip);
+            $myip = get_client_ip();
+            if(in_array($myip,$kill_ip)){
+            	$this->error('您的账户已被禁用');
+            }
+            //封IP end
             $username = $this->_post('username', 'trim');
             $password = $this->_post('password', 'trim');
             $remember = $this->_post('remember');
@@ -121,7 +121,7 @@ class userAction extends userbaseAction {
             $tag_arg = array('uid'=>$uid, 'uname'=>$username, 'action'=>'login');
             tag('login_end', $tag_arg);
             //同步登陆
-			$synlogin = $passport->synlogin($uid);
+            $synlogin = $passport->synlogin($uid);
 
             if (cookie('user_bind_info')) {
                 $user_bind_info = object_to_array(cookie('user_bind_info'));
@@ -162,7 +162,7 @@ class userAction extends userbaseAction {
                 $ret_url = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : __APP__;
                 $this->assign('ret_url', $ret_url);
                 $this->assign('synlogout', $synlogout);
-				$this->assign("page_seo",set_seo('用户登录'));
+                $this->assign("page_seo",set_seo('用户登录'));
                 $this->display();
             }
         }
@@ -207,59 +207,69 @@ class userAction extends userbaseAction {
     public function register() {
         $this->visitor->is_login && $this->redirect('user/index');
         if (IS_POST) {
-			//封IP start
-			$kill_ip=C('pin_kill_ip');
-			$kill_ip = explode("\n",$kill_ip);
-			$myip = get_client_ip();
-			if(in_array($myip,$kill_ip)){
-				$this->error('您的IP已被禁用');
-			}
-			//封IP end
+            //封IP start
+            $kill_ip=C('pin_kill_ip');
+            $kill_ip = explode("\n",$kill_ip);
+            $myip = get_client_ip();
+            if(in_array($myip,$kill_ip)){
+                $this->error('您的IP已被禁用');
+            }
+            //封IP end
             //方式
             $type = $this->_post('type', 'trim', 'reg');
-            if ($type == 'reg') {
-                //验证
-                $agreement = $this->_post('agreement');
-                !$agreement && $this->error(L('agreement_failed'));
+            // if ($type == 'reg') {
+            //     //验证
+            //     $agreement = $this->_post('agreement');
+            //     !$agreement && $this->error(L('agreement_failed'));
 
-                $captcha = $this->_post('captcha', 'trim');
-                if(session('captcha') != md5($captcha)){
-                    $this->error(L('captcha_failed'));
-                }
+            //     // 验证码
+            //     $captcha = $this->_post('captcha', 'trim');
+            //     if(session('captcha') != md5($captcha)){
+            //         $this->error(L('captcha_failed'));
+            //     }
+            // }
+            $mobile = $this->_post('mobile','trim');
+            $verify_code = $this->_post('phone_verify', 'trim');
+            if(!isset($_SESSION['phone_verify_'.md5($mobile)])){
+                $this->error('验证码未发送');
+            }
+            else if(session('phone_verify_'.md5($mobile)) != md5($verify_code)){
+                $this->error(L('verify_code_error'));
             }
             $username = $this->_post('username', 'trim');
             $email = $this->_post('email','trim');
             $password = $this->_post('password', 'trim');
-            $repassword = $this->_post('repassword', 'trim');
-            if ($password != $repassword) {
-                $this->error(L('inconsistent_password')); //确认密码
-            }
+            // $repassword = $this->_post('repassword', 'trim');
+            // if ($password != $repassword) {
+            //     $this->error(L('inconsistent_password')); //确认密码
+            // }
             $gender = $this->_post('gender','intval', '0');
             //用户禁止
             $ipban_mod = D('ipban');
             $ipban_mod->clear(); //清除过期数据
-            $is_ban = $ipban_mod->where("(type='name' AND name='".$username."') OR (type='email' AND name='".$email."')")->count();
+            // $is_ban = $ipban_mod->where("(type='name' AND name='".$username."') OR (type='email' AND name='".$email."')")->count();
+            $is_ban = $ipban_mod->where("(type='name' AND name='".$username."')")->count();
             $is_ban && $this->error(L('register_ban'));
             //连接用户中心
             $passport = $this->_user_server();
             //注册
-            $uid = $passport->register($username, $password, $email, $gender);
+            $uid = $passport->register($username, $password, $email, $gender, $mobile);
             !$uid && $this->error($passport->get_error());
-			//是否通过朋友分享注册的
-			if(trim($_SESSION['tg'])!=''){
-				$suid = M("user")->field('try_user.*')->join("try_share as s on s.uid=try_user.id")->where("s.dm='$_SESSION[tg]'")->find();
-				//查找一天是否超过5次
-				$time=time();
-				$start=strtotime(date('Y-m-d',$time));
-				$end = strtotime(date('Y-m-d',$time))+24*3600;
-				$count = M("score_log")->where("add_time>$start and $end>add_time and uid=$suid[id] and action='share_register'")->count();
-				if($count<5){
-					//给用户加积分
-					M("user")->where("id=$suid[id]")->setField(array("coin"=>$suid['coin']+5,"offer"=>$suid['offer']+5,'score'=>$suid['score']+5,'exp'=>$suid['exp']+5));
-					//积分日志
-					set_score_log(array('id'=>$suid['id'],'username'=>$suid['username']),'share_register',5,5,5,5);
-				}
-			}
+            //是否通过朋友分享注册的
+            if(trim($_SESSION['tg'])!=''){
+                $suid = M("user")->field('try_user.*')->join("try_share as s on s.uid=try_user.id")->where("s.dm='$_SESSION[tg]'")->find();
+                //查找一天是否超过5次
+                $time=time();
+                $start=strtotime(date('Y-m-d',$time));
+                $end = strtotime(date('Y-m-d',$time))+24*3600;
+                $count = M("score_log")->where("add_time>$start and $end>add_time and uid=$suid[id] and action='share_register'")->count();
+                if($count<5){
+                    //给用户加积分
+                    M("user")->where("id=$suid[id]")->setField(array("coin"=>$suid['coin']+5,"offer"=>$suid['offer']+5,'score'=>$suid['score']+5,'exp'=>$suid['exp']+5));
+                    //积分日志
+                    set_score_log(array('id'=>$suid['id'],'username'=>$suid['username']),'share_register',5,5,5,5);
+                }
+            }
             //第三方帐号绑定
             if (cookie('user_bind_info')) {
                 $user_bind_info = object_to_array(cookie('user_bind_info'));
@@ -364,10 +374,14 @@ class userAction extends userbaseAction {
             }
 
             $verify_code = $this->_post('phone_verify', 'trim');
-             if(session('phone_verify') != md5($verify_code)){
+            $mobile=$this->_post('mobile','trim');
+            if(!isset($_SESSION['phone_verify_'.md5($mobile)])){
+                $this->error('验证码未发送');
+            }
+            else if(session('phone_verify_'.md5($mobile)) != md5($verify_code)){
                 $this->error(L('verify_code_error'));
             }
-            $data['mobile']=$this->_post('mobile','trim');
+            $data['mobile']=$mobile;
             if (false !== M('user')->where(array('id'=>$this->visitor->info['id']))->save($data)) {
                 $msg = array('status'=>1, 'info'=>L('edit_success'));
             }else{
@@ -389,18 +403,18 @@ class userAction extends userbaseAction {
         include_once LIB_PATH . 'Pinlib/ChuanglanSmsHelper/ChuanglanSmsApi1.php';
         $clapi  = new ChuanglanSmsApi();
         $code = String::randString(4, 1);
-        session('phone_verify',md5($code));
         $result = $clapi->sendSMS($data['phone'], '【白菜哦】菜友您好，您的验证码是'. $code  .",请勿向任何人提供此验证码.");
 
         if(!is_null(json_decode($result))){
             $output=json_decode($result,true);
             if(isset($output['code'])  && $output['code']=='0'){
                 $msg= '短信发送成功！';
+                session('phone_verify_'.md5($data['phone']),md5($code));
             }else{
                  $msg= $output['errorMsg'];
             }
         }
-        $this->ajaxReturn(1,  $msg, "123");
+        $this->ajaxReturn($output['code'],  $msg, "123");
     }
 
     /**
@@ -642,6 +656,11 @@ class userAction extends userbaseAction {
             case 'username':
                 $username = $this->_get('J_username', 'trim');
                 $user_mod->name_exists($username) ? $this->ajaxReturn(0) : $this->ajaxReturn(1);
+                break;
+
+            case 'mobile':
+                $mobile = $this->_get('J_mobile', 'trim');
+                $user_mod->mobile_exists($mobile) ? $this->ajaxReturn(0) : $this->ajaxReturn(1);
                 break;
         }
     }

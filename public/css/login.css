@@ -1,0 +1,184 @@
+/*
+ * 登录注册页
+ * 独立样式文件
+ * 
+ * */
+body{
+	background: #FFFFFF!important;
+}
+.header .button{
+	position: absolute;
+	right: 0;
+	bottom: 27px;
+	display: inline-block;
+	height: 38px;
+	min-width: 66px;
+	padding: 0 10px;
+	background: #E5F5FF;
+	color: #00A2FF;
+	font-size: 16px;
+	line-height: 38px;
+	text-align: center;
+}
+.header .button:hover{
+	background: #00A2FF;
+	color: #FFFFFF;
+}
+
+/*页面内容*/
+.box{
+	width: 860px;
+	height: 574px;
+	margin: 0px auto;
+	margin-top: 60px;
+	background:#FFFFFF url(../images/Login_IMG@2x.png) right no-repeat;
+	border: 1px solid #ECF1F3;
+	box-shadow:0px 20px 30px 0px rgba(0,0,0,0.04);
+	border-radius: 8px;
+}
+.box .content{
+	width: 330px;
+	height: 474px;
+	padding: 50px;
+	position: relative;
+}
+
+.box .content .input{
+	width: 280px;
+	height: 46px;
+	line-height: 46px;
+	padding-left: 48px;
+	position: relative;
+	border: 1px solid #F5F6F5;
+}
+.box .content .input1{
+	background:#F5F6F5 url(../images/ie8/a_47@2x.png) no-repeat;
+	background-position: 12px;
+}
+.box .content .input2{
+	background:#F5F6F5 url(../images/ie8/a_48@2x.png) no-repeat;
+	background-position: 12px;
+}
+.box .content .input3{
+	background:#F5F6F5 url(../images/ie8/a_52@2x.png) no-repeat;
+	background-position: 12px;
+}
+.box .content .input4{
+	background:#F5F6F5 url(../images/ie8/a_53@2x.png) no-repeat;
+	background-position: 12px;
+}
+.box .content .input6{
+	background:#F5F6F5 url(../images/ie8/a_55@2x.png) no-repeat;
+	background-position: 12px;
+}
+.box .content .input input{
+	position: absolute;
+	border: 0;
+	background: none;
+	font-size: 16px;
+	color: #222222;
+	width: 270px;
+	height: 22px;
+	line-height: 22px;
+	top:13px;
+}
+.box .content .input input::-webkit-input-placeholder{
+	color:#99A5A0;
+}
+.box .content .input input::-moz-placeholder{   /* Mozilla Firefox 19+ */
+	color:#99A5A0;
+}
+.box .content .input input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+	color:#99A5A0;
+}
+.box .content .input input:-ms-input-placeholder{  /* Internet Explorer 10-11 */ 
+    color:#99A5A0;
+}
+
+input:-webkit-autofill , textarea:-webkit-autofill, select:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0px 1000px #F5F6F5 inset;
+	border: none!important;
+	color: #000000;
+}
+
+.box .content  .mobile{
+	position: relative;
+}
+.box .content  .mobile .yzm{
+	position: absolute;
+	right: 10px;
+	top:12px;
+	font-size: 14px;
+	color: #33CC99;
+	cursor: pointer;
+	border: 0;
+	background: none;
+	width: 100px;
+}
+
+.box .content .button{
+	width: 330px;
+	height: 48px;
+	line-height: 48px;
+	font-size: 16px!important;
+	border: 0;
+	color: #FFFFFF;
+}
+
+.box .content .thirdLogin{
+	position: absolute;
+	left: 75px;
+	bottom: 40px;
+}
+.box .content .thirdLogin a{
+	display: inline-block;
+	height: 24px;
+	background: url(../images/svg_sprite/icon_sprite_login.png) no-repeat;
+	padding-left: 28px;
+	line-height: 24px;
+	color: #99A5A0;
+	font-size: 13px;
+}
+.box .content .thirdLogin a:hover{
+	background: url(../images/svg_sprite/icon_sprite_login_1.png) no-repeat;
+	color: #33CC99;
+}
+.box .content .thirdLogin .wx,.box .content .thirdLogin .wx:hover{
+	background-position: 0 0;
+}
+.box .content .thirdLogin .qq,.box .content .thirdLogin .qq:hover{
+	background-position: 0 -24px;
+}
+.box .content .thirdLogin .wb,.box .content .thirdLogin .wb:hover{
+	background-position: 0 -48px;
+}
+
+.box .content .refreshCode{
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+	background: url(../images/ie8/a_54@2x.png) no-repeat;
+	position: absolute;
+	right: 0;
+}
+.box .content .input5{
+	width: 210px;
+	padding-left: 0;
+	background: #F5F6F5;
+}
+.box .content .input5 input{
+	width: 100px !important;
+	left: 14px;
+}
+.box .content .input5 .imgCode{
+	position: absolute;
+	right: -118px;
+}
+.box .content .input5 .imgCode img{
+	height: 48px;
+}
+
+.footer{
+	width: 100%;
+	padding:80px 20px 20px 20px;
+}

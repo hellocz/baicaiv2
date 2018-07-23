@@ -1,98 +1,192 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-
 <include file="public:head" />
-
-<style type="text/css">
-
-.w_nr3 {
-    width: 1157px;
-    float: inherit;
-}
-.this-more-goods-msg1 a {
-    color: #666;
-    display: inline-block;
-    height: 40px;
-    line-height: 38px;
-    text-align: center;
-    margin-right: 20px;
-    float: right;
-}
-.this-more-goods-msg1 {
-    height: 60px;
-    width: 100%;
-    overflow: hidden;
-}
-.w_sy_ha {
-    width: 1157px;
-    float: left;
-    height: 40px;
-    background: #fff;
-    box-shadow: 2px 2px 5px rgba(0,0,0,.1);
-    line-height: 40px;
-    padding: 0 25px 0 18px;
-    position: relative;
-    border-bottom: 1px solid #3dc399;
-}
-#sy1{
-    background: #3dc399;
-    color: white;
-}
-</style>
 </head>
-
-
-
-<body style="background:#f5f5f5">
-
-<include file="public:header" />
-
-<div class="w_bl_bd brand">
-
-    <div class="w_zh_dq1">
-
-	  <a href="/" title="首页" alt="{$cate_info.name}">首页</a> > {$strpos}
+<body>
+	<!--顶部统一区域start-->
+	<include file="public:header" />
+	<!--顶部统一区域end-->
+	
+	<!--分类目录start-->
+	<div class="w-1200 mt-40">
+		<!--标题start-->
+		<div class="title font-22">
+			<svg class="icon">
+				<!--[if lte IE 8]><desc><img src="/public/images/ie8/b_6@2x.png" width="14" height="14"></desc><![endif]-->
+				<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-b_6"></use>
+			</svg>
+			目录分类
+		</div>
+		<!--标题end-->
+		<div class="category mt-15">
+			<!--导航start-->
+			<!-- <div class="p15 white-bg radius-3 category-nav">
+				<ul class="clearfix">
+					<li>
+						<i class="icon4 icon4-d_1"></i><br>服饰鞋包
+					</li>
+					<li>
+						<i class="icon4 icon4-d_2"></i><br>家用电器
+					</li>
+					<li>
+						<i class="icon4 icon4-d_3"></i><br>户外运动
+					</li>
+					<li>
+						<i class="icon4 icon4-d_4"></i><br>电脑数码
+					</li>
+					<li>
+						<i class="icon4 icon4-d_5"></i><br>个护化妆
+					</li>
+					<li>
+						<i class="icon4 icon4-d_6"></i><br>母婴玩具
+					</li>
+					<li>
+						<i class="icon4 icon4-d_7"></i><br>日用百货
+					</li>
+					<li>
+						<i class="icon4 icon4-d_8"></i><br>食品保健
+					</li>
+					<li>
+						<i class="icon4 icon4-d_9"></i><br>钟表配饰
+					</li>
+					<li>
+						<i class="icon4 icon4-d_10"></i><br>家居家装
+					</li>
+					<li>
+						<i class="icon4 icon4-d_11"></i><br>图书音像
+					</li>
+					<li>
+						<i class="icon4 icon4-d_12"></i><br>汽车用品
+					</li>
+					<li>
+						<i class="icon4 icon4-d_13"></i><br>旅游出行
+					</li>
+					<li>
+						<i class="icon4 icon4-d_14"></i><br>理财保险
+					</li>
+					<li>
+						<i class="icon4 icon4-d_15"></i><br>文化娱乐
+					</li>
+					<li>
+						<i class="icon4 icon4-d_16"></i><br>优惠活动
+					</li>
+					<li>
+						<i class="icon4 icon4-e_1"></i><br>其他
+					</li>
+				</ul>
+			</div> -->
+			<div class="p15 white-bg radius-3 category-nav">
+				<ul class="clearfix">
+					<li>
+						<i class="icon4 icon4-d_1"></i><br>服装鞋帽
+					</li>
+					<li>
+						<i class="icon4 icon4-d_aaa"></i><br>箱包手袋
+					</li>
+					<li>
+						<i class="icon4 icon4-d_5"></i><br>个护化妆
+					</li>
+					<li>
+						<i class="icon4 icon4-d_7"></i><br>日用百货
+					</li>
+					<li>
+						<i class="icon4 icon4-d_8"></i><br>食品酒饮
+					</li>
+					<li>
+						<i class="icon4 icon4-d_3"></i><br>运动户外
+					</li>
+					<li>
+						<i class="icon4 icon4-d_9"></i><br>钟表首饰
+					</li>
+					<li>
+						<i class="icon4 icon4-d_6"></i><br>母婴玩具
+					</li>
+					<li>
+						<i class="icon4 icon4-d_10"></i><br>家居建材
+					</li>
+					<li>
+						<i class="icon4 icon4-d_4"></i><br>数码家电
+					</li>
+					<li>
+						<i class="icon4 icon4-d_aaa"></i><br>保健养生
+					</li>
+					<li>
+						<i class="icon4 icon4-d_11"></i><br>图书音像
+					</li>
+					<li>
+						<i class="icon4 icon4-d_13"></i><br>旅游休闲
+					</li>
+					<li>
+						<i class="icon4 icon4-d_aaa"></i><br>电影资讯
+					</li>
+					<li>
+						<i class="icon4 icon4-d_aaa"></i><br>眼镜配饰
+					</li>
+					<li>
+						<i class="icon4 icon4-d_aaa"></i><br>杂七杂八
+					</li>
+					<li>
+						<i class="icon4 icon4-d_aaa"></i><br>活动公告
+					</li>
+					<li>
+						<i class="icon4 icon4-d_14"></i><br>理财投资
+					</li>
+					<!-- <li>
+						<i class="icon4 icon4-d_2"></i><br>家用电器
+					</li>
+					<li>
+						<i class="icon4 icon4-d_12"></i><br>汽车用品
+					</li>	
+					<li>
+						<i class="icon4 icon4-d_15"></i><br>文化娱乐
+					</li>				
+					<li>
+						<i class="icon4 icon4-d_16"></i><br>优惠活动
+					</li>
+					<li>
+						<i class="icon4 icon4-e_1"></i><br>其他
+					</li> -->
+				</ul>
+			</div>
+			<!--导航end-->
+			
+			<!--列表start-->
+			<div class="white-bg radius-3 mt-12 pl-24" id="category-list">
+				<!--循环 start-->
+				<volist name="cate_list" id="r1">
+				<div class="category-list" id="list-{++$a}">
+					<div class="font-w-b font-16"><a href="{:U('category/cate',array('id'=>$r1['p']['id']))}">{$r1.p.name}</a></div>
+					<volist name="r1.data" id="r2">
+					<div class="clearfix mt-20">
+						<div class="box-title fc-green font-14">
+							<a href="{:U('category/cate',array('id'=>$r2['p']['id']))}" class="fc-green">{$r2.p.name}</a>
+							<svg class="icon">
+								<!--[if lte IE 8]><desc><img src="/public/images/ie8/a_15@2x.png" width="14" height="14"></desc><![endif]-->
+								<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-a_15"></use>
+							</svg>
+						</div>
+						<div class="list clearfix">
+							<volist name="r2.data" id="r3">
+							<a href="{:U('category/cate',array('id'=>$r3['id']))}">{$r3.name}</a>
+							</volist>
+						</div>
+					</div>
+					</volist>
+				</div>
+				</volist>
+				<!--循环 end-->
+			</div>
+			<!--列表end-->
+		</div>
 	</div>
+	<!--分类目录end-->
+	
+	<!--底部统一区域+右边悬浮按钮start-->
+	<include file="public:footer" />
+	<!--底部统一区域+右边悬浮按钮end-->
 
-    <div class="w_sy_ha">
-          <a href="{:U('book/cate',array('cid'=>$cate_info[id]))}"><span id="sy2" >编辑推荐</span></a>
-          <a ><span  id="sy1">品牌榜</span></a>
-          <a href="{:U('quan/index',array('q'=>$category))}"><span id="sy2">优惠券</span></a>
-
-         <!--<a href="{:U('article/index',array('id'=>9))}"><span id="ngl">海淘攻略</span></a>-->
-       </div>
-
-	<include file="public:brand_list" />
-</div>
-
-<include file="public:footer" />
-<include file="public:baidu_js_push" />
-
-<script src="/js/function.js"></script>
-<script type="text/javascript">
-	$(".brand-list-item").hover(function(){
-		$(this).find(".this-more-bar").css("visibility","visible").animate({
-			"margin-top":"20px",
-			"height":"50px"
-		});
-	},function(){
-		$(this).find(".this-more-bar").css("visibility","hidden").animate({
-			"margin-top":"0px",
-			"height":"20px"
-		});
-	});
-	$(".this-more-bar").click(function(){
-		$(this).parent().find(".this-more-goods").show();
-		$(this).hide();
-	});
-</script>
-
-<script src="/static/js/lhg/lhgdialog.min.js?self=true&skin=idialog" type="text/javascript"></script>
-
+	<!--引入页面单独JS文件-->
+	<script src="/public/js/page/category.js" ></script>
 </body>
-
 </html>
-

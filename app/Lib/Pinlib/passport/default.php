@@ -25,21 +25,25 @@ class default_passport
     /**
      * 注册新用户
      */
-    public function register($username, $password, $email, $gender) {
-
+    public function register($username, $password, $email, $gender, $mobile) {
         if (!$this->check_username($username)) {
-            $this->_error = L('username_exists') . $email . L('email_exists');
+            $this->_error = L('username_exists');
             return false;
         }
-        if (!$this->check_email($email)) {
-            $this->_error = L('email_exists');
+        // if (!$this->check_email($email)) {
+        //     $this->_error = L('email_exists');
+        //     return false;
+        // }
+        if (!$this->check_mobile($mobile)) {
+            $this->_error = L('该手机号已被注册');
             return false;
         }
         return array(
             'username' => $username,
             'password' => $password,
             'email' => $email,
-            'gender' => $gender
+            'gender' => $gender,
+            'mobile' => $mobile
         );
     }
 
@@ -108,8 +112,8 @@ class default_passport
     /**
      * 检测用户邮箱唯一
      */
-    public function check_email() {
-        if (M('user')->where(array('email'=>$email))->count('id') > 0) {
+    public function check_email($email) {
+        if ($this->_user_mod->where(array('email'=>$email))->count('id')) {
             return false;
         }
         return true;
@@ -118,8 +122,18 @@ class default_passport
     /**
      * 检测用户名唯一
      */
-    public function check_username() {
-        if (M('user')->where(array('username'=>$username))->count('id') > 0) {
+    public function check_username($username) {
+        if ($this->_user_mod->where(array('username'=>$username))->count('id')) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 检测手机号唯一
+     */
+    public function check_mobile($mobile) {
+        if ($this->_user_mod->where(array('mobile'=>$mobile))->count('id')) {
             return false;
         }
         return true;

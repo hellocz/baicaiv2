@@ -53,4 +53,14 @@ class userModel extends Model
             return false;
         }
     }
+
+    public function mobile_exists($mobile, $id = 0) {
+        $where = "mobile='" . $mobile . "' AND id<>'" . $id . "'";
+        $result = $this->where($where)->count('id');
+        if ($result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

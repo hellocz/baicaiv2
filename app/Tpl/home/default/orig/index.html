@@ -1,80 +1,167 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<include file="public:head" />
-</head>
-<body style="background:#f5f5f5">
-<include file="public:header" />
-<div class="w_bl_bd">
-	<div class="w_zh_dq1">
-	  <span <if condition="$t!='e' and $k==0">class="w_scdh_qd"</if> onclick="window.location='{:U("orig/index")}'">国内商城</span> &nbsp;&nbsp; <span <if condition="$t!='e' and $k==1">class="w_scdh_qd"</if> onclick="window.location='{:U("orig/index",array('k'=>'1'))}'">海外商城</span> &nbsp;&nbsp; <span <if condition="$t=='e'">class="w_scdh_qd"</if> onclick="window.location='{:U("orig/index",array('t'=>'e'))}'">转运公司</span> 
-	</div>
-  <div class="w_scdh_1">
-    <div class="w_scdh_h"><if condition="$t!='e'"><span class="w_scdh_qd" id="scdh1"  >热门商城</span></if><if condition="$t=='e'"><span class="w_scdh_qd"  id="scdh2" >热门转运公司</span></if></div>
-    <div class="w_scdd_t1" id="con_scdh_1">
-     <ul>
-	 <volist name="hot_list" id="item">
-	 <if condition="$t=='e'">
-	   <li>
-         <a href="{:U('express/show',array('id'=>$item['id']))}" title="{$item.name}">
-           <img src="{:attach($item['img'],'express')}" title="{$item.name}" alt="{$item.name}"/><br/>
-           {$item.name}
-         </a>
-       </li>
-	 <else/>
-       <li>
-         <a href="{:U('orig/show',array('id'=>$item['id']))}" title="{$item.name}">
-           <img src="<if condition="$item['img']">{:attach($item['img'],'item_orig')}<else/>/images/nopic.jpg</if>" title="{$item.name}" alt="{$item.name}"/><br/>
-           {$item.name}
-         </a>
-       </li>
-	 </if>
-	  </volist>
-     </ul>
-    </div>
-  </div>  
-  <div class="w_scdh_2">
-  <if condition="$t=='e'">
-    <div class="w_scdh_h">
-      <span class="w_scdh_qd"  id="scdj1" >所有转运公司</span>
-      <div class="w_scdh_r">
-       <em>按字母检索：</em>
-       <a href="{:U('orig/index',array('t'=>'e'))}" title="全部" <if condition="$p eq ''">class="w_rqb"</if>>全部</a>
-	   <?php $plist = M("cosler")->select();?>
-	   <volist name="plist" id="r">
-       <a href="{:U('orig/index',array('p'=>$r['fPY'],'t'=>'e'))}" title="{$r['fPY']}" <if condition="$p eq $r['fPY']">class="w_rqb"</if>>{$r['fPY']}</a>
-	   </volist>
-      </div>
-    </div>
-    <div class="w_sc_li"  id="con_scdj_1">
-      <ul>
-	  <volist name="list" id="item">
-        <li><a href="{:U('express/show',array('id'=>$item['id']))}" title="{$item.name}">{$item.name}</a></li>
-	  </volist>
-      </ul>
-    </div>
-  <else/>
-   <div class="w_scdh_h">
-      <span class="w_scdh_qd"  id="scdj1" >所有商城</span>
-      <div class="w_scdh_r">
-       <em>按字母检索：</em>
-       <a href="{:U('orig/index')}" title="全部" <if condition="$p eq ''">class="w_rqb"</if>>全部</a>
-	   <?php $plist = M("cosler")->select();?>
-	   <volist name="plist" id="r">
-       <a href="{:U('orig/index',array('p'=>$r['fPY'],'k'=>$k))}" title="{$r['fPY']}" <if condition="$p eq $r['fPY']">class="w_rqb"</if>>{$r['fPY']}</a>
-	   </volist>
-      </div>
-    </div>
-    <div class="w_sc_li"  id="con_scdj_1">
-      <ul>
-	  <volist name="list" id="item">
-        <li><a href="{:U('orig/show',array('id'=>$item['id']))}" title="{$item.name}">{$item.name}</a></li>
-	  </volist>
-      </ul>
-    </div>
-  </if>
-  </div>
-</div>
-<include file="public:footer" />
-</body>
-</html>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<include file="public:head" />
+</head>
+<body ng-app id="ng-app">
+	<!--页面start-->
+
+	<!--顶部统一区域start-->
+	<include file="public:header" />
+	<!--引入公共头部正式可删除 end-->
+	
+	<!--商场目录start-->
+	<div class="w-1200 mt-40">
+		<!--标题start-->
+		<div class="title font-22">
+			<svg class="icon">
+				<!--[if lte IE 8]><desc><img src="../images/ie8/b_7@2x.png" width="14" height="14"></desc><![endif]-->
+				<use xlink:href="../images/svg_sprite/icon_symbol.svg#icon-b_7"></use>
+			</svg>
+			商场分类
+			<div class="fr mall-tab radius-100 white-bg clearfix">
+				<a href="mall.html" class="fl tab-1 active">国内</a>
+				<a href="mall.html" class="fl tab-1">海淘</a>
+				<a href="mall.html" class="fl tab-2">转运公司</a>
+			</div>
+		</div>
+		<!--标题end-->
+		
+		<!--热门商场start-->
+		<div class="mall-hot white-bg radius-3  mt-15">
+			<div class="font-16 font-w-b">热门商场</div>
+			<div class="hot-list mt-20 clearfix">
+				<a href="#">
+					<p class="pic"><img src="../images/mall/mall_1.png"></p>
+					<p>国美</p>
+				</a>
+				<a href="#">
+					<p class="pic"><img src="../images/mall/mall_2.jpg"></p>
+					<p>亚马逊</p>
+				</a>
+				<a href="#">
+					<p class="pic"><img src="../images/mall/mall_3.png"></p>
+					<p>唯品会</p>
+				</a>
+				<a href="#">
+					<p class="pic"><img src="../images/mall/mall_4.png"></p>
+					<p>聚美优品</p>
+				</a>
+				<a href="#">
+					<p class="pic"><img src="../images/mall/mall_5.png"></p>
+					<p>1号店</p>
+				</a>
+				<a href="#">
+					<p class="pic"><img src="../images/mall/mall_6.png"></p>
+					<p>京东</p>
+				</a>
+				<a href="#">
+					<p class="pic"><img src="../images/mall/mall_7.png"></p>
+					<p>淘宝</p>
+				</a>
+				<a href="#">
+					<p class="pic"><img src="../images/mall/mall_8.png"></p>
+					<p>苏宁</p>
+				</a>
+				<a href="#">
+					<p class="pic"><img src="../images/mall/mall_9.png"></p>
+					<p>IT之家</p>
+				</a>
+			</div>
+		</div>
+		<!--热门商场end-->
+		
+		<!--所有商场start-->
+		<div class="mall-all white-bg radius-3 mt-12">
+			<div class="title">
+				<div class="font-16 font-w-b">所有商场</div>
+				<div class="title-box clearfix">
+					<a href="javascript:void(0);">0~9</a>
+					<a href="javascript:void(0);">A</a>
+					<a href="javascript:void(0);">B</a>
+					<a href="javascript:void(0);">C</a>
+					<a href="javascript:void(0);">D</a>
+					<a href="javascript:void(0);">E</a>
+					<a href="javascript:void(0);">F</a>
+					<a href="javascript:void(0);">G</a>
+					<a href="javascript:void(0);">H</a>
+					<a href="javascript:void(0);">I</a>
+					<a href="javascript:void(0);">J</a>
+					<a href="javascript:void(0);">K</a>
+					<a href="javascript:void(0);">L</a>
+					<a href="javascript:void(0);">M</a>
+					<a href="javascript:void(0);">N</a>
+					<a href="javascript:void(0);">O</a>
+					<a href="javascript:void(0);">P</a>
+					<a href="javascript:void(0);">Q</a>
+					<a href="javascript:void(0);">R</a>
+					<a href="javascript:void(0);">S</a>
+					<a href="javascript:void(0);">T</a>
+					<a href="javascript:void(0);">U</a>
+					<a href="javascript:void(0);">V</a>
+					<a href="javascript:void(0);">W</a>
+					<a href="javascript:void(0);">X</a>
+					<a href="javascript:void(0);">Y</a>
+					<a href="javascript:void(0);">Z</a>
+				</div>
+			</div>
+			<div class="list-box">
+				<volist name="list" id="r">
+					<div class="list">
+					<div class="font-16 mb-13 font-w-b">{$r.key}</div>
+					<div class="fc-grey font-14 clearfix">
+						<volist name="r.items" id="v" >
+							<a href="#">{$v.name}</a>
+						</volist>
+					</div>
+				</div>
+				</volist>
+				
+			</div>
+		</div>
+		<!--所有商场end-->
+	</div>
+	<!--商场目录end-->
+	
+	<!--右边快速导航start-->
+	<div class="radius-3 sidebar-mall">
+		<a href="javascript:void(0);">0~9</a>
+		<a href="javascript:void(0);">A</a>
+		<a href="javascript:void(0);">B</a>
+		<a href="javascript:void(0);">C</a>
+		<a href="javascript:void(0);">D</a>
+		<a href="javascript:void(0);">E</a>
+		<a href="javascript:void(0);">F</a>
+		<a href="javascript:void(0);">G</a>
+		<a href="javascript:void(0);">H</a>
+		<a href="javascript:void(0);">I</a>
+		<a href="javascript:void(0);">J</a>
+		<a href="javascript:void(0);">K</a>
+		<a href="javascript:void(0);">L</a>
+		<a href="javascript:void(0);">M</a>
+		<a href="javascript:void(0);">N</a>
+		<a href="javascript:void(0);">O</a>
+		<a href="javascript:void(0);">P</a>
+		<a href="javascript:void(0);">Q</a>
+		<a href="javascript:void(0);">R</a>
+		<a href="javascript:void(0);">S</a>
+		<a href="javascript:void(0);">T</a>
+		<a href="javascript:void(0);">U</a>
+		<a href="javascript:void(0);">V</a>
+		<a href="javascript:void(0);">W</a>
+		<a href="javascript:void(0);">X</a>
+		<a href="javascript:void(0);">Y</a>
+		<a href="javascript:void(0);">Z</a>
+	</div>
+	<!--右边快速导航end-->
+	<!--引入公共底部正式可删除 start-->
+	<include file="public:footer" />
+	<!--底部统一区域end-->
+	<!--页面end-->
+		
+
+	<!--引入页面单独JS文件-->
+	<script src="/public/js/common.js"></script>
+	<script src="/public/js/page/mall.js"></script>
+</body>
+</html>

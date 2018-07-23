@@ -25,15 +25,11 @@ class passport
     /**
      * 注册新用户
      */
-    public function register($username, $password, $email, $gender) {
-        if (!$add_data = $this->_us->register($username, $password, $email, $gender)) {
+    public function register($username, $password, $email, $gender, $mobile) {
+        if (!$add_data = $this->_us->register($username, $password, $email, $gender, $mobile)) {
             $this->_error = $this->_us->get_error();
             return false;
-        }
-        $list = M('user')->where('email = "' . $email . '"')->select();
-
-         $this->_error = $email . count($list) ;
-            return false;
+        }print_r($add_data);exit;
         //添加到本地
         return $this->_local_add($add_data);
     }

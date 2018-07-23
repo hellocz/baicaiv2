@@ -1,264 +1,251 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-
 <include file="public:head" />
-
-<link rel="stylesheet" type="text/css" href="/static/css/default/style.css" />
-
-<link rel="stylesheet" type="text/css" href="/static/css/default/base.css" />
-
-<link rel="stylesheet" type="text/css" href="/static/css/default/exchange.css" />
-<style type="text/css">
-#con_wt_1 table td{
-border: 2px solid;
-margin: 1px;
-padding: 2px;
-}
-</style>
-
 </head>
-
-
-
-<body style="background:#f5f5f5">
-
-<include file="public:header" />
-
-<div class="w_center">
-
-  <div class="w_cen_lef">
-
-    <div class="w_zh_dq">
-
-	  <a href="/" title="首页">首页</a>><a href="{:U('exchange/lucky')}" title="幸运抽奖">幸运抽奖</a>><a  class="w_zh_dq_1">兑换详情</a>
-
+<body>
+	<!--顶部统一区域start-->
+	<include file="public:header" />
+	<!--顶部统一区域end-->
+	
+	<!--积分抽奖start-->
+	
+	<!--面包屑start-->
+	<div class="w-1200 mt-20 breadcrumb fc-aux-a">
+		<a href="/">首页</a>
+		<if condition="$item['cate_id'] eq 8">
+		<a href="{:U('exchange/lucky')}">积分抽奖</a><span>抽奖详情</span>
+		<else/>
+		<a href="{:U('exchange/index')}">积分兑换</a><span>兑换详情</span>
+		</if>
 	</div>
+	<!--面包屑end-->
+	
+	<div class="w-1200 mt-20">
+		<div class="integralMall mt-14 clearfix">
+			<!--积分抽奖详情start-->
+			<div class="fl infoBox white-bg radius-3">
+				<div class="info clearfix">
+					<div class="fl pic"><img src="{:attach(str_replace('_s.'.array_pop(explode('.', $item['img'])), '_b.'.array_pop(explode('.', $item['img'])), $item['img']), 'score_item')}" title="{$item.title}" alt="{$item.title}" class="radius-3 lazyimg"></div>
+					<if condition="$item['cate_id'] neq 8">
+					<div class="fl content">
+						<div class="font-24">{$item.title}</div>
+						<div class="font-14 fc-aux-9 mt-20">兑换进度<span class="fc-red ml-20">{$item.buy_num}/{$item['buy_num']+$item['stock']}</span></div>
+						<div class="font-14 fc-aux-9 mt-10">参与条件<span class="fc-grey ml-20"><if condition="$item['coin'] gt 0">{$item.coin}金币/次，</if><if condition="$item['score'] gt 0">{$item.score}积分/次，</if><if condition="$item['user_num'] gt 0">每人每期限{$item['user_num']}次<else/>每人每期不限次数</if></span></div>
+						<div class="cysl mt-10 clearfix">
+							<label class="fc-aux-9 font-14 mr-20" style="line-height: 35px;">参与数量</label>
+							<input id="min" name="" type="button" value="-" class="button" />
+							<input id="text_box" name="J_num_{$item.id}" type="text" value="1" class="input" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')}" />
+							<input id="add" name="" type="button" value="+" class="button" />
+						</div>
+						<div class="but mt-60"><span class="btn-3 cursor-pointer" id="J_ec_btn" data-id="{$item.id}" data-num="#text_box">立即参与兑换<span></div>
+					</div>
+					<elseif condition="$expire eq 2"/>
+					<div class="fl content">
+						<div class="font-24">{$item.title}</div>
+						<div class="font-14 fc-aux-9 mt-20">中奖网友<a href="{:U('member/index', array('uid'=>$item['uid']))}" class="a-green hover-underline ml-20">{$item.win_user}</a></div>
+						<div class="font-14 fc-aux-9 mt-10">中奖号码<span class="fc-grey ml-20">{$item.win}</span></div>
+						<div class="font-14 fc-aux-9 mt-10">参与人次<span class="fc-grey ml-20">{$item.buy_num}</span></div>
+						<div class="font-14 fc-aux-9 mt-10">开奖时间<span class="fc-grey ml-20">{$item.sign_date|date='Y.m.d H:i',###}</span></div>
+						<div class="font-14 fc-aux-9 mt-10">公式随机数<span class="fc-grey ml-20"><!-- 第056期  -->{$item.lottery}</span></div>
+						<div class="but mt-10"><span class="btn">已开奖<span></div>
+					</div>
+					<elseif condition="$expire eq 1"/>
+					<div class="fl content">
+						<div class="font-24">{$item.title}</div>
+						<div class="font-14 fc-aux-9 mt-10">参与人次<span class="fc-grey ml-20">{$item.buy_num}</span></div>
+						<div class="font-14 fc-aux-9 mt-10">开奖时间<span class="fc-grey ml-20">{$item.sign_date|date='Y.m.d H:i',###}</span></div>
+						<div class="but mt-60"><span class="btn">等待开奖<span></div>
+					</div>
+					<else/>
+					<div class="fl content">
+						<div class="font-24">{$item.title}</div>
+						<div class="font-14 fc-aux-9 mt-20">开奖进度<span class="fc-red ml-20">{$item.buy_num}/{$item['buy_num']+$item['stock']}</span></div>
+						<div class="font-14 fc-aux-9 mt-10">参与条件<span class="fc-grey ml-20"><if condition="$item['coin'] gt 0">{$item.coin}金币/次，</if><if condition="$item['score'] gt 0">{$item.score}积分/次，</if>每人每期不限次数</span></div>
+						<div class="cysl mt-10 clearfix">
+							<label class="fc-aux-9 font-14 mr-20" style="line-height: 35px;">参与数量</label>
+							<input id="min" name="" type="button" value="-" class="button" />
+							<input id="text_box" name="J_num_{$item.id}" type="text" value="1" class="input" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')}" />
+							<input id="add" name="" type="button" value="+" class="button" />
+						</div>
+						<div class="but mt-60"><span class="btn-3 cursor-pointer" id="J_ec_btn" data-id="{$item.id}" data-num="#text_box">立即参与抽奖<span></div>
+					</div>
+					</if>
+				</div>
+				<!--抽奖记录start-->
+				<div class="drawRecord mt-60">
+					<if condition="$item['cate_id'] eq 8"><div class="dr-title">抽奖记录</div><else/><div class="dr-title">兑换记录</div></if>
+					<ul class="dr-tab clearfix">
+						<li class="jl">记录</li>
+						<li class="sj">时间</li>
+						<if condition="$item['cate_id'] eq 8"><li class="zjhm">中奖号码</li></if>
+						<li class="zt">状态</li>
+					</ul>
+					<ul class="dr-list">
+						<include file="order_list"/>
+					</ul>
+					
+					<!--分页加载中start-->
+					<div class="page-loading"></div>
+					<!--分页加载中end-->
+					
+					<!--分页start-->
+					<script type="text/javascript">
+						var page_count={$page_count}, page={$page}, page_size={$page_size}, page_url = '/index.php?m=exchange&a=get_score_order_list&id='+{$item.id}, page_content_obj = $(".infoBox .drawRecord .dr-list");
+					</script>
+					<div id="pages-inld" class="pages" style="text-align: center; padding-bottom: 20px;"></div>
+					<!--分页end-->
+				</div>
+				<!--抽奖记录end-->
+			</div>
+			<!--积分抽奖详情end-->
+			<div class="fl rightBox">
+				<!--我的财富start-->
+				<include file="right_exchange_myscore"/>
+				<!--我的财富end-->
+				
+				<!--常见问题start-->
+				<include file="right_exchange_faq"/>
+				<!--常见问题end-->
+				
+				<if condition="$item['cate_id'] eq 8">
+				<!--最新中奖名单start-->
+				<include file="right_lucky_item"/>
+				<!--最新中奖名单end-->
+				</if>
+				
+				<!--AD-->
+				<div class="mb-12"><img src="/public/images/AD_2.jpg" width="296" class="radius-3"></div>
+				<!--AD-->
+			</div>
+		</div>
+	</div>
+	<!--积分抽奖end-->
 
-	 <div class="w_zrxx">
+	<!--底部统一区域+右边悬浮按钮start-->
+	<include file="public:footer" />
+	<!--底部统一区域+右边悬浮按钮end-->
 
-       <h1>{$item.title}</h1>
-
-       <div class="w_zrxx_1">
-
-      <div class="w_zrxx_1_l">
-
-       <img src="{:attach(str_replace('_s.'.array_pop(explode('.', $item['img'])), '_b.'.array_pop(explode('.', $item['img'])), $item['img']), 'score_item')}" title="{$item.title}" alt="{$item.title}"/>
-
-      </div>
-
-      <div class="w_zrxx_1_r">
-
-       <div class="w_zrxx_1_r2" style="margin-top:0px">
-
-       <span>{:L('surplus_stock')}：<em>{$item.stock}</em></span><br/>
-
-       <span>{:L('buy_num')}：<em>{$item.buy_num}</em></span><br/>
-
-       <span>{:L('user_num')}：<em>{$item.user_num}</em></span><br/>
-
- 	<span>所需积分：<em>{$item.score}</em></span><br/>
-
-	   <span>所需金币：<em>{$item.coin}</em></span><br/>
-
-	   <span>{:L('ec_number')}：<input type="text" id="J_num_{$item.id}" class="input_text_number" value="1" size="4"></span><br/>
- <if condition="$item['sign_date'] neq '' "><span>开奖时间：{$item.sign_date|date='Y-m-d H:i:s',###}</span><br/></if>
-       </div>
-
-       <div class="w_zrxx_1_r3">
-       	<if condition="$expire eq 1">
-       <a href="javascript:;" title="已开奖" data-id="{$item.id}" data-num="#J_num_{$item.id}" style="background:gray;" class="w_dha">已开奖</a>
-       <else/><a href="javascript:;" id="J_ec_btn" title="立即兑换" data-id="{$item.id}" data-num="#J_num_{$item.id}" class="w_dha">立即兑换</a>
-   	</if>
-       <a style="left:20px;position: relative;" href="{:U('user/phone_bind')}"  title="绑定手机号"  class="w_dha">绑定手机号</a>
-       </div>
-       <div class="w_zrxx_1_r3">
-       
-
-       </div>
-
-      </div>
-
-     </div>
-
-      <div class="w_xq1">
-
-      <div class="w_had">
-
-
-      <span  class="w_had_dq" id="wt2" >兑换须知</span>
-            
-
-    </div>
-
-     
-
-    <div class="w_xq1_d_l" id="con_wt_1" style="display: block;">
-
-        {$item.desc}
-
-      </div>
-
-      <div class="w_had">
-
-      <span class="w_had_dq" id="wt1" >兑换记录</span> 
-            
-
-    </div>
-
-    <div class="w_xq1_d_l" id="con_wt_2" style="display: block;">
-
-       <table cellpadding="0" cellspacing="0" class="w_dtxq_tb">
-
-	    <tr>
-
-		  <td class="w_dtxq_tb_1">兑换用户 </td>
-
-		  <td class="w_dtxq_tb_2">兑换时间</td>
-			<if condition="$item['cate_id'] eq 8">
-		  <td class="w_dtxq_tb_3">幸运号</td>
-			</if>
-		  <td class="w_dtxq_tb_3">状态</td>
-
-		</tr>
-
-		<volist name="list" id="r">
-
-		<tr>
-
-		  <td class="w_dtxq_tb_1">{$r.uname}</td>
-
-		  <td class="w_dtxq_tb_2">{$r.add_time|fdate}</td>
-			<if condition="$item['cate_id'] eq 8">
-		  <td class="w_dtxq_tb_3">{$r.luckdraw_num}</td>
-			</if>
-		  <td class="w_dtxq_tb_3"><if condition="$item['cate_id'] eq 8">{$r.zero_info} <else/><if condition="$r['status'] eq 0">处理中<else/>已完成</if></if></td>
-
-		</tr>
-
-		</volist>
-
-	  </table>
-
-	   <div class="w_pag">{$pagebar}</div>
-
-    </div>
-
-
-
-      
-
-    
-
-     </div>
-
-   </div> 
-
-  </div>
-
-  <div class="w_cen_rig ">
-
-    <include file="public:yhq_right" />
-
-	<include file="public:zt_right" />
-
-  </div>
-
-</div>
-
-<include file="public:footer" />
-
-<script src="/static/js/lhg/lhgdialog.min.js?self=true&skin=idialog" type="text/javascript"></script>
-
-<script src="/js/jquery.form.js" type="text/javascript"></script>
-
-<script src="/js/function.js" type="text/javascript"></script>
+	<!--引入页面单独JS文件-->
+	<script src="/public/js/page/exchange.js"></script>
+	<script src="/js/jquery.form.js" type="text/javascript"></script>
 
 <script>
 
+//弹出对话层
+function dialogPopup(content){
+	layer.open({
+		type: 1,
+		title: false,
+		closeBtn: 1,
+		shadeClose: false,
+		shade:0.7,
+		anim:2,
+		skin: 'loginPopup',
+		area: '430px',
+		content: content //html or $('#id')
+	});
+}
+
+
 $("#J_ec_btn").on('click', function(){
-
-	if(!confirm('兑换该物品需{$item.coin}金币，{$item.score}积分，请确定？')){
-
-		return false;
-
-	}
-
+	
 	if("" == PINER.uid){
 
-		$.get("index.php?m=user&a=login",function(res){opdg(res.data,524,262,'用户登录');},'json');
+		LoginPopup();
 
 		return false;
 
 	}
 
-	var id = $(this).attr('data-id'),
+	obj = $(this);
 
-	num_input = $(this).attr('data-num'),
+	// askPopup('兑换该物品需{$item.coin}金币，{$item.score}积分，请确定？');
 
-	num = $(num_input).val();
+	layer.confirm('兑换该物品需{$item.coin}金币，{$item.score}积分，请确定？', {title:'提示',skin:'askBox'}, function(index){
+		//do something
 
-	$.get(PINER.root + '/?m=exchange&a=ec', {id:id, num:num}, function(result){
+		var id = obj.attr('data-id'),
 
-		if(result.status == 1){
+		num_input = obj.attr('data-num'),
 
-			$(".tip-c").html(result.msg);
+		num = $(num_input).val(); 
 
-			$('.tipbox').show().addClass("tip-success");
+		$.get(PINER.root + '/?m=exchange&a=ec', {id:id, num:num}, function(result){
 
-			setTimeout("$('.tipbox').hide();", 2000); 
+			if(result.status == 1){
 
-		}else if(result.status == 2){
+				// $(".tip-c").html(result.msg);
 
-			opdg(result.data,450,253,"填写收货地址");
+				// $('.tipbox').show().addClass("tip-success");
 
-			$('#J_daddress_form').ajaxForm(
+				// setTimeout("$('.tipbox').hide();", 2000); 
 
-				 function(result){
+				tipsPopup('tips_1',result.msg);
 
-					result = eval("("+result+")");
+			}else if(result.status == 2){
 
-					if(result.status == 1){
+				// opdg(result.data,450,253,"填写收货地址");
 
-						$(".tip-c").html(result.msg);
+				dialogPopup(result.data);
 
-						$('.tipbox').show().addClass("tip-success");
+				$('#J_daddress_form').ajaxForm(
 
-						window.location.reload();
+					 function(result){
 
-					} else {
+						result = eval("("+result+")");
 
-						$(".tip-c").html(result.msg);
+						if(result.status == 1){
 
-						$('.tipbox').show().addClass("tip-error");
+							// $(".tip-c").html(result.msg);
 
-						setTimeout("$('.tipbox').hide();", 2000);
+							// $('.tipbox').show().addClass("tip-success");
 
-					}	
+							tipsPopup('tips_1',result.msg);
 
-				}
+							window.location.reload();
 
-			); 
+						} else {
 
-		}else{
+							// $(".tip-c").html(result.msg);
 
-			$(".tip-c").html(result.msg);
+							// $('.tipbox').show().addClass("tip-error");
 
-			$('.tipbox').show().addClass("tip-error");
+							// setTimeout("$('.tipbox').hide();", 2000);
 
-			setTimeout("$('.tipbox').hide();", 2000);
+							tipsPopup('tips_2',result.msg);
 
-		}
+						}	
 
-	},'json');
+					}
+
+				); 
+
+			}else{
+
+				// $(".tip-c").html(result.msg);
+
+				// $('.tipbox').show().addClass("tip-error");
+
+				// setTimeout("$('.tipbox').hide();", 2000);
+
+				tipsPopup('tips_2',result.msg);
+
+			}
+
+		},'json');
+
+
+		layer.close(index);
+
+	});
+
+
+
+	
 
 });
 
 </script>
-
 </body>
-
 </html>
-

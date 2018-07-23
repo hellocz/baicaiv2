@@ -1,224 +1,136 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
 <include file="public:head" />
-<link rel="stylesheet" type="text/css" href="/static/css/default/style.css" />
-<link rel="stylesheet" type="text/css" href="/static/css/default/base.css" />
-<script src="/js/jquery.SuperSlide.2.1.1.js" type="text/javascript"></script>
-
-<link rel="stylesheet" href="/static/css/default/main.css" type="text/css">
-<link rel="alternate" type="application/rss+xml" href="http://www.baicaio.com/rss" title="RSS" />
-
-<style>
-@font-face {
-  font-family: 'iconfont';
-  src: url('//g.517cdn.com/PlugJavascriptJq/tamlliconfont/iconfont.eot');
-  src: url('//g.517cdn.com/PlugJavascriptJq/tamlliconfont/iconfont.eot?#iefix') format('embedded-opentype'),
-  url('//g.517cdn.com/PlugJavascriptJq/tamlliconfont/iconfont.woff') format('woff'),
-  url('//g.517cdn.com/PlugJavascriptJq/tamlliconfont/iconfont.ttf') format('truetype'),
-  url('//g.517cdn.com/PlugJavascriptJq/tamlliconfont/iconfont.svg#iconfont') format('svg');
-}
-  .w_dj1{margin-right: 10px;}
-  .form_quan_search{
-    border: 1px solid #dcdcdc;
-    border-radius: 5px;
-    margin-top: 10px;
-    display: none;
-  }
-  .text_search_quan {
-    border: 0 none;
-    color: #999;
-    height: 36px;
-    padding-left: 10px;
-    width: 1150px;
-}
-.quan_q, .quan_q a{
-  color: #666;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-.quan_sort, .quan_sort a{
-  color: #666;
-  font-size: 16px;
-  margin-bottom: 5px;
-}
-.quan_sort .active{
-    color: #3DC3B2;
-    border-bottom: 2px solid #3DC3B2;
-    display: inline-block;
-    padding-bottom: 7px;
-}
-
-.sq_text{
-  border: 2px solid #3DC399;
-    float: left;
-    height: 33px;
-    padding-left: 5px;
-    width: 1083px;
-    border-radius: 0px;
-    margin-top: 10px;
-}
-.sq_btn{
-    height: 37px;
-    overflow: hidden;
-    padding: 7px 30px;
-     background-color: #3DC399;
-    border: 0 none;
-    color: white;
-    cursor: pointer;
-    display: inline-block;
-    float: right;
-    letter-spacing: 2px;
-    line-height: 21px;
-    border-radius: 0px;
-    margin-top: 10px;
-}
-.sq_jc{
-    color: #3DC399 !important; 
-    float: right;
-}
-.md_icon {
-    margin-right: 4px;
-    color: #3DC399;
-    font-family:"iconfont" !important;
-}
-
-</style>
-<script type="text/javascript" src="/js/jquery.SuperSlide.2.1.1.js"></script>
-
-<!--//首页轮播-->
-<script type="text/javascript">
-  
-</script>
-<!--[if lt IE 9]>
-<script src="http://www.smzdm.com/resources/public/js/html5.js?v=2016041103"></script>
-<link rel="stylesheet" href="http://res.smzdm.com/resources/public/css/ieHack.css" type="text/css" />
-<![endif]-->
-
-
-
-<!--[if IE 7]>
-<style type=”text/css”>
-.blFormBox .wantItem{position: initial;}
-</style>
-<![endif]-->
-
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
-<body style="background:#f5f5f5"><include file="public:header" />
+<body>
+	<!--顶部统一区域start-->
+	<include file="public:header" />
+	<!--顶部统一区域end-->
+	
+	<!--领券start-->
+	<div class="w-1200 mt-32 white-bg radius-3">
+		<div class="cr-first clearfix">
+			<div class="cr-title fl">淘宝天猫优惠券专搜</div>
+			<div class="cr-search fr">
+				<div class="i-placeholder">
+					<form action="quan">
+					<input type="text" name="q" placeholder="versace" value="{$q}" class="input-1 radius-100">
+					<input type="submit" value="搜券" class="cr-s-button" />
+					</form>
+				</div>
+				<div class="hotWords">
+					<a href="{:U('item/index',array('id'=>272745))}" class="fr a-green">搜券教程？</a>热门搜索：
+					<volist name="quan_keys" id="r" >
+					<a href="{:U('quan/index',array('q'=>$r))}" class="mr-10">{$r}</a>
+					</volist>
+				</div>
+			</div>
+		</div>
+		<div class="cr-send clearfix">
+			<ul class="cr-tab fl clearfix">
+				<li class="tab-v active">卖的最好</li>
+				<li class="tab-p">价格最低</li>
+				<li class="tab-c">优惠最大</li>
+				<li class="tab-z">折扣最高</li>
+			</ul>
+			<a href="#" class="btn-3 fr">将“Amope”加入关注</a>
+		</div>
+	</div>
+	
+	<div class="w-1200 cr-list">
+		<!--卖的最好start-->
+		<div class="list-box">
+			<ul class="layui-row layui-col-space15">
+				<!--列表循环start-->
+				<include file="qitem_list" list="item_list['v']"/>
+				<!--列表循环end-->
+			</ul>
+			<!--分页加载中start-->
+			<!-- <div class="page-loading"></div> -->
+			<!--分页加载中end-->
+			
+			<!--分页start-->
+			<!-- <div id="pages-mdzh" class="pages mt-20" style="text-align: center;"></div> -->
+			<!--分页end-->
+		</div>
+		<!--卖的最好end-->
+		
+		<!--价格最低start-->
+		<div class="list-box none">
+			<ul class="layui-row layui-col-space15">
+				<!--列表循环start-->
+				<include file="qitem_list" list="item_list['p']"/>
+				<!--列表循环end-->
+			</ul>
+			<!--分页加载中start-->
+			<!-- <div class="page-loading"></div> -->
+			<!--分页加载中end-->
+			
+			<!--分页start-->
+			<!-- <div id="pages-jgzd" class="pages mt-20" style="text-align: center;"></div> -->
+			<!--分页end-->
+		</div>
+		<!--价格最低end-->
+		
+		<!--优惠最大start-->
+		<div class="list-box none">
+			<ul class="layui-row layui-col-space15">
+				<!--列表循环start-->
+				<include file="qitem_list" list="item_list['c']"/>
+				<!--列表循环end-->
+			</ul>
+			<!--分页加载中start-->
+			<!-- <div class="page-loading"></div> -->
+			<!--分页加载中end-->
+			
+			<!--分页start-->
+			<!-- <div id="pages-yhzd" class="pages mt-20" style="text-align: center;"></div> -->
+			<!--分页end-->
+		</div>
+		<!--优惠最大end-->
+		
+		<!--折扣最高start-->
+		<div class="list-box none">
+			<ul class="layui-row layui-col-space15">
+				<!--列表循环start-->
+				<include file="qitem_list" list="item_list['z']"/>
+				<!--列表循环end-->
+			</ul>
+			<!--分页加载中start-->
+			<!-- <div class="page-loading"></div> -->
+			<!--分页加载中end-->
+			
+			<!--分页start-->
+			<!-- <div id="pages-zkzg" class="pages mt-20" style="text-align: center;"></div> -->
+			<!--分页end-->
+		</div>
+		<!--折扣最高end-->
+	</div>
+	
+	<!--领券end-->
 
-<!--focus start-
-<div id="slideBox" class="slideBox">
-<?php  $adv_list = M("ad")->where('status=1 AND board_id=1')->select(); $advCount = M("ad")->where('status=1 AND board_id=1')->count(); ?>
-  <div class="hd">
-    <ul>
-    <?php
-      $html.='';
-      for($i=0;$i<$advCount;$i++){
-                                                            $j=$i+1;
-        $html.="<li>".$j."</li>";
-      }
-      echo $html;
-    ?>
-    </ul>
-  </div>
-  <div class="bd">
-    <ul>
-    <?php
-      $htmlA.='';
-      for($j=0;$j<=$advCount;$j++){ 
-         $htmlA.="<li><a href='".$adv_list[$j][url]."' target='_blank' alt='".$adv_list[$j][name]."'><img src='".$adv_list[$j][content]."' /></a></li>";
-      }
-      echo $htmlA;
-     ?>
-    </ul>
-  </div>
-</div>
-focus end-->  
+	<!--底部统一区域+右边悬浮按钮start-->
+	<include file="public:footer" />
+	<!--底部统一区域+右边悬浮按钮end-->
 
-<!--banner end-->
-<include file="public:daohan" />
-<div class="w_center">
-  <div class="w_center">
-      <div class="txtScroll-top" style="height: 80px">
-            <div class="bd">
-                <!--<form class="form_quan_search" action="/quan" method="get">
-                 <button type="submit" class="btn_search icon-search"></button>
-                <input id="s" name="q" class="text_search_quan" value="{$q}" onblur="if(this.value=='') {this.value='搜券';this.style.color='#999';}" onfocus="if(this.value=='搜券') {this.value='';this.style.color='#333';}" style="color: rgb(153, 153, 153);" _hover-ignore="1" type="search">
-            </form>
-            -->
-            <form action="quan">
-    <input class="sq_text" type="text" name="q" placeholder="汇集淘宝/天猫全站优惠券，支持关键词/标题全文检索" value="{$q}"><input  class="sq_btn" type="submit" name="" value="搜券"></ins></form>
+	<script src="/public/js/page/couponRed.js"></script>
 
-            <div class="quan_q">
-            <volist name="quan_keys" id="r" >
-              <a href="{:U('quan/index',array('q'=>$r))}">{$r}</a>
-            </volist>
-            <a  class="sq_jc" href="{:U('item/index',array('id'=>272745))}"><i class="md_icon">&#xe690;</i>找券教程</a></div>
-            </div>
-        </div>
-        <script id="jsID" type="text/javascript">
-         var ary = location.href.split("&");
-        jQuery(".txtScroll-top").slide({titCell:".hd ul",mainCell:".bd ul",autoPage:true,effect:"top",autoPlay:true,vis:1});
-        </script>
-     <div class="w_f2">
-     <div class="quan_sort"><a <if condition="$s eq 'v'"> class="active"</if> href="{:U('quan/index',array('s'=>'v'))}">卖得最好</a> | <a <if condition="$s eq 'p'"> class="active"</if> href="{:U('quan/index',array('s'=>'p'))}">价格最低</a> | <a  <if condition="$s eq 'c'"> class="active"</if> href="{:U('quan/index',array('s'=>'c'))}">优惠最大</a> | <a <if condition="$s eq 'z'"> class="active"</if> href="{:U('quan/index',array('s'=>'z'))}">折扣最高</a></div>
-        <include file="public:qitem_list" />
-         <div class="w_pag jiazai" style="display: none"><img src="/images/jiazai.gif"></div>
-        <div class="w_pag" id="J_page">{$pagebar}</div>
-     </div>
-  </div>
-
-<script src="/static/js/wap/weui.min.js"></script>
-<link rel='stylesheet' type='text/css' href='/static/js/wap/weui.css'>
 <script type="text/javascript">
-jQuery(".slideBox").slide({mainCell:".bd ul",autoPlay:true});
-$(document).ready(function(){
-    $('.flexslider').flexslider({
-        directionNav: true,
-        pauseOnAction: false
-    });
-});
 
- $(".uland").click(function(){
-        url = $(this).attr("data-uri");
-        $.getJSON('{:U("item/converturl")}', {url:url}, function(result){
-      if(result.status == 1){
-        location.href = result.data;
-      }else{
-        location.href = url;
-      }
-
-    });
-       })
-
-//右边滚动
-$(window).scroll(function () {
-    if ($(document).scrollTop() > 2297 ){  //判断滚动条是否滚动了***PX
-        if($(document).scrollTop()<$(document).height()-$(window).height()-220){
-            $(".w_r6").css({"position":"fixed",'top':"70px", "z-index":"800", "left":"50%", "margin-left":"300px","margin-top":0});
-        }else{
-            $(".w_r6").css({"position":"fixed", "z-index":"800", "left":"50%", "margin-left":"300px","margin-top":0,'top': '70px'});
-        }
-    }else
-        $(".w_r6").css({"position":"static", "top":"0", "z-index":"800", "right":"0", "margin-left":"0",'margin-top':0});
-});
-function AddFavorite(sURL, sTitle) {
-    sURL = encodeURI(sURL);
-    try {
-        window.external.addFavorite(sURL, sTitle);
-    } catch (e) {
-        try {
-            window.sidebar.addPanel(sTitle, sURL, "");
-        } catch (e) {
-            alert("加入收藏失败，请使用Ctrl+D进行添加,或手动在浏览器里进行设置.");
-        }
-    }
-}
+$(".uland").click(function(){
+	url = $(this).attr("data-uri");
+	$.getJSON('{:U("item/converturl")}', {url:url}, function(result){
+		if(result.status == 1){
+		location.href = result.data;
+		}else{
+		location.href = url;
+		}
+	});
+})
+<if condition="$s eq 'v' OR $s eq 'p' OR $s eq 'c' OR $s eq 'z'">$(document).ready(function (){
+$(".cr-tab .tab-{$s}").click();
+});</if>
 </script>
-<include file="public:footer_index_quan" />
-<script>var t="item";</script>
-<script src="/static/js/lhg/lhgdialog.min.js?self=true&skin=idialog" type="text/javascript"></script>
-<script src="/js/pblq.js"></script>
 </body>
 </html>
