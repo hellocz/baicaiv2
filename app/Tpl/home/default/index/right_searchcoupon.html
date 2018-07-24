@@ -4,8 +4,8 @@
 						<a href="#" class="fr font-12 fc-aux-9">领券教程？</a><font class="font-w-b">搜券</font>
 					</div>
 					<div class="sq-search radius-3">
-						<span class="fr fc-green font-14">搜券</span>
-						<form action="quan">
+						<form action="{:U('quan/index')}" method="get">
+						<span class="fr fc-green font-14" onclick="javascript:$(this).parent('form').submit();">搜券</span>
 						<input type="text" id="q" name="q" placeholder="淘宝/天猫优惠券" class="sq-input">
 						</form>
 					</div>

@@ -7,9 +7,7 @@ class categoryAction extends frontendAction {
         // $item_cate = M("item_cate")->where("status=1")->order("ordid asc")->select();
 
         //分类数据
-        if (false === $cate_data = F('cate_data')) {
-          $cate_data = D('item_cate')->cate_data_cache();
-        }
+        $cate_data = D('item_cate')->cate_data_cache();
 
         //三层category分类信息
         $cate_list = array();
@@ -39,9 +37,7 @@ class categoryAction extends frontendAction {
         $id = $this->_get('id', 'intval');
         !$id && $this->_404();
         //分类数据
-        if (false === $cate_data = F('cate_data')) {
-            $cate_data = D('item_cate')->cate_data_cache();
-        }
+        $cate_data = D('item_cate')->cate_data_cache();
         //当前分类信息
         if (isset($cate_data[$id])) {
             $cate_info = $cate_data[$id];
@@ -49,9 +45,7 @@ class categoryAction extends frontendAction {
             $this->_404();
         }
         //分类关系
-        if (false === $cate_relate = F('cate_relate')) {
-            $cate_relate = D('item_cate')->relate_cache();
-        }
+        $cate_relate = D('item_cate')->relate_cache();
 
         //天猫搜券
         $q = trim($cate_info['name']);

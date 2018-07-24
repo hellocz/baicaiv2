@@ -218,6 +218,9 @@ class frontendAction extends baseAction {
             $type = array_flip(explode(',', $type));
         }
         $property = $this->_get('property','trim');
+        if(!is_array($property)){
+            $property = array_flip(explode(',', $property));
+        }
         $cateid = $this->_get('cateid','intval',0);
         // $cpid = $this->_get('cpid','intval',0);
         $orig = $this->_get('orig','trim');
@@ -298,9 +301,7 @@ class frontendAction extends baseAction {
         }
 
         //分类列表
-        if (false === $cate_list = F('cate_list')) {
-            $cate_list = D('item_cate')->cate_cache();
-        }
+        $cate_list = D('item_cate')->cate_cache();
         $options['cate'] = $cate_list;
         //分类，取两级目录
         if(count($options['cate']) > 0){
@@ -311,9 +312,7 @@ class frontendAction extends baseAction {
             }
         }
         //分类数据
-        if (false === $cate_data = F('cate_data')) {
-          $cate_data = D('item_cate')->cate_data_cache();
-        }
+        $cate_data = D('item_cate')->cate_data_cache();
 
         //默认过滤选项
         $default_filters = array(

@@ -40,6 +40,7 @@
 			<div class="urlistBox">
 				<div class="urlist">
 					<!--当前用户start-->
+					<notempty name="me_list">
 					<ul class="my clearfix">
 						<li class="ur-1 vcenter fc-green">{$me_list['rank']}</li>
 						<li class="ur-2"><img src="{:avatar($me_list['id'])}" class="radius-3"></li>
@@ -51,6 +52,7 @@
 						</li>
 						<li class="ur-4 vcenter">Lv{$me_list['grade']}：初出茅庐</li>
 					</ul>
+					</notempty>
 					<!--当前用户end-->
 					<!--循环start-->
 					<volist name="user_list" id="r">

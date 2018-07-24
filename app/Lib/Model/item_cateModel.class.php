@@ -55,9 +55,7 @@ class item_cateModel extends Model
      */
     public function get_name($id) {
         //分类数据
-        if (false === $cate_data = F('cate_data')) {
-            $cate_data = $this->cate_data_cache();
-        }
+        $cate_data = $this->cate_data_cache();
         return $cate_data[$id]['name'];
     }
 
@@ -66,9 +64,7 @@ class item_cateModel extends Model
      */
     public function get_pentity_id($id) {
         $pentity_id = 0;
-        if (false === $cate_data = F('cate_data')) {
-            $cate_data = $this->cate_data_cache();
-        }
+        $cate_data = $this->cate_data_cache();
         $spid = array_reverse(explode('|', trim($cate_data[$id]['spid'], '|')));
         foreach ($spid as $val) {
             if ($cate_data[$val]['type'] == 0) {
@@ -83,8 +79,12 @@ class item_cateModel extends Model
      * 读取写入缓存(有层级的分类数据)
      */
     public function cate_cache() {
+        if (false !== $cate_list = F('cate_list')) {
+            return $cate_list;
+        }
+
         $cate_list = array();
-        $cate_data = $this->field('id,pid,name,fcolor,type')->where('status=1')->order('ordid')->select();
+        $cate_data = $this->field('id,pid,name,fcolor,type,is_index')->where('status=1')->order('ordid')->select();
         foreach ($cate_data as $val) {
             if ($val['pid'] == '0') {
                 $cate_list['p'][$val['id']] = $val;
@@ -100,6 +100,10 @@ class item_cateModel extends Model
      * 读取写入缓存(无层级分类列表)
      */
     public function cate_data_cache() {
+        if (false !== $cate_data = F('cate_data')) {
+          return $cate_data;
+        }
+
         $cate_data = array();
         $result = $this->field('id,pid,spid,name,fcolor,type,seo_title,seo_keys,seo_desc,top')->where('status=1')->order('ordid')->select();
         foreach ($result as $val) {
@@ -113,6 +117,10 @@ class item_cateModel extends Model
      * 分类关系读取写入缓存
      */
     public function relate_cache() {
+        if (false !== $cate_relate = F('cate_relate')) {
+              return $cate_relate;
+          }
+
         $cate_relate = array();
         $cate_data = $this->field('id,pid,spid')->where('status=1')->order('ordid')->select();
         foreach ($cate_data as $val) {

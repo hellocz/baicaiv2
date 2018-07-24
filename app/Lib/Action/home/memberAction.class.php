@@ -320,7 +320,6 @@ class memberAction extends frontendAction {
         }
 
          //用户排名
-        $uid=$user['id'];
         $db_pre = C('DB_PREFIX');
         $mod = M('');
 
@@ -415,7 +414,9 @@ class memberAction extends frontendAction {
         // print_r($user_list); print_r($me_list); exit;
 
         $this->assign('user_list',$user_list);
-        $this->assign('me_list',$me_list);
+        if($user){
+            $this->assign('me_list',$me_list);
+        }
         $this->assign("t",$t);
         $this->assign("period",$period);
         $this->_config_seo(array('title'=>'用户排名'));

@@ -64,9 +64,7 @@ class indexAction extends frontendAction {
 
 
 		//分类数据
-		if (false === $cate_list = F('cate_data')) {
-			$cate_list = D('item_cate')->cate_data_cache();
-		}
+		$cate_list = D('item_cate')->cate_data_cache();
 
 		//首页推荐
 		$item_list = $mod->where("status=1 and add_time between $time_homepage_s and $time_homepage_e".$queryArr['where'])->order($queryArr['order'])->select();

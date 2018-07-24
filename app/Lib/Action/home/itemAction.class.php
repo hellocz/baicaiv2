@@ -190,9 +190,7 @@ class itemAction extends frontendAction {
         }
         
         //当前分类信息
-        if (false === $cate_data = F('cate_data')) {
-            $cate_data = D('item_cate')->cate_data_cache();
-        }
+        $cate_data = D('item_cate')->cate_data_cache();
         if (isset($cate_data[$item['cate_id']])) {
             $cate_info = $cate_data[$item['cate_id']];
         } else {

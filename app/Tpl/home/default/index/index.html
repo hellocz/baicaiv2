@@ -29,9 +29,9 @@
 						<div class="fl">最新优惠</div>
 						<div class="fl top-tab font-14 white-bg">
 							<ul id="i-news-title" class="layui-row">
-								<li class="layui-col-xs5 br font-w-b"><a href="#" class="a-green">首页推荐</a></li>
-								<li class="layui-col-xs5 br"><a href="#">热门优惠</a></li>
-								<li class="layui-col-xs5 br"><a href="#">全网特价</a></li>
+								<li class="layui-col-xs5 br font-w-b"><a href="{:U('list/index', array('type'=>1))}" class="a-green">首页推荐</a></li>
+								<li class="layui-col-xs5 br"><a href="{:U('list/index', array('type'=>2))}">热门优惠</a></li>
+								<li class="layui-col-xs5 br"><a href="{:U('list/index', array('type'=>3))}">全网特价</a></li>
 								<li class="layui-col-xs5 br"><a href="{:U('hour/index')}">小时排行</a></li>
 								<li class="layui-col-xs5"><a href="#">我的关注</a><span class="dot radius-100">{$user['tag_count']}</span></li>
 							</ul>

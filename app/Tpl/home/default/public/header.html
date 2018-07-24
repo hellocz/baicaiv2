@@ -1,19 +1,19 @@
 <div id="header">
 		<div class="w-1200 top clearfix">
 			<div class="fl logo text-center">
-				<a href="http://www.baicaio.com/" id="logo">
+				<a href="/" id="logo">
 					<svg class="icon-logo">
 						<!--[if lte IE 8]><desc><img src="/public/images/ie8/logo_BAI.png" width="127" height="40"></desc><![endif]-->
 						<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-logo_BAI"></use>
 					</svg>
 				</a>
-				<a href="index.html" class="index none fc-white font-14">首页</a>
+				<a href="/" class="index none fc-white font-14">首页</a>
 			</div>
 			<!--导航-->
 			<div class="fl nav-box">
 				<ul>
 					<li>
-						<a href="page/preferential.html" class="nav">优惠<i class="haver-on"></i></a>
+						<a href="#" class="nav">优惠<i class="haver-on"></i></a>
 						<!--优惠下拉菜单内容start-->
 						<div class="triangle_border_up"></div>
 						<div class="sub yh radius-3">
@@ -39,9 +39,9 @@
 											</p>
 											<p class="mt-15 fc-grey font-13" style="line-height: 22px;">每天不可错过的各类神价，白菜价，新 低价，爆款补券，拼的是手速和RP，只 要有需要，就可以无脑入！</p>
 											<p class="mt-15 font-14 font-w-b">
-												<a href="">全部</a>
-												<a href="">海淘</a>
-												<a href="">国内</a>
+												<a href="{:U('list/index', array('type'=>1))}">全部</a>
+												<a href="{:U('list/index', array('type'=>1,'property'=>1))}">海淘</a>
+												<a href="{:U('list/index', array('type'=>1,'property'=>0))}">国内</a>
 											</p>
 										</li>
 										<li class="mr-65">
@@ -54,9 +54,9 @@
 											</p>
 											<p class="mt-15 fc-grey font-13" style="line-height: 22px;">每天不可错过的各类神价，白菜价，新 低价，爆款补券，拼的是手速和RP，只 要有需要，就可以无脑入！</p>
 											<p class="mt-15 font-14 font-w-b">
-												<a href="">全部</a>
-												<a href="">海淘</a>
-												<a href="">国内</a>
+												<a href="{:U('list/index', array('type'=>2))}">全部</a>
+												<a href="{:U('list/index', array('type'=>2,'property'=>1))}">海淘</a>
+												<a href="{:U('list/index', array('type'=>2,'property'=>0))}">国内</a>
 											</p>
 										</li>
 										<li>
@@ -69,9 +69,9 @@
 											</p>
 											<p class="mt-15 fc-grey font-13" style="line-height: 22px;">每天不可错过的各类神价，白菜价，新 低价，爆款补券，拼的是手速和RP，只 要有需要，就可以无脑入！</p>
 											<p class="mt-15 font-14 font-w-b">
-												<a href="">全部</a>
-												<a href="">海淘</a>
-												<a href="">国内</a>
+												<a href="{:U('list/index', array('type'=>3))}">全部</a>
+												<a href="{:U('list/index', array('type'=>3,'property'=>1))}">海淘</a>
+												<a href="{:U('list/index', array('type'=>3,'property'=>0))}">国内</a>
 											</p>
 										</li>
 									</ul>
@@ -94,7 +94,7 @@
 						<!--优惠下拉菜单内容end-->
 					</li>
 					<li>
-						<a href="page/mall.html" class="nav">商场<i class="haver-on"></i></a>
+						<a href="{:U('orig/index')}" class="nav">商场<i class="haver-on"></i></a>
 						<!--商场下拉菜单内容start-->
 						<div class="triangle_border_up"></div>
 						<div class="sub sc radius-3">
@@ -138,13 +138,13 @@
 								<a href="#" class="fl">母婴之家</a>
 								<a href="#" class="fl">Groupon</a>
 								<a href="#" class="fl">Microcenter</a>
-								<a href="#" class="fl fc-green">查看所有商场</a>
+								<a href="{:U('orig/index')}" class="fl fc-green">查看所有商场</a>
 							</div>
 						</div>
 						<!--商场下拉菜单内容end-->
 					</li>
 					<li>
-						<a href="page/category.html" class="nav">分类<i class="haver-on"></i></a>
+						<a href="{:U('category/index')}" class="nav">分类<i class="haver-on"></i></a>
 						<!--分类下拉菜单内容start-->
 						<div class="triangle_border_up"></div>
 						<div class="sub fenlei radius-3">
@@ -159,7 +159,7 @@
 							</div>
 							<div class="fl info">
 								<div class="t-tab clearfix">
-									<a href="#" class="fr font-12 fc-aux-9 more">浏览更多</a>
+									<a href="{:U('category/index')}" class="fr font-12 fc-aux-9 more">浏览更多</a>
 									<span class="fl font-14 mr-20 active">户外</span>
 									<span class="fl font-14 mr-20">精品鞋靴</span>
 									<span class="fl font-14 mr-20">运动装备</span>
@@ -248,13 +248,13 @@
 						<div class="triangle_border_up"></div>
 						<div class="sub gd radius-3">
 							<div class="fl l-tab">
-								<p class="sub-radius-1 active"><a href="#">积分抽奖</a></p>
-								<p><a href="#">积分兑换</a></p>
+								<p class="sub-radius-1 active"><a href="{:U('exchange/lucky')}">积分抽奖</a></p>
+								<p><a href="{:U('exchange/index')}">积分兑换</a></p>
 								<!-- <p><a href="#">合伙人计划</a></p> -->
 							</div>
 							<div class="fl info">
 							<ul class="tab-list jifen clearfix" id="gd-list-1">
-								<div class="clearfix"><a href="#" class="fr font-12 fc-aux-9 more mr-10">浏览更多</a></div>
+								<div class="clearfix"><a href="{:U('exchange/lucky')}" class="fr font-12 fc-aux-9 more mr-10">浏览更多</a></div>
 								<ul class="jf-list mt-5 clearfix">
 									<li>
 										<p class="pic"><img src="/public/images/item/5.jpg" class="lazyimg radius-3" width="186" height="186"><span class="radius-100">第21期</span></p>
@@ -287,7 +287,7 @@
 								</ul>
 							</ul>
 							<ul class="tab-list jifen none clearfix" id="gd-list-2">
-								<div class="clearfix"><a href="#" class="fr font-12 fc-aux-9 more mr-10">浏览更多</a></div>
+								<div class="clearfix"><a href="{:U('exchange/index')}" class="fr font-12 fc-aux-9 more mr-10">浏览更多</a></div>
 								<ul class="jf-list mt-5 clearfix">
 									<li>
 										<p class="pic"><img src="/public/images/item/1.jpg" class="lazyimg radius-3" width="186" height="186"></p>
@@ -370,11 +370,13 @@
 			
 			<!--搜索-->
 			<div class="fl top-search radius-3">
-				<input type="text" placeholder="输入关键词搜索全网优惠" />
-				<svg role="img" class="icon-search">
+				<form action="{:U('search/index')}" method="get">
+				<input type="text" name="q" placeholder="输入关键词搜索全网优惠" />
+				<svg role="img" class="icon-search" onclick="javascript:$(this).parent('form').submit();">
 					<!--[if lte IE 8]><desc><img src="/public/images/ie8/icon_search.png" width="16" height="16"></desc><![endif]-->
 					<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-Shape2"></use>
 				</svg>
+				</form>
 			</div>
 			
 			<!--投稿-->
@@ -494,19 +496,11 @@
 	<div class="w-100 white-bg top-nav">
 		<div class="w-1200 a-grey">
 			<a href="#">9.9人气包邮</a>
-			<a href="#">服饰鞋包</a>
-			<a href="#">家用电器</a>
-			<a href="#">运动户外</a>
-			<a href="#">电脑数码</a>
-			<a href="#">个护化妆</a>
-			<a href="#">母婴玩具</a>
-			<a href="#">日用百货</a>
-			<a href="#">食品保健</a>
-			<a href="#">钟表首饰</a>
-			<a href="#">家居家装</a>
-			<a href="#">图书音像</a>
-			<a href="#">汽车用品</a>
-			<a href="#">旅游出行</a>
-			<a href="#">理财保险</a>
+			<?php $header_cate_list = D('item_cate')->cate_cache();?>
+			<volist name="header_cate_list['p']" id="val">
+			<if condition="$val['is_index'] eq '1'">
+			<a href="{:U('category/cate',array('id'=>$val['id']))}">{$val.name}</a>
+			</if>
+			</volist>
 		</div>
 	</div>

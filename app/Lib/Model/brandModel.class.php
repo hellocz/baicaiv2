@@ -6,9 +6,13 @@ class brandModel extends Model
      */
    public function cate_brand_cache() {
 
+          if (false !== $cate_brand_list = F('cate_brand_list')) {
+            return $cate_brand_list;
+          }
+
           // $brand_map['id']=array('in',$brand_list_ids);
           // $list = M("brand")->field('id,name,chn_name,country,abstract,tb,img')->where($brand_map)->select();
-          $list = M("brand")->field('id,name')->select();
+          $list = $this->field('id,name')->select();
           $brand_list = array();
           if(count($list) > 0){
             foreach ($list as $val) {
@@ -17,9 +21,7 @@ class brandModel extends Model
           }
 
           //分类数据
-          if (false === $cate_data = F('cate_data')) {
-            $cate_data = D('item_cate')->cate_data_cache();
-          }
+          $cate_data = D('item_cate')->cate_data_cache();
 
           //二层category分类信息+一层brand品牌信息
           $cate_brand_list = array();

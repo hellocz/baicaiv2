@@ -15,17 +15,13 @@ class brandAction extends frontendAction {
         $cate_info = "";
         if($cid){
           //分类数据
-          if (false === $cate_data = F('cate_data')) {
-              $cate_data = D('item_cate')->cate_data_cache();
-          }          
+          $cate_data = D('item_cate')->cate_data_cache();        
           //当前分类信息
           if (isset($cate_data[$cid])) {
               $cate_info = $cate_data[$cid];
           }
           //分类关系
-          if (false === $cate_relate = F('cate_relate')) {
-              $cate_relate = D('item_cate')->relate_cache();
-          }
+          $cate_relate = D('item_cate')->relate_cache();
         }
 
         //天猫搜券
@@ -82,9 +78,7 @@ class brandAction extends frontendAction {
         $q = $this->_get('q', 'trim');
 
         //分类品牌数据
-        if (false === $cate_brand_list = F('cate_brand_list')) {
-          $cate_brand_list = D('brand')->cate_brand_cache();
-        }
+        $cate_brand_list = D('brand')->cate_brand_cache();
 
         //过滤关键词，过滤空的category分类
         if(!empty($q)){
@@ -132,9 +126,7 @@ class brandAction extends frontendAction {
         $q = $this->_get('q', 'trim');  //搜索关键字
 
         //分类品牌数据
-        if (false === $cate_brand_list = F('cate_brand_list')) {
-          $cate_brand_list = D('brand')->cate_brand_cache();
-        }
+        $cate_brand_list = D('brand')->cate_brand_cache();
 
         //过滤分类
         $cate_brand_list_filter = array();
