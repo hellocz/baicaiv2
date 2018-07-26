@@ -143,13 +143,13 @@ input:-webkit-autofill , textarea:-webkit-autofill, select:-webkit-autofill {
 	background: url(../images/svg_sprite/icon_sprite_login_1.png) no-repeat;
 	color: #33CC99;
 }
-.box .content .thirdLogin .wx,.box .content .thirdLogin .wx:hover{
+.box .content .thirdLogin .wechat,.box .content .thirdLogin .wechat:hover{
 	background-position: 0 0;
 }
 .box .content .thirdLogin .qq,.box .content .thirdLogin .qq:hover{
 	background-position: 0 -24px;
 }
-.box .content .thirdLogin .wb,.box .content .thirdLogin .wb:hover{
+.box .content .thirdLogin .sina,.box .content .thirdLogin .sina:hover{
 	background-position: 0 -48px;
 }
 

@@ -31,7 +31,7 @@
 					<div class="fl content">
 						<div class="font-24">{$item.title}</div>
 						<div class="font-14 fc-aux-9 mt-20">兑换进度<span class="fc-red ml-20">{$item.buy_num}/{$item['buy_num']+$item['stock']}</span></div>
-						<div class="font-14 fc-aux-9 mt-10">参与条件<span class="fc-grey ml-20"><if condition="$item['coin'] gt 0">{$item.coin}金币/次，</if><if condition="$item['score'] gt 0">{$item.score}积分/次，</if><if condition="$item['user_num'] gt 0">每人每期限{$item['user_num']}次<else/>每人每期不限次数</if></span></div>
+						<div class="font-14 fc-aux-9 mt-10">参与条件<span class="fc-grey ml-20"><if condition="$item['coin'] gt 0">{$item.coin}金币/次，</if><if condition="$item['score'] gt 0">{$item.score}积分/次，</if><if condition="$item['user_num'] gt 0">每人限兑换{$item['user_num']}次<else/>每人每期不限次数</if></span></div>
 						<div class="cysl mt-10 clearfix">
 							<label class="fc-aux-9 font-14 mr-20" style="line-height: 35px;">参与数量</label>
 							<input id="min" name="" type="button" value="-" class="button" />

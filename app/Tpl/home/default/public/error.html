@@ -53,9 +53,22 @@
     <!--底部统一区域+右边悬浮按钮end-->
 
 <script type="text/javascript">    
-        $(function () {
-            setTimeout(ChangeTime, {$waitSecond}*1000);
-        });
+ //10秒后自动跳转
+function ChangeTime() {
+    var time;
+    time = $("#time").text();
+    time = parseInt(time);
+    time--;
+    if(time <= 0) {
+        window.location.href = "{$jumpUrl}";
+    } else {
+        $("#time").text(time);
+        setTimeout(ChangeTime, 1000);
+    }
+}
+$(function () {
+    setTimeout(ChangeTime, {$waitSecond}*1000);
+});
 </script>    
 </body>
 </html>

@@ -41,7 +41,7 @@ class default_passport
         return array(
             'username' => $username,
             'password' => $password,
-            'email' => $email,
+            // 'email' => $email,
             'gender' => $gender,
             'mobile' => $mobile
         );
@@ -88,9 +88,9 @@ class default_passport
      */
     public function auth($username, $password) {
         //$uid = M('user')->where(array('username'=>$username, 'password'=>md5($password)))->getField('id');
-		$user = M('user')->where(array('username'=>$username,'email'=>$username,'_logic'=>'OR'))->field('id,password')->find();//查找用户
-		$wp_hasher = new PasswordHash(8, TRUE); //验证加密
-		$sok = $wp_hasher->CheckPassword($password,$user['password']);
+        $user = M('user')->where(array('username'=>$username,'email'=>$username,'mobile'=>$username,'_logic'=>'OR'))->field('id,password')->find();//查找用户
+        $wp_hasher = new PasswordHash(8, TRUE); //验证加密
+        $sok = $wp_hasher->CheckPassword($password,$user['password']);
         if ($user['id']&&$sok){
             return $user['id'];
         } else {

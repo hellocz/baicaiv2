@@ -63,4 +63,13 @@ class userModel extends Model
             return false;
         }
     }
+
+    /**
+     * 用户信息
+     */
+    public function get_user($where, $field = '') {
+        if(!$where) return false;        
+        $user = $this->field($field)->where($where)->find();
+        return $user;
+    }
 }

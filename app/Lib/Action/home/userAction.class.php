@@ -2,7 +2,11 @@
 
 class userAction extends userbaseAction {
 
-	public function index(){
+        public function _initialize(){
+            parent::_initialize();
+            $this->mod = D('user');
+        }
+        public function index(){
 		!$this->visitor->is_login && $this->redirect('index/index');
 		$type = $this->_get('type','trim');
 		$info = $this->visitor->get();
@@ -87,6 +91,7 @@ class userAction extends userbaseAction {
      * 用户登陆
      */
     public function login() {
+        $this->visitor->is_login && IS_AJAX && $this->ajaxReturn(0, '已登录');
         $this->visitor->is_login && $this->redirect('user/index');
         if (IS_POST) {
             //封IP start
@@ -94,27 +99,67 @@ class userAction extends userbaseAction {
             $kill_ip = explode("\n",$kill_ip);
             $myip = get_client_ip();
             if(in_array($myip,$kill_ip)){
-            	$this->error('您的账户已被禁用');
+                IS_AJAX && $this->ajaxReturn(0, '您的账户已被禁用');
+                $this->error('您的账户已被禁用');
             }
             //封IP end
-            $username = $this->_post('username', 'trim');
-            $password = $this->_post('password', 'trim');
-            $remember = $this->_post('remember');
-            if (empty($username)) {
-                IS_AJAX && $this->ajaxReturn(0, L('please_input').L('password'));
-                $this->error(L('please_input').L('username'));
-            }
-            if (empty($password)) {
-                IS_AJAX && $this->ajaxReturn(0, L('please_input').L('password'));
-                $this->error(L('please_input').L('password'));
-            }
+
             //连接用户中心
             $passport = $this->_user_server();
-            $uid = $passport->auth($username, $password);
-            if (!$uid) {
-                IS_AJAX && $this->ajaxReturn(0, $passport->get_error());
-                $this->error($passport->get_error());
+
+            // echo "<pre>";print_r($_POST);print_r($_SESSION);echo "</pre>";exit;
+
+            $type = $this->_post('type', 'trim');
+            if ($type == 'mobile') {
+                $mobile = $this->_post('mobile','trim');
+                $verify_code = $this->_post('phone_verify', 'trim');
+                $remember = '';
+                if (empty($mobile)) {
+                    IS_AJAX && $this->ajaxReturn(0, L('please_input')."手机号码");
+                    $this->error(L('please_input')."手机号码");
+                }
+                if (empty($verify_code)) {
+                    IS_AJAX && $this->ajaxReturn(0, L('please_input')."手机验证码");
+                    $this->error(L('please_input')."手机验证码");
+                }
+                if(!isset($_SESSION['phone_verify_'.md5($mobile)])){
+                    IS_AJAX && $this->ajaxReturn(0, '手机验证码未发送或已过期');
+                    $this->error('手机验证码未发送或已过期');
+                }
+                else if(session('phone_verify_'.md5($mobile)) != md5($verify_code)){
+                    IS_AJAX && $this->ajaxReturn(0, '手机验证码错误');
+                    $this->error("手机验证码错误");
+                }
+                session('phone_verify_'.md5($mobile), NULL);
+
+                $user = $this->mod->get_user("mobile='".$mobile."'");
+                $uid = isset($user['id']) ? $user['id'] : '';
+                $username = isset($user['username']) ? $user['username'] : '';
+                if (!$uid) {
+                    IS_AJAX && $this->ajaxReturn(0, L('user_not_exists'));
+                    $this->error(L('user_not_exists'));
+                }
             }
+            else{
+                $username = $this->_post('username', 'trim');
+                $password = $this->_post('password', 'trim');
+                $remember = $this->_post('remember');
+                if (empty($username)) {
+                    IS_AJAX && $this->ajaxReturn(0, L('please_input').L('password'));
+                    $this->error(L('please_input').L('username'));
+                }
+                if (empty($password)) {
+                    IS_AJAX && $this->ajaxReturn(0, L('please_input').L('password'));
+                    $this->error(L('please_input').L('password'));
+                }
+
+                $uid = $passport->auth($username, $password);
+                if (!$uid) {
+                    IS_AJAX && $this->ajaxReturn(0, $passport->get_error());
+                    $this->error($passport->get_error());
+                }
+            }
+
             //登陆
             $this->visitor->login($uid, $remember);
             //登陆完成钩子
@@ -141,7 +186,9 @@ class userAction extends userbaseAction {
             }
 
             if (IS_AJAX) {
-                $this->ajaxReturn(1, L('login_successe').$synlogin);
+                // $this->assign('visitor', $this->visitor->info);
+                // $resp = $this->fetch('public:top_visitor');
+                $this->ajaxReturn(1, L('login_successe').$synlogin,$resp);
             } else {
                 //跳转到登陆前页面（执行同步操作）
                 $ret_url = $this->_post('ret_url', 'trim');
@@ -205,18 +252,27 @@ class userAction extends userbaseAction {
     * 用户注册
     */
     public function register() {
+        $this->visitor->is_login && IS_AJAX && $this->ajaxReturn(0, '已登录');
         $this->visitor->is_login && $this->redirect('user/index');
+
+        //关闭注册
+        if (!C('pin_reg_status')) {
+            IS_AJAX && $this->ajaxReturn(0, C('pin_reg_closed_reason'));
+            $this->error(C('pin_reg_closed_reason'));
+        }
+
         if (IS_POST) {
             //封IP start
             $kill_ip=C('pin_kill_ip');
             $kill_ip = explode("\n",$kill_ip);
             $myip = get_client_ip();
             if(in_array($myip,$kill_ip)){
+                IS_AJAX && $this->ajaxReturn(0, '您的IP已被禁用');
                 $this->error('您的IP已被禁用');
             }
             //封IP end
             //方式
-            $type = $this->_post('type', 'trim', 'reg');
+            // $type = $this->_post('type', 'trim', 'reg');
             // if ($type == 'reg') {
             //     //验证
             //     $agreement = $this->_post('agreement');
@@ -231,13 +287,16 @@ class userAction extends userbaseAction {
             $mobile = $this->_post('mobile','trim');
             $verify_code = $this->_post('phone_verify', 'trim');
             if(!isset($_SESSION['phone_verify_'.md5($mobile)])){
-                $this->error('验证码未发送');
+                IS_AJAX && $this->ajaxReturn(0, '手机验证码未发送或已过期');
+                $this->error('手机验证码未发送或已过期');
             }
             else if(session('phone_verify_'.md5($mobile)) != md5($verify_code)){
+                IS_AJAX && $this->ajaxReturn(0, L('verify_code_error'));
                 $this->error(L('verify_code_error'));
             }
+            session('phone_verify_'.md5($mobile), NULL);
             $username = $this->_post('username', 'trim');
-            $email = $this->_post('email','trim');
+            // $email = $this->_post('email','trim');
             $password = $this->_post('password', 'trim');
             // $repassword = $this->_post('repassword', 'trim');
             // if ($password != $repassword) {
@@ -249,11 +308,13 @@ class userAction extends userbaseAction {
             $ipban_mod->clear(); //清除过期数据
             // $is_ban = $ipban_mod->where("(type='name' AND name='".$username."') OR (type='email' AND name='".$email."')")->count();
             $is_ban = $ipban_mod->where("(type='name' AND name='".$username."')")->count();
+            $is_ban && IS_AJAX && $this->ajaxReturn(0, L('register_ban'));
             $is_ban && $this->error(L('register_ban'));
             //连接用户中心
             $passport = $this->_user_server();
             //注册
-            $uid = $passport->register($username, $password, $email, $gender, $mobile);
+            $uid = $passport->register($username, $password, '', $gender, $mobile);
+            !$uid && IS_AJAX && $this->ajaxReturn(0, $passport->get_error());
             !$uid && $this->error($passport->get_error());
             //是否通过朋友分享注册的
             if(trim($_SESSION['tg'])!=''){
@@ -295,14 +356,85 @@ class userAction extends userbaseAction {
             tag('login_end', $tag_arg);
             //同步登陆
             $synlogin = $passport->synlogin($uid);
-            $this->success(L('register_successe').$synlogin, U('user/index'));
-        } else {
-            //关闭注册
-            if (!C('pin_reg_status')) {
-                $this->error(C('pin_reg_closed_reason'));
+
+            if (IS_AJAX) {
+                $this->ajaxReturn(1, L('register_successe').$synlogin);
+            } else {
+                $this->success(L('register_successe').$synlogin, U('user/index'));
             }
+        } else {
             $this->assign("page_seo",set_seo('用户注册'));
             $this->display();
+        }
+    }
+
+
+    /**
+    * 找回密码
+    */
+    public function findpwd() {
+        $this->visitor->is_login && $this->redirect('user/index');
+        $this->_config_seo();
+        $this->display();
+    }
+
+    /**
+     * 重置密码
+     */
+    public function resetpwd() {
+        $this->visitor->is_login && $this->redirect('user/index');
+
+        if (IS_POST && isset($_SESSION['mobile'])) {
+            $password   = $this->_post('password','trim');
+            $repassword = $this->_post('repassword','trim');
+            !$password && $this->error(L('no_new_password'));
+            $password != $repassword && $this->error(L('inconsistent_password'));
+            $passlen = strlen($password);
+            if ($passlen < 6 || $passlen > 20) {
+                $this->error('password_length_error');
+            }
+
+            $mobile = $_SESSION['mobile'];
+            $user = $this->mod->get_user("mobile='".$mobile."'");
+            !$user && $this->error(L('user_not_exists'));
+            session('mobile', NULL);
+
+            //连接用户中心
+            $passport = $this->_user_server();
+            $result = $passport->edit($user['id'], '', array('password'=>$password), true);
+            if (!$result) {
+                $this->error($passport->get_error());
+            }
+            $this->success(L('reset_password_success'), U('user/login'));
+        } else if (IS_POST) {
+            $mobile = $this->_post('mobile','trim');
+            !$mobile && $this->error("手机号码不能为空");
+
+            //手机验证码
+            $verify_code = $this->_post('phone_verify', 'trim');
+            if(!isset($_SESSION['phone_verify_'.md5($mobile)])){
+                $this->error('手机验证码未发送或已过期');
+            }
+            else if(session('phone_verify_'.md5($mobile)) != md5($verify_code)){
+                $this->error(L('verify_code_error'));
+            }
+            session('phone_verify_'.md5($mobile), NULL);
+
+            // 图片验证码
+            $captcha = $this->_post('captcha', 'trim');
+            if(session('captcha') != md5($captcha)){
+                $this->error(L('captcha_failed'));
+            }
+            session('captcha', NULL);
+
+            $user = $this->mod->get_user("mobile='".$mobile."'");
+            !$user && $this->error(L('user_not_exists'));
+            $_SESSION['mobile'] = $mobile;
+
+            $this->_config_seo();
+            $this->display();
+        }else{
+            $this->redirect('user/findpwd');
         }
     }
 
@@ -376,11 +508,12 @@ class userAction extends userbaseAction {
             $verify_code = $this->_post('phone_verify', 'trim');
             $mobile=$this->_post('mobile','trim');
             if(!isset($_SESSION['phone_verify_'.md5($mobile)])){
-                $this->error('验证码未发送');
+                $this->error('手机验证码未发送或已过期');
             }
             else if(session('phone_verify_'.md5($mobile)) != md5($verify_code)){
                 $this->error(L('verify_code_error'));
             }
+            session('phone_verify_'.md5($mobile), NULL);
             $data['mobile']=$mobile;
             if (false !== M('user')->where(array('id'=>$this->visitor->info['id']))->save($data)) {
                 $msg = array('status'=>1, 'info'=>L('edit_success'));
@@ -649,17 +782,17 @@ class userAction extends userbaseAction {
         $user_mod = D('user');
         switch ($type) {
             case 'email':
-                $email = $this->_get('J_email', 'trim');
+                $email = $this->_get('email', 'trim');
                 $user_mod->email_exists($email) ? $this->ajaxReturn(0) : $this->ajaxReturn(1);
                 break;
 
             case 'username':
-                $username = $this->_get('J_username', 'trim');
+                $username = $this->_get('username', 'trim');
                 $user_mod->name_exists($username) ? $this->ajaxReturn(0) : $this->ajaxReturn(1);
                 break;
 
             case 'mobile':
-                $mobile = $this->_get('J_mobile', 'trim');
+                $mobile = $this->_get('mobile', 'trim');
                 $user_mod->mobile_exists($mobile) ? $this->ajaxReturn(0) : $this->ajaxReturn(1);
                 break;
         }

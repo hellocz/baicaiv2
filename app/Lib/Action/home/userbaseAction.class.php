@@ -9,7 +9,7 @@ class userbaseAction extends frontendAction {
     public function _initialize(){
         parent::_initialize();
         //访问者控制
-        if (!$this->visitor->is_login && !in_array(ACTION_NAME, array('login', 'register', 'phone_send', 'binding','bind_exist', 'ajax_check'))) {
+        if (!$this->visitor->is_login && !in_array(ACTION_NAME, array('login', 'register', 'phone_send', 'findpwd', 'resetpwd', 'binding','bind_exist', 'ajax_check'))) {
             IS_AJAX && $this->ajaxReturn(0, L('login_please'));
             $this->redirect('user/login');
         }

@@ -476,7 +476,7 @@ $(function(){
 // 	}
 
 //弹出登录层
-function LoginPopup(type){
+function LoginPopup111(type){
 	var isLogin = "";
 	var isReg = "none"
 	if(type==1){
@@ -493,7 +493,7 @@ function LoginPopup(type){
 		skin: 'loginPopup',
 		area: '430px',
 		content: '<div class="loginBox '+ isLogin +'">'+
-					'<form id="J_dlogin_form" action="/index.php?g=ab&m=user&a=login" method="post">'+
+					'<form id="J_dlogin_form" action="/index.php?m=user&a=login" method="post">'+
 				 	'<div class="text-center">'+
 				 		'<p class="font-36">欢迎回来</p>'+
 				 		'<p class="font-16 fc-aux-a mt-8">登录账户开启更多功能</p>'+

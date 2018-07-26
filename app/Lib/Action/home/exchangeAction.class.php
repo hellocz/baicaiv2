@@ -129,20 +129,11 @@ class exchangeAction extends frontendAction {
         if($p<1){$p=1;}
         if($pagesize<1){$pagesize=8;}
 
-        $score_item = M('score_item');
-        switch ($t) {
-            case 'lucky':
-                $where = array('status'=>'1', 'cate_id' => 8, 'win' => '');
-                break;
-            case 'lucky_expired':
-                $where = array('status'=>'1', 'cate_id' => 8, 'win' => array('NEQ',''));
-                break;
-            default:
-                $where = array('status'=>'1', 'cate_id' => array('NEQ','8'));
-                break;
-        }
-        $sort_order = 'sign_date DESC,id DESC';
-        $item_list = $score_item->where($where)->order($sort_order)->limit($pagesize*($p-1) . ',' . $pagesize)->select();
+        $score_item = D('score_item');
+        $order = 'sign_date DESC,id DESC';
+        $limit = $pagesize*($p-1) . ',' . $pagesize;
+        $item_list = $score_item->score_item_list($t, $limit, $order);
+
         // 中奖用户ID 
         if($t == 'lucky_expired' && count($item_list)>0){
             foreach ($item_list as $key => $val) {
@@ -218,10 +209,11 @@ class exchangeAction extends frontendAction {
      * 页面右边-最新中奖名单（积分抽奖、积分抽奖详情页）
      */
     public function right_lucky_item(){
-        $score_item = M('score_item');
-        $where = array('status'=>'1', 'cate_id' => 8, 'win' => array('NEQ',''));
+        $score_item = D('score_item');
+        $limit = 10;
         $sort_order = 'sign_date DESC,id DESC';
-        $item_list = $score_item->where($where)->order($sort_order)->limit(10)->select();
+        $item_list = $score_item->score_item_list('lucky_expired');
+
         $this->assign('right_lucky_item_list', $item_list);
     }
 

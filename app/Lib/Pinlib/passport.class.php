@@ -29,7 +29,7 @@ class passport
         if (!$add_data = $this->_us->register($username, $password, $email, $gender, $mobile)) {
             $this->_error = $this->_us->get_error();
             return false;
-        }print_r($add_data);exit;
+        }
         //添加到本地
         return $this->_local_add($add_data);
     }

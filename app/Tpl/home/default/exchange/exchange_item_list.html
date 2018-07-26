@@ -7,7 +7,7 @@
 							<div class="content">
 								<div class="c-title font-14">{$item.title}</div>
 								<div class="fc-aux-9 mt-8">已领{$item.buy_num}件，剩余<span class="fc-red">{$item.stock}</span>件</div>
-								<div class="fc-aux-9 mt-8">积分{$item.score}，金币{$item.coin}</div>
+								<div class="fc-aux-9 mt-8"><if condition="$item['coin'] gt 0">积分{$item.score}，</if><if condition="$item['score'] gt 0">金币{$item.coin}</if></div>
 								<div class="mt-15"><a href="{:U('exchange/detail', array('id'=>$item['id']))}" class="button radius-3">立即兑换</a></div>
 							</div>
 						</li>

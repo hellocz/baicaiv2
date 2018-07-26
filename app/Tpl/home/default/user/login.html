@@ -30,31 +30,37 @@
 					<p class="font-36">欢迎回来</p>
 					<p class="fc-aux-a font-16 mt-6">登录账户开启更多功能</p>
 				</div>
-				<form id="J_login_form" action="{:U('user/login')}" method="post">
+				<form id="J_login_form1" action="{:U('user/login')}" method="post">
 				<div class="mt-40" id="type1">
-					<div class="input input1 radius-3"><input type="text" placeholder="用户名/手机号/邮箱" id="username" name="username" autocomplete="off"></div>
-					<div class="input input2 radius-3 mt-14"><input type="password" placeholder="登录密码" id="password" name="password" autocomplete="off"></div>
+					<div class="input input1 radius-3"><input type="text" placeholder="用户名/手机号/邮箱" id="username1" name="username" autocomplete="off"></div>
+					<div class="input input2 radius-3 mt-14"><input type="password" placeholder="登录密码" id="password1" name="password" autocomplete="off"></div>
 					<div class="clearfix mt-15 font-13 fc-gray">
 						<div class="fl"><label class="checkBox"><input type="checkbox" name="remember"><span></span>记住密码</label></div>
-						<div class="fr"><a href="{:U('findpwd/index')}">忘记密码?</a></div>
+						<div class="fr"><a href="{:U('user/findpwd')}">忘记密码?</a></div>
 					</div>
-					<div class="mt-24"><button type="submit" class="button btn-3 cursor-pointer" id="submit1">登录</button></div>
+					<div class="mt-24"><button type="submit" class="button btn-3 cursor-pointer" id="J_login_btn1">登录</button></div>
 					<div class="mt-32 text-center fc-green font-14 cursor-pointer" onclick="changeType(2)">手机快捷登录</div>
 					<div class="thirdLogin">
 						<volist name="oauth_list" id="val">
-						<a href="{:U('oauth/index', array('mod'=>$val['code']))}" class="wb mr-15 {$val.code}">{$val.name}</a>
+						<a href="{:U('oauth/index', array('mod'=>$val['code']))}" class="{$val['code']} mr-15">{$val.name}</a>
 						</volist>
-						<!-- <a href="#" class="qq mr-15">QQ登录</a><a href="#" class="wb">微博登录</a> -->
 					</div>
 				</div>
 				</form>
+				<form id="J_login_form2" action="{:U('user/login')}" method="post">
 				<div class="mt-40 none" id="type2">
-					<div class="input input3 radius-3 mobile"><input type="text" placeholder="手机号码" maxlength="11" id="mobile" name="mobile" autocomplete="off"><input type="button" class="yzm" onclick="settime(this)" value="获取验证码"></div>
-					<div class="input input4 radius-3 mt-14"><input type="password" placeholder="手机验证码" id="yzm" name="yzm" autocomplete="off"></div>
-					<div class="mt-24"><button type="submit" class="button btn-3 cursor-pointer" id="submit2">登录</button></div>
+					<div class="input input3 radius-3 mobile"><input type="text" placeholder="手机号码" maxlength="11" id="mobile2" name="mobile" autocomplete="off"><input type="button" class="yzm" onclick="javascript: if(phoneSend('mobile2')) settime(this);" value="获取验证码"></div>
+					<div class="input input4 radius-3 mt-14"><input type="text" placeholder="手机验证码" id="phone_verify2" name="phone_verify" autocomplete="off"></div>
+					<div class="mt-24"><button type="submit" class="button btn-3 cursor-pointer" id="J_login_btn2">登录</button></div>
 					<div class="mt-32 text-center fc-green font-14 cursor-pointer" onclick="changeType(1)">用户名密码登录</div>
-					<div class="thirdLogin"><a href="#" class="wx mr-15">微信登录</a><a href="#" class="qq mr-15">QQ登录</a><a href="#" class="wb">微博登录</a></div>
+					<div class="thirdLogin">
+						<volist name="oauth_list" id="val">
+						<a href="{:U('oauth/index', array('mod'=>$val['code']))}" class="{$val['code']} mr-15">{$val.name}</a>
+						</volist>
+					</div>
+					<input type="hidden" name="type" value="mobile">
 				</div>
+				</form>
 			</div>
 			<!--登录end-->
 		</div>
@@ -69,60 +75,6 @@
 	</div>
 	<!--引入layui JS文件-->
 	<script src="/public/js/lib/layui/layui.js"></script>
-	<script>
-		layui.use('layer', function(){
-			var layer = layui.layer;
-		});
-		
-		//用户名密码登录表单验证
-		$("#submit1").on('click', function(){
-			var username = $("#username").val();
-			var password = $("#password").val();
-			
-			if(username.length == 0){
-				layer.tips('用户名/手机号/邮箱不能为空', '.input1',{
-					tips: [2, '#33CC99'],
-					time: 2000
-				});
-				return false;
-			}else if(password.length == 0){
-				layer.tips('密码不能为空', '.input2',{
-					tips: [2, '#33CC99'],
-					time: 2000
-				});
-				return false;
-			}
-		});
-		
-		//手机验证码登录表单验证
-		$("#submit2").on('click', function(){
-			var mobile = $("#mobile").val();
-			var yzm = $("#yzm").val();
-			
-			if(mobile.length == 0){
-				layer.tips('手机号不能为空', '.input3',{
-					tips: [2, '#33CC99'],
-					time: 2000
-				});
-				return false;
-			}else if(yzm.length == 0){
-				layer.tips('验证码不能为空', '.input4',{
-					tips: [2, '#33CC99'],
-					time: 2000
-				});
-				return false;
-			}
-		});
-		
-		function changeType(type){
-			if(type==1){
-				$("#type1").show();
-				$("#type2").hide();
-			}else if(type==2){
-				$("#type1").hide();
-				$("#type2").show();
-			}
-		}
-	</script>
+	<script src="/public/js/page/user.js"></script>
 </body>
 </html>

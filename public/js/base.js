@@ -354,92 +354,66 @@ function ChangeTime() {
 
 //弹出登录层
 function LoginPopup(type){
-	var isLogin = "";
-	var isReg = "none"
-	if(type==1){
-		isLogin = "none";
-		isReg = "";
-	}
-	layer.open({
-		type: 1,
-		title: false,
-		closeBtn: 1,
-		shadeClose: false,
-		shade:0.7,
-		anim:2,
-		skin: 'loginPopup',
-		area: '430px',
-		content: '<div class="loginBox '+ isLogin +'">'+
-				 	'<div class="text-center">'+
-				 		'<p class="font-36">欢迎回来</p>'+
-				 		'<p class="font-16 fc-aux-a mt-8">登录账户开启更多功能</p>'+
-				 	'</div>'+
-				 	'<div class="mt-40"><input type="text" placeholder="用户名/手机号/邮箱" class="input-3 loginInput input1"></div>'+
-				 	'<div class="mt-15"><input type="password" placeholder="登录密码" class="input-3 loginInput input2"></div>'+
-				 	'<div class="clearfix mt-15 font-13 fc-gray">'+
-				 		'<div class="fl"><label class="checkBox"><input type="checkbox"><span></span>记住密码</label></div>'+
-				 		'<div class="fr"><a href="./page/retrievePassword.html">忘记密码?</a></div>'+
-				 	'</div>'+
-				 	'<div class="button btn-3 cursor-pointer mt-24">登录</div>'+
-				 	'<div class="font-14 mt-32 text-center"><span class="fc-green loginType cursor-pointer">手机快捷登录</span> or 没有账户？<span class="fc-green cursor-pointer registeredButton">注册</span></div>'+
-					'<div class="thirdLogin"><a href="#" class="wx mr-15">微信登录</a><a href="#" class="qq mr-15">QQ登录</a><a href="#" class="wb">微博登录</a></div>'+
-				 '</div>'+
-				 '<div class="mobileBox none">'+
-				 	'<div class="text-center">'+
-				 		'<p class="font-36">欢迎回来</p>'+
-				 		'<p class="font-16 fc-aux-a mt-8">登录账户开启更多功能</p>'+
-				 	'</div>'+
-				 	'<div class="mt-40 mobile"><input type="text" placeholder="手机号码" maxlength="11" class="input-3 loginInput input3"><input type="button" class="yzm" onclick="settime(this)" value="获取验证码"></div>'+
-				 	'<div class="mt-15"><input type="text" placeholder="手机验证码" maxlength="6" class="input-3 loginInput input4"></div>'+
-				 	'<div class="button btn-3 cursor-pointer mt-24">登录</div>'+
-				 	'<div class="font-14 mt-32 text-center"><span class="fc-green loginType cursor-pointer">用户名密码登录</span> or 没有账户？<span class="fc-green cursor-pointer registeredButton">注册</span></div>'+
-					'<div class="thirdLogin"><a href="#" class="wx mr-15">微信登录</a><a href="#" class="qq mr-15">QQ登录</a><a href="#" class="wb">微博登录</a></div>'+
-				 '</div>'+
-				 '<div class="registeredBox '+ isReg +'">'+
-				 	'<div class="text-center">'+
-				 		'<p class="font-36">创建账户</p>'+
-				 		'<p class="font-16 fc-aux-a mt-8">做一个精明的消费者</p>'+
-				 	'</div>'+
-				 	'<div class="mt-40 mobile"><input type="text" placeholder="手机号码" maxlength="11" class="input-3 loginInput input3"><input type="button" class="yzm" onclick="settime(this)" value="获取验证码"></div>'+
-				 	'<div class="mt-15"><input type="text" placeholder="手机验证码" maxlength="6" class="input-3 loginInput input4"></div>'+
-				 	'<div class="mt-15"><input type="text" placeholder="用户名" class="input-3 loginInput input1"></div>'+
-				 	'<div class="mt-15"><input type="password" placeholder="设置登录密码" class="input-3 loginInput input2"></div>'+
-				 	'<div class="button btn-3 cursor-pointer mt-24">创建账户</div>'+
-				 	'<div class="mt-5 fc-aux-9">尊敬的用户，点击创建账户按钮即说明您已阅读并同意白菜哦<span class="fc-green">《用户服务协议》</span>以及<span class="fc-green">《隐私条款》</span></div>'+
-				 	'<div class="font-14 mt-20 text-center">已有账号？<span class="fc-green cursor-pointer loginButton">登录</span></div>'+
-				 '</div>'
-	});
-	$(".loginPopup .loginType").click(function(){
-		if($(".loginPopup .loginBox").is(":hidden")){
-			$(".loginPopup .loginBox").show();
-			$(".loginPopup .mobileBox").hide();
-		}else{
-			$(".loginPopup .loginBox").hide();
-			$(".loginPopup .mobileBox").show();
+
+	$.get("index.php?m=user&a=login",function(res){
+
+		if(res.status == 0){
+			//已登录
+			window.location.reload();
 		}
-	});
-	
-	$(".loginPopup .registeredButton").click(function(){
-		$(".loginPopup .loginBox").hide();
-		$(".loginPopup .mobileBox").hide();
-		$(".loginPopup .registeredBox").show();
-	});
-	
-	$(".loginPopup .loginButton").click(function(){
-		$(".loginPopup .loginBox").show();
-		$(".loginPopup .mobileBox").hide();
-		$(".loginPopup .registeredBox").hide();
-	});
+		else
+		{
+			layer.open({
+				type: 1,
+				title: false,
+				closeBtn: 1,
+				shadeClose: false,
+				shade:0.7,
+				anim:2,
+				skin: 'loginPopup',
+				area: '430px',
+				content: res.data
+			});
+
+			$(".loginPopup .loginType").click(function(){
+				if($(".loginPopup .loginBox").is(":hidden")){
+					$(".loginPopup .loginBox").show();
+					$(".loginPopup .mobileBox").hide();
+				}else{
+					$(".loginPopup .loginBox").hide();
+					$(".loginPopup .mobileBox").show();
+				}
+			});
+			
+			$(".loginPopup .registeredButton").click(function(){
+				$(".loginPopup .loginBox").hide();
+				$(".loginPopup .mobileBox").hide();
+				$(".loginPopup .registeredBox").show();
+			});
+			
+			$(".loginPopup .loginButton").click(function(){
+				$(".loginPopup .loginBox").show();
+				$(".loginPopup .mobileBox").hide();
+				$(".loginPopup .registeredBox").hide();
+			});
+			
+			if(type==1){
+				$(".loginPopup .registeredButton").click();
+			}
+		}
+
+	},'json');
+
 }
 
-var countdown = 3;
+var countdown = 60;
 
 function settime(val){
 	if (countdown == 0) {  
 		val.removeAttribute("disabled");
 		$(val).css("color","#33CC99")
 		val.value="获取验证码";
-		countdown = 3;
+		countdown = 60;
 	} else {
 		val.setAttribute("disabled", true);
 		$(val).css("color","#CCCCCC")
