@@ -98,46 +98,18 @@
 						<!--商场下拉菜单内容start-->
 						<div class="triangle_border_up"></div>
 						<div class="sub sc radius-3">
+							<?php
+								$header_hot_orig_list = D("item_orig")->hot_orig_cache();
+							?>
 							<div class="tb clearfix">
-								<a href="#" class="fl"><img src="/public/images/mall/mall_1.png"><br>国美</a>
-								<a href="#" class="fl"><img src="/public/images/mall/mall_2.jpg"><br>亚马逊</a>
-								<a href="#" class="fl"><img src="/public/images/mall/mall_3.png"><br>唯品会</a>
-								<a href="#" class="fl"><img src="/public/images/mall/mall_4.png"><br>聚美优品</a>
-								<a href="#" class="fl"><img src="/public/images/mall/mall_5.png"><br>1号店</a>
-								<a href="#" class="fl"><img src="/public/images/mall/mall_6.png"><br>京东</a>
-								<a href="#" class="fl"><img src="/public/images/mall/mall_7.png"><br>淘宝</a>
-								<a href="#" class="fl"><img src="/public/images/mall/mall_8.png"><br>苏宁易购</a>
+								<volist name="header_hot_orig_list" id="item" offset="0" length="8">
+								<a href="{:U('orig/show',array('id'=>$item['id']))}" title="{$item.name}" class="fl"><img src="<if condition="$item['img']">{:attach($item['img'],'item_orig')}<else/>/images/nopic.jpg</if>" title="{$item.name}" alt="{$item.name}"><br>{$item.name}</a>
+								</volist>
 							</div>
 							<div class="wz clearfix font-14">
-								<a href="#" class="fl">梦露时尚</a>
-								<a href="#" class="fl">Ebay</a>
-								<a href="#" class="fl">Busytrade</a>
-								<a href="#" class="fl">UA Shop</a>
-								<a href="#" class="fl">Haute Hijab</a>
-								<a href="#" class="fl">Groupon</a>
-								<a href="#" class="fl">Newegg</a>
-								<a href="#" class="fl">Globalsources</a>
-								<a href="#" class="fl">Alibaba</a>
-								<a href="#" class="fl">Zappos</a>
-								<a href="#" class="fl">Quidsi</a>
-								<a href="#" class="fl">Ebay</a>
-								<a href="#" class="fl">梦露时尚</a>
-								<a href="#" class="fl">Ebay</a>
-								<a href="#" class="fl">Busytrade</a>
-								<a href="#" class="fl">UA Shop</a>
-								<a href="#" class="fl">Haute Hijab</a>
-								<a href="#" class="fl">Groupon</a>
-								<a href="#" class="fl">Newegg</a>
-								<a href="#" class="fl">Globalsources</a>
-								<a href="#" class="fl">Alibaba</a>
-								<a href="#" class="fl">Zappos</a>
-								<a href="#" class="fl">Quidsi</a>
-								<a href="#" class="fl">Ebay</a>
-								<a href="#" class="fl">D8婚团</a>
-								<a href="#" class="fl">Like团</a>
-								<a href="#" class="fl">母婴之家</a>
-								<a href="#" class="fl">Groupon</a>
-								<a href="#" class="fl">Microcenter</a>
+								<volist name="header_hot_orig_list" id="item" offset="8" length="29">
+								<a href="{:U('orig/show',array('id'=>$item['id']))}" title="{$item.name}" class="fl">{$item.name}</a>
+								</volist>
 								<a href="{:U('orig/index')}" class="fl fc-green">查看所有商场</a>
 							</div>
 						</div>
@@ -148,6 +120,9 @@
 						<!--分类下拉菜单内容start-->
 						<div class="triangle_border_up"></div>
 						<div class="sub fenlei radius-3">
+							<!-- <?php
+							$header_cate_list = D('item_cate')->cate_cache();
+							?> -->
 							<div class="fl l-tab">
 								<p class="sub-radius-1"><a href="#"><em class="icon3 icon3-d_1"></em>服饰鞋袜</a></p>
 								<p><a href="#"><em class="icon3 icon3-d_2"></em>家用电器</a></p>
@@ -156,6 +131,9 @@
 								<p><a href="#"><em class="icon3 icon3-d_15"></em>文化娱乐</a></p>
 								<p><a href="#"><em class="icon3 icon3-d_16"></em>优惠活动</a></p>
 								<p><a href="#"><em class="icon3 icon3-d_8"></em>食品保健</a></p>
+								<!-- <volist name="header_cate_list['p']" id="r1">
+								<p><a href="{:U('cate_list/cate',array('id'=>$r1['id']))}"><em class="icon4 icon4-d_cate_{$r1.id}"></em>{$r1.name}</a></p>
+								</volist> -->
 							</div>
 							<div class="fl info">
 								<div class="t-tab clearfix">
@@ -256,8 +234,8 @@
 							<ul class="tab-list jifen clearfix" id="gd-list-1">
 								<div class="clearfix"><a href="{:U('exchange/lucky')}" class="fr font-12 fc-aux-9 more mr-10">浏览更多</a></div>
 								<ul class="jf-list mt-5 clearfix">
-									<?php $lucky_item_list = D('score_item')->score_item_list('lucky', 4);?>
-									<volist name="lucky_item_list" id="item">
+									<?php $header_lucky_item_list = D('score_item')->score_item_list('lucky', 4);?>
+									<volist name="header_lucky_item_list" id="item">
 									<li>
 										<p class="pic"><a href="{:U('exchange/detail', array('id'=>$item['id']))}"><img src="{:attach($item['img'], 'score_item')}" title="{$item.title}" alt="{$item.title}" class="lazyimg radius-3" width="186" height="186"></a><!-- <span class="radius-100">第21期</span> --></p>
 										<p class="mt-5 font-14 layui-elip"><a href="{:U('exchange/detail', array('id'=>$item['id']))}">{$item.title}</a></p>
@@ -271,8 +249,8 @@
 							<ul class="tab-list jifen none clearfix" id="gd-list-2">
 								<div class="clearfix"><a href="{:U('exchange/index')}" class="fr font-12 fc-aux-9 more mr-10">浏览更多</a></div>
 								<ul class="jf-list mt-5 clearfix">
-									<?php $exchange_item_list = D('score_item')->score_item_list('exchange', 4);?>
-									<volist name="exchange_item_list" id="item">
+									<?php $header_exchange_item_list = D('score_item')->score_item_list('exchange', 4);?>
+									<volist name="header_exchange_item_list" id="item">
 									<li>
 										<p class="pic"><a href="{:U('exchange/detail', array('id'=>$item['id']))}"><img src="{:attach($item['img'], 'score_item')}" title="{$item.title}" alt="{$item.title}" class="lazyimg radius-3" width="186" height="186"></a></p>
 										<p class="mt-5 font-14 layui-elip">{$item.title}</p>

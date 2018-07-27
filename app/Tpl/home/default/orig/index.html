@@ -20,53 +20,30 @@
 			</svg>
 			商场分类
 			<div class="fr mall-tab radius-100 white-bg clearfix">
-				<a href="mall.html" class="fl tab-1 active">国内</a>
-				<a href="mall.html" class="fl tab-1">海淘</a>
-				<a href="mall.html" class="fl tab-2">转运公司</a>
+				<a href="{:U('orig/index')}" class="fl tab-1 <if condition="$t neq '1' AND $t neq 'e'">active</if>">国内</a>
+				<a href="{:U('orig/index',array('t'=>'1'))}" class="fl tab-1 <if condition="$t eq '1'">active</if>">海淘</a>
+				<a href="{:U('orig/index',array('t'=>'e'))}" class="fl tab-2 <if condition="$t eq 'e'">active</if>">转运公司</a>
 			</div>
 		</div>
 		<!--标题end-->
 		
 		<!--热门商场start-->
 		<div class="mall-hot white-bg radius-3  mt-15">
-			<div class="font-16 font-w-b">热门商场</div>
+			<div class="font-16 font-w-b"><if condition="$t=='e'">热门转运公司<else/>热门商场</if></div>
 			<div class="hot-list mt-20 clearfix">
-				<a href="#">
-					<p class="pic"><img src="../images/mall/mall_1.png"></p>
-					<p>国美</p>
+				<volist name="hot_list" id="item">
+				<if condition="$t=='e'">
+				<a href="{:U('express/show',array('id'=>$item['id']))}" title="{$item.name}">
+					<p class="pic"><img src="{:attach($item['img'],'express')}" title="{$item.name}" alt="{$item.name}"></p>
+					<p>{$item.name}</p>
 				</a>
-				<a href="#">
-					<p class="pic"><img src="../images/mall/mall_2.jpg"></p>
-					<p>亚马逊</p>
+				<else/>
+				<a href="{:U('orig/show',array('id'=>$item['id']))}" title="{$item.name}">
+					<p class="pic"><img src="<if condition="$item['img']">{:attach($item['img'],'item_orig')}<else/>/images/nopic.jpg</if>" title="{$item.name}" alt="{$item.name}"></p>
+					<p>{$item.name}</p>
 				</a>
-				<a href="#">
-					<p class="pic"><img src="../images/mall/mall_3.png"></p>
-					<p>唯品会</p>
-				</a>
-				<a href="#">
-					<p class="pic"><img src="../images/mall/mall_4.png"></p>
-					<p>聚美优品</p>
-				</a>
-				<a href="#">
-					<p class="pic"><img src="../images/mall/mall_5.png"></p>
-					<p>1号店</p>
-				</a>
-				<a href="#">
-					<p class="pic"><img src="../images/mall/mall_6.png"></p>
-					<p>京东</p>
-				</a>
-				<a href="#">
-					<p class="pic"><img src="../images/mall/mall_7.png"></p>
-					<p>淘宝</p>
-				</a>
-				<a href="#">
-					<p class="pic"><img src="../images/mall/mall_8.png"></p>
-					<p>苏宁</p>
-				</a>
-				<a href="#">
-					<p class="pic"><img src="../images/mall/mall_9.png"></p>
-					<p>IT之家</p>
-				</a>
+				</if>
+				</volist>
 			</div>
 		</div>
 		<!--热门商场end-->
@@ -74,44 +51,24 @@
 		<!--所有商场start-->
 		<div class="mall-all white-bg radius-3 mt-12">
 			<div class="title">
-				<div class="font-16 font-w-b">所有商场</div>
+				<div class="font-16 font-w-b"><if condition="$t=='e'">所有转运公司<else/>所有商场</if></div>
 				<div class="title-box clearfix">
-					<a href="javascript:void(0);">0~9</a>
-					<a href="javascript:void(0);">A</a>
-					<a href="javascript:void(0);">B</a>
-					<a href="javascript:void(0);">C</a>
-					<a href="javascript:void(0);">D</a>
-					<a href="javascript:void(0);">E</a>
-					<a href="javascript:void(0);">F</a>
-					<a href="javascript:void(0);">G</a>
-					<a href="javascript:void(0);">H</a>
-					<a href="javascript:void(0);">I</a>
-					<a href="javascript:void(0);">J</a>
-					<a href="javascript:void(0);">K</a>
-					<a href="javascript:void(0);">L</a>
-					<a href="javascript:void(0);">M</a>
-					<a href="javascript:void(0);">N</a>
-					<a href="javascript:void(0);">O</a>
-					<a href="javascript:void(0);">P</a>
-					<a href="javascript:void(0);">Q</a>
-					<a href="javascript:void(0);">R</a>
-					<a href="javascript:void(0);">S</a>
-					<a href="javascript:void(0);">T</a>
-					<a href="javascript:void(0);">U</a>
-					<a href="javascript:void(0);">V</a>
-					<a href="javascript:void(0);">W</a>
-					<a href="javascript:void(0);">X</a>
-					<a href="javascript:void(0);">Y</a>
-					<a href="javascript:void(0);">Z</a>
+					<volist name="letters" id="letter" >
+					<a href="javascript:void(0);">{$letter}</a>
+					</volist>
 				</div>
 			</div>
 			<div class="list-box">
 				<volist name="list" id="r">
 					<div class="list">
-					<div class="font-16 mb-13 font-w-b">{$r.key}</div>
+					<div class="font-16 mb-13 font-w-b">{$key}</div>
 					<div class="fc-grey font-14 clearfix">
-						<volist name="r.items" id="v" >
-							<a href="#">{$v.name}</a>
+						<volist name="r" id="item" >
+							<if condition="$t=='e'">
+							<a href="{:U('express/show',array('id'=>$item['id']))}" title="{$item.name}">{$item.name}</a>
+							<else/>
+							<a href="{:U('orig/show',array('id'=>$item['id']))}" title="{$item.name}">{$item.name}</a>
+							</if>
 						</volist>
 					</div>
 				</div>
@@ -125,33 +82,9 @@
 	
 	<!--右边快速导航start-->
 	<div class="radius-3 sidebar-mall">
-		<a href="javascript:void(0);">0~9</a>
-		<a href="javascript:void(0);">A</a>
-		<a href="javascript:void(0);">B</a>
-		<a href="javascript:void(0);">C</a>
-		<a href="javascript:void(0);">D</a>
-		<a href="javascript:void(0);">E</a>
-		<a href="javascript:void(0);">F</a>
-		<a href="javascript:void(0);">G</a>
-		<a href="javascript:void(0);">H</a>
-		<a href="javascript:void(0);">I</a>
-		<a href="javascript:void(0);">J</a>
-		<a href="javascript:void(0);">K</a>
-		<a href="javascript:void(0);">L</a>
-		<a href="javascript:void(0);">M</a>
-		<a href="javascript:void(0);">N</a>
-		<a href="javascript:void(0);">O</a>
-		<a href="javascript:void(0);">P</a>
-		<a href="javascript:void(0);">Q</a>
-		<a href="javascript:void(0);">R</a>
-		<a href="javascript:void(0);">S</a>
-		<a href="javascript:void(0);">T</a>
-		<a href="javascript:void(0);">U</a>
-		<a href="javascript:void(0);">V</a>
-		<a href="javascript:void(0);">W</a>
-		<a href="javascript:void(0);">X</a>
-		<a href="javascript:void(0);">Y</a>
-		<a href="javascript:void(0);">Z</a>
+		<volist name="letters" id="letter" >
+		<a href="javascript:void(0);">{$letter}</a>
+		</volist>
 	</div>
 	<!--右边快速导航end-->
 	<!--引入公共底部正式可删除 start-->

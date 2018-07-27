@@ -20,6 +20,12 @@ class tickAction extends frontendAction {
 			$order_by = "start_time desc";
 		}
 
+		$orig = $this->_get('orig', 'intval');
+		if($orig){
+			$orig_info = D("item_orig")->get_info($orig);
+			!$orig_info && $orig = '';
+		}
+
 		$mod_orig=M("item_orig");
 		$mod = M('tick');
 		$db_pre = C('DB_PREFIX');
@@ -35,21 +41,10 @@ class tickAction extends frontendAction {
 		}
 		$this->assign('orig_list',$orig_list);
 
-		//获取所有的优惠券		
-
-		// if($ismy){
-		// 	$num = M()->query("select count(*) as num from try_tick as t,try_item_orig as o,try_cosler c where CONV( HEX( LEFT( CONVERT( o.name  USING gbk ) , 1 ) ) , 16, 10 ) BETWEEN c.cBegin AND c.cEnd AND c.fPY = '$tp' and t.orig_id=o.id and DATEDIFF(now() ,t.start_time)>-1 and DATEDIFF(t.end_time,now())>0");
-		// 	$count=$num[0]['num'];
-		// }else{
-		// 	$count = $mod->where("DATEDIFF(now() ,start_time)>-1 and DATEDIFF(end_time,now())>0")->count();
-		// }
-
-		// if($tp){
-		// 	$list = M()->query("select t.* from try_tick as t,try_item_orig as o,try_cosler c where CONV( HEX( LEFT( CONVERT( o.name  USING gbk ) , 1 ) ) , 16, 10 ) BETWEEN c.cBegin AND c.cEnd AND c.fPY = '$tp' and t.orig_id=o.id and DATEDIFF(now() ,t.start_time)>-1 and DATEDIFF(t.end_time,now())>0 order by ordid asc,id asc limit ".$pager->firstRow.",".$pager->listRows);
-		// }else{
-		// 	$list = $mod->where("DATEDIFF(now() ,start_time)>-1 and DATEDIFF(end_time,now())>0")->order($order_by)->limit($pager->firstRow.",".$pager->listRows)->select();
-		// }
-
+		//获取所有的优惠券
+		if($orig){
+			$subwhere .= "and orig_id={$orig} ";
+		}
 		$field_tick = "1 as t,id,name,orig_id,start_time,end_time,intro,status,yl,sy,je,dhjf,ljdz,xl";		
 		$field_activity = "2 as t,id,name,orig_id,start_time,end_time,intro,status,'' AS yl,'' AS sy,je,'' AS dhjf,ljdz,'' AS xl";
 
@@ -87,14 +82,19 @@ class tickAction extends frontendAction {
 			$list[$key]['end_time']=date("Y.m.d", strtotime($val['end_time']));
 		}
 
-		$url['newest'] = U('tick/index',array('t'=>$t,'ismy'=>$ismy,'soryby'=>'newest'));
-		$url['hottest'] = U('tick/index',array('t'=>$t,'ismy'=>$ismy,'soryby'=>'hottest'));
-		$url['ismy_0'] = U('tick/index',array('t'=>$t,'ismy'=>0,'soryby'=>$soryby));
-		$url['ismy_1'] = U('tick/index',array('t'=>$t,'ismy'=>1,'soryby'=>$soryby));
-		$url['ismy'] = U('tick/index',array('t'=>$t,'soryby'=>$soryby));
-		$url['t_1'] = U('tick/index',array('t'=>1,'ismy'=>$ismy,'soryby'=>$soryby));
-		$url['t_2'] = U('tick/index',array('t'=>2,'ismy'=>$ismy,'soryby'=>$soryby));
-		$url['t'] = U('tick/index',array('ismy'=>$ismy,'soryby'=>$soryby));
+		$param = array();
+		if($orig){
+			$param['orig'] = $orig;
+		}
+		$url['newest'] = U('tick/index',array_merge(array('t'=>$t,'ismy'=>$ismy,'soryby'=>'newest'),$param));
+		$url['hottest'] = U('tick/index',array_merge(array('t'=>$t,'ismy'=>$ismy,'soryby'=>'hottest'),$param));
+		$url['ismy_0'] = U('tick/index',array_merge(array('t'=>$t,'ismy'=>0,'soryby'=>$soryby),$param));
+		$url['ismy_1'] = U('tick/index',array_merge(array('t'=>$t,'ismy'=>1,'soryby'=>$soryby),$param));
+		$url['ismy'] = U('tick/index',array_merge(array('t'=>$t,'soryby'=>$soryby),$param));
+		$url['t_1'] = U('tick/index',array_merge(array('t'=>1,'ismy'=>$ismy,'soryby'=>$soryby),$param));
+		$url['t_2'] = U('tick/index',array_merge(array('t'=>2,'ismy'=>$ismy,'soryby'=>$soryby),$param));
+		$url['t'] = U('tick/index',array_merge(array('ismy'=>$ismy,'soryby'=>$soryby),$param));
+		// print_r($url);exit;
 
 		$this->assign('list',$list);
 		$this->assign('pagebar',$pager->newfshow());
@@ -102,6 +102,10 @@ class tickAction extends frontendAction {
 		$this->assign('t',$t);
 		$this->assign('ismy',$ismy);
 		$this->assign('sortby',$sortby);
+		if($orig){
+			$this->assign('orig',$orig);
+			$this->assign('orig_info',$orig_info);
+		}
 		$this->assign("url", $url);
 		$this->display();
 	}

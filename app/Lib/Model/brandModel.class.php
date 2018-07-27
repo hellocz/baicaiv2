@@ -1,6 +1,13 @@
 <?php
 class brandModel extends Model
 {
+
+    public function get_info($id) {
+        if(!$id) return false;
+        $brand = $this->where(array('id' => $id))->find();
+        return $brand;
+    }
+
    /**
      * 读取写入缓存(二级分类列表及二级分类列表下所有brand品牌)
      */

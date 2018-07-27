@@ -37,20 +37,24 @@
 		<!--所有优惠券列表start-->
 		<div class="coupons-all white-bg radius-3 mt-12">
 			<div class="title-tab clearfix">
-				<div class="fl tabNav clearfix">
-					<a href="{:U('tick/index',array('t'=>$t, 'sortby'=>$sortby))}" <if condition="$ismy heq ''">class="active"</if>>全部</a>
-					<a href="{:U('tick/index',array('t'=>$t, 'ismy'=>0, 'sortby'=>$sortby))}" <if condition="$ismy heq '0'">class="active"</if>>国内</a>
-					<a href="{:U('tick/index',array('t'=>$t, 'ismy'=>1, 'sortby'=>$sortby))}" <if condition="$ismy heq '1'">class="active"</if>>海淘</a>
+				<div class="fl tabNav clearfix">					
+				<if condition="$orig gt 0">
+					<div class="font-16 font-w-b">{$orig_info.name}</div>					
+				<else/>
+					<a href="{$url['ismy']}" <if condition="$ismy heq ''">class="active"</if>>全部</a>
+					<a href="{$url['ismy_0']}" <if condition="$ismy heq '0'">class="active"</if>>国内</a>
+					<a href="{$url['ismy_1']}" <if condition="$ismy heq '1'">class="active"</if>>海淘</a>
+				</if>
 				</div>
 				<div class="fr news">
-					<span class="btn-11 <if condition="$sortby eq 'newest'">active</if>"><a href="{:U('tick/index',array('t'=>$t, 'ismy'=>$ismy, 'sortby'=>'newest'))}">最新</a></span>
-					<span class="btn-11 <if condition="$sortby eq 'hottest'">active</if>"><a href="{:U('tick/index',array('t'=>$t, 'ismy'=>$ismy, 'sortby'=>'hottest'))}">最热</a></span>
+					<span class="btn-11 <if condition="$sortby eq 'newest'">active</if>"><a href="{$url['hottest']}">最新</a></span>
+					<span class="btn-11 <if condition="$sortby eq 'hottest'">active</if>"><a href="{$url['newest']}">最热</a></span>
 				</div>
 			</div>
 			<div class="operation radio-1 clearfix">
-				<div><a href="{:U('tick/index',array('t'=>'', 'ismy'=>$ismy, 'sortby'=>$sortby))}"><i <if condition="$t heq ''">class="active"</if>></i>全部</a></div>
-				<div><a href="{:U('tick/index',array('t'=>'2', 'ismy'=>$ismy, 'sortby'=>$sortby))}"><i <if condition="$t heq '2'">class="active"</if>></i>只看活动</a></div>
-				<div><a href="{:U('tick/index',array('t'=>'1', 'ismy'=>$ismy, 'sortby'=>$sortby))}"><i <if condition="$t heq '1'">class="active"</if>></i>只看领券</a></div>
+				<div><a href="{$url['t']}"><i <if condition="$t heq ''">class="active"</if>></i>全部</a></div>
+				<div><a href="{$url['t_2']}"><i <if condition="$t heq '2'">class="active"</if>></i>只看活动</a></div>
+				<div><a href="{$url['t_1']}"><i <if condition="$t heq '1'">class="active"</if>></i>只看领券</a></div>
 			</div>
 			<ul class="list-box clearfix">
 				<!--循环start-->

@@ -1,67 +1,71 @@
-<?php
+﻿<?php
 class origAction extends frontendAction {
 
     public function index() {
-		
-		
 
-		$letters = array("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
+	$t = $this->_get('t','trim'); //商城分类：国内0，海淘1，转运公司e
+	if(!in_array($t, array('0', '1', 'e'))) $t="0";
 
-		if (false === $list = F('orig_list')) {
-    	$list=array();
-		$list['0']['items'] = M("item_orig")->field("id,img,name,ismy")->where("name REGEXP '^[0-9]'")->order("id")->select();
-		$list['0']['key'] = "0~9";
-		foreach ($letters as $letter) {
-			$list[$letter]['items'] = M("item_orig")->field("id,img,name,ismy")->where("fristPinyin(name) = '$letter'")->order("id")->select();
-			$list[$letter]['key'] = $letter; 
-			//M()->query("select i.* from try_item_orig i where fristPinyin(i.name) = '$letter' order by i.id asc");
+	// $letters = array("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
+
+	if($t=="e"){
+		$mod = D("express");
+		$hot_list = $mod->hot_express_cache();
+		$hot_list = array_slice($hot_list, 0, 9);
+
+		$arr = $mod->express_cache();
+
+	}else{
+		$mod = D("item_orig");
+		$hot_list = $mod->hot_orig_cache();
+		$hot_list = array_slice($hot_list, 0, 9);
+
+		$arr = $mod->orig_cache();
+	}
+
+	$list=array();
+	foreach ($arr as $key => $val) {
+		if($t!="e" && $val['ismy'] != $t){  //国内 国外 过滤
+			continue;
 		}
-    	F('orig_list',$list);
-    	}
-		$this->assign("hot_list",$hot_list);
-		$this->assign("list",$list);
-		$this->_config_seo(array(
-            'seo_title' => '�̳ǵ���',
-            'seo_keywords' => '�̳ǵ���',
-            'seo_description' => '�̳ǵ���',
-        ));
-        $this->display();
+		$list[$val['letter']][]=$val;
+	}
+	ksort($list);
+
+	$letters = array_keys($list);
+
+	$this->assign("hot_list",$hot_list);
+	$this->assign("list",$list);
+	$this->assign("letters",$letters);
+	$this->assign('t',$t);
+	$this->_config_seo(array(
+		'seo_title' => '商城导航',
+		'seo_keywords' => '商城导航',
+		'seo_description' => '商城导航',
+	));
+	$this->display();
     }
 
-    public function show()
-	{
-		$id = $this->_get("id","intval");
-		!$id && $this->_404();
-		$model = M("item_orig");
-		$orig_info = $model->where("id=$id")->find();
-		$this->assign('info',$orig_info);
-		//��Ʒ
-		$time=time();
-		$count = M("item")->where("orig_id='$id' and status=1 and add_time<$time ")->count();
-        $page_size = 16; //ÿҳ��ʾ����
-        $pager = $this->_pager($count, $page_size);
+    public function show(){
+        $id = $this->_get('id', 'intval');
+        !$id && $this->_404();
+        $info = D("item_orig")->get_info($id);
+        !$info && $this->error('该信息不存在或已删除');
+
+        //过滤筛选及查询结果
+        //品牌
+        $params = array('id' => $id);
+        $where = array();
+        $where['orig_id'] = $id;
         
-        $list = M("item")->where("orig_id='$id' and status=1 and add_time<$time ")->limit($pager->firstRow . ',' . $page_size)->order("add_time desc")->select();
-        foreach($list as $key=>$val){
-				
-		$list[$key]['zan'] = $list[$key]['zan']   +intval($list[$key]['hits'] /10);
-			}
+        //筛选
+        $this->filter($params, $where);
 
-		$gl_list = M("article")->field("id, otitle")->where("orig_id = '$id' and status =1 and cate_id=9 and add_time<$time ")->select();
-
-
-		$this->assign('gl_list',$gl_list);
-        $this->assign('list', $list);
-        //��ǰҳ��
-        $p = $this->_get('p', 'intval', 1);
-        $this->assign('p', $p);
-        $this->assign('page_bar', $pager->fshow());		
-        //$this->_config_seo();
-        //$this->_config_seo(C('pin_seo_config.orig'), array('orig_name' => $orig_info['name']));
         $page_seo['title'] = $orig_info['seo_title'];
         $page_seo['keywords'] = $orig_info['seo_keys'];
         $page_seo['description'] = $orig_info['seo_desc'];
         $this->assign('page_seo', $page_seo);
-    	$this->display();
+        $this->assign('info', $info);
+        $this->display();
     }
 }

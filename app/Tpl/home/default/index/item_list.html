@@ -32,7 +32,7 @@
 										<span class="fc-aux-a icon3 icon3-a_43">{$r.comments}</span>
 									</p>
 									<div class="cz2">
-										<a <if condition="$type eq 'isbao'">href="{:U('item/index',array('id'=>$r['id'],'isbao'=>1))}"<elseif condition="$r['status'] eq 4"/>href="{:U('article/show',array('id'=>$r['id']))}"<else/> href="{:U('item/index',array('id'=>$r['id']))}"</if> target="_blank" class="btn-2">查看详情</a><?php $llink = unserialize($r['go_link']);$lc = count($llink);?><if condition="$lc gt 1">
+										<a <if condition="$type eq 'isbao'">href="{:U('item/index',array('id'=>$r['id'],'isbao'=>1))}"<elseif condition="$r['status'] eq 4"/>href="{:U('article/show',array('id'=>$r['id']))}"<else/> href="{:U('item/index',array('id'=>$r['id']))}"</if> target="_blank" class="btn-2 mr-1">查看详情</a><?php $llink = unserialize($r['go_link']);$lc = count($llink);?><if condition="$lc gt 1">
 											<!--多链接样式-->
 											<a href="javascript: void(0);" class="btn-more">去购买</a>
 											<div class="moreUrl radius-3 none">

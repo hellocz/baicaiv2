@@ -32,4 +32,47 @@ class item_origModel extends Model{
             return false;
         }
     }
+
+    /**
+     * 商城列表
+     */
+    public function orig_cache() {
+        if (false !== $orig_list = F('orig_list')) {
+            return $orig_list;
+        }
+        $result = $this->field("*,case when name REGEXP '^[0-9]' then '0~9' else upper(fristPinyin(LTRIM(name))) end as letter")->order("name")->select();
+        $orig_list = array();
+        foreach ($result as $val) {
+            $orig_list[$val['id']] = $val;
+        }
+        F('orig_list', $orig_list);
+        return $orig_list;
+    }
+
+    /**
+     * 热门商城列表
+     */
+    public function hot_orig_cache() {
+        if (false !== $hot_orig_list = F('hot_orig_list')) {
+            return $hot_orig_list;
+        }
+        $result = $this->where("is_hot=1")->order("id asc")->select();
+        $hot_orig_list = array();
+        foreach ($result as $val) {
+            $hot_orig_list[$val['id']] = $val;
+        }
+        F('hot_orig_list', $hot_orig_list);
+        return $hot_orig_list;
+    }
+
+    public function get_info($id) {
+        if (false === $orig_list = F('orig_list')) {
+            $orig_list = $this->orig_cache();
+        }
+        if (isset($orig_list[$id])) {
+            return $orig_list[$id];
+        } else {
+            return false;
+        }
+    }
 }

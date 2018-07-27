@@ -1,78 +1,6 @@
 <?php
 class brandAction extends frontendAction {
 
-    public function show(){
-        //brand品牌ID
-        $id = $this->_get('id', 'intval');
-        !$id && $this->_404();
-        $brand = M("brand")->where(array('id' => $id))->find();
-        !$brand && $this->error('该信息不存在或已删除');
-        $brand['name'] = str_replace("&nbsp;","",$brand['name']);
-        $brand['abstract'] = trim($brand['abstract']);
-
-        //分类ID
-        $cid = $this->_get('cid', 'intval');
-        $cate_info = "";
-        if($cid){
-          //分类数据
-          $cate_data = D('item_cate')->cate_data_cache();        
-          //当前分类信息
-          if (isset($cate_data[$cid])) {
-              $cate_info = $cate_data[$cid];
-          }
-          //分类关系
-          $cate_relate = D('item_cate')->relate_cache();
-        }
-
-        //天猫搜券
-        //品牌
-        $q = trim($brand['chn_name']);
-        //分类信息
-        if($cate_info){
-          $q = trim($cate_info['name']) . " " . $q;
-        }
-        //搜索
-        $item_list = $this->search_quan($q);
-        $brand['recommend']=array_slice($item_list,0,4);
-
-        //过滤筛选及查询结果
-        //品牌
-        $params = array('id' => $id);
-        // $where = 'tag_cache like \'%"'. trim($brand['chn_name']) .'"%\' ';
-        $where = array();
-        $tag_id =  M("tag")->where(array('name'=>$brand['chn_name']))->getField('id'); 
-        $tag_id && $tag_items = M("item_tag")->where(array('tag_id'=>$tag_id))->field("item_id")->select();
-        if(isset($tag_items) && count($tag_items) > 0){
-          foreach ($tag_items as $tag_item_id) {
-              if($str==""){
-                   $str=$tag_item_id['item_id'];
-              }else{
-                 $str.=",".$tag_item_id['item_id'];
-              }
-          }
-        }
-        if($str){
-            $where['id'] = array('in', $str);
-        }else{
-            $where['id'] = array('in', '-1');
-        }
-        //分类信息
-        if($cate_info){
-          $params['cid'] = $cid;
-          array_push($cate_relate[$cid]['sids'], $cid);
-          $where['cate_id'] = array('in', $cate_relate[$cid]['sids']); //分类
-        }
-        //筛选
-        $this->filter($params, $where);
-
-        $page_seo['title'] = $brand['name'] . "怎么样_" . $brand['name'] . "品牌介绍_" . $brand['name'] . "旗舰店_白菜哦官网";
-        $page_seo['keywords'] = $brand['name'] . "品牌介绍、" . $brand['name'] . "怎么样、" . $brand['name'] . "价格、" . $brand['name'] . "旗舰店、" . $brand['name'] . "官网";
-        $page_seo['description'] = "汇总了" . $brand['name'] ."品牌介绍、" . $brand['name'] . "官网和" . $brand['name'] . "官方旗舰店的促销优惠，还可以搜索到" . $brand['name'] ."的最新内部优惠券，想知道" . $brand['name'] ."有什么知名产品，有没有折扣就快来这里看看吧！";
-        $this->assign('page_seo', $page_seo);
-        $this->assign('info', $brand);
-        $this->display();
-    }
-
     public function index() {
 
         $q = $this->_get('q', 'trim');
@@ -190,6 +118,78 @@ class brandAction extends frontendAction {
 
         $this->assign('cate_brand_list', $cate_brand);
         $this->_config_seo(array('title'=>'品牌导航'));
+        $this->display();
+    }
+
+    public function show(){
+        //brand品牌ID
+        $id = $this->_get('id', 'intval');
+        !$id && $this->_404();
+        $brand = D("brand")->get_info($id);
+        !$brand && $this->error('该信息不存在或已删除');
+        $brand['name'] = str_replace("&nbsp;","",$brand['name']);
+        $brand['abstract'] = trim($brand['abstract']);
+
+        //分类ID
+        $cid = $this->_get('cid', 'intval');
+        $cate_info = "";
+        if($cid){
+          //分类数据
+          $cate_data = D('item_cate')->cate_data_cache();        
+          //当前分类信息
+          if (isset($cate_data[$cid])) {
+              $cate_info = $cate_data[$cid];
+          }
+          //分类关系
+          $cate_relate = D('item_cate')->relate_cache();
+        }
+
+        //天猫搜券
+        //品牌
+        $q = trim($brand['chn_name']);
+        //分类信息
+        if($cate_info){
+          $q = trim($cate_info['name']) . " " . $q;
+        }
+        //搜索
+        $item_list = $this->search_quan($q);
+        $brand['recommend']=array_slice($item_list,0,4);
+
+        //过滤筛选及查询结果
+        //品牌
+        $params = array('id' => $id);
+        // $where = 'tag_cache like \'%"'. trim($brand['chn_name']) .'"%\' ';
+        $where = array();
+        $tag_id =  M("tag")->where(array('name'=>$brand['chn_name']))->getField('id'); 
+        $tag_id && $tag_items = M("item_tag")->where(array('tag_id'=>$tag_id))->field("item_id")->select();
+        if(isset($tag_items) && count($tag_items) > 0){
+          foreach ($tag_items as $tag_item_id) {
+              if($str==""){
+                   $str=$tag_item_id['item_id'];
+              }else{
+                 $str.=",".$tag_item_id['item_id'];
+              }
+          }
+        }
+        if($str){
+            $where['id'] = array('in', $str);
+        }else{
+            $where['id'] = array('in', '-1');
+        }
+        //分类信息
+        if($cate_info){
+          $params['cid'] = $cid;
+          array_push($cate_relate[$cid]['sids'], $cid);
+          $where['cate_id'] = array('in', $cate_relate[$cid]['sids']); //分类
+        }
+        //筛选
+        $this->filter($params, $where);
+
+        $page_seo['title'] = $brand['name'] . "怎么样_" . $brand['name'] . "品牌介绍_" . $brand['name'] . "旗舰店_白菜哦官网";
+        $page_seo['keywords'] = $brand['name'] . "品牌介绍、" . $brand['name'] . "怎么样、" . $brand['name'] . "价格、" . $brand['name'] . "旗舰店、" . $brand['name'] . "官网";
+        $page_seo['description'] = "汇总了" . $brand['name'] ."品牌介绍、" . $brand['name'] . "官网和" . $brand['name'] . "官方旗舰店的促销优惠，还可以搜索到" . $brand['name'] ."的最新内部优惠券，想知道" . $brand['name'] ."有什么知名产品，有没有折扣就快来这里看看吧！";
+        $this->assign('page_seo', $page_seo);
+        $this->assign('info', $brand);
         $this->display();
     }
 

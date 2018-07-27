@@ -78,60 +78,11 @@
 			</div> -->
 			<div class="p15 white-bg radius-3 category-nav">
 				<ul class="clearfix">
+					<volist name="cate_list['p']" id="r1">
 					<li>
-						<i class="icon4 icon4-d_1"></i><br>服装鞋帽
+						<i class="icon4 icon4-d_cate_{$r1.id}"></i><br>{$r1.name}
 					</li>
-					<li>
-						<i class="icon4 icon4-d_21"></i><br>箱包手袋
-					</li>
-					<li>
-						<i class="icon4 icon4-d_5"></i><br>个护化妆
-					</li>
-					<li>
-						<i class="icon4 icon4-d_7"></i><br>日用百货
-					</li>
-					<li>
-						<i class="icon4 icon4-d_8"></i><br>食品酒饮
-					</li>
-					<li>
-						<i class="icon4 icon4-d_3"></i><br>运动户外
-					</li>
-					<li>
-						<i class="icon4 icon4-d_9"></i><br>钟表首饰
-					</li>
-					<li>
-						<i class="icon4 icon4-d_6"></i><br>母婴玩具
-					</li>
-					<li>
-						<i class="icon4 icon4-d_10"></i><br>家居建材
-					</li>
-					<li>
-						<i class="icon4 icon4-d_4"></i><br>数码家电
-					</li>
-					<li>
-						<i class="icon4 icon4-d_23"></i><br>保健养生
-					</li>
-					<li>
-						<i class="icon4 icon4-d_11"></i><br>图书音像
-					</li>
-					<li>
-						<i class="icon4 icon4-d_13"></i><br>旅游休闲
-					</li>
-					<li>
-						<i class="icon4 icon4-d_19"></i><br>电影资讯
-					</li>
-					<li>
-						<i class="icon4 icon4-d_22"></i><br>眼镜配饰
-					</li>
-					<li>
-						<i class="icon4 icon4-d_17"></i><br>杂七杂八
-					</li>
-					<li>
-						<i class="icon4 icon4-d_20"></i><br>活动公告
-					</li>
-					<li>
-						<i class="icon4 icon4-d_14"></i><br>理财投资
-					</li>
+					</volist>
 				</ul>
 			</div>
 			<!--导航end-->
@@ -139,20 +90,20 @@
 			<!--列表start-->
 			<div class="white-bg radius-3 mt-12 pl-24" id="category-list">
 				<!--循环 start-->
-				<volist name="cate_list" id="r1">
+				<volist name="cate_list['p']" id="r1">
 				<div class="category-list" id="list-{++$a}">
-					<div class="font-w-b font-16"><a href="{:U('category/cate',array('id'=>$r1['p']['id']))}">{$r1.p.name}</a></div>
-					<volist name="r1.data" id="r2">
+					<div class="font-w-b font-16"><a href="{:U('category/cate',array('id'=>$r1['id']))}">{$r1.name}</a></div>
+					<volist name="cate_list['s'][$r1['id']]" id="r2">
 					<div class="clearfix mt-20">
 						<div class="box-title fc-green font-14">
-							<a href="{:U('category/cate',array('id'=>$r2['p']['id']))}" class="fc-green">{$r2.p.name}</a>
+							<a href="{:U('category/cate',array('id'=>$r2['id']))}" class="fc-green">{$r2.name}</a>
 							<svg class="icon">
 								<!--[if lte IE 8]><desc><img src="/public/images/ie8/a_15@2x.png" width="14" height="14"></desc><![endif]-->
 								<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-a_15"></use>
 							</svg>
 						</div>
 						<div class="list clearfix">
-							<volist name="r2.data" id="r3">
+							<volist name="cate_list['s'][$r2['id']]" id="r3">
 							<a href="{:U('category/cate',array('id'=>$r3['id']))}">{$r3.name}</a>
 							</volist>
 						</div>
