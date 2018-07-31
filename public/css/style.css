@@ -331,6 +331,9 @@ a:hover{
 .mt-60{
 	margin-top: 60px;
 }
+.mt-149{
+	margin-top: 149px;
+}
 
 .mb-12{
 	margin-bottom: 12px;
@@ -378,9 +381,7 @@ a:hover{
 .ml-34{
 	margin-left: 34px;
 }
-.mr-1{
-	margin-right: 1px !important;
-}
+
 .mr-4{
 	margin-right: 4px !important;
 }
@@ -1066,7 +1067,7 @@ a:hover{
 #header .top .nav-box ul > li .sub{
 	display: none;
 	width: 1030px;
-	/*height: 365px;*/
+	height: 365px;
 	background: #ffffff;
 	z-index: 999;
 	position:fixed;
@@ -1088,7 +1089,7 @@ a:hover{
 #header .top .nav-box ul li .sub .l-tab{
 	width: 159px;
 	border-right: 1px solid #F4F7F8;
-	/*height: 365px;*/
+	height: 365px;
 }
 #header .top .nav-box ul li .sub .l-tab p{
 	height: 48px;
@@ -2158,4 +2159,23 @@ footer .footer-copyright{
 }
 .newMsg ul li a{
 	color: #99A5A0;
+}
+
+.layui-layer-btn .layui-layer-btn0{
+	border-color: #33CC99!important;
+	background-color: #33CC99!important;
+}
+
+
+.layui-layer-prompt .layui-layer-content input::-webkit-input-placeholder{
+	color:#D6D6D6;
+}
+.layui-layer-prompt .layui-layer-content input::-moz-placeholder{   /* Mozilla Firefox 19+ */
+	color:#D6D6D6;
+}
+.layui-layer-prompt .layui-layer-content input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+	color:#D6D6D6;
+}
+.layui-layer-prompt .layui-layer-content input:-ms-input-placeholder{  /* Internet Explorer 10-11 */ 
+    color:#D6D6D6;
 }

@@ -94,7 +94,7 @@ class luckyAction extends userbaseAction
         $order_mod = D('score_order');
          $uid = $this->visitor->info['id'];
         $uname = $this->visitor->info['username'];
-        $mobile = M("user")->field('mobile')->find($uid);
+        $mobile = D("user")->get_info($uid, 'mobile');
         if($mobile['mobile'] ==""){
             $this->ajaxReturn(0, '没有绑定手机号' . $mobile['mobile'] );
         }

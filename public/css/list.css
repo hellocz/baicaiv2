@@ -320,9 +320,9 @@
 	border: 1px solid #ECF1F3;
 	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.04);
 	border-radius: 5px;
-	width: 44px;
+	width: 22px;
 	text-align: center;
-	padding:10px 0;
+	padding:10px;
 }
 
 .sidebar-mall a{

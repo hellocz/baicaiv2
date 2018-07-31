@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<include file="public:head" />
+    <!--当前页面css-->
+    <link rel="stylesheet" href="/public/css/member.css">
+</head>
+<body>
+	<!--个人中心顶部 start-->
+	<include file="header" />
+	<!--个人中心顶部 end-->
+	
+	<!--个人中心用户信息 start-->
+	<include file="top_user" />
+	<!--个人中心用户信息 end-->
+	
+	<div class="w-1200 mt-12 clearfix">
+		<!--左边菜单start-->
+		<include file="left_menu" />
+		<!--左边菜单end-->
+		
+		<!--<script>
+			//子菜单
+			$(document).ready(function() {
+				$(".menuSub").click(function(){
+					if($(this).siblings("ul").is(':visible')){
+						$(this).css("background-image","url(../images/ie8/a_16@2x.png)")
+					}else{
+						$(this).css("background-image","url(../images/ie8/a_16s@2x.png)")
+					}
+					$(this).siblings("ul").toggle();
+				});
+			});
+		</script>-->
+		
+		<!--右边内容start-->
+		<div class="fl rightInfo white-bg radius-3">
+			<div class="r-title clearfix">
+				<div class="fl radio"><i class="active"></i>隐藏过期</div>
+				<div class="fl vcenter ml-10 fc-aux-a" style="height: 54px;">已过期的优惠券领取记录，将在6个月后自动清空</div>
+				<a href="/public/page/coupons.html" class="fr btn-3 btn-cj">去领券</a>
+			</div>
+			<!--我的卡券start-->
+			<div class="listBox">
+				<ul class="myCard clearfix">
+				<!--循环start-->
+				<li>
+					<!--处理背景圆口（不能删除）start-->
+					<div class="left-x"></div>
+					<div class="right-x"></div>
+					<!--处理背景圆口（不能删除）end-->
+					<div class="logo">
+						<p class="img"><img src="/public/images/mall/mall_2.png"></p>
+						<p class="name layui-elip font-w-b">亚马逊中国</p>
+					</div>
+					<div class="price text-center layui-elip">1000-299</div>
+					<div class="instructions text-center">亚马逊中国Amazon China全场满469-50元优惠券</div>
+					<div class="button">
+						<a href="/public/page/couponDetails.html" class="a1" target="_blank">详情页</a>
+						<a href="/public/index.html" class="a2" target="_blank">去用券</a>
+					</div>
+					<div class="djfz"><span>单击复制券码</span></div>
+					<div class="code lvcenter" data-copy="EC45YU69OPX12345" onclick="copyCode(this,'.code')">EC45YU69OPX12345</div>
+					<div class="overdue text-center mt-8 fc-aux-9 layui-elip">2018.4.10过期</div>
+				</li>
+				
+				<li>
+					<!--处理背景圆口（不能删除）start-->
+					<div class="left-x"></div>
+					<div class="right-x"></div>
+					<!--处理背景圆口（不能删除）end-->
+					<div class="logo">
+						<p class="img"><img src="/public/images/mall/mall_2.png"></p>
+						<p class="name layui-elip font-w-b">亚马逊中国</p>
+					</div>
+					<div class="price text-center layui-elip">1000-299</div>
+					<div class="instructions text-center">亚马逊中国Amazon China全场满469-50元优惠券</div>
+					<div class="button">
+						<a href="/public/page/couponDetails.html" class="a1" target="_blank">详情页</a>
+						<a href="/public/index.html" class="a2" target="_blank">去用券</a>
+					</div>
+					<div class="djfz"><span>单击复制券码</span></div>
+					<div class="code lvcenter" data-copy="EC45YU69OPX235QG" onclick="copyCode(this,'.code')">EC45YU69OPX235QG</div>
+					<div class="overdue text-center mt-8 fc-aux-9 layui-elip">2018.4.10过期</div>
+				</li>
+				
+				<li>
+					<!--处理背景圆口（不能删除）start-->
+					<div class="left-x"></div>
+					<div class="right-x"></div>
+					<!--处理背景圆口（不能删除）end-->
+					<div class="logo">
+						<p class="img"><img src="/public/images/mall/mall_2.png"></p>
+						<p class="name layui-elip font-w-b">亚马逊中国</p>
+					</div>
+					<div class="price text-center layui-elip">1000-299</div>
+					<div class="instructions text-center">亚马逊中国Amazon China全场满469-50元优惠券</div>
+					<div class="button">
+						<a href="/public/page/couponDetails.html" class="a1" target="_blank">详情页</a>
+						<a href="/public/index.html" class="a2" target="_blank">去用券</a>
+					</div>
+					<div class="djfz"><span>单击复制券码</span></div>
+					<div class="code lvcenter" data-copy="EC45YU69OPX235QG" onclick="copyCode(this,'.code')">EC45YU69OPX235QG</div>
+					<div class="overdue text-center mt-8 fc-aux-9 layui-elip">2018.4.10过期</div>
+				</li>
+				
+				<li>
+					<!--处理背景圆口（不能删除）start-->
+					<div class="left-x"></div>
+					<div class="right-x"></div>
+					<!--处理背景圆口（不能删除）end-->
+					<div class="logo">
+						<p class="img"><img src="/public/images/mall/mall_2.png"></p>
+						<p class="name layui-elip font-w-b">亚马逊中国</p>
+					</div>
+					<div class="price text-center layui-elip">1000-299</div>
+					<div class="instructions text-center">亚马逊中国Amazon China全场满469-50元优惠券</div>
+					<div class="button">
+						<a href="/public/page/couponDetails.html" class="a1" target="_blank">详情页</a>
+						<a href="/public/index.html" class="a2" target="_blank">去用券</a>
+					</div>
+					<div class="djfz"><span>单击复制券码</span></div>
+					<div class="code lvcenter" data-copy="EC45YU69OPX235QG" onclick="copyCode(this,'.code')">EC45YU69OPX235QG</div>
+					<div class="overdue text-center mt-8 fc-aux-9 layui-elip">2018.4.10过期</div>
+				</li>
+				
+				<li>
+					<!--处理背景圆口（不能删除）start-->
+					<div class="left-x"></div>
+					<div class="right-x"></div>
+					<!--处理背景圆口（不能删除）end-->
+					<div class="logo">
+						<p class="img"><img src="/public/images/mall/mall_2.png"></p>
+						<p class="name layui-elip font-w-b">亚马逊中国</p>
+					</div>
+					<div class="price text-center layui-elip">1000-299</div>
+					<div class="instructions text-center">亚马逊中国Amazon China全场满469-50元优惠券</div>
+					<div class="button">
+						<a href="/public/page/couponDetails.html" class="a1" target="_blank">详情页</a>
+						<a href="/public/index.html" class="a2" target="_blank">去用券</a>
+					</div>
+					<div class="djfz"><span>单击复制券码</span></div>
+					<div class="code lvcenter" data-copy="EC45YU69OPX12345" onclick="copyCode(this,'.code')">EC45YU69OPX12345</div>
+					<div class="overdue text-center mt-8 fc-aux-9 layui-elip">2018.4.10过期</div>
+				</li>
+				
+				<li>
+					<!--处理背景圆口（不能删除）start-->
+					<div class="left-x"></div>
+					<div class="right-x"></div>
+					<!--处理背景圆口（不能删除）end-->
+					<div class="logo">
+						<p class="img"><img src="/public/images/mall/mall_2.png"></p>
+						<p class="name layui-elip font-w-b">亚马逊中国</p>
+					</div>
+					<div class="price text-center layui-elip">1000-299</div>
+					<div class="instructions text-center">亚马逊中国Amazon China全场满469-50元优惠券</div>
+					<div class="button">
+						<a href="/public/page/couponDetails.html" class="a1" target="_blank">详情页</a>
+						<a href="/public/index.html" class="a2" target="_blank">去用券</a>
+					</div>
+					<div class="djfz"><span>单击复制券码</span></div>
+					<div class="code lvcenter" data-copy="EC45YU69OPX235QG" onclick="copyCode(this,'.code')">EC45YU69OPX235QG</div>
+					<div class="overdue text-center mt-8 fc-aux-9 layui-elip">2018.4.10过期</div>
+				</li>
+				
+				<li>
+					<!--处理背景圆口（不能删除）start-->
+					<div class="left-x"></div>
+					<div class="right-x"></div>
+					<!--处理背景圆口（不能删除）end-->
+					<div class="logo">
+						<p class="img"><img src="/public/images/mall/mall_2.png"></p>
+						<p class="name layui-elip font-w-b">亚马逊中国</p>
+					</div>
+					<div class="price text-center layui-elip">1000-299</div>
+					<div class="instructions text-center">亚马逊中国Amazon China全场满469-50元优惠券</div>
+					<div class="button">
+						<a href="/public/page/couponDetails.html" class="a1" target="_blank">详情页</a>
+						<a href="/public/index.html" class="a2" target="_blank">去用券</a>
+					</div>
+					<div class="djfz"><span>单击复制券码</span></div>
+					<div class="code lvcenter" data-copy="EC45YU69OPX235QG" onclick="copyCode(this,'.code')">EC45YU69OPX235QG</div>
+					<div class="overdue text-center mt-8 fc-aux-9 layui-elip">2018.4.10过期</div>
+				</li>
+				
+				<li>
+					<!--处理背景圆口（不能删除）start-->
+					<div class="left-x"></div>
+					<div class="right-x"></div>
+					<!--处理背景圆口（不能删除）end-->
+					<div class="logo">
+						<p class="img"><img src="/public/images/mall/mall_2.png"></p>
+						<p class="name layui-elip font-w-b">亚马逊中国</p>
+					</div>
+					<div class="price text-center layui-elip">1000-299</div>
+					<div class="instructions text-center">亚马逊中国Amazon China全场满469-50元优惠券</div>
+					<div class="button">
+						<a href="/public/page/couponDetails.html" class="a1" target="_blank">详情页</a>
+						<a href="/public/index.html" class="a2" target="_blank">去用券</a>
+					</div>
+					<div class="djfz"><span>单击复制券码</span></div>
+					<div class="code lvcenter" data-copy="EC45YU69OPX235QG" onclick="copyCode(this,'.code')">EC45YU69OPX235QG</div>
+					<div class="overdue text-center mt-8 fc-aux-9 layui-elip">2018.4.10过期</div>
+				</li>
+				
+				<li>
+					<!--处理背景圆口（不能删除）start-->
+					<div class="left-x"></div>
+					<div class="right-x"></div>
+					<!--处理背景圆口（不能删除）end-->
+					<div class="logo">
+						<p class="img"><img src="/public/images/mall/mall_2.png"></p>
+						<p class="name layui-elip font-w-b">亚马逊中国</p>
+					</div>
+					<div class="price text-center layui-elip">1000-299</div>
+					<div class="instructions text-center">亚马逊中国Amazon China全场满469-50元优惠券</div>
+					<div class="button">
+						<a href="/public/page/couponDetails.html" class="a1" target="_blank">详情页</a>
+						<a href="/public/index.html" class="a2" target="_blank">去用券</a>
+					</div>
+					<div class="djfz"><span>单击复制券码</span></div>
+					<div class="code lvcenter" data-copy="EC45YU69OPX12345" onclick="copyCode(this,'.code')">EC45YU69OPX12345</div>
+					<div class="overdue text-center mt-8 fc-aux-9 layui-elip">2018.4.10过期</div>
+				</li>
+				
+				<li>
+					<!--处理背景圆口（不能删除）start-->
+					<div class="left-x"></div>
+					<div class="right-x"></div>
+					<!--处理背景圆口（不能删除）end-->
+					<div class="logo">
+						<p class="img"><img src="/public/images/mall/mall_2.png"></p>
+						<p class="name layui-elip font-w-b">亚马逊中国</p>
+					</div>
+					<div class="price text-center layui-elip">1000-299</div>
+					<div class="instructions text-center">亚马逊中国Amazon China全场满469-50元优惠券</div>
+					<div class="button">
+						<a href="/public/page/couponDetails.html" class="a1" target="_blank">详情页</a>
+						<a href="/public/index.html" class="a2" target="_blank">去用券</a>
+					</div>
+					<div class="djfz"><span>单击复制券码</span></div>
+					<div class="code lvcenter" data-copy="EC45YU69OPX235QG" onclick="copyCode(this,'.code')">EC45YU69OPX235QG</div>
+					<div class="overdue text-center mt-8 fc-aux-9 layui-elip">2018.4.10过期</div>
+				</li>
+				
+				<li class="gq">
+					<!--处理背景圆口（不能删除）start-->
+					<div class="left-x"></div>
+					<div class="right-x"></div>
+					<!--处理背景圆口（不能删除）end-->
+					<div class="logo">
+						<p class="img"><img src="/public/images/mall/mall_2.png"></p>
+						<p class="name layui-elip font-w-b">亚马逊中国</p>
+					</div>
+					<div class="price text-center layui-elip">1000-299</div>
+					<div class="instructions text-center">亚马逊中国Amazon China全场满469-50元优惠券</div>
+					<div class="button">
+						<span>已过期</span>
+					</div>
+					<div class="djfz"><span>单击复制券码</span></div>
+					<div class="code lvcenter">EC45YU69OPX235QG</div>
+					<div class="overdue text-center mt-8 fc-aux-9 layui-elip">2018.4.10过期</div>
+				</li>
+				
+				<li class="gq">
+					<!--处理背景圆口（不能删除）start-->
+					<div class="left-x"></div>
+					<div class="right-x"></div>
+					<!--处理背景圆口（不能删除）end-->
+					<div class="logo">
+						<p class="img"><img src="/public/images/mall/mall_2.png"></p>
+						<p class="name layui-elip font-w-b">亚马逊中国</p>
+					</div>
+					<div class="price text-center layui-elip">1000-299</div>
+					<div class="instructions text-center">亚马逊中国Amazon China全场满469-50元优惠券</div>
+					<div class="button">
+						<span>已过期</span>
+					</div>
+					<div class="djfz"><span>单击复制券码</span></div>
+					<div class="code lvcenter">EC45YU69OPX235QG</div>
+					<div class="overdue text-center mt-8 fc-aux-9 layui-elip">2018.4.10过期</div>
+				</li>
+				
+				<!--循环end-->
+				</ul>
+				<!--分页加载中start-->
+				<div class="page-loading"></div>
+				<!--分页加载中end-->
+				
+				<!--分页start-->
+				<div id="pages-card" class="pages" style="text-align: center;"></div>
+				<!--分页end-->
+			</div>
+			<!--我的卡券end-->
+		</div>
+		<!--右边内容end-->
+	</div>
+	
+	<!--底部统一区域+右边悬浮按钮start-->
+	<include file="public:footer" />
+	<!--底部统一区域+右边悬浮按钮end-->
+	
+	<!--引入页面单独JS文件-->
+	<script src="/public/js/member/myCard.js"></script>
+</body>
+</html>

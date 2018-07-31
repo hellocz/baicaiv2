@@ -24,94 +24,14 @@ $(document).ready(function () {
 });
 
 
-//layui分页插件
-layui.use(['laypage', 'layer'], function(){
-	var laypage = layui.laypage
-	,layer = layui.layer;
-	
-	//积分抽奖-详情页分页
-	laypage.render({
-		elem: 'pages-inld'
-		,count: page_count //数据总数
-		,limit: page_size //数据总数
-		,curr: page
-		,jump: function(obj,first){
-			if(!first){
-				$("#pages-inld").siblings(".page-loading").show();
-				// setTimeout(function(){
-				// 	$("#pages-inld").siblings(".page-loading").hide();
-				// },500)
+//layui分页插件 
+//积分抽奖、兑换order分页
+ajaxPages('pages-order', page_count, page_size, page_curr, page_ajax_url, page_content_obj);
+//积分抽奖分页
+ajaxPages('pages-exchange', page_count, page_size, page_curr, page_ajax_url, page_content_obj);
+//积分兑换分页
+ajaxPages('pages-lucky', page_count, page_size, page_curr, page_ajax_url, page_content_obj);
 
-				$.get(page_url, {p:obj.curr,pagesize:obj.limit}, function (result){
-					if(result.status==1){
-						$("#pages-inld").siblings(".page-loading").hide();
-						page_content_obj.html(result.data.list);
-					}
-				},'json');
-			}
-		}
-		,prev:'<i class="icon5 icon5-a_14" style="margin-top: 5px;"></i>'
-		,next:'<i class="icon5 icon5-a_15" style="margin-top: 5px;"></i>'
-	});
-	
-});
-
-//layui分页插件
-layui.use(['laypage', 'layer'], function(){
-	var laypage = layui.laypage
-	,layer = layui.layer;
-	
-	//积分抽奖分页
-	laypage.render({
-		elem: 'pages-incj'
-		,count: page_count //数据总数
-		,limit: page_size //数据总数
-		,curr: page
-		,jump: function(obj,first){
-			if(!first){
-				$("#pages-incj").siblings(".page-loading").show();
-				// setTimeout(function(){
-				// 	$("#pages-incj").siblings(".page-loading").hide();
-				// },500)
-
-				$.get(page_url, {p:obj.curr,pagesize:obj.limit}, function (result){
-					if(result.status==1){
-						$("#pages-incj").siblings(".page-loading").hide();
-						page_content_obj.html(result.data.list);
-					}
-				},'json');
-			}
-		}
-		,prev:'<i class="icon5 icon5-a_14" style="margin-top: 5px;"></i>'
-		,next:'<i class="icon5 icon5-a_15" style="margin-top: 5px;"></i>'
-	});
-	
-	//积分兑换分页
-	laypage.render({
-		elem: 'pages-indh'
-		,count: page_count //数据总数
-		,limit: page_size //数据总数
-		,curr: page
-		,jump: function(obj,first){
-			if(!first){
-				$("#pages-indh").siblings(".page-loading").show();
-				// setTimeout(function(){
-				// 	$("#pages-indh").siblings(".page-loading").hide();
-				// },500)
-
-				$.get(page_url, {p:obj.curr,pagesize:obj.limit}, function (result){
-					if(result.status==1){
-						$("#pages-indh").siblings(".page-loading").hide();
-						page_content_obj.html(result.data.list);
-					}
-				},'json');
-			}
-		}
-		,prev:'<i class="icon5 icon5-a_14" style="margin-top: 5px;"></i>'
-		,next:'<i class="icon5 icon5-a_15" style="margin-top: 5px;"></i>'
-	});
-	
-});
 
 function inTab(){
 	$(".title").find("span").click(function(){

@@ -317,29 +317,22 @@ class itemAction extends frontendAction {
         $this->assign('cmt_list',$cmt_list);
 
         //用户列表, 获得用户等级
-        // $exp = M("user")->where("id=$id")->getField('exp');
-        // $grade = M("grade")->where("min<=$exp and max>=$exp")->getField("grade");
         $user_list = array();
         if(count($uids) > 0){
           array_push($uids, $this->visitor->info['id']);
           array_push($uids, $item['uid']);
-          $grade_list = M("grade")->field("grade, min, max")->select();
-          $users = M("user")->where(array('id' => array("IN", $uids)))->field("id,username,exp,shares")->select();
+          $where = array('id' => array("IN", $uids));
+          $filed = "id,username,exp,shares";
+          $users = D("user")->user_list($where, $filed);
           if(count($users) > 0){
             foreach ($users as $val) {
               $user_list[$val['id']] = $val;
-              $grade = 1;
-              foreach ($grade_list as $val_g) {
-                if($val_g['min'] <= $val['exp'] && $val_g['max']>=$val['exp']){
-                  $grade = $val_g['grade'];
-                  break;
-                }
-              }
-              $user_list[$val['id']]['grade'] = $grade;
+              $user_list[$val['id']]['grade'] = D("grade")->get_grade($val['exp']);
             }
           }
         }
         $this->assign("user_list",$user_list);
+        // echo "<pre>";print_r($users);echo "</pre>";exit;
                 
         // $where1['cate_id']=16;
         // $where1['status']=array("in","1,4");

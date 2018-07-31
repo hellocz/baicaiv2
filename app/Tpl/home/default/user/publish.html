@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<include file="public:head" />
+    <!--当前页面css-->
+    <link rel="stylesheet" href="/public/css/member.css">
+</head>
+<body>
+	<!--个人中心顶部 start-->
+	<include file="header" />
+	<!--个人中心顶部 end-->
+	
+	<!--个人中心用户信息 start-->
+	<include file="top_user" />
+	<!--个人中心用户信息 end-->
+	
+	<div class="w-1200 mt-12 clearfix">
+		<!--左边菜单start-->
+		<include file="left_menu" />
+		<!--左边菜单end-->
+		
+		<!--<script>
+			//子菜单
+			$(document).ready(function() {
+				$(".menuSub").click(function(){
+					if($(this).siblings("ul").is(':visible')){
+						$(this).css("background-image","url(../images/ie8/a_16@2x.png)")
+					}else{
+						$(this).css("background-image","url(../images/ie8/a_16s@2x.png)")
+					}
+					$(this).siblings("ul").toggle();
+				});
+			});
+		</script>-->
+		
+		<!--右边内容start-->
+		<div class="fl rightInfo white-bg radius-3">
+			<div class="r-title">
+				<ul class="fl tabNav clearfix">
+					<li class="active">全部</li>
+					<li>原创</li>
+					<li>爆料</li>
+				</ul>
+				<ul class="fr operation">
+					<li>待审</li>
+					<li>通过</li>
+					<li>退回</li>
+					<li>草稿</li>
+					<li class="active">全部</li>
+				</ul>
+			</div>
+			<ul class="tab font-13 clearfix" style="padding: 0 14px;">
+				<li class="fl" style="width: 492px;">标题</li>
+				<li class="fl text-center" style="width: 138px;">状态</li>
+				<li class="fl text-center" style="width: 138px;">奖励</li>
+				<li class="fl text-right" style="width: 93px;">时间</li>
+			</ul>
+			<!--全部start-->
+			<div class="listBox">
+				<!--循环start-->
+				<div class="item item-1 clearfix">
+					<div class="fl">
+						<img src="/public/images/item/1.jpg" width="66" height="66" class="lazyimg radius-3">
+					</div>
+					<div class="fl info">
+						<div class="tit layui-elip"><span class="yc">原创</span><a href="#">标题限定二十字符二十个字符够了吗还差三个标题限定二十字符二十个字符够了吗还差三个</a></div>
+						<div class="op">
+							<a href="#" class="edit">继续编辑</a>
+							<a href="#" class="del">删除</a>
+						</div>
+					</div>
+					<div class="fl zt text-center" style="width: 138px;">
+						<span class="zt-2">已退回</span>
+					</div>
+					<div class="fl fc-aux-a text-center" style="width: 138px;">
+						<p>油票+20</p>
+						<p class="mt-3">积分+20</p>
+					</div>
+					<span class="fl fc-aux-a text-right" style="width: 93px;">18小时前</span>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<div class="fl">
+						<img src="/public/images/item/2.jpg" width="66" height="66" class="lazyimg radius-3">
+					</div>
+					<div class="fl info">
+						<div class="tit layui-elip"><span class="bl">爆料</span><span class="jh">精华</span><a href="#">标题限定二十字符二十个字符够了吗还差三个标题限定二十字符二十个字符够了吗还差三个</a></div>
+						<div class="op">
+							<a href="#" class="edit">继续编辑</a>
+						</div>
+					</div>
+					<div class="fl zt text-center" style="width: 138px;">
+						<span class="zt-1">已通过</span>
+					</div>
+					<div class="fl fc-aux-a text-center" style="width: 138px;">
+						<p>油票+20</p>
+						<p class="mt-3">积分+20</p>
+					</div>
+					<span class="fl fc-aux-a text-right" style="width: 93px;">18小时前</span>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<div class="fl">
+						<img src="/public/images/item/3.jpg" width="66" height="66" class="lazyimg radius-3">
+					</div>
+					<div class="fl info">
+						<div class="tit layui-elip"><span class="bl">爆料</span><a href="#">标题限定二十字符二十个字符够了吗还差三个标题限定二十字符二十个字符够了吗还差三个</a></div>
+						<div class="op">
+							<a href="#" class="edit">继续编辑</a>
+						</div>
+					</div>
+					<div class="fl zt text-center" style="width: 138px;">
+						<span class="zt-1">已通过</span>
+					</div>
+					<div class="fl fc-aux-a text-center" style="width: 138px;">
+						<p>油票+20</p>
+						<p class="mt-3">积分+20</p>
+					</div>
+					<span class="fl fc-aux-a text-right" style="width: 93px;">18小时前</span>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<div class="fl">
+						<img src="/public/images/item/4.jpg" width="66" height="66" class="lazyimg radius-3">
+					</div>
+					<div class="fl info">
+						<div class="tit layui-elip"><span class="bl">爆料</span><span class="jh">精华</span><a href="#">标题限定二十字符二十个字符够了吗还差三个标题限定二十字符二十个字符够了吗还差三个</a></div>
+						<div class="op">
+							<a href="#" class="edit">继续编辑</a>
+						</div>
+					</div>
+					<div class="fl zt text-center" style="width: 138px;">
+						<span class="zt-1">已通过</span>
+					</div>
+					<div class="fl fc-aux-a text-center" style="width: 138px;">
+						<p>油票+20</p>
+						<p class="mt-3">积分+20</p>
+					</div>
+					<span class="fl fc-aux-a text-right" style="width: 93px;">18小时前</span>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<div class="fl">
+						<img src="/public/images/item/5.jpg" width="66" height="66" class="lazyimg radius-3">
+					</div>
+					<div class="fl info">
+						<div class="tit layui-elip"><span class="yc">原创</span><a href="#">标题限定二十字符二十个字符够了吗还差三个标题限定二十字符二十个字符够了吗还差三个</a></div>
+						<div class="op">
+							<a href="#" class="edit">继续编辑</a>
+						</div>
+					</div>
+					<div class="fl zt text-center" style="width: 138px;">
+						<span class="zt-1">已通过</span>
+					</div>
+					<div class="fl fc-aux-a text-center" style="width: 138px;">
+						<p>油票+20</p>
+						<p class="mt-3">积分+20</p>
+					</div>
+					<span class="fl fc-aux-a text-right" style="width: 93px;">18小时前</span>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<div class="fl">
+						<img src="/public/images/item/6.jpg" width="66" height="66" class="lazyimg radius-3">
+					</div>
+					<div class="fl info">
+						<div class="tit layui-elip"><span class="bl">爆料</span><a href="#">标题限定二十字符二十个字符够了吗还差三个标题限定二十字符二十个字符够了吗还差三个</a></div>
+						<div class="op">
+							<a href="#" class="edit">继续编辑</a>
+						</div>
+					</div>
+					<div class="fl zt text-center" style="width: 138px;">
+						<span class="zt-1">已通过</span>
+					</div>
+					<div class="fl fc-aux-a text-center" style="width: 138px;">
+						<p>油票+20</p>
+						<p class="mt-3">积分+20</p>
+					</div>
+					<span class="fl fc-aux-a text-right" style="width: 93px;">18小时前</span>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<div class="fl">
+						<img src="/public/images/item/7.jpg" width="66" height="66" class="lazyimg radius-3">
+					</div>
+					<div class="fl info">
+						<div class="tit layui-elip"><span class="bl">爆料</span><a href="#">标题限定二十字符二十个字符够了吗还差三个标题限定二十字符二十个字符够了吗还差三个</a></div>
+						<div class="op">
+							<a href="#" class="edit">继续编辑</a>
+							<a href="#" class="del">删除</a>
+						</div>
+					</div>
+					<div class="fl zt text-center" style="width: 138px;">
+						<span class="zt-3">审核中</span>
+					</div>
+					<div class="fl fc-aux-a text-center" style="width: 138px;">
+						<p>油票+20</p>
+						<p class="mt-3">积分+20</p>
+					</div>
+					<span class="fl fc-aux-a text-right" style="width: 93px;">18小时前</span>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<div class="fl">
+						<img src="/public/images/item/8.jpg" width="66" height="66" class="lazyimg radius-3">
+					</div>
+					<div class="fl info">
+						<div class="tit layui-elip"><span class="yc">原创</span><a href="#">标题限定二十字符二十个字符够了吗还差三个标题限定二十字符二十个字符够了吗还差三个</a></div>
+						<div class="op">
+							<a href="#" class="edit">继续编辑</a>
+							<a href="#" class="del">删除</a>
+						</div>
+					</div>
+					<div class="fl zt text-center" style="width: 138px;">
+						<span class="zt-3">审核中</span>
+					</div>
+					<div class="fl fc-aux-a text-center" style="width: 138px;">
+						<p>油票+20</p>
+						<p class="mt-3">积分+20</p>
+					</div>
+					<span class="fl fc-aux-a text-right" style="width: 93px;">18小时前</span>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<div class="fl">
+						<img src="/public/images/item/9.jpg" width="66" height="66" class="lazyimg radius-3">
+					</div>
+					<div class="fl info">
+						<div class="tit layui-elip"><span class="yc">原创</span><a href="#">标题限定二十字符二十个字符够了吗还差三个标题限定二十字符二十个字符够了吗还差三个</a></div>
+						<div class="op">
+							<a href="#" class="edit">继续编辑</a>
+							<a href="#" class="del">删除</a>
+						</div>
+					</div>
+					<div class="fl zt text-center" style="width: 138px;">
+						<span class="zt-4">草稿</span>
+					</div>
+					<div class="fl fc-aux-a text-center" style="width: 138px;">
+						<p>油票+20</p>
+						<p class="mt-3">积分+20</p>
+					</div>
+					<span class="fl fc-aux-a text-right" style="width: 93px;">18小时前</span>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<div class="fl">
+						<img src="/public/images/item/10.jpg" width="66" height="66" class="lazyimg radius-3">
+					</div>
+					<div class="fl info">
+						<div class="tit layui-elip"><span class="bl">爆料</span><a href="#">标题限定二十字符二十个字符够了吗还差三个标题限定二十字符二十个字符够了吗还差三个</a></div>
+						<div class="op">
+							<a href="#" class="edit">继续编辑</a>
+							<a href="#" class="del">删除</a>
+						</div>
+					</div>
+					<div class="fl zt text-center" style="width: 138px;">
+						<span class="zt-4">草稿</span>
+					</div>
+					<div class="fl fc-aux-a text-center" style="width: 138px;">
+						<p>油票+20</p>
+						<p class="mt-3">积分+20</p>
+					</div>
+					<span class="fl fc-aux-a text-right" style="width: 93px;">18小时前</span>
+				</div>
+				<!--循环end-->
+				
+				<!--分页加载中start-->
+				<div class="page-loading"></div>
+				<!--分页加载中end-->
+				
+				<!--分页start-->
+				<div id="pages-qb" class="pages" style="text-align: center;"></div>
+				<!--分页end-->
+			</div>
+			<!--全部end-->
+			
+			<!--原创start-->
+			<div class="listBox none">
+				<!--循环start-->
+				<div class="item item-1 clearfix">
+					<div class="fl">
+						<img src="/public/images/item/10.jpg" width="66" height="66" class="lazyimg radius-3">
+					</div>
+					<div class="fl info">
+						<div class="tit layui-elip"><span class="yc">原创</span><a href="#">标题限定二十字符二十个字符够了吗还差三个标题限定二十字符二十个字符够了吗还差三个</a></div>
+						<div class="op">
+							<a href="#" class="edit">继续编辑</a>
+							<a href="#" class="del">删除</a>
+						</div>
+					</div>
+					<div class="fl zt text-center" style="width: 138px;">
+						<span class="zt-2">已退回</span>
+					</div>
+					<div class="fl fc-aux-a text-center" style="width: 138px;">
+						<p>油票+20</p>
+						<p class="mt-3">积分+20</p>
+					</div>
+					<span class="fl fc-aux-a text-right" style="width: 93px;">18小时前</span>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<div class="fl">
+						<img src="/public/images/item/9.jpg" width="66" height="66" class="lazyimg radius-3">
+					</div>
+					<div class="fl info">
+						<div class="tit layui-elip"><span class="yc">原创</span><span class="jh">精华</span><a href="#">标题限定二十字符二十个字符够了吗还差三个标题限定二十字符二十个字符够了吗还差三个</a></div>
+						<div class="op">
+							<a href="#" class="edit">继续编辑</a>
+						</div>
+					</div>
+					<div class="fl zt text-center" style="width: 138px;">
+						<span class="zt-1">已通过</span>
+					</div>
+					<div class="fl fc-aux-a text-center" style="width: 138px;">
+						<p>油票+20</p>
+						<p class="mt-3">积分+20</p>
+					</div>
+					<span class="fl fc-aux-a text-right" style="width: 93px;">18小时前</span>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<div class="fl">
+						<img src="/public/images/item/8.jpg" width="66" height="66" class="lazyimg radius-3">
+					</div>
+					<div class="fl info">
+						<div class="tit layui-elip"><span class="yc">原创</span><a href="#">标题限定二十字符二十个字符够了吗还差三个标题限定二十字符二十个字符够了吗还差三个</a></div>
+						<div class="op">
+							<a href="#" class="edit">继续编辑</a>
+						</div>
+					</div>
+					<div class="fl zt text-center" style="width: 138px;">
+						<span class="zt-1">已通过</span>
+					</div>
+					<div class="fl fc-aux-a text-center" style="width: 138px;">
+						<p>油票+20</p>
+						<p class="mt-3">积分+20</p>
+					</div>
+					<span class="fl fc-aux-a text-right" style="width: 93px;">18小时前</span>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<div class="fl">
+						<img src="/public/images/item/7.jpg" width="66" height="66" class="lazyimg radius-3">
+					</div>
+					<div class="fl info">
+						<div class="tit layui-elip"><span class="yc">原创</span><span class="jh">精华</span><a href="#">标题限定二十字符二十个字符够了吗还差三个标题限定二十字符二十个字符够了吗还差三个</a></div>
+						<div class="op">
+							<a href="#" class="edit">继续编辑</a>
+						</div>
+					</div>
+					<div class="fl zt text-center" style="width: 138px;">
+						<span class="zt-1">已通过</span>
+					</div>
+					<div class="fl fc-aux-a text-center" style="width: 138px;">
+						<p>油票+20</p>
+						<p class="mt-3">积分+20</p>
+					</div>
+					<span class="fl fc-aux-a text-right" style="width: 93px;">18小时前</span>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<div class="fl">
+						<img src="/public/images/item/6.jpg" width="66" height="66" class="lazyimg radius-3">
+					</div>
+					<div class="fl info">
+						<div class="tit layui-elip"><span class="yc">原创</span><a href="#">标题限定二十字符二十个字符够了吗还差三个标题限定二十字符二十个字符够了吗还差三个</a></div>
+						<div class="op">
+							<a href="#" class="edit">继续编辑</a>
+						</div>
+					</div>
+					<div class="fl zt text-center" style="width: 138px;">
+						<span class="zt-1">已通过</span>
+					</div>
+					<div class="fl fc-aux-a text-center" style="width: 138px;">
+						<p>油票+20</p>
+						<p class="mt-3">积分+20</p>
+					</div>
+					<span class="fl fc-aux-a text-right" style="width: 93px;">18小时前</span>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<div class="fl">
+						<img src="/public/images/item/5.jpg" width="66" height="66" class="lazyimg radius-3">
+					</div>
+					<div class="fl info">
+						<div class="tit layui-elip"><span class="yc">原创</span><a href="#">标题限定二十字符二十个字符够了吗还差三个标题限定二十字符二十个字符够了吗还差三个</a></div>
+						<div class="op">
+							<a href="#" class="edit">继续编辑</a>
+						</div>
+					</div>
+					<div class="fl zt text-center" style="width: 138px;">
+						<span class="zt-1">已通过</span>
+					</div>
+					<div class="fl fc-aux-a text-center" style="width: 138px;">
+						<p>油票+20</p>
+						<p class="mt-3">积分+20</p>
+					</div>
+					<span class="fl fc-aux-a text-right" style="width: 93px;">18小时前</span>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<div class="fl">
+						<img src="/public/images/item/4.jpg" width="66" height="66" class="lazyimg radius-3">
+					</div>
+					<div class="fl info">
+						<div class="tit layui-elip"><span class="yc">原创</span><a href="#">标题限定二十字符二十个字符够了吗还差三个标题限定二十字符二十个字符够了吗还差三个</a></div>
+						<div class="op">
+							<a href="#" class="edit">继续编辑</a>
+							<a href="#" class="del">删除</a>
+						</div>
+					</div>
+					<div class="fl zt text-center" style="width: 138px;">
+						<span class="zt-3">审核中</span>
+					</div>
+					<div class="fl fc-aux-a text-center" style="width: 138px;">
+						<p>油票+20</p>
+						<p class="mt-3">积分+20</p>
+					</div>
+					<span class="fl fc-aux-a text-right" style="width: 93px;">18小时前</span>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<div class="fl">
+						<img src="/public/images/item/3.jpg" width="66" height="66" class="lazyimg radius-3">
+					</div>
+					<div class="fl info">
+						<div class="tit layui-elip"><span class="yc">原创</span><a href="#">标题限定二十字符二十个字符够了吗还差三个标题限定二十字符二十个字符够了吗还差三个</a></div>
+						<div class="op">
+							<a href="#" class="edit">继续编辑</a>
+							<a href="#" class="del">删除</a>
+						</div>
+					</div>
+					<div class="fl zt text-center" style="width: 138px;">
+						<span class="zt-3">审核中</span>
+					</div>
+					<div class="fl fc-aux-a text-center" style="width: 138px;">
+						<p>油票+20</p>
+						<p class="mt-3">积分+20</p>
+					</div>
+					<span class="fl fc-aux-a text-right" style="width: 93px;">18小时前</span>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<div class="fl">
+						<img src="/public/images/item/2.jpg" width="66" height="66" class="lazyimg radius-3">
+					</div>
+					<div class="fl info">
+						<div class="tit layui-elip"><span class="yc">原创</span><a href="#">标题限定二十字符二十个字符够了吗还差三个标题限定二十字符二十个字符够了吗还差三个</a></div>
+						<div class="op">
+							<a href="#" class="edit">继续编辑</a>
+							<a href="#" class="del">删除</a>
+						</div>
+					</div>
+					<div class="fl zt text-center" style="width: 138px;">
+						<span class="zt-4">草稿</span>
+					</div>
+					<div class="fl fc-aux-a text-center" style="width: 138px;">
+						<p>油票+20</p>
+						<p class="mt-3">积分+20</p>
+					</div>
+					<span class="fl fc-aux-a text-right" style="width: 93px;">18小时前</span>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<div class="fl">
+						<img src="/public/images/item/1.jpg" width="66" height="66" class="lazyimg radius-3">
+					</div>
+					<div class="fl info">
+						<div class="tit layui-elip"><span class="yc">原创</span><a href="#">标题限定二十字符二十个字符够了吗还差三个标题限定二十字符二十个字符够了吗还差三个</a></div>
+						<div class="op">
+							<a href="#" class="edit">继续编辑</a>
+							<a href="#" class="del">删除</a>
+						</div>
+					</div>
+					<div class="fl zt text-center" style="width: 138px;">
+						<span class="zt-4">草稿</span>
+					</div>
+					<div class="fl fc-aux-a text-center" style="width: 138px;">
+						<p>油票+20</p>
+						<p class="mt-3">积分+20</p>
+					</div>
+					<span class="fl fc-aux-a text-right" style="width: 93px;">18小时前</span>
+				</div>
+				<!--循环end-->
+				<!--分页加载中start-->
+				<div class="page-loading"></div>
+				<!--分页加载中end-->
+				
+				<!--分页start-->
+				<div id="pages-yc" class="pages" style="text-align: center;"></div>
+				<!--分页end-->
+			</div>
+			<!--原创end-->
+			
+			<!--爆料start-->
+			<div class="listBox none">
+				<!--循环start-->
+				<div class="item item-1 clearfix">
+					<div class="fl">
+						<img src="/public/images/item/6.jpg" width="66" height="66" class="lazyimg radius-3">
+					</div>
+					<div class="fl info">
+						<div class="tit layui-elip"><span class="bl">爆料</span><a href="#">标题限定二十字符二十个字符够了吗还差三个标题限定二十字符二十个字符够了吗还差三个</a></div>
+						<div class="op">
+							<a href="#" class="edit">继续编辑</a>
+							<a href="#" class="del">删除</a>
+						</div>
+					</div>
+					<div class="fl zt text-center" style="width: 138px;">
+						<span class="zt-2">已退回</span>
+					</div>
+					<div class="fl fc-aux-a text-center" style="width: 138px;">
+						<p>油票+20</p>
+						<p class="mt-3">积分+20</p>
+					</div>
+					<span class="fl fc-aux-a text-right" style="width: 93px;">18小时前</span>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<div class="fl">
+						<img src="/public/images/item/7.jpg" width="66" height="66" class="lazyimg radius-3">
+					</div>
+					<div class="fl info">
+						<div class="tit layui-elip"><span class="bl">爆料</span><span class="jh">精华</span><a href="#">标题限定二十字符二十个字符够了吗还差三个标题限定二十字符二十个字符够了吗还差三个</a></div>
+						<div class="op">
+							<a href="#" class="edit">继续编辑</a>
+						</div>
+					</div>
+					<div class="fl zt text-center" style="width: 138px;">
+						<span class="zt-1">已通过</span>
+					</div>
+					<div class="fl fc-aux-a text-center" style="width: 138px;">
+						<p>油票+20</p>
+						<p class="mt-3">积分+20</p>
+					</div>
+					<span class="fl fc-aux-a text-right" style="width: 93px;">18小时前</span>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<div class="fl">
+						<img src="/public/images/item/8.jpg" width="66" height="66" class="lazyimg radius-3">
+					</div>
+					<div class="fl info">
+						<div class="tit layui-elip"><span class="bl">爆料</span><a href="#">标题限定二十字符二十个字符够了吗还差三个标题限定二十字符二十个字符够了吗还差三个</a></div>
+						<div class="op">
+							<a href="#" class="edit">继续编辑</a>
+						</div>
+					</div>
+					<div class="fl zt text-center" style="width: 138px;">
+						<span class="zt-1">已通过</span>
+					</div>
+					<div class="fl fc-aux-a text-center" style="width: 138px;">
+						<p>油票+20</p>
+						<p class="mt-3">积分+20</p>
+					</div>
+					<span class="fl fc-aux-a text-right" style="width: 93px;">18小时前</span>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<div class="fl">
+						<img src="/public/images/item/9.jpg" width="66" height="66" class="lazyimg radius-3">
+					</div>
+					<div class="fl info">
+						<div class="tit layui-elip"><span class="bl">爆料</span><span class="jh">精华</span><a href="#">标题限定二十字符二十个字符够了吗还差三个标题限定二十字符二十个字符够了吗还差三个</a></div>
+						<div class="op">
+							<a href="#" class="edit">继续编辑</a>
+						</div>
+					</div>
+					<div class="fl zt text-center" style="width: 138px;">
+						<span class="zt-1">已通过</span>
+					</div>
+					<div class="fl fc-aux-a text-center" style="width: 138px;">
+						<p>油票+20</p>
+						<p class="mt-3">积分+20</p>
+					</div>
+					<span class="fl fc-aux-a text-right" style="width: 93px;">18小时前</span>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<div class="fl">
+						<img src="/public/images/item/10.jpg" width="66" height="66" class="lazyimg radius-3">
+					</div>
+					<div class="fl info">
+						<div class="tit layui-elip"><span class="bl">爆料</span><a href="#">标题限定二十字符二十个字符够了吗还差三个标题限定二十字符二十个字符够了吗还差三个</a></div>
+						<div class="op">
+							<a href="#" class="edit">继续编辑</a>
+						</div>
+					</div>
+					<div class="fl zt text-center" style="width: 138px;">
+						<span class="zt-1">已通过</span>
+					</div>
+					<div class="fl fc-aux-a text-center" style="width: 138px;">
+						<p>油票+20</p>
+						<p class="mt-3">积分+20</p>
+					</div>
+					<span class="fl fc-aux-a text-right" style="width: 93px;">18小时前</span>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<div class="fl">
+						<img src="/public/images/item/11.jpg" width="66" height="66" class="lazyimg radius-3">
+					</div>
+					<div class="fl info">
+						<div class="tit layui-elip"><span class="bl">爆料</span><a href="#">标题限定二十字符二十个字符够了吗还差三个标题限定二十字符二十个字符够了吗还差三个</a></div>
+						<div class="op">
+							<a href="#" class="edit">继续编辑</a>
+						</div>
+					</div>
+					<div class="fl zt text-center" style="width: 138px;">
+						<span class="zt-1">已通过</span>
+					</div>
+					<div class="fl fc-aux-a text-center" style="width: 138px;">
+						<p>油票+20</p>
+						<p class="mt-3">积分+20</p>
+					</div>
+					<span class="fl fc-aux-a text-right" style="width: 93px;">18小时前</span>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<div class="fl">
+						<img src="/public/images/item/12.jpg" width="66" height="66" class="lazyimg radius-3">
+					</div>
+					<div class="fl info">
+						<div class="tit layui-elip"><span class="bl">爆料</span><a href="#">标题限定二十字符二十个字符够了吗还差三个标题限定二十字符二十个字符够了吗还差三个</a></div>
+						<div class="op">
+							<a href="#" class="edit">继续编辑</a>
+							<a href="#" class="del">删除</a>
+						</div>
+					</div>
+					<div class="fl zt text-center" style="width: 138px;">
+						<span class="zt-3">审核中</span>
+					</div>
+					<div class="fl fc-aux-a text-center" style="width: 138px;">
+						<p>油票+20</p>
+						<p class="mt-3">积分+20</p>
+					</div>
+					<span class="fl fc-aux-a text-right" style="width: 93px;">18小时前</span>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<div class="fl">
+						<img src="/public/images/item/13.jpg" width="66" height="66" class="lazyimg radius-3">
+					</div>
+					<div class="fl info">
+						<div class="tit layui-elip"><span class="bl">爆料</span><a href="#">标题限定二十字符二十个字符够了吗还差三个标题限定二十字符二十个字符够了吗还差三个</a></div>
+						<div class="op">
+							<a href="#" class="edit">继续编辑</a>
+							<a href="#" class="del">删除</a>
+						</div>
+					</div>
+					<div class="fl zt text-center" style="width: 138px;">
+						<span class="zt-3">审核中</span>
+					</div>
+					<div class="fl fc-aux-a text-center" style="width: 138px;">
+						<p>油票+20</p>
+						<p class="mt-3">积分+20</p>
+					</div>
+					<span class="fl fc-aux-a text-right" style="width: 93px;">18小时前</span>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<div class="fl">
+						<img src="/public/images/item/14.jpg" width="66" height="66" class="lazyimg radius-3">
+					</div>
+					<div class="fl info">
+						<div class="tit layui-elip"><span class="bl">爆料</span><a href="#">标题限定二十字符二十个字符够了吗还差三个标题限定二十字符二十个字符够了吗还差三个</a></div>
+						<div class="op">
+							<a href="#" class="edit">继续编辑</a>
+							<a href="#" class="del">删除</a>
+						</div>
+					</div>
+					<div class="fl zt text-center" style="width: 138px;">
+						<span class="zt-4">草稿</span>
+					</div>
+					<div class="fl fc-aux-a text-center" style="width: 138px;">
+						<p>油票+20</p>
+						<p class="mt-3">积分+20</p>
+					</div>
+					<span class="fl fc-aux-a text-right" style="width: 93px;">18小时前</span>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<div class="fl">
+						<img src="/public/images/item/15.jpg" width="66" height="66" class="lazyimg radius-3">
+					</div>
+					<div class="fl info">
+						<div class="tit layui-elip"><span class="bl">爆料</span><a href="#">标题限定二十字符二十个字符够了吗还差三个标题限定二十字符二十个字符够了吗还差三个</a></div>
+						<div class="op">
+							<a href="#" class="edit">继续编辑</a>
+							<a href="#" class="del">删除</a>
+						</div>
+					</div>
+					<div class="fl zt text-center" style="width: 138px;">
+						<span class="zt-4">草稿</span>
+					</div>
+					<div class="fl fc-aux-a text-center" style="width: 138px;">
+						<p>油票+20</p>
+						<p class="mt-3">积分+20</p>
+					</div>
+					<span class="fl fc-aux-a text-right" style="width: 93px;">18小时前</span>
+				</div>
+				<!--循环end-->
+				<!--分页加载中start-->
+				<div class="page-loading"></div>
+				<!--分页加载中end-->
+				
+				<!--分页start-->
+				<div id="pages-bl" class="pages" style="text-align: center;"></div>
+				<!--分页end-->
+			</div>
+			<!--爆料end-->
+		</div>
+		<!--右边内容end-->
+	</div>
+	
+	<!--底部统一区域+右边悬浮按钮start-->
+	<include file="public:footer" />
+	<!--底部统一区域+右边悬浮按钮end-->
+	
+	<!--引入页面单独JS文件-->
+	<script src="/public/js/member/myArticle.js"></script>
+</body>
+</html>

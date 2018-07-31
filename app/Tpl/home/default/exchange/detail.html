@@ -91,9 +91,9 @@
 					
 					<!--分页start-->
 					<script type="text/javascript">
-						var page_count={$page_count}, page={$page}, page_size={$page_size}, page_url = '/index.php?m=exchange&a=get_score_order_list&id='+{$item.id}, page_content_obj = $(".infoBox .drawRecord .dr-list");
+						var page_count={$page.count}, page_curr={$page.p}, page_size={$page.size}, page_ajax_url = '/index.php?m=exchange&a=get_score_order_list&id='+{$item.id}, page_content_obj = $(".infoBox .drawRecord .dr-list");
 					</script>
-					<div id="pages-inld" class="pages" style="text-align: center; padding-bottom: 20px;"></div>
+					<div id="pages-order" class="pages" style="text-align: center; padding-bottom: 20px;"></div>
 					<!--分页end-->
 				</div>
 				<!--抽奖记录end-->

@@ -143,21 +143,10 @@ class indexAction extends frontendAction {
 		$user_list['exp'] = M("user")->field("id,username,exp")->order("exp desc,id asc")->limit(5)->select();
 		$user_list['shares'] = M("user")->field("id,username,shares,exp")->order("shares desc,id asc")->limit(5)->select();
 
-		$grade_list = D("grade")->grade_cache();
-
 		if(count($user_list)>0){
 			foreach ($user_list as $k1 => $arr) {
 				foreach ($arr as $k2 => $value) {
-					if(count($grade_list) > 0){
-						foreach ($grade_list as $i => $v) {
-							if($user_list[$k1][$k2]['exp'] >= $grade_list[$i]['min'] && $user_list[$k1][$k2]['exp'] <= $grade_list[$i]['max']){
-								$user_list[$k1][$k2]['grade'] = $grade_list[$i]['grade'];
-								break;
-							}
-						}
-					}else{
-						$user_list[$k1][$k2]['grade'] = '1';
-					}
+					$user_list[$k1][$k2]['grade'] = D("grade")->get_grade($user_list[$k1][$k2]['exp']);
 				}
 			}
 		}
@@ -172,17 +161,8 @@ class indexAction extends frontendAction {
 			$tag_count = M("notify_tag")->where(array('userid' => $this->visitor->info['id'],'f_sign'=> 1 ))->count();
 
 			//我的等级
-			if(count($grade_list) > 0){
-				foreach ($grade_list as $i => $v) {
-					if($user['exp'] >= $grade_list[$i]['min'] && $user['exp'] <= $grade_list[$i]['max']){
-						$user['grade'] = $grade_list[$i]['grade'];
-						break;
-					}
-				}
-			}else{
-				$user['grade'] = '1';
-			}
-
+			$user['grade'] = D("grade")->get_grade($user['exp']);
+			
 			$this->assign('user',array('tag_count' => $tag_count, 'grade' => $user['grade'], 'score' => $user['score']));
 		}
 

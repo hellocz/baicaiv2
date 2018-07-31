@@ -1,0 +1,47 @@
+					<!--循环start-->
+					<volist name="user_original_list" id="r">
+					<div class="item">
+						<div class="font-14 fc-aux-a">发表了原创
+							<span class="fr">{$r.add_time|fdate}</span>
+						</div>
+						<ul class="item-info mt-12 clearfix">
+							<li class="fl info-1">
+								<img src="<if condition="$r['img']==''">/images/nopic.jpg<else/><if condition="preg_match('/img.baicaio.com/',$r['img'])">{:attach($r['img'],'item')}!thumb287<else/>{:attach($r['img'],'item')}</if></if>" class="lazyimg radius-3">
+							</li>
+							<li class="fl info-2 lvcenter ml-12">
+								<div>
+									<p class="font-16"><a href="#">{$r.title}</a></p>
+									<p class="font-13 fc-aux-9 mt-8">{$r.content|strip_tags|msubstr=0,50}</p>
+								</div>
+							</li>
+						</ul>
+						<ul class="mt-8 operation clearfix">
+							<li onclick="tipsPopup('tips_1','投票成功')">
+								<svg class="icon1">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_6@2x.png" width="14" height="14"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_6"></use>
+								</svg>{$r.zan}
+							</li>
+							<li>
+								<a href="#">
+									<svg class="icon">
+										<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_3@2x.png" width="24" height="24"></desc><![endif]-->
+										<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_3"></use>
+									</svg>{$r.comments}评论
+								</a>
+							</li>
+							<li onclick="tipsPopup('tips_1','已收藏<br><a href=myFavorites.html class=fc-green>去我的收藏夹</a>')">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_8@2x.png" width="24" height="24"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_8"></use>
+								</svg>收藏<!--点击后改变为已收藏-->
+							</li>
+							<!--<li style="padding-left: 10px;" onclick="tipsPopup('tips_1','已收藏<br><a href=myFavorites.html class=fc-green>去我的收藏夹</a>')">
+								已收藏
+							</li>-->
+						</ul>
+					</div>
+					</volist>
+					<!--循环end-->
+					
+					

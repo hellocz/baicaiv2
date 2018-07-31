@@ -2,22 +2,23 @@
 
 class userAction extends userbaseAction {
 
-        public function _initialize(){
-            parent::_initialize();
-            $this->mod = D('user');
-        }
-        public function index(){
-		!$this->visitor->is_login && $this->redirect('index/index');
-		$type = $this->_get('type','trim');
-		$info = $this->visitor->get();
-		$uid = $info['id'];
-		//等级
-		$exp=$info['exp'];
-		$info['grade'] = M("grade")->where("min<=$exp and max>=$exp")->getField("grade");
-		$info['s_a'] = M("share")->where("uid=$uid")->count();//分享的文章
-		//获取关注好友
-		$wsql = "select follow_uid from try_user_follow where uid=$uid";
-		$hsql = "select id from try_item_orig where ismy=$";
+    public function _initialize(){
+        parent::_initialize();
+        $this->_mod = D('user');
+    }
+
+    public function index(){
+        !$this->visitor->is_login && $this->redirect('index/index');
+        $type = $this->_get('type','trim');
+        $info = $this->visitor->get();
+        $uid = $info['id'];
+        //等级
+        $exp=$info['exp'];
+        $info['grade'] = M("grade")->where("min<=$exp and max>=$exp")->getField("grade");
+        $info['s_a'] = M("share")->where("uid=$uid")->count();//分享的文章
+        //获取关注好友
+        $wsql = "select follow_uid from try_user_follow where uid=$uid";
+        $hsql = "select id from try_item_orig where ismy=$";
         $user_follow_uids = M("user_follow")->where("uid=12")->field("follow_uid")->select();
         $user_follow_count = count($user_follow_uids);
         if($user_follow_count!=0){
@@ -34,36 +35,36 @@ class userAction extends userbaseAction {
           }
 
        }
-		switch($type){
-			case "jp":$tsql=" isbest=1 ";break;
-			case "gn":$tsql=" orig_id in(select id from try_item_orig where ismy=0) ";break;
-			case "ht":$tsql=" orig_id in(select id from try_item_orig where ismy=1) ";break;
-			case "sd":$tsql=" cate_id=10 ";break;
-			case "gl":$tsql=" cate_id=9 ";break;
-			case "zr":$tsql=" ";break;
-			case "":break;
-		}
-		if($type=="jp"||$type=="gn"||$type=="ht"){
-			$sqlc="select count(*) as num from try_item where $tsql and uid in(".$str.") and status=1 ";
-			$sql = "select * from try_item where $tsql and uid in(".$str.") and status=1 order by isbest desc ";
-		}elseif($type=="sd"||$type=="gl"){
-			$sqlc="select count(*) as num from try_article where $tsql and uid in(".$str.")  and status=1 ";
-			$sql = "select * from try_article where $tsql and uid in(".$str.")  and status=1 order by isbest desc ";
-		}elseif($type=="zr"){//转让
-			$sqlc="select count(*) as num from try_zr where uid in(".$str.") and status=1";
-			$sql = "select * from try_zr where uid in(".$str.") and status=1 order by id desc";
-		}else{
-			$sqlc="select count(*) as num from try_item where uid in(".$str.") and status=1 ";
-			$sql="select * from try_item where uid in(".$str.") and status=1 order by isbest desc ";
-		}
+        switch($type){
+        case "jp":$tsql=" isbest=1 ";break;
+        case "gn":$tsql=" orig_id in(select id from try_item_orig where ismy=0) ";break;
+        case "ht":$tsql=" orig_id in(select id from try_item_orig where ismy=1) ";break;
+        case "sd":$tsql=" cate_id=10 ";break;
+        case "gl":$tsql=" cate_id=9 ";break;
+        case "zr":$tsql=" ";break;
+        case "":break;
+        }
+        if($type=="jp"||$type=="gn"||$type=="ht"){
+            $sqlc="select count(*) as num from try_item where $tsql and uid in(".$str.") and status=1 ";
+            $sql = "select * from try_item where $tsql and uid in(".$str.") and status=1 order by isbest desc ";
+            }elseif($type=="sd"||$type=="gl"){
+            $sqlc="select count(*) as num from try_article where $tsql and uid in(".$str.")  and status=1 ";
+            $sql = "select * from try_article where $tsql and uid in(".$str.")  and status=1 order by isbest desc ";
+            }elseif($type=="zr"){//转让
+            $sqlc="select count(*) as num from try_zr where uid in(".$str.") and status=1";
+            $sql = "select * from try_zr where uid in(".$str.") and status=1 order by id desc";
+            }else{
+            $sqlc="select count(*) as num from try_item where uid in(".$str.") and status=1 ";
+            $sql="select * from try_item where uid in(".$str.") and status=1 order by isbest desc ";
+            }
 
-		$mod = M();
-		$pagesize=3;
-		$allc = $mod->query($sqlc);
-		$count = $allc[0]['num'];
-		$pager=$this->_pager($count,$pagesize);
-		$sql = $sql." limit ".$pager->firstRow.",".$pager->listRows;
-		$list = $mod->query($sql);
+            $mod = M();
+            $pagesize=3;
+            $allc = $mod->query($sqlc);
+            $count = $allc[0]['num'];
+            $pager=$this->_pager($count,$pagesize);
+            $sql = $sql." limit ".$pager->firstRow.",".$pager->listRows;
+            $list = $mod->query($sql);
         }
         else{
             $list="";
@@ -71,22 +72,24 @@ class userAction extends userbaseAction {
             $count=0;
             $pager=$this->_pager($count,$pagesize);
         }
-		$this->assign('list',$list);
-		$this->assign('pagebar',$pager->fshow());
-		$this->assign('type',$type);
-		$this->assign('info',$info);
-		$user_list = M("user")->order("shares desc, id asc")->limit(4)->select();
-		$arr = M("user_follow")->where("uid=$info[id]")->select();
-		foreach($arr as $key=>$val){
-			$follow_uid[$val['follow_uid']]=1;
-		}
-		foreach($user_list as $key=>$val){
-			$user_list[$key]['follow']=$follow_uid[$val['id']];
-		}
-		$this->assign("page_seo",set_seo('个人中心'));
-		$this->assign('user_list',$user_list);
-		$this->display();
-	}
+        $this->assign('list',$list);
+        $this->assign('pagebar',$pager->fshow());
+        $this->assign('type',$type);
+        $this->assign('info',$info);
+        $user_list = M("user")->order("shares desc, id asc")->limit(4)->select();
+        $arr = M("user_follow")->where("uid=$info[id]")->select();
+        foreach($arr as $key=>$val){
+            $follow_uid[$val['follow_uid']]=1;
+        }
+        foreach($user_list as $key=>$val){
+            $user_list[$key]['follow']=$follow_uid[$val['id']];
+        }
+        $this->assign("page_seo",set_seo('个人中心'));
+        $this->assign('user_list',$user_list);
+        $this->display();
+    }
+
+
     /**
      * 用户登陆
      */
@@ -132,7 +135,7 @@ class userAction extends userbaseAction {
                 }
                 session('phone_verify_'.md5($mobile), NULL);
 
-                $user = $this->mod->get_user("mobile='".$mobile."'");
+                $user = $this->_mod->get_user_by_mobile($mobile);
                 $uid = isset($user['id']) ? $user['id'] : '';
                 $username = isset($user['username']) ? $user['username'] : '';
                 if (!$uid) {
@@ -395,7 +398,7 @@ class userAction extends userbaseAction {
             }
 
             $mobile = $_SESSION['mobile'];
-            $user = $this->mod->get_user("mobile='".$mobile."'");
+            $user = $this->_mod->get_user_by_mobile($mobile);
             !$user && $this->error(L('user_not_exists'));
             session('mobile', NULL);
 
@@ -427,7 +430,7 @@ class userAction extends userbaseAction {
             }
             session('captcha', NULL);
 
-            $user = $this->mod->get_user("mobile='".$mobile."'");
+            $user = $this->_mod->get_user_by_mobile($mobile);
             !$user && $this->error(L('user_not_exists'));
             $_SESSION['mobile'] = $mobile;
 

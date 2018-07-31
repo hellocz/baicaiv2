@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<include file="public:head" />
+    <!--当前页面css-->
+    <link rel="stylesheet" href="/public/css/member.css">
+</head>
+<body>
+	<!--个人中心顶部 start-->
+	<include file="header" />
+	<!--个人中心顶部 end-->
+	
+	<!--个人中心用户信息 start-->
+	<include file="top_user" />
+	<!--个人中心用户信息 end-->
+	
+	<div class="w-1200 mt-12 clearfix">
+		<!--左边菜单start-->
+		<include file="left_menu" />
+		<!--左边菜单end-->
+		
+		<!--<script>
+			//子菜单
+			$(document).ready(function() {
+				$(".menuSub").click(function(){
+					if($(this).siblings("ul").is(':visible')){
+						$(this).css("background-image","url(../images/ie8/a_16@2x.png)")
+					}else{
+						$(this).css("background-image","url(../images/ie8/a_16s@2x.png)")
+					}
+					$(this).siblings("ul").toggle();
+				});
+			});
+		</script>-->
+		
+		<!--右边内容start-->
+		<div class="fl rightInfo white-bg radius-3">
+			<div class="r-title">
+				<ul class="fl tabNav clearfix">
+					<li class="active">中奖纪录</li>
+					<li>抽奖记录</li>
+				</ul>
+				<a href="/public/page/integralMall.html" class="fr btn-3 btn-cj">去抽奖</a>
+			</div>
+			<ul class="tab font-13 clearfix" style="padding: 0 14px;">
+				<li class="fl text-center" style="width: 572px;">奖品</li>
+				<li class="fl text-center" style="width: 138px;">开奖时间</li>
+				<li class="fl text-center" style="width: 88px;">幸运号</li>
+				<li class="fl text-right" style="width: 63px;">状态</li>
+			</ul>
+			<!--中奖记录start-->
+			<div class="listBox">
+				<!--循环start-->
+				<div class="item item-1 clearfix">
+					<img src="/public/images/item/1.jpg" width="60" height="60" class="fl radius-3 lazyimg">
+					<div class="fl info vcenter font-14" style="height: 60px; width: 500px;">
+						<div>
+							<p class="layui-elip" style="width: 500px;"><a href="/public/page/intLuckyDraw-1.html">第21期：为什么 Windows 窗口有无数大小，却没有出现 移动端所谓“适配”的问题呢？</a></p>
+							<p class="fc-green mt-5">顺丰速运：8675675232</p>
+						</div>
+					</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 138px; height: 60px;">2018.3.25 15:30</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 88px; height: 60px;">40</div>
+					<div class="fr vcenter yfh font-14" style="height: 60px;">已发货</div>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<img src="/public/images/item/2.jpg" width="60" height="60" class="fl radius-3 lazyimg">
+					<div class="fl info vcenter font-14" style="height: 60px; width: 500px;">
+						<div>
+							<p class="layui-elip" style="width: 500px;"><a href="/public/page/intLuckyDraw-1.html">第20期：为什么 Windows 窗口有无数大小，却没有出现 移动端所谓“适配”的问题呢？</a></p>
+							<p class="fc-green mt-5">顺丰速运：8675675232</p>
+						</div>
+					</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 138px; height: 60px;">2018.3.25 15:30</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 88px; height: 60px;">40</div>
+					<div class="fr vcenter yfh font-14" style="height: 60px;">已发货</div>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<img src="/public/images/item/3.jpg" width="60" height="60" class="fl radius-3 lazyimg">
+					<div class="fl info vcenter font-14" style="height: 60px; width: 500px;">
+						<div>
+							<p class="layui-elip" style="width: 500px;"><a href="/public/page/intLuckyDraw-1.html">第19期：为什么 Windows 窗口有无数大小，却没有出现 移动端所谓“适配”的问题呢？</a></p>
+						</div>
+					</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 138px; height: 60px;">2018.3.25 15:30</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 88px; height: 60px;">40</div>
+					<div class="fr vcenter dfh font-14" style="height: 60px;">待发货</div>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<img src="/public/images/item/4.jpg" width="60" height="60" class="fl radius-3 lazyimg">
+					<div class="fl info vcenter font-14" style="height: 60px; width: 500px;">
+						<div>
+							<p class="layui-elip" style="width: 500px;"><a href="/public/page/intLuckyDraw-1.html">第19期：为什么 Windows 窗口有无数大小，却没有出现 移动端所谓“适配”的问题呢？</a></p>
+						</div>
+					</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 138px; height: 60px;">2018.3.25 15:30</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 88px; height: 60px;">40</div>
+					<div class="fr vcenter dfh font-14" style="height: 60px;">待发货</div>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<img src="/public/images/item/5.jpg" width="60" height="60" class="fl radius-3 lazyimg">
+					<div class="fl info vcenter font-14" style="height: 60px; width: 500px;">
+						<div>
+							<p class="layui-elip" style="width: 500px;"><a href="/public/page/intLuckyDraw-1.html">第19期：为什么 Windows 窗口有无数大小，却没有出现 移动端所谓“适配”的问题呢？</a></p>
+						</div>
+					</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 138px; height: 60px;">2018.3.25 15:30</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 88px; height: 60px;">40</div>
+					<div class="fr vcenter dfh font-14" style="height: 60px;">待发货</div>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<img src="/public/images/item/6.jpg" width="60" height="60" class="fl radius-3 lazyimg">
+					<div class="fl info vcenter font-14" style="height: 60px; width: 500px;">
+						<div>
+							<p class="layui-elip" style="width: 500px;"><a href="/public/page/intLuckyDraw-1.html">第20期：为什么 Windows 窗口有无数大小，却没有出现 移动端所谓“适配”的问题呢？</a></p>
+							<p class="fc-green mt-5">顺丰速运：8675675232</p>
+						</div>
+					</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 138px; height: 60px;">2018.3.25 15:30</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 88px; height: 60px;">40</div>
+					<div class="fr vcenter yfh font-14" style="height: 60px;">已发货</div>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<img src="/public/images/item/7.jpg" width="60" height="60" class="fl radius-3 lazyimg">
+					<div class="fl info vcenter font-14" style="height: 60px; width: 500px;">
+						<div>
+							<p class="layui-elip" style="width: 500px;"><a href="/public/page/intLuckyDraw-1.html">第19期：为什么 Windows 窗口有无数大小，却没有出现 移动端所谓“适配”的问题呢？</a></p>
+						</div>
+					</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 138px; height: 60px;">2018.3.25 15:30</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 88px; height: 60px;">40</div>
+					<div class="fr vcenter dfh font-14" style="height: 60px;">待发货</div>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<img src="/public/images/item/8.jpg" width="60" height="60" class="fl radius-3 lazyimg">
+					<div class="fl info vcenter font-14" style="height: 60px; width: 500px;">
+						<div>
+							<p class="layui-elip" style="width: 500px;"><a href="/public/page/intLuckyDraw-1.html">第20期：为什么 Windows 窗口有无数大小，却没有出现 移动端所谓“适配”的问题呢？</a></p>
+							<p class="fc-green mt-5">顺丰速运：8675675232</p>
+						</div>
+					</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 138px; height: 60px;">2018.3.25 15:30</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 88px; height: 60px;">40</div>
+					<div class="fr vcenter yfh font-14" style="height: 60px;">已发货</div>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<img src="/public/images/item/9.jpg" width="60" height="60" class="fl radius-3 lazyimg">
+					<div class="fl info vcenter font-14" style="height: 60px; width: 500px;">
+						<div>
+							<p class="layui-elip" style="width: 500px;"><a href="/public/page/intLuckyDraw-1.html">第19期：为什么 Windows 窗口有无数大小，却没有出现 移动端所谓“适配”的问题呢？</a></p>
+						</div>
+					</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 138px; height: 60px;">2018.3.25 15:30</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 88px; height: 60px;">40</div>
+					<div class="fr vcenter dfh font-14" style="height: 60px;">待发货</div>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<img src="/public/images/item/10.jpg" width="60" height="60" class="fl radius-3 lazyimg">
+					<div class="fl info vcenter font-14" style="height: 60px; width: 500px;">
+						<div>
+							<p class="layui-elip" style="width: 500px;"><a href="/public/page/intLuckyDraw-1.html">第20期：为什么 Windows 窗口有无数大小，却没有出现 移动端所谓“适配”的问题呢？</a></p>
+							<p class="fc-green mt-5">顺丰速运：8675675232</p>
+						</div>
+					</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 138px; height: 60px;">2018.3.25 15:30</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 88px; height: 60px;">40</div>
+					<div class="fr vcenter yfh font-14" style="height: 60px;">已发货</div>
+				</div>
+				<!--循环end-->
+				<!--分页加载中start-->
+				<div class="page-loading"></div>
+				<!--分页加载中end-->
+				
+				<!--分页start-->
+				<div id="pages-zj" class="pages" style="text-align: center;"></div>
+				<!--分页end-->
+			</div>
+			<!--中奖记录end-->
+			
+			<!--抽奖记录start-->
+			<div class="listBox none">
+				<!--循环start-->
+				<div class="item item-1 clearfix">
+					<img src="/public/images/item/10.jpg" width="60" height="60" class="fl radius-3 lazyimg">
+					<div class="fl info vcenter font-14" style="height: 60px; width: 500px;">
+						<div>
+							<p class="layui-elip" style="width: 500px;"><a href="/public/page/intLuckyDraw-1.html">第21期：为什么 Windows 窗口有无数大小，却没有出现 移动端所谓“适配”的问题呢？</a></p>
+						</div>
+					</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 138px; height: 60px;">2018.3.25 15:30</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 88px; height: 60px;">40</div>
+					<div class="fr vcenter dfh font-14" style="height: 60px;">待开奖</div>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<img src="/public/images/item/9.jpg" width="60" height="60" class="fl radius-3 lazyimg">
+					<div class="fl info vcenter font-14" style="height: 60px; width: 500px;">
+						<div>
+							<p class="layui-elip" style="width: 500px;"><a href="/public/page/intLuckyDraw-1.html">第21期：为什么 Windows 窗口有无数大小，却没有出现 移动端所谓“适配”的问题呢？</a></p>
+						</div>
+					</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 138px; height: 60px;">2018.3.25 15:30</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 88px; height: 60px;">40</div>
+					<div class="fr vcenter dfh font-14" style="height: 60px;">待开奖</div>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<img src="/public/images/item/8.jpg" width="60" height="60" class="fl radius-3 lazyimg">
+					<div class="fl info vcenter font-14" style="height: 60px; width: 500px;">
+						<div>
+							<p class="layui-elip" style="width: 500px;"><a href="/public/page/intLuckyDraw-1.html">第21期：为什么 Windows 窗口有无数大小，却没有出现 移动端所谓“适配”的问题呢？</a></p>
+						</div>
+					</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 138px; height: 60px;">2018.3.25 15:30</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 88px; height: 60px;">40</div>
+					<div class="fr vcenter dfh font-14" style="height: 60px;">待开奖</div>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<img src="/public/images/item/7.jpg" width="60" height="60" class="fl radius-3 lazyimg">
+					<div class="fl info vcenter font-14" style="height: 60px; width: 500px;">
+						<div>
+							<p class="layui-elip" style="width: 500px;"><a href="/public/page/intLuckyDraw-1.html">第21期：为什么 Windows 窗口有无数大小，却没有出现 移动端所谓“适配”的问题呢？</a></p>
+						</div>
+					</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 138px; height: 60px;">2018.3.25 15:30</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 88px; height: 60px;">40</div>
+					<div class="fr vcenter fc-aux-a font-14" style="height: 60px;">未中奖</div>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<img src="/public/images/item/6.jpg" width="60" height="60" class="fl radius-3 lazyimg">
+					<div class="fl info vcenter font-14" style="height: 60px; width: 500px;">
+						<div>
+							<p class="layui-elip" style="width: 500px;"><a href="/public/page/intLuckyDraw-1.html">第21期：为什么 Windows 窗口有无数大小，却没有出现 移动端所谓“适配”的问题呢？</a></p>
+						</div>
+					</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 138px; height: 60px;">2018.3.25 15:30</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 88px; height: 60px;">40</div>
+					<div class="fr vcenter fc-aux-a font-14" style="height: 60px;">未中奖</div>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<img src="/public/images/item/5.jpg" width="60" height="60" class="fl radius-3 lazyimg">
+					<div class="fl info vcenter font-14" style="height: 60px; width: 500px;">
+						<div>
+							<p class="layui-elip" style="width: 500px;"><a href="/public/page/intLuckyDraw-1.html">第21期：为什么 Windows 窗口有无数大小，却没有出现 移动端所谓“适配”的问题呢？</a></p>
+						</div>
+					</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 138px; height: 60px;">2018.3.25 15:30</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 88px; height: 60px;">40</div>
+					<div class="fr vcenter fc-aux-a font-14" style="height: 60px;">未中奖</div>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<img src="/public/images/item/4.jpg" width="60" height="60" class="fl radius-3 lazyimg">
+					<div class="fl info vcenter font-14" style="height: 60px; width: 500px;">
+						<div>
+							<p class="layui-elip" style="width: 500px;"><a href="/public/page/intLuckyDraw-1.html">第21期：为什么 Windows 窗口有无数大小，却没有出现 移动端所谓“适配”的问题呢？</a></p>
+						</div>
+					</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 138px; height: 60px;">2018.3.25 15:30</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 88px; height: 60px;">40</div>
+					<div class="fr vcenter fc-green font-14" style="height: 60px;">已中奖</div>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<img src="/public/images/item/3.jpg" width="60" height="60" class="fl radius-3 lazyimg">
+					<div class="fl info vcenter font-14" style="height: 60px; width: 500px;">
+						<div>
+							<p class="layui-elip" style="width: 500px;"><a href="/public/page/intLuckyDraw-1.html">第21期：为什么 Windows 窗口有无数大小，却没有出现 移动端所谓“适配”的问题呢？</a></p>
+						</div>
+					</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 138px; height: 60px;">2018.3.25 15:30</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 88px; height: 60px;">40</div>
+					<div class="fr vcenter fc-aux-a font-14" style="height: 60px;">未中奖</div>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<img src="/public/images/item/2.jpg" width="60" height="60" class="fl radius-3 lazyimg">
+					<div class="fl info vcenter font-14" style="height: 60px; width: 500px;">
+						<div>
+							<p class="layui-elip" style="width: 500px;"><a href="/public/page/intLuckyDraw-1.html">第21期：为什么 Windows 窗口有无数大小，却没有出现 移动端所谓“适配”的问题呢？</a></p>
+						</div>
+					</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 138px; height: 60px;">2018.3.25 15:30</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 88px; height: 60px;">40</div>
+					<div class="fr vcenter fc-aux-a font-14" style="height: 60px;">未中奖</div>
+				</div>
+				
+				<div class="item item-1 clearfix">
+					<img src="/public/images/item/1.jpg" width="60" height="60" class="fl radius-3 lazyimg">
+					<div class="fl info vcenter font-14" style="height: 60px; width: 500px;">
+						<div>
+							<p class="layui-elip" style="width: 500px;"><a href="/public/page/intLuckyDraw-1.html">第21期：为什么 Windows 窗口有无数大小，却没有出现 移动端所谓“适配”的问题呢？</a></p>
+						</div>
+					</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 138px; height: 60px;">2018.3.25 15:30</div>
+					<div class="fl lvcenter fc-aux-9 font-14" style="width: 88px; height: 60px;">40</div>
+					<div class="fr vcenter fc-green font-14" style="height: 60px;">已中奖</div>
+				</div>
+				<!--循环end-->
+				<!--分页加载中start-->
+				<div class="page-loading"></div>
+				<!--分页加载中end-->
+				
+				<!--分页start-->
+				<div id="pages-cj" class="pages" style="text-align: center;"></div>
+				<!--分页end-->
+			</div>
+			<!--抽奖记录end-->
+		</div>
+		<!--右边内容end-->
+	</div>
+	
+	<!--底部统一区域+右边悬浮按钮start-->
+	<include file="public:footer" />
+	<!--底部统一区域+右边悬浮按钮end-->
+	
+	<!--引入页面单独JS文件-->
+	<script src="/public/js/member/myLuckyDraw.js"></script>
+</body>
+</html>

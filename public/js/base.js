@@ -244,6 +244,38 @@ function pages(a){
 	});
 }
 
+function ajaxPages(a,count,size,curr,ajax_url,content_obj){
+	layui.use(['laypage', 'layer'], function(){
+		var laypage = layui.laypage
+		,layer = layui.layer;
+		
+		//积分抽奖-详情页分页
+		laypage.render({
+			elem: a
+			,count: count //数据总数
+			,limit: size //每页显示数
+			,curr: curr //当前页码
+			,jump: function(obj,first){
+				if(!first){
+					$("#"+a).siblings(".page-loading").show();
+
+					$.get(ajax_url, {p:obj.curr,pagesize:obj.limit}, function (result){
+						if(result.status==1){
+							$("#"+a).siblings(".page-loading").hide();
+							content_obj.html(result.data.list);
+						}else{
+							tipsPopup('tips_2', result.msg);
+						}
+					},'json');
+				}
+			}
+			,prev:'<i class="icon5 icon5-a_14" style="margin-top: 5px;"></i>'
+			,next:'<i class="icon5 icon5-a_15" style="margin-top: 5px;"></i>'
+		});
+		
+	});
+}
+
 //下拉更多连接
 function moreUrl(a,b){
 	$(a).hover(function(){
@@ -363,43 +395,45 @@ function LoginPopup(type){
 		}
 		else
 		{
-			layer.open({
-				type: 1,
-				title: false,
-				closeBtn: 1,
-				shadeClose: false,
-				shade:0.7,
-				anim:2,
-				skin: 'loginPopup',
-				area: '430px',
-				content: res.data
-			});
+			layui.use(['layer'], function(){
+				layer.open({
+					type: 1,
+					title: false,
+					closeBtn: 1,
+					shadeClose: false,
+					shade:0.7,
+					anim:2,
+					skin: 'loginPopup',
+					area: '430px',
+					content: res.data
+				});
 
-			$(".loginPopup .loginType").click(function(){
-				if($(".loginPopup .loginBox").is(":hidden")){
+				$(".loginPopup .loginType").click(function(){
+					if($(".loginPopup .loginBox").is(":hidden")){
+						$(".loginPopup .loginBox").show();
+						$(".loginPopup .mobileBox").hide();
+					}else{
+						$(".loginPopup .loginBox").hide();
+						$(".loginPopup .mobileBox").show();
+					}
+				});
+				
+				$(".loginPopup .registeredButton").click(function(){
+					$(".loginPopup .loginBox").hide();
+					$(".loginPopup .mobileBox").hide();
+					$(".loginPopup .registeredBox").show();
+				});
+				
+				$(".loginPopup .loginButton").click(function(){
 					$(".loginPopup .loginBox").show();
 					$(".loginPopup .mobileBox").hide();
-				}else{
-					$(".loginPopup .loginBox").hide();
-					$(".loginPopup .mobileBox").show();
+					$(".loginPopup .registeredBox").hide();
+				});
+				
+				if(type==1){
+					$(".loginPopup .registeredButton").click();
 				}
 			});
-			
-			$(".loginPopup .registeredButton").click(function(){
-				$(".loginPopup .loginBox").hide();
-				$(".loginPopup .mobileBox").hide();
-				$(".loginPopup .registeredBox").show();
-			});
-			
-			$(".loginPopup .loginButton").click(function(){
-				$(".loginPopup .loginBox").show();
-				$(".loginPopup .mobileBox").hide();
-				$(".loginPopup .registeredBox").hide();
-			});
-			
-			if(type==1){
-				$(".loginPopup .registeredButton").click();
-			}
 		}
 
 	},'json');
@@ -449,5 +483,40 @@ function newMsg(){
 			$(this).siblings("ul").hide();
 			$(this).parent().removeClass("newMsg-down");
 		}
+	});
+}
+
+//弹出层输入框（a：弹出框名称，b：value内容，c：placeholder内容， callback执行方法）
+function prompt(a,b,c,callback){
+	
+	layui.use(['layer'], function(){
+		layer.prompt({
+			formType: 0,
+			title:a,
+			value:b,
+			placeholder:c
+		}, function(value, index, elem){
+			// alert(value); //得到value callback执行方法
+			if(b){
+				layer.msg('修改成功');
+			}else{
+				layer.msg('添加成功');
+			}
+			layer.close(index);
+		});
+	});
+}
+
+//弹出层删除对话框（info：显示内容， callback执行方法）
+function del(title,info,callback){
+	layui.use(['layer'], function(){
+		layer.confirm(info, {
+			title,
+			skin:'askBox',
+		}, function(index){
+			//callback这里可以写一个删除后的执行的方法
+			layer.msg('删除成功');
+			layer.close(index);
+		});
 	});
 }

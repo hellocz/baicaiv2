@@ -65,11 +65,44 @@ class userModel extends Model
     }
 
     /**
-     * 用户信息
+     * 用户信息, where条件须唯一确定一条记录，如email, username, mobile, id
      */
-    public function get_user($where, $field = '') {
-        if(!$where) return false;        
-        $user = $this->field($field)->where($where)->find();
+    public function get_user_by_uid($uid, $field = '') {
+        if(!$uid) return false;        
+        $user = $this->field($field)->where("id=".$uid)->find();
         return $user;
+    }
+
+    public function get_user_by_email($email, $field = '') {
+        if(!$email) return false;        
+        $user = $this->field($field)->where("email='".$email."'")->find();
+        return $user;
+    }
+
+    public function get_user_by_username($username, $field = '') {
+        if(!$username) return false;        
+        $user = $this->field($field)->where("username='".$username."'")->find();
+        return $user;
+    }
+
+    public function get_user_by_mobile($mobile, $field = '') {
+        if(!$mobile) return false;        
+        $user = $this->field($field)->where("mobile='".$mobile."'")->find();
+        return $user;
+    }
+
+    /**
+     * 用户信息, 通过ID取用户信息
+     */
+    public function get_info($id = '', $field = '') {
+        if(!$id) return false;        
+        $user = $this->field($field)->where(array('id' => $id))->find();
+        return $user;
+    }
+
+    public function user_list($where, $field = '') {
+        if(!$where) return false;        
+        $user_list = $this->where($where)->field($field)->select();
+        return $user_list;
     }
 }

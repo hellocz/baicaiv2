@@ -102,13 +102,13 @@
 								$header_hot_orig_list = D("item_orig")->hot_orig_cache();
 							?>
 							<div class="tb clearfix">
-								<volist name="header_hot_orig_list" id="item" offset="0" length="8">
-								<a href="{:U('orig/show',array('id'=>$item['id']))}" title="{$item.name}" class="fl"><img src="<if condition="$item['img']">{:attach($item['img'],'item_orig')}<else/>/images/nopic.jpg</if>" title="{$item.name}" alt="{$item.name}"><br>{$item.name}</a>
+								<volist name="header_hot_orig_list" id="r" offset="0" length="8">
+								<a href="{:U('orig/show',array('id'=>$r['id']))}" title="{$r.name}" class="fl"><img src="<if condition="$r['img']">{:attach($r['img'],'item_orig')}<else/>/images/nopic.jpg</if>" title="{$r.name}" alt="{$r.name}"><br>{$r.name}</a>
 								</volist>
 							</div>
 							<div class="wz clearfix font-14">
-								<volist name="header_hot_orig_list" id="item" offset="8" length="29">
-								<a href="{:U('orig/show',array('id'=>$item['id']))}" title="{$item.name}" class="fl">{$item.name}</a>
+								<volist name="header_hot_orig_list" id="r" offset="8" length="29">
+								<a href="{:U('orig/show',array('id'=>$r['id']))}" title="{$r.name}" class="fl">{$r.name}</a>
 								</volist>
 								<a href="{:U('orig/index')}" class="fl fc-green">查看所有商场</a>
 							</div>
@@ -235,13 +235,13 @@
 								<div class="clearfix"><a href="{:U('exchange/lucky')}" class="fr font-12 fc-aux-9 more mr-10">浏览更多</a></div>
 								<ul class="jf-list mt-5 clearfix">
 									<?php $header_lucky_item_list = D('score_item')->score_item_list('lucky', 4);?>
-									<volist name="header_lucky_item_list" id="item">
+									<volist name="header_lucky_item_list" id="r">
 									<li>
-										<p class="pic"><a href="{:U('exchange/detail', array('id'=>$item['id']))}"><img src="{:attach($item['img'], 'score_item')}" title="{$item.title}" alt="{$item.title}" class="lazyimg radius-3" width="186" height="186"></a><!-- <span class="radius-100">第21期</span> --></p>
-										<p class="mt-5 font-14 layui-elip"><a href="{:U('exchange/detail', array('id'=>$item['id']))}">{$item.title}</a></p>
-										<p class="mt-5" style="color:#EB3C3C;">开奖进度：{$item.buy_num}/{$item['buy_num']+$item['stock']}</p>
-										<p class="mt-5 fc-aux-9"><if condition="$item['coin'] gt 0">{$item.coin}金币/次，</if><if condition="$item['score'] gt 0">{$item.score}积分/次，</if><if condition="$item['user_num'] gt 0">每人每期限{$item['user_num']}次<else/>每人每期不限次数</if></p>
-										<p class="mt-10"><a href="{:U('exchange/detail', array('id'=>$item['id']))}" class="button btn-4">参与抽奖</a></p>
+										<p class="pic"><a href="{:U('exchange/detail', array('id'=>$r['id']))}"><img src="{:attach($r['img'], 'score_item')}" title="{$r.title}" alt="{$r.title}" class="lazyimg radius-3" width="186" height="186"></a><!-- <span class="radius-100">第21期</span> --></p>
+										<p class="mt-5 font-14 layui-elip"><a href="{:U('exchange/detail', array('id'=>$r['id']))}">{$r.title}</a></p>
+										<p class="mt-5" style="color:#EB3C3C;">开奖进度：{$r.buy_num}/{$r['buy_num']+$r['stock']}</p>
+										<p class="mt-5 fc-aux-9"><if condition="$r['coin'] gt 0">{$r.coin}金币/次，</if><if condition="$r['score'] gt 0">{$r.score}积分/次，</if><if condition="$r['user_num'] gt 0">每人每期限{$r['user_num']}次<else/>每人每期不限次数</if></p>
+										<p class="mt-10"><a href="{:U('exchange/detail', array('id'=>$r['id']))}" class="button btn-4">参与抽奖</a></p>
 									</li>
 									</volist>
 								</ul>
@@ -250,15 +250,15 @@
 								<div class="clearfix"><a href="{:U('exchange/index')}" class="fr font-12 fc-aux-9 more mr-10">浏览更多</a></div>
 								<ul class="jf-list mt-5 clearfix">
 									<?php $header_exchange_item_list = D('score_item')->score_item_list('exchange', 4);?>
-									<volist name="header_exchange_item_list" id="item">
+									<volist name="header_exchange_item_list" id="r">
 									<li>
-										<p class="pic"><a href="{:U('exchange/detail', array('id'=>$item['id']))}"><img src="{:attach($item['img'], 'score_item')}" title="{$item.title}" alt="{$item.title}" class="lazyimg radius-3" width="186" height="186"></a></p>
-										<p class="mt-5 font-14 layui-elip">{$item.title}</p>
-										<p class="mt-5 fc-aux-9">已兑换{$item.buy_num}件，剩余<font style="color:#EB3C3C;">{$item.stock}</font>件</p>
-										<p class="mt-5 fc-aux-9"><if condition="$item['coin'] gt 0">积分{$item.score}，</if><if condition="$item['score'] gt 0">金币{$item.coin}</if><if condition="$item['user_num'] gt 0">每人限兑换{$item['user_num']}次<else/>每人每期不限次数</if></p>
+										<p class="pic"><a href="{:U('exchange/detail', array('id'=>$r['id']))}"><img src="{:attach($r['img'], 'score_item')}" title="{$r.title}" alt="{$r.title}" class="lazyimg radius-3" width="186" height="186"></a></p>
+										<p class="mt-5 font-14 layui-elip">{$r.title}</p>
+										<p class="mt-5 fc-aux-9">已兑换{$r.buy_num}件，剩余<font style="color:#EB3C3C;">{$r.stock}</font>件</p>
+										<p class="mt-5 fc-aux-9"><if condition="$r['coin'] gt 0">积分{$r.score}，</if><if condition="$r['score'] gt 0">金币{$r.coin}</if><if condition="$r['user_num'] gt 0">每人限兑换{$r['user_num']}次<else/>每人每期不限次数</if></p>
 										<p class="mt-10">
 											<!-- <a href="javascript: void(0);" onclick="askPopup('您确定要用200积分兑换吗？')" class="button btn-4">立即兑换</a> -->
-											<a href="{:U('exchange/detail', array('id'=>$item['id']))}" class="button btn-4">立即兑换</a>
+											<a href="{:U('exchange/detail', array('id'=>$r['id']))}" class="button btn-4">立即兑换</a>
 										</p>
 									</li>
 									</volist>
@@ -370,7 +370,7 @@
 									<p class="layui-elip fc-aux-9">我就是我，不一样的烟火烟火烟火</p>
 								</div>
 							</div>
-							<a href="{:U('user/index', array('uid'=>$visitor['id']))}">
+							<a href="{:U('user/index')}">
 								<svg role="img" class="icon">
 									<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_2@2x.png" width="20" height="20"></desc><![endif]-->
 									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_2"></use>
@@ -384,7 +384,7 @@
 								</svg>
 								我的关注
 							</a>
-							<a href="#">
+							<a href="{:U('user/likes')}">
 								<svg role="img" class="icon">
 									<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_5@2x.png" width="20" height="20"></desc><![endif]-->
 									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_5"></use>

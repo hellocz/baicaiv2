@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<include file="public:head" />
+    <!--当前页面css-->
+    <link rel="stylesheet" href="/public/css/member.css">
+</head>
+<body>
+	<!--个人中心顶部 start-->
+	<include file="header" />
+	<!--个人中心顶部 end-->
+	
+	<!--个人中心用户信息 start-->
+	<include file="top_user" />
+	<!--个人中心用户信息 end-->
+	
+	<div class="w-1200 mt-12 clearfix">
+		<!--左边菜单start-->
+		<include file="left_menu" />
+		<!--左边菜单end-->
+		
+		<!--<script>
+			//子菜单
+			$(document).ready(function() {
+				$(".menuSub").click(function(){
+					if($(this).siblings("ul").is(':visible')){
+						$(this).css("background-image","url(../images/ie8/a_16@2x.png)")
+					}else{
+						$(this).css("background-image","url(../images/ie8/a_16s@2x.png)")
+					}
+					$(this).siblings("ul").toggle();
+				});
+			});
+		</script>-->
+		
+		<!--右边内容start-->
+		<div class="fl rightInfo white-bg radius-3">
+			<div class="r-title clearfix">
+				<div class="fl cselect select-2" id="select">
+					<div class="select layui-elip">所有清单</div>
+					<ul class="op">
+						<li class="layui-elip">所有清单</li>
+						<li class="layui-elip">收藏清单一</li>
+						<li class="layui-elip">收藏清单二</li>
+						<li class="layui-elip">收藏清单三</li>
+					</ul>
+				</div>
+				<div class="fl ml-10 fc-aux-a" style="line-height: 54px;">该清单共3条数据</div>
+				<ul class="fr operation">
+					<li class="bt" onclick="prompt('重命名','哈哈的清单')">重命名</li>
+					<li class="bt" onclick="changeStatus()" id="status">公开</li>
+					<li class="bt" onclick="del('提示','清单内收藏的文章将被全部清除，是否确定要删除？')">删除该清单</li>
+					<li class="add" onclick="prompt('创建清单','','请输入清单名称')">创建清单</li>
+				</ul>
+			</div>
+			
+			<!--我的收藏start-->
+			<div class="listBox">
+				<!--循环start-->
+				<div class="item item-2 clearfix">
+					<img src="/public/images/item/1.jpg" class="fl lazyimg radius-3" width="106" height="106">
+					<div class="fl info ml-15">
+						<div class="tit"><span class="sytj">首页推荐</span><a href="/public/page/details.html" target="_blank">Kao花王酵素洗衣粉 000克*3件装</a></div>
+						<div class="fc-aux-9 mt-8 font-13">2018.04.03 12:34 来自 <a href="/public/page/userHome.html" target="_blank" class="a-green hover-underline">Madonna</a></div>
+						<div class="op mt-20">
+							<a href="javascript:void(0);" onclick="tipsPopup('tips_1','投票成功')">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_6@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_6"></use>
+								</svg>
+								20k
+							</a>
+							<a href="javascript:void(0);" onclick="tipsPopup('tips_1','投票成功')">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_7@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_7"></use>
+								</svg>
+								15k
+							</a>
+							<a href="/public/page/details.html#comments" target="_blank">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/a_43@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-a_43"></use>
+								</svg>
+								20评论
+							</a>
+						</div>
+					</div>
+					<div class="fr">
+						<div class="fc-aux-a text-right">收藏于1天前</div>
+						<div class="cz clearfix" style="position: relative;">
+							<div class="fl select-2">
+								<div class="select layui-elip">移动到...</div>
+								<ul class="op">
+									<li class="layui-elip">收藏清单一</li>
+									<li class="layui-elip">收藏清单二</li>
+									<li class="layui-elip">收藏清单三</li>
+								</ul>
+							</div>
+							<div class="fl del ml-10" onclick="layer.msg('删除成功',{time: 500});">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_4@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_4"></use>
+								</svg>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="item item-2 clearfix">
+					<img src="/public/images/item/1.jpg" class="fl lazyimg radius-3" width="106" height="106">
+					<div class="fl info ml-15">
+						<div class="tit"><span class="qwtj">全网特价</span><a href="/public/page/details.html" target="_blank">Kao花王酵素洗衣粉 000克*3件装</a></div>
+						<div class="fc-aux-9 mt-8 font-13">2018.04.03 12:34 来自 <a href="/public/page/userHome.html" target="_blank" class="a-green hover-underline">Madonna</a></div>
+						<div class="op mt-20">
+							<a href="javascript:void(0);" onclick="tipsPopup('tips_1','投票成功')">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_6@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_6"></use>
+								</svg>
+								20k
+							</a>
+							<a href="javascript:void(0);" onclick="tipsPopup('tips_1','投票成功')">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_7@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_7"></use>
+								</svg>
+								15k
+							</a>
+							<a href="/public/page/details.html#comments" target="_blank">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/a_43@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-a_43"></use>
+								</svg>
+								20评论
+							</a>
+						</div>
+					</div>
+					<div class="fr">
+						<div class="fc-aux-a text-right">收藏于1天前</div>
+						<div class="cz clearfix" style="position: relative;">
+							<div class="fl select-2">
+								<div class="select layui-elip">移动到...</div>
+								<ul class="op">
+									<li class="layui-elip">收藏清单一</li>
+									<li class="layui-elip">收藏清单二</li>
+									<li class="layui-elip">收藏清单三</li>
+								</ul>
+							</div>
+							<div class="fl del ml-10" onclick="layer.msg('删除成功',{time: 500});">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_4@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_4"></use>
+								</svg>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="item item-2 clearfix">
+					<img src="/public/images/item/1.jpg" class="fl lazyimg radius-3" width="106" height="106">
+					<div class="fl info ml-15">
+						<div class="tit"><span class="qwtj">全网特价</span><a href="/public/page/details.html" target="_blank">Kao花王酵素洗衣粉 000克*3件装</a></div>
+						<div class="fc-aux-9 mt-8 font-13">2018.04.03 12:34 来自 <a href="/public/page/userHome.html" target="_blank" class="a-green hover-underline">Madonna</a></div>
+						<div class="op mt-20">
+							<a href="javascript:void(0);" onclick="tipsPopup('tips_1','投票成功')">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_6@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_6"></use>
+								</svg>
+								20k
+							</a>
+							<a href="javascript:void(0);" onclick="tipsPopup('tips_1','投票成功')">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_7@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_7"></use>
+								</svg>
+								15k
+							</a>
+							<a href="/public/page/details.html#comments" target="_blank">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/a_43@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-a_43"></use>
+								</svg>
+								20评论
+							</a>
+						</div>
+					</div>
+					<div class="fr">
+						<div class="fc-aux-a text-right">收藏于1天前</div>
+						<div class="cz clearfix" style="position: relative;">
+							<div class="fl select-2">
+								<div class="select layui-elip">移动到...</div>
+								<ul class="op">
+									<li class="layui-elip">收藏清单一</li>
+									<li class="layui-elip">收藏清单二</li>
+									<li class="layui-elip">收藏清单三</li>
+								</ul>
+							</div>
+							<div class="fl del ml-10" onclick="layer.msg('删除成功',{time: 500});">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_4@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_4"></use>
+								</svg>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="item item-2 clearfix">
+					<img src="/public/images/item/1.jpg" class="fl lazyimg radius-3" width="106" height="106">
+					<div class="fl info ml-15">
+						<div class="tit"><span class="sytj">首页推荐</span><a href="/public/page/details.html" target="_blank">Kao花王酵素洗衣粉 000克*3件装</a></div>
+						<div class="fc-aux-9 mt-8 font-13">2018.04.03 12:34 来自 <a href="/public/page/userHome.html" target="_blank" class="a-green hover-underline">Madonna</a></div>
+						<div class="op mt-20">
+							 <a href="javascript:void(0);" onclick="tipsPopup('tips_1','投票成功')">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_6@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_6"></use>
+								</svg>
+								20k
+							</a>
+							 <a href="javascript:void(0);" onclick="tipsPopup('tips_1','投票成功')">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_7@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_7"></use>
+								</svg>
+								15k
+							</a>
+							<a href="/public/page/details.html#comments" target="_blank">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/a_43@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-a_43"></use>
+								</svg>
+								20评论
+							</a>
+						</div>
+					</div>
+					<div class="fr">
+						<div class="fc-aux-a text-right">收藏于1天前</div>
+						<div class="cz clearfix" style="position: relative;">
+							<div class="fl select-2">
+								<div class="select layui-elip">移动到...</div>
+								<ul class="op">
+									<li class="layui-elip">收藏清单一</li>
+									<li class="layui-elip">收藏清单二</li>
+									<li class="layui-elip">收藏清单三</li>
+								</ul>
+							</div>
+							<div class="fl del ml-10" onclick="layer.msg('删除成功',{time: 500});">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_4@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_4"></use>
+								</svg>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="item item-2 clearfix">
+					<img src="/public/images/item/1.jpg" class="fl lazyimg radius-3" width="106" height="106">
+					<div class="fl info ml-15">
+						<div class="tit"><span class="sytj">首页推荐</span><a href="/public/page/details.html" target="_blank">Kao花王酵素洗衣粉 000克*3件装</a></div>
+						<div class="fc-aux-9 mt-8 font-13">2018.04.03 12:34 来自 <a href="/public/page/userHome.html" target="_blank" class="a-green hover-underline">Madonna</a></div>
+						<div class="op mt-20">
+							 <a href="javascript:void(0);" onclick="tipsPopup('tips_1','投票成功')">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_6@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_6"></use>
+								</svg>
+								20k
+							</a>
+							 <a href="javascript:void(0);" onclick="tipsPopup('tips_1','投票成功')">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_7@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_7"></use>
+								</svg>
+								15k
+							</a>
+							<a href="/public/page/details.html#comments" target="_blank">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/a_43@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-a_43"></use>
+								</svg>
+								20评论
+							</a>
+						</div>
+					</div>
+					<div class="fr">
+						<div class="fc-aux-a text-right">收藏于1天前</div>
+						<div class="cz clearfix" style="position: relative;">
+							<div class="fl select-2">
+								<div class="select layui-elip">移动到...</div>
+								<ul class="op">
+									<li class="layui-elip">收藏清单一</li>
+									<li class="layui-elip">收藏清单二</li>
+									<li class="layui-elip">收藏清单三</li>
+								</ul>
+							</div>
+							<div class="fl del ml-10" onclick="layer.msg('删除成功',{time: 500});">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_4@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_4"></use>
+								</svg>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="item item-2 clearfix">
+					<img src="/public/images/item/1.jpg" class="fl lazyimg radius-3" width="106" height="106">
+					<div class="fl info ml-15">
+						<div class="tit"><span class="sytj">首页推荐</span><a href="/public/page/details.html" target="_blank">Kao花王酵素洗衣粉 000克*3件装</a></div>
+						<div class="fc-aux-9 mt-8 font-13">2018.04.03 12:34 来自 <a href="/public/page/userHome.html" target="_blank" class="a-green hover-underline">Madonna</a></div>
+						<div class="op mt-20">
+							 <a href="javascript:void(0);" onclick="tipsPopup('tips_1','投票成功')">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_6@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_6"></use>
+								</svg>
+								20k
+							</a>
+							 <a href="javascript:void(0);" onclick="tipsPopup('tips_1','投票成功')">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_7@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_7"></use>
+								</svg>
+								15k
+							</a>
+							<a href="/public/page/details.html#comments" target="_blank">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/a_43@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-a_43"></use>
+								</svg>
+								20评论
+							</a>
+						</div>
+					</div>
+					<div class="fr">
+						<div class="fc-aux-a text-right">收藏于1天前</div>
+						<div class="cz clearfix" style="position: relative;">
+							<div class="fl select-2">
+								<div class="select layui-elip">移动到...</div>
+								<ul class="op">
+									<li class="layui-elip">收藏清单一</li>
+									<li class="layui-elip">收藏清单二</li>
+									<li class="layui-elip">收藏清单三</li>
+								</ul>
+							</div>
+							<div class="fl del ml-10" onclick="layer.msg('删除成功',{time: 500});">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_4@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_4"></use>
+								</svg>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="item item-2 clearfix">
+					<img src="/public/images/item/1.jpg" class="fl lazyimg radius-3" width="106" height="106">
+					<div class="fl info ml-15">
+						<div class="tit"><span class="rmyh">热门优惠</span><a href="/public/page/details.html" target="_blank">Kao花王酵素洗衣粉 000克*3件装</a></div>
+						<div class="fc-aux-9 mt-8 font-13">2018.04.03 12:34 来自 <a href="/public/page/userHome.html" target="_blank" class="a-green hover-underline">Madonna</a></div>
+						<div class="op mt-20">
+							 <a href="javascript:void(0);" onclick="tipsPopup('tips_1','投票成功')">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_6@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_6"></use>
+								</svg>
+								20k
+							</a>
+							 <a href="javascript:void(0);" onclick="tipsPopup('tips_1','投票成功')">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_7@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_7"></use>
+								</svg>
+								15k
+							</a>
+							<a href="/public/page/details.html#comments" target="_blank">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/a_43@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-a_43"></use>
+								</svg>
+								20评论
+							</a>
+						</div>
+					</div>
+					<div class="fr">
+						<div class="fc-aux-a text-right">收藏于1天前</div>
+						<div class="cz clearfix" style="position: relative;">
+							<div class="fl select-2">
+								<div class="select layui-elip">移动到...</div>
+								<ul class="op">
+									<li class="layui-elip">收藏清单一</li>
+									<li class="layui-elip">收藏清单二</li>
+									<li class="layui-elip">收藏清单三</li>
+								</ul>
+							</div>
+							<div class="fl del ml-10" onclick="layer.msg('删除成功',{time: 500});">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_4@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_4"></use>
+								</svg>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="item item-2 clearfix">
+					<img src="/public/images/item/1.jpg" class="fl lazyimg radius-3" width="106" height="106">
+					<div class="fl info ml-15">
+						<div class="tit"><span class="rmyh">热门优惠</span><a href="/public/page/details.html" target="_blank">Kao花王酵素洗衣粉 000克*3件装</a></div>
+						<div class="fc-aux-9 mt-8 font-13">2018.04.03 12:34 来自 <a href="/public/page/userHome.html" target="_blank" class="a-green hover-underline">Madonna</a></div>
+						<div class="op mt-20">
+							 <a href="javascript:void(0);" onclick="tipsPopup('tips_1','投票成功')">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_6@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_6"></use>
+								</svg>
+								20k
+							</a>
+							 <a href="javascript:void(0);" onclick="tipsPopup('tips_1','投票成功')">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_7@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_7"></use>
+								</svg>
+								15k
+							</a>
+							<a href="/public/page/details.html#comments" target="_blank">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/a_43@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-a_43"></use>
+								</svg>
+								20评论
+							</a>
+						</div>
+					</div>
+					<div class="fr">
+						<div class="fc-aux-a text-right">收藏于1天前</div>
+						<div class="cz clearfix" style="position: relative;">
+							<div class="fl select-2">
+								<div class="select layui-elip">移动到...</div>
+								<ul class="op">
+									<li class="layui-elip">收藏清单一</li>
+									<li class="layui-elip">收藏清单二</li>
+									<li class="layui-elip">收藏清单三</li>
+								</ul>
+							</div>
+							<div class="fl del ml-10" onclick="layer.msg('删除成功',{time: 500});">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_4@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_4"></use>
+								</svg>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="item item-2 clearfix">
+					<img src="/public/images/item/1.jpg" class="fl lazyimg radius-3" width="106" height="106">
+					<div class="fl info ml-15">
+						<div class="tit"><span class="rmyh">热门优惠</span><a href="/public/page/details.html" target="_blank">Kao花王酵素洗衣粉 000克*3件装</a></div>
+						<div class="fc-aux-9 mt-8 font-13">2018.04.03 12:34 来自 <a href="/public/page/userHome.html" target="_blank" class="a-green hover-underline">Madonna</a></div>
+						<div class="op mt-20">
+							 <a href="javascript:void(0);" onclick="tipsPopup('tips_1','投票成功')">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_6@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_6"></use>
+								</svg>
+								20k
+							</a>
+							 <a href="javascript:void(0);" onclick="tipsPopup('tips_1','投票成功')">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_7@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_7"></use>
+								</svg>
+								15k
+							</a>
+							<a href="/public/page/details.html#comments" target="_blank">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/a_43@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-a_43"></use>
+								</svg>
+								20评论
+							</a>
+						</div>
+					</div>
+					<div class="fr">
+						<div class="fc-aux-a text-right">收藏于1天前</div>
+						<div class="cz clearfix" style="position: relative;">
+							<div class="fl select-2">
+								<div class="select layui-elip">移动到...</div>
+								<ul class="op">
+									<li class="layui-elip">收藏清单一</li>
+									<li class="layui-elip">收藏清单二</li>
+									<li class="layui-elip">收藏清单三</li>
+								</ul>
+							</div>
+							<div class="fl del ml-10" onclick="layer.msg('删除成功',{time: 500});">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_4@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_4"></use>
+								</svg>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="item item-2 clearfix">
+					<img src="/public/images/item/1.jpg" class="fl lazyimg radius-3" width="106" height="106">
+					<div class="fl info ml-15">
+						<div class="tit"><span class="qwtj">全网特价</span><a href="/public/page/details.html" target="_blank">Kao花王酵素洗衣粉 000克*3件装</a></div>
+						<div class="fc-aux-9 mt-8 font-13">2018.04.03 12:34 来自 <a href="/public/page/userHome.html" target="_blank" class="a-green hover-underline">Madonna</a></div>
+						<div class="op mt-20">
+							 <a href="javascript:void(0);" onclick="tipsPopup('tips_1','投票成功')">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_6@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_6"></use>
+								</svg>
+								20k
+							</a>
+							 <a href="javascript:void(0);" onclick="tipsPopup('tips_1','投票成功')">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_7@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_7"></use>
+								</svg>
+								15k
+							</a>
+							<a href="/public/page/details.html#comments" target="_blank">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/a_43@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-a_43"></use>
+								</svg>
+								20评论
+							</a>
+						</div>
+					</div>
+					<div class="fr">
+						<div class="fc-aux-a text-right">收藏于1天前</div>
+						<div class="cz clearfix" style="position: relative;">
+							<div class="fl select-2">
+								<div class="select layui-elip">移动到...</div>
+								<ul class="op">
+									<li class="layui-elip">收藏清单一</li>
+									<li class="layui-elip">收藏清单二</li>
+									<li class="layui-elip">收藏清单三</li>
+								</ul>
+							</div>
+							<div class="fl del ml-10" onclick="layer.msg('删除成功',{time: 500});">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_4@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_4"></use>
+								</svg>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--循环end-->
+				<!--分页加载中start-->
+				<div class="page-loading"></div>
+				<!--分页加载中end-->
+				
+				<!--分页start-->
+				<div id="pages-sc" class="pages" style="text-align: center;"></div>
+				<!--分页end-->
+			</div>
+			<!--我的收藏end-->
+			
+		</div>
+		<!--右边内容end-->
+	</div>
+	
+	<!--底部统一区域+右边悬浮按钮start-->
+	<include file="public:footer" />
+	<!--底部统一区域+右边悬浮按钮end-->
+	
+	<!--引入页面单独JS文件-->
+	<script src="/public/js/member/myCollection.js"></script>
+</body>
+</html>

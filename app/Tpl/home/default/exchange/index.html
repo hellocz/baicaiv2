@@ -35,9 +35,9 @@
 					
 					<!--分页start-->
 					<script type="text/javascript">
-						var page_count={$page_count}, page={$page}, page_size={$page_size}, page_url = '/index.php?m=exchange&a=get_score_item_list&t=exchange', page_content_obj = $(".listBox .listItem .list");
+						var page_count={$page.count}, page_curr={$page.p}, page_size={$page.size}, page_ajax_url = '/index.php?m=exchange&a=get_score_item_list&t=exchange', page_content_obj = $(".listBox .listItem .list");
 					</script>
-					<div id="pages-indh" class="pages" style="text-align: center; padding-bottom: 20px;"></div>
+					<div id="pages-exchange" class="pages" style="text-align: center; padding-bottom: 20px;"></div>
 					<!--分页end-->
 				</div>
 				<!--积分兑换列表end-->

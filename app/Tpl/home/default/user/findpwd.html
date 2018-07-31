@@ -32,7 +32,7 @@
 				</div>
 				<div class="mt-40" id="type1">
 					<form id="J_findpwd_form" action="{:U('user/resetpwd')}" method="post">
-					<div class="input input3 radius-3 mobile"><input type="text" placeholder="手机号码" maxlength="11" id="mobile" name="mobile" autocomplete="off"><input type="button" class="yzm" onclick="javascript: if(phone_send()) settime(this)" value="获取验证码"></div>
+					<div class="input input3 radius-3 mobile"><input type="text" placeholder="手机号码" maxlength="11" id="mobile" name="mobile" autocomplete="off"><input type="button" class="yzm" onclick="javascript: if(phoneSend('mobile')) settime(this)" value="获取验证码"></div>
 					<div class="input input4 radius-3 mt-14"><input type="text" placeholder="手机验证码" id="phone_verify" name="phone_verify" autocomplete="off"></div>
 					<div class="mt-14 fc-aux-9 font-13" style="position: relative;">你不是机器人？请验证<span class="refreshCode cursor-pointer" id="J_captcha_change"><span></div>
 					<div class="input input5 mt-14">

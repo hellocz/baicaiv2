@@ -2,6 +2,12 @@
 
 class score_itemModel extends Model{
 
+    public function get_info($id) {
+        if(!$id) return false;
+        $item = $this->where(array('id' => $id))->find();
+        return $item;
+    }
+
     /**
      * 查询积分兑换、积分抽奖列表
      * $t 积分兑换exchange，积分抽奖lucky，往期开奖lucky_expired

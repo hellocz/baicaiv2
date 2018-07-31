@@ -4,9 +4,13 @@ function addslashes_deep($value) {
     $value = is_array($value) ? array_map('addslashes_deep', $value) : addslashes($value);
     return $value;
 }
-function grade($id){
-	$exp = M("user")->where("id=$id")->getField('exp');
-	$grade = M("grade")->where("min<=$exp and max>=$exp")->getField("grade");
+// function grade($id){
+// 	$exp = M("user")->where("id=$id")->getField('exp');
+// 	$grade = M("grade")->where("min<=$exp and max>=$exp")->getField("grade");
+// 	return $grade;
+// }
+function grade($exp){
+	$grade = D("grade")->get_grade($exp);
 	return $grade;
 }
 function import_item($file)
