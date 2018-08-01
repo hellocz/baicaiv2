@@ -360,14 +360,14 @@
 					</div>
 					<else /> 
 					<div class="member-info r-sub">
-						<div class="info text-center"><span class="layui-badge-dot"></span><img src="{:avatar($visitor['id'],'32')}" class="radius-100 mr-10" width="28" height="28">{$visitor['username']}...<i class="haver-on"></i></div>
+						<div class="info text-center"><span class="layui-badge-dot"></span><img src="{:avatar($visitor['id'],'32')}" class="radius-100 mr-10" width="28" height="28">{$visitor['username']}<i class="haver-on"></i></div>
 						<div class="arrow_up"></div>
 						<div class="sub-box radius-3">
 							<div class="head clearfix">
 								<img src="{:avatar($visitor['id'],'32')}" class="radius-100 fl" width="48" height="48">
 								<div class="fl head-info">
-									<p class="name">{$visitor['username']}<span class="radius-100 fc-green">LV10</span></p>
-									<p class="layui-elip fc-aux-9">我就是我，不一样的烟火烟火烟火</p>
+									<p class="name">{$visitor['username']}<span class="radius-100 fc-green">LV{:grade($visitor['exp'])}</span></p>
+									<p class="layui-elip fc-aux-9"><if condition="$visitor.intro and $visitor.intro !==''">{$visitor.intro}<else/>这家伙很懒，什么都没有留下.</if></p>
 								</div>
 							</div>
 							<a href="{:U('user/index')}">

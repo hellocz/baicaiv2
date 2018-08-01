@@ -9,10 +9,9 @@ class memberAction extends frontendAction {
      */
     public function index() {
         $t = $this->_get('t',"trim");
-        $typeArr = array('original','bao','vote','comm','likes','follows');
-        !$t && !in_array($t, $typeArr) && $t="news";
         $p = $this->_get('p', 'intval', 1);
         if($p<1){$p=1;}
+        $pagesize=12;
 
         //用户信息
         $uid = $this->_get('uid', 'intval');
@@ -24,34 +23,42 @@ class memberAction extends frontendAction {
         } else {
             $this->_404();
         }
-        $this->assign('user', $this->_user);
-
-         //用户的分享
-        $pagesize=12;
         $uid=$this->_user['id'];
-        $time=time();
-        $mod=M("item");
-        $amod=M('article');
-        $cmod=M('comment');
-        $lmod = M("likes");
-        $fmod = M("user_follow");
+        //用户相关
+        $this->_user['join_days'] = intval((time() - $this->_user['reg_time']) / 86400);
+        //是否关注
+        if(!$this->visitor->is_login){
+            $this->_user['follow']=0;
+        }else{
+            $myuser = $this->visitor->get();
+            $this->_user['follow']= D("user_follow")->is_follow($myuser[id], $uid);
+        }
+        //发表的爆料、原创文章的总被点赞数
+        $sum_article = D('article')->user_article_sum($uid);
+        $sum_item = D("item")->user_bao_item_sum($uid);
+        $this->_user['zan'] = isset($sum_article['zan']) ? $sum_article['zan'] : 0;//原创：攻畋+晒单        
+        $this->_user['zan'] += isset($sum_item['zan']) ? $sum_item['zan'] : 0;//爆料
+        //粉丝
+        $fans = D("user_follow")->user_fans_count($uid);
+        $this->_user['fans'] = intval($fans);
 
         $count = array();
         //原创：攻畋+晒单
-        $count['original'] = $amod->where("uid='".$uid."' and cate_id in(9,10) and status=1 and add_time<$time")->count();
+        $count['original'] = isset($sum_article['count']) ? $sum_article['count'] : 0;
         //爆料
-        $count['bao'] = $mod->where("uid='$uid' and status=1 and isbao=1")->count();
+        $count['bao'] = isset($sum_item['count']) ? $sum_item['count'] : 0;
         //投票：点选、点踩
         $count['vote'] = 0; 
         //评论
-        $count['comm'] = $cmod->where("uid='$uid' and status=1")->count();
+        $count['comm'] = D('comment')->user_comment_count($uid); 
         //收藏
-        $count['likes'] = $lmod->where("uid='$uid'")->count();
+        $count['likes'] = D("likes")->user_likes_count($uid);
         //关注
-        $count['follows'] = $fmod->where("uid='$uid'")->count();
+        $count['follows'] = D("user_follow")->user_follow_count($uid);
         //所有动态
         // $count['news'] = array_sum($count);
 
+        $typeArr = array('original', 'bao', 'vote', 'comm', 'likes', 'follows');
         switch ($t) {
             case 'original': //原创：攻畋+晒单
             case 'bao': //爆料
@@ -63,55 +70,13 @@ class memberAction extends frontendAction {
                 break;
             
             default:
+                $t="news";
                 foreach ($typeArr as $val) {
                     $this->get_user_item_list($val, $uid, 1, 3);
                 }
                 break;
         }
 
-        //等级
-        $exp=$this->_user['exp'];
-        $grade_list = D("grade")->grade_cache();
-        $grade = '1';
-        foreach ($grade_list as $i => $v) {
-            if($exp >= $grade_list[$i]['min'] && $exp <= $grade_list[$i]['max']){
-                $grade = $grade_list[$i]['grade'];
-                break;
-            }
-        }
-        $this->_user['grade'] = $grade;
-
-        //加入多少天
-        $this->_user['join_days'] = intval((time() - $this->_user['reg_time']) / 86400);
-
-        //是否关注
-        if(!$this->visitor->is_login){
-        	$this->_user['follow']=0;
-        }else{
-        	$myuser = $this->visitor->get();
-        	$this->_user['follow']= M("user_follow")->where("uid=$myuser[id] and follow_uid=$uid")->count();
-        }
-
-        //发表的爆料、原创文章的总被点赞数
-        $count['zan'] = 0;
-        //原创：攻畋+晒单
-        $arr = $amod->field("sum(zan) as zan")->where("uid='".$uid."' and cate_id in(9,10) and status=1 and add_time<$time")->select();
-        $count['zan'] += isset($arr[0]) ? $arr[0]['zan'] : 0;
-        //爆料
-        $arr = $mod->field("sum(zan) as zan")->where("uid='$uid' and status=1 and isbao=1")->select();
-        $count['zan'] += isset($arr[0]) ? $arr[0]['zan'] : 0;
-
-        //粉丝
-        $count['fans'] = $fmod->where("follow_uid='$uid'")->count();
-
-        // //勋章
-        // $xz['share_num'] = M("share")->where("uid=$uid")->count();//分享达人
-        // $xz['bao_num'] = M("item")->where("uid=$uid and status=1")->count();//爆料达人
-        // $xz['sign_num'] = $this->_user['all_sign'];//签到
-        // $xz['gl_num'] = M("article")->where("uid=$uid and status=1 and cate_id in(select id from try_article_cate where pid=9 or id=9)")->count();//攻略
-        // $xz['sd_num'] = M("article")->where("uid=$uid and status=1 and cate_id=10")->count();//晒单
-        // $xz['cm_num'] = M("comment")->where("uid=$uid and status=1")->count();
-        // $this->assign('xz',$xz);
 
         $this->assign("count",$count);
         if($t != 'news'){
@@ -133,99 +98,41 @@ class memberAction extends frontendAction {
         if (IS_AJAX) {
             $t = $this->_get('t', 'trim');
             $uid = $this->_get('uid', 'intval', 0);
+            !$uid && $this->ajaxReturn(0, '用户不存在');
             $p = $this->_get('p', 'intval', 1);
             $pagesize = $this->_get('pagesize', 'intval', 8);
         }
+        !$uid && $this->error('用户不存在');
         if($p<1){$p=1;}
         if($pagesize<1){$pagesize=8;}
 
-        !$uid && IS_AJAX && $this->ajaxReturn(0, '用户不存在');
-        !$uid && $this->error('用户不存在');
-
-         //用户的分享
-        $time=time();
-        $mod=M("item");
-        $amod=M('article');
-        $cmod=M('comment');
-        $lmod = M("likes");
-        $fmod = M("user_follow");
-
+        $order = "add_time desc";
         $limit = $pagesize*($p-1) . ',' . $pagesize;
-
         switch ($t) {
             case 'original': //原创：攻畋+晒单
-                $list=$amod->where("status=1 and add_time<$time and uid='".$uid."' and cate_id in(9,10)")->order("add_time desc")->limit($limit)->select();
+                $list=D('article')->user_article_list($uid, $order, $limit);
                 break;
             case 'bao': //爆料
-                $field = 'id,uid,uname,title,intro,img,price,likes,content,comments,comments_cache,add_time,orig_id,url,go_link,zan,hits';
-                $list = $mod->where("status=1 and isbao=1 and add_time<$time and uid='$uid'")->field($field)->order("add_time desc")->limit($limit)->select();
+                $list = D("item")->user_bao_item_list($uid, $order, $limit);
                 break;
             case 'vote': //投票：点选、点踩
                 # code...
                 break;
             case 'comm': //评论
-                $list=$cmod->where("uid='$uid' and status=1")->order("add_time desc")->limit($limit)->select();
-
-                if(count($list) > 0){
-                    foreach($list as $key=>$val){
-                        $arr=array();
-                        switch($val['xid']){
-                            case "1":$mod=M('item');$path="item";$url=U('item/index',array('id'=>$val['itemid']));break;
-                            case "2":$mod=M("zr");$path="zr";$url=U('zr/show',array('id'=>$val['itemid']));break;
-                            case "3":$mod=M("article");$path="article";$url=U('article/show',array('id'=>$val['itemid']));break;
-                        }
-                        $arr = $mod->where("id=".$val['itemid'])->field("title,img,content,intro,zan,comments")->find();
-                        $list[$key]['title']=$arr['title'];
-                        $list[$key]['img']=attach($arr['img'],$path);
-                        $list[$key]['url']=$url;
-                        $list[$key]['content']=$arr['content'];
-                        $list[$key]['intro']=$arr['intro'];
-                        $list[$key]['zan']=$arr['zan'];
-                        $list[$key]['comments']=$arr['comments'];
-                    }
-                }
+                $list=D('comment')->user_comment_list($uid, $order, $limit);
                 break;
             case 'likes': //收藏
-                $list=$lmod->where("uid='$uid'")->order("addtime desc")->limit($limit)->select();
-                if(count($list) > 0){
-                    foreach($list as $key=>$val){
-                        $list[$key]['add_time']=$val['addtime'];
-                        $arr=array();
-                        switch($val['xid']){
-                            case "1":$mod=M('item');$path="item";$url=U('item/index',array('id'=>$val['itemid']));break;
-                            case "2":$mod=M("zr");$path="zr";$url=U('zr/show',array('id'=>$val['itemid']));break;
-                            case "3":$mod=M("article");$path="article";$url=U('article/show',array('id'=>$val['itemid']));break;
-                        }
-                        $arr = $mod->where("id=".$val['itemid'])->field("title,img,content,intro,zan,comments")->find();
-                        $list[$key]['title']=$arr['title'];
-                        $list[$key]['img']=attach($arr['img'],$path);
-                        $list[$key]['url']=$url;                        
-                        $list[$key]['content']=$arr['content'];
-                        $list[$key]['intro']=$arr['intro'];
-                        $list[$key]['zan']=$arr['zan'];
-                        $list[$key]['comments']=$arr['comments'];
-                    }
-                }
+                $order = "addtime desc";
+                $list=D("likes")->user_likes_list($uid, $order, $limit);
                 break;
             case 'follows': //关注
-                $list=$fmod->where("uid=$uid")->join("join try_user u ON u.id=try_user_follow.follow_uid")->order("add_time desc")->limit($limit)->select();
-                if(count($list) > 0){
-                    foreach($list as $key=>$val){
-                        //加入多少天
-                        $list[$key]['join_days']=intval((time() - $val['reg_time']) / 86400);
-                        //等级
-                        $list[$key]['grade'] = D("grade")->get_grade($val['exp']);
-                    }
-                }
+                $list=D("user_follow")->user_follow_list($uid, $order, $limit);
                 break;
             
             default:
                 IS_AJAX && $this->ajaxReturn(0, '信息不存在');
                 break;
         }
-
-        // echo "<pre>";print_r($count);print_r($list);echo "</pre>";exit;
-
         $this->assign("user_{$t}_list",$list);
 
         //AJAX分页请求
@@ -250,7 +157,7 @@ class memberAction extends frontendAction {
             //等级
             $exp=$user['exp'];
             $grade_list = D("grade")->grade_cache();
-            $grade = D("grade")->get_grade($exp);
+            $grade = grade($exp);
             $grade_min = 0;
             $grade_max = 50;
             // //查找下一等级

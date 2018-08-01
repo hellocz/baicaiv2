@@ -124,4 +124,13 @@ class zrModel extends Model
         //删除商品和专辑关系
         D('album')->del_item($data['id']);
     }
+
+    /**
+     * 转让信息, 通过ID获取
+     */
+    public function get_info($id = '', $field = '') {
+        if(!$id) return false;        
+        $info = $this->field($field)->where(array('id' => $id))->find();
+        return $info;
+    }
 }

@@ -11,21 +11,21 @@
 			<!--用户信息start-->
 			<div class="userInfo clearfix">
 				<!--头像start-->
-				<div class="head" style="background-image: url(/public/images/Head.jpg);"></div>
+				<div class="head" style="background-image: url({:avatar($user['id'])});"></div>
 				<!--头像end-->
 				<div class="fl info">
 					<!--用户名start-->
 					<div class="name">
-						<span class="font-24">Marlon brando</span>
+						<span class="font-24">{$user.username}</span>
 						<span class="labe labe-1 ml-10">合伙人</span>
 						<span class="labe labe-2 ml-5">写手</span>
 					</div>
 					<!--用户名end-->
 					<!--等级start-->
-					<div class="font-14 mt-10"><span class="font-w-b">Lv2：</span> 初出茅庐　·　已加入<span class="font-w-b">1231</span>天</div>
+					<div class="font-14 mt-10"><span class="font-w-b">Lv{:grade($user['exp'])}：</span> 初出茅庐　·　已加入<span class="font-w-b">{$user.join_days}</span>天</div>
 					<!--等级end-->
 					<!--签名start-->
-					<div class="font-14 fc-grey mt-10"><span class="font-w-b fc-2">个人签名：</span>不要因为自己没有胃口，而去责备你的食物…</div>
+					<div class="font-14 fc-grey mt-10"><span class="font-w-b fc-2">个人签名：</span><if condition="$user.intro AND $user.intro !==''">{$user.intro}<else/>这家伙很懒，什么都没有留下.</if></div>
 					<!--签名end-->
 					<!--我的勋章start-->
 					<ul class="myMedal mt-10">
@@ -65,33 +65,33 @@
 			<!--其他信息start-->
 			<ul class="userOther clearfix">
 				<li>
-					<p class="font-24">1189</p>
+					<p class="font-24">{$user.exp}</p>
 					<p class="font-14 fc-aux-9">经验</p>
 				</li>
 				<li>
-					<p class="font-24">3200</p>
+					<p class="font-24">{$user.score}</p>
 					<p class="font-14 fc-aux-9">积分</p>
 				</li>
 				<li>
-					<p class="font-24">780</p>
+					<p class="font-24">{$user.offer}</p>
 					<p class="font-14 fc-aux-9">贡献</p>
 				</li>
 				<li>
-					<p class="font-24">2000</p>
+					<p class="font-24">999</p>
 					<p class="font-14 fc-aux-9">油票</p>
 				</li>
 				<li>
-					<p class="font-24">323678</p>
+					<p class="font-24">{$user.zan}</p>
 					<p class="font-14 fc-aux-9">被赞</p>
 				</li>
 				<li>
-					<p class="font-24">630212</p>
+					<p class="font-24">{$user.fans}</p>
 					<p class="font-14 fc-aux-9">粉丝</p>
 				</li>
-				<li>
-					<p class="font-24">3278</p>
+				<!-- <li>
+					<p class="font-24">999</p>
 					<p class="font-14 fc-aux-9">邀请</p>
-				</li>
+				</li> -->
 			</ul>
 			<!--其他信息end-->
 		</div>

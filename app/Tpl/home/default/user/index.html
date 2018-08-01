@@ -19,938 +19,130 @@
 		<include file="left_menu" />
 		<!--左边菜单end-->
 		
-		<!--<script>
-			//子菜单
-			$(document).ready(function() {
-				$(".menuSub").click(function(){
-					if($(this).siblings("ul").is(':visible')){
-						$(this).css("background-image","url(../images/ie8/a_16@2x.png)")
-					}else{
-						$(this).css("background-image","url(../images/ie8/a_16s@2x.png)")
-					}
-					$(this).siblings("ul").toggle();
-				});
-			});
-		</script>-->
-		
 		<!--右边内容start-->
 		<div class="fl rightInfo white-bg radius-3">
 			<div class="r-title">
 				<ul class="tabNav clearfix">
-					<li class="active">动态</li>
-					<li>原创·23</li>
-					<li>爆料·112</li>
-					<li>投票·235</li>
-					<li>评论·18</li>
-					<li>邀请·2</li>
-					<li>收藏·35</li>
-					<li>关注·14</li>
+					<li <if condition="$t eq 'news'">class="active"</if>><a href="{:U('user/index')}">动态</a></li>
+					<li <if condition="$t eq 'original'">class="active"</if>><a href="{:U('user/index',array('t'=>'original'))}">原创·{$count.original}</a></li>
+					<li <if condition="$t eq 'bao'">class="active"</if>><a href="{:U('user/index',array('t'=>'bao'))}">爆料·{$count.bao}</a></li>
+					<li <if condition="$t eq 'vote'">class="active"</if>><a href="{:U('user/index',array('t'=>'vote'))}">投票·{$count.vote}</a></li>
+					<li <if condition="$t eq 'comm'">class="active"</if>><a href="{:U('user/index',array('t'=>'comm'))}">评论·{$count.comm}</a></li>
+					<li <if condition="$t eq 'likes'">class="active"</if>><a href="{:U('user/index',array('t'=>'likes'))}">收藏·{$count.likes}</a></li>
+					<li <if condition="$t eq 'follows'">class="active"</if>><a href="{:U('user/index',array('t'=>'follows'))}">关注·{$count.follows}</a></li>
 				</ul>
 			</div>
 			<!--动态start-->
 			<div class="listBox">
-				<!--循环start-->
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表了原创</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/1.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="成为飞行员是一种怎么样的体验" target="_blank">成为飞行员是一种怎么样的体验</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
+			<if condition="$t eq 'news'">
+				<notempty name="user_original_list">
+				<div class="cr-send clearfix" style="padding: 15px 15px 0px 15px;border-bottom: 1px solid #ECF1F3;">
+					<ul class="cr-tab fl clearfix">
+						<li class="active">原创</li>
+					</ul>
+					<a href="{:U('user/index',array('t'=>'original'))}" class="fr font-12 fc-aux-9 more" style="line-height: 44px;">更多</a>
+				</div>						
+				<include file="user_original_list"/>
+				</notempty>
+
+				<notempty name="user_bao_list">
+				<div class="cr-send clearfix" style="padding: 15px 15px 0px 15px;border-bottom: 1px solid #ECF1F3;">
+					<ul class="cr-tab fl clearfix">
+						<li class="active">爆料</li>
+					</ul>
+					<a href="{:U('user/index',array('t'=>'bao'))}" class="fr font-12 fc-aux-9 more" style="line-height: 44px;">更多</a>
 				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表了爆料</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/2.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="为什么 Windows 窗口有无数大小，却没有出现移动端所谓“适配”的问题呢？" target="_blank">为什么 Windows 窗口有无数大小，却没有出现移动端所谓“适配”的问题呢？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
+				<include file="user_bao_list"/>
+				</notempty>
+
+				<notempty name="user_vote_list">
+				<div class="cr-send clearfix" style="padding: 15px 15px 0px 15px;border-bottom: 1px solid #ECF1F3;">
+					<ul class="cr-tab fl clearfix">
+						<li class="active">投票</li>
+					</ul>
+					<a href="{:U('user/index',array('t'=>'vote'))}" class="fr font-12 fc-aux-9 more" style="line-height: 44px;">更多</a>
 				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">点了赞</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/3.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="一些中世纪欧洲建筑上规则的方形孔洞叫什么？有什么作用？" target="_blank">一些中世纪欧洲建筑上规则的方形孔洞叫什么？有什么作用？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
+				<include file="user_vote_list"/>
+				</notempty>
+
+				<notempty name="user_comm_list">
+				<div class="cr-send clearfix" style="padding: 15px 15px 0px 15px;border-bottom: 1px solid #ECF1F3;">
+					<ul class="cr-tab fl clearfix">
+						<li class="active">评论</li>
+					</ul>
+					<a href="{:U('user/index',array('p'=>$p,'t'=>'comm'))}" class="fr font-12 fc-aux-9 more" style="line-height: 44px;">更多</a>
 				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">踩了一脚</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/4.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？" target="_blank">阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
+				<include file="user_comm_list"/>
+				</notempty>
+
+				<notempty name="user_likes_list">
+				<div class="cr-send clearfix" style="padding: 15px 15px 0px 15px;border-bottom: 1px solid #ECF1F3;">
+					<ul class="cr-tab fl clearfix">
+						<li class="active">收藏</li>
+					</ul>
+					<a href="{:U('user/index',array('t'=>'likes'))}" class="fr font-12 fc-aux-9 more" style="line-height: 44px;">更多</a>
 				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表评论<span class="fr font-14 fc-aux-a">18小时前</span></div>
-					<div class="font-14 mt-10">“Why is there a myriad of Windows Windows that don't have a problem with the so-called "fit" on the mobile end?”</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/5.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12 fc-aux-9" style="height: 38px;">
-							<a href="#" class="font-16" title="阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？" target="_blank">阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？</a>
-						</div>
-					</div>
+				<include file="user_likes_list"/>
+				</notempty>
+
+				<notempty name="user_follows_list">
+				<div class="cr-send clearfix" style="padding: 15px 15px 0px 15px;border-bottom: 1px solid #ECF1F3;">
+					<ul class="cr-tab fl clearfix">
+						<li class="active">关注</li>
+					</ul>
+					<a href="{:U('user/index',array('t'=>'follows'))}" class="fr font-12 fc-aux-9 more" style="line-height: 44px;">更多</a>
 				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">邀请朋友“和尚下山了”加入白菜哦</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/6.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="/public/page/userHome.html" class="font-16 a-green hover-underline" target="_blank">和尚下山来</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
+				<include file="user_follows_list"/>
+				</notempty>
+			<else/>
+				<div class="list-data">
+				<if condition="$t eq 'original'">
+					<include file="user_original_list"/>
+				<elseif condition="$t eq 'bao'"/>
+					<include file="user_bao_list"/>
+				<elseif condition="$t eq 'vote'"/>
+					<include file="user_vote_list"/>
+				<elseif condition="$t eq 'comm'"/>
+					<include file="user_comm_list"/>
+				<elseif condition="$t eq 'likes'"/>
+					<include file="user_likes_list"/>
+				<elseif condition="$t eq 'follows'"/>
+					<include file="user_follows_list"/>
+				</if>
 				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">收藏了文章</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/7.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="震惊！法国老鹰带套打飞机！…神TM的震惊" target="_blank">震惊！法国老鹰带套打飞机！…神TM的震惊</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">关注了话题</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/8.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="# 女生被外科男医生检查肛门，觉得难堪心里过不去坎怎么办？" target="_blank"># 女生被外科男医生检查肛门，觉得难堪心里过不去坎怎么办？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">关注了标签</div>
-					<div class="clearfix">
-						<div class="fl vcenter" style="height: 38px;">
-							<a href="#" class="font-16" title="# 女生被外科男医生检查肛门，觉得难堪心里过不去坎怎么办？" target="_blank"># 女生被外科男医生检查肛门，觉得难堪心里过不去坎怎么办？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表了原创</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/9.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="成为飞行员是一种怎么样的体验" target="_blank">成为飞行员是一种怎么样的体验</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<!--循环end-->
+
 				<!--分页加载中start-->
 				<div class="page-loading"></div>
 				<!--分页加载中end-->
 				
 				<!--分页start-->
-				<div id="pages-dt" class="pages" style="text-align: center;"></div>
+				<if condition="$page['count'] gt 0">
+				<script type="text/javascript">
+					var page_count={$page.count}, page_curr={$page.p}, page_size={$page.size}, page_ajax_url = '/index.php?m=user&a=get_user_item_list&t={$t}&uid={$user.id}', page_content_obj = $(".list .list-data");							
+				</script>
+				<div id="pages" class="pages" style="text-align: center; padding-bottom: 30px;"><div class="layui-box layui-laypage layui-laypage-default">{$pagebar}</div></div>						
+				</if>
 				<!--分页end-->
+			</if>
 			</div>
 			<!--动态end-->
 			
 			<!--原创start-->
-			<div class="listBox none">
-				<!--循环start-->
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表了原创</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/1.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="成为飞行员是一种怎么样的体验" target="_blank">成为飞行员是一种怎么样的体验</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表了原创</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/2.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="成为飞行员是一种怎么样的体验" target="_blank">成为飞行员是一种怎么样的体验</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表了原创</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/3.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="成为飞行员是一种怎么样的体验" target="_blank">成为飞行员是一种怎么样的体验</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表了原创</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/4.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="成为飞行员是一种怎么样的体验" target="_blank">成为飞行员是一种怎么样的体验</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表了原创</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/5.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="成为飞行员是一种怎么样的体验" target="_blank">成为飞行员是一种怎么样的体验</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表了原创</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/6.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="成为飞行员是一种怎么样的体验" target="_blank">成为飞行员是一种怎么样的体验</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表了原创</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/7.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="成为飞行员是一种怎么样的体验" target="_blank">成为飞行员是一种怎么样的体验</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表了原创</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/8.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="成为飞行员是一种怎么样的体验" target="_blank">成为飞行员是一种怎么样的体验</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表了原创</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/9.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="成为飞行员是一种怎么样的体验" target="_blank">成为飞行员是一种怎么样的体验</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表了原创</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/10.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="成为飞行员是一种怎么样的体验" target="_blank">成为飞行员是一种怎么样的体验</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<!--循环end-->
-				<!--分页加载中start-->
-				<div class="page-loading"></div>
-				<!--分页加载中end-->
-				
-				<!--分页start-->
-				<div id="pages-yc" class="pages" style="text-align: center;"></div>
-				<!--分页end-->
-			</div>
 			<!--原创end-->
 			
 			<!--爆料start-->
-			<div class="listBox none">
-				<!--循环start-->
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表了爆料</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/1.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="为什么 Windows 窗口有无数大小，却没有出现移动端所谓“适配”的问题呢？" target="_blank">为什么 Windows 窗口有无数大小，却没有出现移动端所谓“适配”的问题呢？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表了爆料</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/2.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="为什么 Windows 窗口有无数大小，却没有出现移动端所谓“适配”的问题呢？" target="_blank">为什么 Windows 窗口有无数大小，却没有出现移动端所谓“适配”的问题呢？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表了爆料</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/3.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="为什么 Windows 窗口有无数大小，却没有出现移动端所谓“适配”的问题呢？" target="_blank">为什么 Windows 窗口有无数大小，却没有出现移动端所谓“适配”的问题呢？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表了爆料</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/4.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="为什么 Windows 窗口有无数大小，却没有出现移动端所谓“适配”的问题呢？" target="_blank">为什么 Windows 窗口有无数大小，却没有出现移动端所谓“适配”的问题呢？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表了爆料</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/5.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="为什么 Windows 窗口有无数大小，却没有出现移动端所谓“适配”的问题呢？" target="_blank">为什么 Windows 窗口有无数大小，却没有出现移动端所谓“适配”的问题呢？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表了爆料</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/6.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="为什么 Windows 窗口有无数大小，却没有出现移动端所谓“适配”的问题呢？" target="_blank">为什么 Windows 窗口有无数大小，却没有出现移动端所谓“适配”的问题呢？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表了爆料</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/7.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="为什么 Windows 窗口有无数大小，却没有出现移动端所谓“适配”的问题呢？" target="_blank">为什么 Windows 窗口有无数大小，却没有出现移动端所谓“适配”的问题呢？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表了爆料</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/8.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="为什么 Windows 窗口有无数大小，却没有出现移动端所谓“适配”的问题呢？" target="_blank">为什么 Windows 窗口有无数大小，却没有出现移动端所谓“适配”的问题呢？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表了爆料</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/9.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="为什么 Windows 窗口有无数大小，却没有出现移动端所谓“适配”的问题呢？" target="_blank">为什么 Windows 窗口有无数大小，却没有出现移动端所谓“适配”的问题呢？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表了爆料</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/10.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="为什么 Windows 窗口有无数大小，却没有出现移动端所谓“适配”的问题呢？" target="_blank">为什么 Windows 窗口有无数大小，却没有出现移动端所谓“适配”的问题呢？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<!--循环end-->
-				<!--分页加载中start-->
-				<div class="page-loading"></div>
-				<!--分页加载中end-->
-				
-				<!--分页start-->
-				<div id="pages-bl" class="pages" style="text-align: center;"></div>
-				<!--分页end-->
-			</div>
 			<!--爆料end-->
 			
 			<!--投票start-->
-			<div class="listBox none">
-				<!--循环start-->
-				<div class="item">
-					<div class="font-14 fc-aux-a">点了赞</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/1.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="一些中世纪欧洲建筑上规则的方形孔洞叫什么？有什么作用？" target="_blank">一些中世纪欧洲建筑上规则的方形孔洞叫什么？有什么作用？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">踩了一脚</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/2.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？" target="_blank">阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">点了赞</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/3.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="一些中世纪欧洲建筑上规则的方形孔洞叫什么？有什么作用？" target="_blank">一些中世纪欧洲建筑上规则的方形孔洞叫什么？有什么作用？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">踩了一脚</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/4.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？" target="_blank">阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">点了赞</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/5.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="一些中世纪欧洲建筑上规则的方形孔洞叫什么？有什么作用？" target="_blank">一些中世纪欧洲建筑上规则的方形孔洞叫什么？有什么作用？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">踩了一脚</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/6.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？" target="_blank">阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">点了赞</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/7.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="一些中世纪欧洲建筑上规则的方形孔洞叫什么？有什么作用？" target="_blank">一些中世纪欧洲建筑上规则的方形孔洞叫什么？有什么作用？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">踩了一脚</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/8.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？" target="_blank">阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">点了赞</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/9.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="一些中世纪欧洲建筑上规则的方形孔洞叫什么？有什么作用？" target="_blank">一些中世纪欧洲建筑上规则的方形孔洞叫什么？有什么作用？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">踩了一脚</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/10.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？" target="_blank">阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<!--循环end-->
-				<!--分页加载中start-->
-				<div class="page-loading"></div>
-				<!--分页加载中end-->
-				
-				<!--分页start-->
-				<div id="pages-tp" class="pages" style="text-align: center;"></div>
-				<!--分页end-->
-			</div>
 			<!--投票end-->
 			
 			<!--评论start-->
-			<div class="listBox none">
-				<!--循环start-->
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表评论<span class="fr font-14 fc-aux-a">18小时前</span></div>
-					<div class="font-14 mt-10">“Why is there a myriad of Windows Windows that don't have a problem with the so-called "fit" on the mobile end?”</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/10.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12 fc-aux-9" style="height: 38px;">
-							<a href="#" class="font-16" title="阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？" target="_blank">阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？</a>
-						</div>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表评论<span class="fr font-14 fc-aux-a">18小时前</span></div>
-					<div class="font-14 mt-10">“Why is there a myriad of Windows Windows that don't have a problem with the so-called "fit" on the mobile end?”</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/9.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12 fc-aux-9" style="height: 38px;">
-							<a href="#" class="font-16" title="阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？" target="_blank">阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？</a>
-						</div>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表评论<span class="fr font-14 fc-aux-a">18小时前</span></div>
-					<div class="font-14 mt-10">“Why is there a myriad of Windows Windows that don't have a problem with the so-called "fit" on the mobile end?”</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/8.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12 fc-aux-9" style="height: 38px;">
-							<a href="#" class="font-16" title="阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？" target="_blank">阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？</a>
-						</div>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表评论<span class="fr font-14 fc-aux-a">18小时前</span></div>
-					<div class="font-14 mt-10">“Why is there a myriad of Windows Windows that don't have a problem with the so-called "fit" on the mobile end?”</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/7.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12 fc-aux-9" style="height: 38px;">
-							<a href="#" class="font-16" title="阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？" target="_blank">阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？</a>
-						</div>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表评论<span class="fr font-14 fc-aux-a">18小时前</span></div>
-					<div class="font-14 mt-10">“Why is there a myriad of Windows Windows that don't have a problem with the so-called "fit" on the mobile end?”</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/6.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12 fc-aux-9" style="height: 38px;">
-							<a href="#" class="font-16" title="阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？" target="_blank">阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？</a>
-						</div>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表评论<span class="fr font-14 fc-aux-a">18小时前</span></div>
-					<div class="font-14 mt-10">“Why is there a myriad of Windows Windows that don't have a problem with the so-called "fit" on the mobile end?”</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/5.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12 fc-aux-9" style="height: 38px;">
-							<a href="#" class="font-16" title="阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？" target="_blank">阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？</a>
-						</div>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表评论<span class="fr font-14 fc-aux-a">18小时前</span></div>
-					<div class="font-14 mt-10">“Why is there a myriad of Windows Windows that don't have a problem with the so-called "fit" on the mobile end?”</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/4.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12 fc-aux-9" style="height: 38px;">
-							<a href="#" class="font-16" title="阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？" target="_blank">阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？</a>
-						</div>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表评论<span class="fr font-14 fc-aux-a">18小时前</span></div>
-					<div class="font-14 mt-10">“Why is there a myriad of Windows Windows that don't have a problem with the so-called "fit" on the mobile end?”</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/3.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12 fc-aux-9" style="height: 38px;">
-							<a href="#" class="font-16" title="阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？" target="_blank">阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？</a>
-						</div>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表评论<span class="fr font-14 fc-aux-a">18小时前</span></div>
-					<div class="font-14 mt-10">“Why is there a myriad of Windows Windows that don't have a problem with the so-called "fit" on the mobile end?”</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/2.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12 fc-aux-9" style="height: 38px;">
-							<a href="#" class="font-16" title="阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？" target="_blank">阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？</a>
-						</div>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">发表评论<span class="fr font-14 fc-aux-a">18小时前</span></div>
-					<div class="font-14 mt-10">“Why is there a myriad of Windows Windows that don't have a problem with the so-called "fit" on the mobile end?”</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/1.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12 fc-aux-9" style="height: 38px;">
-							<a href="#" class="font-16" title="阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？" target="_blank">阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？</a>
-						</div>
-					</div>
-				</div>
-				<!--循环end-->
-				<!--分页加载中start-->
-				<div class="page-loading"></div>
-				<!--分页加载中end-->
-				
-				<!--分页start-->
-				<div id="pages-pl" class="pages" style="text-align: center;"></div>
-				<!--分页end-->
-			</div>
 			<!--评论end-->
 			
-			<!--邀请start-->
-			<div class="listBox none">
-				<!--循环start-->
-				<div class="item">
-					<div class="font-14 fc-aux-a">邀请朋友“和尚下山了”加入白菜哦</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/6.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="/public/page/userHome.html" class="font-16 a-green hover-underline" target="_blank">和尚下山来</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">邀请朋友“和尚下山了”加入白菜哦</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/6.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="/public/page/userHome.html" class="font-16 a-green hover-underline" target="_blank">和尚下山来</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">邀请朋友“和尚下山了”加入白菜哦</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/6.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="/public/page/userHome.html" class="font-16 a-green hover-underline" target="_blank">和尚下山来</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">邀请朋友“和尚下山了”加入白菜哦</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/6.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="/public/page/userHome.html" class="font-16 a-green hover-underline" target="_blank">和尚下山来</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">邀请朋友“和尚下山了”加入白菜哦</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/6.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="/public/page/userHome.html" class="font-16 a-green hover-underline" target="_blank">和尚下山来</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">邀请朋友“和尚下山了”加入白菜哦</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/6.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="/public/page/userHome.html" class="font-16 a-green hover-underline" target="_blank">和尚下山来</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">邀请朋友“和尚下山了”加入白菜哦</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/6.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="/public/page/userHome.html" class="font-16 a-green hover-underline" target="_blank">和尚下山来</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">邀请朋友“和尚下山了”加入白菜哦</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/6.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="/public/page/userHome.html" class="font-16 a-green hover-underline" target="_blank">和尚下山来</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">邀请朋友“和尚下山了”加入白菜哦</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/6.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="/public/page/userHome.html" class="font-16 a-green hover-underline" target="_blank">和尚下山来</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">邀请朋友“和尚下山了”加入白菜哦</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/6.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="/public/page/userHome.html" class="font-16 a-green hover-underline" target="_blank">和尚下山来</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<!--循环end-->
-				<!--分页加载中start-->
-				<div class="page-loading"></div>
-				<!--分页加载中end-->
-				
-				<!--分页start-->
-				<div id="pages-yq" class="pages" style="text-align: center;"></div>
-				<!--分页end-->
-			</div>
-			<!--邀请end-->
-			
 			<!--收藏start-->
-			<div class="listBox none">
-				<!--循环start-->
-				<div class="item">
-					<div class="font-14 fc-aux-a">收藏了文章</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/7.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="震惊！法国老鹰带套打飞机！…神TM的震惊" target="_blank">震惊！法国老鹰带套打飞机！…神TM的震惊</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">收藏了文章</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/7.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="震惊！法国老鹰带套打飞机！…神TM的震惊" target="_blank">震惊！法国老鹰带套打飞机！…神TM的震惊</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">收藏了文章</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/7.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="震惊！法国老鹰带套打飞机！…神TM的震惊" target="_blank">震惊！法国老鹰带套打飞机！…神TM的震惊</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">收藏了文章</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/7.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="震惊！法国老鹰带套打飞机！…神TM的震惊" target="_blank">震惊！法国老鹰带套打飞机！…神TM的震惊</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">收藏了文章</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/7.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="震惊！法国老鹰带套打飞机！…神TM的震惊" target="_blank">震惊！法国老鹰带套打飞机！…神TM的震惊</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">收藏了文章</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/7.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="震惊！法国老鹰带套打飞机！…神TM的震惊" target="_blank">震惊！法国老鹰带套打飞机！…神TM的震惊</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">收藏了文章</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/7.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="震惊！法国老鹰带套打飞机！…神TM的震惊" target="_blank">震惊！法国老鹰带套打飞机！…神TM的震惊</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">收藏了文章</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/7.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="震惊！法国老鹰带套打飞机！…神TM的震惊" target="_blank">震惊！法国老鹰带套打飞机！…神TM的震惊</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">收藏了文章</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/7.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="震惊！法国老鹰带套打飞机！…神TM的震惊" target="_blank">震惊！法国老鹰带套打飞机！…神TM的震惊</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">收藏了文章</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/7.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="震惊！法国老鹰带套打飞机！…神TM的震惊" target="_blank">震惊！法国老鹰带套打飞机！…神TM的震惊</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<!--循环end-->
-				<!--分页加载中start-->
-				<div class="page-loading"></div>
-				<!--分页加载中end-->
-				
-				<!--分页start-->
-				<div id="pages-sc" class="pages" style="text-align: center;"></div>
-				<!--分页end-->
-			</div>
 			<!--收藏end-->
 			
 			<!--关注start-->
-			<div class="listBox none">
-				<!--循环start-->
-				<div class="item">
-					<div class="font-14 fc-aux-a">关注了话题</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/8.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="# 女生被外科男医生检查肛门，觉得难堪心里过不去坎怎么办？" target="_blank"># 女生被外科男医生检查肛门，觉得难堪心里过不去坎怎么办？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">关注了标签</div>
-					<div class="clearfix">
-						<div class="fl vcenter" style="height: 38px;">
-							<a href="#" class="font-16" title="# 女生被外科男医生检查肛门，觉得难堪心里过不去坎怎么办？" target="_blank"># 女生被外科男医生检查肛门，觉得难堪心里过不去坎怎么办？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">关注了话题</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/8.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="# 女生被外科男医生检查肛门，觉得难堪心里过不去坎怎么办？" target="_blank"># 女生被外科男医生检查肛门，觉得难堪心里过不去坎怎么办？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">关注了标签</div>
-					<div class="clearfix">
-						<div class="fl vcenter" style="height: 38px;">
-							<a href="#" class="font-16" title="# 女生被外科男医生检查肛门，觉得难堪心里过不去坎怎么办？" target="_blank"># 女生被外科男医生检查肛门，觉得难堪心里过不去坎怎么办？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">关注了话题</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/8.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="# 女生被外科男医生检查肛门，觉得难堪心里过不去坎怎么办？" target="_blank"># 女生被外科男医生检查肛门，觉得难堪心里过不去坎怎么办？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">关注了标签</div>
-					<div class="clearfix">
-						<div class="fl vcenter" style="height: 38px;">
-							<a href="#" class="font-16" title="# 女生被外科男医生检查肛门，觉得难堪心里过不去坎怎么办？" target="_blank"># 女生被外科男医生检查肛门，觉得难堪心里过不去坎怎么办？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">关注了话题</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/8.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="# 女生被外科男医生检查肛门，觉得难堪心里过不去坎怎么办？" target="_blank"># 女生被外科男医生检查肛门，觉得难堪心里过不去坎怎么办？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">关注了标签</div>
-					<div class="clearfix">
-						<div class="fl vcenter" style="height: 38px;">
-							<a href="#" class="font-16" title="# 女生被外科男医生检查肛门，觉得难堪心里过不去坎怎么办？" target="_blank"># 女生被外科男医生检查肛门，觉得难堪心里过不去坎怎么办？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">关注了话题</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/8.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="# 女生被外科男医生检查肛门，觉得难堪心里过不去坎怎么办？" target="_blank"># 女生被外科男医生检查肛门，觉得难堪心里过不去坎怎么办？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">关注了标签</div>
-					<div class="clearfix">
-						<div class="fl vcenter" style="height: 38px;">
-							<a href="#" class="font-16" title="# 女生被外科男医生检查肛门，觉得难堪心里过不去坎怎么办？" target="_blank"># 女生被外科男医生检查肛门，觉得难堪心里过不去坎怎么办？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<!--循环end-->
-				<!--分页加载中start-->
-				<div class="page-loading"></div>
-				<!--分页加载中end-->
-				
-				<!--分页start-->
-				<div id="pages-gz" class="pages" style="text-align: center;"></div>
-				<!--分页end-->
-			</div>
 			<!--关注end-->
 		</div>
 		<!--右边内容end-->

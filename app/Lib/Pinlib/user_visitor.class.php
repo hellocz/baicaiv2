@@ -52,7 +52,7 @@ class user_visitor {
     public function get($key = null) {
         $info = null;
         if (is_null($key) && $this->info['id']) {
-            $info = M('user')->find($this->info['id']);
+            $info = D('user')->get_info($this->info['id']);
         } else {
             if (isset($this->info[$key])) {
                 return $this->info[$key];
@@ -60,7 +60,7 @@ class user_visitor {
                 //获取用户表字段
                 $fields = M('user')->getDbFields();
                 if (!is_null(array_search($key, $fields))) {
-                    $info = M('user')->where(array('id' => $this->info['id']))->getField($key);
+                    $info = D('user')->get_field($this->info['id'], $key);
                 }
             }
         }

@@ -44,7 +44,7 @@ class indexAction extends frontendAction {
 			$front_list = mock_zan($front_list);
 
 			//小时排行榜
-			$hour_list = $mod_d->hour_item_list();
+			$hour_list = $mod_d->item_hour_cache();
 			$hour_list = array_slice($hour_list, 0, 4);
 		}
 
@@ -143,14 +143,6 @@ class indexAction extends frontendAction {
 		$user_list['exp'] = M("user")->field("id,username,exp")->order("exp desc,id asc")->limit(5)->select();
 		$user_list['shares'] = M("user")->field("id,username,shares,exp")->order("shares desc,id asc")->limit(5)->select();
 
-		if(count($user_list)>0){
-			foreach ($user_list as $k1 => $arr) {
-				foreach ($arr as $k2 => $value) {
-					$user_list[$k1][$k2]['grade'] = D("grade")->get_grade($user_list[$k1][$k2]['exp']);
-				}
-			}
-		}
-
 		if($this->visitor->is_login){
 
 			$user = $this->visitor->get();
@@ -159,9 +151,6 @@ class indexAction extends frontendAction {
 			// $tags = $notify_tag->field('tag')->where(array('userid' => $user['id'],'f_sign'=> 1 ))->select();
 			// $this->assign('tags',$tags);
 			$tag_count = M("notify_tag")->where(array('userid' => $this->visitor->info['id'],'f_sign'=> 1 ))->count();
-
-			//我的等级
-			$user['grade'] = D("grade")->get_grade($user['exp']);
 			
 			$this->assign('user',array('tag_count' => $tag_count, 'grade' => $user['grade'], 'score' => $user['score']));
 		}

@@ -29,10 +29,10 @@
 				</div>
 				<!--用户名end-->
 				<!--签名start-->
-				<div class="font-14 fc-grey mt-10"><if condition="$user.intro or $user.intro !==''">{$user.intro}<else/>这家伙很懒，什么都没有留下.</if></div>
+				<div class="font-14 fc-grey mt-10"><if condition="$user.intro AND $user.intro !==''">{$user.intro}<else/>这家伙很懒，什么都没有留下.</if></div>
 				<!--签名end-->
 				<!--等级start-->
-				<div class="font-14 mt-6"><span class="font-w-b">Lv{$user.grade}:</span> 初出茅庐　·　已加入<span class="font-w-b">{$user.join_days}</span>天</div>
+				<div class="font-14 mt-6"><span class="font-w-b">Lv{:grade($user['exp'])}:</span> 初出茅庐　·　已加入<span class="font-w-b">{$user.join_days}</span>天</div>
 				<!--等级end-->
 				<!--操作start-->
 				<ul class="operation mt-8 clearfix">
@@ -95,7 +95,7 @@
 					<li <if condition="$t eq 'original'">class="active"</if>><a href="{:U('member/index',array('uid'=>$user['id'],'t'=>'original'))}">原创·{$count.original}</a></li>
 					<li <if condition="$t eq 'bao'">class="active"</if>><a href="{:U('member/index',array('uid'=>$user['id'],'t'=>'bao'))}">爆料·{$count.bao}</a></li>
 					<li <if condition="$t eq 'vote'">class="active"</if>><a href="{:U('member/index',array('uid'=>$user['id'],'t'=>'vote'))}">投票·{$count.vote}</a></li>
-					<li <if condition="$t eq 'comm'">class="active"</if>><a href="{:U('member/index',array('p'=>$p,'uid'=>$user['id'],'t'=>'comm'))}">评论·{$count.comm}</a></li>
+					<li <if condition="$t eq 'comm'">class="active"</if>><a href="{:U('member/index',array('uid'=>$user['id'],'t'=>'comm'))}">评论·{$count.comm}</a></li>
 					<li <if condition="$t eq 'likes'">class="active"</if>><a href="{:U('member/index',array('uid'=>$user['id'],'t'=>'likes'))}">收藏·{$count.likes}</a></li>
 					<li <if condition="$t eq 'follows'">class="active"</if>><a href="{:U('member/index',array('uid'=>$user['id'],'t'=>'follows'))}">关注·{$count.follows}</a></li>
 				</ul>
@@ -243,13 +243,13 @@
 				<div class="white-bg mt-14 clearfix">
 					<div class="fl dz lvcenter">
 						<div>
-							<p class="font-24">{$count.zan}</p>
+							<p class="font-24">{$user.zan}</p>
 							<p class="font-14 fc-aux-9">被点赞(次)</p>
 						</div>
 					</div>
 					<div class="fl hf lvcenter">
 						<div>
-							<p class="font-24">{$count.fans}</p>
+							<p class="font-24">{$user.fans}</p>
 							<p class="font-14 fc-aux-9">收获粉丝(人)</p>
 						</div>
 					</div>

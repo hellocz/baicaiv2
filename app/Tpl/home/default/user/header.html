@@ -5,7 +5,7 @@
         <div class="w-1200 top clearfix">
             <!--导航-->
             <div class="fl index">
-                <a href="/public/index.html">首页</a>
+                <a href="/">首页</a>
             </div>
             <div class="fl nav-box">
                 <ul>
@@ -534,7 +534,7 @@
                     <div class="member-info r-sub">
                         <div class="info">
                             <span class="layui-badge-dot"></span>
-                            <img src="/public/images/Head.jpg" class="radius-100 mr-10" width="24" height="24s">迪迦奥特曼打...
+                            <img src="/public/images/Head.jpg" class="radius-100 mr-10" width="24" height="24s">{$visitor['username']}
                             <i class="haver-on"></i>
                         </div>
                         <div class="arrow_up"></div>
@@ -542,27 +542,27 @@
                             <div class="head clearfix">
                                 <img src="/public/images/Head.jpg" class="radius-100 fl" width="48" height="48">
                                 <div class="fl head-info">
-                                    <p class="name">迪迦奥特曼
-                                        <span class="radius-100 fc-green">LV10</span>
+                                    <p class="name">{$visitor['username']}
+                                        <span class="radius-100 fc-green">LV{:grade($visitor['exp'])}</span>
                                     </p>
-                                    <p class="layui-elip fc-aux-9">我就是我，不一样的烟火烟火烟火</p>
+                                    <p class="layui-elip fc-aux-9"><if condition="$visitor.intro and $visitor.intro !==''">{$visitor.intro}<else/>这家伙很懒，什么都没有留下.</if></p>
                                 </div>
                             </div>
-                            <a href="#">
+                            <a href="{:U('user/index')}">
                                 <svg role="img" class="icon">
                                     <!--[if lte IE 8]><desc><img src="/public/images/ie8/e_2@2x.png" width="20" height="20"></desc><![endif]-->
                                     <use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_2"></use>
                                 </svg>
                                 个人中心
                             </a>
-                            <a href="#">
+                            <a href="{:U('user/keysfollow')}">
                                 <svg role="img" class="icon">
                                     <!--[if lte IE 8]><desc><img src="/public/images/ie8/e_14@2x.png" width="20" height="20"></desc><![endif]-->
                                     <use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_14"></use>
                                 </svg>
                                 我的关注
                             </a>
-                            <a href="#">
+                            <a href="{:U('user/likes')}">
                                 <svg role="img" class="icon">
                                     <!--[if lte IE 8]><desc><img src="/public/images/ie8/e_5@2x.png" width="20" height="20"></desc><![endif]-->
                                     <use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_5"></use>
@@ -591,7 +591,7 @@
                                 </svg>
                                 加入合伙人
                             </a>
-                            <a href="javascript: void(0);" id="outlogin" class="sub-radius-3">
+                            <a href="{:U('user/logout')}" id="outlogin" class="sub-radius-3">
                                 <svg role="img" class="icon">
                                     <!--[if lte IE 8]><desc><img src="/public/images/ie8/e_16@2x.png" width="20" height="20"></desc><![endif]-->
                                     <use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_16"></use>
@@ -611,7 +611,7 @@
     <div class="mNav white-bg">
         <div class="w-1200 clearfix">
             <div class="fl logo">
-                <a href="http://www.baicaio.com/">
+                <a href="/">
                     <svg class="icon-logo">
                         <!--[if lte IE 8]><desc><img src="/public/images/ie8/logo_BAI.png" width="127" height="40"></desc><![endif]-->
                         <use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-logo_BAI"></use>
@@ -624,8 +624,8 @@
             </div>
             <div class="fr nav vcenter">
                 <div>
-                    <a href="index.html" class="a-green">个人中心</a>
-                    <a href="index.html">关注</a>
+                    <a href="{:U('user/index')}" class="a-green">个人中心</a>
+                    <a href="{:U('user/keysfollow')}">关注</a>
                     <a href="index.html">消息</a>
                     <a href="index.html">我的订单</a>
                     <a href="index.html">账户设置</a>

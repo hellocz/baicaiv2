@@ -8,86 +8,120 @@ class userAction extends userbaseAction {
     }
 
     public function index(){
-        !$this->visitor->is_login && $this->redirect('index/index');
-        $type = $this->_get('type','trim');
-        $info = $this->visitor->get();
-        $uid = $info['id'];
-        //等级
-        $exp=$info['exp'];
-        $info['grade'] = M("grade")->where("min<=$exp and max>=$exp")->getField("grade");
-        $info['s_a'] = M("share")->where("uid=$uid")->count();//分享的文章
-        //获取关注好友
-        $wsql = "select follow_uid from try_user_follow where uid=$uid";
-        $hsql = "select id from try_item_orig where ismy=$";
-        $user_follow_uids = M("user_follow")->where("uid=12")->field("follow_uid")->select();
-        $user_follow_count = count($user_follow_uids);
-        if($user_follow_count!=0){
-       foreach($user_follow_uids as $key=>$val){
+        // !$this->visitor->is_login && $this->redirect('index/index');
+        $t = $this->_get('t',"trim");
+        $p = $this->_get('p', 'intval', 1);
+        if($p<1){$p=1;}
+        $pagesize=12;        
+        $uid=$this->_user['id'];
 
-          if($str==""){
+        $count = array();
+        //原创：攻畋+晒单        
+        $count['original'] = isset($sum_article['count']) ? $sum_article['count'] : 0;
+        //爆料
+        $count['bao'] = isset($sum_item['count']) ? $sum_item['count'] : 0;
+        //投票：点选、点踩
+        $count['vote'] = 0; 
+        //评论
+        $count['comm'] = D('comment')->user_comment_count($uid); 
+        //收藏
+        $count['likes'] = D("likes")->user_likes_count($uid);
+        //关注
+        $count['follows'] = D("user_follow")->user_follow_count($uid);
+        //所有动态
+        // $count['news'] = array_sum($count);
 
-            $str=$val['follow_uid'];
-
-          }else{
-
-            $str.=",".$val['follow_uid'];
-
-          }
-
-       }
-        switch($type){
-        case "jp":$tsql=" isbest=1 ";break;
-        case "gn":$tsql=" orig_id in(select id from try_item_orig where ismy=0) ";break;
-        case "ht":$tsql=" orig_id in(select id from try_item_orig where ismy=1) ";break;
-        case "sd":$tsql=" cate_id=10 ";break;
-        case "gl":$tsql=" cate_id=9 ";break;
-        case "zr":$tsql=" ";break;
-        case "":break;
+        $typeArr = array('original', 'bao', 'vote', 'comm', 'likes', 'follows');
+        switch ($t) {
+            case 'original': //原创：攻畋+晒单
+            case 'bao': //爆料
+            case 'vote': //投票：点选、点踩
+            case 'comm': //评论
+            case 'likes': //收藏
+            case 'follows': //关注
+                $this->get_user_item_list($t, $uid, $p, $pagesize);
+                break;
+            
+            default:
+                $t="news";
+                foreach ($typeArr as $val) {
+                    $this->get_user_item_list($val, $uid, 1, 3);
+                }
+                break;
         }
-        if($type=="jp"||$type=="gn"||$type=="ht"){
-            $sqlc="select count(*) as num from try_item where $tsql and uid in(".$str.") and status=1 ";
-            $sql = "select * from try_item where $tsql and uid in(".$str.") and status=1 order by isbest desc ";
-            }elseif($type=="sd"||$type=="gl"){
-            $sqlc="select count(*) as num from try_article where $tsql and uid in(".$str.")  and status=1 ";
-            $sql = "select * from try_article where $tsql and uid in(".$str.")  and status=1 order by isbest desc ";
-            }elseif($type=="zr"){//转让
-            $sqlc="select count(*) as num from try_zr where uid in(".$str.") and status=1";
-            $sql = "select * from try_zr where uid in(".$str.") and status=1 order by id desc";
-            }else{
-            $sqlc="select count(*) as num from try_item where uid in(".$str.") and status=1 ";
-            $sql="select * from try_item where uid in(".$str.") and status=1 order by isbest desc ";
-            }
 
-            $mod = M();
-            $pagesize=3;
-            $allc = $mod->query($sqlc);
-            $count = $allc[0]['num'];
-            $pager=$this->_pager($count,$pagesize);
-            $sql = $sql." limit ".$pager->firstRow.",".$pager->listRows;
-            $list = $mod->query($sql);
-        }
-        else{
-            $list="";
-            $pagesize=3;
-            $count=0;
-            $pager=$this->_pager($count,$pagesize);
-        }
-        $this->assign('list',$list);
-        $this->assign('pagebar',$pager->fshow());
-        $this->assign('type',$type);
-        $this->assign('info',$info);
-        $user_list = M("user")->order("shares desc, id asc")->limit(4)->select();
-        $arr = M("user_follow")->where("uid=$info[id]")->select();
-        foreach($arr as $key=>$val){
-            $follow_uid[$val['follow_uid']]=1;
-        }
-        foreach($user_list as $key=>$val){
-            $user_list[$key]['follow']=$follow_uid[$val['id']];
+        // //勋章
+        // $xz['share_num'] = M("share")->where("uid=$uid")->count();//分享达人
+        // $xz['bao_num'] = M("item")->where("uid=$uid and status=1")->count();//爆料达人
+        // $xz['sign_num'] = $this->_user['all_sign'];//签到
+        // $xz['gl_num'] = M("article")->where("uid=$uid and status=1 and cate_id in(select id from try_article_cate where pid=9 or id=9)")->count();//攻略
+        // $xz['sd_num'] = M("article")->where("uid=$uid and status=1 and cate_id=10")->count();//晒单
+        // $xz['cm_num'] = M("comment")->where("uid=$uid and status=1")->count();
+        // $this->assign('xz',$xz);
+
+        $this->assign("count",$count);
+        if($t != 'news'){
+            $this->assign('page', array('p'=>$p, 'size'=>$pagesize, 'count'=>isset($count[$t]) ? $count[$t] : 0));
         }
         $this->assign("page_seo",set_seo('个人中心'));
-        $this->assign('user_list',$user_list);
+        $this->assign("t",$t);
+        $this->assign('user',$this->_user);
         $this->display();
     }
+
+    /**
+     * 用户动态，原创、爆料、评论、投票、收藏、关注等列表
+     */
+    public function get_user_item_list($t = 'original', $uid = 0, $p = 1, $pagesize = 8) {
+        if (IS_AJAX) {
+            $t = $this->_get('t', 'trim');
+            $uid = $this->_get('uid', 'intval', 0);
+            !$uid && $this->ajaxReturn(0, '用户不存在');
+            $p = $this->_get('p', 'intval', 1);
+            $pagesize = $this->_get('pagesize', 'intval', 8);
+        }
+        !$uid && $this->error('用户不存在');
+        if($p<1){$p=1;}
+        if($pagesize<1){$pagesize=8;}
+
+        $order = "add_time desc";
+        $limit = $pagesize*($p-1) . ',' . $pagesize;
+        switch ($t) {
+            case 'original': //原创：攻畋+晒单
+                $list=D('article')->user_article_list($uid, $order, $limit);
+                break;
+            case 'bao': //爆料
+                $list = D("item")->user_bao_item_list($uid, $order, $limit);
+                break;
+            case 'vote': //投票：点选、点踩
+                # code...
+                break;
+            case 'comm': //评论
+                $list=D('comment')->user_comment_list($uid, $order, $limit);
+                break;
+            case 'likes': //收藏
+                $order = "addtime desc";
+                $list=D("likes")->user_likes_list($uid, $order, $limit);
+                break;
+            case 'follows': //关注
+                $list=D("user_follow")->user_follow_list($uid, $order, $limit);
+                break;
+            
+            default:
+                IS_AJAX && $this->ajaxReturn(0, '信息不存在');
+                break;
+        }
+        $this->assign("user_{$t}_list",$list);
+
+        //AJAX分页请求
+        if (IS_AJAX) {
+            $data = array(
+                'list' => $this->fetch("user_{$t}_list"),
+            ); 
+            $this->ajaxReturn(1, "", $data);
+        }
+    }
+
 
 
     /**

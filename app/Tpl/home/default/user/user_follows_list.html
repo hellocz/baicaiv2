@@ -1,0 +1,16 @@
+				<!--循环start-->
+				<volist name="user_follows_list" id="r">
+				<div class="item">
+					<div class="font-14 fc-aux-a">关注了“{$r.username}”</div>
+					<div class="clearfix mt-12">
+						<img src="{:avatar($r['id'])}" class="fl lazyimg radius-3" width="38" height="38">
+						<div class="fl vcenter ml-12" style="height: 38px;">
+							<a href="{:U('member/index',array('uid'=>$r['id']))}" class="font-16 a-green hover-underline" target="_blank">{$r.username}</a>
+							<span class="font-13 fc-aux-9 ml-12">Lv{$r.grade}: 初出茅庐　·　已加入{$r.join_days}天　·　个性签名：<if condition="$r.intro and $r.intro !==''">{$r.intro}<else/>这家伙很懒，什么都没有留下.</if></span>
+						</div>
+
+						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">{$r.add_time|fdate}</span>
+					</div>
+				</div>
+				</volist>
+				<!--循环end-->

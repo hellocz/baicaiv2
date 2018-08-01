@@ -14,8 +14,15 @@ class itemModel extends Model
             $time = time() - 3600;
         }
         $hour = date("H", $time);
-        //测试，取一年内的数据
-        // $time_hour_s = strtotime(date("Y-m-d H:00:00", $time)) - 60*60*24*365;
+        $hourplus = date("H", $time + 3600);
+
+        if (false !== F('item_hour_list_' . $hourplus)) { //删除下一个小时的缓存文件
+          F('item_hour_list_' . $hourplus, NULL);
+        }
+        if (false !== $item_list = F('item_hour_list_' . $hour)) { //判断创建上一个小时的缓存文件
+          return $item_list;
+        }
+
         $time_hour_s = strtotime(date("Y-m-d H:00:00", $time));
         $time_hour_e = strtotime(date("Y-m-d H:59:59", $time));
 
@@ -35,8 +42,15 @@ class itemModel extends Model
             $time = time() - 3600;
         }
         $hour = date("H", $time);
-        //测试，取一年内的数据
-        // $time_hour_s = strtotime(date("Y-m-d H:00:00", $time)) - 60*60*5 - 60*60*24*365;
+        $hourminus = date("H", $time - 3600 - 3600);
+
+        if (false !== F('item_6hour_list_' . $hourminus)) { //删除上上个小时的缓存文件
+          F('item_6hour_list_' . $hourminus, NULL);
+        }
+        if (false !== $item_list = F('item_6hour_list_' . $hour)) { //判断创建上一个小时的缓存文件
+          return $item_list;
+        }
+
         $time_hour_s = strtotime(date("Y-m-d H:00:00", $time)) - 60*60*5;
         $time_hour_e = strtotime(date("Y-m-d H:59:59", $time));
 
@@ -56,8 +70,15 @@ class itemModel extends Model
             $time = time() - 3600;
         }
         $hour = date("H", $time);
-        //测试，取一年内的数据
-        // $time_hour_s = strtotime(date("Y-m-d H:00:00", $time)) - 60*60*23 - 60*60*24*365;
+        $hourminus = date("H", $time - 3600 - 3600);
+
+        if (false !== F('item_24hour_list_' . $hourminus)) { //删除上上个小时的缓存文件
+          F('item_24hour_list_' . $hourminus, NULL);
+        }
+        if (false !== $item_list = F('item_24hour_list_' . $hour)) { //判断创建上一个小时的缓存文件
+          return $item_list;
+        }
+
         $time_hour_s = strtotime(date("Y-m-d H:00:00", $time)) - 60*60*23;
         $time_hour_e = strtotime(date("Y-m-d H:59:59", $time)) ;
 
@@ -253,30 +274,71 @@ class itemModel extends Model
         //删除商品和专辑关系
         //D('album')->del_item($data['id']);
     }
+
+    /**
+     * item信息, 通过ID获取
+     */
+    public function get_info($id = '', $field = '') {
+        if(!$id) return false;        
+        $info = $this->field($field)->where(array('id' => $id))->find();
+        return $info;
+    }
+
+    /**
+    * 获得商品总数
+    */
+    public function item_sum($where = ''){
+        if(!$where) return false;
+
+        $sum = $this->field("count(*) as count, sum(zan) as zan")->where($where)->find();
+        return $sum;
+    }
+
+    /**
+    * 获得商品列表
+    */
+    public function item_list($where = 'status=1', $order = 'add_time desc', $limit = '1,10'){
+        if(!$order){
+            $order = 'add_time desc';
+        }
+        $list = $this->where($where)->order($order)->limit($limit)->select();
+        return $list;
+    }
+
     /**
     * 获得置顶区list
     */
     public function front_list(){
         $time=time();
-        $queryArr['where']=" and isnice=1 and hits>600";//测试条件
-        $queryArr['order'] =" add_time desc";
-        $item_list = $this->where("status=1 and add_time<$time ".$queryArr['where'])->limit(13)->order($queryArr['order'])->select();
+        $where="status=1 and add_time<$time and isnice=1 and hits>600";//测试条件
+        $order =" add_time desc";
+        $limit = 13;
+        $item_list = $this->item_list($where, $order, $limit);
         return $item_list;
     }
 
-    public function hour_item_list(){
-            $time = time();
-            // $time_hour = strtotime(date("Y-m-d H:00:00", $time - 3600)) ;
-            $hour = date("H", $time - 3600);            
-            $hourplus = date("H", $time + 3600);
-            if (false !== F('item_hour_list_' . $hourplus)) { //删除下一个小时的缓存文件
-                F('item_hour_list_' . $hourplus, NULL);
-            }
-            if (false === $hour_list = F('item_hour_list_' . $hour)) { //判断创建上一个小时的缓存文件
-                $hour_list = $this->item_hour_cache();
-            }
-            return $hour_list;
+    /**
+    * 用户爆料商品总数
+    */
+    public function user_bao_item_sum($uid = 0){
+        if(!$uid) return false;
+        
+        $time=time();
+        $where="status=1 and isbao=1 and add_time<$time and uid='$uid'";
+        $sum = $this->item_sum($where);
+        return $sum;
     }
 
+    /**
+    * 用户爆料商品列表
+    */
+    public function user_bao_item_list($uid = 0, $order = 'add_time desc', $limit = '1,10'){
+        if(!$uid) return false;
+        
+        $time=time();
+        $where="status=1 and isbao=1 and add_time<$time and uid='$uid'";
+        $list = $this->item_list($where, $order, $limit);
+        return $list;
+    }
 
 }

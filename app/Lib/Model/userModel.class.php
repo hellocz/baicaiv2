@@ -100,6 +100,16 @@ class userModel extends Model
         return $user;
     }
 
+    /**
+     * 用户字段, 通过ID取用户信息
+     */
+    public function get_field($id = '', $field = '') {
+        if(!$id) return false;
+        if(!$field) return false;        
+        $info = $this->where(array('id' => $id))->getField($field);
+        return $info;
+    }
+
     public function user_list($where, $field = '') {
         if(!$where) return false;        
         $user_list = $this->where($where)->field($field)->select();

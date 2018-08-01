@@ -25,12 +25,12 @@ class itemAction extends frontendAction {
         if($isbao==1){
           $mod = M('item_diu');
         }else{
-          $mod = M('item');
+          $mod = D('item');
         }
-        $item_mod = M('item');
+        $item_mod = D('item');
 
         //$item = $item_mod->field('id,cate_id,title,uid,uname,intro,price,url,likes,comments,tag_cache,seo_title,seo_keys,seo_desc,add_time,content,zan,status,orig_id,go_link,ds_time,remark')->where(array('id' => $id))->find();
-        $item = $mod->where(array('id' => $id))->find();
+        $item = $mod->get_info($id);
         !$item && $this->error('该信息不存在或已删除');
         if(M('admin')->where("username = '".$item['uname']."'")->find()){
             $item['uid'] = 0;
@@ -45,7 +45,7 @@ class itemAction extends frontendAction {
         $item['zan'] = $item['zan']   +intval($item['hits'] /10);
 
         //来源
-        $orig = M('item_orig')->field('name,img,img_url,shipping')->find($item['orig_id']);
+        $orig = D('item_orig')->get_info($item['orig_id']);
         //商品相册
         $img_list = M('item_img')->field('url')->where(array('item_id' => $id))->order('ordid')->select();
 
@@ -222,35 +222,11 @@ class itemAction extends frontendAction {
         // $this->assign('day_list',$day_list);
 
         //小时排行榜，六小时排行榜，二十四小时排行榜
-        $time = time();
-        // $time_hour = strtotime(date("Y-m-d H:00:00", $time - 3600)) ;
-        $hour = date("H", $time - 3600);      
-        $hourplus = date("H", $time + 3600);
-        $hourminus = date("H", $time - 3600 - 3600);
-
-        $hour_list = $hour6_list = $hour24_list = array();
-
-        if (false !== F('item_hour_list_' . $hourplus)) { //删除下一个小时的缓存文件
-          F('item_hour_list_' . $hourplus, NULL);
-        }
-        if (false === $hour_list = F('item_hour_list_' . $hour)) { //判断创建上一个小时的缓存文件
-          $hour_list = D('item')->item_hour_cache();
-        }
+        $hour_list = D('item')->item_hour_cache();
         $hour_list = array_slice($hour_list, 0, 9);
+        $hour6_list = D('item')->item_6hour_cache();
+        $hour24_list = D('item')->item_24hour_cache();
 
-        if (false !== F('item_6hour_list_' . $hourminus)) { //删除上上个小时的缓存文件
-          F('item_6hour_list_' . $hourminus, NULL);
-        }
-        if (false === $hour6_list = F('item_6hour_list_' . $hour)) { //判断创建上一个小时的缓存文件
-          $hour6_list = D('item')->item_6hour_cache();
-        }
-
-        if (false !== F('item_24hour_list_' . $hourminus)) { //删除上上个小时的缓存文件
-          F('item_24hour_list_' . $hourminus, NULL);
-        }
-        if (false === $hour24_list = F('item_24hour_list_' . $hour)) { //判断创建上一个小时的缓存文件
-          $hour24_list = D('item')->item_24hour_cache();
-        }
         $this->assign('hour_list',$hour_list);
         $this->assign('hour6_list',$hour6_list);
         $this->assign('hour24_list',$hour24_list);
@@ -327,7 +303,7 @@ class itemAction extends frontendAction {
           if(count($users) > 0){
             foreach ($users as $val) {
               $user_list[$val['id']] = $val;
-              $user_list[$val['id']]['grade'] = D("grade")->get_grade($val['exp']);
+              $user_list[$val['id']]['grade'] = grade($val['exp']);
             }
           }
         }
