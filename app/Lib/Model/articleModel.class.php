@@ -34,7 +34,7 @@ class articleModel extends RelationModel
     /**
     * 获得文章总数
     */
-    public function article_sum($where = ''){
+    public function sum($where = ''){
         if(!$where) return false;
 
         $sum = $this->field("count(1) as count, sum(zan) as zan")->where($where)->find();
@@ -54,12 +54,17 @@ class articleModel extends RelationModel
     /**
     * 用户文章总数
     */
-    public function user_article_sum($uid = 0){
+    public function user_article_sum($uid = 0, $status = 1){
         if(!$uid) return false;
 
         $time=time();
-        $where = "status=1 and add_time<$time and uid='".$uid."' and cate_id in(9,10)"; //海淘攻略、晒单
-        $sum = $this->article_sum($where);
+        $where = "uid='".$uid."' and cate_id in(select id from try_article_cate where pid in(9,10) or id in(9,10)) and add_time<$time"; //海淘攻略、晒单
+        if($status !== ""){
+            $where .= " and status = ({$status})";
+        }else{
+            $where .= " and status in ('0','1','2','3')"; //排除被删除的文章
+        }
+        $sum = $this->sum($where);
 
         return $sum;
     }
@@ -67,14 +72,37 @@ class articleModel extends RelationModel
     /**
     * 用户文章列表
     */
-    public function user_article_list($uid = 0, $order = 'add_time desc', $limit = '1,10'){
+    public function user_article_list($uid = 0, $status = 1, $field = '', $order = 'add_time desc', $limit = '1,10'){
         if(!$uid) return false;
 
         $time=time();
-        $where = "status=1 and add_time<$time and uid='".$uid."' and cate_id in(9,10)"; //海淘攻略、晒单
-        $list = $this->article_list($where, $order, $limit);
+        $where = "uid='".$uid."' and cate_id in(select id from try_article_cate where pid in(9,10) or id in(9,10)) and add_time<$time"; //海淘攻略、晒单
+        if($status !== ""){
+            $where .= " and status = ({$status})";
+        }else{
+            $where .= " and status <> 4"; //排除被删除的文章
+        }
+        $list = $this->field($field)->where($where)->order($order)->limit($limit)->select();
 
         return $list;
+    }
+
+    /**
+    * 用户文章列表-sql
+    */
+    public function user_article_sql($uid = 0, $status = 1, $field = '', $order = 'add_time desc', $limit = '1,10'){
+        if(!$uid) return false;
+
+        $time=time();
+        $where = "uid='".$uid."' and cate_id in(select id from try_article_cate where pid in(9,10) or id in(9,10)) and add_time<$time"; //海淘攻略、晒单
+        if($status !== ""){
+            $where .= " and status = ({$status})";
+        }else{
+            $where .= " and status <> 4"; //排除被删除的文章
+        }
+        $sql = $this->field($field)->where($where)->order($order)->limit($limit)->buildSql();
+
+        return $sql;
     }
 
 }

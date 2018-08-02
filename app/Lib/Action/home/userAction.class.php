@@ -12,40 +12,34 @@ class userAction extends userbaseAction {
         $t = $this->_get('t',"trim");
         $p = $this->_get('p', 'intval', 1);
         if($p<1){$p=1;}
-        $pagesize=12;        
+        $pagesize=10;        
         $uid=$this->_user['id'];
 
         $count = array();
-        //原创：攻畋+晒单        
-        $count['original'] = isset($sum_article['count']) ? $sum_article['count'] : 0;
-        //爆料
-        $count['bao'] = isset($sum_item['count']) ? $sum_item['count'] : 0;
-        //投票：点选、点踩
-        $count['vote'] = 0; 
-        //评论
-        $count['comm'] = D('comment')->user_comment_count($uid); 
-        //收藏
-        $count['likes'] = D("likes")->user_likes_count($uid);
-        //关注
-        $count['follows'] = D("user_follow")->user_follow_count($uid);
-        //所有动态
-        // $count['news'] = array_sum($count);
+        $sum_article = D('article')->user_article_sum($uid);
+        $sum_item = D("item")->user_bao_sum($uid);
+        $count['article'] = isset($sum_article['count']) ? $sum_article['count'] : 0;//原创：攻畋+晒单        
+        $count['bao'] = isset($sum_item['count']) ? $sum_item['count'] : 0;//爆料        
+        $count['vote'] = 0; //投票：点选、点踩        
+        $count['comm'] = D('comment')->user_comment_count($uid); //评论        
+        $count['likes'] = D("likes")->user_likes_count($uid);//收藏        
+        $count['follows'] = D("user_follow")->user_follow_count($uid);//关注
 
-        $typeArr = array('original', 'bao', 'vote', 'comm', 'likes', 'follows');
+        $typeArr = array('article', 'bao', 'vote', 'comm', 'likes', 'follows');
         switch ($t) {
-            case 'original': //原创：攻畋+晒单
+            case 'article': //原创：攻畋+晒单
             case 'bao': //爆料
             case 'vote': //投票：点选、点踩
             case 'comm': //评论
             case 'likes': //收藏
             case 'follows': //关注
-                $this->get_user_item_list($t, $uid, $p, $pagesize);
+                $this->get_list($t, $uid, $p, $pagesize);
                 break;
             
             default:
                 $t="news";
                 foreach ($typeArr as $val) {
-                    $this->get_user_item_list($val, $uid, 1, 3);
+                    $this->get_list($val, $uid, 1, 3);
                 }
                 break;
         }
@@ -63,35 +57,35 @@ class userAction extends userbaseAction {
         if($t != 'news'){
             $this->assign('page', array('p'=>$p, 'size'=>$pagesize, 'count'=>isset($count[$t]) ? $count[$t] : 0));
         }
-        $this->assign("page_seo",set_seo('个人中心'));
         $this->assign("t",$t);
         $this->assign('user',$this->_user);
+        $this->assign("page_seo",set_seo('个人中心'));
         $this->display();
     }
 
     /**
-     * 用户动态，原创、爆料、评论、投票、收藏、关注等列表
+     * 个人资料 - 动态，原创、爆料、评论、投票、收藏、关注等列表
      */
-    public function get_user_item_list($t = 'original', $uid = 0, $p = 1, $pagesize = 8) {
+    public function get_list($t = 'article', $uid = 0, $p = 1, $pagesize = 8) {
         if (IS_AJAX) {
             $t = $this->_get('t', 'trim');
             $uid = $this->_get('uid', 'intval', 0);
-            !$uid && $this->ajaxReturn(0, '用户不存在');
+            !$uid && $this->ajaxReturn(0, '用户不存在');          
             $p = $this->_get('p', 'intval', 1);
             $pagesize = $this->_get('pagesize', 'intval', 8);
         }
-        !$uid && $this->error('用户不存在');
         if($p<1){$p=1;}
-        if($pagesize<1){$pagesize=8;}
 
+        $field = "";
+        $status = 1;
         $order = "add_time desc";
         $limit = $pagesize*($p-1) . ',' . $pagesize;
         switch ($t) {
-            case 'original': //原创：攻畋+晒单
-                $list=D('article')->user_article_list($uid, $order, $limit);
+            case 'article': //原创：攻畋+晒单
+                $list=D('article')->user_article_list($uid, $status, $field, $order, $limit);
                 break;
             case 'bao': //爆料
-                $list = D("item")->user_bao_item_list($uid, $order, $limit);
+                $list = D("item")->user_bao_list($uid, $status, $field, $order, $limit);
                 break;
             case 'vote': //投票：点选、点踩
                 # code...
@@ -122,7 +116,76 @@ class userAction extends userbaseAction {
         }
     }
 
+    public function publish(){
+        $t = $this->_get('t',"trim");
+        $p = $this->_get('p', 'intval', 1);
+        $status = $this->_get('status', 'trim');
+        if($p<1){$p=1;}
+        $pagesize=10;        
+        $uid=$this->_user['id'];
+        if(!in_array($t, array('article', 'bao'))) $t = 'all';
+        if(!in_array($status, array('0', '1', '2', '3'))) $status = '';
 
+        $count = array();
+        $sum_article = D('article')->user_article_sum($uid, $status);
+        $sum_item = D("item")->user_bao_sum($uid, $status);
+        $count['article'] = isset($sum_article['count']) ? $sum_article['count'] : 0;//原创：攻畋+晒单        
+        $count['bao'] = isset($sum_item['count']) ? $sum_item['count'] : 0;//爆料
+        $count['all'] = array_sum($count);
+
+        $this->get_publish_list($t, $uid, $status, $p, $pagesize);
+
+        $this->assign('page', array('p'=>$p, 'size'=>$pagesize, 'count'=>isset($count[$t]) ? $count[$t] : 0));
+        $this->assign("t",$t);
+        $this->assign("status",$status);
+        $this->assign('user',$this->_user);
+        $this->assign('page_seo',set_seo('我的文章 - 个人中心'));
+        $this->display();
+    }
+
+    /**
+     * 我的文章 - 原创、爆料列表 - 按状态status区分
+     */
+    public function get_publish_list($t = 'article', $uid = 0, $status = 1, $p = 1, $pagesize = 8) {
+        if (IS_AJAX) {
+            $t = $this->_get('t', 'trim');
+            $uid = $this->_get('uid', 'intval', 0);
+            !$uid && $this->ajaxReturn(0, '用户不存在');    
+            $p = $this->_get('p', 'intval', 1);
+            $pagesize = $this->_get('pagesize', 'intval', 8);
+            $status = $this->_get('status', 'trim');
+        }        
+        if($p<1){$p=1;}
+        if(!in_array($status, array('0', '1', '2', '3'))) $status = '';
+
+        $field_article = "'article' as type, id,cate_id,title,intro,likes,comments,add_time,zan,status,orig_id,img,isbest";
+        $field_item = "'bao' as type, id,cate_id,title,intro,likes,comments,add_time,zan,status,orig_id,img,isbest";
+        $order = "add_time desc";
+        $limit = $pagesize*($p-1) . ',' . $pagesize;
+        switch ($t) {
+            case 'article': //原创：攻畋+晒单
+                $list=D('article')->user_article_list($uid, $status, $field_article, $order, $limit);
+                break;
+            case 'bao': //爆料
+                $list = D("item")->user_bao_list($uid, $status, $field_item, $order, $limit);
+                break;
+            default:
+                $sql = array();
+                $sql1 = D('article')->user_article_sql($uid, $status, $field_article, '', '');
+                $sql2 = D("item")->user_bao_sql($uid, $status, $field_item, '', '');
+                $list = M()->table("(".$sql1." union all ".$sql2.") a")->order($order)->limit($limit)->select();
+                break;
+        }
+        $this->assign("publish_list",$list);
+
+        //AJAX分页请求
+        if (IS_AJAX) {
+            $data = array(
+                'list' => $this->fetch("publish_list"),
+            ); 
+            $this->ajaxReturn(1, "", $data);
+        }
+    }
 
     /**
      * 用户登陆
@@ -1095,116 +1158,7 @@ class userAction extends userbaseAction {
 			$this->ajaxReturn(0,'删除失败！');
 		}
 	}
-	public function publish(){
-		$user = $this->visitor->get();
-		$t = $this->_get('t','trim');
-		!$t&&$t='gn';
-		$item_mod=M('item');
-		$article_mod = M('article');
-		$zr_mod=M("zr");
-		$pagesize=5;
-		
-		switch($t){
-			case "gn":
-                                                    $num['gn']=$item_mod->where("try_item.uid='$user[id]' and o.ismy=0 and  try_item.status=1")->join("try_item_orig o ON o.id=try_item.orig_id")->count();
-			 $pager=$this->_pager($num[$t],$pagesize);	
-                                            $list = $item_mod->where("o.ismy=0 and try_item.uid='$user[id]' and try_item.status=1")->join("try_item_orig o ON o.id=try_item.orig_id")->field("try_item.id,try_item.title,try_item.img,try_item.intro,try_item.price")->order('try_item.add_time desc,try_item.id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
-                
-				break;
-			case "ht":
-                                                    $num['ht']=$item_mod->where("o.ismy=1 and try_item.uid='$user[id]' and try_item.status=1")->join("try_item_orig o ON o.id=try_item.orig_id")->count();
-				 $pager=$this->_pager($num[$t],$pagesize);  
-                 $list = $item_mod->where("o.ismy=1 and try_item.uid='$user[id]' and try_item.status=1")->join("try_item_orig o ON o.id=try_item.orig_id")->field("try_item.id,try_item.title,try_item.img,try_item.intro,try_item.price")->order('try_item.add_time desc,try_item.id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
-				break;
-			case "best":
-                                                    $num['best']=$item_mod->where(" isbest=1 and uid='$user[id]' and try_item.status=1")->count();
-				 $pager=$this->_pager($num[$t],$pagesize);  
-                 $list = $item_mod->where("isbest=1 and uid='$user[id]' and try_item.status=1")->field("try_item.id,try_item.title,try_item.img,try_item.intro,try_item.price")->order('try_item.add_time desc,try_item.id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
-				break;
-			case "zr":
-                                                    $num['zr']=$zr_mod->where("uid='$user[id]' and (status=1 or status=4)")->count();
-				 $pager=$this->_pager($num[$t],$pagesize);  
-                 $list = $zr_mod->where("uid='$user[id]' and (status=1 or status=4)")->order('add_time desc,id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
-				break;
-			case "sd":
-                                                    $num['sd']=$article_mod->where("uid=$user[id] and cate_id=10")->count();
-				 $pager=$this->_pager($num[$t],$pagesize);  
-                 $list=$article_mod->where("uid=$user[id] and cate_id=10 ")->field("id,title,comments,intro,img,status")->order('add_time desc,id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
-				break;
-			case "gl":
-                                                    $num['gl']=$article_mod->where("uid=$user[id] and cate_id in(select id from try_article_cate where pid=9 or id=9) and status=1")->count();
-				 $pager=$this->_pager($num[$t],$pagesize);  
-                 $list=$article_mod->where("uid=$user[id] and cate_id in(select id from try_article_cate where pid=9 or id=9) and status=1")->field("id,title,comments,intro,img")->order('add_time desc,id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
-				break;
-			case "icg"://草稿
-                                                    $num['icg']=$item_mod->where("status=2 and uid='$user[id]'")->count();
-				 $pager=$this->_pager($num[$t],$pagesize);  
-                 $list=$item_mod->where("status=2 and uid='$user[id]'")->order('add_time desc,id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
-				break;
-			case "ids"://待审商品
-                                                    $num['ids']=$item_mod->where("status=0 and uid='$user[id]'")->count();
-				 $pager=$this->_pager($num[$t],$pagesize);  
-                 $list=$item_mod->where("status=0 and uid='$user[id]'")->order('add_time desc,id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
-				break;
-            case "ith"://退回商品
-                $num['ith']=$item_mod->where("status=3 and uid='$user[id]'")->count();
-                 $pager=$this->_pager($num[$t],$pagesize);  
-                 $list=$item_mod->where("status=3 and uid='$user[id]'")->order('add_time desc,id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
-                break;
-			case "zcg"://转让草稿
-                                                    $num['zcg']=$zr_mod->where("status=2 and uid='$user[id]'")->count();
-				 $pager=$this->_pager($num[$t],$pagesize);  
-                 $list=$zr_mod->where("status=2 and uid='$user[id]'")->order('add_time desc,id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
-				break;
-			case "zds"://待审转让
-                                                    $num['zds']=$zr_mod->where("status=0 and uid='$user[id]'")->count();
-				 $pager=$this->_pager($num[$t],$pagesize);  
-                 $list=$zr_mod->where("status=0 and uid='$user[id]'")->order('add_time desc,id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
-				break;
-            case "zth"://退回转让
 
-                $num['zth']=$zr_mod->where("status=3 and uid='$user[id]'")->count();
-                 $pager=$this->_pager($num[$t],$pagesize);  
-                 $list=$zr_mod->where("status=3 and uid='$user[id]'")->order('add_time desc,id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
-                break;
-			case "scg"://晒单草稿
-            $num['scg']=$article_mod->where("status=2 and uid=$user[id] and cate_id=10")->count();
-				 $pager=$this->_pager($num[$t],$pagesize);  
-                 $list=$article_mod->where("status=2 and uid=$user[id] and cate_id=10")->field("id,title,comments,intro,img")->order('add_time desc,id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
-				break;
-			case "sds"://晒单待审
-            $num['sds']=$article_mod->where("status=0 and uid=$user[id] and cate_id=10")->count();
-				 $pager=$this->_pager($num[$t],$pagesize);  
-                 $list=$article_mod->where("status=0 and uid=$user[id] and cate_id=10")->field("id,title,comments,intro,img")->order('add_time desc,id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
-				break;
-            case "sth"://晒单退回
-            $num['sth']=$article_mod->where("status=3 and uid=$user[id] and cate_id=10")->count();
-                 $pager=$this->_pager($num[$t],$pagesize);  
-                 $list=$article_mod->where("status=3 and uid=$user[id] and cate_id=10")->field("id,title,comments,intro,img")->order('add_time desc,id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
-                break;
-			case "gcg"://攻略草稿
-            $num['gcg']=$article_mod->where("uid=$user[id] and cate_id in(select id from try_article_cate where pid=9 or id=9) and status=2")->count();
-				 $pager=$this->_pager($num[$t],$pagesize);  
-                 $list=$article_mod->where("uid=$user[id] and cate_id in(select id from try_article_cate where pid=9 or id=9) and status=2")->order('add_time desc,id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
-				break;
-			case "gds"://攻略待审
-        $num['gds']=$article_mod->where("uid=$user[id] and cate_id in(select id from try_article_cate where pid=9 or id=9) and status=0")->count();
-				 $pager=$this->_pager($num[$t],$pagesize);  
-                 $list=$article_mod->where("uid=$user[id] and cate_id in(select id from try_article_cate where pid=9 or id=9) and status=0")->order('add_time desc,id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
-				break;
-            case "gth"://攻略退回
-        $num['gth']=$article_mod->where("uid=$user[id] and cate_id in(select id from try_article_cate where pid=9 or id=9) and status=3")->count();
-                $pager=$this->_pager($num[$t],$pagesize);   
-                 $list=$article_mod->where("uid=$user[id] and cate_id in(select id from try_article_cate where pid=9 or id=9) and status=3")->order('add_time desc,id desc')->limit($pager->firstRow.",".$pager->listRows)->select();
-                break;
-		}
-		$this->assign('list',$list);
-		$this->assign('page_bar',$pager->fshow());
-		$this->assign('t',$t);
-		$this->assign('num',$num);
-		$this->assign('page_seo',set_seo('我的文章'));
-		$this->display();
-	}
 	//我的收藏
 	public function likes(){
 		$user = $this->visitor->get();

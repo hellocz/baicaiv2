@@ -62,7 +62,7 @@
 							<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_4@2x.png" width="24" height="24"></desc><![endif]-->
 							<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_4"></use>
 						</svg>
-						{$count.original}篇原创
+						{$count.article}篇原创
 					</li>
 				</ul>
 				<!--操作end-->
@@ -92,7 +92,7 @@
 			<div class="fl white-bg uhList radius-3">
 				<ul class="tabBox clearfix">
 					<li <if condition="$t eq 'news'">class="active"</if>><a href="{:U('member/index',array('uid'=>$user['id']))}">动态</a></li>
-					<li <if condition="$t eq 'original'">class="active"</if>><a href="{:U('member/index',array('uid'=>$user['id'],'t'=>'original'))}">原创·{$count.original}</a></li>
+					<li <if condition="$t eq 'article'">class="active"</if>><a href="{:U('member/index',array('uid'=>$user['id'],'t'=>'article'))}">原创·{$count.article}</a></li>
 					<li <if condition="$t eq 'bao'">class="active"</if>><a href="{:U('member/index',array('uid'=>$user['id'],'t'=>'bao'))}">爆料·{$count.bao}</a></li>
 					<li <if condition="$t eq 'vote'">class="active"</if>><a href="{:U('member/index',array('uid'=>$user['id'],'t'=>'vote'))}">投票·{$count.vote}</a></li>
 					<li <if condition="$t eq 'comm'">class="active"</if>><a href="{:U('member/index',array('uid'=>$user['id'],'t'=>'comm'))}">评论·{$count.comm}</a></li>
@@ -102,14 +102,14 @@
 				<!--动态列表start-->
 				<div class="list">
 					<if condition="$t eq 'news'">
-						<notempty name="user_original_list">
+						<notempty name="user_article_list">
 						<div class="cr-send clearfix" style="padding: 15px 15px 0px 15px;border-bottom: 1px solid #ECF1F3;">
 							<ul class="cr-tab fl clearfix">
 								<li class="active">原创</li>
 							</ul>
-							<a href="{:U('member/index',array('uid'=>$user['id'],'t'=>'original'))}" class="fr font-12 fc-aux-9 more" style="line-height: 44px;">更多</a>
+							<a href="{:U('member/index',array('uid'=>$user['id'],'t'=>'article'))}" class="fr font-12 fc-aux-9 more" style="line-height: 44px;">更多</a>
 						</div>						
-						<include file="user_original_list"/>
+						<include file="user_article_list"/>
 						</notempty>
 
 						<notempty name="user_bao_list">
@@ -163,8 +163,8 @@
 						</notempty>
 					<else/>
 						<div class="list-data">
-						<if condition="$t eq 'original'">
-							<include file="user_original_list"/>
+						<if condition="$t eq 'article'">
+							<include file="user_article_list"/>
 						<elseif condition="$t eq 'bao'"/>
 							<include file="user_bao_list"/>
 						<elseif condition="$t eq 'vote'"/>
@@ -185,9 +185,9 @@
 						<!--分页start-->
 						<if condition="$page['count'] gt 0">
 						<script type="text/javascript">
-							var page_count={$page.count}, page_curr={$page.p}, page_size={$page.size}, page_ajax_url = '/index.php?m=member&a=get_user_item_list&t={$t}&uid={$user.id}', page_content_obj = $(".list .list-data");							
+							var page_count={$page.count}, page_curr={$page.p}, page_size={$page.size}, page_ajax_url = '/index.php?m=member&a=get_list&t={$t}&uid={$user.id}', page_content_obj = $(".list .list-data");
 						</script>
-						<div id="pages" class="pages" style="text-align: center; padding-bottom: 30px;"><div class="layui-box layui-laypage layui-laypage-default">{$pagebar}</div></div>						
+						<div id="pages" class="pages" style="text-align: center;"></div>
 						</if>
 						<!--分页end-->
 					</if>

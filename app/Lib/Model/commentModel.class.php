@@ -9,7 +9,7 @@ class commentModel extends Model
     /**
     * 获得文章总数
     */
-    public function comment_count($where = ''){
+    public function counts($where = ''){
         if(!$where) return false;
 
         $count = $this->where($where)->count();
@@ -34,7 +34,7 @@ class commentModel extends Model
         if(!$uid) return false;
         
         $where = "uid='$uid' and status=1"; 
-        $count = $this->comment_count($where);
+        $count = $this->counts($where);
         return $count;
     }
 

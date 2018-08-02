@@ -15,7 +15,7 @@ class userbaseAction extends frontendAction {
         //     IS_AJAX && $this->ajaxReturn(0, L('login_please'));
         //     $this->redirect('user/login');
         // }
-        if(!in_array(ACTION_NAME, array('login', 'register', 'phone_send', 'findpwd', 'resetpwd', 'binding','bind_exist', 'ajax_check'))){
+        if(!in_array(ACTION_NAME, array('login', 'register', 'phone_send', 'ajax_check', 'findpwd', 'resetpwd', 'binding', 'bind_exist'))){
             if (!$this->visitor->is_login) {
                 IS_AJAX && $this->ajaxReturn(0, L('login_please'));
                 $this->redirect('user/login');
@@ -28,7 +28,7 @@ class userbaseAction extends frontendAction {
                 $this->_user['fans'] = intval($fans);
                 //发表的爆料、原创文章的总被点赞数
                 $sum_article = D('article')->user_article_sum($uid);
-                $sum_item = D("item")->user_bao_item_sum($uid);
+                $sum_item = D("item")->user_bao_sum($uid);
                 $this->_user['zan'] = isset($sum_article['zan']) ? $sum_article['zan'] : 0;//原创：攻畋+晒单                
                 $this->_user['zan'] += isset($sum_item['zan']) ? $sum_item['zan'] : 0;//爆料
             }

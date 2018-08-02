@@ -287,22 +287,11 @@ class itemModel extends Model
     /**
     * 获得商品总数
     */
-    public function item_sum($where = ''){
+    public function sum($where = ''){
         if(!$where) return false;
 
         $sum = $this->field("count(*) as count, sum(zan) as zan")->where($where)->find();
         return $sum;
-    }
-
-    /**
-    * 获得商品列表
-    */
-    public function item_list($where = 'status=1', $order = 'add_time desc', $limit = '1,10'){
-        if(!$order){
-            $order = 'add_time desc';
-        }
-        $list = $this->where($where)->order($order)->limit($limit)->select();
-        return $list;
     }
 
     /**
@@ -313,32 +302,53 @@ class itemModel extends Model
         $where="status=1 and add_time<$time and isnice=1 and hits>600";//测试条件
         $order =" add_time desc";
         $limit = 13;
-        $item_list = $this->item_list($where, $order, $limit);
+        $item_list = $this->where($where)->order($order)->limit($limit)->select();
         return $item_list;
     }
 
     /**
     * 用户爆料商品总数
     */
-    public function user_bao_item_sum($uid = 0){
+    public function user_bao_sum($uid = 0, $status = 1){
         if(!$uid) return false;
         
         $time=time();
-        $where="status=1 and isbao=1 and add_time<$time and uid='$uid'";
-        $sum = $this->item_sum($where);
+        $where="isbao=1 and add_time<$time and uid='$uid'";
+        if($status !== ""){
+            $where .= " and status={$status}";
+        }
+        $sum = $this->sum($where);
         return $sum;
     }
 
     /**
     * 用户爆料商品列表
     */
-    public function user_bao_item_list($uid = 0, $order = 'add_time desc', $limit = '1,10'){
+    public function user_bao_list($uid = 0, $status = 1, $field = '', $order = 'add_time desc', $limit = '1,10'){
         if(!$uid) return false;
         
         $time=time();
-        $where="status=1 and isbao=1 and add_time<$time and uid='$uid'";
-        $list = $this->item_list($where, $order, $limit);
+        $where="isbao=1 and add_time<$time and uid='$uid'";
+        if($status !== ""){
+            $where .= " and status={$status}";
+        }
+        $list = $this->field($field)->where($where)->order($order)->limit($limit)->select();
         return $list;
+    }
+
+    /**
+    * 用户爆料商品列表-Sql
+    */
+    public function user_bao_sql($uid = 0, $status = 1, $field = '', $order = 'add_time desc', $limit = '1,10'){
+        if(!$uid) return false;
+        
+        $time=time();
+        $where="isbao=1 and add_time<$time and uid='$uid'";
+        if($status !== ""){
+            $where .= " and status={$status}";
+        }
+        $sql = $this->field($field)->where($where)->order($order)->limit($limit)->buildSql();
+        return $sql;
     }
 
 }

@@ -9,7 +9,7 @@ class likesModel extends Model
     /**
     * 获得收藏总数
     */
-    public function likes_count($where = ''){
+    public function counts($where = ''){
         if(!$where) return false;
 
         $count = $this->where($where)->count();
@@ -34,7 +34,7 @@ class likesModel extends Model
         if(!$uid) return false;
         
         $where = "uid='$uid'"; 
-        $count = $this->likes_count($where);
+        $count = $this->counts($where);
         return $count;
     }
 

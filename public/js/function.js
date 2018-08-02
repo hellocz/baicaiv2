@@ -86,7 +86,7 @@ $(function(){
 			xid = $("#xid").val(),
 			content = $("#J_cmt_content").val();
 		$.ajax({
-			url: PINER.root + '/?g=ab&m=ajax&a=comment',
+			url: PINER.root + '/?m=ajax&a=comment',
 			type: 'POST',
 			data: {
 				itemid: itemid,
@@ -208,7 +208,7 @@ $(function(){
 		var id=$(this).attr("data-id"), content=$(this).parents().children(".write-hf").children().children(".J_hf_content").val();
 		var psid=$(this).attr("psid");
 		obj = $(this);
-		$.post(PINER.root+"/?g=ab&m=ajax&a=hf",{id:id,content:content,psid:psid},function(result){
+		$.post(PINER.root+"/?m=ajax&a=hf",{id:id,content:content,psid:psid},function(result){
 			if(result.status == 1){
 				obj.attr('placeholder','');
 				obj.parents().children(".write-hf").toggle();
@@ -239,22 +239,22 @@ $(function(){
 								'<p class="font-12 fc-aux-a mt-5 ml-34">'+
 									'<span class="mr-10 hf cursor-pointer">'+
 										'<svg class="icon">'+
-											'<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_43@2x.png" width="14" height="14"></desc><![endif]-->'+
-											'<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_43"></use>'+
+											'<!--[if lte IE 8]><desc><img src="/public/images/ie8/a_43@2x.png" width="14" height="14"></desc><![endif]-->'+
+											'<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-a_43"></use>'+
 										'</svg>'+
 										' 回复'+
 									'</span>'+
 									'<span class="mr-10 cursor-pointer">'+
 										'<svg class="icon">'+
-											'<!--[if lte IE 8]><desc><img src="/new/images/ie8/c_6@2x.png" width="14" height="14"></desc><![endif]-->'+
-											'<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-c_6"></use>'+
+											'<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_6@2x.png" width="14" height="14"></desc><![endif]-->'+
+											'<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_6"></use>'+
 										'</svg>'+
 										' 赞（0）'+
 									'</span>'+
 									'<span class="mr-15 cursor-pointer">'+
 										'<svg class="icon">'+
-											'<!--[if lte IE 8]><desc><img src="/new/images/ie8/c_7@2x.png" width="14" height="14"></desc><![endif]-->'+
-											'<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-c_7"></use>'+
+											'<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_7@2x.png" width="14" height="14"></desc><![endif]-->'+
+											'<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_7"></use>'+
 										'</svg>'+
 										' 踩（0）'+
 									'</span>'+
@@ -270,8 +270,8 @@ $(function(){
 										'<div class="fr">'+
 											'<span class="mr-15 face-'+result.data.id+'">'+
 												'<svg class="icon">'+
-													'<!--[if lte IE 8]><desc><img src="/new/images/ie8/a_33@2x.png" width="8" height="8"></desc><![endif]-->'+
-													'<use xlink:href="/new/images/svg_sprite/icon_symbol.svg#icon-a_33"></use>'+
+													'<!--[if lte IE 8]><desc><img src="/public/images/ie8/a_33@2x.png" width="8" height="8"></desc><![endif]-->'+
+													'<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-a_33"></use>'+
 												'</svg>'+
 											'</span>'+
 											'<button type="reset" class="no-btn fc-aux-9 mr-20 qx cursor-pointer">取消</button>'+
@@ -296,7 +296,7 @@ $(function(){
 		if(PINER.uid==""){
 			LoginPopup();
 		}
-		$.get("/index.php?g=ab&m=ajax&a=zan&t=item",{id:$(this).data("id")},function(result){
+		$.get("/index.php?m=ajax&a=zan&t=item",{id:$(this).data("id")},function(result){
 			if(result.status==1){
 				// tips('点赞成功',1);
 				tipsPopup('tips_1', '顶成功');
@@ -314,7 +314,7 @@ $(function(){
 		}
 		var obj=$(this);
 		var tar=$(".S_like");
-		$.post("/index.php?g=ab&m=ajax&a=setlikes",{id:obj.attr("data-id"),xid:obj.attr("data-xid")},function(result){
+		$.post("/index.php?m=ajax&a=setlikes",{id:obj.attr("data-id"),xid:obj.attr("data-xid")},function(result){
 			if(result.status==1){
 				// tips(result.msg,1);
 				tipsPopup('tips_1', result.msg);
@@ -339,7 +339,7 @@ $(function(){
 			return false;
 		}
 
-		$.get(PINER.root+'/?g=ab&m=ajax&a=jb',{itemid:$(this).data("id"),xid:$(this).data("xid"),reasonid:reasonid,reason:reason},function(result){
+		$.get(PINER.root+'/?m=ajax&a=jb',{itemid:$(this).data("id"),xid:$(this).data("xid"),reasonid:reasonid,reason:reason},function(result){
 			if(result.status==1){
 				tipsPopup('tips_1', result.msg);
 			}else{
@@ -359,7 +359,7 @@ $(function(){
 			LoginPopup();
 		}
 		var obj=$(this);
-		$.post(PINER.root+"/?g=ab&m=ajax&a=comment_zan",{id:$(this).data("id")},function(result){
+		$.post(PINER.root+"/?m=ajax&a=comment_zan",{id:$(this).data("id")},function(result){
 			if(result.status==1){
 				obj.children("span").text(result.data);
 			}else{
@@ -389,7 +389,7 @@ $(function(){
 	var objs = $(".T_share");
 	itemid = objs.eq(0).data("id");
 	$.ajax({
-		url: PINER.root + '/?g=ab&m=ajax&a=share&t=item&id=' + itemid,
+		url: PINER.root + '/?m=ajax&a=share&t=item&id=' + itemid,
 		async: false,
 		type: 'GET',
 		dataType: 'json',
@@ -406,7 +406,7 @@ $(function(){
 	// $(".T_share").one("click",function(){
 	// 	var obj=$(this);
 	// 	// if(obj.data("id")=="") return false;
-	// 	$.get(PINER.root+"/?g=ab&m=ajax&a=share&t=item",{id:obj.data("id")},function(result){
+	// 	$.get(PINER.root+"/?m=ajax&a=share&t=item",{id:obj.data("id")},function(result){
 	// 		if(result.status==1){
 	// 			// obj.siblings(".shareBox").html(result.data);
 	// 			obj.siblings(".shareBox").prepend(result.data);

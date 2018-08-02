@@ -35,44 +35,36 @@ class memberAction extends frontendAction {
         }
         //发表的爆料、原创文章的总被点赞数
         $sum_article = D('article')->user_article_sum($uid);
-        $sum_item = D("item")->user_bao_item_sum($uid);
+        $sum_item = D("item")->user_bao_sum($uid);
         $this->_user['zan'] = isset($sum_article['zan']) ? $sum_article['zan'] : 0;//原创：攻畋+晒单        
         $this->_user['zan'] += isset($sum_item['zan']) ? $sum_item['zan'] : 0;//爆料
         //粉丝
         $fans = D("user_follow")->user_fans_count($uid);
         $this->_user['fans'] = intval($fans);
 
-        $count = array();
-        //原创：攻畋+晒单
-        $count['original'] = isset($sum_article['count']) ? $sum_article['count'] : 0;
-        //爆料
-        $count['bao'] = isset($sum_item['count']) ? $sum_item['count'] : 0;
-        //投票：点选、点踩
-        $count['vote'] = 0; 
-        //评论
-        $count['comm'] = D('comment')->user_comment_count($uid); 
-        //收藏
-        $count['likes'] = D("likes")->user_likes_count($uid);
-        //关注
-        $count['follows'] = D("user_follow")->user_follow_count($uid);
-        //所有动态
-        // $count['news'] = array_sum($count);
+        $count = array();        
+        $count['article'] = isset($sum_article['count']) ? $sum_article['count'] : 0;//原创：攻畋+晒单        
+        $count['bao'] = isset($sum_item['count']) ? $sum_item['count'] : 0;//爆料        
+        $count['vote'] = 0; //投票：点选、点踩        
+        $count['comm'] = D('comment')->user_comment_count($uid); //评论        
+        $count['likes'] = D("likes")->user_likes_count($uid);//收藏        
+        $count['follows'] = D("user_follow")->user_follow_count($uid);//关注
 
-        $typeArr = array('original', 'bao', 'vote', 'comm', 'likes', 'follows');
+        $typeArr = array('article', 'bao', 'vote', 'comm', 'likes', 'follows');
         switch ($t) {
-            case 'original': //原创：攻畋+晒单
+            case 'article': //原创：攻畋+晒单
             case 'bao': //爆料
             case 'vote': //投票：点选、点踩
             case 'comm': //评论
             case 'likes': //收藏
             case 'follows': //关注
-                $this->get_user_item_list($t, $uid, $p, $pagesize);
+                $this->get_list($t, $uid, $p, $pagesize);
                 break;
             
             default:
                 $t="news";
                 foreach ($typeArr as $val) {
-                    $this->get_user_item_list($val, $uid, 1, 3);
+                    $this->get_list($val, $uid, 1, 3);
                 }
                 break;
         }
@@ -94,7 +86,7 @@ class memberAction extends frontendAction {
     /**
      * 用户动态，原创、爆料、评论、投票、收藏、关注等列表
      */
-    public function get_user_item_list($t = 'original', $uid = 0, $p = 1, $pagesize = 8) {
+    public function get_list($t = 'article', $uid = 0, $p = 1, $pagesize = 8) {
         if (IS_AJAX) {
             $t = $this->_get('t', 'trim');
             $uid = $this->_get('uid', 'intval', 0);
@@ -102,18 +94,18 @@ class memberAction extends frontendAction {
             $p = $this->_get('p', 'intval', 1);
             $pagesize = $this->_get('pagesize', 'intval', 8);
         }
-        !$uid && $this->error('用户不存在');
         if($p<1){$p=1;}
-        if($pagesize<1){$pagesize=8;}
 
+        $status = 1;
+        $field = "";
         $order = "add_time desc";
         $limit = $pagesize*($p-1) . ',' . $pagesize;
         switch ($t) {
-            case 'original': //原创：攻畋+晒单
-                $list=D('article')->user_article_list($uid, $order, $limit);
+            case 'article': //原创：攻畋+晒单
+                $list=D('article')->user_article_list($uid, $status, $field, $order, $limit);
                 break;
             case 'bao': //爆料
-                $list = D("item")->user_bao_item_list($uid, $order, $limit);
+                $list = D("item")->user_bao_list($uid, $status, $field, $order, $limit);
                 break;
             case 'vote': //投票：点选、点踩
                 # code...
@@ -258,7 +250,7 @@ class memberAction extends frontendAction {
         }else if($t == 'bao'){
             //爆料
             $list = $mod->field($field)->table($db_pre.'item a')->join("join try_user u ON u.id=a.uid")->where("a.status=1 and a.isbao=1 and ".$where)->group("u.id")->order("cnt desc")->limit($total_limit)->select();
-        }else if($t == 'original'){
+        }else if($t == 'article'){
             //原创：攻畋+晒单
             $list = $mod->field($field)->table($db_pre.'article a')->join("join try_user u ON u.id=a.uid")->where("a.cate_id in(9,10) and a.status=1 and ".$where)->group("u.id")->order("cnt desc")->limit($total_limit)->select();
         }else if($t == 'comm'){
