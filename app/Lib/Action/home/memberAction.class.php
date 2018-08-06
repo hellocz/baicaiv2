@@ -28,7 +28,7 @@ class memberAction extends frontendAction {
         $this->_user['join_days'] = intval((time() - $this->_user['reg_time']) / 86400);
         //是否关注
         if(!$this->visitor->is_login){
-            $this->_user['follow']=0;
+            $this->_user['follow']=false;
         }else{
             $myuser = $this->visitor->get();
             $this->_user['follow']= D("user_follow")->is_follow($myuser[id], $uid);
@@ -51,28 +51,24 @@ class memberAction extends frontendAction {
         $count['follows'] = D("user_follow")->user_follow_count($uid);//关注
 
         $typeArr = array('article', 'bao', 'vote', 'comm', 'likes', 'follows');
-        switch ($t) {
-            case 'article': //原创：攻畋+晒单
-            case 'bao': //爆料
-            case 'vote': //投票：点选、点踩
-            case 'comm': //评论
-            case 'likes': //收藏
-            case 'follows': //关注
-                $this->get_list($t, $uid, $p, $pagesize);
-                break;
-            
-            default:
-                $t="news";
-                foreach ($typeArr as $val) {
-                    $this->get_list($val, $uid, 1, 3);
-                }
-                break;
+        if(!in_array($t, $typeArr)){
+            $t="news";
+            foreach ($typeArr as $val) {
+                $this->get_list($val, $uid, 1, 3);
+            }
+        }else{
+            $this->get_list($t, $uid, $p, $pagesize);
         }
-
 
         $this->assign("count",$count);
         if($t != 'news'){
-            $this->assign('page', array('p'=>$p, 'size'=>$pagesize, 'count'=>$count[$t]));
+            $page = array(
+                'p'=>$p, 
+                'size'=>$pagesize, 
+                'count'=>isset($count[$t]) ? $count[$t] : 0,
+                'url'=> "/index.php?m=member&a=get_list&t={$t}&uid={$uid}",
+            );
+            $this->assign('page', json_encode($page));
         }
         $this->_config_seo(array(
             'title' => $this->_user['username'] . L('space_home_title') . '-' . C('pin_site_name'),

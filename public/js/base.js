@@ -244,7 +244,7 @@ function pages(a){
 	});
 }
 
-function ajaxPages(a,count,size,curr,ajax_url,content_obj){
+function ajaxPages(a,page,content){
 	layui.use(['laypage', 'layer'], function(){
 		var laypage = layui.laypage
 		,layer = layui.layer;
@@ -252,17 +252,17 @@ function ajaxPages(a,count,size,curr,ajax_url,content_obj){
 		//积分抽奖-详情页分页
 		laypage.render({
 			elem: a
-			,count: count //数据总数
-			,limit: size //每页显示数
-			,curr: curr //当前页码
+			,count: page.count //数据总数
+			,limit: page.size //每页显示数
+			,curr: page.curr //当前页码
 			,jump: function(obj,first){
 				if(!first){
 					$("#"+a).siblings(".page-loading").show();
 
-					$.get(ajax_url, {p:obj.curr,pagesize:obj.limit}, function (result){
+					$.get(page.url, {p:obj.curr,pagesize:obj.limit}, function (result){
 						if(result.status==1){
 							$("#"+a).siblings(".page-loading").hide();
-							content_obj.html(result.data.list);
+							content.length > 0 && content.html(result.data.list);
 						}else{
 							tipsPopup('tips_2', result.msg);
 						}

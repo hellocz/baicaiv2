@@ -1,7 +1,7 @@
 $(function(e) {
-	pages("pages-gz");
-	$("#user").load("../public/user-m.html");
-	
+	// pages("pages-gz");
+	ajaxPages('pages', page, content);
+	// $("#user").load("../public/user-m.html");
 	
 	//编辑显示
 	$(".item .bj .bt1").click(function(){

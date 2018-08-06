@@ -46,18 +46,16 @@
 				<div class="list-data">
 					<include file="publish_list"/>
 				</div>
-
+				
 				<!--分页加载中start-->
 				<div class="page-loading"></div>
 				<!--分页加载中end-->
-				
+
 				<!--分页start-->
-				<if condition="$page['count'] gt 0">
 				<script type="text/javascript">
-					var page_count={$page.count}, page_curr={$page.p}, page_size={$page.size}, page_ajax_url = '/index.php?m=user&a=get_publish_list&t={$t}&status={$status}&uid={$user.id}', page_content_obj = $(".listBox .list-data");							
+					var page={$page}, content = $(".listBox .list-data");
 				</script>
-				<div id="pages" class="pages" style="text-align: center;"></div>						
-				</if>
+				<div id="pages" class="pages" style="text-align: center;"></div>
 				<!--分页end-->
 			</div>
 			<!--全部end-->

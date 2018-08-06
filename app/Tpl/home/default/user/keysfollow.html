@@ -26,589 +26,46 @@
 			</div>
 			
 			<div class="addFocus">
-				<form class="layui-form" action="priceRemind.html" method="post">
+				<form class="layui-form" action="" method="post">
 					<div class="font-14 fc-gray" style="line-height: 22px;">
 						<p>输入你感兴趣的产品名称、关键词、商城… </p>
 						<p>在出现相关优惠后，第一时间获得提醒! <a href="#" class="a-green">详情点此</a></p>
 					</div>
 					
-					<div class="mt-10 key"><input type="text" name="key" placeholder="填入任意关键词、品牌、类别、商城等" class="input-2"></div>
+					<div class="mt-10 key"><input type="text" name="key" placeholder="填入任意关键词、品牌、类别、商城等" class="input-2 key_content"></div>
 					
-					<div class="mt-24 fc-aux-9 font-14">来源</div>
-					<div class="layui-form-item">
-						<input type="checkbox" name="laiyuan[1]" lay-skin="primary" title="首页推荐" checked="checked">
-						<input type="checkbox" name="laiyuan[2]" lay-skin="primary" title="热门优惠" checked="checked">
-						<input type="checkbox" name="laiyuan[3]" lay-skin="primary" title="全网特价" checked="checked">
-						<input type="checkbox" name="laiyuan[4]" lay-skin="primary" title="圈子" checked="checked">
+					<div class="button mt-20">
+						<!-- <button type="submit" class="btn-3 cursor-pointer" lay-submit lay-filter="formDemo">添加关注</button> -->
+						<button type="submit" class="btn-3 cursor-pointer key_submit" lay-submit>添加关注</button>
 					</div>
-					<div class="mt-20 fc-aux-9 font-14">通知方式</div>
-					<div class="layui-form-item">
-						<input type="checkbox" name="tongzhi[1]" lay-skin="primary" title="注册邮箱">
-						<input type="checkbox" name="tongzhi[2]" lay-skin="primary" title="站内通知" checked="checked">
-						<input type="checkbox" name="tongzhi[3]" lay-skin="primary" title="手机推送">
-						<span class="tishi">
-							<svg class="icon">
-								<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_13@2x.png" width="14" height="14"></desc><![endif]-->
-								<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_13"></use>
-							</svg>
-							<div class="content">因为部分热门产品推送频率较高，若非必要，建议大家尽量减少使用手机推送</div>
-						</span>
-						<input type="checkbox" name="tongzhi[4]" lay-skin="primary" title="弹窗" checked="checked">
-						<input type="checkbox" name="tongzhi[5]" lay-skin="primary" title="我的关注" checked="checked" disabled="disabled">
-					</div>
-					<div class="button mt-20"><button type="submit" class="btn-3 cursor-pointer" lay-submit lay-filter="formDemo">添加关注</button></div>
 				</form>
 			</div>
 			<!--我的关注start-->
 			<div class="mt-40 ml-15 font-16">我的关注</div>
 			<div class="myFocus">
-				<!--循环start-->
-				<div class="item clearfix">
-					<div class="fl tit"><span>分类</span>笔记本电脑</div>
-					<div class="fl time vcenter">最近一周更新21篇</div>
-					<div class="fr op clearfix">
-						<div class="fl bj">
-							<div class="bt bt1">编辑</div>
-							<div class="edit">
-								<form class="layui-form" action="priceRemind.html" method="post">
-									<div class="fc-aux-9 font-14">来源</div>
-									<div class="layui-form-item">
-										<input type="checkbox" name="laiyuan[1]" lay-skin="primary" title="首页推荐" checked="checked">
-										<input type="checkbox" name="laiyuan[2]" lay-skin="primary" title="热门优惠" checked="checked">
-										<input type="checkbox" name="laiyuan[3]" lay-skin="primary" title="全网特价" checked="checked">
-										<input type="checkbox" name="laiyuan[4]" lay-skin="primary" title="圈子" checked="checked">
-									</div>
-									<div class="mt-20 fc-aux-9 font-14">通知方式</div>
-									<div class="layui-form-item">
-										<input type="checkbox" name="tongzhi[1]" lay-skin="primary" title="注册邮箱">
-										<input type="checkbox" name="tongzhi[2]" lay-skin="primary" title="站内通知" checked="checked">
-										<input type="checkbox" name="tongzhi[3]" lay-skin="primary" title="手机推送">
-										<span class="tishi">
-											<svg class="icon">
-												<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_13@2x.png" width="14" height="14"></desc><![endif]-->
-												<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_13"></use>
-											</svg>
-											<div class="content">因为部分热门产品推送频率较高，若非必要，建议大家尽量减少使用手机推送</div>
-										</span>
-										<input type="checkbox" name="tongzhi[4]" lay-skin="primary" title="弹窗" checked="checked">
-										<input type="checkbox" name="tongzhi[5]" lay-skin="primary" title="我的关注" checked="checked" disabled="disabled">
-									</div>
-									<div class="button">
-										<button type="submit" class="btn-3 cursor-pointer" lay-submit lay-filter="formDemo">确定</button>
-										<span class="qx">取消</span>
-									</div>
-								</form>
-							</div>
-						</div>
-						<div class="fl bt bt2">暂停</div>
-						<div class="fl bt bt3" onclick="layer.msg('删除成功',{time: 500});">
-							<svg class="del">
-								<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_4@2x.png" width="14" height="14"></desc><![endif]-->
-								<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_4"></use>
-							</svg>
-						</div>
-					</div>
+				<div class="list-data">
+					<include file="keysfollow_list"/>
 				</div>
 				
-				<div class="item clearfix">
-					<div class="fl tit"><span>品牌</span>洗衣机</div>
-					<div class="fl time vcenter">最近一周更新21篇</div>
-					<div class="fr op clearfix">
-						<div class="fl bj">
-							<div class="bt bt1">编辑</div>
-							<div class="edit">
-								<form class="layui-form" action="priceRemind.html" method="post">
-									<div class="fc-aux-9 font-14">来源</div>
-									<div class="layui-form-item">
-										<input type="checkbox" name="laiyuan[1]" lay-skin="primary" title="首页推荐" checked="checked">
-										<input type="checkbox" name="laiyuan[2]" lay-skin="primary" title="热门优惠" checked="checked">
-										<input type="checkbox" name="laiyuan[3]" lay-skin="primary" title="全网特价" checked="checked">
-										<input type="checkbox" name="laiyuan[4]" lay-skin="primary" title="圈子" checked="checked">
-									</div>
-									<div class="mt-20 fc-aux-9 font-14">通知方式</div>
-									<div class="layui-form-item">
-										<input type="checkbox" name="tongzhi[1]" lay-skin="primary" title="注册邮箱">
-										<input type="checkbox" name="tongzhi[2]" lay-skin="primary" title="站内通知" checked="checked">
-										<input type="checkbox" name="tongzhi[3]" lay-skin="primary" title="手机推送">
-										<span class="tishi">
-											<svg class="icon">
-												<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_13@2x.png" width="14" height="14"></desc><![endif]-->
-												<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_13"></use>
-											</svg>
-											<div class="content">因为部分热门产品推送频率较高，若非必要，建议大家尽量减少使用手机推送</div>
-										</span>
-										<input type="checkbox" name="tongzhi[4]" lay-skin="primary" title="弹窗" checked="checked">
-										<input type="checkbox" name="tongzhi[5]" lay-skin="primary" title="我的关注" checked="checked" disabled="disabled">
-									</div>
-									<div class="button">
-										<button type="submit" class="btn-3 cursor-pointer" lay-submit lay-filter="formDemo">确定</button>
-										<span class="qx">取消</span>
-									</div>
-								</form>
-							</div>
-						</div>
-						<div class="fl bt bt2">继续</div>
-						<div class="fl bt bt3" onclick="layer.msg('删除成功',{time: 500});">
-							<svg class="del">
-								<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_4@2x.png" width="14" height="14"></desc><![endif]-->
-								<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_4"></use>
-							</svg>
-						</div>
-					</div>
-				</div>
-				
-				<div class="item clearfix">
-					<div class="fl tit"><span>关键词</span>MacBook Pro 15.4inc</div>
-					<div class="fl time vcenter">最近一周更新21篇</div>
-					<div class="fr op clearfix">
-						<div class="fl bj">
-							<div class="bt bt1">编辑</div>
-							<div class="edit">
-								<form class="layui-form" action="priceRemind.html" method="post">
-									<div class="fc-aux-9 font-14">来源</div>
-									<div class="layui-form-item">
-										<input type="checkbox" name="laiyuan[1]" lay-skin="primary" title="首页推荐" checked="checked">
-										<input type="checkbox" name="laiyuan[2]" lay-skin="primary" title="热门优惠" checked="checked">
-										<input type="checkbox" name="laiyuan[3]" lay-skin="primary" title="全网特价" checked="checked">
-										<input type="checkbox" name="laiyuan[4]" lay-skin="primary" title="圈子" checked="checked">
-									</div>
-									<div class="mt-20 fc-aux-9 font-14">通知方式</div>
-									<div class="layui-form-item">
-										<input type="checkbox" name="tongzhi[1]" lay-skin="primary" title="注册邮箱">
-										<input type="checkbox" name="tongzhi[2]" lay-skin="primary" title="站内通知" checked="checked">
-										<input type="checkbox" name="tongzhi[3]" lay-skin="primary" title="手机推送">
-										<span class="tishi">
-											<svg class="icon">
-												<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_13@2x.png" width="14" height="14"></desc><![endif]-->
-												<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_13"></use>
-											</svg>
-											<div class="content">因为部分热门产品推送频率较高，若非必要，建议大家尽量减少使用手机推送</div>
-										</span>
-										<input type="checkbox" name="tongzhi[4]" lay-skin="primary" title="弹窗" checked="checked">
-										<input type="checkbox" name="tongzhi[5]" lay-skin="primary" title="我的关注" checked="checked" disabled="disabled">
-									</div>
-									<div class="button">
-										<button type="submit" class="btn-3 cursor-pointer" lay-submit lay-filter="formDemo">确定</button>
-										<span class="qx">取消</span>
-									</div>
-								</form>
-							</div>
-						</div>
-						<div class="fl bt bt2">暂停</div>
-						<div class="fl bt bt3" onclick="layer.msg('删除成功',{time: 500});">
-							<svg class="del">
-								<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_4@2x.png" width="14" height="14"></desc><![endif]-->
-								<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_4"></use>
-							</svg>
-						</div>
-					</div>
-				</div>
-				
-				<div class="item clearfix">
-					<div class="fl tit"><span>关键词</span>茅台王子酒</div>
-					<div class="fl time vcenter">最近一周更新21篇</div>
-					<div class="fr op clearfix">
-						<div class="fl bj">
-							<div class="bt bt1">编辑</div>
-							<div class="edit">
-								<form class="layui-form" action="priceRemind.html" method="post">
-									<div class="fc-aux-9 font-14">来源</div>
-									<div class="layui-form-item">
-										<input type="checkbox" name="laiyuan[1]" lay-skin="primary" title="首页推荐" checked="checked">
-										<input type="checkbox" name="laiyuan[2]" lay-skin="primary" title="热门优惠" checked="checked">
-										<input type="checkbox" name="laiyuan[3]" lay-skin="primary" title="全网特价" checked="checked">
-										<input type="checkbox" name="laiyuan[4]" lay-skin="primary" title="圈子" checked="checked">
-									</div>
-									<div class="mt-20 fc-aux-9 font-14">通知方式</div>
-									<div class="layui-form-item">
-										<input type="checkbox" name="tongzhi[1]" lay-skin="primary" title="注册邮箱">
-										<input type="checkbox" name="tongzhi[2]" lay-skin="primary" title="站内通知" checked="checked">
-										<input type="checkbox" name="tongzhi[3]" lay-skin="primary" title="手机推送">
-										<span class="tishi">
-											<svg class="icon">
-												<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_13@2x.png" width="14" height="14"></desc><![endif]-->
-												<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_13"></use>
-											</svg>
-											<div class="content">因为部分热门产品推送频率较高，若非必要，建议大家尽量减少使用手机推送</div>
-										</span>
-										<input type="checkbox" name="tongzhi[4]" lay-skin="primary" title="弹窗" checked="checked">
-										<input type="checkbox" name="tongzhi[5]" lay-skin="primary" title="我的关注" checked="checked" disabled="disabled">
-									</div>
-									<div class="button">
-										<button type="submit" class="btn-3 cursor-pointer" lay-submit lay-filter="formDemo">确定</button>
-										<span class="qx">取消</span>
-									</div>
-								</form>
-							</div>
-						</div>
-						<div class="fl bt bt2">暂停</div>
-						<div class="fl bt bt3" onclick="layer.msg('删除成功',{time: 500});">
-							<svg class="del">
-								<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_4@2x.png" width="14" height="14"></desc><![endif]-->
-								<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_4"></use>
-							</svg>
-						</div>
-					</div>
-				</div>
-				
-				<div class="item clearfix">
-					<div class="fl tit"><span>关键词</span>日本表演艺术家</div>
-					<div class="fl time vcenter">最近一周更新21篇</div>
-					<div class="fr op clearfix">
-						<div class="fl bj">
-							<div class="bt bt1">编辑</div>
-							<div class="edit">
-								<form class="layui-form" action="priceRemind.html" method="post">
-									<div class="fc-aux-9 font-14">来源</div>
-									<div class="layui-form-item">
-										<input type="checkbox" name="laiyuan[1]" lay-skin="primary" title="首页推荐" checked="checked">
-										<input type="checkbox" name="laiyuan[2]" lay-skin="primary" title="热门优惠" checked="checked">
-										<input type="checkbox" name="laiyuan[3]" lay-skin="primary" title="全网特价" checked="checked">
-										<input type="checkbox" name="laiyuan[4]" lay-skin="primary" title="圈子" checked="checked">
-									</div>
-									<div class="mt-20 fc-aux-9 font-14">通知方式</div>
-									<div class="layui-form-item">
-										<input type="checkbox" name="tongzhi[1]" lay-skin="primary" title="注册邮箱">
-										<input type="checkbox" name="tongzhi[2]" lay-skin="primary" title="站内通知" checked="checked">
-										<input type="checkbox" name="tongzhi[3]" lay-skin="primary" title="手机推送">
-										<span class="tishi">
-											<svg class="icon">
-												<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_13@2x.png" width="14" height="14"></desc><![endif]-->
-												<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_13"></use>
-											</svg>
-											<div class="content">因为部分热门产品推送频率较高，若非必要，建议大家尽量减少使用手机推送</div>
-										</span>
-										<input type="checkbox" name="tongzhi[4]" lay-skin="primary" title="弹窗" checked="checked">
-										<input type="checkbox" name="tongzhi[5]" lay-skin="primary" title="我的关注" checked="checked" disabled="disabled">
-									</div>
-									<div class="button">
-										<button type="submit" class="btn-3 cursor-pointer" lay-submit lay-filter="formDemo">确定</button>
-										<span class="qx">取消</span>
-									</div>
-								</form>
-							</div>
-						</div>
-						<div class="fl bt bt2">暂停</div>
-						<div class="fl bt bt3" onclick="layer.msg('删除成功',{time: 500});">
-							<svg class="del">
-								<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_4@2x.png" width="14" height="14"></desc><![endif]-->
-								<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_4"></use>
-							</svg>
-						</div>
-					</div>
-				</div>
-				
-				<div class="item clearfix">
-					<div class="fl tit"><span>关键词</span>陈老师的照相机</div>
-					<div class="fl time vcenter">最近一周更新21篇</div>
-					<div class="fr op clearfix">
-						<div class="fl bj">
-							<div class="bt bt1">编辑</div>
-							<div class="edit">
-								<form class="layui-form" action="priceRemind.html" method="post">
-									<div class="fc-aux-9 font-14">来源</div>
-									<div class="layui-form-item">
-										<input type="checkbox" name="laiyuan[1]" lay-skin="primary" title="首页推荐" checked="checked">
-										<input type="checkbox" name="laiyuan[2]" lay-skin="primary" title="热门优惠" checked="checked">
-										<input type="checkbox" name="laiyuan[3]" lay-skin="primary" title="全网特价" checked="checked">
-										<input type="checkbox" name="laiyuan[4]" lay-skin="primary" title="圈子" checked="checked">
-									</div>
-									<div class="mt-20 fc-aux-9 font-14">通知方式</div>
-									<div class="layui-form-item">
-										<input type="checkbox" name="tongzhi[1]" lay-skin="primary" title="注册邮箱">
-										<input type="checkbox" name="tongzhi[2]" lay-skin="primary" title="站内通知" checked="checked">
-										<input type="checkbox" name="tongzhi[3]" lay-skin="primary" title="手机推送">
-										<span class="tishi">
-											<svg class="icon">
-												<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_13@2x.png" width="14" height="14"></desc><![endif]-->
-												<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_13"></use>
-											</svg>
-											<div class="content">因为部分热门产品推送频率较高，若非必要，建议大家尽量减少使用手机推送</div>
-										</span>
-										<input type="checkbox" name="tongzhi[4]" lay-skin="primary" title="弹窗" checked="checked">
-										<input type="checkbox" name="tongzhi[5]" lay-skin="primary" title="我的关注" checked="checked" disabled="disabled">
-									</div>
-									<div class="button">
-										<button type="submit" class="btn-3 cursor-pointer" lay-submit lay-filter="formDemo">确定</button>
-										<span class="qx">取消</span>
-									</div>
-								</form>
-							</div>
-						</div>
-						<div class="fl bt bt2">暂停</div>
-						<div class="fl bt bt3" onclick="layer.msg('删除成功',{time: 500});">
-							<svg class="del">
-								<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_4@2x.png" width="14" height="14"></desc><![endif]-->
-								<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_4"></use>
-							</svg>
-						</div>
-					</div>
-				</div>
-				
-				<div class="item clearfix">
-					<div class="fl tit"><span>分类</span>笔记本电脑</div>
-					<div class="fl time vcenter">最近一周更新21篇</div>
-					<div class="fr op clearfix">
-						<div class="fl bj">
-							<div class="bt bt1">编辑</div>
-							<div class="edit">
-								<form class="layui-form" action="priceRemind.html" method="post">
-									<div class="fc-aux-9 font-14">来源</div>
-									<div class="layui-form-item">
-										<input type="checkbox" name="laiyuan[1]" lay-skin="primary" title="首页推荐" checked="checked">
-										<input type="checkbox" name="laiyuan[2]" lay-skin="primary" title="热门优惠" checked="checked">
-										<input type="checkbox" name="laiyuan[3]" lay-skin="primary" title="全网特价" checked="checked">
-										<input type="checkbox" name="laiyuan[4]" lay-skin="primary" title="圈子" checked="checked">
-									</div>
-									<div class="mt-20 fc-aux-9 font-14">通知方式</div>
-									<div class="layui-form-item">
-										<input type="checkbox" name="tongzhi[1]" lay-skin="primary" title="注册邮箱">
-										<input type="checkbox" name="tongzhi[2]" lay-skin="primary" title="站内通知" checked="checked">
-										<input type="checkbox" name="tongzhi[3]" lay-skin="primary" title="手机推送">
-										<span class="tishi">
-											<svg class="icon">
-												<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_13@2x.png" width="14" height="14"></desc><![endif]-->
-												<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_13"></use>
-											</svg>
-											<div class="content">因为部分热门产品推送频率较高，若非必要，建议大家尽量减少使用手机推送</div>
-										</span>
-										<input type="checkbox" name="tongzhi[4]" lay-skin="primary" title="弹窗" checked="checked">
-										<input type="checkbox" name="tongzhi[5]" lay-skin="primary" title="我的关注" checked="checked" disabled="disabled">
-									</div>
-									<div class="button">
-										<button type="submit" class="btn-3 cursor-pointer" lay-submit lay-filter="formDemo">确定</button>
-										<span class="qx">取消</span>
-									</div>
-								</form>
-							</div>
-						</div>
-						<div class="fl bt bt2">继续</div>
-						<div class="fl bt bt3" onclick="layer.msg('删除成功',{time: 500});">
-							<svg class="del">
-								<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_4@2x.png" width="14" height="14"></desc><![endif]-->
-								<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_4"></use>
-							</svg>
-						</div>
-					</div>
-				</div>
-				
-				<div class="item clearfix">
-					<div class="fl tit"><span>分类</span>索尼相机</div>
-					<div class="fl time vcenter">最近一周更新21篇</div>
-					<div class="fr op clearfix">
-						<div class="fl bj">
-							<div class="bt bt1">编辑</div>
-							<div class="edit">
-								<form class="layui-form" action="priceRemind.html" method="post">
-									<div class="fc-aux-9 font-14">来源</div>
-									<div class="layui-form-item">
-										<input type="checkbox" name="laiyuan[1]" lay-skin="primary" title="首页推荐" checked="checked">
-										<input type="checkbox" name="laiyuan[2]" lay-skin="primary" title="热门优惠" checked="checked">
-										<input type="checkbox" name="laiyuan[3]" lay-skin="primary" title="全网特价" checked="checked">
-										<input type="checkbox" name="laiyuan[4]" lay-skin="primary" title="圈子" checked="checked">
-									</div>
-									<div class="mt-20 fc-aux-9 font-14">通知方式</div>
-									<div class="layui-form-item">
-										<input type="checkbox" name="tongzhi[1]" lay-skin="primary" title="注册邮箱">
-										<input type="checkbox" name="tongzhi[2]" lay-skin="primary" title="站内通知" checked="checked">
-										<input type="checkbox" name="tongzhi[3]" lay-skin="primary" title="手机推送">
-										<span class="tishi">
-											<svg class="icon">
-												<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_13@2x.png" width="14" height="14"></desc><![endif]-->
-												<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_13"></use>
-											</svg>
-											<div class="content">因为部分热门产品推送频率较高，若非必要，建议大家尽量减少使用手机推送</div>
-										</span>
-										<input type="checkbox" name="tongzhi[4]" lay-skin="primary" title="弹窗" checked="checked">
-										<input type="checkbox" name="tongzhi[5]" lay-skin="primary" title="我的关注" checked="checked" disabled="disabled">
-									</div>
-									<div class="button">
-										<button type="submit" class="btn-3 cursor-pointer" lay-submit lay-filter="formDemo">确定</button>
-										<span class="qx">取消</span>
-									</div>
-								</form>
-							</div>
-						</div>
-						<div class="fl bt bt2">暂停</div>
-						<div class="fl bt bt3" onclick="layer.msg('删除成功',{time: 500});">
-							<svg class="del">
-								<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_4@2x.png" width="14" height="14"></desc><![endif]-->
-								<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_4"></use>
-							</svg>
-						</div>
-					</div>
-				</div>
-				
-				<div class="item clearfix">
-					<div class="fl tit"><span>分类</span>苹果手机</div>
-					<div class="fl time vcenter">最近一周更新21篇</div>
-					<div class="fr op clearfix">
-						<div class="fl bj">
-							<div class="bt bt1">编辑</div>
-							<div class="edit">
-								<form class="layui-form" action="priceRemind.html" method="post">
-									<div class="fc-aux-9 font-14">来源</div>
-									<div class="layui-form-item">
-										<input type="checkbox" name="laiyuan[1]" lay-skin="primary" title="首页推荐" checked="checked">
-										<input type="checkbox" name="laiyuan[2]" lay-skin="primary" title="热门优惠" checked="checked">
-										<input type="checkbox" name="laiyuan[3]" lay-skin="primary" title="全网特价" checked="checked">
-										<input type="checkbox" name="laiyuan[4]" lay-skin="primary" title="圈子" checked="checked">
-									</div>
-									<div class="mt-20 fc-aux-9 font-14">通知方式</div>
-									<div class="layui-form-item">
-										<input type="checkbox" name="tongzhi[1]" lay-skin="primary" title="注册邮箱">
-										<input type="checkbox" name="tongzhi[2]" lay-skin="primary" title="站内通知" checked="checked">
-										<input type="checkbox" name="tongzhi[3]" lay-skin="primary" title="手机推送">
-										<span class="tishi">
-											<svg class="icon">
-												<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_13@2x.png" width="14" height="14"></desc><![endif]-->
-												<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_13"></use>
-											</svg>
-											<div class="content">因为部分热门产品推送频率较高，若非必要，建议大家尽量减少使用手机推送</div>
-										</span>
-										<input type="checkbox" name="tongzhi[4]" lay-skin="primary" title="弹窗" checked="checked">
-										<input type="checkbox" name="tongzhi[5]" lay-skin="primary" title="我的关注" checked="checked" disabled="disabled">
-									</div>
-									<div class="button">
-										<button type="submit" class="btn-3 cursor-pointer" lay-submit lay-filter="formDemo">确定</button>
-										<span class="qx">取消</span>
-									</div>
-								</form>
-							</div>
-						</div>
-						<div class="fl bt bt2">暂停</div>
-						<div class="fl bt bt3" onclick="layer.msg('删除成功',{time: 500});">
-							<svg class="del">
-								<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_4@2x.png" width="14" height="14"></desc><![endif]-->
-								<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_4"></use>
-							</svg>
-						</div>
-					</div>
-				</div>
-				
-				<div class="item clearfix">
-					<div class="fl tit"><span>分类</span>笔记本电脑</div>
-					<div class="fl time vcenter">最近一周更新21篇</div>
-					<div class="fr op clearfix">
-						<div class="fl bj">
-							<div class="bt bt1">编辑</div>
-							<div class="edit">
-								<form class="layui-form" action="priceRemind.html" method="post">
-									<div class="fc-aux-9 font-14">来源</div>
-									<div class="layui-form-item">
-										<input type="checkbox" name="laiyuan[1]" lay-skin="primary" title="首页推荐" checked="checked">
-										<input type="checkbox" name="laiyuan[2]" lay-skin="primary" title="热门优惠" checked="checked">
-										<input type="checkbox" name="laiyuan[3]" lay-skin="primary" title="全网特价" checked="checked">
-										<input type="checkbox" name="laiyuan[4]" lay-skin="primary" title="圈子" checked="checked">
-									</div>
-									<div class="mt-20 fc-aux-9 font-14">通知方式</div>
-									<div class="layui-form-item">
-										<input type="checkbox" name="tongzhi[1]" lay-skin="primary" title="注册邮箱">
-										<input type="checkbox" name="tongzhi[2]" lay-skin="primary" title="站内通知" checked="checked">
-										<input type="checkbox" name="tongzhi[3]" lay-skin="primary" title="手机推送">
-										<span class="tishi">
-											<svg class="icon">
-												<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_13@2x.png" width="14" height="14"></desc><![endif]-->
-												<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_13"></use>
-											</svg>
-											<div class="content">因为部分热门产品推送频率较高，若非必要，建议大家尽量减少使用手机推送</div>
-										</span>
-										<input type="checkbox" name="tongzhi[4]" lay-skin="primary" title="弹窗" checked="checked">
-										<input type="checkbox" name="tongzhi[5]" lay-skin="primary" title="我的关注" checked="checked" disabled="disabled">
-									</div>
-									<div class="button">
-										<button type="submit" class="btn-3 cursor-pointer" lay-submit lay-filter="formDemo">确定</button>
-										<span class="qx">取消</span>
-									</div>
-								</form>
-							</div>
-						</div>
-						<div class="fl bt bt2">暂停</div>
-						<div class="fl bt bt3" onclick="layer.msg('删除成功',{time: 500});">
-							<svg class="del">
-								<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_4@2x.png" width="14" height="14"></desc><![endif]-->
-								<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_4"></use>
-							</svg>
-						</div>
-					</div>
-				</div>
-				<!--循环end-->
 				<!--分页加载中start-->
 				<div class="page-loading"></div>
 				<!--分页加载中end-->
-				
+
 				<!--分页start-->
-				<div id="pages-gz" class="pages" style="text-align: center;"></div>
+				<script type="text/javascript">
+					var page={$page}, content = $(".myFocus .list-data");
+				</script>
+				<div id="pages" class="pages" style="text-align: center;"></div>
 				<!--分页end-->
 			</div>
 			<!--我的关注end-->
 			
 			<!--热门关注start-->
-			<div class="mt-40 ml-15 mr-15 font-16">热门关注<span class="fr fc-green font-14 cursor-pointer">换一批</span></div>
-			<ul class="hotFocus clearfix">
-				<!--循环start-->
-				<li>
-					<div class="font-24 lvcenter" style="height: 70px;">苹果电脑</div>
-					<div class="text-center font-14 fc-grey">1.2k菜油已关注</div>
-					<div class="button" onclick="tipsPopup('tips_1','已关注')">+关注</div>
-				</li>
-				<li>
-					<div class="font-24 lvcenter" style="height: 70px;">苹果电脑</div>
-					<div class="text-center font-14 fc-grey">1.2k菜油已关注</div>
-					<div class="button" onclick="tipsPopup('tips_1','已关注')">+关注</div>
-				</li>
-				<li>
-					<div class="font-24 lvcenter" style="height: 70px;">苹果电脑</div>
-					<div class="text-center font-14 fc-grey">1.2k菜油已关注</div>
-					<div class="button" onclick="tipsPopup('tips_1','已取消关注')">已关注</div>
-				</li>
-				<li>
-					<div class="font-24 lvcenter" style="height: 70px;">苹果电脑</div>
-					<div class="text-center font-14 fc-grey">1.2k菜油已关注</div>
-					<div class="button" onclick="tipsPopup('tips_1','已关注')">+关注</div>
-				</li>
-				<li>
-					<div class="font-24 lvcenter" style="height: 70px;">苹果电脑</div>
-					<div class="text-center font-14 fc-grey">1.2k菜油已关注</div>
-					<div class="button" onclick="tipsPopup('tips_1','已关注')">+关注</div>
-				</li>
-				<li>
-					<div class="font-24 lvcenter" style="height: 70px;">苹果电脑</div>
-					<div class="text-center font-14 fc-grey">1.2k菜油已关注</div>
-					<div class="button" onclick="tipsPopup('tips_1','已关注')">+关注</div>
-				</li>
-				<li>
-					<div class="font-24 lvcenter" style="height: 70px;">苹果电脑</div>
-					<div class="text-center font-14 fc-grey">1.2k菜油已关注</div>
-					<div class="button" onclick="tipsPopup('tips_1','已取消关注')">已关注</div>
-				</li>
-				<li>
-					<div class="font-24 lvcenter" style="height: 70px;">苹果电脑</div>
-					<div class="text-center font-14 fc-grey">1.2k菜油已关注</div>
-					<div class="button" onclick="tipsPopup('tips_1','已关注')">+关注</div>
-				</li>
-				<li>
-					<div class="font-24 lvcenter" style="height: 70px;">苹果电脑</div>
-					<div class="text-center font-14 fc-grey">1.2k菜油已关注</div>
-					<div class="button" onclick="tipsPopup('tips_1','已关注')">+关注</div>
-				</li>
-				<li>
-					<div class="font-24 lvcenter" style="height: 70px;">苹果电脑</div>
-					<div class="text-center font-14 fc-grey">1.2k菜油已关注</div>
-					<div class="button" onclick="tipsPopup('tips_1','已关注')">+关注</div>
-				</li>
-				<li>
-					<div class="font-24 lvcenter" style="height: 70px;">苹果电脑</div>
-					<div class="text-center font-14 fc-grey">1.2k菜油已关注</div>
-					<div class="button" onclick="tipsPopup('tips_1','已取消关注')">已关注</div>
-				</li>
-				<li>
-					<div class="font-24 lvcenter" style="height: 70px;">苹果电脑</div>
-					<div class="text-center font-14 fc-grey">1.2k菜油已关注</div>
-					<div class="button" onclick="tipsPopup('tips_1','已关注')">+关注</div>
-				</li>
-				<!--循环end-->
-			</ul>
+			<div class="mt-40 ml-15 mr-15 font-16">热门关注<span class="fr fc-green font-14 cursor-pointer key_refresh" data-uid="{$user.id}">换一批</span></div>
+			<div class="hotlist">
+				<include file="hot_keysfollow_list"/>
+			</div>
+			<div class="page-loading"></div>
 			<!--热门关注end-->
 		</div>
 		<!--右边内容end-->
@@ -620,5 +77,88 @@
 	
 	<!--引入页面单独JS文件-->
 	<script src="/public/js/member/priceRemind.js"></script>
+
+<script type="text/javascript">
+$(".key_submit").click(function(){
+	var key_content = $.trim($(".key_content").val());
+	if(key_content == ""){
+		// tips("请输入关注的内容",0);
+		layer.tips("请输入关注的内容", ".key_content", {
+			tips: [2, '#33CC99'],
+			time: 2000
+		});
+	}
+	else{
+		$.post("/index.php?m=user&a=follow_tag_create",{tag:key_content},function(result){
+			if(result.status==1){
+				// tipsPopup('tips_1', result.msg);
+				layer.msg(result.msg,{time: 500});
+				window.location.href="/user-keysfollow";
+			}
+			else{
+				// tipsPopup('tips_2', result.msg);
+				layer.msg(result.msg,{time: 500});
+			}
+		},'json');
+	}
+
+	return false;
+});
+
+$(".key_notify").click(function(){
+	obj = $(this);
+	$.post("/index.php?m=user&a=notify_tag_create",{tag:$(this).data("tag")},function(result){
+		if(result.status==1){
+			// obj.html('暂停');
+			// obj.addClass("key_cancel").removeClass("key_notify");
+			obj.addClass("none");
+			obj.siblings(".key_cancel").removeClass("none");			
+			layer.msg(result.msg,{time: 500});
+		}else{
+			layer.msg(result.msg,{time: 500});
+		}
+	},'json');
+});
+
+$(".key_cancel").click(function(){
+	obj = $(this);
+	$.post("/index.php?m=user&a=notify_tag_del",{id:$(this).data("id")},function(result){
+		if(result.status==1){
+			obj.addClass("none");
+			obj.siblings(".key_notify").removeClass("none");
+			layer.msg(result.msg,{time: 500});
+		}else{
+			layer.msg(result.msg,{time: 500});
+		}
+	},'json');
+});
+
+$(".key_del").click(function(){
+	obj = $(this);
+	$.post("/index.php?m=user&a=follow_tag_del",{id:$(this).data("id")},function(result){
+		if(result.status==1){
+			obj.parents(".item").remove();			
+		}
+		layer.msg(result.msg,{time: 500});
+	},'json');
+});
+
+$(".key_refresh").click(function(){
+	obj = $(this);
+	content_obj = $(".hotlist");
+
+	// content_obj.hide();
+	content_obj.siblings(".page-loading").show();
+
+	$.get("/index.php?m=user&a=get_hot_keysfollow_list",{uid:$(this).data("uid")},function(result){
+		if(result.status==1){
+			content_obj.siblings(".page-loading").hide();
+			content_obj.html(result.data.list);
+			// content_obj.show();
+		}
+	},'json');
+});
+
+</script>
 </body>
 </html>

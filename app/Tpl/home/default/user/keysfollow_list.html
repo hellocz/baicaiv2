@@ -1,0 +1,20 @@
+<!--循环start-->				
+				<volist name="keysfollow_list" id="r">
+				<div class="item clearfix">
+					<div class="fl tit"><span>关键词</span><a href="{:U('search/index', array('q'=>$r['tag']))}" target="_blank" title="{$r.tag}">{$r.tag}</a></div>
+					<!-- <div class="fl time vcenter">最近一周更新21篇</div> -->
+					<div class="fr op clearfix">
+						<div class="fr bt bt3 key_del" data-id="{$r.id}">
+							<svg class="del">
+								<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_4@2x.png" width="14" height="14"></desc><![endif]-->
+								<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_4"></use>
+							</svg>
+						</div>
+						
+						<div class="fr bt bt2 key_cancel <if condition="$r['p_sign'] eq '1'" ><else/>none</if>" data-tag="{$r.tag}" data-id="{$r.id}">暂停</div>						
+						<div class="fr bt bt2 key_notify <if condition="$r['p_sign'] eq '1'" >none<else/></if>" data-tag="{$r.tag}" data-id="{$r.id}">推送</div>
+											
+					</div>
+				</div>
+				</volist>
+				<!--循环end-->

@@ -183,12 +183,10 @@
 						<!--分页加载中end-->
 						
 						<!--分页start-->
-						<if condition="$page['count'] gt 0">
 						<script type="text/javascript">
-							var page_count={$page.count}, page_curr={$page.p}, page_size={$page.size}, page_ajax_url = '/index.php?m=member&a=get_list&t={$t}&uid={$user.id}', page_content_obj = $(".list .list-data");
+							var page={$page}, content = $(".list .list-data");
 						</script>
 						<div id="pages" class="pages" style="text-align: center;"></div>
-						</if>
 						<!--分页end-->
 					</if>
 					

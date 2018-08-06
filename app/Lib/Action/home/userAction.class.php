@@ -7,6 +7,10 @@ class userAction extends userbaseAction {
         $this->_mod = D('user');
     }
 
+
+    /**
+     * 个人资料
+     */
     public function index(){
         // !$this->visitor->is_login && $this->redirect('index/index');
         $t = $this->_get('t',"trim");
@@ -26,22 +30,13 @@ class userAction extends userbaseAction {
         $count['follows'] = D("user_follow")->user_follow_count($uid);//关注
 
         $typeArr = array('article', 'bao', 'vote', 'comm', 'likes', 'follows');
-        switch ($t) {
-            case 'article': //原创：攻畋+晒单
-            case 'bao': //爆料
-            case 'vote': //投票：点选、点踩
-            case 'comm': //评论
-            case 'likes': //收藏
-            case 'follows': //关注
-                $this->get_list($t, $uid, $p, $pagesize);
-                break;
-            
-            default:
-                $t="news";
-                foreach ($typeArr as $val) {
-                    $this->get_list($val, $uid, 1, 3);
-                }
-                break;
+        if(!in_array($t, $typeArr)){
+            $t="news";
+            foreach ($typeArr as $val) {
+                $this->get_list($val, $uid, 1, 3);
+            }
+        }else{
+            $this->get_list($t, $uid, $p, $pagesize);
         }
 
         // //勋章
@@ -55,7 +50,13 @@ class userAction extends userbaseAction {
 
         $this->assign("count",$count);
         if($t != 'news'){
-            $this->assign('page', array('p'=>$p, 'size'=>$pagesize, 'count'=>isset($count[$t]) ? $count[$t] : 0));
+            $page = array(
+                'p'=>$p, 
+                'size'=>$pagesize, 
+                'count'=>isset($count[$t]) ? $count[$t] : 0,
+                'url'=> "/index.php?m=user&a=get_list&t={$t}&uid={$uid}",
+            );
+            $this->assign('page', json_encode($page));
         }
         $this->assign("t",$t);
         $this->assign('user',$this->_user);
@@ -64,7 +65,7 @@ class userAction extends userbaseAction {
     }
 
     /**
-     * 个人资料 - 动态，原创、爆料、评论、投票、收藏、关注等列表
+     * 个人资料 - 动态，原创、爆料、评论、投票、收藏、关注等列表, AJAX翻页请求
      */
     public function get_list($t = 'article', $uid = 0, $p = 1, $pagesize = 8) {
         if (IS_AJAX) {
@@ -116,12 +117,15 @@ class userAction extends userbaseAction {
         }
     }
 
+    /**
+     * 我的文章 - 原创、爆料等列表
+     */
     public function publish(){
         $t = $this->_get('t',"trim");
         $p = $this->_get('p', 'intval', 1);
         $status = $this->_get('status', 'trim');
         if($p<1){$p=1;}
-        $pagesize=10;        
+        $pagesize=1;        
         $uid=$this->_user['id'];
         if(!in_array($t, array('article', 'bao'))) $t = 'all';
         if(!in_array($status, array('0', '1', '2', '3'))) $status = '';
@@ -135,7 +139,13 @@ class userAction extends userbaseAction {
 
         $this->get_publish_list($t, $uid, $status, $p, $pagesize);
 
-        $this->assign('page', array('p'=>$p, 'size'=>$pagesize, 'count'=>isset($count[$t]) ? $count[$t] : 0));
+        $page = array(
+            'p'=>$p, 
+            'size'=>$pagesize, 
+            'count'=>isset($count[$t]) ? $count[$t] : 0,
+            'url'=>"/index.php?m=user&a=get_publish_list&t={$t}&status={$status}&uid={$uid}",
+        );
+        $this->assign('page', json_encode($page));
         $this->assign("t",$t);
         $this->assign("status",$status);
         $this->assign('user',$this->_user);
@@ -144,7 +154,7 @@ class userAction extends userbaseAction {
     }
 
     /**
-     * 我的文章 - 原创、爆料列表 - 按状态status区分
+     * 我的文章 - 原创、爆料列表 - 按状态status区分, AJAX翻页请求
      */
     public function get_publish_list($t = 'article', $uid = 0, $status = 1, $p = 1, $pagesize = 8) {
         if (IS_AJAX) {
@@ -186,6 +196,353 @@ class userAction extends userbaseAction {
             $this->ajaxReturn(1, "", $data);
         }
     }
+
+    //我的收藏
+    public function likes(){
+        $p = $this->_get('p', 'intval', 1);
+        if($p<1){$p=1;}
+        $pagesize=1;        
+        $uid=$this->_user['id'];
+
+        $count = D("likes")->user_likes_count($uid);//收藏 
+
+        $this->get_likes_list($uid, $p, $pagesize);
+
+        $page = array(
+            'p'=>$p, 
+            'size'=>$pagesize, 
+            'count'=>$count, 
+            'url'=>'/index.php?m=user&a=get_likes_list&uid='.$uid,
+        );
+        $this->assign('page', json_encode($page));
+        $this->assign('user',$this->_user);
+        $this->assign('page_seo',set_seo('我的收藏 - 个人中心'));
+        $this->display();
+    }
+
+    /**
+     * 我的收藏 - AJAX翻页请求
+     */
+    public function get_likes_list($uid = 0, $p = 1, $pagesize = 8) {
+        if (IS_AJAX) {
+            $uid = $this->_get('uid', 'intval', 0);
+            !$uid && $this->ajaxReturn(0, '用户不存在');          
+            $p = $this->_get('p', 'intval', 1);
+            $pagesize = $this->_get('pagesize', 'intval', 8);
+        }
+        if($p<1){$p=1;}
+
+        $field = "";
+        $order = "addtime desc";
+        $limit = $pagesize*($p-1) . ',' . $pagesize;        
+        $list=D("likes")->user_likes_list($uid, $order, $limit);
+        $this->assign("likes_list",$list);
+
+        //AJAX分页请求
+        if (IS_AJAX) {
+            $data = array(
+                'list' => $this->fetch("likes_list"),
+            ); 
+            $this->ajaxReturn(1, "", $data);
+        }
+    }
+
+    //删除收藏
+    public function del_likes(){
+        $itemid = $this->_get('itemid','intval');
+        $xid = $this->_get('xid','intval');
+        // $uid = $this->_get('uid','intval');
+        $uid=$this->_user['id'];
+        $mod = D("likes");
+        //查找是否已收藏
+        $islike=$mod->is_likes($uid, $xid, $itemid);
+        if($islike){
+            $r=$mod->delete_likes($uid, $xid, $itemid);
+            if($r){
+                $i_mod = get_mod($xid);
+                $i_mod->where("id=$itemid")->setDec("likes");
+                $this->ajaxReturn(1, '取消收藏成功');
+            }else{
+                $this->ajaxReturn(0,'删除失败！');
+            }
+        }else{
+            $this->ajaxReturn(0,'删除失败！');
+        }
+    }
+
+    /**
+     * 个人中心 - 降价提醒(我的关注)
+     */
+    public function keysfollow(){
+        $p = $this->_get('p', 'intval', 1);
+        if($p<1){$p=1;}
+        $pagesize=10;        
+        $uid=$this->_user['id'];
+
+        $count = D("notify_tag")->user_follow_count($uid);//收藏 
+
+        //关注列表
+        $this->get_keysfollow_list($uid, $p, $pagesize);        
+
+        //热门关注列表
+        $this->get_hot_keysfollow_list($uid);
+
+        $page = array(
+            'p'=>$p, 
+            'size'=>$pagesize, 
+            'count'=>$count, 
+            'url'=>'/index.php?m=user&a=get_keysfollow_list&uid='.$uid,
+        );
+        $this->assign('page', json_encode($page));
+        $this->assign('user',$this->_user);
+        $this->assign('page_seo',set_seo('我的关注 - 个人中心'));
+        $this->display();
+    }
+
+    /**
+     * 降价提醒(我的关注) - AJAX翻页请求
+     */
+    public function get_keysfollow_list($uid = 0, $p = 1, $pagesize = 8) {
+        if (IS_AJAX) {
+            $uid = $this->_get('uid', 'intval', 0);
+            !$uid && $this->ajaxReturn(0, '用户不存在');          
+            $p = $this->_get('p', 'intval', 1);
+            $pagesize = $this->_get('pagesize', 'intval', 8);
+        }
+        if($p<1){$p=1;}
+
+        $field = "";
+        $order = "id desc";
+        $limit = $pagesize*($p-1) . ',' . $pagesize;        
+        $list=D("notify_tag")->user_follow_list($uid, $order, $limit);
+        $this->assign("keysfollow_list",$list);
+
+        //AJAX分页请求
+        if (IS_AJAX) {
+            $data = array(
+                'list' => $this->fetch("keysfollow_list"),
+            ); 
+            $this->ajaxReturn(1, "", $data);
+        }
+    }
+
+    /**
+     * 降价提醒(我的关注-热门关注) - AJAX翻页请求
+     */
+    public function get_hot_keysfollow_list($uid = 0) {
+        if (IS_AJAX) {
+            $uid = $this->_get('uid', 'intval', 0);
+            !$uid && $this->ajaxReturn(0, '用户不存在');
+        }
+
+        $list = D("notify_tag")->top_follow_list();
+        $rand_keys = array_rand($list, 12);
+        $top_list = array();
+        foreach ($rand_keys as $key) {
+            $top_list[$key] = $list[$key];
+            $top_list[$key]['is_follow'] = D("notify_tag")->is_follow($uid, $list[$key]['tag']);
+        }
+        $this->assign("hot_keysfollow_list",$top_list);
+
+        //AJAX分页请求
+        if (IS_AJAX) {
+            $data = array(
+                'list' => $this->fetch("hot_keysfollow_list"),
+            ); 
+            $this->ajaxReturn(1, "", $data);
+        }
+    }
+
+    /**
+     * 关注tag
+     */
+    public function follow_tag_create(){
+        $tag['userid'] = $this->_user['id'];
+        $tag['tag'] = $this->_post('tag','trim');
+        $notify_tag = D("notify_tag");
+        $result = $notify_tag->create_follow_tag($tag);
+        if ($result) {
+            $this->ajaxReturn("1",'设置关注成功!',$result);
+        } else {
+            $this->ajaxReturn("0",'设置关注失败!');
+        }
+    }
+
+    /**
+     * 推送tag
+     */
+    public function notify_tag_create(){
+        $tag['userid'] = $this->_user['id'];
+        $tag['tag'] = $this->_post('tag','trim');
+        $notify_tag = D("notify_tag");
+        $result = $notify_tag->create_follow_tag($tag, true);
+        if ($result) {
+            $this->ajaxReturn("1",'设置推送成功!',$result);
+        } else {
+            $this->ajaxReturn("0",'设置推送失败!');
+        }
+    }
+
+    /**
+     * 取消推送tag
+     */
+    public function notify_tag_del(){
+        $notify_tag = D("notify_tag");
+        $tag['id'] = $this->_post('id','trim');
+        $tag['userid'] = $this->_user['id'];
+        $notify_tag->del_follow_tag($tag, true);
+        $this->ajaxReturn("1",'删除推送成功!');
+    }
+
+    /**
+     * 删除关注tag
+     */
+    public function follow_tag_del(){
+        $notify_tag = D("notify_tag");
+        $tag['id'] = $this->_post('id','trim');
+        $tag['userid'] = $this->_user['id'];
+        $notify_tag->del_follow_tag($tag);
+        $this->ajaxReturn("1",'删除关注成功!');
+    }
+
+
+    /**
+     * 我关注的用户
+     */
+    public function userfollow() {
+        $t = $this->_get('t',"trim");
+        $p = $this->_get('p', 'intval', 1);
+        if($p<1){$p=1;}
+        $pagesize=10;        
+        $uid=$this->_user['id'];
+        if($t != 'fans') $t = 'follows';
+
+        $count = array();
+        $count['follows'] = D("user_follow")->user_follow_count($uid);//关注的用户 
+        $count['fans'] = D("user_follow")->user_fans_count($uid);//粉丝 
+
+        //关注列表
+        $this->get_userfollow_list($t, $uid, $p, $pagesize);
+
+        // if ($this->visitor->is_login) {
+        //     D('user_msgtip')->clear_tip($this->visitor->info['id'], 1);
+        // }
+
+        $page = array(
+            'p'=>$p, 
+            'size'=>$pagesize, 
+            'count'=>$count[$t], 
+            'url'=>"/index.php?m=user&a=get_userfollow_list&t={$t}&uid={$uid}",
+        );
+        $this->assign('count', $count);
+        $this->assign('t', $t);
+        $this->assign('page', json_encode($page));
+        $this->assign('user',$this->_user);
+        $this->assign('page_seo',set_seo('我的关注 - 个人中心'));
+        $this->display();
+    }
+
+    /**
+     * 我关注的用户 - AJAX翻页请求
+     */
+    public function get_userfollow_list($t = 'fans', $uid = 0, $p = 1, $pagesize = 8) {
+        if (IS_AJAX) {
+            $t = $this->_get('t',"trim");
+            $uid = $this->_get('uid', 'intval', 0);
+            !$uid && $this->ajaxReturn(0, '用户不存在');          
+            $p = $this->_get('p', 'intval', 1);
+            $pagesize = $this->_get('pagesize', 'intval', 8);
+        }
+        if($p<1){$p=1;}
+
+        $order = "add_time desc";
+        $limit = $pagesize*($p-1) . ',' . $pagesize;
+        switch ($t) {
+            case 'fans':            
+                $list=D("user_follow")->user_fans_list($uid, $order, $limit);                
+                break;
+            
+            default:
+                $t = "follows";
+                $list=D("user_follow")->user_follow_list($uid, $order, $limit);
+                break;
+        }
+
+        $this->assign("userfollow_{$t}_list",$list);
+
+        //AJAX分页请求
+        if (IS_AJAX) {
+            $data = array(
+                'list' => $this->fetch("userfollow_{$t}_list"),
+            ); 
+            $this->ajaxReturn(1, "", $data);
+        }
+    }
+
+    /**
+     * 关注
+     */
+    public function follow() {
+        $follow_uid = $this->_get('uid', 'intval');
+        !$follow_uid && $this->ajaxReturn(0, L('follow_invalid_user'));
+
+        $uid = $this->visitor->info['id'];        
+        $follow_uid == $uid && $this->ajaxReturn(0, L('follow_self_not_allow'));
+        $user_mod = D('user');
+        if (!$user_mod->get_user_by_uid($follow_uid)) {
+            $this->ajaxReturn(0, L('follow_invalid_user'));
+        }
+
+        //判断是否已经关注
+        $is_follow = D('user_follow')->is_follow($uid, $follow_uid);
+        $is_follow && $this->ajaxReturn(0, L('user_is_followed'));
+
+        //关注
+        $return = D('user_follow')->follow($uid, $follow_uid);
+        !$return && $this->ajaxReturn(0, L('follow_user_failed'));
+
+        $this->ajaxReturn(1, L('follow_user_success'), $return);
+    }
+
+    /**
+     * 取消关注
+     */
+    public function unfollow() {
+        $follow_uid = $this->_get('uid', 'intval');
+        !$follow_uid && $this->ajaxReturn(0, L('unfollow_invalid_user'));
+
+        $uid = $this->visitor->info['id'];
+
+        //取消关注
+        $result = D('user_follow')->unfollow($uid, $follow_uid);
+        
+        if ($result) {
+            $this->ajaxReturn(1, L('unfollow_user_success'));
+        } else {
+            $this->ajaxReturn(0, L('unfollow_user_failed'));
+        }
+    }
+
+    // /**
+    //  * 移除粉丝
+    //  */
+    // public function delfans() {
+    //     $uid = $this->_get('uid', 'intval');
+    //     !$uid && $this->ajaxReturn(0, L('delete_invalid_fans'));
+    //     $user_follow_mod = M('user_follow');
+    //     if ($user_follow_mod->where(array('follow_uid'=>$this->visitor->info['id'], 'uid'=>$uid))->delete()) {
+    //         $user_mod = M('user');
+    //         //减少我的粉丝人数
+    //         $user_mod->where(array('id'=>$this->visitor->info['id']))->setDec('fans');
+    //         //减少Ta的关注人数
+    //         M('user')->where(array('id'=>$uid))->setDec('follows');
+    //         //删除Ta微薄中我的内容
+    //         M('topic_index')->where(array('author_id'=>$this->visitor->info['id'], 'uid'=>$uid))->delete();
+    //         $this->ajaxReturn(1, L('delete_fans_success'));
+    //     } else {
+    //         $this->ajaxReturn(0, L('delete_fans_failed'));
+    //     }
+    // }
 
     /**
      * 用户登陆
@@ -898,172 +1255,26 @@ class userAction extends userbaseAction {
         }
     }
 
-    /**
-     * 关注
-     */
-    public function follow() {
-        $uid = $this->_get('uid', 'intval');
-        !$uid && $this->ajaxReturn(0, L('follow_invalid_user'));
-        $uid == $this->visitor->info['id'] && $this->ajaxReturn(0, L('follow_self_not_allow'));
-        $user_mod = M('user');
-        if (!$user_mod->where(array('id'=>$uid))->count('id')) {
-            $this->ajaxReturn(0, L('follow_invalid_user'));
-        }
-        $user_follow_mod = M('user_follow');
-        //已经关注？
-        $is_follow = $user_follow_mod->where(array('uid'=>$this->visitor->info['id'], 'follow_uid'=>$uid))->count();
-        $is_follow && $this->ajaxReturn(0, L('user_is_followed'));
-        //关注动作
-        $return = 1;
-        //他是否已经关注我
-        $map = array('uid'=>$uid, 'follow_uid'=>$this->visitor->info['id']);
-        $isfollow_me = $user_follow_mod->where($map)->count();
-        $data = array('uid'=>$this->visitor->info['id'], 'follow_uid'=>$uid, 'add_time'=>time());
-        if ($isfollow_me) {
-            $data['mutually'] = 1; //互相关注
-            $user_follow_mod->where($map)->setField('mutually', 1); //更新他关注我的记录为互相关注
-            $return = 2;
-        }
-        $result = $user_follow_mod->add($data);
-        !$result && $this->ajaxReturn(0, L('follow_user_failed'));
-        //增加我的关注人数
-        $user_mod->where(array('id'=>$this->visitor->info['id']))->setInc('follows');
-        //增加Ta的粉丝人数
-        $user_mod->where(array('id'=>$uid))->setInc('fans');
-        //提醒被关注的人
-        D('user_msgtip')->add_tip($uid, 1);
-        //把他的微薄推送给我
-        //TODO...是否有必要？
-        $this->ajaxReturn(1, L('follow_user_success'), $return);
-    }
 
-    /**
-     * 取消关注
-     */
-    public function unfollow() {
-        $uid = $this->_get('uid', 'intval');
-        !$uid && $this->ajaxReturn(0, L('unfollow_invalid_user'));
-        $user_follow_mod = M('user_follow');
-        if ($user_follow_mod->where(array('uid'=>$this->visitor->info['id'], 'follow_uid'=>$uid))->delete()) {
-            $user_mod = M('user');
-            //他是否已经关注我
-            $map = array('uid'=>$uid, 'follow_uid'=>$this->visitor->info['id']);
-            $isfollow_me = $user_follow_mod->where($map)->count();
-            if ($isfollow_me) {
-                $user_follow_mod->where($map)->setField('mutually', 0); //更新他关注我的记录为互相关注
-            }
-            //减少我的关注人数
-            $user_mod->where(array('id'=>$this->visitor->info['id']))->setDec('follows');
-            //减少Ta的粉丝人数
-            $user_mod->where(array('id'=>$uid))->setDec('fans');
-            //删除我微薄中Ta的内容
-           // M('topic_index')->where(array('author_id'=>$uid, 'uid'=>$this->visitor->info['id']))->delete();
-            $this->ajaxReturn(1, L('unfollow_user_success'));
-        } else {
-            $this->ajaxReturn(0, L('unfollow_user_failed'));
-        }
-    }
 
-    /**
-     * 移除粉丝
-     */
-    public function delfans() {
-        $uid = $this->_get('uid', 'intval');
-        !$uid && $this->ajaxReturn(0, L('delete_invalid_fans'));
-        $user_follow_mod = M('user_follow');
-        if ($user_follow_mod->where(array('follow_uid'=>$this->visitor->info['id'], 'uid'=>$uid))->delete()) {
-            $user_mod = M('user');
-            //减少我的粉丝人数
-            $user_mod->where(array('id'=>$this->visitor->info['id']))->setDec('fans');
-            //减少Ta的关注人数
-            M('user')->where(array('id'=>$uid))->setDec('follows');
-            //删除Ta微薄中我的内容
-            M('topic_index')->where(array('author_id'=>$this->visitor->info['id'], 'uid'=>$uid))->delete();
-            $this->ajaxReturn(1, L('delete_fans_success'));
-        } else {
-            $this->ajaxReturn(0, L('delete_fans_failed'));
-        }
-    }
-	//爆料达人
-	public function getu(){
-		$count=M("user")->count();
-		$pager=$this->_pager($count,4);
-		$user_list = M("user")->order("shares desc, id asc")->limit($pager->firstRow.",".$pager->listRows)->select();
-		$arr = M("user_follow")->where("uid=$info[id]")->select();
-		foreach($arr as $key=>$val){
-			$follow_uid[$val['follow_uid']]=1;
-		}
-		foreach($user_list as $key=>$val){
-			$user_list[$key]['follow']=$follow_uid[$val['id']];
-		}
-		$this->assign('user_list',$user_list);
-		$resp = $this->fetch('dialog:ulist');
-        $this->ajaxReturn(1, '', $resp);
-	}
+    // //爆料达人
+    // public function getu(){
+    //     $count=M("user")->count();
+    //     $pager=$this->_pager($count,4);
+    //     $user_list = M("user")->order("shares desc, id asc")->limit($pager->firstRow.",".$pager->listRows)->select();
+    //     $arr = M("user_follow")->where("uid=$info[id]")->select();
+    //     foreach($arr as $key=>$val){
+    //         $follow_uid[$val['follow_uid']]=1;
+    //     }
+    //     foreach($user_list as $key=>$val){
+    //         $user_list[$key]['follow']=$follow_uid[$val['id']];
+    //     }
+    //     $this->assign('user_list',$user_list);
+    //     $resp = $this->fetch('dialog:ulist');
+    //     $this->ajaxReturn(1, '', $resp);
+    // }
 
-	/**
-     * 我关注的
-     */
-    public function myfollow() {
-		!$this->visitor->is_login && $this->redirect('user/login');
-		$user = $this->visitor->get();
-        $user_follow_mod = M('user_follow');
-        $db_pre = C('DB_PREFIX');
-        $uf_table = $db_pre . 'user_follow';
-        $pagesize = 9;
-        $count = $user_follow_mod->where(array('uid' => $user['id']))->count();
-        $pager = $this->_pager($count, $pagesize);
-        $where = array($uf_table . '.uid' => $user['id']);
-        $field = 'u.id,u.username,u.fans,u.last_time,u.follows,' . $uf_table . '.add_time,' . $uf_table . '.mutually';
-        $join = $db_pre . 'user u ON u.id=' . $uf_table . '.follow_uid';
-        $user_list = $user_follow_mod->field($field)->where($where)->join($join)->order($uf_table . '.add_time DESC')->limit($pager->firstRow . ',' . $pager->listRows)->select();
-        foreach($user_list as $k =>$v){
 
-        }
-        $this->assign('user_list', $user_list);
-        $this->assign('page_bar', $pager->fshow());
-        $this->assign('tab_current', 'follow');
-        $this->_config_seo(array(
-            'title' => $user['username'] . L('space_follow_title') . '-' . C('pin_site_name'),
-        ));
-        $this->display();
-    }
-	/**
-     * 粉丝
-     */
-    public function fans() {
-		!$this->visitor->is_login && $this->redirect('user/login');
-		$user = $this->visitor->get();
-        $user_follow_mod = M('user_follow');
-        $db_pre = C('DB_PREFIX');
-        $uf_table = $db_pre . 'user_follow';
-        $pagesize = 9;
-        $count = $user_follow_mod->where(array('follow_uid' => $user['id']))->count();
-        $pager = $this->_pager($count, $pagesize);
-        $where = array($uf_table . '.follow_uid' => $user['id']);
-        $field = 'u.id,u.username,u.fans,u.last_time,' . $uf_table . '.add_time,' . $uf_table . '.mutually';
-        $join = $db_pre . 'user u ON u.id=' . $uf_table . '.uid';
-        $user_list = $user_follow_mod->field($field)->where($where)->join($join)->order($uf_table . '.add_time DESC')->limit($pager->firstRow . ',' . $pager->listRows)->select();
-        if ($this->visitor->is_login) {
-            D('user_msgtip')->clear_tip($this->visitor->info['id'], 1);
-        }
-		//myfollow
-		$arr = $user_follow_mod->where(array("uid"=>$user['id']))->select();
-		foreach($arr as $key=>$val){
-			$flist[$val['follow_uid']]=1;
-		}
-		foreach($user_list as $key=>$val){
-			$user_list[$key]['follow']=$flist[$val['id']];
-		}
-        $this->assign('user_list', $user_list);
-        $this->assign('page_bar', $pager->fshow());
-        $this->assign('tab_current', 'follow');
-		$this->_curr_menu('myfollow');
-        $this->_config_seo(array(
-            'title' => $user['username'] . L('space_fans_title') . '-' . C('pin_site_name'),
-        ));
-        $this->display();
-    }
 	//我的优惠券
 	public function tick(){
 		!$this->visitor->is_login && $this->redirect('user/login');
@@ -1159,96 +1370,7 @@ class userAction extends userbaseAction {
 		}
 	}
 
-	//我的收藏
-	public function likes(){
-		$user = $this->visitor->get();
-		$t = $this->_get('t','trim');
-		!$t&&$t='gn';
-		$mod = M("likes");
-		$num['gn']=$mod->where("try_likes.xid=1 and o.ismy=0 and try_likes.uid=$user[id] ")->join("try_item i on i.id=try_likes.itemid")->join("try_item_orig o on o.id=i.orig_id")->count();
-		$num['ht']=$mod->where("try_likes.xid=1 and o.ismy=1 and try_likes.uid=$user[id] ")->join("try_item i on i.id=try_likes.itemid")->join("try_item_orig o on o.id=i.orig_id")->count();
-		$num['best']=$mod->where("try_likes.xid=1 and i.isbest=1 and try_likes.uid=$user[id] ")->join("try_item i on i.id=try_likes.itemid")->count();
-		$num['sd']=$mod->where("try_likes.xid=3 and a.cate_id=10 and try_likes.uid=$user[id] ")->join("try_article a on a.id=try_likes.itemid")->count();
-		$num['gl']=$mod->where("try_likes.xid=3 and a.cate_id  in(select id from try_article_cate where pid=9 or id=9) and try_likes.uid=$user[id] ")->join("try_article a on a.id=try_likes.itemid")->count();
-		$num['zr']=$mod->where("try_likes.xid=2 and try_likes.uid=$user[id]")->count();
-		$pagesize=5;
-		$pager = $this->_pager($num[$t],$pagesize);
-		switch($t){
-			case "gn":
-				$list = $mod->where("try_likes.xid=1 and o.ismy=0 and try_likes.uid=$user[id] ")->join("try_item i on i.id=try_likes.itemid")->join("try_item_orig o on o.id=i.orig_id")->order("i.add_time desc")->field("i.id,i.title,i.img,i.comments,i.intro")->limit($pager->firstRow.",".$pager->listRows)->select();
-				foreach($list as $key=>$val){
-					$list[$key]['url'] = U('item/index',array("id"=>$val['id']));
-				}
-				$xid = 1;
-				break;
-			case "ht":
-				$list = $mod->where("try_likes.xid=1 and o.ismy=1 and try_likes.uid=$user[id] ")->join("try_item i on i.id=try_likes.itemid")->join("try_item_orig o on o.id=i.orig_id")->order("i.add_time desc")->field("i.id,i.title,i.img,i.comments,i.intro")->limit($pager->firstRow.",".$pager->listRows)->select();
-				foreach($list as $key=>$val){
-					$list[$key]['url'] = U('item/index',array("id"=>$val['id']));
-				}
-				$xid = 1;
-				break;
-			case "best":
-				$list = $mod->where("try_likes.xid=1 and i.isbest=1   and try_likes.uid=$user[id] ")->join("try_item i on i.id=try_likes.itemid")->order("i.add_time desc")->field("i.id,i.title,i.img,i.comments,i.intro")->limit($pager->firstRow.",".$pager->listRows)->select();
-				foreach($list as $key=>$val){
-					$list[$key]['url'] = U('item/index',array("id"=>$val['id']));
-				}
-				$xid = 1;
-				break;
-			case "sd":
-				$list = $mod->where("try_likes.xid=3 and a.cate_id=10 and try_likes.uid=$user[id] ")->join("try_article a on a.id=try_likes.itemid")->order("a.add_time desc")->field("a.id,a.title,a.img,a.comments,a.intro")->limit($pager->firstRow.",".$pager->listRows)->select();
-				foreach($list as $key=>$val){
-					$list[$key]['img']=attach($val['img'],'article');
-					$list[$key]['url'] = U('article/show',array("id"=>$val['id']));
-				}
-				$xid = 3;
-				break;
-			case "gl":
-				$list = $mod->where("try_likes.xid=3 and try_likes.uid=$user[id] and a.cate_id in(select id from try_article_cate where pid=9 or id=9)")->join("try_article a on a.id=try_likes.itemid")->order("a.add_time desc")->field("a.id,a.title,a.img,a.comments,a.intro")->limit($pager->firstRow.",".$pager->listRows)->select();
-				foreach($list as $key=>$val){
-					$list[$key]['img']=attach($val['img'],'article');
-					$list[$key]['url'] = U('article/show',array("id"=>$val['id']));
-				}
-				$xid = 3;
-				break;
-			case "zr":
-				$list = $mod->where("try_likes.xid=2 and try_likes.uid=$user[id] ")->join("try_zr z on z.id=try_likes.itemid")->field("z.id,z.title,z.img,z.comments,z.intro")->limit($pager->firstRow.",".$pager->listRows)->select();
-				foreach($list as $key=>$val){
-					$list[$key]['img']=attach($val['img'],'zr');
-					$list[$key]['url'] = U('zr/show',array("id"=>$val['id']));
-				}
-				$xid = 2;
-				break;
-		}
-		$this->assign('list',$list);
-		$this->assign('page_bar',$pager->fshow());
-		$this->assign('num',$num);
-		$this->assign('xid',$xid);
-		$this->assign('cur',$t);
-		$this->assign('page_seo',set_seo('我的收藏'));
-		$this->display();
-	}
-	//删除收藏
-	public function del_likes(){
-		$itemid = $this->_get('itemid','intval');
-		$xid = $this->_get('xid','intval');
-		$uid = $this->_get('uid','intval');
-		$mod = M("likes");
-		//查找是否已收藏
-		$islike=$mod->where("uid=$uid and xid=$xid and itemid=$itemid")->find();
-		if($islike){
-			$r=$mod->where("uid=$uid and xid=$xid and itemid=$itemid")->delete();
-			if($r){
-				$i_mod = get_mod($xid);
-				$i_mod->where("id=$itemid")->setDec("likes");
-				$this->ajaxReturn(1, '取消收藏成功');
-			}else{
-				$this->ajaxReturn(0,'删除失败！');
-			}
-		}else{
-			$this->ajaxReturn(0,'删除失败！');
-		}
-	}
+
 	//我的分享
 	public function share(){
 		$user = $this->visitor->get();
@@ -1460,56 +1582,6 @@ class userAction extends userbaseAction {
         $_SESSION['user_info']['message']=M('message')->where("to_id='".$info['id']."' and ck_status=0")->count();
         $this->ajaxReturn("1",$_SESSION['user_info']['message']);
     }
-    public function notify_tag_create(){
-        $tag['userid'] = $this->_post('userid','trim');
-        $tag['tag'] = $this->_post('tag','trim');
-        $notify_tag = M("notify_tag");
-        $list = $notify_tag->where(array('userid' => $tag['userid'],'tag'=> $tag['tag'] ))->find();
-        if(count($list)>0){
-            $list['p_sign'] = 1;
-            $notify_tag->save($list);
-            $this->ajaxReturn("1",'设置推送成功!',$list['id']);
-        }
-        else{
-        $result = $notify_tag->add(array(
-            'userid' => $tag['userid'],
-            'tag' => $tag['tag'],
-            'p_sign' => 1,
-            'f_sign' => 1
-            ));
-        if ($result) {
-             $this->ajaxReturn("1",'设置推送成功!',$result);
-            } else {
-                 $this->ajaxReturn("0",'设置推送失败!');
-            }
-            }
-    }
-
-        //创建关注tag
-
-    public function follow_tag_create(){
-        $tag['userid'] = $this->_post('userid','trim');
-        $tag['tag'] = $this->_post('tag','trim');
-        $notify_tag = M("notify_tag");
-        $list = $notify_tag->where(array('userid' => $tag['userid'],'tag'=> $tag['tag'] ))->find();
-        if(count($list)>0){
-            $list['f_sign'] = 1;
-            $notify_tag->save($list);
-             $this->ajaxReturn("1",'设置关注成功!',$list['id']);
-        }
-        else{
-        $result = $notify_tag->add(array(
-            'userid' => $tag['userid'],
-            'tag' => $tag['tag'],
-            'f_sign' => 1
-            ));
-        if ($result) {
-                $this->ajaxReturn("1",'设置关注成功!',$result);
-            } else {
-                $this->ajaxReturn("0",'设置关注失败!');
-            }
-            }
-    }
 
       //查询某个用户的推送时段
 
@@ -1534,15 +1606,7 @@ class userAction extends userbaseAction {
         echo get_result(10001, '更新成功!');
     }
 
-     //查询某个用户下面所有推送tag
 
-    public function keysfollow(){
-        $user = $this->visitor->get();
-        $notify_tag = M("notify_tag");
-        $tag_list = $notify_tag->where(array('userid'=>$user['id']))->select();
-        $this->assign('tag_list',$tag_list);
-        $this->display();
-    }
 
     public function notify_tag_byuser(){
         $userid = $this->_post('userid','trim');
@@ -1571,16 +1635,7 @@ class userAction extends userbaseAction {
         }
     }
 
-     //删除推送tag
 
-    public function notify_tag_del(){
-        $notify_tag = M("notify_tag");
-        $tag['id'] = $this->_post('id','trim');
-        $tag['userid'] = $this->_post('userid','trim');
-        $tag['p_sign'] = 0;
-        $notify_tag->save($tag);
-        $this->ajaxReturn("1",'删除推送成功!');
-    }
 
     //是否选中推送
     public function is_notify_tag($data){
@@ -1606,14 +1661,5 @@ class userAction extends userbaseAction {
         }
     }
 
-    //删除关注tag
-
-    public function follow_tag_del(){
-        $tag['tag'] = $this->_post('tag','trim');
-        $tag['userid'] = $this->_post('userid','trim');
-        $notify_tag = M("notify_tag");
-        $notify_tag->where(array("tag"=>$tag['tag'],"userid"=>$tag['userid']))->delete();
-        $this->ajaxReturn("1",'删除关注成功!');
-    }
 
 }

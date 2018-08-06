@@ -11,5 +11,5 @@ $(function(e) {
 	
 	// $("#user").load("../public/user-m.html");
 
-	$('#pages').length > 0 && ajaxPages('pages', page_count, page_size, page_curr, page_ajax_url, page_content_obj);
+	$("#pages").length && ajaxPages('pages', page, content);
 });

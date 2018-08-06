@@ -1,6 +1,7 @@
 $(function(e) {
-	pages("pages-sc");
-	$("#user").load("../public/user-m.html");
+	// pages("pages-sc");
+	ajaxPages('pages', page, content);
+	// $("#user").load("../public/user-m.html");
 	select("#select");
 	
 	//鼠标滑过出现删除和移动到

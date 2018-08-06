@@ -1,0 +1,43 @@
+<!--循环start-->
+				<volist name="userfollow_fans_list" id="val">
+				<div class="item-3 clearfix">
+					<a href="{:U('space/index', array('uid'=>$val['id']))}" title="{$val.username}"><img src="{:avatar($val['id'], 48)}" title="{$val.username}" alt="{$val.username}" width="84" height="84" class="fl lazyimg radius-3"/></a>
+					<div class="fl info">
+						<div><a href="{:U('member/index', array('uid'=>$var['id']))}" title="{$val.username}" class="font-16 a-green hover-underline">{$val.username}</a><span class="lv ml-5">LV{:grade($val['exp'])}</span></div>
+						<div class="fc-gray mt-5"><if condition="$val.intro and $val.intro !==''">{$val.intro}<else/>这家伙很懒，什么都没有留下.</if></div>
+						<div class="fc-aux-a op mt-5">
+							<span>
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_1@2x.png" width="24" height="24"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_1"></use>
+								</svg>
+								{$val['shares']}篇爆料
+							</span>
+							<span>
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_2@2x.png" width="24" height="24"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_2"></use>
+								</svg>
+								96个投票
+							</span>
+							<span>
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_3@2x.png" width="24" height="24"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_3"></use>
+								</svg>
+								2132个回复
+							</span>
+							<span>
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_4@2x.png" width="24" height="24"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_4"></use>
+								</svg>
+								83篇原创
+							</span>
+						</div>
+					</div>
+					<span class="fr gz lh cursor-pointer" onclick="tipsPopup('tips_1','已拉黑')">拉黑</span>
+					<!-- <span class="fr gz lh cursor-pointer" onclick="tipsPopup('tips_1','已取消拉黑')">已拉黑</span> -->
+				</div>
+				</volist>
+				<!--循环end-->

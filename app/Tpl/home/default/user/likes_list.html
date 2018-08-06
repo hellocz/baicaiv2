@@ -1,0 +1,61 @@
+<!--循环start-->
+				<volist name="likes_list" id="r">
+				<div class="item item-2 clearfix">
+					<img src="<if condition="$r['img']==''">/images/nopic.jpg<else/><if condition="preg_match('/img.baicaio.com/',$r['img'])">{:attach($r['img'],'item')}!thumb287<else/>{:attach($r['img'],'item')}</if></if>" class="fl lazyimg radius-3" width="106" height="106">
+					<div class="fl info ml-15">
+						<div class="tit"><if condition="$r['type']=='0'">
+						<span class="sytj">首页推荐</span>
+						<elseif condition="$r['type']=='1'"/>
+						<span class="rmyh">热门优惠</span>
+						<elseif condition="$r['type']=='2'"/>
+						<span class="qwtj">全网特价</span>
+						<elseif condition="$r['type']=='3'"/>
+						<span class="zt-2">已退回</span>
+						</if><a href="{:U('item/index',array('id'=>$r['itemid']))}" target="_blank">{$r.title}</a></div>
+						<div class="fc-aux-9 mt-8 font-13">{$r.add_time|fdate} 来自 <a href="{:U('member/index',array('uid'=>$r['item_uid']))}" target="_blank" class="a-green hover-underline">{$r.uname}</a></div>
+						<div class="op mt-20">
+							<a href="javascript:void(0);" onclick="tipsPopup('tips_1','投票成功')">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_6@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_6"></use>
+								</svg>
+								{$r.zan}
+							</a>
+							<a href="javascript:void(0);" onclick="tipsPopup('tips_1','投票成功')">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_7@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_7"></use>
+								</svg>
+								{$r.zan}
+							</a>
+							<a href="/public/page/details.html#comments" target="_blank">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/a_43@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-a_43"></use>
+								</svg>
+								{$r.comments}评论
+							</a>
+						</div>
+					</div>
+					<div class="fr">
+						<div class="fc-aux-a text-right">{$r.addtime|fdate}</div>
+						<div class="cz clearfix" style="position: relative;">
+							<!-- <div class="fl select-2">
+								<div class="select layui-elip">移动到...</div>
+								<ul class="op">
+									<li class="layui-elip">收藏清单一</li>
+									<li class="layui-elip">收藏清单二</li>
+									<li class="layui-elip">收藏清单三</li>
+								</ul>
+							</div> -->
+							<div class="fl del ml-10 J_like_del" data-url="{:U('user/del_likes',array('itemid'=>$r['itemid'],'xid'=>$r['xid'],'uid'=>$r['uid']))}">
+								<svg class="icon">
+									<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_4@2x.png" width="16" height="16"></desc><![endif]-->
+									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_4"></use>
+								</svg>
+							</div>
+						</div>
+					</div>
+				</div>
+				</volist>
+				<!--循环end-->

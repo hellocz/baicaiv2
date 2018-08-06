@@ -215,7 +215,7 @@ function fdate($time) {
     } else {
         switch ($d) {
             case $d < $atd:
-                $fdate = date('Y年m月d日', $time);
+                $fdate = date('Y.m.d', $time);
                 break;
             case $d < $td:
                 $fdate = '后天' . date('H:i', $time);
@@ -239,13 +239,13 @@ function fdate($time) {
                 $fdate = '前天' . date('H:i', $time);
                 break;
             case $d < $md:
-                $fdate = date('Y年m月d日 H:i', $time);
+                $fdate = date('Y.m.d H:i', $time);
                 break;
             case $d < $ld:
-                $fdate = date('Y年m月d日 H:i', $time);
+                $fdate = date('Y.m.d H:i', $time);
                 break;
             default:
-                $fdate = date('Y年m月d日 H:i', $time);
+                $fdate = date('Y.m.d H:i', $time);
                 break;
         }
     }

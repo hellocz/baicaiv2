@@ -34,7 +34,7 @@ class commentModel extends Model
         if(!$uid) return false;
         
         $where = "uid='$uid' and status=1"; 
-        $count = $this->counts($where);
+        $count = $this->where($where)->count();
         return $count;
     }
 
@@ -45,7 +45,7 @@ class commentModel extends Model
         if(!$uid) return false;
         
         $where = "uid='$uid' and status=1"; 
-        $list = $this->comment_list($where, $order, $limit);
+        $list = $this->where($where)->order($order)->limit($limit)->select();
         if(count($list) > 0){
             foreach($list as $key=>$val){
                 $arr=array();

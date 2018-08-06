@@ -1,0 +1,15 @@
+<ul class="hotFocus clearfix">
+					<!--循环start-->
+					<volist name="hot_keysfollow_list" id="r">
+					<li>
+						<div class="font-24 lvcenter" style="height: 70px;">{$r.tag}</div>
+						<div class="text-center font-14 fc-grey">{$r.count}菜油已关注</div>
+						<if condition="$r['is_follow'] eq '1'" >
+						<div class="button" onclick="tipsPopup('tips_1','已取消关注')">已关注</div>
+						<else/>
+						<div class="button" onclick="tipsPopup('tips_1','已关注')">+关注</div>
+						</if>
+					</li>
+					</volist>
+					<!--循环end-->
+				</ul>

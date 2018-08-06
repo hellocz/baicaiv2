@@ -1,7 +1,8 @@
 $(function(e) {
-	tabSub(".tabNav",".rightInfo",".listBox");
-	pages("pages-gz");
-	pages("pages-fs");
+	// tabSub(".tabNav",".rightInfo",".listBox");
+	// pages("pages-gz");
+	// pages("pages-fs");
 	
-	$("#user").load("../public/user-m.html");
+	// $("#user").load("../public/user-m.html");
+	ajaxPages('pages', page, content);
 });
