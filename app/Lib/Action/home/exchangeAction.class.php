@@ -24,20 +24,21 @@ class exchangeAction extends frontendAction {
     public function index() {    
         $p = $this->_get('p', 'intval', 1);
         if($p<1){$p=1;}
+        $pagesize = 2;
 
-        $where = array('status'=>'1', 'cate_id' => array('NEQ','8'));
-        // $sort_order = 'id DESC';
-        $page = array();
-        $page['p'] = $p;
-        $page['size'] = 2;
-        $page['count'] = $this->item_mod->where($where)->count('id');        
-        // $pager = $this->_pager($count, $pagesize);
-        // $item_list = $this->item_mod->where($where)->order($sort_order)->limit($pager->firstRow.','.$pager->listRows)->select();
-        // $this->assign('item_list', $item_list);
-        $this->get_score_item_list('exchange', $page['p'], $page['size']);
+        //count
+        $count = $this->item_mod->item_counts('exchange');
 
-        // $this->assign('page_bar', $pager->fshow());
-        $this->assign('page', $page);
+        //列表
+        $this->get_score_item_list('exchange', $p, $pagesize);
+
+        $page = array(
+            'p'=>$p, 
+            'size'=>$pagesize, 
+            'count'=> $count,
+            'url'=> "/index.php?m=exchange&a=get_score_item_list&t=exchange",
+        );
+        $this->assign('page', json_encode($page));
         $this->assign('page_seo',set_seo("礼品兑换"));
         $this->display();
     }
@@ -48,28 +49,25 @@ class exchangeAction extends frontendAction {
     public function lucky() {
         $p = $this->_get('p', 'intval', 1);
         if($p<1){$p=1;}
-
-        $where = array('status'=>'1');
-        $where['cate_id'] = 8;
-        $where['win'] = ''; 
-
-        // $pager = $this->_pager($count, 20);
-        // $item_list = $this->item_mod->where($where)->order($sort_order)->limit($pager->firstRow.','.$pager->listRows)->select();
+        $pagesize = 8;
+        
+        //积分抽奖
         $this->get_score_item_list('lucky', $p, 100);
 
-        $where['win'] = array('NEQ','');
-        $page = array();
-        $page['p'] = $p;
-        $page['size'] = 8;
-        $page['count'] = $this->item_mod->where($where)->count('id');
-        // $expired_item_list = $this->item_mod->where($where)->order($sort_order)->limit(5)->select();
-        $this->get_score_item_list('lucky_expired', $page['p'], $page['size']);
+        //往期抽奖
+        $count = $this->item_mod->item_counts('lucky_expired');
+        $this->get_score_item_list('lucky_expired', $p, $pagesize);
 
         //右边最新中奖名单
         $this->right_lucky_item();
 
-        // $this->assign('page_bar', $pager->fshow());
-        $this->assign('page', $page);
+        $page = array(
+            'p'=>$p, 
+            'size'=>$pagesize, 
+            'count'=> $count,
+            'url'=> "/index.php?m=exchange&a=get_score_item_list&t=lucky_expired",
+        );
+        $this->assign('page', json_encode($page));
         $this->assign('page_seo',set_seo("礼品兑换"));
         $this->display();
     }
@@ -88,21 +86,19 @@ class exchangeAction extends frontendAction {
         $item = $this->item_mod->get_info($id);
         !$item && $this->error('该信息不存在或已删除');
         // 中奖用户ID 
-        if($item['win'] != ""){
-            $order = $this->order_mod->get_lucky_score_order($item['id'], $item['win']);
+        if($item['cate_id'] == 8 && $item['win'] != ""){
+            $order = $this->order_mod->get_lucky_order($item['id'], $item['win']);
             $item['uid'] = $order['uid'];
         }
         $this->assign('item', $item);        
 
-        //兑换记录(首页不做分页)
-        $page = array();
-        $page['count'] = $this->order_mod->where("item_id=$id")->count('id');
-        $page['size'] = 20;
-        $page['p'] = $p;
-        $this->get_score_order_list($id, $page['p'], $page['size']);
+        //兑换记录
+        $count = $this->order_mod->order_counts($id);
+        $pagesize = 20;
+        $this->get_score_order_list($id, $p, $pagesize);
 
         $expire = 0; //未开奖
-        if($item['win'] != ""){ //已开奖
+        if($item['win']){ //已开奖
             $expire = 2;
         }else if($item['sign_date'] < time()){ //等待开奖
             $expire = 1;
@@ -111,8 +107,14 @@ class exchangeAction extends frontendAction {
         //右边最新中奖名单
         $this->right_lucky_item();
 
+        $page = array(
+            'p'=>$p, 
+            'size'=>$pagesize, 
+            'count'=> $count,
+            'url'=> '/index.php?m=exchange&a=get_score_order_list&id='.$id,
+        );
+        $this->assign('page', json_encode($page));
         $this->assign('expire',$expire);
-        $this->assign('page', $page);
         $this->_config_seo();
         $this->display();
     }
@@ -131,15 +133,7 @@ class exchangeAction extends frontendAction {
 
         $order = 'sign_date DESC,id DESC';
         $limit = $pagesize*($p-1) . ',' . $pagesize;
-        $item_list = $this->item_mod->score_item_list($t, $limit, $order);
-
-        // 中奖用户ID 
-        if($t == 'lucky_expired' && count($item_list)>0){
-            foreach ($item_list as $key => $val) {
-                $order = $this->order_mod->get_lucky_score_order($val['id'], $val['win']);
-                $item_list[$key]['uid'] = $order['uid'];
-            }
-        }
+        $item_list = $this->item_mod->item_list($t, $limit, $order);
 
         $this->assign("{$t}_item_list", $item_list);
 
@@ -171,29 +165,9 @@ class exchangeAction extends frontendAction {
         !$item && $this->error('该信息不存在或已删除');
 
         //抽奖/兑换记录
-        $where = "item_id=$id";
         $order = 'add_time desc,id desc';
         $limit = $pagesize*($p-1) . ',' . $pagesize;
-        $list = $this->order_mod->score_order_list($where, $limit, $order);
-        foreach($list as $key=>$val){
-            $list[$key]['uname']=get_uname($val['uid']);
-            if($item['cate_id'] == 8 ){
-                if( $item['sign_date'] !=""){
-                    if($item['sign_date'] >time()){
-                        $list[$key]['zero_info'] = "未开奖";
-                    }
-                    else{
-                        if($item['win'] !="" && $list[$key]['luckdraw_num'] == $item['win']){
-                            $list[$key]['zero_info'] = "中奖";
-                        }
-                        else{
-                            $list[$key]['zero_info'] = "未中奖";
-                        }
-
-                    }
-                }
-            }
-        }
+        $list = $this->order_mod->order_list($id, $limit, $order);
 
         $this->assign('order_list',$list);
 
@@ -213,7 +187,7 @@ class exchangeAction extends frontendAction {
     public function right_lucky_item(){
         $limit = 10;
         $sort_order = 'sign_date DESC,id DESC';
-        $item_list = $this->item_mod->score_item_list('lucky_expired');
+        $item_list = $this->item_mod->item_list('lucky_expired');
 
         $this->assign('right_lucky_item_list', $item_list);
     }

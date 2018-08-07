@@ -31,6 +31,8 @@ class userbaseAction extends frontendAction {
                 $sum_item = D("item")->user_bao_sum($uid);
                 $this->_user['zan'] = isset($sum_article['zan']) ? $sum_article['zan'] : 0;//原创：攻畋+晒单                
                 $this->_user['zan'] += isset($sum_item['zan']) ? $sum_item['zan'] : 0;//爆料
+
+                $this->assign('user',$this->_user);
             }
         }
 

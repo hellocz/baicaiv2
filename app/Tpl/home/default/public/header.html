@@ -234,7 +234,7 @@
 							<ul class="tab-list jifen clearfix" id="gd-list-1">
 								<div class="clearfix"><a href="{:U('exchange/lucky')}" class="fr font-12 fc-aux-9 more mr-10">浏览更多</a></div>
 								<ul class="jf-list mt-5 clearfix">
-									<?php $header_lucky_item_list = D('score_item')->score_item_list('lucky', 4);?>
+									<?php $header_lucky_item_list = D('score_item')->item_list('lucky', 4);?>
 									<volist name="header_lucky_item_list" id="r">
 									<li>
 										<p class="pic"><a href="{:U('exchange/detail', array('id'=>$r['id']))}"><img src="{:attach($r['img'], 'score_item')}" title="{$r.title}" alt="{$r.title}" class="lazyimg radius-3" width="186" height="186"></a><!-- <span class="radius-100">第21期</span> --></p>
@@ -249,7 +249,7 @@
 							<ul class="tab-list jifen none clearfix" id="gd-list-2">
 								<div class="clearfix"><a href="{:U('exchange/index')}" class="fr font-12 fc-aux-9 more mr-10">浏览更多</a></div>
 								<ul class="jf-list mt-5 clearfix">
-									<?php $header_exchange_item_list = D('score_item')->score_item_list('exchange', 4);?>
+									<?php $header_exchange_item_list = D('score_item')->item_list('exchange', 4);?>
 									<volist name="header_exchange_item_list" id="r">
 									<li>
 										<p class="pic"><a href="{:U('exchange/detail', array('id'=>$r['id']))}"><img src="{:attach($r['img'], 'score_item')}" title="{$r.title}" alt="{$r.title}" class="lazyimg radius-3" width="186" height="186"></a></p>

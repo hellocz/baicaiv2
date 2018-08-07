@@ -26,11 +26,11 @@ $(document).ready(function () {
 
 //layui分页插件 
 //积分抽奖、兑换order分页
-ajaxPages('pages-order', page_count, page_size, page_curr, page_ajax_url, page_content_obj);
+ajaxPages('pages-order', page, content);
 //积分抽奖分页
-ajaxPages('pages-exchange', page_count, page_size, page_curr, page_ajax_url, page_content_obj);
+ajaxPages('pages-exchange', page, content);
 //积分兑换分页
-ajaxPages('pages-lucky', page_count, page_size, page_curr, page_ajax_url, page_content_obj);
+ajaxPages('pages-lucky', page, content);
 
 
 function inTab(){

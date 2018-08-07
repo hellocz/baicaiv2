@@ -59,7 +59,6 @@ class userAction extends userbaseAction {
             $this->assign('page', json_encode($page));
         }
         $this->assign("t",$t);
-        $this->assign('user',$this->_user);
         $this->assign("page_seo",set_seo('个人中心'));
         $this->display();
     }
@@ -125,7 +124,7 @@ class userAction extends userbaseAction {
         $p = $this->_get('p', 'intval', 1);
         $status = $this->_get('status', 'trim');
         if($p<1){$p=1;}
-        $pagesize=1;        
+        $pagesize=10;        
         $uid=$this->_user['id'];
         if(!in_array($t, array('article', 'bao'))) $t = 'all';
         if(!in_array($status, array('0', '1', '2', '3'))) $status = '';
@@ -148,7 +147,6 @@ class userAction extends userbaseAction {
         $this->assign('page', json_encode($page));
         $this->assign("t",$t);
         $this->assign("status",$status);
-        $this->assign('user',$this->_user);
         $this->assign('page_seo',set_seo('我的文章 - 个人中心'));
         $this->display();
     }
@@ -215,7 +213,6 @@ class userAction extends userbaseAction {
             'url'=>'/index.php?m=user&a=get_likes_list&uid='.$uid,
         );
         $this->assign('page', json_encode($page));
-        $this->assign('user',$this->_user);
         $this->assign('page_seo',set_seo('我的收藏 - 个人中心'));
         $this->display();
     }
@@ -437,7 +434,6 @@ class userAction extends userbaseAction {
         $this->assign('count', $count);
         $this->assign('t', $t);
         $this->assign('page', json_encode($page));
-        $this->assign('user',$this->_user);
         $this->assign('page_seo',set_seo('我的关注 - 个人中心'));
         $this->display();
     }
@@ -543,6 +539,92 @@ class userAction extends userbaseAction {
     //         $this->ajaxReturn(0, L('delete_fans_failed'));
     //     }
     // }
+
+    /**
+     * 我的抽奖
+     */
+    public function lucky() {
+        $t = $this->_get('t',"trim"); 
+        $p = $this->_get('p', 'intval', 1);
+        $uid=$this->_user['id'];
+        if($p<1){$p=1;}
+        $pagesize = 10;
+        if($t != "lucky") $t = "win";
+
+        //抽奖记录
+        $count = D('score_order')->user_order_counts($t, $uid);
+        $this->get_score_order_list($t, $uid, $p, $pagesize);
+
+        $page = array(
+            'p'=>$p, 
+            'size'=>$pagesize, 
+            'count'=> $count,
+            'url'=> "/index.php?m=user&a=get_score_order_list&t={$t}&uid={$uid}",
+        );
+        $this->assign('page', json_encode($page));
+        $this->assign('t', $t);
+        $this->assign('page_seo',set_seo('我的抽奖 - 个人中心'));
+        $this->display();
+    }
+
+    /**
+     * 我的兑换
+     */
+    public function exchange() {
+        $p = $this->_get('p', 'intval', 1);
+        $uid=$this->_user['id'];
+        if($p<1){$p=1;}
+        $pagesize = 10;
+        $t = "exchange";
+
+        //抽奖记录
+        $count = D('score_order')->user_order_counts($t, $uid);
+        $this->get_score_order_list($t, $uid, $p, $pagesize);
+
+        $page = array(
+            'p'=>$p, 
+            'size'=>$pagesize, 
+            'count'=> $count,
+            'url'=> "/index.php?m=user&a=get_score_order_list&t={$t}&uid={$uid}",
+        );
+        $this->assign('page', json_encode($page));
+        $this->assign('page_seo',set_seo('我的兑换 - 个人中心'));
+        $this->display();
+    }
+
+    /**
+     * 积分兑换/抽奖记录，ajax分页请求
+     */
+    public function get_score_order_list($t = 'exchange', $uid = 0, $p = 1, $pagesize = 10) {
+        if (IS_AJAX) {
+            $t = $this->_get('t', 'trim');  //lucky, win, exchange
+            $uid = $this->_get('uid', 'intval', 0);
+            !$uid && $this->ajaxReturn(0, '用户不存在');    
+            $p = $this->_get('p', 'intval', 1);
+            $pagesize = $this->_get('pagesize', 'intval', 20);
+        }
+        if($p<1){$p=1;}
+        if($pagesize<1){$pagesize=10;}
+
+        //抽奖/兑换记录
+        $order = 'add_time desc,id desc';
+        $limit = $pagesize*($p-1) . ',' . $pagesize;
+        $list = D('score_order')->user_order_list($t, $uid, $limit, $order);
+
+        if($t != "exchange"){
+            $t = "lucky";
+        }
+        $this->assign("{$t}_list",$list);
+
+        //AJAX分页请求
+        if (IS_AJAX) {
+            $this->assign('item', $item);    
+            $data = array(
+                'list' => $this->fetch("{$t}_list"),
+            ); 
+            $this->ajaxReturn(1, "", $data);
+        }
+    }
 
     /**
      * 用户登陆

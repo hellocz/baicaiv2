@@ -23,7 +23,7 @@
 		<div class="fl rightInfo white-bg radius-3">
 			<div class="r-title">
 				<span class="font-16" style="position: relative;top: 15px;">兑换记录</span>
-				<a href="/public/page/integralMall.html" class="fr btn-3 btn-cj">去兑换</a>
+				<a href="{:U('exchange/index')}" class="fr btn-3 btn-cj">去兑换</a>
 			</div>
 			<ul class="tab font-13 clearfix" style="padding: 0 14px;">
 				<li class="fl" style="width: 472px;">兑换商品</li>
@@ -31,141 +31,36 @@
 				<li class="fl text-center" style="width: 188px;">消耗</li>
 				<li class="fl text-right" style="width: 63px;">状态</li>
 			</ul>
+
+			<notempty name="exchange_list">
 			<!--兑换记录start-->
 			<div class="listBox">
-				<!--循环start-->
-				<div class="item item-1 clearfix">
-					<img src="/public/images/item/1.jpg" width="60" height="60" class="fl radius-3 lazyimg">
-					<div class="fl info vcenter font-14" style="height: 60px; width: 400px;">
-						<div>
-							<p class="layui-elip" style="width: 400px;">为什么 Windows 窗口有无数大小，却没有出现 移动端所谓“适配”的问题呢？</p>
-							<p class="fc-green mt-5">顺丰速运：8675675232</p>
-						</div>
-					</div>
-					<div class="fl lvcenter fc-aux-9 font-14" style="width: 138px; height: 60px;">2018.3.25 15:30</div>
-					<div class="fl lvcenter fc-aux-9 font-14" style="width: 188px; height: 60px;">1000油票 +1000积分</div>
-					<div class="fr vcenter fc-green font-14" style="height: 60px;">已发货</div>
+				<div class="list-data">
+					<include file="exchange_list"/>
 				</div>
-				
-				<div class="item item-1 clearfix">
-					<img src="/public/images/item/2.jpg" width="60" height="60" class="fl radius-3 lazyimg">
-					<div class="fl info vcenter font-14" style="height: 60px; width: 400px;">
-						<div>
-							<p class="layui-elip" style="width: 400px;">为什么 Windows 窗口有无数大小，却没有出现 移动端所谓“适配”的问题呢？</p>
-						</div>
-					</div>
-					<div class="fl lvcenter fc-aux-9 font-14" style="width: 138px; height: 60px;">2018.3.25 15:30</div>
-					<div class="fl lvcenter fc-aux-9 font-14" style="width: 188px; height: 60px;">1000油票 +1000积分</div>
-					<div class="fr vcenter dfh font-14" style="height: 60px;">待发货</div>
-				</div>
-				
-				<div class="item item-1 clearfix">
-					<img src="/public/images/item/3.jpg" width="60" height="60" class="fl radius-3 lazyimg">
-					<div class="fl info vcenter font-14" style="height: 60px; width: 400px;">
-						<div>
-							<p class="layui-elip" style="width: 400px;">为什么 Windows 窗口有无数大小，却没有出现 移动端所谓“适配”的问题呢？</p>
-						</div>
-					</div>
-					<div class="fl lvcenter fc-aux-9 font-14" style="width: 138px; height: 60px;">2018.3.25 15:30</div>
-					<div class="fl lvcenter fc-aux-9 font-14" style="width: 188px; height: 60px;">1000油票 +1000积分</div>
-					<div class="fr vcenter dfh font-14" style="height: 60px;">待发货</div>
-				</div>
-				
-				<div class="item item-1 clearfix">
-					<img src="/public/images/item/4.jpg" width="60" height="60" class="fl radius-3 lazyimg">
-					<div class="fl info vcenter font-14" style="height: 60px; width: 400px;">
-						<div>
-							<p class="layui-elip" style="width: 400px;">为什么 Windows 窗口有无数大小，却没有出现 移动端所谓“适配”的问题呢？</p>
-						</div>
-					</div>
-					<div class="fl lvcenter fc-aux-9 font-14" style="width: 138px; height: 60px;">2018.3.25 15:30</div>
-					<div class="fl lvcenter fc-aux-9 font-14" style="width: 188px; height: 60px;">1000油票 +1000积分</div>
-					<div class="fr vcenter dfh font-14" style="height: 60px;">待发货</div>
-				</div>
-				
-				<div class="item item-1 clearfix">
-					<img src="/public/images/item/5.jpg" width="60" height="60" class="fl radius-3 lazyimg">
-					<div class="fl info vcenter font-14" style="height: 60px; width: 400px;">
-						<div>
-							<p class="layui-elip" style="width: 400px;">为什么 Windows 窗口有无数大小，却没有出现 移动端所谓“适配”的问题呢？</p>
-						</div>
-					</div>
-					<div class="fl lvcenter fc-aux-9 font-14" style="width: 138px; height: 60px;">2018.3.25 15:30</div>
-					<div class="fl lvcenter fc-aux-9 font-14" style="width: 188px; height: 60px;">1000油票 +1000积分</div>
-					<div class="fr vcenter dfh font-14" style="height: 60px;">待发货</div>
-				</div>
-				
-				<div class="item item-1 clearfix">
-					<img src="/public/images/item/6.jpg" width="60" height="60" class="fl radius-3 lazyimg">
-					<div class="fl info vcenter font-14" style="height: 60px; width: 400px;">
-						<div>
-							<p class="layui-elip" style="width: 400px;">为什么 Windows 窗口有无数大小，却没有出现 移动端所谓“适配”的问题呢？</p>
-							<p class="fc-green mt-5">顺丰速运：8675675232</p>
-						</div>
-					</div>
-					<div class="fl lvcenter fc-aux-9 font-14" style="width: 138px; height: 60px;">2018.3.25 15:30</div>
-					<div class="fl lvcenter fc-aux-9 font-14" style="width: 188px; height: 60px;">1000油票 +1000积分</div>
-					<div class="fr vcenter fc-green font-14" style="height: 60px;">已发货</div>
-				</div>
-				
-				<div class="item item-1 clearfix">
-					<img src="/public/images/item/7.jpg" width="60" height="60" class="fl radius-3 lazyimg">
-					<div class="fl info vcenter font-14" style="height: 60px; width: 400px;">
-						<div>
-							<p class="layui-elip" style="width: 400px;">为什么 Windows 窗口有无数大小，却没有出现 移动端所谓“适配”的问题呢？</p>
-						</div>
-					</div>
-					<div class="fl lvcenter fc-aux-9 font-14" style="width: 138px; height: 60px;">2018.3.25 15:30</div>
-					<div class="fl lvcenter fc-aux-9 font-14" style="width: 188px; height: 60px;">1000油票 +1000积分</div>
-					<div class="fr vcenter dfh font-14" style="height: 60px;">待发货</div>
-				</div>
-				
-				<div class="item item-1 clearfix">
-					<img src="/public/images/item/8.jpg" width="60" height="60" class="fl radius-3 lazyimg">
-					<div class="fl info vcenter font-14" style="height: 60px; width: 400px;">
-						<div>
-							<p class="layui-elip" style="width: 400px;">为什么 Windows 窗口有无数大小，却没有出现 移动端所谓“适配”的问题呢？</p>
-						</div>
-					</div>
-					<div class="fl lvcenter fc-aux-9 font-14" style="width: 138px; height: 60px;">2018.3.25 15:30</div>
-					<div class="fl lvcenter fc-aux-9 font-14" style="width: 188px; height: 60px;">1000油票 +1000积分</div>
-					<div class="fr vcenter dfh font-14" style="height: 60px;">待发货</div>
-				</div>
-				
-				<div class="item item-1 clearfix">
-					<img src="/public/images/item/9.jpg" width="60" height="60" class="fl radius-3 lazyimg">
-					<div class="fl info vcenter font-14" style="height: 60px; width: 400px;">
-						<div>
-							<p class="layui-elip" style="width: 400px;">为什么 Windows 窗口有无数大小，却没有出现 移动端所谓“适配”的问题呢？</p>
-							<p class="fc-green mt-5">顺丰速运：8675675232</p>
-						</div>
-					</div>
-					<div class="fl lvcenter fc-aux-9 font-14" style="width: 138px; height: 60px;">2018.3.25 15:30</div>
-					<div class="fl lvcenter fc-aux-9 font-14" style="width: 188px; height: 60px;">1000油票 +1000积分</div>
-					<div class="fr vcenter fc-green font-14" style="height: 60px;">已发货</div>
-				</div>
-				
-				<div class="item item-1 clearfix">
-					<img src="/public/images/item/10.jpg" width="60" height="60" class="fl radius-3 lazyimg">
-					<div class="fl info vcenter font-14" style="height: 60px; width: 400px;">
-						<div>
-							<p class="layui-elip" style="width: 400px;">为什么 Windows 窗口有无数大小，却没有出现 移动端所谓“适配”的问题呢？</p>
-						</div>
-					</div>
-					<div class="fl lvcenter fc-aux-9 font-14" style="width: 138px; height: 60px;">2018.3.25 15:30</div>
-					<div class="fl lvcenter fc-aux-9 font-14" style="width: 188px; height: 60px;">1000油票 +1000积分</div>
-					<div class="fr vcenter dfh font-14" style="height: 60px;">待发货</div>
-				</div>
-				<!--循环end-->
+
 				<!--分页加载中start-->
 				<div class="page-loading"></div>
 				<!--分页加载中end-->
 				
 				<!--分页start-->
-				<div id="pages-zj" class="pages" style="text-align: center;"></div>
+				<script type="text/javascript">
+					var page={$page}, content = $(".listBox .list-data");
+				</script>
+				<div id="pages" class="pages" style="text-align: center;"></div>
 				<!--分页end-->
 			</div>
 			<!--兑换记录end-->
+			</empty>
+
+			<empty name="exchange_list">
+			<!--无记录start-->
+			<div class="noData">
+				<p class="fc-aux-9 font-16">攒积分ing</p>
+				<p class="fc-aux-c font-14 mt-5">免费礼品拿到手软！<a href="{:U('member/rule')}" class="a-green hover-underline">如何快速获取积分？</a></p>
+			</div>
+			<!--无记录end-->
+			</empty>
 		</div>
 		<!--右边内容end-->
 	</div>
