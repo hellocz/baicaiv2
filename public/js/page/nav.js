@@ -30,6 +30,9 @@ $(document).ready(function() {
 				"height":"54px",
 				"line-height":"54px",
 			});
+			$(".newMsg").css({
+				"top":"54px",
+			});
 			$("#header .top #logo").hide();
 			$("#header .top .index").show();
 			$("#header .top .top-search").css("margin-top","8px");
@@ -39,6 +42,9 @@ $(document).ready(function() {
 		} else {
 			$("#header").css({
 				"height":"90px",
+			});
+			$(".newMsg").css({
+				"top":"90px",
 			});
 			$("#header .top .nav-box .nav").css({
 				"height":"90px",
