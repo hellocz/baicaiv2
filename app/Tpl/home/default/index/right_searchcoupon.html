@@ -1,7 +1,7 @@
 <div class="mt-12 white-bg radius-3">
 				<div class="i-sq-top">
 					<div class="i-r-title font-16">
-						<a href="#" class="fr font-12 fc-aux-9">领券教程？</a><font class="font-w-b">搜券</font>
+						<a href="{:U('item/index',array('id'=>272745))}" class="fr font-12 fc-aux-9">领券教程？</a><font class="font-w-b">搜券</font>
 					</div>
 					<div class="sq-search radius-3">
 						<form action="{:U('quan/index')}" method="get">
@@ -12,14 +12,14 @@
 				</div>
 				<ul class="i-sq-content layui-row">
 					<!--列表循环start-->
-					<li class="layui-col-xs3"><a href="#" target="_blank" class="fc-grey"><i class="icon4 icon4-G_2"></i><br>9.9包邮</a></li>
-					<li class="layui-col-xs3"><a href="#" target="_blank" class="fc-grey"><i class="icon4 icon4-d_8"></i><br>美食</a></li>
-					<li class="layui-col-xs3"><a href="#" target="_blank" class="fc-grey"><i class="icon4 icon4-d_10"></i><br>家居</a></li>
-					<li class="layui-col-xs3"><a href="#" target="_blank" class="fc-grey"><i class="icon4 icon4-G_3"></i><br>鞋包</a></li>
-					<li class="layui-col-xs3"><a href="#" target="_blank" class="fc-grey"><i class="icon4 icon4-d_6"></i><br>母婴</a></li>
-					<li class="layui-col-xs3"><a href="#" target="_blank" class="fc-grey"><i class="icon4 icon4-G_24"></i><br>男装</a></li>
-					<li class="layui-col-xs3"><a href="#" target="_blank" class="fc-grey"><i class="icon4 icon4-d_1"></i><br>女装</a></li>
-					<li class="layui-col-xs3"><a href="#" target="_blank" class="fc-grey"><i class="icon4 icon4-G_4"></i><br>内衣</a></li>
+					<li class="layui-col-xs3"><a href="{:U('quan/index', array('q'=>param_encode('9.9包邮')))}" target="_blank" class="fc-grey"><i class="icon4 icon4-G_2"></i><br>9.9包邮</a></li>
+					<li class="layui-col-xs3"><a href="{:U('quan/index', array('q'=>'美食'))}" target="_blank" class="fc-grey"><i class="icon4 icon4-d_8"></i><br>美食</a></li>
+					<li class="layui-col-xs3"><a href="{:U('quan/index', array('q'=>'家居'))}" target="_blank" class="fc-grey"><i class="icon4 icon4-d_10"></i><br>家居</a></li>
+					<li class="layui-col-xs3"><a href="{:U('quan/index', array('q'=>'鞋包'))}" target="_blank" class="fc-grey"><i class="icon4 icon4-G_3"></i><br>鞋包</a></li>
+					<li class="layui-col-xs3"><a href="{:U('quan/index', array('q'=>'母婴'))}" target="_blank" class="fc-grey"><i class="icon4 icon4-d_6"></i><br>母婴</a></li>
+					<li class="layui-col-xs3"><a href="{:U('quan/index', array('q'=>'男装'))}" target="_blank" class="fc-grey"><i class="icon4 icon4-G_24"></i><br>男装</a></li>
+					<li class="layui-col-xs3"><a href="{:U('quan/index', array('q'=>'女装'))}" target="_blank" class="fc-grey"><i class="icon4 icon4-d_1"></i><br>女装</a></li>
+					<li class="layui-col-xs3"><a href="{:U('quan/index', array('q'=>'内衣'))}" target="_blank" class="fc-grey"><i class="icon4 icon4-G_4"></i><br>内衣</a></li>
 					<!--列表循环end-->
 				</ul>
 			</div>

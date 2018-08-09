@@ -4,7 +4,7 @@ $(function(e) {
 	// pages("pages-yc");
 	// pages("pages-bl");
 	// pages("pages-xx");
-	ajaxPages('pages', page, content);
+	$('#pages').length && ajaxPages('pages', page, content);
 	
 	// $("#user").load("../public/user-m.html");
 	//筛选按钮切换

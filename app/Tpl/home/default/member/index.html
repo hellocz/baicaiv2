@@ -68,14 +68,18 @@
 				<!--操作end-->
 			</div>
 			<div class="fr op">
-				<a href="javascript: void(0);" class="btn-3 cursor-pointer" onclick="tipsPopup('tips_1','加关注成功')">
+				<span data-uid="{$user['id']}" class="J_follow_user <if condition="$user['follow']">none</if>">
+					<a href="javascript: void(0);" class="btn-3 cursor-pointer">
 					<svg class="icon">
 						<!--[if lte IE 8]><desc><img src="/public/images/ie8/a_32@2x.png" width="16" height="16"></desc><![endif]-->
 						<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-a_32"></use>
 					</svg>
 					加关注
-				</a>
-				<!--<a href="javascript:void(0);" class="btn-4 cursor-pointer">已关注</a>-->
+					</a>
+				</span>
+				<span data-uid="{$user['id']}" class="J_unfollow_user <if condition="!$user['follow']">none</if>">
+					<a href="javascript:void(0);" class="btn-4 cursor-pointer">已关注</a>
+				</span>
 				<a href="#" class="btn-8 cursor-pointer">
 					<svg class="icon">
 						<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_20@2x.png" width="20" height="20"></desc><![endif]-->
@@ -83,6 +87,7 @@
 					</svg>
 					发私信
 				</a>
+				
 			</div>
 		</div>
 		<!--用户信息end-->
@@ -265,5 +270,29 @@
 
 	<!--引入页面单独JS文件-->
 	<script src="/public/js/page/userHome.js"></script>
+
+	<script type="text/javascript">
+
+		// //关注
+		// $(".J_follow_user").on("click",function(){
+		// 	var obj=$(this);
+		// 	result = followUser(obj.data("uid")); //关注
+		// 	if(result.status==1){
+		// 		obj.addClass("none");
+		// 		obj.siblings(".J_unfollow_user").removeClass("none");
+		// 	}
+		// });
+
+		// //取消关注
+		// $(".J_unfollow_user").on("click",function(){
+		// 	var obj=$(this);
+		// 	result = unfollowUser(obj.data("uid")); //取消关注
+		// 	if(result.status==1){
+		// 		obj.addClass("none");
+		// 		obj.siblings(".J_follow_user").removeClass("none");
+		// 		tipsPopup('tips_1', result.msg);
+		// 	}
+		// });
+	</script>
 </body>
 </html>

@@ -245,6 +245,7 @@ function pages(a){
 }
 
 function ajaxPages(a,page,content){
+	
 	layui.use(['laypage', 'layer'], function(){
 		var laypage = layui.laypage
 		,layer = layui.layer;
@@ -387,7 +388,7 @@ function ChangeTime() {
 //弹出登录层
 function LoginPopup(type){
 
-	$.get("index.php?m=user&a=login",function(res){
+	$.get("/index.php?m=user&a=login",function(res){
 
 		if(res.status == 0){
 			//已登录
@@ -520,3 +521,55 @@ function del(title,info,callback){
 		});
 	});
 }
+
+// //关注用户
+// function followUser(uid){
+// 	var result = false;
+// 	if(PINER.uid==""){
+// 		LoginPopup();
+// 		return false;
+// 	}
+// 	$.ajax({
+// 		type: 'GET',
+// 		url: '/index.php?m=user&a=follow',
+// 		data:{uid:uid},
+// 		dataType: 'json',
+// 		async: false, //同步
+// 		cache: false,
+// 		success: function (res) {
+// 			if(res.status==0){
+// 				tipsPopup('tips_2', res.msg);
+// 			}else{
+// 				tipsPopup('tips_1', res.msg);
+// 			}
+// 			result = res;
+// 		}
+// 	});
+// 	return result;
+// }
+
+// //取消关注用户
+// function unfollowUser(uid){
+// 	var result = false;
+// 	if(PINER.uid==""){
+// 		LoginPopup();
+// 		return false;
+// 	}
+// 	$.ajax({
+// 		type: 'GET',
+// 		url: '/index.php?m=user&a=unfollow',
+// 		data:{uid:uid},
+// 		dataType: 'json',
+// 		async: false, //同步
+// 		cache: false,
+// 		success: function (res) {
+// 			if(res.status==0){
+// 				tipsPopup('tips_2', res.msg);
+// 			}else{
+// 				tipsPopup('tips_1', res.msg);
+// 			}
+// 			result = res;
+// 		}
+// 	});
+// 	return result;
+// }

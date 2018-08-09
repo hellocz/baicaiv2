@@ -71,35 +71,28 @@
 	<!--引入页面单独JS文件-->
 	<script src="/public/js/member/myFans.js"></script>
 
-<script type="text/javascript">
+	<script type="text/javascript">
 
-	//关注
-	$(".J_follow_btn").on("click",function(){
-		var obj=$(this);
-		$.get(PINER.root+ '/?m=user&a=follow',{uid:$(this).data("uid")},function(result){
-			if(result.status==0){
-				tipsPopup('tips_2', result.msg);
-			}else{
-				obj.addClass("none");
-				obj.siblings(".J_unfollow_btn").removeClass("none");
-				tipsPopup('tips_1', result.msg);
-			}
-		},'json');
-	});
+		// //关注
+		// $(".J_follow_user").on("click",function(){
+		// 	var obj=$(this);
+		// 	result = followUser(obj.data("uid")); //关注
+		// 	if(result.status==1){
+		// 		obj.addClass("none");
+		// 		obj.siblings(".J_unfollow_user").removeClass("none");
+		// 	}
+		// });
 
-	//取消关注
-	$(".J_unfollow_btn").on("click",function(){
-		var obj=$(this);
-		$.get(PINER.root+ '/?m=user&a=unfollow',{uid:$(this).data("uid")},function(result){
-			if(result.status==0){
-				tipsPopup('tips_2', result.msg);
-			}else{
-				obj.addClass("none");
-				obj.siblings(".J_follow_btn").removeClass("none");
-				tipsPopup('tips_1', result.msg);
-			}
-		},'json');
-	});
-</script>
+		// //取消关注
+		// $(".J_unfollow_user").on("click",function(){
+		// 	var obj=$(this);
+		// 	result = unfollowUser(obj.data("uid")); //取消关注
+		// 	if(result.status==1){
+		// 		obj.addClass("none");
+		// 		obj.siblings(".J_follow_user").removeClass("none");
+		// 		tipsPopup('tips_1', result.msg);
+		// 	}
+		// });
+	</script>
 </body>
 </html>

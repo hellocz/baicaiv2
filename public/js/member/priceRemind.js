@@ -1,6 +1,6 @@
 $(function(e) {
 	// pages("pages-gz");
-	ajaxPages('pages', page, content);
+	$('#pages').length && ajaxPages('pages', page, content);
 	// $("#user").load("../public/user-m.html");
 	
 	//编辑显示

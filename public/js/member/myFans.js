@@ -4,5 +4,5 @@ $(function(e) {
 	// pages("pages-fs");
 	
 	// $("#user").load("../public/user-m.html");
-	ajaxPages('pages', page, content);
+	$('#pages').length && ajaxPages('pages', page, content);
 });

@@ -1,8 +1,9 @@
 $(function(e) {
-	tabSub(".tabNav",".rightInfo",".listBox");
-	pages("pages-card");
+	// tabSub(".tabNav",".rightInfo",".listBox");
+	// pages("pages-card");
+	$('#pages').length && ajaxPages('pages', page, content);
 	
-	$("#user").load("../public/user-m.html");
+	// $("#user").load("../public/user-m.html");
 	
 	$(".radio").click(function(){
 		if($(this).find("i").is('.active')){

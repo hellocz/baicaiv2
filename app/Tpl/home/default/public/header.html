@@ -13,12 +13,12 @@
 			<div class="fl nav-box">
 				<ul>
 					<li>
-						<a href="#" class="nav">优惠<i class="haver-on"></i></a>
+						<a href="{:U('list/index')}" class="nav">优惠<i class="haver-on"></i></a>
 						<!--优惠下拉菜单内容start-->
 						<div class="triangle_border_up"></div>
 						<div class="sub yh radius-3">
 							<div class="fl l-tab">
-								<p class="sub-radius-1 active"><a href="#">优惠推荐</a></p>
+								<p class="sub-radius-1 active"><a href="{:U('list/index')}">优惠推荐</a></p>
 								<p><a href="#">我的关注</a></p>
 								<p><a href="#">好价爆料</a></p>
 							</div>
@@ -440,7 +440,7 @@
 	
 	<div class="w-100 white-bg top-nav">
 		<div class="w-1200 a-grey">
-			<a href="#">9.9人气包邮</a>
+			<a href="{:U('tag/index', array('q'=>param_encode('9.9包邮')))}">9.9人气包邮</a>
 			<?php $header_cate_list = D('item_cate')->cate_cache();?>
 			<volist name="header_cate_list['p']" id="val">
 			<if condition="$val['is_index'] eq '1'">

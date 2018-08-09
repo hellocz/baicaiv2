@@ -61,15 +61,7 @@ class itemAction extends frontendAction {
         }
 
         //标签
-        $tag_list = unserialize($item['tag_cache']);
-
-        $item['tag_list'] = array();
-        if(count($tag_list) > 0){
-            foreach ($tag_list as $key => $value) {
-                $item['tag_list'][$key]['tag'] = $value;
-                $item['tag_list'][$key]['tag_encode'] = $this->param_encode($value);
-            }
-        }
+        $item['tag_list'] = unserialize($item['tag_cache']);
         // print_r($item['tag_list']);exit;
 
         foreach ($tag_list as $tag_value) {
@@ -292,20 +284,34 @@ class itemAction extends frontendAction {
         }
         $this->assign('cmt_list',$cmt_list);
 
-        //用户列表, 获得用户等级
+        //用户列表, 获得用户等级，是否关注
         $user_list = array();
         if(count($uids) > 0){
           array_push($uids, $this->visitor->info['id']);
           array_push($uids, $item['uid']);
           $where = array('id' => array("IN", $uids));
           $filed = "id,username,exp,shares";
-          $users = D("user")->user_list($where, $filed);
+          $users = D("user")->user_list($where, $filed);          
           if(count($users) > 0){
             foreach ($users as $val) {
               $user_list[$val['id']] = $val;
               $user_list[$val['id']]['grade'] = grade($val['exp']);
             }
           }
+
+          //是否关注
+          if($this->visitor->is_login){
+            $uid = $this->visitor->info['id'];
+            $follow_list = D("user_follow")->follow_list("uid=$uid");
+            if($follow_list){
+                foreach ($follow_list as $val) {
+                    if(isset($user_list[$val['follow_uid']])){
+                        $user_list[$val['follow_uid']]['follow'] = 1;
+                    }
+                }
+            }
+          }
+
         }
         $this->assign("user_list",$user_list);
         // echo "<pre>";print_r($users);echo "</pre>";exit;

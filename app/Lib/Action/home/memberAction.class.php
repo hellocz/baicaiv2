@@ -31,7 +31,7 @@ class memberAction extends frontendAction {
             $this->_user['follow']=false;
         }else{
             $myuser = $this->visitor->get();
-            $this->_user['follow']= D("user_follow")->is_follow($myuser[id], $uid);
+            $this->_user['follow']= D("user_follow")->is_follow($myuser['id'], $uid);
         }
         //发表的爆料、原创文章的总被点赞数
         $sum_article = D('article')->user_article_sum($uid);

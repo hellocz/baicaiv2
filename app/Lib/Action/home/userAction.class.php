@@ -291,7 +291,6 @@ class userAction extends userbaseAction {
             'url'=>'/index.php?m=user&a=get_keysfollow_list&uid='.$uid,
         );
         $this->assign('page', json_encode($page));
-        $this->assign('user',$this->_user);
         $this->assign('page_seo',set_seo('我的关注 - 个人中心'));
         $this->display();
     }
@@ -482,7 +481,7 @@ class userAction extends userbaseAction {
         $follow_uid = $this->_get('uid', 'intval');
         !$follow_uid && $this->ajaxReturn(0, L('follow_invalid_user'));
 
-        $uid = $this->visitor->info['id'];        
+        $uid = $this->visitor->info['id'];
         $follow_uid == $uid && $this->ajaxReturn(0, L('follow_self_not_allow'));
         $user_mod = D('user');
         if (!$user_mod->get_user_by_uid($follow_uid)) {
@@ -609,7 +608,7 @@ class userAction extends userbaseAction {
         //抽奖/兑换记录
         $order = 'add_time desc,id desc';
         $limit = $pagesize*($p-1) . ',' . $pagesize;
-        $list = D('score_order')->user_order_list($t, $uid, $limit, $order);
+        $list = D('score_order')->user_order_list($t, $uid, $order, $limit);
 
         if($t != "exchange"){
             $t = "lucky";
@@ -621,6 +620,67 @@ class userAction extends userbaseAction {
             $this->assign('item', $item);    
             $data = array(
                 'list' => $this->fetch("{$t}_list"),
+            ); 
+            $this->ajaxReturn(1, "", $data);
+        }
+    }
+
+    //我的优惠券
+    public function tick(){
+        $p = $this->_get('p', 'intval', 1);
+        $uid=$this->_user['id'];
+        if($p<1){$p=1;}
+        $pagesize = 12; //12
+        $t = $this->_get('t', 'trim');  //all, valid
+        if($t != 'all') $t = 'valid';
+
+        //清除过期超过6个月的券
+        D('tk')->clear($uid);
+
+        //总数
+        $count = D('tk')->user_tick_count($t, $uid);
+
+        //关注列表
+        $this->get_tick_list($t, $uid, $p, $pagesize); 
+
+        $page = array(
+            'p'=>$p, 
+            'size'=>$pagesize, 
+            'count'=>$count, 
+            'url'=>"/index.php?m=user&a=get_tick_list&t=$t&uid=$uid",
+        );
+        $this->assign('page', json_encode($page));
+        $this->assign('t', $t);
+        $this->assign('page_seo',set_seo('我的卡券 - 个人中心'));
+        $this->display();
+    }
+
+    /**
+     * 我的优惠券 - AJAX翻页请求
+     */
+    public function get_tick_list($t = '', $uid = 0, $p = 1, $pagesize = 8) {
+        if (IS_AJAX) {
+            $t = $this->_get('t', 'trim');  //valid
+            $uid = $this->_get('uid', 'intval', 0);
+            !$uid && $this->ajaxReturn(0, '用户不存在');          
+            $p = $this->_get('p', 'intval', 1);
+            $pagesize = $this->_get('pagesize', 'intval', 8);
+        }
+        if($p<1){$p=1;}
+
+        //商城
+        $orig_list = D("item_orig")->orig_cache();
+        $this->assign("orig_list",$orig_list);
+
+        $order = "get_time desc, tk_id desc";
+        $limit = $pagesize*($p-1) . ',' . $pagesize;        
+        $list = D('tk')->user_tick_list($t, $uid, $order, $limit);
+        $this->assign("tick_list",$list);
+
+        //AJAX分页请求
+        if (IS_AJAX) {
+            $data = array(
+                'list' => $this->fetch("tick_list"),
             ); 
             $this->ajaxReturn(1, "", $data);
         }
@@ -1357,52 +1417,7 @@ class userAction extends userbaseAction {
     // }
 
 
-	//我的优惠券
-	public function tick(){
-		!$this->visitor->is_login && $this->redirect('user/login');
-		$user = $this->visitor->get();
-		$mod_tick = M('tk');
-		$where =" 1=1 and uid=$user[id] ";
-		$gq = $this->_get('gq','intval');
-        $mod_xs= M('tick')->where(' DATE_SUB( CURDATE( ) , INTERVAL 1 MONTH ) > DATE( end_time )')->field('id')->select();
-        if($mod_xs){
-            foreach($mod_xs as $v){
-                $arr[]=$v['id'];
-            }
-        $mod_tick->where(array('tick_id'=>array('in',$arr),'uid'=>$user['id']))->delete();
-        }
-        $count = $mod_tick->where($where)->count();
 
-
-		if($gq==1){$where .=" and t.end_time<NOW() ";$tab=1;}
-		$pagesize=10;
-
-
-		$pager=$this->_pager($count,$pagesize);
-		$join = " try_tick t ON t.id = try_tk.tick_id ";
-		//$field= "t.orig_id,t.name,t.start_time,t.end_time,t.id，*";
-		$list = $mod_tick->where($where)->join($join)->order("get_time desc, tk_id desc")->limit($pager->firstRow.",".$pager->listRows)->select();
-
-        foreach($list as $k=>$v){
-            if(strtotime($list[$k]['end_time'])<time()){
-                $list[$k]['sssss']=1;
-            }
-        }
-		
-		$this->assign('list',$list);
-		$this->assign('page_bar',$pager->fshow());
-		//全部
-		$all = $mod_tick->where("uid=$user[id]")->count();
-		$this->assign('all',$all);
-		//已过期
-		$gq = $mod_tick->where("uid=$user[id] and t.end_time<Now()")->join($join)->count();
-		$this->assign('gq',$gq);
-		$this->assign('tab',$tab);
-		$this->_config_seo(array(
-            'title' => $user['username'] . L('space_fans_title') . '-' . C('pin_site_name'),
-        ));
-		$this->display();
-	}
 	//我的评论
 	public function comments(){
 		!$this->visitor->is_login && $this->redirect('user/login');

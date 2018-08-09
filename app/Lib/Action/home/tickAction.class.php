@@ -157,27 +157,7 @@ class tickAction extends frontendAction {
 		$this->_config_seo();	
 		$this->display();
 	}
-	//商城优惠券
-	public function orig(){
-		$id = $this->_get('id','intval');
-		!$id&&$this->_404();
-		$mod_orig=M("item_orig");
-		$mod=M('tick');
-		$info = $mod_orig->where("id=$id")->find();
-		$this->assign('info',$info);
-		!info && $this->_404();
-		$pagesize=8;
-		$count = $mod->where("orig_id=$id and DATEDIFF(now() ,start_time)>0 and DATEDIFF(end_time,now())>0")->count();
-		$pager=$this->_pager($count,$pagesize);
-		$list = $mod->where("orig_id=$id and DATEDIFF(now() ,start_time)>0 and DATEDIFF(end_time,now())>0")->limit($pager->firstRow.",".$pager->listRows)->select();
-		foreach($list as $key=>$val){
-			$list[$key]['days']=round(abs(strtotime($val['end_time'])-time())/3600/24);
-		}
-		$this->assign('pagebar',$pager->fshow());
-		$this->assign('list',$list);
-		$this->_config_seo();
-		$this->display();
-	}
+
 	//兑换优惠券
 	public function tkdh(){
 		!$this->visitor->is_login&&$this->ajaxReturn(0,'');//未登录
@@ -228,6 +208,31 @@ class tickAction extends frontendAction {
 		$_SESSION['user_info']['message']=M('message')->where("to_id='".$info['id']."' and ck_status=0")->count();
 		$this->ajaxReturn(2,'兑换成功!快去个人中心-我的优惠卷看看吧！');
 	}
+
+	//商城优惠券
+	public function orig(){
+		$id = $this->_get('id','intval');
+		!$id&&$this->_404();
+		$mod_orig=M("item_orig");
+		$mod=M('tick');
+		$info = $mod_orig->where("id=$id")->find();
+		$this->assign('info',$info);
+		!info && $this->_404();
+		$pagesize=8;
+		$count = $mod->where("orig_id=$id and DATEDIFF(now() ,start_time)>0 and DATEDIFF(end_time,now())>0")->count();
+		$pager=$this->_pager($count,$pagesize);
+		$list = $mod->where("orig_id=$id and DATEDIFF(now() ,start_time)>0 and DATEDIFF(end_time,now())>0")->limit($pager->firstRow.",".$pager->listRows)->select();
+		foreach($list as $key=>$val){
+			$list[$key]['days']=round(abs(strtotime($val['end_time'])-time())/3600/24);
+		}
+		$this->assign('pagebar',$pager->fshow());
+		$this->assign('list',$list);
+		$this->_config_seo();
+		$this->display();
+	}
+
+	
+
 	//显示券号
 	public function gettk(){
 		$tk_id=$this->_get('tk_id','intval');

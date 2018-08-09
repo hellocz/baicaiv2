@@ -34,6 +34,59 @@ $(function(){
 	// 		}
 	// 	},'json');
 	// });
+
+	//关注
+	$(".J_follow_user").on("click",function(){
+		if(PINER.uid==""){
+			LoginPopup();
+			return false;
+		}
+		var obj=$(this);
+		$.ajax({
+			type: 'GET',
+			url: '/index.php?m=user&a=follow',
+			data:{uid:obj.data('uid')},
+			dataType: 'json',
+			async: false, //同步
+			cache: false,
+			success: function (res) {
+				if(res.status==0){
+					tipsPopup('tips_2', res.msg);
+				}else{
+					obj.addClass("none");
+					obj.siblings(".J_unfollow_user").removeClass("none");
+					tipsPopup('tips_1', res.msg);
+				}
+			}
+		});
+	});
+
+	//取消关注
+	$(".J_unfollow_user").on("click",function(){
+		if(PINER.uid==""){
+			LoginPopup();
+			return false;
+		}
+		var obj=$(this);
+		$.ajax({
+			type: 'GET',
+			url: '/index.php?m=user&a=unfollow',
+			data:{uid:obj.data('uid')},
+			dataType: 'json',
+			async: false, //同步
+			cache: false,
+			success: function (res) {
+				if(res.status==0){
+					tipsPopup('tips_2', res.msg);
+				}else{
+					obj.addClass("none");
+					obj.siblings(".J_follow_user").removeClass("none");
+					tipsPopup('tips_1', res.msg);
+				}
+			}
+		});
+	});
+
 	// //关注
 	// $(".J_fo_btn").on("click",function(){
 	// 	var obj=$(this).parent();

@@ -4,6 +4,8 @@ class quanAction extends frontendAction {
 
     public function index(){
         $q = $this->_get('q', 'trim');
+        $q = param_decode($q);
+
         $s = $this->_get('s', 'trim');
         $coupon_history =urldecode(cookie('coupon_history'));
         // $coupon_sort = urldecode(cookie('coupon_sort'));

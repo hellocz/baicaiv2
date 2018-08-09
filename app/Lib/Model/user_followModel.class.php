@@ -138,4 +138,12 @@ class user_followModel extends Model
         }
     }
 
+    /**
+    * 关注列表
+    */
+    public function follow_list($where = '', $order = 'add_time desc', $limit = ''){
+        $list = $this->where($where)->order($order)->limit($limit)->select();
+        return $list;
+    }
+
 }

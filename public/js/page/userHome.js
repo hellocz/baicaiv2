@@ -8,6 +8,6 @@ $(function(){
 	// pages("pages-useryq");
 	// pages("pages-usersc");
 	// pages("pages-usergz");
-	$("#pages").length && ajaxPages('pages', page, content);
+	$('#pages').length && ajaxPages('pages', page, content);
 });
 

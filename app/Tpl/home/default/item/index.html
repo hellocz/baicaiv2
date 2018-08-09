@@ -115,12 +115,14 @@
 							<div class="font-24">{$item.title}<span class="fc-red">{$item.price}</span></div>
 							<div class="mt-15 biaoqian">
 								<volist name="item['tag_list']" id="r">
-								<a href="{:U('tag/index', array('q'=>$r['tag_encode']))}" class="label radius-100 fc-aux-a mr-5" target="_blank">{$r.tag}</a>
+								<a href="{:U('tag/index', array('q'=>param_encode($r)))}" class="label radius-100 fc-aux-a mr-5" target="_blank">{$r}</a>
 								</volist>
 							</div>
-							<div class="fc-grey mt-12 mb-12"><span class="font-w-b">爆料人：</span><a href="#" class="a-green mr-20 hover-underline">{$item.uname}</a><span class="fc-aux-9">发表时间：{$item.add_time|fdate}</span></div>
+							<div class="fc-grey mt-12 mb-12">
+								<if condition="$item['isbao'] eq 1"><span class="font-w-b">爆料人：</span><a href="{:U('member/index',array('uid'=>$item['uid']))}" class="a-green mr-20 hover-underline">{$item.uname}</a></if>
+								<span class="fc-aux-9">发表时间：{$item.add_time|fdate}</span></div>
 							<div class="inst radius-3">
-								<p><span class="font-w-b">商场运费：</span>{$orig.shipping}</p>
+								<p><span class="font-w-b">商场运费：</span><if condition="$orig['shipping'] neq ''">{$orig.shipping}<else/>--</if></p>
 								<p class="mt-8"><span class="font-w-b">折扣类型： </span><span class="layui-badge-rim">用券</span> <a href="#" class="a-green hover-underline">1000元满减券</a></p>
 							</div>
 							<div class="mt-15 clearfix">
@@ -338,7 +340,7 @@
 			
 			<!--加入关注清单start-->
 			<div class="mt-12 jrgz white-bg radius-3">
-				<span class="fr button btn-7 cursor-pointer">将{$cate_info.name}加入关注清单</span>
+				<span class="fr button btn-7 cursor-pointer">将“{$cate_info.name}”加入关注清单</span>
 				<span style="color: #AD6161;" class="font-16 font-w-b">需要更多相关优惠? </span>加入关注清单可自定义推送
 			</div>
 			<!--加入关注清单end-->
@@ -527,9 +529,6 @@
 	<!--新浪表情JS-->
 	<script src="/public/js/lib/sinaEmotion/jquery-1.8.0.min.js"></script>
 	<script src="/public/js/lib/sinaEmotion/jquery.sinaEmotion.js"></script>
-
-	<script src="/public/js/function.js?v=20180223"></script>
-
 
 	<script type="text/javascript">
 	//百度分享JS	

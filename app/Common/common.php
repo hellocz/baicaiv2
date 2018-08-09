@@ -429,8 +429,8 @@ function object_to_array($obj) {
 }
 /*获取商品来源*/
 function getly($orig_id){
-	$str = M("item_orig")->where("id=$orig_id")->getField('name');
-	return $str;
+	$info = D("item_orig")->get_info($orig_id);
+	return $info['name'];
 }
 /*获取活动名称*/
 function get_activityname($activity_id){
@@ -528,13 +528,9 @@ function score_item_img($id){
 }
 //获取商城图片
 function orig_img($id){
-	$img = M("item_orig")->where("id=$id")->getField("img_url");
-	if($img){
-		$img = attach($img,"item_orig");
-		return $img;
-	}else{
-		return '/images/nopic.jpg';
-	}
+	$info = D("item_orig")->get_info($id);
+	$img = attach($info['img_url'],"item_orig");
+	return $img;
 }
 //获取评论对象名称
 function get_item_name($id,$xid){
@@ -620,4 +616,21 @@ function get_result($state = 10001, $data , $msg="请求成功"){
    ];
     return json_encode($result);
 }
+
+function param_encode($str = '') {
+    //字符串处理，避免URL获取参数出错
+    // $str = urlencode($str);
+    $search = array("-",  ".");
+    $replace = array("_minus_",  "_dot_");
+    return str_replace ($search,  $replace,  $str);
+}
+
+function param_decode($str = '') {
+    //字符串处理，避免URL获取参数出错
+    // $str = urldecode($str);
+    $search = array("_minus_",  "_dot_");
+    $replace = array("-",  ".");
+    return str_replace ($search,  $replace,  $str);
+}
+
 ?>

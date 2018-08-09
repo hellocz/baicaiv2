@@ -10,7 +10,7 @@ class tagAction extends frontendAction {
         $q = $this->_get('q', 'trim'); //当前标签
 
         //字符串处理，避免URL获取参数出错
-        $tag = $this->param_decode($q);
+        $tag = param_decode($q);
 
         // if($tag =="9-9包邮"){
         //     $tag ="9.9包邮";

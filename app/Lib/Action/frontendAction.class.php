@@ -104,22 +104,6 @@ class frontendAction extends baseAction {
         }
     }
 
-    protected function param_encode($str = '') {
-        //字符串处理，避免URL获取参数出错
-        // $str = urlencode($str);
-        $search = array("-",  ".");
-        $replace = array("_minus_",  "_dot_");
-        return str_replace ($search,  $replace,  $str);
-    }
-
-    protected function param_decode($str = '') {
-        //字符串处理，避免URL获取参数出错
-        // $str = urldecode($str);
-        $search = array("_minus_",  "_dot_");
-        $replace = array("-",  ".");
-        return str_replace ($search,  $replace,  $str);
-    }
-
     /**
      * 天猫淘宝搜券
      */
