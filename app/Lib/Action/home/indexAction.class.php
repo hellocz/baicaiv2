@@ -139,9 +139,10 @@ class indexAction extends frontendAction {
 
 
 		//油菜排行，用户排名
-		$user_list['offer'] = M("user")->field("id,username,offer,exp")->order("offer desc,id asc")->limit(5)->select();
-		$user_list['exp'] = M("user")->field("id,username,exp")->order("exp desc,id asc")->limit(5)->select();
-		$user_list['shares'] = M("user")->field("id,username,shares,exp")->order("shares desc,id asc")->limit(5)->select();
+		$user_list['offer'] = D("user")->top_user_list('offer', '', 5); //贡献
+		$user_list['exp'] = D("user")->top_user_list('exp', '', 5); //等级
+		$user_list['comm'] = D("user")->top_user_list('comm', '', 5); //评论
+		$user_list['shares'] = D("user")->top_user_list('shares', '', 5); //爆料
 
 		if($this->visitor->is_login){
 
@@ -156,13 +157,7 @@ class indexAction extends frontendAction {
 		}
 
 		//商城列表
-		$orig_list = M("item_orig")->order("ordid asc")->select();
-		$origs = array();
-		if(count($orig_list) > 0){
-			foreach ($orig_list as $key => $val) {
-				$origs[$val['id']] = $val;
-			}
-		}
+		$origs = D("item_orig")->orig_cache();
 
 		$this->assign('origs',$origs);
 		$this->assign('front_list',$front_list);
@@ -176,6 +171,7 @@ class indexAction extends frontendAction {
 		$this->assign('hd_list',$hd_list);
 		$this->assign('user_list_offer',$user_list['offer']);
 		$this->assign('user_list_exp',$user_list['exp']);
+		$this->assign('user_list_comm',$user_list['comm']);
 		$this->assign('user_list_shares',$user_list['shares'] );
 
 		$this->assign('p',$p);
@@ -188,7 +184,7 @@ class indexAction extends frontendAction {
 
 		$where1['cate_id']=16;
 		$where1['status']=array("in","1,4");
-		$article_list = M("article")->where($where1)->order("add_time desc")->limit(4)->select();
+		$article_list = D("article")->article_list($where1, 4);
 		$this->assign("zx_list",$article_list);
 		$this->assign("article_hide",1);
 

@@ -19,7 +19,7 @@ class commentModel extends Model
     /**
     * 获得文章列表
     */
-    public function comment_list($where = '', $order = 'add_time desc', $limit = '1,10'){
+    public function comment_list($where = '', $limit = '1,10', $order = 'add_time desc'){
         if(!$order){
             $order = 'add_time desc';
         }
@@ -41,7 +41,7 @@ class commentModel extends Model
     /**
     * 用户评论列表
     */
-    public function user_comment_list($uid = 0, $order = 'add_time desc', $limit = '1,10'){
+    public function user_comment_list($uid = 0, $limit = '1,10', $order = 'add_time desc'){
         if(!$uid) return false;
         
         $where = "uid='$uid' and status=1"; 

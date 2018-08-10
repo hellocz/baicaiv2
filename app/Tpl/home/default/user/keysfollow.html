@@ -36,7 +36,7 @@
 					
 					<div class="button mt-20">
 						<!-- <button type="submit" class="btn-3 cursor-pointer" lay-submit lay-filter="formDemo">添加关注</button> -->
-						<button type="submit" class="btn-3 cursor-pointer key_submit" lay-submit>添加关注</button>
+						<button type="submit" class="btn-3 cursor-pointer J_follow_tag_m" lay-submit>添加关注</button>
 					</div>
 				</form>
 			</div>
@@ -61,8 +61,8 @@
 			<!--我的关注end-->
 			
 			<!--热门关注start-->
-			<div class="mt-40 ml-15 mr-15 font-16">热门关注<span class="fr fc-green font-14 cursor-pointer key_refresh" data-uid="{$user.id}">换一批</span></div>
-			<div class="hotlist">
+			<div class="mt-40 ml-15 mr-15 font-16">热门关注<span class="fr fc-green font-14 cursor-pointer J_refresh_tag" data-uid="{$user.id}">换一批</span></div>
+			<div class="hotList">
 				<include file="hot_keysfollow_list"/>
 			</div>
 			<div class="page-loading"></div>
@@ -78,87 +78,120 @@
 	<!--引入页面单独JS文件-->
 	<script src="/public/js/member/priceRemind.js"></script>
 
-<script type="text/javascript">
-$(".key_submit").click(function(){
-	var key_content = $.trim($(".key_content").val());
-	if(key_content == ""){
-		// tips("请输入关注的内容",0);
-		layer.tips("请输入关注的内容", ".key_content", {
-			tips: [2, '#33CC99'],
-			time: 2000
-		});
-	}
-	else{
-		$.post("/index.php?m=user&a=follow_tag_create",{tag:key_content},function(result){
+	<script type="text/javascript">
+
+	//用户-我的关注管理，添加关注
+	$(".J_follow_tag_m").on('click', function(){
+		var key_content = $.trim($(".key_content").val());
+		if(key_content == ""){
+			// tips("请输入关注的内容",0);
+			layer.tips("请输入关注的内容", ".key_content", {
+				tips: [2, '#33CC99'],
+				time: 2000
+			});
+		}
+		else{
+			$.post("/index.php?m=user&a=follow_tag_create",{tag:key_content},function(result){
+				if(result.status==1){
+					// tipsPopup('tips_1', result.msg);
+					layer.msg(result.msg,{time: 500});
+					window.location.href="/user-keysfollow";
+				}
+				else{
+					// tipsPopup('tips_2', result.msg);
+					layer.msg(result.msg,{time: 500});
+				}
+			},'json');
+		}
+
+		return false;
+	});
+
+	//用户-我的关注管理，推送
+	$(".J_notify_tag_m").on('click', function(){
+		obj = $(this);
+		$.post("/index.php?m=user&a=notify_tag_create",{tag:$(this).data("tag")},function(result){
 			if(result.status==1){
-				// tipsPopup('tips_1', result.msg);
+				obj.addClass("none");
+				obj.siblings(".J_unnotify_tag_m").removeClass("none");			
 				layer.msg(result.msg,{time: 500});
-				window.location.href="/user-keysfollow";
-			}
-			else{
-				// tipsPopup('tips_2', result.msg);
+			}else{
 				layer.msg(result.msg,{time: 500});
 			}
 		},'json');
-	}
+	});
 
-	return false;
-});
+	//用户-我的关注管理，取消推送
+	$(".J_unnotify_tag_m").on('click', function(){
+		obj = $(this);
+		$.post("/index.php?m=user&a=notify_tag_del",{tag:$(this).data("tag")},function(result){
+			if(result.status==1){
+				obj.addClass("none");
+				obj.siblings(".J_notify_tag_m").removeClass("none");
+				layer.msg(result.msg,{time: 500});
+			}else{
+				layer.msg(result.msg,{time: 500});
+			}
+		},'json');
+	});
 
-$(".key_notify").click(function(){
-	obj = $(this);
-	$.post("/index.php?m=user&a=notify_tag_create",{tag:$(this).data("tag")},function(result){
-		if(result.status==1){
-			// obj.html('暂停');
-			// obj.addClass("key_cancel").removeClass("key_notify");
-			obj.addClass("none");
-			obj.siblings(".key_cancel").removeClass("none");			
+	//用户-我的关注管理，取消关注
+	$(".J_unfollow_tag_m").on('click', function(){
+		obj = $(this);
+		$.post("/index.php?m=user&a=follow_tag_del",{tag:$(this).data("tag")},function(result){
+			if(result.status==1){
+				obj.parents(".item").remove();	
+			}
 			layer.msg(result.msg,{time: 500});
-		}else{
-			layer.msg(result.msg,{time: 500});
-		}
-	},'json');
-});
+		},'json');
+	});
 
-$(".key_cancel").click(function(){
-	obj = $(this);
-	$.post("/index.php?m=user&a=notify_tag_del",{id:$(this).data("id")},function(result){
-		if(result.status==1){
-			obj.addClass("none");
-			obj.siblings(".key_notify").removeClass("none");
-			layer.msg(result.msg,{time: 500});
-		}else{
-			layer.msg(result.msg,{time: 500});
-		}
-	},'json');
-});
+	//用户-我的关注，热门关注 - 换一批
+	$(".J_refresh_tag").on('click', function(){
+		obj = $(this);
+		content_obj = $(".hotList");
 
-$(".key_del").click(function(){
-	obj = $(this);
-	$.post("/index.php?m=user&a=follow_tag_del",{id:$(this).data("id")},function(result){
-		if(result.status==1){
-			obj.parents(".item").remove();			
-		}
-		layer.msg(result.msg,{time: 500});
-	},'json');
-});
+		// content_obj.hide();
+		content_obj.siblings(".page-loading").show();
 
-$(".key_refresh").click(function(){
-	obj = $(this);
-	content_obj = $(".hotlist");
+		$.get("/index.php?m=user&a=get_hot_keysfollow_list",{uid:$(this).data("uid")},function(result){
+			if(result.status==1){
+				content_obj.siblings(".page-loading").hide();
+				content_obj.html(result.data.list);
+				// content_obj.show();
+			}
+		},'json');
+	});
 
-	// content_obj.hide();
-	content_obj.siblings(".page-loading").show();
+	//用户-我的关注，热门关注 - TAG关注
+	$(".hotList").on('click', ".J_follow_tag_h", function(){
+		obj = $(this);
+		$.post("/index.php?m=user&a=follow_tag_create",{tag:$(this).data("tag")},function(result){
+			if(result.status==1){
+				obj.addClass("none");
+				obj.siblings(".J_unfollow_tag_h").removeClass("none");			
+				tipsPopup('tips_1', result.msg)
+			}else{
+				tipsPopup('tips_2', result.msg)
+			}
+		},'json');
+	});
 
-	$.get("/index.php?m=user&a=get_hot_keysfollow_list",{uid:$(this).data("uid")},function(result){
-		if(result.status==1){
-			content_obj.siblings(".page-loading").hide();
-			content_obj.html(result.data.list);
-			// content_obj.show();
-		}
-	},'json');
-});
+	//用户-我的关注，热门关注 - 取消TAG关注
+	$(".hotList").on('click', ".J_unfollow_tag_h", function(){
+		obj = $(this);
+		$.post("/index.php?m=user&a=follow_tag_del",{tag:$(this).data("tag")},function(result){
+			if(result.status==1){
+				obj.addClass("none");
+				obj.siblings(".J_follow_tag_h").removeClass("none");
+				tipsPopup('tips_1', result.msg)
+			}else{
+				tipsPopup('tips_2', result.msg)
+			}
+		},'json');
+	});
 
-</script>
+	</script>
+
 </body>
 </html>

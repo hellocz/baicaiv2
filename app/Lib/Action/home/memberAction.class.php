@@ -93,28 +93,25 @@ class memberAction extends frontendAction {
         if($p<1){$p=1;}
 
         $status = 1;
-        $field = "";
-        $order = "add_time desc";
         $limit = $pagesize*($p-1) . ',' . $pagesize;
         switch ($t) {
             case 'article': //原创：攻畋+晒单
-                $list=D('article')->user_article_list($uid, $status, $field, $order, $limit);
+                $list=D('article')->user_article_list($uid, $status, $field, $limit);
                 break;
             case 'bao': //爆料
-                $list = D("item")->user_bao_list($uid, $status, $field, $order, $limit);
+                $list = D("item")->user_bao_list($uid, $status, $field, $limit);
                 break;
             case 'vote': //投票：点选、点踩
                 # code...
                 break;
             case 'comm': //评论
-                $list=D('comment')->user_comment_list($uid, $order, $limit);
+                $list=D('comment')->user_comment_list($uid, $limit);
                 break;
             case 'likes': //收藏
-                $order = "addtime desc";
-                $list=D("likes")->user_likes_list($uid, $order, $limit);
+                $list=D("likes")->user_likes_list($uid, $limit);
                 break;
             case 'follows': //关注
-                $list=D("user_follow")->user_follow_list($uid, $order, $limit);
+                $list=D("user_follow")->user_follow_list($uid, $limit);
                 break;
             
             default:
@@ -186,90 +183,34 @@ class memberAction extends frontendAction {
     public function ranking() {
         $t = $this->_get('t',"trim");
         $period = $this->_get('period',"trim");
-
-        //等级
-        $grade_list = D("grade")->grade_cache();
+        if(!in_array($t, array('sign', 'bao', 'article', 'comm', 'vote'))) $t = 'exp';
+        if(!in_array($period, array('d', 'w', 'm'))) $period = '';
 
         //用户信息
         $follows = array();
         if ($this->visitor->is_login) {
-
             $user = $this->visitor->get();
-
-            //等级
-            $grade = '1';
-            foreach ($grade_list as $i => $v) {
-                if($user['exp'] >= $grade_list[$i]['min'] && $user['exp'] <= $grade_list[$i]['max']){
-                    $grade = $grade_list[$i]['grade'];
-                    break;
-                }
-            }
-            $user['grade'] = $grade;
-
             //关注
-            $follow_list = M("user_follow")->where("uid=$user[id]")->select();
-            if(count($follow_list) > 0){
-                foreach($follow_list as $fk=>$fv){
-                    $follows[$fv['follow_uid']] = 1;
-                }
-            }
+            $follows = D("user_follow")->user_follow_ids($user['id']);
         }
 
          //用户排名
         $db_pre = C('DB_PREFIX');
         $mod = M('');
 
-        $total_limit = 10;
-        $limit = 100;
+        $total_limit = 1000;
+        $limit = 20;
 
-        $field = "u.id, count(1) cnt,max(u.username) username,max(u.intro) intro,max(u.exp) exp";
-        //今日，本周，本月，全部
-        $time = strtotime(date("2018-07-23 01:01:59"));
-        if($period=='d'){
-            $time_start = strtotime(date("Y-m-d", $time));
-            $where = "a.add_time between {$time_start} and {$time} ";
-        }else if($period=='w'){
-            $w = (date('w', $time) == 0 ? 7 : date('w', $time)) - 1;
-            $time_start = strtotime(date('Y-m-d', strtotime("-$w days", $time)));
-            $where = "a.add_time between {$time_start} and {$time} ";
-        }else if($period=='m'){
-            $time_start = strtotime(date("Y-m-01", $time));
-            $where = "a.add_time between {$time_start} and {$time} ";
-        }else{
-            $period = '';
-            $where = "a.add_time <= {$time} ";
-        }
-
-        if($t == 'sign'){
-            //签到排行 
-            $list = $mod->field($field)->table($db_pre.'score_log a')->join("join try_user u ON u.id=a.uid")->where("a.action='sign' and ".$where)->group("u.id")->order("cnt desc")->limit($total_limit)->select();
-        }else if($t == 'bao'){
-            //爆料
-            $list = $mod->field($field)->table($db_pre.'item a')->join("join try_user u ON u.id=a.uid")->where("a.status=1 and a.isbao=1 and ".$where)->group("u.id")->order("cnt desc")->limit($total_limit)->select();
-        }else if($t == 'article'){
-            //原创：攻畋+晒单
-            $list = $mod->field($field)->table($db_pre.'article a')->join("join try_user u ON u.id=a.uid")->where("a.cate_id in(9,10) and a.status=1 and ".$where)->group("u.id")->order("cnt desc")->limit($total_limit)->select();
-        }else if($t == 'comm'){
-            //评论
-            $list = $mod->field($field)->table($db_pre.'comment a')->join("join try_user u ON u.id=a.uid")->where("a.status=1 and ".$where)->group("u.id")->order("cnt desc")->limit($total_limit)->select();
-        }else if($t == 'vote'){
-            //投票：点选、点踩
-            $list = array();
-        }else{
-            $t = 'exp';
-            //等级
-            $list = M("user")->field("id,username,exp")->order("exp desc,id asc")->limit($total_limit)->select();
-        }
+        $list = D("user")->top_user_list($t, $period, $total_limit);
 
         //本人的默认排名信息
         if($user){
             $me_list = array(
                 'id' => $user['id'],
-                'cnt' => 0,
+                'counts' => 0,
                 'username' => $user['username'],
                 'intro' => $user['intro'],
                 'exp' => $user['exp'],
-                'grade' => $user['grade'],
                 'rank' => "1000+",
             );
         }
@@ -287,21 +228,12 @@ class memberAction extends frontendAction {
                     if(isset($follows[$v['id']])){
                         $user_list[$k]['follow'] = 1;
                     }
-
-                    //用户等级
-                    $user_list[$k]['grade'] = '1';
-                    foreach ($grade_list as $gk => $gv) {
-                        if($v['exp'] >= $grade_list[$gk]['min'] && $v['exp'] <= $grade_list[$gk]['max']){
-                            $user_list[$k]['grade'] = $grade_list[$gk]['grade'];
-                            break;
-                        }
-                    }
                 }
 
                 //本人的排名，超过1000显示1000+
                 if($user && $user['id']==$v['id']){
-                    $me_list['cnt'] = $user_list[$k]['cnt'];
-                    $me_list['rank'] = $user_list[$k]['rank'];
+                    $me_list['counts'] = $v['counts'];
+                    $me_list['rank'] = $i;
                 }
 
                 $i++;

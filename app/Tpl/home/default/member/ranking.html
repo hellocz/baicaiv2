@@ -46,11 +46,11 @@
 						<li class="ur-2"><img src="{:avatar($me_list['id'])}" class="radius-3"></li>
 						<li class="ur-3 vcenter">
 							<div>
-								<p class="name"><a href="userHome.html" class="a-green hover-underline">{$me_list['username']}</a><span class="radius-100">合伙人</span></p>
+								<p class="name"><a href="{:U('member/index',array('uid'=>$me_list['id']))}" class="a-green hover-underline">{$me_list['username']}</a><span class="radius-100">合伙人</span></p>
 								<p class="mt-8 fc-grey">个性签名：<if condition="$me_list['intro'] and $me_list['intro'] !==''">{$me_list['intro']}<else/>这家伙很懒，什么都没有留下.</if></p>
 							</div>
 						</li>
-						<li class="ur-4 vcenter">Lv{$me_list['grade']}：初出茅庐</li>
+						<li class="ur-4 vcenter">Lv{:grade($me_list['exp'])}：初出茅庐</li>
 					</ul>
 					</notempty>
 					<!--当前用户end-->
@@ -58,15 +58,18 @@
 					<volist name="user_list" id="r">
 					<ul class="clearfix">
 						<li class="ur-1 vcenter"><span class="No{$r.rank}">{$r.rank}</span></li>
-						<li class="ur-2"><img src="{:avatar($r['id'])}" class="radius-3"></li>
+						<li class="ur-2"><img src="{:avatar($r['id'],64)}" class="radius-3"></li>
 						<li class="ur-3 vcenter">
 							<div>
-								<p class="name"><a href="userHome.html" class="a-green hover-underline">{$r.username}</a><span class="radius-100">合伙人</span></p>
+								<p class="name"><a href="{:U('member/index',array('uid'=>$r['id']))}" class="a-green hover-underline">{$r.username}</a><span class="radius-100">合伙人</span></p>
 								<p class="mt-8 fc-grey">个性签名：<if condition="$r['intro'] and $r['intro'] !==''">{$r['intro']}<else/>这家伙很懒，什么都没有留下.</if></p>
 							</div>
 						</li>
-						<li class="ur-4 vcenter">Lv{$r.grade}：初出茅庐</li>
-						<li class="ur-5 vcenter"><span class="radius-3" onclick="tipsPopup('tips_1','关注成功')">+关注</span></li>
+						<li class="ur-4 vcenter">Lv{:grade($r['exp'])}：初出茅庐</li>
+						<li class="ur-5 vcenter">
+							<span data-uid="{$r['id']}" class="radius-3 cursor-pointer J_follow_user <if condition="$r['follow']">none</if>">+关注</span>
+							<span data-uid="{$r['id']}" class="radius-3 cursor-pointer J_unfollow_user <if condition="!$r['follow']">none</if>">已关注</span>
+						</li>
 					</ul>
 					</volist>
 					<!--循环end-->

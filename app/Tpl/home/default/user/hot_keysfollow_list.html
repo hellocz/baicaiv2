@@ -3,12 +3,9 @@
 					<volist name="hot_keysfollow_list" id="r">
 					<li>
 						<div class="font-24 lvcenter" style="height: 70px;">{$r.tag}</div>
-						<div class="text-center font-14 fc-grey">{$r.count}菜油已关注</div>
-						<if condition="$r['is_follow'] eq '1'" >
-						<div class="button" onclick="tipsPopup('tips_1','已取消关注')">已关注</div>
-						<else/>
-						<div class="button" onclick="tipsPopup('tips_1','已关注')">+关注</div>
-						</if>
+						<div class="text-center font-14 fc-grey">{$r.count}菜油已关注</div>	
+						<div data-tag="{$r.tag}" class="button J_follow_tag_h <if condition="$r['is_follow']">none</if>">+关注</div>			
+						<div data-tag="{$r.tag}" class="button J_unfollow_tag_h <if condition="!$r['is_follow']">none</if>">已关注</div>						
 					</li>
 					</volist>
 					<!--循环end-->

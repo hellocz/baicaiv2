@@ -78,27 +78,25 @@ class userAction extends userbaseAction {
 
         $field = "";
         $status = 1;
-        $order = "add_time desc";
         $limit = $pagesize*($p-1) . ',' . $pagesize;
         switch ($t) {
             case 'article': //原创：攻畋+晒单
-                $list=D('article')->user_article_list($uid, $status, $field, $order, $limit);
+                $list=D('article')->user_article_list($uid, $status, $field, $limit);
                 break;
             case 'bao': //爆料
-                $list = D("item")->user_bao_list($uid, $status, $field, $order, $limit);
+                $list = D("item")->user_bao_list($uid, $status, $field, $limit);
                 break;
             case 'vote': //投票：点选、点踩
                 # code...
                 break;
             case 'comm': //评论
-                $list=D('comment')->user_comment_list($uid, $order, $limit);
+                $list=D('comment')->user_comment_list($uid, $limit);
                 break;
             case 'likes': //收藏
-                $order = "addtime desc";
-                $list=D("likes")->user_likes_list($uid, $order, $limit);
+                $list=D("likes")->user_likes_list($uid, $limit);
                 break;
             case 'follows': //关注
-                $list=D("user_follow")->user_follow_list($uid, $order, $limit);
+                $list=D("user_follow")->user_follow_list($uid, $limit);
                 break;
             
             default:
@@ -168,19 +166,19 @@ class userAction extends userbaseAction {
 
         $field_article = "'article' as type, id,cate_id,title,intro,likes,comments,add_time,zan,status,orig_id,img,isbest";
         $field_item = "'bao' as type, id,cate_id,title,intro,likes,comments,add_time,zan,status,orig_id,img,isbest";
-        $order = "add_time desc";
         $limit = $pagesize*($p-1) . ',' . $pagesize;
         switch ($t) {
             case 'article': //原创：攻畋+晒单
-                $list=D('article')->user_article_list($uid, $status, $field_article, $order, $limit);
+                $list=D('article')->user_article_list($uid, $status, $field_article, $limit);
                 break;
             case 'bao': //爆料
-                $list = D("item")->user_bao_list($uid, $status, $field_item, $order, $limit);
+                $list = D("item")->user_bao_list($uid, $status, $field_item, $limit);
                 break;
             default:
                 $sql = array();
                 $sql1 = D('article')->user_article_sql($uid, $status, $field_article, '', '');
                 $sql2 = D("item")->user_bao_sql($uid, $status, $field_item, '', '');
+                $order = "add_time desc";
                 $list = M()->table("(".$sql1." union all ".$sql2.") a")->order($order)->limit($limit)->select();
                 break;
         }
@@ -229,10 +227,8 @@ class userAction extends userbaseAction {
         }
         if($p<1){$p=1;}
 
-        $field = "";
-        $order = "addtime desc";
         $limit = $pagesize*($p-1) . ',' . $pagesize;        
-        $list=D("likes")->user_likes_list($uid, $order, $limit);
+        $list=D("likes")->user_likes_list($uid, $limit);
         $this->assign("likes_list",$list);
 
         //AJAX分页请求
@@ -307,10 +303,8 @@ class userAction extends userbaseAction {
         }
         if($p<1){$p=1;}
 
-        $field = "";
-        $order = "id desc";
         $limit = $pagesize*($p-1) . ',' . $pagesize;        
-        $list=D("notify_tag")->user_follow_list($uid, $order, $limit);
+        $list=D("notify_tag")->user_follow_list($uid, $limit);
         $this->assign("keysfollow_list",$list);
 
         //AJAX分页请求
@@ -334,9 +328,10 @@ class userAction extends userbaseAction {
         $list = D("notify_tag")->top_follow_list();
         $rand_keys = array_rand($list, 12);
         $top_list = array();
+        $follows = D("notify_tag")->user_follow_tags($uid);
         foreach ($rand_keys as $key) {
             $top_list[$key] = $list[$key];
-            $top_list[$key]['is_follow'] = D("notify_tag")->is_follow($uid, $list[$key]['tag']);
+            $top_list[$key]['is_follow'] = isset($follows[$list[$key]['tag']]) ? 1 : 0;
         }
         $this->assign("hot_keysfollow_list",$top_list);
 
@@ -356,7 +351,7 @@ class userAction extends userbaseAction {
         $tag['userid'] = $this->_user['id'];
         $tag['tag'] = $this->_post('tag','trim');
         $notify_tag = D("notify_tag");
-        $result = $notify_tag->create_follow_tag($tag);
+        $result = $notify_tag->follow($tag['userid'], $tag['tag']);
         if ($result) {
             $this->ajaxReturn("1",'设置关注成功!',$result);
         } else {
@@ -371,7 +366,7 @@ class userAction extends userbaseAction {
         $tag['userid'] = $this->_user['id'];
         $tag['tag'] = $this->_post('tag','trim');
         $notify_tag = D("notify_tag");
-        $result = $notify_tag->create_follow_tag($tag, true);
+        $result = $notify_tag->follow($tag['userid'], $tag['tag'], true);
         if ($result) {
             $this->ajaxReturn("1",'设置推送成功!',$result);
         } else {
@@ -384,10 +379,14 @@ class userAction extends userbaseAction {
      */
     public function notify_tag_del(){
         $notify_tag = D("notify_tag");
-        $tag['id'] = $this->_post('id','trim');
         $tag['userid'] = $this->_user['id'];
-        $notify_tag->del_follow_tag($tag, true);
-        $this->ajaxReturn("1",'删除推送成功!');
+        $tag['tag'] = $this->_post('tag','trim');
+        $result = $notify_tag->unfollow($tag['userid'], $tag['tag'], true);
+        if ($result) {
+            $this->ajaxReturn("1",'删除推送成功!');
+        } else {
+            $this->ajaxReturn("0",'删除推送失败!');
+        }  
     }
 
     /**
@@ -395,10 +394,14 @@ class userAction extends userbaseAction {
      */
     public function follow_tag_del(){
         $notify_tag = D("notify_tag");
-        $tag['id'] = $this->_post('id','trim');
         $tag['userid'] = $this->_user['id'];
-        $notify_tag->del_follow_tag($tag);
-        $this->ajaxReturn("1",'删除关注成功!');
+        $tag['tag'] = $this->_post('tag','trim');
+        $result = $notify_tag->unfollow($tag['userid'], $tag['tag']);
+        if ($result) {
+            $this->ajaxReturn("1",'删除关注成功!');
+        } else {
+            $this->ajaxReturn("0",'删除关注失败!');
+        }        
     }
 
 
@@ -450,16 +453,15 @@ class userAction extends userbaseAction {
         }
         if($p<1){$p=1;}
 
-        $order = "add_time desc";
         $limit = $pagesize*($p-1) . ',' . $pagesize;
         switch ($t) {
             case 'fans':            
-                $list=D("user_follow")->user_fans_list($uid, $order, $limit);                
+                $list=D("user_follow")->user_fans_list($uid, $limit);                
                 break;
             
             default:
                 $t = "follows";
-                $list=D("user_follow")->user_follow_list($uid, $order, $limit);
+                $list=D("user_follow")->user_follow_list($uid, $limit);
                 break;
         }
 
@@ -606,9 +608,8 @@ class userAction extends userbaseAction {
         if($pagesize<1){$pagesize=10;}
 
         //抽奖/兑换记录
-        $order = 'add_time desc,id desc';
         $limit = $pagesize*($p-1) . ',' . $pagesize;
-        $list = D('score_order')->user_order_list($t, $uid, $order, $limit);
+        $list = D('score_order')->user_order_list($t, $uid, $limit);
 
         if($t != "exchange"){
             $t = "lucky";
@@ -630,7 +631,7 @@ class userAction extends userbaseAction {
         $p = $this->_get('p', 'intval', 1);
         $uid=$this->_user['id'];
         if($p<1){$p=1;}
-        $pagesize = 12; //12
+        $pagesize = 2; //12
         $t = $this->_get('t', 'trim');  //all, valid
         if($t != 'all') $t = 'valid';
 
@@ -672,9 +673,8 @@ class userAction extends userbaseAction {
         $orig_list = D("item_orig")->orig_cache();
         $this->assign("orig_list",$orig_list);
 
-        $order = "get_time desc, tk_id desc";
         $limit = $pagesize*($p-1) . ',' . $pagesize;        
-        $list = D('tk')->user_tick_list($t, $uid, $order, $limit);
+        $list = D('tk')->user_tick_list($t, $uid, $limit);
         $this->assign("tick_list",$list);
 
         //AJAX分页请求

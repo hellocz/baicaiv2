@@ -14,7 +14,7 @@ class notify_tagModel extends Model
     /**
     * 获得TAG列表
     */
-    public function follow_list($where = '', $order = 'id desc', $limit = '1,10'){
+    public function follow_list($where = '', $limit = '1,10', $order = 'id desc'){
         if(!$order){
             $order = 'id desc';
         }
@@ -36,7 +36,7 @@ class notify_tagModel extends Model
     /**
     * 用户TAG列表
     */
-    public function user_follow_list($userid = 0, $order = 'id desc', $limit = '1,10'){
+    public function user_follow_list($userid = 0, $limit = '1,10', $order = 'id desc'){
         if(!$userid) return false;
         
         $where = "userid='$userid'"; 
@@ -73,20 +73,22 @@ class notify_tagModel extends Model
     * 参数：userid, tag
     * 参数：notify true 推送|false 关注
     */
-    public function create_follow_tag($data = array(), $notify = false){
-        if(!$data || !$data['userid'] || !$data['tag']) return false;
+    public function follow($userid = 0, $tag = '', $notify = false){
+        if(!$userid || !$tag) return false;
 
-        $list = $this->get_follow_tag($data['userid'], $data['tag']);
+        $list = $this->get_follow_tag($userid, $tag);
 
         if($list){  //关注tag
             $list['f_sign'] = 1;
-            if($notify) $list['p_sign'] = 1;            
+            if($notify) $list['p_sign'] = 1;
             $this->save($list);
             $result = true;
         }else{ // 推送
-            $data['f_sign'] = 1;
-            if($notify) $data['p_sign'] = 1; 
-            $result = $this->add($data);
+            $list['userid'] = $userid;
+            $list['tag'] = $tag;
+            $list['f_sign'] = 1;
+            if($notify) $list['p_sign'] = 1; 
+            $result = $this->add($list);
         }
 
         return $result;
@@ -97,15 +99,19 @@ class notify_tagModel extends Model
     * 参数：userid, id
     * 参数：notify true 取消推送|false 取消关注
     */
-    public function del_follow_tag($data = array(), $notify = false){
-        if(!$data || !$data['userid'] || !$data['id']) return false;
+    public function unfollow($userid = 0, $tag = '', $notify = false){
+        if(!$userid || !$tag) return false;
+        
+        $list = $this->get_follow_tag($userid, $tag);
+
+        if(!$list) return false;
 
         if($notify){  //取消推送
-            $data['p_sign'] = 0;
-            $this->save($data);
+            $list['p_sign'] = 0;
+            $this->save($list);
             $result = true;
         }else{  //取消关注
-            $result = $this->where($data)->delete();
+            $result = $this->delete($list['id']);
         }
 
         return $result;
@@ -115,8 +121,25 @@ class notify_tagModel extends Model
     * 获得top TAG列表
     */
     public function top_follow_list($where = '', $limit = '1,100'){
-        $list = $this->field("tag, count(*) as count")->where($where)->group("tag")->order("count(*) desc")->limit($limit)->select();
+        $list = $this->field("TRIM(tag) as tag, count(*) as count")->where($where)->group("TRIM(tag)")->order("count(*) desc")->limit($limit)->select();
         return $list;
+    }
+
+    /**
+    * 用户关注的用户IDs
+    */
+    public function user_follow_tags($userid = 0){
+        if(!$userid) return false;
+
+        $list = $this->where("userid=$userid and f_sign=1")->select();
+
+        $tags = array();
+        if(count($list) > 0){
+            foreach($list as $key=>$val){
+                $tags[$val['tag']] = 1;
+            }
+        }
+        return $tags;
     }
 
 }

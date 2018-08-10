@@ -43,7 +43,7 @@
 									<div class="fl pic"><a href="{:U('member/index',array('uid'=>$r['id']))}"><img src="{:avatar($r['id'],64)}" class="radius-100"></a></div>
 									<div class="fl info">
 										<a href="{:U('member/index',array('uid'=>$r['id']))}"><p class="font-14 mt-8">{$r.username}<span class="badge radius-100">LV{:grade($r['exp'])}</span></p></a>
-										<P class="fc-aux-9 mt-5">贡献 : {$r.offer}</P>
+										<P class="fc-aux-9 mt-5">评论 : {$r.counts}</P>
 									</div>
 								</li>
 								</volist>

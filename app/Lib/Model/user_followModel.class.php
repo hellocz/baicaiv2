@@ -18,7 +18,7 @@ class user_followModel extends Model
     /**
     * 用户关注列表
     */
-    public function user_follow_list($uid = 0, $order = 'add_time desc', $limit = ''){
+    public function user_follow_list($uid = 0, $limit = '', $order = 'add_time desc'){
         if(!$uid) return false;
         if(!$order){
             $order = 'add_time desc';
@@ -45,7 +45,7 @@ class user_followModel extends Model
     /**
     * 用户粉丝列表
     */
-    public function user_fans_list($uid = 0, $order = 'add_time desc', $limit = ''){
+    public function user_fans_list($uid = 0, $limit = '', $order = 'add_time desc'){
         if(!$uid) return false;
         if(!$order){
             $order = 'add_time desc';
@@ -139,11 +139,20 @@ class user_followModel extends Model
     }
 
     /**
-    * 关注列表
+    * 用户关注的用户IDs
     */
-    public function follow_list($where = '', $order = 'add_time desc', $limit = ''){
-        $list = $this->where($where)->order($order)->limit($limit)->select();
-        return $list;
+    public function user_follow_ids($uid = 0){
+        if(!$uid) return false;
+
+        $list = $this->where("uid=$uid")->select();
+
+        $ids = array();
+        if(count($list) > 0){
+            foreach($list as $key=>$val){
+                $ids[$val['follow_uid']] = 1;
+            }
+        }
+        return $ids;
     }
 
 }

@@ -8,6 +8,38 @@ class brandModel extends Model
         return $brand;
     }
 
+    public function get_name($id) {
+        if(!$id) return false;
+        // $brand = $this->where(array('id' => $id))->find();
+        
+        if (false === $brand_list = F('brand_list')) {
+            $brand_list = $this->brand_cache();
+        }
+        if (isset($brand_list[$id])) {
+            return $brand_list[$id];
+        } else {
+            return false;
+        }
+
+        return $brand;
+    }
+
+    /**
+     * 品牌列表
+     */
+    public function brand_cache() {
+        if (false !== $brand_list = F('brand_list')) {
+            return $brand_list;
+        }
+        $result = $this->field('id,name,chn_name')->order("name")->select();
+        $brand_list = array();
+        foreach ($result as $val) {
+            $brand_list[$val['id']] = $val;
+        }
+        F('brand_list', $brand_list);
+        return $brand_list;
+    }
+
    /**
      * 读取写入缓存(二级分类列表及二级分类列表下所有brand品牌)
      */
@@ -17,15 +49,7 @@ class brandModel extends Model
             return $cate_brand_list;
           }
 
-          // $brand_map['id']=array('in',$brand_list_ids);
-          // $list = M("brand")->field('id,name,chn_name,country,abstract,tb,img')->where($brand_map)->select();
-          $list = $this->field('id,name')->select();
-          $brand_list = array();
-          if(count($list) > 0){
-            foreach ($list as $val) {
-              $brand_list[$val['id']] = $val;
-            }
-          }
+          $brand_list = $this->brand_cache();
 
           //分类数据
           $cate_data = D('item_cate')->cate_data_cache();

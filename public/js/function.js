@@ -35,7 +35,7 @@ $(function(){
 	// 	},'json');
 	// });
 
-	//关注
+	//用户关注
 	$(".J_follow_user").on("click",function(){
 		if(PINER.uid==""){
 			LoginPopup();
@@ -61,7 +61,7 @@ $(function(){
 		});
 	});
 
-	//取消关注
+	//取消用户关注
 	$(".J_unfollow_user").on("click",function(){
 		if(PINER.uid==""){
 			LoginPopup();
@@ -87,39 +87,33 @@ $(function(){
 		});
 	});
 
-	// //关注
-	// $(".J_fo_btn").on("click",function(){
-	// 	var obj=$(this).parent();
-	// 	var uid=obj.attr("data-id");		
-	// 	$.get(PINER.root+ '/?m=user&a=follow',{uid:uid},function(data){
-	// 		if(data.status==0){
-	// 			$(".tip-c").html(data.msg);
-	// 			$('.tipbox').show().removeClass('tip-success').addClass("tip-error");
-	// 			setTimeout("$('.tipbox').hide();", 2000);  
-	// 		}else{
-	// 			$(".tip-c").html(data.msg);
-	// 			$('.tipbox').show().removeClass('tip-error').addClass("tip-success");
-	// 			setTimeout("$('.tipbox').hide();", 2000); 
-	// 			obj.html('<span class="fo_u_ok">已关注</span><a href="javascript:;" class="J_unfo_u green">取消</a>');
-	// 		}
-	// 	},'json')
-	// });
-	// $(".J_unfo_u").on("click",function(){
-	// 	var obj=$(this).parent();
-	// 	var uid=obj.attr('data-id');
-	// 	$.get(PINER.root+ '/?m=user&a=unfollow',{uid:uid},function(data){
-	// 		if(data.status==0){
-	// 			$(".tip-c").html(data.msg);
-	// 			$('.tipbox').show().removeClass('tip-success').addClass("tip-error");
-	// 			setTimeout("$('.tipbox').hide();", 2000);  
-	// 		}else{
-	// 			$(".tip-c").html(data.msg);
-	// 			$('.tipbox').show().removeClass('tip-error').addClass("tip-success");
-	// 			setTimeout("$('.tipbox').hide();", 2000); 
-	// 			obj.html('<div class="J_fo_btn w_r3_d">关注</div>');
-	// 		}
-	// 	},'json');
-	// });
+	//TAG关注
+	$(".J_follow_tag").on('click', function(){
+		obj = $(this);
+		$.post("/index.php?m=user&a=follow_tag_create",{tag:$(this).data("tag")},function(result){
+			if(result.status==1){
+				obj.addClass("none");
+				obj.siblings(".J_unfollow_tag").removeClass("none");			
+				tipsPopup('tips_1', result.msg)
+			}else{
+				tipsPopup('tips_2', result.msg)
+			}
+		},'json');
+	});
+
+	//取消TAG关注
+	$(".J_unfollow_tag").on('click', function(){
+		obj = $(this);
+		$.post("/index.php?m=user&a=follow_tag_del",{tag:$(this).data("tag")},function(result){
+			if(result.status==1){
+				obj.addClass("none");
+				obj.siblings(".J_follow_tag").removeClass("none");
+				tipsPopup('tips_1', result.msg)
+			}else{
+				tipsPopup('tips_2', result.msg)
+			}
+		},'json');
+	});
 
 	//评论
 	if(PINER.uid==""){

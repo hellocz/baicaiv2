@@ -43,7 +43,7 @@ class articleModel extends RelationModel
     /**
     * 获得文章列表
     */
-    public function article_list($where = '', $order = 'add_time desc', $limit = '1,10'){
+    public function article_list($where = '', $limit = '1,10', $order = 'add_time desc'){
         if(!$order){
             $order = 'add_time desc';
         }
@@ -72,7 +72,7 @@ class articleModel extends RelationModel
     /**
     * 用户文章列表
     */
-    public function user_article_list($uid = 0, $status = 1, $field = '', $order = 'add_time desc', $limit = '1,10'){
+    public function user_article_list($uid = 0, $status = 1, $field = '', $limit = '1,10', $order = 'add_time desc'){
         if(!$uid) return false;
 
         $time=time();
@@ -90,7 +90,7 @@ class articleModel extends RelationModel
     /**
     * 用户文章列表-sql
     */
-    public function user_article_sql($uid = 0, $status = 1, $field = '', $order = 'add_time desc', $limit = '1,10'){
+    public function user_article_sql($uid = 0, $status = 1, $field = '', $limit = '1,10', $order = 'add_time desc'){
         if(!$uid) return false;
 
         $time=time();

@@ -324,7 +324,7 @@ class itemModel extends Model
     /**
     * 用户爆料商品列表
     */
-    public function user_bao_list($uid = 0, $status = 1, $field = '', $order = 'add_time desc', $limit = '1,10'){
+    public function user_bao_list($uid = 0, $status = 1, $field = '', $limit = '1,10', $order = 'add_time desc'){
         if(!$uid) return false;
         
         $time=time();
@@ -339,7 +339,7 @@ class itemModel extends Model
     /**
     * 用户爆料商品列表-Sql
     */
-    public function user_bao_sql($uid = 0, $status = 1, $field = '', $order = 'add_time desc', $limit = '1,10'){
+    public function user_bao_sql($uid = 0, $status = 1, $field = '', $limit = '1,10', $order = 'add_time desc'){
         if(!$uid) return false;
         
         $time=time();

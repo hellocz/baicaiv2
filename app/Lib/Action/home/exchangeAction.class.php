@@ -165,9 +165,8 @@ class exchangeAction extends frontendAction {
         !$item && $this->error('该信息不存在或已删除');
 
         //抽奖/兑换记录
-        $order = 'add_time desc,id desc';
         $limit = $pagesize*($p-1) . ',' . $pagesize;
-        $list = $this->order_mod->order_list($id, $limit, $order);
+        $list = $this->order_mod->order_list($id, $limit);
 
         $this->assign('order_list',$list);
 

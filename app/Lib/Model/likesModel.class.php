@@ -19,7 +19,7 @@ class likesModel extends Model
     /**
     * 获得收藏列表
     */
-    public function likes_list($where = '', $order = 'addtime desc', $limit = '1,10'){
+    public function likes_list($where = '', $limit = '1,10', $order = 'addtime desc'){
         if(!$order){
             $order = 'addtime desc';
         }
@@ -41,7 +41,7 @@ class likesModel extends Model
     /**
     * 用户收藏列表
     */
-    public function user_likes_list($uid = 0, $order = 'addtime desc', $limit = '1,10'){
+    public function user_likes_list($uid = 0, $limit = '1,10', $order = 'addtime desc'){
         if(!$uid) return false;
         
         $where = "uid='$uid'"; 

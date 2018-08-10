@@ -198,20 +198,7 @@ class itemAction extends frontendAction {
         $next = $item_mod->where("add_time>$add_time and add_time <$time and status=1")->field("id,title")->order("add_time asc,id asc")->find();
         $this->assign("pre",$pre);
         $this->assign("next",$next);
-        
-        
-        // //小时榜和24小时榜
-        // // $time = time();
-        // $time = strtotime('2018-05-31 21:00:00');
-        // $time_hour = $time - 3600;
-        // $time_6hour = $time - 3600*6;
-        // $time_day = $time - 86400;
-        // $hour_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_hour and $time ORDER BY hits desc,add_time desc LIMIT 9");
-        // $sixhour_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_6hour and $time ORDER BY hits desc,add_time desc LIMIT 9");
-        // $day_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_day and $time ORDER BY hits desc,add_time desc LIMIT 9");
-        // $this->assign('hour_list',$hour_list);
-        // $this->assign('sixhour_list',$sixhour_list);
-        // $this->assign('day_list',$day_list);
+
 
         //小时排行榜，六小时排行榜，二十四小时排行榜
         $hour_list = D('item')->item_hour_cache();
@@ -223,8 +210,21 @@ class itemAction extends frontendAction {
         $this->assign('hour6_list',$hour6_list);
         $this->assign('hour24_list',$hour24_list);
 
+        //是否关注
+        $follow_users = array();
+        $follow_tags = array();
+        if($this->visitor->is_login){
+          $follow_users = D("user_follow")->user_follow_ids($this->visitor->info['id']);
+          $follow_tags = D("notify_tag")->user_follow_tags($this->visitor->info['id']);
+        }
+
         //热门订阅
-        $follow_tag_list = M()->query("SELECT tag,COUNT(1) AS tag_count FROM try_notify_tag WHERE f_sign=1 GROUP BY tag ORDER BY 2 DESC LIMIT 9");
+        $follow_tag_list = D("notify_tag")->top_follow_list("f_sign=1", 9); 
+        foreach ($follow_tag_list as $key => $val) {
+               if(isset($follow_tags[$val['tag']])){
+                   $follow_tag_list[$key]['is_follow'] = 1;
+               }
+         }
         $this->assign('follow_tag_list',$follow_tag_list);
 
         //热门优惠
@@ -250,7 +250,7 @@ class itemAction extends frontendAction {
         $xid = 1;
 
         $comment_mod = M('comment');
-        $pagesize = 10;
+        $pagesize = 2;
         $map = array('itemid' => $itemid,'xid'=>$xid,'status'=>1,'pid'=>0);
         $count = $comment_mod->where($map)->count('id');
         $pager = $this->_pager($count, $pagesize);
@@ -291,27 +291,14 @@ class itemAction extends frontendAction {
           array_push($uids, $item['uid']);
           $where = array('id' => array("IN", $uids));
           $filed = "id,username,exp,shares";
-          $users = D("user")->user_list($where, $filed);          
-          if(count($users) > 0){
-            foreach ($users as $val) {
-              $user_list[$val['id']] = $val;
-              $user_list[$val['id']]['grade'] = grade($val['exp']);
+          $users = D("user")->user_list($where, $filed);
+          foreach ($users as $val) {
+            $user_list[$val['id']] = $val;
+            $user_list[$val['id']]['grade'] = grade($val['exp']);
+            if(isset($follow_users[$val['id']])){
+                $user_list[$val['id']]['is_follow'] = 1;
             }
           }
-
-          //是否关注
-          if($this->visitor->is_login){
-            $uid = $this->visitor->info['id'];
-            $follow_list = D("user_follow")->follow_list("uid=$uid");
-            if($follow_list){
-                foreach ($follow_list as $val) {
-                    if(isset($user_list[$val['follow_uid']])){
-                        $user_list[$val['follow_uid']]['follow'] = 1;
-                    }
-                }
-            }
-          }
-
         }
         $this->assign("user_list",$user_list);
         // echo "<pre>";print_r($users);echo "</pre>";exit;

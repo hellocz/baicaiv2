@@ -77,7 +77,7 @@ class score_orderModel extends Model
     /**
      * 抽奖/兑换 - 用户订单记录
      */
-    public function user_order_list($t = 'exchange', $uid = 0, $order = 'id DESC', $limit = '') {
+    public function user_order_list($t = 'exchange', $uid = 0, $limit = '', $order = 'id DESC') {
         if(!$uid) return false;
 
         switch ($t) {
