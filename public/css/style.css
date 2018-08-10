@@ -1090,6 +1090,19 @@ a:hover{
 	width: 159px;
 	border-right: 1px solid #F4F7F8;
 	height: 365px;
+	overflow-y:auto;
+}
+#header .top .nav-box ul li .sub .l-tab::-webkit-scrollbar {
+	width: 3px;
+}
+#header .top .nav-box ul li .sub .l-tab::-webkit-scrollbar-track {
+    background-color: #F5F5F5;
+}
+#header .top .nav-box ul li .sub .l-tab::-webkit-scrollbar-thumb {
+	background-color:#DDDDDD;
+	-webkit-border-radius: 2em;
+	-moz-border-radius: 2em;
+	border-radius:2em;
 }
 #header .top .nav-box ul li .sub .l-tab p{
 	height: 48px;

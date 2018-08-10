@@ -81,25 +81,7 @@
 			</div>
 			<div class="line"></div>
 			<div>
-				<a href="myInvitation.html" class="menu">
-					<svg class="icon">
-						<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_10@2x.png" width="20" height="20"></desc><![endif]-->
-						<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_10"></use>
-					</svg>
-					我的邀请
-				</a>
-			</div>
-			<div>
-				<a href="partnerProgram.html" class="menu">
-					<svg class="icon">
-						<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_11@2x.png" width="20" height="20"></desc><![endif]-->
-						<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_11"></use>
-					</svg>
-					合伙人计划
-				</a>
-			</div>
-			<div>
-				<a href="integralRecord.html" class="menu">
+				<a href="{:U('user/score')}" class="<if condition="ACTION_NAME eq 'score'">active<else/>menu</if>">
 					<svg class="icon">
 						<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_12@2x.png" width="20" height="20"></desc><![endif]-->
 						<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_12"></use>
@@ -109,7 +91,7 @@
 			</div>
 			<div class="line"></div>
 			<div>
-				<a href="criminalRecord.html" class="menu">
+				<a href="{:U('user/score_illegal')}" class="<if condition="ACTION_NAME eq 'score_illegal'">active<else/>menu</if>">
 					<svg class="icon">
 						<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_13@2x.png" width="20" height="20"></desc><![endif]-->
 						<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_13"></use>

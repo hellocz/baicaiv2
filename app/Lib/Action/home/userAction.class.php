@@ -48,6 +48,15 @@ class userAction extends userbaseAction {
         // $xz['cm_num'] = M("comment")->where("uid=$uid and status=1")->count();
         // $this->assign('xz',$xz);
 
+        // //勋章
+        // $xz['share_num'] = M("score_log")->where("action='share' and uid=$user[id]")->count();//分享
+        // $xz['bao_num'] = M("item")->where("uid=$user[id] and status=1")->count();//爆料达人
+        // $xz['sign_num'] = M("score_log")->where("action='sign' and uid=$user[id]")->count();//签到
+        // $xz['gl_num'] = M("article")->where("uid=$user[id] and status=1 and cate_id in(select id from try_article_cate where pid=9 or id=9)")->count();//攻略
+        // $xz['sd_num'] = M("article")->where("uid=$user[id] and status=1 and cate_id=10")->count();//晒单
+        // $xz['cm_num'] = M("comment")->where("uid=$user[id] and status=1")->count();
+        // $this->assign('xz',$xz);
+
         $this->assign("count",$count);
         if($t != 'news'){
             $page = array(
@@ -631,7 +640,7 @@ class userAction extends userbaseAction {
         $p = $this->_get('p', 'intval', 1);
         $uid=$this->_user['id'];
         if($p<1){$p=1;}
-        $pagesize = 2; //12
+        $pagesize = 12; //12
         $t = $this->_get('t', 'trim');  //all, valid
         if($t != 'all') $t = 'valid';
 
@@ -685,6 +694,92 @@ class userAction extends userbaseAction {
             $this->ajaxReturn(1, "", $data);
         }
     }
+
+    /**
+     * 积分记录
+     */
+    public function score(){
+        $p = $this->_get('p', 'intval', 1);
+        $uid=$this->_user['id'];
+        if($p<1){$p=1;}
+        $pagesize = 15; //15
+
+        $user = $this->_user;
+        $user['grade'] = D("grade")->get_grade($user['exp']);
+        $user['next_grade'] = D("grade")->get_info($user['grade']+1);
+        $user['w']=($user['exp']*100)/$user['next_grade']['min'];
+        $user['lft']=$user['next_grade']['min']-$user['exp'];
+
+        //总数
+        $count = D("score_log")->user_score_log_count('', $uid);
+        //列表
+        $this->get_score_list('', $uid, $p, $pagesize); 
+
+        $page = array(
+            'p'=>$p, 
+            'size'=>$pagesize, 
+            'count'=>$count, 
+            'url'=>"/index.php?m=user&a=get_score_list&uid=$uid",
+        );
+        $this->assign('page', json_encode($page));
+        $this->assign('page_seo',set_seo('积分记录 - 个人中心'));
+        $this->assign('user',$user);
+        $this->display();
+    }
+
+    /**
+     * 违规记录
+     */
+    public function score_illegal(){
+        $p = $this->_get('p', 'intval', 1);
+        $uid=$this->_user['id'];
+        if($p<1){$p=1;}
+        $pagesize = 15; //15
+
+        //总数
+        $count = D("score_log")->user_score_log_count('illegal', $uid);
+        //列表
+        $this->get_score_list('illegal', $uid, $p, $pagesize); 
+
+        $page = array(
+            'p'=>$p, 
+            'size'=>$pagesize, 
+            'count'=>$count, 
+            'url'=>"/index.php?m=user&a=get_score_list&t=illegal&uid=$uid",
+        );
+        $this->assign('page', json_encode($page));
+        $this->assign('page_seo',set_seo('违规记录 - 个人中心'));
+        $this->display();
+    }
+
+    /**
+     * 积分记录 - AJAX翻页请求
+     */
+    public function get_score_list($t = '', $uid = 0, $p = 1, $pagesize = 8) {
+        if (IS_AJAX) {
+            $uid = $this->_get('uid', 'intval', 0);
+            !$uid && $this->ajaxReturn(0, '用户不存在');          
+            $p = $this->_get('p', 'intval', 1);
+            $pagesize = $this->_get('pagesize', 'intval', 8);
+            $t = $this->_get('t', 'trim');  //illegal
+        }
+        if($p<1){$p=1;}
+
+        $limit = $pagesize*($p-1) . ',' . $pagesize;        
+        $list = D('score_log')->user_score_log_list($t, $uid, $limit);
+        $this->assign("score_list",$list);
+
+        $this->assign("lang",L('action'));
+
+        //AJAX分页请求
+        if (IS_AJAX) {
+            $data = array(
+                'list' => $this->fetch("score_list"),
+            ); 
+            $this->ajaxReturn(1, "", $data);
+        }
+    }
+
 
     /**
      * 用户登陆
@@ -1606,64 +1701,7 @@ class userAction extends userbaseAction {
                     $this->ajaxReturn(1,'您已连续签到'.$data['sign_num'].'天，成功获取'.$max_score.'个积分！');
                 }
             }
-	//用户等级
-	public function grade(){
-		$t = $this->_get('t','trim');
-		!$t&&$t='score';
-		$pagesize=10;
-		//经验值、等级
-		$user = $this->visitor->get();
-		$grade_mod = M("grade");
-		$log_mod = M("score_log");
-		$user['grade'] = $grade_mod->where("min<=$user[exp] and max>=$user[exp]")->getField("grade");
-		if($t=='score'){
-			//积分变更
-			$jf_count=$log_mod->where("uid=$user[id] and score<>0")->count();
-			$jf_pager = $this->_pager($jf_count,$pagesize);
-			$jf_list = $log_mod->where("uid=$user[id] and score<>0")->order("add_time desc")->limit($jf_pager->firstRow.",".$jf_pager->listRows)->select();
-			$this->assign('jf_page_bar',$jf_pager->fshow());
-			$this->assign('jf_list',$jf_list);
-		}elseif($t=='exp'){
-			//查找下一等级
-			$user['next_grade'] = $grade_mod->where("grade=$user[grade]+1")->find();
-			$user['w']=($user['exp']*100)/$user['next_grade']['min'];
-			$user['lft']=$user['next_grade']['min']-$user['exp'];
-			//经验变更
-			$jy_count=$log_mod->where("uid=$user[id] and exp<>0")->count();
-			$jy_pager = $this->_pager($jy_count,$pagesize);
-			$jy_list = $log_mod->where("uid=$user[id] and exp<>0")->order("add_time desc")->limit($jy_pager->firstRow.",".$jy_pager->listRows)->select();
-			$this->assign('jy_page_bar',$jy_pager->fshow());
-			$this->assign('jy_list',$jy_list);
-		}elseif($t=='offer'){
-			//贡献值变更
-			$of_count=$log_mod->where("uid=$user[id] and offer<>0")->count();
-			$of_pager = $this->_pager($of_count,$pagesize);
-			$of_list = $log_mod->where("uid=$user[id] and offer<>0")->order("add_time desc")->limit($of_pager->firstRow.",".$of_pager->listRows)->select();
-			$this->assign("of_page_bar",$of_pager->fshow());
-			$this->assign("of_list",$of_list);
-		}elseif($t=='coin'){
-			//金币变更
-			$jb_count=$log_mod->where("uid=$user[id] and coin<>0")->count();
-			$jb_pager = $this->_pager($jb_count,$pagesize);
-			$jb_list = $log_mod->where("uid=$user[id] and coin<>0")->order("add_time desc")->limit($jb_pager->firstRow.",".$jb_pager->listRows)->select();
-			$this->assign("jb_page_bar",$jb_pager->fshow());
-			$this->assign("jb_list",$jb_list);
-		}elseif($t=='xz'){
-			//勋章
-			$xz['share_num'] = M("score_log")->where("action='share' and uid=$user[id]")->count();//分享
-			$xz['bao_num'] = M("item")->where("uid=$user[id] and status=1")->count();//爆料达人
-			$xz['sign_num'] = M("score_log")->where("action='sign' and uid=$user[id]")->count();//签到
-			$xz['gl_num'] = M("article")->where("uid=$user[id] and status=1 and cate_id in(select id from try_article_cate where pid=9 or id=9)")->count();//攻略
-			$xz['sd_num'] = M("article")->where("uid=$user[id] and status=1 and cate_id=10")->count();//晒单
-			$xz['cm_num'] = M("comment")->where("uid=$user[id] and status=1")->count();
-			$this->assign('xz',$xz);
-		}
-		$this->assign('t',$t);
-		$this->assign('user',$user);
-		$this->assign("lang",L('action'));
-		$this->assign('page_seo',set_seo('我的等级'));
-		$this->display();
-	}
+
 	public function del_share(){
 		$dm=$this->_get('dm','trim');
 		$mod=M("share");

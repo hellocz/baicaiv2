@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<include file="public:head" />
+    <!--当前页面css-->
+    <link rel="stylesheet" href="/public/css/member.css">
+</head>
+<body>
+	<!--个人中心顶部 start-->
+	<include file="header" />
+	<!--个人中心顶部 end-->
+	
+	<!--个人中心用户信息 start-->
+	<include file="top_user" />
+	<!--个人中心用户信息 end-->
+	
+	<div class="w-1200 mt-12 clearfix">
+		<!--左边菜单start-->
+		<include file="left_menu" />
+		<!--左边菜单end-->
+		
+		<!--右边内容start-->
+		<div class="fl rightInfo white-bg radius-3">
+			<div class="r-title font-16" style="line-height: 54px;">我的统计</div>
+			<ul class="clearfix mt-32">
+				<li class="fl text-center" style="width: 120px;">
+					<p class="font-24">{$user.score}</p>
+					<p class="font-14 fc-aux-9">积分</p>
+				</li>
+				<li class="fl text-center" style="width: 120px;">
+					<p class="font-24">{$user.exp}</p>
+					<p class="font-14 fc-aux-9">经验</p>
+				</li>
+				<li class="fl text-center" style="width: 120px;">
+					<p class="font-24">9999</p>
+					<p class="font-14 fc-aux-9">油票</p>
+				</li>
+				<li class="fl text-center" style="width: 120px;">
+					<p class="font-24">{$user.offer}</p>
+					<p class="font-14 fc-aux-9">贡献</p>
+				</li>
+			</ul>
+			<div class="integralLevel">
+				<div class="fc-green font-14">等级{$user.grade}：初出茅庐</div>
+				<div class="layui-progress layui-progress-big mt-10">
+					<div class="layui-progress-bar layui-progress-bar-green" lay-percent="{$user.w}%"></div>
+				</div>
+				<div class="mt-10 fc-aux-a font-13">
+					还差{$user['lft']}点经验值就可以升到下一级<span class="fr">{$user['exp']}/{$user['next_grade']['min']}</span>
+				</div>
+			</div>
+			<!--积分日志start-->
+			<div class="listBox">
+				<div class="jfTitle">积分日志</div>
+				<ul class="listTitle clearfix">
+					<li class="fl fc-aux-9" style="width: 287px;">获得时间</li>
+					<li class="fl fc-aux-9 text-center" style="width: 287px;">昵称结算</li>
+					<li class="fr fc-aux-9 text-right" style="width: 287px;">来自于</li>
+				</ul>
+				
+				<div class="list-data">
+					<include file="score_list"/>
+				</div>
+
+				<!--分页加载中start-->
+				<div class="page-loading"></div>
+				<!--分页加载中end-->
+				
+				<!--分页start-->
+				<script type="text/javascript">
+					var page={$page}, content = $(".listBox .list-data");
+				</script>
+				<div id="pages" class="pages" style="text-align: center;"></div>
+				<!--分页end-->
+			</div>
+			<!--积分日志end-->
+		</div>
+		<!--右边内容end-->
+	</div>
+	
+	<!--底部统一区域+右边悬浮按钮start-->
+	<include file="public:footer" />
+	<!--底部统一区域+右边悬浮按钮end-->
+
+	<!--引入页面单独JS文件-->
+	<script src="/public/js/member/integralRecord.js"></script>
+</body>
+</html>

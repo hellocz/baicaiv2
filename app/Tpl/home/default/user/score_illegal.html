@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<include file="public:head" />
+    <!--当前页面css-->
+    <link rel="stylesheet" href="/public/css/member.css">
+</head>
+<body>
+	<!--个人中心顶部 start-->
+	<include file="header" />
+	<!--个人中心顶部 end-->
+	
+	<!--个人中心用户信息 start-->
+	<include file="top_user" />
+	<!--个人中心用户信息 end-->
+	
+	<div class="w-1200 mt-12 clearfix">
+		<!--左边菜单start-->
+		<include file="left_menu" />
+		<!--左边菜单end-->
+		
+		<!--右边内容start-->
+		<div class="fl rightInfo white-bg radius-3">
+			<div class="r-title font-16" style="line-height: 54px;">违规记录</div>
+			<!--动态start-->
+			<div class="listBox">
+				<ul class="listTitle clearfix">
+					<li class="fl fc-aux-9" style="width: 287px;">时间</li>
+					<li class="fl fc-aux-9 text-center" style="width: 287px;">记录</li>
+					<li class="fr fc-aux-9 text-right" style="width: 287px;">违规原因</li>
+				</ul>
+
+				<div class="list-data">
+					<include file="score_list"/>
+				</div>
+
+				<!--分页加载中start-->
+				<div class="page-loading"></div>
+				<!--分页加载中end-->
+				
+				<!--分页start-->
+				<script type="text/javascript">
+					var page={$page}, content = $(".listBox .list-data");
+				</script>
+				<div id="pages" class="pages" style="text-align: center;"></div>
+				<!--分页end-->
+			</div>
+			<!--关注end-->
+		</div>
+		<!--右边内容end-->
+	</div>
+	
+	<!--底部统一区域+右边悬浮按钮start-->
+	<include file="public:footer" />
+	<!--底部统一区域+右边悬浮按钮end-->
+
+	<!--引入页面单独JS文件-->
+	<script src="/public/js/member/index.js"></script>
+</body>
+</html>

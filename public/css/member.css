@@ -86,6 +86,19 @@ header .mTop .top .nav-box ul li .sub .l-tab{
 	width: 159px;
 	border-right: 1px solid #F4F7F8;
 	height: 365px;
+	overflow-y: auto;
+}
+header .mTop .top .nav-box ul li .sub .l-tab::-webkit-scrollbar {
+	width: 3px;
+}
+header .mTop .top .nav-box ul li .sub .l-tab::-webkit-scrollbar-track {
+    background-color: #F5F5F5;
+}
+header .mTop .top .nav-box ul li .sub .l-tab::-webkit-scrollbar-thumb {
+	background-color:#DDDDDD;
+	-webkit-border-radius: 2em;
+	-moz-border-radius: 2em;
+	border-radius:2em;
 }
 header .mTop .top .nav-box ul li .sub .l-tab p{
 	height: 48px;
@@ -1925,4 +1938,142 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
 }
 .myCard .gq:hover .code{
 	color: #CCCCCC;
+}
+
+/*分享给朋友*/
+.partner .partnerBox{
+	background: url(../images/ie8/a_21@2x.png) no-repeat;
+	height: 180px;
+	padding-top: 250px;
+}
+.partner .partnerBox .infoBox{
+	width: 720px;
+	margin: 0px auto;
+	text-align: center;
+	font-size: 14px;
+	color: #999999;
+	line-height: 30px;
+}
+.partner .partnerBox .infoBox .t1{
+	padding: 3px 5px;
+	background: #EEF4F1;
+	color: #5C917C;
+	border-radius: 3px;
+}
+.partner .partnerBox .infoBox .t2{
+	padding: 3px 5px;
+	background: #F4ECEC;
+	color: #974747;
+	border-radius: 3px;
+}
+.partner .partnerBox .button{
+	position: relative;
+	text-align: center;
+	margin-top: 22px;
+}
+.partner .partnerBox .button .btn-3{
+	display: inline-block;
+	width:200px;
+	height:40px;
+	line-height: 40px;
+}
+.partner .partnerBox .button .shareBox{
+	top:-510px;
+	left: 280px;
+}
+.partner .partnerItem{
+	border-top: 1px solid #F4F7F8;
+	border-bottom: 1px solid #F4F7F8;
+	padding: 14px;
+}
+.partner .partnerItem .infoBox li{
+	float: left;
+	width: 33.33%;
+	margin-top: 10px;
+	color: #666666;
+	font-size: 14px;
+}
+.partner .partnerItem .infoBox li span{
+	font-weight: bold;
+	color: #222222;
+}
+.partner .partnerItem .button{
+	margin: 10px 0px 0px 575px;
+}
+.partner .partnerItem .button .btn-2{
+	display: inline-block;
+	padding: 3px 12px;
+}
+.partner .partnerItem .button .btn-3{
+	display: inline-block;
+	padding: 4px 12px;
+}
+.partner .activityRules{
+	padding: 30px 15px;
+	line-height: 30px;
+	
+}
+.partner .activityRules .font-14{
+	padding-left: 15px;
+}
+.partner .activityRules .font-14:before{
+	display: block;
+	content: '';
+	width: 4px;
+	height: 4px;
+	background: #222222;
+	position: relative;
+	top:17px;
+	left: -12px;
+	border-radius: 100px;
+}
+.listTitle{
+	background: #FAFAFA;
+	height: 42px;
+	line-height: 42px;
+	padding: 0px 14px;
+	font-size: 13px;
+}
+.listBox .item-4{
+	padding: 18px 14px;
+	height: 44px;
+}
+.listBox .item-4:hover{
+	background: #FAFAFA;
+}
+.listBox .item-4 .button a{
+	padding: 6px 12px;
+	border:1px solid #ECF1F3;
+	border-radius: 3px;
+	color: #999999;
+	background: #FFFFFF;
+}
+.listBox .item-4:hover .button a{
+	border:1px solid #33CC99;
+	background: #33CC99;
+	color: #FFFFFF;
+}
+
+.layui-progress-bar-green{
+	background:linear-gradient(-90deg,rgba(97,231,141,1),rgba(51,204,153,1));
+}
+.integralLevel{
+	width: 600px;
+	padding: 40px 14px;
+}
+.layui-progress{
+	background-color: #F6F9F7;
+}
+.listBox .item-5{
+	padding: 12px 14px;
+	height: 20px;
+	line-height: 20px;
+}
+.listBox .item-5:hover{
+	background: #FAFAFA;
+}
+.listBox .jfTitle{
+	font-size: 16px;
+	padding: 13px;
+	border-bottom: 1px solid #ECF1F3;
 }

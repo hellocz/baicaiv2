@@ -554,7 +554,7 @@ function get_mod($xid){
 }
 //获取是否收藏
 function islikes($itemid,$xid,$uid){
-	$islike=M("likes")->where("uid=$uid and itemid=$itemid and xid=$xid")->find();
+	$islike=D("likes")->is_likes($uid, $xid, $itemid);
 	if($islike){return "sz_11_l";}else{return "sz_11";}
 }
 //积分日志

@@ -1,0 +1,21 @@
+<!--循环start-->
+				<volist name="score_list" id="item">
+				<div class="item-5 font-14">
+					<div class="fl fc-grey vcenter" style="width: 287px;">{$item.add_time|date="Y.m.d H:i",###}</div>
+					<div class="fl fc-grey lvcenter" style="width: 287px;">
+						<if condition="$item['score'] neq 0">
+							积分<span class="fc-green"><if condition="$item['score'] gt 0">+</if>{$item.score}</span>
+							<if condition="$item['exp'] neq 0 OR $item['offer'] neq 0">，</if>
+						</if>
+						<if condition="$item['exp'] neq 0">
+							经验<span class="fc-green"><if condition="$item['exp'] gt 0">+</if>{$item.exp}</span>
+							<if condition="$item['offer'] neq 0">，</if>
+						</if>
+						<if condition="$item['offer'] neq 0">
+							贡献<span class="fc-green"><if condition="$item['offer'] gt 0">+</if>{$item.offer}</span>
+						</if>
+					</div>
+					<div class="fr text-right fc-aux-9" style="width: 287px;">{$lang[$item['action']]}</div>
+				</div>
+				</volist>
+				<!--循环end-->

@@ -29,4 +29,15 @@ class gradeModel extends Model
         return $grade;
     }
 
+    public function get_info($grade) {
+        if (false === $grade_list = F('grade_list')) {
+            $grade_list = $this->grade_cache();
+        }
+        if (isset($grade_list[$grade])) {
+            return $grade_list[$grade];
+        } else {
+            return false;
+        }
+    }
+
 }
