@@ -149,7 +149,14 @@ function subTab(tabClass){
 	});
 	
 	$("." + tabClass + " .t-tab span").hover(function(){
-		$("." + tabClass + " .t-tab span").removeClass("active");
+		$(this).siblings().removeClass("active");
+		$(this).addClass("active");
+		$(this).parent().find(".d-tab").hide();
+		$(this).parent().find(".d-tab").eq($(this).index()).show();
+	});
+
+	$("." + tabClass + " .d-tab span").hover(function(){
+		$("." + tabClass + " .d-tab span").removeClass("active");
 		$(this).addClass("active");
 	});
 }

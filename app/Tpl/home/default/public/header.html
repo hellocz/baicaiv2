@@ -120,68 +120,33 @@
 						<!--分类下拉菜单内容start-->
 						<div class="triangle_border_up"></div>
 						<div class="sub fenlei radius-3">
-							<!-- <?php
+							<?php
 							$header_cate_list = D('item_cate')->cate_cache();
-							?> -->
+							?> 
 							<div class="fl l-tab">
-								<p class="sub-radius-1"><a href="#"><em class="icon3 icon3-d_1"></em>服饰鞋袜</a></p>
-								<p><a href="#"><em class="icon3 icon3-d_2"></em>家用电器</a></p>
-								<p class="active"><a href="#"><em class="icon3 icon3-d_3"></em>运动户外</a></p>
-								<p><a href="#"><em class="icon3 icon3-d_4"></em>电脑数码</a></p>
-								<p><a href="#"><em class="icon3 icon3-d_15"></em>文化娱乐</a></p>
-								<p><a href="#"><em class="icon3 icon3-d_16"></em>优惠活动</a></p>
-								<p><a href="#"><em class="icon3 icon3-d_8"></em>食品保健</a></p>
-								<!-- <volist name="header_cate_list['p']" id="r1">
-								<p><a href="{:U('cate_list/cate',array('id'=>$r1['id']))}"><em class="icon4 icon4-d_cate_{$r1.id}"></em>{$r1.name}</a></p>
-								</volist> -->
+								<volist name="header_cate_list['p']" id="r1" key="k">
+								<p <if condition="$k eq 1"> class="active" </if>><a href="{:U('cate_list/cate',array('id'=>$r1['id']))}" ><em class="icon4 icon4-d_cate_{$r1.id}"></em>{$r1.name}</a></p>
+								</volist>
 							</div>
 							<div class="fl info">
-								<div class="t-tab clearfix">
-									<a href="{:U('category/index')}" class="fr font-12 fc-aux-9 more">浏览更多</a>
-									<span class="fl font-14 mr-20 active">户外</span>
-									<span class="fl font-14 mr-20">精品鞋靴</span>
-									<span class="fl font-14 mr-20">运动装备</span>
-									<span class="fl font-14 mr-20">跑步系列</span>
-									<span class="fl font-14 mr-20">旅行携带用品</span>
-								</div>
-								<ul class="tab-list none clearfix" id="fenlei-list-1">这里显示服饰鞋袜列表</ul>
-								<ul class="tab-list none clearfix" id="fenlei-list-2">这里显示家用电器列表</ul>
-								<ul class="tab-list clearfix font-14" id="fenlei-list-3">
-									<a href="#" target="_blank">登山鞋</a>
-									<a href="#" target="_blank">徒步鞋</a>
-									<a href="#" target="_blank">高山靴</a>
-									<a href="#" target="_blank">攀岩鞋</a>
-									<a href="#" target="_blank">溯溪鞋</a>
-									<a href="#" target="_blank">沙滩鞋/凉鞋</a>
-									<a href="#" target="_blank">户外休闲鞋</a>
-									<a href="#" target="_blank">雪地鞋胶鞋</a>
-									<a href="#" target="_blank">冲锋衣</a>
-									<a href="#" target="_blank">裤抓绒衣裤</a>
-									<a href="#" target="_blank">速干衣裤</a>
-									<a href="#" target="_blank">外衬衣</a>
-									<a href="#" target="_blank">户外T恤</a>
-									<a href="#" target="_blank">迷彩衣裤</a>
-									<a href="#" target="_blank">快干/保暖内衣裤</a>
-									<a href="#" target="_blank">羽绒/棉服</a>
-									<a href="#" target="_blank">滑雪衣裤</a>
-									<a href="#" target="_blank">毛衣风衣</a>
-									<a href="#" target="_blank">骑行服</a>
-									<a href="#" target="_blank">行李箱/包</a>
-									<a href="#" target="_blank">登山鞋</a>
-									<a href="#" target="_blank">徒步鞋</a>
-									<a href="#" target="_blank">高山靴</a>
-									<a href="#" target="_blank">攀岩鞋</a>
-									<a href="#" target="_blank">溯溪鞋</a>
-									<a href="#" target="_blank">沙滩鞋/凉鞋</a>
-									<a href="#" target="_blank">户外休闲鞋</a>
-									<a href="#" target="_blank">雪地鞋胶鞋</a>
-									<a href="#" target="_blank">冲锋衣</a>
-									<a href="#" target="_blank" class="fc-green">查看更多</a>
-								</ul>
-								<ul class="tab-list none clearfix" id="fenlei-list-4">这里显示电脑数码列表</ul>
-								<ul class="tab-list none clearfix" id="fenlei-list-5">这里显示文化娱乐列表</ul>
-								<ul class="tab-list none clearfix" id="fenlei-list-6">这里显示优惠活动列表</ul>
-								<ul class="tab-list none clearfix" id="fenlei-list-7">这里显示食品保健列表</ul>
+								<volist name="header_cate_list['p']" id="r1" key="k1">
+									<ul class='t-tab clearfix <if condition="$k1 eq 1">active</if>' <if condition="$k1 gt 1"> style="display:none"</if>' id="fenlei-list-{$k1}">
+										<a href="{:U('category/index')}" class="fr font-12 fc-aux-9 more">浏览更多</a>
+										<volist name="header_cate_list['s'][$r1['id']]" id="r2" key="k3">
+											<span class='fl font-14 mr-20 <if condition="$k3 eq 1">active</if>'>{$r2.name}</span>
+										</volist>
+										<volist name="header_cate_list['s'][$r1['id']]" id="r2">
+											<ul class="d-tab tab-list clearfix font-14">
+												<volist name="header_cate_list['s'][$r2['id']]" id="r3" key="k2">
+													<if condition="$k2 lt 31">
+												<a href="#" target="_blank">{$r3.name}</a>
+											</if>
+												</volist>
+											</ul>
+										</volist>
+									</ul>
+								</volist>
+								
 							</div>
 						</div>
 						<!--分类下拉菜单end-->
