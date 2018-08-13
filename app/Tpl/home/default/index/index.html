@@ -33,7 +33,7 @@
 								<li class="layui-col-xs5 br"><a href="{:U('list/index', array('type'=>2))}">热门优惠</a></li>
 								<li class="layui-col-xs5 br"><a href="{:U('list/index', array('type'=>3))}">全网特价</a></li>
 								<li class="layui-col-xs5 br"><a href="{:U('hour/index')}">小时排行</a></li>
-								<li class="layui-col-xs5"><a href="#">我的关注</a><span class="dot radius-100">{$user['tag_count']}</span></li>
+								<li class="layui-col-xs5"><a href="{:U('item/myitems')}">我的关注</a><if condition="$user['tag_count'] gt 0"><span class="dot radius-100">{$user['tag_count']}</span></if></li>
 							</ul>
 						</div>
 						<div class="fr arrow">
