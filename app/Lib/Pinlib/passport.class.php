@@ -81,6 +81,20 @@ class passport
     }
 
     /**
+    */
+    public function auth_mobile($mobile,$session_code,$verify_code){
+        $uid = $this->_us->auth_mobile($mobile,$session_code,$verify_code);
+        if (!$uid) {
+            $this->_error = $this->_us->get_error();
+            return false;
+        }
+        if (is_array($uid)) {
+            $uid = $this->_local_sync($result);
+        }
+        return $uid;
+    }
+
+    /**
      * 同步登陆
      */
     public function synlogin($uid) {

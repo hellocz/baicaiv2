@@ -188,19 +188,29 @@ class userAction extends userbaseAction
         if(in_array($myip,$kill_ip)){
             echo get_result(20001,[], '您的账户已被禁用');return ;
         }
-        //封IP end
-        if (empty($data['mobile'])) {
-            echo get_result(20001,[], '用户名不能为空');return ;
-        }
-        if (empty($data['password'])) {
-            echo get_result(20001,[], '密码不能为空');return ;
-        }
         //连接用户中心
         $passport = $this->_user_server();
-        $uid = $passport->auth($data['mobile'], $data['password']);
-        if (!$uid) {
-            echo get_result(20001,[], '账号或密码错误');return ;
-        }
+
+        if ($data['type'] == 'mobile') {
+                $mobile = $data['mobile'];
+                $session_code = M('codesms')->where(['mobile'=>$data['mobile']])->getField("code");
+                $verify_code = $data['verify_code'];
+                $uid = $passport->auth_mobile($mobile, $session_code,$verify_code);
+                    if (!$uid) {
+                       echo get_result(20001,[], $passport->get_error());return ;
+                    }
+                    else{
+                    M('codesms')->where(['mobile'=>$data['mobile']])->delete();
+                    }
+            }
+            else{
+                $username = $data['username'];
+                $password = $data['password'];
+                $uid = $passport->auth($username, $password);
+                if (!$uid) {
+                    echo get_result(20001,[], $passport->get_error());return ;
+                }
+            }
         $userinfo = $passport->get($uid);
         $info = [
             'userid'    =>  $userinfo['id'],

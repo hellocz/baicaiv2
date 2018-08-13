@@ -807,45 +807,20 @@ class userAction extends userbaseAction {
             if ($type == 'mobile') {
                 $mobile = $this->_post('mobile','trim');
                 $verify_code = $this->_post('phone_verify', 'trim');
-                $remember = '';
-                if (empty($mobile)) {
-                    IS_AJAX && $this->ajaxReturn(0, L('please_input')."手机号码");
-                    $this->error(L('please_input')."手机号码");
-                }
-                if (empty($verify_code)) {
-                    IS_AJAX && $this->ajaxReturn(0, L('please_input')."手机验证码");
-                    $this->error(L('please_input')."手机验证码");
-                }
-                if(!isset($_SESSION['phone_verify_'.md5($mobile)])){
-                    IS_AJAX && $this->ajaxReturn(0, '手机验证码未发送或已过期');
-                    $this->error('手机验证码未发送或已过期');
-                }
-                else if(session('phone_verify_'.md5($mobile)) != md5($verify_code)){
-                    IS_AJAX && $this->ajaxReturn(0, '手机验证码错误');
-                    $this->error("手机验证码错误");
-                }
-                session('phone_verify_'.md5($mobile), NULL);
-
-                $user = $this->_mod->get_user_by_mobile($mobile);
-                $uid = isset($user['id']) ? $user['id'] : '';
-                $username = isset($user['username']) ? $user['username'] : '';
-                if (!$uid) {
-                    IS_AJAX && $this->ajaxReturn(0, L('user_not_exists'));
-                    $this->error(L('user_not_exists'));
-                }
+                $remember = $this->_post('remember');
+                $uid = $passport->auth_mobile($mobile, $_SESSION['phone_verify_'.md5($mobile)],md5($verify_code));
+                    if (!$uid) {
+                        IS_AJAX && $this->ajaxReturn(0, $passport->get_error());
+                        $this->error($passport->get_error());
+                    }
+                    else{
+                    session('phone_verify_'.md5($mobile), NULL);
+                    }
             }
             else{
                 $username = $this->_post('username', 'trim');
                 $password = $this->_post('password', 'trim');
                 $remember = $this->_post('remember');
-                if (empty($username)) {
-                    IS_AJAX && $this->ajaxReturn(0, L('please_input').L('password'));
-                    $this->error(L('please_input').L('username'));
-                }
-                if (empty($password)) {
-                    IS_AJAX && $this->ajaxReturn(0, L('please_input').L('password'));
-                    $this->error(L('please_input').L('password'));
-                }
 
                 $uid = $passport->auth($username, $password);
                 if (!$uid) {

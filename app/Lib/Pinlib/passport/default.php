@@ -88,6 +88,14 @@ class default_passport
      */
     public function auth($username, $password) {
         //$uid = M('user')->where(array('username'=>$username, 'password'=>md5($password)))->getField('id');
+        if (empty($username)) {
+            $this->_error = L('please_input').L('username');
+            return false;
+        }
+        if (empty($password)) {
+            $this->_error = L('please_input').L('password');
+            return false;
+        }
         $user = M('user')->where(array('username'=>$username,'email'=>$username,'mobile'=>$username,'_logic'=>'OR'))->field('id,password')->find();//查找用户
         $wp_hasher = new PasswordHash(8, TRUE); //验证加密
         $sok = $wp_hasher->CheckPassword($password,$user['password']);
@@ -97,6 +105,36 @@ class default_passport
             $this->_error = L('auth_failed');
             return false;
         }
+    }
+
+    /*
+    * 手机验证码登陆
+    */
+
+    public function auth_mobile($mobile,$session_code,$verify_code){        
+                if (empty($mobile)) {
+                    $this->_error = L('please_input')."手机号码";
+                    return false;
+                }
+                if (empty($verify_code)) {
+                    $this->_error = L('please_input')."手机验证码";
+                    return false;
+                }
+                if(!isset($session_code)){
+                    $this->_error = "手机验证码未发送或已过期";
+                    return false;
+                }
+                else if($session_code != $verify_code){
+                    $this->_error = "手机验证码错误";
+                    return false;
+                }
+                $user = D("user")->get_user_by_mobile($mobile);
+                if ($user['id']){
+                    return $user['id'];
+                }else {
+                    $this->_error = L('auth_failed');
+                    return false;
+                }
     }
 
     /**
