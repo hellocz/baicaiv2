@@ -317,6 +317,45 @@ class itemAction extends frontendAction {
     */
 
     public function myitems(){
+
+        $tags = D("notify_tag")->user_follow_tags($this->visitor->info['id']);
+        $this->assign('tags',$tags);
+
+        //过滤筛选及查询结果
+        $search_content= Array();
+         if(count($tags) > 0){
+            foreach($tags as $key=>$r){
+               $search_content[$key] ="%$r%";
+            }
+            $where1['title'] =array('like',$search_content,'OR');
+            $where1['intro'] =array('like',$search_content,'OR');
+            $where1['content'] =array('like',$search_content,'OR');
+        }
+
+        if(count($tags) ==1){
+            $tag_id =  M("tag")->where(array('name'=>$tags[0]))->getField('id'); 
+            $tag_id && $tag_items = M("item_tag")->where(array('tag_id'=>$tag_id))->field("item_id")->select();
+            foreach ($tag_items as $tag_item_id) {
+                if($str==""){
+                     $str=$tag_item_id['item_id'];
+                }else{
+                   $str.=",".$tag_item_id['item_id'];
+                }
+            }
+            $str && $where1['id'] = array('in', $str);
+        }
+
+        $where1['_logic'] = 'or';
+        $where['_complex'] = $where1;
+        // print_r($where);exit;
+
+        $this->filter('', $where);
+
+        $this->assign('page_seo',set_seo('我的关注'));
+        $this->display();
+    }
+
+    public function old_myitems(){
     $mod=M("item");
      $order =" add_time desc";
       $tab = "myitems";

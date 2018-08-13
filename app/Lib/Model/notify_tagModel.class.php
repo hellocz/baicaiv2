@@ -28,7 +28,7 @@ class notify_tagModel extends Model
     public function user_follow_count($userid = 0){
         if(!$userid) return false;
         
-        $where = "userid='$userid'"; 
+        $where = "userid=$userid and f_sign=1"; 
         $count = $this->where($where)->count();
         return $count;
     }
@@ -39,7 +39,7 @@ class notify_tagModel extends Model
     public function user_follow_list($userid = 0, $limit = '1,10', $order = 'id desc'){
         if(!$userid) return false;
         
-        $where = "userid='$userid'"; 
+        $where = "userid=$userid and f_sign=1"; 
         $list = $this->where($where)->order($order)->limit($limit)->select();
         return $list;
     }
@@ -136,7 +136,7 @@ class notify_tagModel extends Model
         $tags = array();
         if(count($list) > 0){
             foreach($list as $key=>$val){
-                $tags[$val['tag']] = 1;
+                $tags[$val['tag']] = $val['tag'];
             }
         }
         return $tags;
