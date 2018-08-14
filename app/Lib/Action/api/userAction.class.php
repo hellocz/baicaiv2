@@ -171,7 +171,7 @@ class userAction extends userbaseAction
             $res = M('codesms')->add(['mobile'=>$data['mobile'],'code'=>$code,'out_time'=>time()+600]);
         }
         if($res){
-            echo get_result(10001,['code'=>$code]);
+            echo get_result(10001,[],"发送成功");
         }else{
             echo get_result(20001, [], "未知错误");
         }
