@@ -152,7 +152,7 @@ function subTab(tabClass){
 		$(this).siblings().removeClass("active");
 		$(this).addClass("active");
 		$(this).parent().find(".d-tab").hide();
-		$(this).parent().find(".d-tab").eq($(this).index()).show();
+		$(this).parent().find(".d-tab").eq($(this).index()-1).show();
 	});
 
 	$("." + tabClass + " .d-tab span").hover(function(){

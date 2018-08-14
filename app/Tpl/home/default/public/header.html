@@ -130,13 +130,13 @@
 							</div>
 							<div class="fl info">
 								<volist name="header_cate_list['p']" id="r1" key="k1">
-									<ul class='t-tab clearfix <if condition="$k1 eq 1">active</if>' <if condition="$k1 gt 1"> style="display:none"</if>' id="fenlei-list-{$k1}">
+									<ul class='t-tab clearfix <if condition="$k1 eq 1">active</if>' <if condition="$k1 gt 1"> style="display:none"</if> id="fenlei-list-{$k1}">
 										<a href="{:U('category/index')}" class="fr font-12 fc-aux-9 more">浏览更多</a>
 										<volist name="header_cate_list['s'][$r1['id']]" id="r2" key="k3">
 											<span class='fl font-14 mr-20 <if condition="$k3 eq 1">active</if>'>{$r2.name}</span>
 										</volist>
-										<volist name="header_cate_list['s'][$r1['id']]" id="r2">
-											<ul class="d-tab tab-list clearfix font-14">
+										<volist name="header_cate_list['s'][$r1['id']]" id="r2" key="k4">
+											<ul class="d-tab tab-list clearfix font-14" <if condition="$k4 gt 1"> style="display:none"</if>>
 												<volist name="header_cate_list['s'][$r2['id']]" id="r3" key="k2">
 													<if condition="$k2 lt 31">
 												<a href="#" target="_blank">{$r3.name}</a>
