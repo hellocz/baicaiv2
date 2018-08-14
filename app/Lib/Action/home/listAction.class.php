@@ -3,7 +3,7 @@ class listAction extends frontendAction {
 
     public function index(){
 
-        $this->filter();
+        $this->search();
 
         $this->display();
     }

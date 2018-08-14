@@ -351,4 +351,12 @@ class itemModel extends Model
         return $sql;
     }
 
+    /**
+    * 获得item list
+    */
+    public function item_list($where = '', $limit = '1,10', $order = 'add_time desc'){
+        $list = $this->where($where)->order($order)->limit($limit)->select();
+        return $list;
+    }
+
 }

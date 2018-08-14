@@ -55,11 +55,11 @@ class origAction extends frontendAction {
         //过滤筛选及查询结果
         //品牌
         $params = array('id' => $id);
-        $where = array();
-        $where['orig_id'] = $id;
+        $filters = array();
+        $filters['id'] = $id;
         
         //筛选
-        $this->filter($params, $where);
+        $this->search($params, '_orig_', $filters);
 
         $page_seo['title'] = $orig_info['seo_title'];
         $page_seo['keywords'] = $orig_info['seo_keys'];

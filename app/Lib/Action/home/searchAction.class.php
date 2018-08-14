@@ -12,44 +12,14 @@ class searchAction extends frontendAction {
     public function index(){
         $q = $this->_get('q', 'trim');
 
-        //过滤筛选及查询结果
-        if ($q && $q!="白菜帮你搜"){
-            $q_list=explode(" ",$q);
-            $q_info="";
-            $search_content= Array();
-             if(count($q_list) > 0){
-                foreach($q_list as $key=>$r){
-                   $search_content[$key] ="%$r%";
-                }
-                $where1['title'] =array('like',$search_content,'AND');
-                $where1['intro'] =array('like',$search_content,'AND');
-                $where1['content'] =array('like',$search_content,'AND');
-            }
+        //字符串处理，避免URL获取参数出错
+        $q = param_decode($q);
 
-            if(count($q_list) ==1){
-                $tag_id =  M("tag")->where(array('name'=>$q))->getField('id'); 
-                $tag_id && $tag_items = M("item_tag")->where(array('tag_id'=>$tag_id))->field("item_id")->select();
-                foreach ($tag_items as $tag_item_id) {
-                    if($str==""){
-                         $str=$tag_item_id['item_id'];
-                    }else{
-                       $str.=",".$tag_item_id['item_id'];
-                    }
-                }
-                $str && $where1['id'] = array('in', $str);
-                // $where1['tag_cache'] =array('like',$tag_content,'AND');
-                if(strlen($q) == 10){
-                    $where1['go_link'] =array('like',$search_content,'AND');
-                }
-            }
-
-            $where1['_logic'] = 'or';
-            $where['_complex'] = $where1;
-        }
-        // print_r($where);exit;
-
-        $params = array('q' => $q);
-        $this->filter($params, $where);
+        //过滤筛选及查询结果       
+        $params = array('q' => param_encode($q));
+        $q_list=explode(" ",$q);
+        $filters = array('q' => $q_list);
+        $this->search($params, '_search_', $filters);
 
         //天猫领券
         $info = array();
