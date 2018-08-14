@@ -139,16 +139,16 @@ class brandAction extends frontendAction {
           //当前分类信息
           if (isset($cate_data[$cid])) {
               $cate_info = $cate_data[$cid];
+          }else{
+              $cid = '';
           }
-          //分类关系
-          $cate_relate = D('item_cate')->relate_cache();
         }
 
         //天猫搜券
         //品牌
         $q = trim($brand['chn_name']);
         //分类信息
-        if($cate_info){
+        if($cid){
           $q = trim($cate_info['name']) . " " . $q;
         }
         //搜索
@@ -156,34 +156,13 @@ class brandAction extends frontendAction {
         $brand['recommend']=array_slice($item_list,0,4);
 
         //过滤筛选及查询结果
-        //品牌
         $params = array('id' => $id);
-        // $where = 'tag_cache like \'%"'. trim($brand['chn_name']) .'"%\' ';
-        $where = array();
-        $tag_id =  M("tag")->where(array('name'=>$brand['chn_name']))->getField('id'); 
-        $tag_id && $tag_items = M("item_tag")->where(array('tag_id'=>$tag_id))->field("item_id")->select();
-        if(isset($tag_items) && count($tag_items) > 0){
-          foreach ($tag_items as $tag_item_id) {
-              if($str==""){
-                   $str=$tag_item_id['item_id'];
-              }else{
-                 $str.=",".$tag_item_id['item_id'];
-              }
-          }
-        }
-        if($str){
-            $where['id'] = array('in', $str);
-        }else{
-            $where['id'] = array('in', '-1');
-        }
-        //分类信息
-        if($cate_info){
+        $filters = array('id' => $id);
+        if($cid){
           $params['cid'] = $cid;
-          array_push($cate_relate[$cid]['sids'], $cid);
-          $where['cate_id'] = array('in', $cate_relate[$cid]['sids']); //分类
+          $filters['cid'] = $cid;
         }
-        //筛选
-        $this->filter($params, $where);
+        $this->search($params, '_brand_', $filters);
 
         $page_seo['title'] = $brand['name'] . "怎么样_" . $brand['name'] . "品牌介绍_" . $brand['name'] . "旗舰店_白菜哦官网";
         $page_seo['keywords'] = $brand['name'] . "品牌介绍、" . $brand['name'] . "怎么样、" . $brand['name'] . "价格、" . $brand['name'] . "旗舰店、" . $brand['name'] . "官网";

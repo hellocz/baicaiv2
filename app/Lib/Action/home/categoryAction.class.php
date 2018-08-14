@@ -22,8 +22,6 @@ class categoryAction extends frontendAction {
         } else {
             $this->_404();
         }
-        //分类关系
-        $cate_relate = D('item_cate')->relate_cache();
 
         //天猫搜券
         $q = trim($cate_info['name']);
@@ -32,9 +30,8 @@ class categoryAction extends frontendAction {
 
         //过滤筛选及查询结果
         $params = array('id' => $id);
-        array_push($cate_relate[$id]['sids'], $id);
-        $where['cate_id'] = array('in', $cate_relate[$id]['sids']); //分类
-        $this->filter($params, $where);
+        $filters = array('id' => $id);
+        $this->search($params, '_cate_', $filters);
 
         //SEO
         $level = substr_count($cate_info['spid'],"|")+1;

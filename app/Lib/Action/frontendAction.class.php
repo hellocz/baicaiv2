@@ -191,50 +191,21 @@ class frontendAction extends baseAction {
         $this->assign('right_hot_item_list', $item_list);
     }
    
-
     /**
      * 筛选过滤及结果查询
+     * 所有选项
      */
-    public function filter($params = array(), $where = ''){
-
-        $p = $this->_get('p', 'intval', 1);
-        $type = $this->_get('type','trim');
-        if(!is_array($type)){
-            $type = array_flip(explode(',', $type));
-        }
-        $property = $this->_get('property','trim');
-        if(!is_array($property)){
-            $property = array_flip(explode(',', $property));
-        }
-        $cateid = $this->_get('cateid','intval',0);
-        // $cpid = $this->_get('cpid','intval',0);
-        $orig = $this->_get('orig','trim');
-        if(!is_array($orig)){
-            $orig = array_flip(explode(',', $orig));
-        }
-        $tag = $this->_get('tag','trim');
-        if(!is_array($tag)){
-            $tag = array_flip(explode(',', $tag));
-        }
-        $price = $this->_get('price','intval',0);
-        $pricemin = $this->_get('pricemin','intval',0);
-        $pricemax = $this->_get('pricemax','intval',0);
-        $period = $this->_get('period','intval',0);
-        $sortby = $this->_get('sortby','trim');
-        // $dss = $this->_get('dss','trim');
-        $dss_l = $_COOKIE['dss_l'];
-        if($p<1){$p=1;}
-
-        $time=time();
-        $time = strtotime('2018-05-31 23:59:59'); //测试
+    public function options(){
 
         $options = array();
+
         //文章类型
         $options['type'] = array(
             1 => array('name' => '首页推荐', 'count' => 0),
             2 => array('name' => '热门优惠', 'count' => 0),
             3 => array('name' => '全网特价', 'count' => 0),
         ); 
+
         //按属性，国内，国外
         $options['ismy'] = array(
             '1' => array('name' => '海淘', 'count' => 0),
@@ -277,13 +248,7 @@ class frontendAction extends baseAction {
         );
 
         //商城列表
-        $origs = M("item_orig")->order("ordid asc")->select();
-        $options['orig'] = array();
-        if(count($origs) > 0){
-            foreach ($origs as $k => $val) {
-                $options['orig'][$val['id']] = $val;
-            }
-        }
+        $options['orig'] = D("item_orig")->orig_cache();
 
         //分类列表
         $cate_list = D('item_cate')->cate_cache();
@@ -296,8 +261,39 @@ class frontendAction extends baseAction {
                 }
             }
         }
-        //分类数据
-        $cate_data = D('item_cate')->cate_data_cache();
+
+        return $options;
+    }
+
+    /**
+     * 筛选过滤及结果查询
+     * 过滤条件 - 通过所有选项筛选
+     */
+    public function filters($options){
+
+        $type = $this->_get('type','trim');
+        if(!is_array($type)){
+            $type = array_flip(explode(',', $type));
+        }
+        $property = $this->_get('property','trim');
+        if(!is_array($property)){
+            $property = array_flip(explode(',', $property));
+        }
+        $cateid = $this->_get('cateid','intval',0);
+        // $cpid = $this->_get('cpid','intval',0);
+        $orig = $this->_get('orig','trim');
+        if(!is_array($orig)){
+            $orig = array_flip(explode(',', $orig));
+        }
+        $tag = $this->_get('tag','trim');
+        if(!is_array($tag)){
+            $tag = array_flip(explode(',', $tag));
+        }
+        $price = $this->_get('price','intval',0);
+        $pricemin = $this->_get('pricemin','intval',0);
+        $pricemax = $this->_get('pricemax','intval',0);
+        $period = $this->_get('period','intval',0);
+        $sortby = $this->_get('sortby','trim');
 
         //默认过滤选项
         $default_filters = array(
@@ -315,18 +311,112 @@ class frontendAction extends baseAction {
 
         $filters = $default_filters;
 
-        //查询条件
-        $mod=M("item");
-        $queryAllArr = array();
-        $queryArr = array();
-        $all_where1 = "status=1 ";
-        $where1 = "status=1 ";
-
-        //过滤条件, 固定条件，选项不会变化
         //时间
         if(array_key_exists($period, $options['period'])){
             $filters['period'] = $period;
         }
+
+        //文章类型
+        if(count($type) > 0){
+            foreach ($type as $k => $val) {
+                if(!isset($options['type'][$k])) continue;
+                if(isset($filters['type'])) unset($filters['type']);  //有选择并且type在type list列表内时，清掉默认选择
+                $filters['type'][$k] = $val;
+                break;  //单选
+            }
+        }
+        
+        //属性：国内，国外
+        if(count($property) > 0){
+            if(isset($filters['property'])) unset($filters['property']);
+            foreach ($property as $k => $val) {
+                if(!isset($options['ismy'][$k])) continue;
+                $filters['property'][$k] = $val;
+            }
+        }       
+
+        //分类过滤
+        if($cateid > 0 && count($options['cate']) > 0){
+            foreach ($options['cate']['s'] as $k => $val) {
+                if(isset($options['cate']['s'][$k][$cateid])){  //判断传过来的是否二级分类
+                    $filters['cateid']= $cateid;
+                }
+            }
+        }
+
+        //商城过滤
+        if(count($orig) > 0){
+            if(isset($filters['orig'])) unset($filters['orig']);
+            foreach ($orig as $k => $val) {
+                if(!isset($options['orig'][$k])) continue;
+                $filters['orig'][$k] = $k;
+            }
+        }
+
+        //标签
+        if(count($tag) > 0){
+            if(isset($filters['tag'])) unset($filters['tag']);
+            foreach ($tag as $k => $val) {
+                if(!array_key_exists($k, $options['tag'])) continue;
+                $filters['tag'][$k] = $options['tag'][$k]; 
+            }
+        }
+
+        //价格        
+        if($price > 0 && array_key_exists($price, $options['price'])){
+            $filters['price'] = $price;
+        }else{
+            if($pricemin>0){
+                $filters['pricemin'] = $pricemin;
+            }
+            if($pricemax>0){
+                $filters['pricemax'] = $pricemax;
+            }
+        }
+
+        //排序
+        if(array_key_exists($sortby, $options['sortby'])){
+            $filters['sortby'] = $sortby;
+        }
+
+        return $filters;
+
+    }
+
+    /**
+     * 筛选过滤及结果查询
+     * page_params Array(), 页面传过来的参数，用于生成排序、分页等URL链接
+     * page_name，页面名称，根据页面名称获得页面传来的条件
+     * page_filters，页面传来的过滤条件
+     */
+    public function search($page_params = array(), $page_name = '', $page_filters = array()){
+
+        $p = $this->_get('p', 'intval', 1);
+        // $dss = $this->_get('dss','trim');
+        $dss_l = $_COOKIE['dss_l'];
+        if($p<1){$p=1;}
+
+        //分类数据
+        $cate_data = D('item_cate')->cate_data_cache();
+
+        // 所有选项
+        $options = $this->options();
+
+        // 过滤条件
+        $filters = $this->filters($options);
+
+        //查询条件
+        $mod=M("item");
+
+        $queryAllArr = array();
+        $queryArr = array();
+
+        $all_where1 = "status=1 ";
+        $where1 = "status=1 ";
+
+        //时间
+        $time=time();
+        $time = strtotime('2018-05-31 23:59:59'); //测试
         switch ($filters['period']) {
             case '1':
                 $time_s = strtotime("-1 month", strtotime(date("Y-m-d 00:00:00", $time))+86400);
@@ -342,107 +432,184 @@ class frontendAction extends baseAction {
                 break;
         }
         $all_where1.="and add_time between $time_s and $time_e ";
-        $where1.="and add_time between $time_s and $time_e ";
-        //文章类型
-        if(count($type) > 0){
-            foreach ($type as $k => $val) {
-                if(!isset($options['type'][$k])) continue;
-                if(isset($filters['type'])) unset($filters['type']);  //有选择并且type在type list列表内时，清掉默认选择
-                $filters['type'][$k] = $val;
-                break;  //单选
-            }
-        }
-        //属性：国内，国外
-        if(count($property) > 0){
-            if(isset($filters['property'])) unset($filters['property']);
-            foreach ($property as $k => $val) {
-                if(!isset($options['ismy'][$k])) continue;
-                $filters['property'][$k] = $val;
-            }
-        }
+        $where1.="and add_time between $time_s and $time_e ";        
+
         //分类过滤
-        if($cateid > 0 && count($options['cate']) > 0){
-            foreach ($options['cate']['s'] as $k => $val) {
-                if(isset($options['cate']['s'][$k][$cateid])){  //判断传过来的是否二级分类
-                    $filters['cateid']= $cateid;
-                    $arr = array($cateid);
-                    if(isset($cate_list['s'][$cateid])){
-                        $arr = array_merge($arr, array_keys($cate_list['s'][$cateid]));
-                    }
-                    $where1.="and cate_id in(". implode(', ', $arr) .") ";
-                }
-            }
+        if(isset($filters['cateid'])){  
+            $cate_relate = D('item_cate')->relate_cache();//分类关系
+            $cate_ids = isset($cate_relate[$filters['cateid']]['sids']) ? $cate_relate[$filters['cateid']]['sids'] : array();
+            array_push($cate_ids, $filters['cateid']);
+            $where1.="and cate_id in(". implode(', ', $cate_ids) .") ";//分类
         }
+
         //商城过滤
-        if(count($orig) > 0){
-            if(isset($filters['orig'])) unset($filters['orig']);
-            foreach ($orig as $k => $val) {
-                if(!isset($options['orig'][$k])) continue;
-                $filters['orig'][$k] = $k;
-            }
-            if(count($filters['orig']) > 0){
-                $where1.="and orig_id in(". implode(', ', array_keys($filters['orig'])) .") ";
-            }
+        if(isset($filters['orig']) && count($filters['orig']) > 0){
+            $where1.="and orig_id in(". implode(', ', array_keys($filters['orig'])) .") ";
         }
-        $options['orig_more'] = false;
-        $arr = array_slice($options['orig'], 5, null, TRUE);
-        if(isset($filters['orig']) and count($filters['orig'])>0){
-            foreach ($filters['orig'] as $k => $v) {
-                if(array_key_exists($k, $arr)){
-                    $options['orig_more'] = true;
-                    break;
-                }
-            }
-        }
+
         //标签
-        if(count($tag) > 0){
-            if(isset($filters['tag'])) unset($filters['tag']);
-            foreach ($tag as $k => $val) {
-                if(!array_key_exists($k, $options['tag'])) continue;
-                $filters['tag'][$k] = $options['tag'][$k]; 
-            }
-            if(count($filters['tag']) > 0){
-                $where1.="and (`title` like '%". implode("%' OR `title` like '%", $filters['tag']) ."%') ";
-            }
+        if(isset($filters['tag']) && count($filters['tag']) > 0){
+            $where1.="and (`title` like '%". implode("%' OR `title` like '%", $filters['tag']) ."%') ";
         }
+
         //价格        
-        if($price > 0 && array_key_exists($price, $options['price'])){
-            $filters['price'] = $price;
-            if(isset($options['price'][$price]['min'])){
-                $where1.="and pure_price>={$options['price'][$price]['min']} ";
+        if(isset($filters['price']) && $filters['price'] > 0){
+            if(isset($options['price'][$filters['price']]['min'])){
+                $where1.="and pure_price>={$options['price'][$filters['price']]['min']} ";
             }
-            if(isset($options['price'][$price]['max'])){
-                $where1.="and pure_price<{$options['price'][$price]['max']} ";
+            if(isset($options['price'][$filters['price']]['max'])){
+                $where1.="and pure_price<{$options['price'][$filters['price']]['max']} ";
             }
         }else{
-            if($pricemin>0){
-                $filters['pricemin'] = $pricemin;
-                $where1.="and pure_price>={$pricemin} ";
+            if(isset($filters['pricemin']) && $filters['pricemin']>0){
+                $where1.="and pure_price>={$filters['pricemin']} ";
             }
-            if($pricemax>0){
-                $filters['pricemax'] = $pricemax;
-                $where1.="and pure_price<={$pricemax} ";
+            if(isset($filters['pricemax']) && $filters['pricemax']>0){
+                $where1.="and pure_price<={$filters['pricemax']} ";
             }
         }
 
-        //添加条件
-        if(!empty($where)){
-            $queryAllArr['where']['_complex'] = $where;
-            $queryArr['where']['_complex'] = $where;
-        }
-        $queryAllArr['where']['_string'] = $all_where1;
-        $queryArr['where']['_string'] = $where1;
-
+        //左边过滤筛选条件
         $queryAllArr['where']['_logic'] = 'and';
         $queryArr['where']['_logic'] = 'and';
 
+        $queryAllArr['where']['_string'] = $all_where1;
+        $queryArr['where']['_string'] = $where1;
+
+         //添加条件, 不同页面传的条件
+        if($page_name){
+            $where1 = array();
+            $where = array();   
+            switch ($page_name) {
+                // 搜索页
+                case '_search_': 
+                    $q_list=$page_filters['q'];
+                    $search_content= Array();
+                     if(count($q_list) > 0){
+                        foreach($q_list as $key=>$r){
+                           $search_content[$key] ="%$r%";
+                        }
+                        $where1['title'] =array('like',$search_content,'AND');
+                        $where1['intro'] =array('like',$search_content,'AND');
+                        $where1['content'] =array('like',$search_content,'AND');
+                    }
+
+                    if(count($q_list) ==1){
+                        $tag_id =  M("tag")->where(array('name'=>$q_list[0]))->getField('id'); 
+                        $tag_id && $tag_items = M("item_tag")->where(array('tag_id'=>$tag_id))->field("item_id")->select();
+                        foreach ($tag_items as $tag_item_id) {
+                            if($str==""){
+                                 $str=$tag_item_id['item_id'];
+                            }else{
+                               $str.=",".$tag_item_id['item_id'];
+                            }
+                        }
+                        $str && $where1['id'] = array('in', $str);
+                        // $where1['tag_cache'] =array('like',$tag_content,'AND');
+                        if(strlen($q) == 10){
+                            $where1['go_link'] =array('like',$search_content,'AND');
+                        }
+                    }
+                    $where1['_logic'] = 'or';
+                    $where['_complex'] = $where1;
+                    break;
+
+                //我的关注页
+                case '_myitems_': 
+                    $tag_list = $page_filters['tag'];
+                    $search_content= Array();
+                     if(count($tag_list) > 0){
+                        foreach($tag_list as $key=>$r){
+                           $search_content[$key] ="%$r%";
+                        }
+                        $where1['title'] =array('like',$search_content,'OR');
+                        $where1['intro'] =array('like',$search_content,'OR');
+                        $where1['content'] =array('like',$search_content,'OR');
+                    }
+                    $where1['_logic'] = 'or';
+                    $where['_complex'] = $where1;
+                    break;
+
+                // 品牌
+                case '_brand_': 
+                    $id = $page_filters['id']; //brand ID
+                    $name = D("brand")->get_chn_name($id);
+                    $tag_id =  M("tag")->where(array('name'=>$name))->getField('id'); 
+                    $tag_id && $tag_items = M("item_tag")->where(array('tag_id'=>$tag_id))->field("item_id")->select();
+                    if(isset($tag_items) && count($tag_items) > 0){
+                      foreach ($tag_items as $tag_item_id) {
+                          if($str==""){
+                               $str=$tag_item_id['item_id'];
+                          }else{
+                             $str.=",".$tag_item_id['item_id'];
+                          }
+                      }
+                    }
+                    if($str){
+                        $where['id'] = array('in', $str);
+                    }else{
+                        $where['id'] = array('in', '-1');
+                    }
+
+                    if($page_filters['cid']){
+                        $cid = $page_filters['cid'];  //分类id                     
+                        $cate_relate = D('item_cate')->relate_cache();//分类关系
+                        $cate_ids = isset($cate_relate[$cid]['sids']) ? $cate_relate[$cid]['sids'] : array();
+                        array_push($cate_ids, $cid);
+                        $where['cate_id'] = array('in', $cate_ids); //分类
+                    }
+                    break;
+
+                // 分类
+                case '_cate_': 
+                    $cid = $page_filters['id'];  //分类id                     
+                    $cate_relate = D('item_cate')->relate_cache();//分类关系
+                    $cate_ids = isset($cate_relate[$cid]['sids']) ? $cate_relate[$cid]['sids'] : array();
+                    array_push($cate_ids, $cid);
+                    $where['cate_id'] = array('in', $cate_ids); //分类
+                    break;
+
+                // 标签tag页
+                case '_tag_': 
+                    $tag = $page_filters['q'];             
+                    $tag_id =  M("tag")->where(array('name'=>$tag))->getField('id'); 
+                    $tag_id && $tag_items = M("item_tag")->where(array('tag_id'=>$tag_id))->field("item_id")->select();
+                    if(isset($tag_items) && count($tag_items) > 0){
+                      foreach ($tag_items as $tag_item_id) {
+                          if($str==""){
+                               $str=$tag_item_id['item_id'];
+                          }else{
+                             $str.=",".$tag_item_id['item_id'];
+                          }
+                      }
+                    }
+                    if($str){
+                        $where['id'] = array('in', $str);
+                    }else{
+                        $where['id'] = array('in', '-1');
+                    }
+                    break;
+
+                // 商城页
+                case '_orig_':    
+                    $where['orig_id'] = $page_filters['id'];  //分类id      
+                    break;
+
+                default:
+                    # code...
+                    break;
+            }
+            if(count($where) > 0){
+                $queryAllArr['where']['_complex'] = $where;
+                $queryArr['where']['_complex'] = $where;
+            }
+        }
         // echo "<pre>";print_r($queryAllArr['where']);print_r($queryArr['where']);echo "</pre>"; exit;
 
         //排序
         $queryArr['order'] =" add_time desc"; 
-        if(array_key_exists($sortby, $options['sortby'])){
-            $filters['sortby'] = $sortby;
-            $queryArr['order'] = $options['sortby'][$sortby]; 
+        if($filters['sortby']){
+            $queryArr['order'] = $options['sortby'][$filters['sortby']]; 
         }
 
         //统计字段
@@ -503,7 +670,9 @@ class frontendAction extends baseAction {
                         $cate_pid= $p1; 
                         //计算二级分类的商品数量
                         if(!empty($p2)){
-                            $cate_spid = $p2; 
+                            $cate_spid = $p2; //当前ID为二级目录下的子分类
+                        }else{
+                            $cate_spid = $val['cate_id']; //当前ID为二级目录
                         }
                     }
                 }
@@ -589,6 +758,16 @@ class frontendAction extends baseAction {
         }
         // print_r($options['orig']);
 
+        // 显示更多商城
+        $arr = array_slice($options['orig'], 5, null, TRUE);
+        if(isset($filters['orig']) and count($filters['orig'])>0){
+            foreach ($filters['orig'] as $k => $v) {
+                if(array_key_exists($k, $arr)){
+                    $options['orig_more'] = true;
+                    break;
+                }
+            }
+        }
         //过滤没有商品的分类、商城等
         if(count($options['orig']) > 0){
             foreach ($options['orig'] as $k => $val) {
@@ -632,26 +811,26 @@ class frontendAction extends baseAction {
 
          //生成URL
         $path = (defined('GROUP_NAME')?GROUP_NAME:'')."/".MODULE_NAME."/".ACTION_NAME;
-        $urls['raw_pure'] = U($path, $params);
+        $urls['raw_pure'] = U($path, $page_params);
         $arr = $filters;
-        $urls['raw'] = U($path, $params) . "?" . http_build_query($arr);
+        $urls['raw'] = U($path, $page_params) . "?" . http_build_query($arr);
         $arr = $filters;
         $arr['t']= array('1' => 'on');
-        $urls['tuijan'] = U($path, $params) . "?" . http_build_query($arr);
+        $urls['tuijan'] = U($path, $page_params) . "?" . http_build_query($arr);
         $arr['t']= array('2' => 'on');
-        $urls['remen'] = U($path, $params) . "?" . http_build_query($arr);
+        $urls['remen'] = U($path, $page_params) . "?" . http_build_query($arr);
         $arr['t']= array('3' => 'on');
-        $urls['quanwang'] = U($path, $params) . "?" . http_build_query($arr);
+        $urls['quanwang'] = U($path, $page_params) . "?" . http_build_query($arr);
         $arr = $filters;
         $arr['sortby'] = 'newest';
-        $urls['newest'] = U($path, $params) . "?" . http_build_query($arr);
+        $urls['newest'] = U($path, $page_params) . "?" . http_build_query($arr);
         $arr['sortby'] = 'hottest';
-        $urls['hottest'] = U($path, $params) . "?" . http_build_query($arr);
+        $urls['hottest'] = U($path, $page_params) . "?" . http_build_query($arr);
         // echo "<br>$urls";exit;
 
         // 生成URL, param is array
         $arr = array();
-        $all_params = array_merge($params, $filters);
+        $all_params = array_merge((!is_array($page_params) ? array() : $page_params), $filters);
         foreach ($all_params as $key => $value) {
             if($value === '' || (is_array($value) && count($value) == 0)) continue;
             if(is_array($value)){
@@ -669,26 +848,8 @@ class frontendAction extends baseAction {
         $pager = $this->_pager($count,$pagesize,$parameter);
 
         //查询列表
-        $list = $mod->where($queryArr['where'])->order($queryArr['order'])->limit($pager->firstRow.",".$pager->listRows)->select();
-        
-        if(count($list)>=1){
-            foreach($list as $key=>$val){
-                $list[$key]['zan'] = $list[$key]['zan']   +intval($list[$key]['hits'] /10);
-
-                // //商品一级分类
-                // $cate_id = $list[$key]['cate_id'];
-                // $cate_name = '';
-                // if(isset($cate_data[$cate_id]) && $cate_data[$cate_id]['pid']==0){
-                //     $cate_name = $cate_data[$cate_id]['name'];
-                // }else if(isset($cate_data[$cate_id])){
-                //     list($p1,$p2) = explode('|', $cate_data[$cate_id]['spid']."||");
-                //     if(isset($cate_data[$p1])){
-                //         $cate_name = $cate_data[$p1]['name'];
-                //     }
-                // }
-                // $list[$key]['cate_name'] = $cate_name;
-            }
-        }
+        $list = D("item")->item_list($queryArr['where'], $pager->firstRow.",".$pager->listRows, $queryArr['order']);
+        $list = mock_zan($list);
         // print_r($list);exit;
         
         $this->assign("urls", $urls);

@@ -16,12 +16,24 @@ class brandModel extends Model
             $brand_list = $this->brand_cache();
         }
         if (isset($brand_list[$id])) {
-            return $brand_list[$id];
+            return $brand_list[$id]['name'];
         } else {
             return false;
         }
+    }
 
-        return $brand;
+    public function get_chn_name($id) {
+        if(!$id) return false;
+        // $brand = $this->where(array('id' => $id))->find();
+        
+        if (false === $brand_list = F('brand_list')) {
+            $brand_list = $this->brand_cache();
+        }
+        if (isset($brand_list[$id])) {
+            return $brand_list[$id]['chn_name'];
+        } else {
+            return false;
+        }
     }
 
     /**
