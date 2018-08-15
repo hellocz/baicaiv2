@@ -89,6 +89,10 @@ $(function(){
 
 	//TAG关注
 	$(".J_follow_tag").on('click', function(){
+		if(PINER.uid==""){
+			LoginPopup();
+			return false;
+		}
 		obj = $(this);
 		$.post("/index.php?m=user&a=follow_tag_create",{tag:$(this).data("tag")},function(result){
 			if(result.status==1){
@@ -103,6 +107,10 @@ $(function(){
 
 	//取消TAG关注
 	$(".J_unfollow_tag").on('click', function(){
+		if(PINER.uid==""){
+			LoginPopup();
+			return false;
+		}
 		obj = $(this);
 		$.post("/index.php?m=user&a=follow_tag_del",{tag:$(this).data("tag")},function(result){
 			if(result.status==1){
@@ -111,6 +119,23 @@ $(function(){
 				tipsPopup('tips_1', result.msg)
 			}else{
 				tipsPopup('tips_2', result.msg)
+			}
+		},'json');
+	});
+
+
+
+	//签到
+	$(".J_sign").click(function(){
+		if(PINER.uid==""){
+			LoginPopup();
+			return false;
+		}
+		$.get(PINER.root+'/?m=user&a=sign',function(result){
+			if(result.status==0){
+				tipsPopup('tips_2', result.msg)
+			}else{
+				tipsPopup('tips_1', result.msg)
 			}
 		},'json');
 	});
@@ -415,22 +440,6 @@ $(function(){
 		},'json');
 	});
 
-	// //签到
-	// $("#J_sign").click(function(){
-	// 	if(PINER.uid==""){
-	// 		$.get(PINER.root+"/index.php?m=user&a=login",function(res){opdg(res.data,524,262,'用户登录');},'json');
-	// 		return false;
-	// 	}
-	// 	$.get(PINER.root+'/?m=user&a=sign',function(result){
-	// 		if(result.status==0){
-	// 			tips(result.msg,0);
-	// 			//alert(result.msg);
-	// 		}else{
-	// 			tips(result.msg,1);
-	// 			//alert(result.msg);
-	// 		}
-	// 	},'json');
-	// });
 
 	//分享, 第一次点击加载，第二次加载时百度分享JS不会执行
 	var objs = $(".T_share");

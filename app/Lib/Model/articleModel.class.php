@@ -105,4 +105,30 @@ class articleModel extends RelationModel
         return $sql;
     }
 
+    /**
+    * 获得热门文章列表
+    */
+    public function hot_list($limit = '1,10', $order = 'add_time desc'){
+        $time = time();
+        $where = "status=1 and add_time<$time and isbest=1";
+        if(!$order){
+            $order = 'add_time desc';
+        }
+        $list = $this->where($where)->order($order)->limit($limit)->select();
+        return $list;
+    }
+
+    /**
+    * 获得最新文章列表
+    */
+    public function newest_list($limit = '1,10', $order = 'add_time desc'){
+        $time = time();
+        $where = "status=1 and add_time<$time";
+        if(!$order){
+            $order = 'add_time desc';
+        }
+        $list = $this->where($where)->order($order)->limit($limit)->select();
+        return $list;
+    }
+
 }

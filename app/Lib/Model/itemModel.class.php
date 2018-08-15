@@ -297,13 +297,16 @@ class itemModel extends Model
     /**
     * 获得置顶区list
     */
-    public function front_list(){
+    public function front_list($limit = '1,10', $order = 'add_time desc'){
+        // $front_list = $mod->where("status=1 and isfront=1 and add_time<$time ".$queryArr['where'])->order($queryArr['order'])->select();
         $time=time();
         $where="status=1 and add_time<$time and isnice=1 and hits>600";//测试条件
-        $order =" add_time desc";
-        $limit = 13;
-        $item_list = $this->where($where)->order($order)->limit($limit)->select();
-        return $item_list;
+        if(!$order){
+            $order = 'add_time desc';
+        }
+        $list = $this->where($where)->order($order)->limit($limit)->select();
+        $list = mock_zan($list);
+        return $list;
     }
 
     /**
@@ -333,6 +336,7 @@ class itemModel extends Model
             $where .= " and status={$status}";
         }
         $list = $this->field($field)->where($where)->order($order)->limit($limit)->select();
+        $list = mock_zan($list);
         return $list;
     }
 
@@ -356,6 +360,19 @@ class itemModel extends Model
     */
     public function item_list($where = '', $limit = '1,10', $order = 'add_time desc'){
         $list = $this->where($where)->order($order)->limit($limit)->select();
+
+        $list = mock_zan($list);
+        if(count($list) > 0){
+          foreach ($list as $key => $val) {
+            $pos = strpos($val['price'], '（');
+            if($pos > 0){
+              $list[$key]['price_short'] = substr($val['price'] , 0, $pos);
+            }else{
+              $list[$key]['price_short'] = $val['price'];
+            }
+          }
+        }
+
         return $list;
     }
 

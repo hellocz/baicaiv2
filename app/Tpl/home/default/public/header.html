@@ -19,7 +19,7 @@
 						<div class="sub yh radius-3">
 							<div class="fl l-tab">
 								<p class="sub-radius-1 active"><a href="{:U('list/index')}">优惠推荐</a></p>
-								<p><a href="#">我的关注</a></p>
+								<p><a href="{:U('item/myitems')}">我的关注</a></p>
 								<p><a href="#">好价爆料</a></p>
 							</div>
 							<div class="fl info">
@@ -65,7 +65,7 @@
 													<!--[if lte IE 8]><desc><img src="/public/images/ie8/t_3.png" width="36" height="36"></desc><![endif]-->
 													<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-t_3"></use>
 												</svg>
-												<span>全部特价</span>
+												<span>全网特价</span>
 											</p>
 											<p class="mt-15 fc-grey font-13" style="line-height: 22px;">每天不可错过的各类神价，白菜价，新 低价，爆款补券，拼的是手速和RP，只 要有需要，就可以无脑入！</p>
 											<p class="mt-15 font-14 font-w-b">
@@ -80,14 +80,14 @@
 									<p class="font-24">关注和推送</p>
 									<p class="font-14 fc-grey mt-10">我们的编辑会将每天的海量优惠信息，从折扣力度，用户投票，点击量等因素综合评价后，筛选成以下三个板块，方便大家快速获 取需要的内容。</p>
 									<p class="mt-24">
-										<a href="" class="btotton btn-3">+关注</a>
-										<a href="" class="btotton btn-2">关注管理</a>
+										<a href="#" class="btotton btn-3">+关注</a>
+										<a href="{:U('user/keysfollow')}" class="btotton btn-2">关注管理</a>
 									</p>
 								</ul>
 								<ul class="tab-list none clearfix" id="yh-list-3">
 									<p class="font-24">向我们爆料</p>
 									<p class="font-14 fc-grey mt-10">如果发现了值得推荐的好价，欢迎通过爆料来验证你的独到眼光，同时将好价分享给几十万菜友，对于优质爆料，我们会腿上首页 并给予丰厚的奖励哦！</p>
-									<p class="mt-24"><a href="" class="btotton btn-3">向我们爆料</a></p>
+									<p class="mt-24"><a href="#" class="btotton btn-3">向我们爆料</a></p>
 								</ul>
 							</div>
 						</div>
@@ -125,7 +125,7 @@
 							?> 
 							<div class="fl l-tab">
 								<volist name="header_cate_list['p']" id="r1" key="k">
-								<p <if condition="$k eq 1"> class="active" </if>><a href="{:U('cate_list/cate',array('id'=>$r1['id']))}" ><em class="icon4 icon4-d_cate_{$r1.id}"></em>{$r1.name}</a></p>
+								<p <if condition="$k eq 1"> class="active" </if>><a href="{:U('category/cate',array('id'=>$r1['id']))}" ><em class="icon4 icon4-d_cate_{$r1.id}"></em>{$r1.name}</a></p>
 								</volist>
 							</div>
 							<div class="fl info">
@@ -133,13 +133,13 @@
 									<ul class='t-tab clearfix <if condition="$k1 eq 1">active</if>' <if condition="$k1 gt 1"> style="display:none"</if> id="fenlei-list-{$k1}">
 										<a href="{:U('category/index')}" class="fr font-12 fc-aux-9 more">浏览更多</a>
 										<volist name="header_cate_list['s'][$r1['id']]" id="r2" key="k3">
-											<span class='fl font-14 mr-20 <if condition="$k3 eq 1">active</if>'>{$r2.name}</span>
+											<span class='fl font-14 mr-20 <if condition="$k3 eq 1">active</if>'><a href="{:U('category/cate',array('id'=>$r2['id']))}">{$r2.name}</a></span>
 										</volist>
 										<volist name="header_cate_list['s'][$r1['id']]" id="r2" key="k4">
 											<ul class="d-tab tab-list clearfix font-14" <if condition="$k4 gt 1"> style="display:none"</if>>
 												<volist name="header_cate_list['s'][$r2['id']]" id="r3" key="k2">
 													<if condition="$k2 lt 31">
-												<a href="#" target="_blank">{$r3.name}</a>
+												<a href="{:U('category/cate',array('id'=>$r3['id']))}">{$r3.name}</a>
 											</if>
 												</volist>
 											</ul>
@@ -161,26 +161,16 @@
 								近期热门文章
 							</div>
 							<ul class="qz-list clearfix">
+								<?php
+								$header_article_list = D("article")->hot_list(4);
+								?>
+								<volist name="header_article_list" id="r">
 								<li>
-									<p><a href="#"><img src="/public/images/circle.jpg" class="radius-3" width="224" height="140"></a></p>
-									<p class="font-14 mt-10"><a href="#">我在苹果中国官网（原价）买到了一个翻新的MacBook Pro！！！</a></p>
-									<p class="mt-20"><img src="/public/images/Head.jpg" class="radius-100 mr-10" width="22" height="22">专业送人头<span class="fc-aux-9">· 58秒前</span></p>
+									<p><a href="{:U('article/show',array('id'=>$r['id']))}" title="{$r.title}"><img src="{:attach($r['img'],'article')}" title="{$r.title}" alt="{$r.title}" class="radius-3" width="224" height="140"></a></p>
+									<p class="font-14 mt-10"><a href="{:U('article/show',array('id'=>$r['id']))}" title="{$r.title}">{$r.title}</a></p>
+									<p class="mt-20"><a href="{:U('member/index',array('uid'=>$r['uid']))}"><img src="{:avatar($r['uid'],64)}" class="radius-100 mr-10" width="22" height="22">{$r.uname}</a><span class="fc-aux-9">· {$r.add_time|fdate}</span></p>
 								</li>
-								<li>
-									<p><a href="#"><img src="/public/images/circle.jpg" class="radius-3" width="224" height="140"></a></p>
-									<p class="font-14 mt-10"><a href="#">我在苹果中国官网（原价）买到了一个翻新的MacBook Pro！！！</a></p>
-									<p class="mt-20"><img src="/public/images/Head.jpg" class="radius-100 mr-10" width="22" height="22">专业送人头<span class="fc-aux-9">· 58秒前</span></p>
-								</li>
-								<li>
-									<p><a href="#"><img src="/public/images/circle.jpg" class="radius-3" width="224" height="140"></a></p>
-									<p class="font-14 mt-10"><a href="#">我在苹果中国官网（原价）买到了一个翻新的MacBook Pro！！！</a></p>
-									<p class="mt-20"><img src="/public/images/Head.jpg" class="radius-100 mr-10" width="22" height="22">专业送人头<span class="fc-aux-9">· 58秒前</span></p>
-								</li>
-								<li>
-									<p><a href="#"><img src="/public/images/circle.jpg" class="radius-3" width="224" height="140"></a></p>
-									<p class="font-14 mt-10"><a href="#">我在苹果中国官网（原价）买到了一个翻新的MacBook Pro！！！</a></p>
-									<p class="mt-20"><img src="/public/images/Head.jpg" class="radius-100 mr-10" width="22" height="22">专业送人头<span class="fc-aux-9">· 58秒前</span></p>
-								</li>
+								</volist>
 							</ul>
 						</div>
 						<!--圈子下拉菜单end-->

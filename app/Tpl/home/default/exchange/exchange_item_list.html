@@ -2,12 +2,12 @@
 						<volist name="exchange_item_list" id="item">
 						<li class="radius-3">
 							<div class="photo">
-								<img src="{:attach($item['img'], 'score_item')}" title="{$item.title}" alt="{$item.title}" class="lazyimg">
+								<a href="{:U('exchange/detail', array('id'=>$item['id']))}"><img src="{:attach($item['img'], 'score_item')}" title="{$item.title}" alt="{$item.title}" class="lazyimg"></a>
 							</div>
 							<div class="content">
-								<div class="c-title font-14">{$item.title}</div>
+								<div class="c-title font-14"><a href="{:U('exchange/detail', array('id'=>$item['id']))}">{$item.title}</a></div>
 								<div class="fc-aux-9 mt-8">已领{$item.buy_num}件，剩余<span class="fc-red">{$item.stock}</span>件</div>
-								<div class="fc-aux-9 mt-8"><if condition="$item['coin'] gt 0">积分{$item.score}，</if><if condition="$item['score'] gt 0">金币{$item.coin}</if></div>
+								<div class="fc-aux-9 mt-8"><if condition="$item['score'] gt 0">积分{$item.score}</if><if condition="$item['score'] gt 0 AND $item['coin'] gt 0">，</if><if condition="$item['coin'] gt 0">金币{$item.coin}</if></div>
 								<div class="mt-15"><a href="{:U('exchange/detail', array('id'=>$item['id']))}" class="button radius-3">立即兑换</a></div>
 							</div>
 						</li>

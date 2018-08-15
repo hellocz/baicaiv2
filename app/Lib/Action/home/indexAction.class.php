@@ -31,20 +31,16 @@ class indexAction extends frontendAction {
 		$count = 200; //$mod->where("status=1 and add_time<$time ".$where)->count();
 		$pager = $this->_new_pager($count,$pagesize);
 		
-		$mod=M("item");
-		$mod_d = D("item");
+		$mod=D("item");
 		$queryArr = array();
 		$queryArr['where']=" and isnice=1 and hits>600";//测试条件
 		$queryArr['order'] =" add_time desc";
 		if($p==1){
-			//置顶区
-			// $front_list = $mod->where("status=1 and isfront=1 and add_time<$time ".$queryArr['where'])->order($queryArr['order'])->select();
-			//置顶区 for test
-			$front_list = $mod_d->front_list();
-			$front_list = mock_zan($front_list);
+			//置顶区 
+			$front_list = $mod->front_list();
 
 			//小时排行榜
-			$hour_list = $mod_d->item_hour_cache();
+			$hour_list = $mod->item_hour_cache();
 			$hour_list = array_slice($hour_list, 0, 4);
 		}
 
@@ -67,13 +63,11 @@ class indexAction extends frontendAction {
 		$cate_list = D('item_cate')->cate_data_cache();
 
 		//首页推荐
-		$item_list = $mod->where("status=1 and add_time between $time_homepage_s and $time_homepage_e".$queryArr['where'])->order($queryArr['order'])->select();
+		$item_list = $mod->item_list("status=1 and add_time between $time_homepage_s and $time_homepage_e".$queryArr['where'], '');
 		
 		$homepage_list = array();
 		if(count($item_list)>=1){
 			foreach($item_list as $key=>$val){
-				$item_list[$key]['zan'] = $item_list[$key]['zan']+intval($item_list[$key]['hits'] /10);
-
 				//商品一级分类
 				$cate_id = $item_list[$key]['cate_id'];
 				$cate_name = '';
@@ -92,7 +86,7 @@ class indexAction extends frontendAction {
 			}
 		}
 
-		$article_list = M("article")->where("add_time > $time_homepage_s and add_time < $time_homepage_e and status=4")->select();
+		$article_list = D("article")->article_list("add_time > $time_homepage_s and add_time < $time_homepage_e and status=4", '');
 
 		if(count($article_list)>=1){
 			foreach($article_list as $key=>$val){
@@ -122,20 +116,13 @@ class indexAction extends frontendAction {
 		// echo "<pre>";print_r($date_list);print_r($homepage_list);echo "</pre>";exit;
 
 		//最新原创
-		$queryArr = array();
-		$queryArr['where']=" and isoriginal=1 ";
-		$queryArr['order'] =" add_time desc";
-		$original_list = $mod->where("status=1 and add_time<$time ".$queryArr['where'])->limit(4)->order($queryArr['order'])->select();
-		
+		$article_list = D("article")->newest_list(4);
 
 		//热门活动 活动公告
 		$hd_list = M("hd")->limit(3)->order("order_s asc,id desc")->select();
 
 		//热门圈子
-		$queryArr = array();
-		// $queryArr['where']=" and isoriginal=1 and isbest=1 ";
-		$queryArr['order'] =" add_time desc";
-		$original_best_list = $mod->where("status=1 and add_time<$time ".$queryArr['where'])->limit(5)->order($queryArr['order'])->select();
+		$hot_article_list = D("article")->hot_list(5);
 
 
 		//油菜排行，用户排名
@@ -149,9 +136,7 @@ class indexAction extends frontendAction {
 			$user = $this->visitor->get();
 
 			//我的关注
-			// $tags = $notify_tag->field('tag')->where(array('userid' => $user['id'],'f_sign'=> 1 ))->select();
-			// $this->assign('tags',$tags);
-			$tag_count = M("notify_tag")->where(array('userid' => $this->visitor->info['id'],'f_sign'=> 1 ))->count();
+			$tag_count = D("notify_tag")->user_follow_count($this->visitor->info['id']);
 			
 			$this->assign('user',array('tag_count' => $tag_count, 'grade' => $user['grade'], 'score' => $user['score']));
 		}
@@ -166,8 +151,8 @@ class indexAction extends frontendAction {
 		$this->assign('item_list_homepage_2',$homepage_list_2);
 		$this->assign('date_list',$date_list);
 		$this->assign('hour_list',$hour_list);
-		$this->assign('original_list',$original_list);
-		$this->assign('original_best_list',$original_best_list);
+		$this->assign('article_list',$article_list);
+		$this->assign('hot_article_list',$hot_article_list);
 		$this->assign('hd_list',$hd_list);
 		$this->assign('user_list_offer',$user_list['offer']);
 		$this->assign('user_list_exp',$user_list['exp']);
@@ -180,13 +165,6 @@ class indexAction extends frontendAction {
 		$this->assign("dss",$dss);
 
 		$this->_config_seo();
-		// $this->assign("bcid",0);
-
-		$where1['cate_id']=16;
-		$where1['status']=array("in","1,4");
-		$article_list = D("article")->article_list($where1, 4);
-		$this->assign("zx_list",$article_list);
-		$this->assign("article_hide",1);
 
 		$this->display();
     }

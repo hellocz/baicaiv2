@@ -175,19 +175,9 @@ class frontendAction extends baseAction {
     public function right_hot_item(){
         //热门优惠
         $time = time();
-        $queryArr = array();
-        $queryArr['where']=" and isnice=1 ";
-        $queryArr['order'] =" add_time desc";
-        $item_list = M('item')->where("status=1 and add_time<$time ".$queryArr['where'])->limit(5)->order($queryArr['order'])->select();
-        if(count($item_list) > 0){
-          foreach ($item_list as $key => $val) {
-            $item_list[$key]['zan'] = $item_list[$key]['zan']+intval($item_list[$key]['hits'] /10);
-            $pos = strpos($val['price'], '（');
-            if($pos > 0){
-              $item_list[$key]['price'] = substr($val['price'] , 0, $pos);
-            }            
-          }
-        }
+        $where = "status=1 and add_time<$time and isnice=1 ";
+        $limit = 5;
+        $item_list = D('item')->item_list($where, $limit);
         $this->assign('right_hot_item_list', $item_list);
     }
    
@@ -405,6 +395,40 @@ class frontendAction extends baseAction {
         // 过滤条件
         $filters = $this->filters($options);
 
+        // // 迅搜
+        // require LIB_PATH . 'Pinlib/php/lib/XS.php';
+        // $xs = new XS('baicai');
+        // $search = $xs->search;   //  获取搜索对象
+        // $search->setQuery($q);
+        // $search->addRange('add_time', $time_s, $time_e);
+        // $search->addRange('orig_id', $orig_id, $orig_id);
+        // $search->setFacets(array('uname')); //Field `orig_id' cann't be used for facets search, can only be string type
+        // $search->setLimit(24,24*($p-1)); 
+        // $search->setSort('add_time',false);
+        // $docs = $search->search();
+        // $count = $search->count();
+        // echo $search->getQuery()."<br>";
+
+        // // 读取分面结果
+        // $uname_counts = $search->getFacets('uname'); // 返回数组，以 fid 为键，匹配数量为值
+         
+        // // 遍历 $fid_counts, $year_counts 变量即可得到各自筛选条件下的匹配数量
+        // foreach ($uname_counts as $uname => $count)
+        // {
+        //     echo "其中uname为 $uname 的匹配数为: $count"."<br>";
+        // }
+
+        // echo "<br>".count($docs)."<br>";
+        // echo $count."<br>";
+        // $i = 1;
+        // echo "<pre>";
+        // foreach ($docs as $doc) {
+        //     print_r($doc);
+        //     $i++;
+        //     // if($i>3) break; 
+        // }
+        // echo "</pre>";
+
         //查询条件
         $mod=M("item");
 
@@ -432,7 +456,7 @@ class frontendAction extends baseAction {
                 break;
         }
         $all_where1.="and add_time between $time_s and $time_e ";
-        $where1.="and add_time between $time_s and $time_e ";        
+        $where1.="and add_time between $time_s and $time_e ";  
 
         //分类过滤
         if(isset($filters['cateid'])){  
@@ -810,23 +834,23 @@ class frontendAction extends baseAction {
         // print_r($options['cate']);exit;
 
          //生成URL
-        $path = (defined('GROUP_NAME')?GROUP_NAME:'')."/".MODULE_NAME."/".ACTION_NAME;
+        $path = MODULE_NAME."/".ACTION_NAME;
         $urls['raw_pure'] = U($path, $page_params);
         $arr = $filters;
         $urls['raw'] = U($path, $page_params) . "?" . http_build_query($arr);
         $arr = $filters;
-        $arr['t']= array('1' => 'on');
+        $arr['type']= array('1' => 'on');
         $urls['tuijan'] = U($path, $page_params) . "?" . http_build_query($arr);
-        $arr['t']= array('2' => 'on');
+        $arr['type']= array('2' => 'on');
         $urls['remen'] = U($path, $page_params) . "?" . http_build_query($arr);
-        $arr['t']= array('3' => 'on');
+        $arr['type']= array('3' => 'on');
         $urls['quanwang'] = U($path, $page_params) . "?" . http_build_query($arr);
         $arr = $filters;
         $arr['sortby'] = 'newest';
         $urls['newest'] = U($path, $page_params) . "?" . http_build_query($arr);
         $arr['sortby'] = 'hottest';
         $urls['hottest'] = U($path, $page_params) . "?" . http_build_query($arr);
-        // echo "<br>$urls";exit;
+        // echo print_r($urls);;exit;
 
         // 生成URL, param is array
         $arr = array();
@@ -849,7 +873,6 @@ class frontendAction extends baseAction {
 
         //查询列表
         $list = D("item")->item_list($queryArr['where'], $pager->firstRow.",".$pager->listRows, $queryArr['order']);
-        $list = mock_zan($list);
         // print_r($list);exit;
         
         $this->assign("urls", $urls);

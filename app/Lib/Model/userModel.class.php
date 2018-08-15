@@ -67,9 +67,9 @@ class userModel extends Model
     /**
      * 用户信息, where条件须唯一确定一条记录，如email, username, mobile, id
      */
-    public function get_user_by_uid($uid, $field = '') {
-        if(!$uid) return false;        
-        $user = $this->field($field)->where("id=".$uid)->find();
+    public function get_user_by_id($id, $field = '') {
+        if(!$id) return false;        
+        $user = $this->field($field)->where("id=".$id)->find();
         return $user;
     }
 
@@ -154,8 +154,10 @@ class userModel extends Model
 
         switch ($t) {
             case 'sign': 
-                //签到排行 
-                $list = $this->field($field)->table($table)->join("join {$db_pre}score_log a ON u.id=a.uid")->where("a.action='sign' ".$where)->group("u.id")->order($order)->limit($limit)->select();
+                //连续签到排行 
+                // $list = $this->field($field)->table($table)->join("join {$db_pre}score_log a ON u.id=a.uid")->where("a.action='sign' ".$where)->group("u.id")->order($order)->limit($limit)->select();
+                $field = "id,username,exp,sign_num, sign_num as counts";
+                $list = $this->field($field)->table($table)->order($order)->limit($limit)->select();
                 break;
 
             case 'bao':
@@ -203,4 +205,52 @@ class userModel extends Model
 
         return $list;
     }
+
+    /**
+     * 签到
+     */
+    public function sign($id) {
+        $user = $this->get_user_by_id($id);
+
+        if(!$user) return false;
+
+        //查询是否已签到
+        $time = time();
+        $date = strtotime(date('Ymd'));
+        $signtime=$user['sign_date'];
+        $ds=intval(($time-$signtime)/86400); //60s*60min*24h
+        $data['id']=$user['id'];
+        $data['sign_date']=$time;
+        if($ds>1){ 
+            //如果大于1，则签到清零+1,积分+5
+            $data['score']=$user['score']+5;
+            $data['exp']=$user['exp']+5;
+            $data['sign_num']=1;
+            $data['all_sign']=$user['all_sign']+1;
+            $this->save($data);
+            //积分日志
+            set_score_log($user,'sign',5,'','',5);
+
+            return array('status' => 1, 'sign_num' => 1, 'score' => 5);
+        }
+        elseif($signtime >= $date){ 
+            //当天以签到
+            return array('status' => 0);
+        }
+        else{ 
+            //否则在原基础上+1
+            $max_score = $user['sign_num']+5;
+            $data['sign_num']=$user['sign_num']+1;
+            $data['all_sign']=$user['all_sign']+1;
+            if($max_score>10){$max_score=10;}
+            $data['score']=$user['score']+$max_score;
+            $data['exp']=$user['exp']+$max_score;
+            $this->save($data);
+            //积分日志
+            set_score_log($user,'sign',$max_score,'','',$max_score);
+
+            return array('status' => 1, 'sign_num' => $data['sign_num'], 'score' => $max_score);
+        }
+    }
+
 }

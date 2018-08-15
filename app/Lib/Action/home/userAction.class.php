@@ -495,7 +495,7 @@ class userAction extends userbaseAction {
         $uid = $this->visitor->info['id'];
         $follow_uid == $uid && $this->ajaxReturn(0, L('follow_self_not_allow'));
         $user_mod = D('user');
-        if (!$user_mod->get_user_by_uid($follow_uid)) {
+        if (!$user_mod->get_user_by_id($follow_uid)) {
             $this->ajaxReturn(0, L('follow_invalid_user'));
         }
 
@@ -777,6 +777,21 @@ class userAction extends userbaseAction {
                 'list' => $this->fetch("score_list"),
             ); 
             $this->ajaxReturn(1, "", $data);
+        }
+    }
+
+    //签到
+    public function sign(){
+        $uid=$this->_user['id'];
+
+        // 签到
+        $result = $this->_mod->sign($uid);
+        if(!$result){
+            $this->ajaxReturn(0,"签到失败！");
+        }else if($result['status'] === 0){
+            $this->ajaxReturn(0,"您今天已签到！");
+        }else{
+            $this->ajaxReturn(1,"您已连续签到{$result['sign_num']}天，成功获取{$result['score']}个积分！");
         }
     }
 
@@ -1637,45 +1652,6 @@ class userAction extends userbaseAction {
 
 
     }
-	//签到
-            public function sign(){
-                $user = $this->visitor->get();
-                $mod = M("user");
-                //查询是否已签到
-                $user = $mod->where("id=$user[id]")->find();
-                $time = time();
-                                     $date = strtotime(date('Ymd'));
-                $signtime=$user['sign_date'];
-                $ds=intval(($time-$signtime)/86400); //60s*60min*24h
-                $data['id']=$user['id'];
-                $data['sign_date']=$time;
-                         //   if($signtime <$date){
-                if($ds>1){//如果大于1，则签到清零+1,积分+5
-                    $data['score']=$user['score']+5;
-                                               $data['exp']=$user['exp']+5;
-                    $data['sign_num']=1;
-                    $data['all_sign']=$user['all_sign']+1;
-                    $mod->save($data);
-                    //积分日志
-                    set_score_log($user,'sign',5,'','',5);
-                    $this->ajaxReturn(1,"您已连续签到1天，成功获取5个积分！");
-                           }    
-                elseif($signtime >= $date){//当天以签到
-                //}elseif($ds==0){//当天以签到
-                    $this->ajaxReturn(0,"您今天已签到！");
-                }else{//否则在原基础上+1
-                    $max_score = $user['sign_num']+5;
-                    $data['sign_num']=$user['sign_num']+1;
-                    $data['all_sign']=$user['all_sign']+1;
-                    if($max_score>10){$max_score=10;}
-                    $data['score']=$user['score']+$max_score;
-                                               $data['exp']=$user['exp']+$max_score;
-                    $mod->save($data);
-                    //积分日志
-                    set_score_log($user,'sign',$max_score,'','',$max_score);
-                    $this->ajaxReturn(1,'您已连续签到'.$data['sign_num'].'天，成功获取'.$max_score.'个积分！');
-                }
-            }
 
 	public function del_share(){
 		$dm=$this->_get('dm','trim');
