@@ -388,56 +388,66 @@ function ChangeTime() {
 //弹出登录层
 function LoginPopup(type){
 
-	$.get("/index.php?m=user&a=login",function(res){
+	var result = false;
 
-		if(res.status == 0){
-			//已登录
-			window.location.reload();
+	$.ajax({
+		type: 'GET',
+		url: '/index.php?m=user&a=login',
+		data:{},
+		dataType: 'json',
+		async: false, //同步
+		cache: false,
+		success: function (res) {
+			result = res;
 		}
-		else
-		{
-			layui.use(['layer'], function(){
-				layer.open({
-					type: 1,
-					title: false,
-					closeBtn: 1,
-					shadeClose: false,
-					shade:0.7,
-					anim:2,
-					skin: 'loginPopup',
-					area: '430px',
-					content: res.data
-				});
+	});
 
-				$(".loginPopup .loginType").click(function(){
-					if($(".loginPopup .loginBox").is(":hidden")){
-						$(".loginPopup .loginBox").show();
-						$(".loginPopup .mobileBox").hide();
-					}else{
-						$(".loginPopup .loginBox").hide();
-						$(".loginPopup .mobileBox").show();
-					}
-				});
-				
-				$(".loginPopup .registeredButton").click(function(){
-					$(".loginPopup .loginBox").hide();
-					$(".loginPopup .mobileBox").hide();
-					$(".loginPopup .registeredBox").show();
-				});
-				
-				$(".loginPopup .loginButton").click(function(){
+	if(result.status == 0){
+		//已登录
+		window.location.reload();
+	}
+	else
+	{
+		layui.use(['layer'], function(){
+			layer.open({
+				type: 1,
+				title: false,
+				closeBtn: 1,
+				shadeClose: true,  //点击遮罩关闭，避免双击“登录”链接出现两个弹出登录框出错
+				shade:0.7,
+				anim:2,
+				skin: 'loginPopup',
+				area: '430px',
+				content: result.data
+			});
+
+			$(".loginPopup .loginType").click(function(){
+				if($(".loginPopup .loginBox").is(":hidden")){
 					$(".loginPopup .loginBox").show();
 					$(".loginPopup .mobileBox").hide();
-					$(".loginPopup .registeredBox").hide();
-				});
-				
-				if(type==1){
-					$(".loginPopup .registeredButton").click();
+				}else{
+					$(".loginPopup .loginBox").hide();
+					$(".loginPopup .mobileBox").show();
 				}
 			});
-		}
-
-	},'json');
+			
+			$(".loginPopup .registeredButton").click(function(){
+				$(".loginPopup .loginBox").hide();
+				$(".loginPopup .mobileBox").hide();
+				$(".loginPopup .registeredBox").show();
+			});
+			
+			$(".loginPopup .loginButton").click(function(){
+				$(".loginPopup .loginBox").show();
+				$(".loginPopup .mobileBox").hide();
+				$(".loginPopup .registeredBox").hide();
+			});
+			
+			if(type==1){
+				$(".loginPopup .registeredButton").click();
+			}
+		});
+	}
 
 }
 

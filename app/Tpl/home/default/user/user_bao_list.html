@@ -3,11 +3,13 @@
 				<div class="item">
 					<div class="font-14 fc-aux-a">发表了爆料</div>
 					<div class="clearfix mt-12">
-						<img src="<if condition="$r['img']==''">/images/nopic.jpg<else/><if condition="preg_match('/img.baicaio.com/',$r['img'])">{:attach($r['img'],'item')}!thumb287<else/>{:attach($r['img'],'item')}</if></if>" class="fl lazyimg radius-3" width="38" height="38">
+						<a href="{:U('item/index',array('id'=>$r['id']))}" title="{$r.title}" target="_blank">
+							<img src="{:attach($r['img'],'item','')}" title="{$r.title}" alt="{$r.title}" target="_blank" class="fl lazyimg radius-3" width="38" height="38">
+						</a>
 						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="{:U('item/index',array('id'=>$r['id'],'isbao'=>1))}" class="font-16" title="{$r.title}" target="_blank">{$r.title}</a>
+							<a href="{:U('item/index',array('id'=>$r['id']))}" class="font-16" title="{$r.title}" target="_blank">{$r.title}</a>
 						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">{$r.content|strip_tags|msubstr=0,50}</span>
+						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">{$r.add_time|fdate}</span>
 					</div>
 				</div>
 				</volist>

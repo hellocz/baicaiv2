@@ -1,21 +1,20 @@
-<assign name="type" value="[type]" />
 					<!--列表循环start-->
 					<volist name="[list]" id="r">
 					<li class="fl flow mr-12 radius-3 white-bg">
 						<div class="img">
-							<a <if condition="$type eq 'isbao'">href="{:U('item/index',array('id'=>$r['id'],'isbao'=>1))}"<elseif condition="$r['status'] eq 4"/>href="{:U('article/show',array('id'=>$r['id']))}"<else/> href="{:U('item/index',array('id'=>$r['id']))}"</if> target="_blank">
-								<img class="lazyimg" src="<if condition="$r['img']==''">/images/nopic.jpg<else/><if condition="preg_match('/img.baicaio.com/',$r['img'])">{:attach($r['img'],'item')}!thumb287<else/>{:attach($r['img'],'item')}</if></if>">
+							<a <if condition="$r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}"<else/>href="{:U('item/index',array('id'=>$r['id']))}"</if> title="{$r.title}" target="_blank">
+								<img class="lazyimg" <if condition="$r['article'] eq '1'">src="{:attach($r['img'],'article')}"<else/>src="{:attach($r['img'],'item','287')}"</if> title="{$r.title}" alt="{$r.title}">
 							</a>
 						</div>
 						<div class="user">
-							<if condition="$type eq 'isbao'"><if condition="$r['uid'] neq 0"><a href="{:U('space/index', array('uid'=>$r['uid']))}" data-uid="{$r['uid']}"><img src="{:avatar($r['uid'],'')}" width="24" height="24" class="radius-100 mr-5">
-							Madonna</a>
-							<span class="fr">59秒前</span></if></if>
+							<if condition="$r['article'] eq '1' OR $r['isbao'] eq '1'"><if condition="$r['uid'] neq 0"><a href="{:U('member/index', array('uid'=>$r['uid']))}" data-uid="{$r['uid']}"><img src="{:avatar($r['uid'],'24')}" width="24" height="24" class="radius-100 mr-5">
+							{$r['uname']}</a></if></if>
+							<span class="fr">{$r.add_time|fdate}</span>
 						</div>
 						<!--瀑布流排列-->
 						<div class="info">
 							<p class="title">
-								<a <if condition="$type eq 'isbao'">href="{:U('item/index',array('id'=>$r['id'],'isbao'=>1))}"<elseif condition="$r['status'] eq 4"/>href="{:U('article/show',array('id'=>$r['id']))}"<else/> href="{:U('item/index',array('id'=>$r['id']))}"</if> target="_blank">{$r.title}</a>
+								<a <if condition="$r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}"<else/>href="{:U('item/index',array('id'=>$r['id']))}"</if> title="{$r.title}" target="_blank">{$r.title}</a>
 							</p>
 							<p class="fc-red price">{$r.price}</p>
 							<p class="content mt-15">
@@ -32,18 +31,18 @@
 										<span class="fc-aux-a icon3 icon3-a_43">{$r.comments}</span>
 									</p>
 									<div class="cz2">
-										<a <if condition="$type eq 'isbao'">href="{:U('item/index',array('id'=>$r['id'],'isbao'=>1))}"<elseif condition="$r['status'] eq 4"/>href="{:U('article/show',array('id'=>$r['id']))}"<else/> href="{:U('item/index',array('id'=>$r['id']))}"</if> target="_blank" class="btn-2 mr-1">查看详情</a><?php $llink = unserialize($r['go_link']);$lc = count($llink);?><if condition="$lc gt 1">
+										<a <if condition="$r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}"<else/>href="{:U('item/index',array('id'=>$r['id']))}"</if> title="{$r.title}" target="_blank" class="btn-2 mr-1">查看详情</a><?php $llink = unserialize($r['go_link']);$lc = count($llink);?><if condition="$lc gt 1">
 											<!--多链接样式-->
 											<a href="javascript: void(0);" class="btn-more">去购买</a>
 											<div class="moreUrl radius-3 none">
 												<volist name="llink" id="rm">
-												<a href="__ROOT__/?m=item&a=tgo&to={:shortUrl($rm['link'])}" target="_blank" rel="nofollow"  title="{$rm.title}">{$rm.name}</a>
+												<a href="__ROOT__/?m=item&a=tgo&to={:shortUrl($rm['link'])}" target="_blank" rel="nofollow" title="{$rm.title}">{$rm.name}</a>
 												</volist>
 											</div>
 											<!--多链接样式-->
 										<elseif condition="$lc eq 1"/>
 											<!--单链接样式-->
-											<a <if condition="($type eq 'isbao') AND ($r['orig_id'] eq 3)"> isconvert="1" href="{$llink[0]['link']}"<else/>href="__ROOT__/?m=item&a=tgo&to={:shortUrl($llink[0]['link'])}"</if> target="_blank" class="btn-3">去购买</a>
+											<a href="__ROOT__/?m=item&a=tgo&to={:shortUrl($llink[0]['link'])}" rel="nofollow" target="_blank" class="btn-3">去购买</a>
 											<!--单链接样式-->
 										</if>
 									</div>
@@ -55,15 +54,15 @@
 						<div class="info1">
 							<p class="title">
 								<!-- <span class="layui-badge layui-bg-green green-bg radius-3">白菜</span> -->
-								<a <if condition="$type eq 'isbao'">href="{:U('item/index',array('id'=>$r['id'],'isbao'=>1))}"<elseif condition="$r['status'] eq 4"/>href="{:U('article/show',array('id'=>$r['id']))}"<else/> href="{:U('item/index',array('id'=>$r['id']))}"</if> target="_blank">{$r.title}</a>
+								<a <if condition="$r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}"<else/>href="{:U('item/index',array('id'=>$r['id']))}"</if> title="{$r.title}" target="_blank">{$r.title}</a>
 								<span class="fc-red">{$r.price}</span>
 							</p>
 							<p class="member">
-								<if condition="$type eq 'isbao'"><if condition="$r['uid'] neq 0"><a href="{:U('space/index', array('uid'=>$r['uid']))}" data-uid="{$r['uid']}"><img src="{:avatar($r['uid'],'')}" class="radius-100">Madonna</a> · <span class="fc-aux-9">58秒前</span></if></if>
+								<if condition="$r['article'] eq '1' OR $r['isbao'] eq '1'"><if condition="$r['uid'] neq 0"><a href="{:U('member/index', array('uid'=>$r['uid']))}" data-uid="{$r['uid']}"><img src="{:avatar($r['uid'],'')}" class="radius-100">{$r['uname']}</a> · </if></if><span class="fc-aux-9">{$r.add_time|fdate}</span>
 							</p>
 							<p class="comments font-13">
 								<if condition="mb_strlen($r['content'],'utf-8') gt 130">{$r.content|strip_tags|msubstr=0,130}<else/>{$r.content}</if>
-								<a <if condition="$type eq 'isbao'">href="{:U('item/index',array('id'=>$r['id'],'isbao'=>1))}"<elseif condition="$r['status'] eq 4"/>href="{:U('article/show',array('id'=>$r['id']))}"<else/> href="{:U('item/index',array('id'=>$r['id']))}"</if> target="_blank" class="fc-green">…阅读全文</a></p>
+								<a <if condition="$r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}"<else/>href="{:U('item/index',array('id'=>$r['id']))}"</if> title="{$r.title}" target="_blank" class="fc-green">…阅读全文</a></p>
 							<div class="content mt-15 clearfix">
 								<div class="fl" style="width:338px;margin-top: 12px;">
 										<span class="fc-aux-a icon3 icon3-c_6 mr-20 cursor-pointer" onclick="tipsPopup('tips_1','点赞成功')">{$r.zan}</span>
@@ -73,11 +72,11 @@
 								<?php $llink = unserialize($r['go_link']);$lc = count($llink);?><if condition="$lc gt 1">
 								<!--多链接样式-->
 								<div class="fr moreLink" style="width:300px;">
-									<span class="attr fc-aux-a icon_3 icon_3-e_21 layui-elip" style="line-height: 20px;"><a href="{:U('orig/show',array('id'=>$r['orig_id']))}">{$origs[$r['orig_id']]['name']}</a> | <a href="#" class="hover-underline">{$r['cate_name']}</a></span>
-									<a href="page/details.html" target="_blank" class="btn-gd radius-3">去购买</a>
+									<span class="attr fc-aux-a icon_3 icon_3-e_21 layui-elip" style="line-height: 20px;"><a href="{:U('orig/show',array('id'=>$r['orig_id']))}">{$origs[$r['orig_id']]['name']}</a> | <a href="{:U('category/cate',array('id'=>$r['cate_id']))}" class="hover-underline">{$r['cate_name']}</a></span>
+									<a href="javascript: void(0);" target="_blank" class="btn-gd radius-3">去购买</a>
 									<div class="moreUrl radius-3 none">
 										<volist name="llink" id="rm">
-										<a href="__ROOT__/?m=item&a=tgo&to={:shortUrl($rm['link'])}" target="_blank" rel="nofollow"  title="{$rm.title}">{$rm.name}</a>
+										<a href="__ROOT__/?m=item&a=tgo&to={:shortUrl($rm['link'])}" target="_blank" rel="nofollow" title="{$rm.title}">{$rm.name}</a>
 										</volist>
 									</div>
 								</div>
@@ -85,8 +84,8 @@
 								<elseif condition="$lc eq 1"/>
 								<!--单链接样式-->
 								<div class="fr" style="width:300px;">
-									<span class="attr fc-aux-a icon_3 icon_3-e_21 layui-elip" style="line-height: 20px;"><a href="{:U('orig/show',array('id'=>$r['orig_id']))}" class="hover-underline">{$origs[$r['orig_id']]['name']}</a> | <a href="#" class="hover-underline">{$r['cate_name']}</a> </span>
-									<a <if condition="($type eq 'isbao') AND ($r['orig_id'] eq 3)">isconvert="1" href="{$llink[0]['link']}"<else/>href="__ROOT__/?m=item&a=tgo&to={:shortUrl($llink[0]['link'])}"</if> target="_blank" class="btn radius-3">去购买</a>
+									<span class="attr fc-aux-a icon_3 icon_3-e_21 layui-elip" style="line-height: 20px;"><a href="{:U('orig/show',array('id'=>$r['orig_id']))}" class="hover-underline">{$origs[$r['orig_id']]['name']}</a> | <a href="{:U('category/cate',array('id'=>$r['cate_id']))}" class="hover-underline">{$r['cate_name']}</a> </span>
+									<a href="__ROOT__/?m=item&a=tgo&to={:shortUrl($llink[0]['link'])}" rel="nofollow" target="_blank" class="btn radius-3">去购买</a>
 								</div>
 								<!--单链接样式-->
 								</if>

@@ -10,18 +10,18 @@
 					<volist name="[list]" id="r">
 					<li class="fl mr-12 radius-3 white-bg">
 						<div class="img">
-							<a href="{:U('item/index',array('id'=>$r['id']))}" target="_blank">
-								<img class="lazyimg" src="<if condition="$r['img']==''">/images/nopic.jpg<else/><if condition="preg_match('/img.baicaio.com/',$r['img'])">{:attach($r['img'],'item')}!thumb208<else/>{:attach($r['img'],'item')}</if></if>">
+							<a href="{:U('item/index',array('id'=>$r['id']))}" title="{$r.title}" target="_blank">
+								<img class="lazyimg" src="{:attach($r['img'],'item','208')}" title="{$r.title}" alt="{$r.title}">
 							</a>
 						</div>
 						<div class="info">
 							<p class="title">
-								<a href="{:U('item/index',array('id'=>$r['id']))}" target="_blank">{$r.title}</a>
+								<a href="{:U('item/index',array('id'=>$r['id']))}" title="{$r.title}" target="_blank">{$r.title}</a>
 							</p>
 							<p class="fc-red price">{$r.price}</p>
 							<p class="content mt-15">
 								<span class="attr1 fc-aux-a icon_3 icon_3-e_21"><a href="{:U('orig/show',array('id'=>$r['orig_id']))}" class="hover-underline">{$origs[$r['orig_id']]['name']}</a></span>
-								<span class="attr3 fc-aux-a fr icon_3 icon_3-e_23">{$r.comments}</span>
+								<span class="attr3 fc-aux-a fr icon_3 icon_3-e_23"><a href="javascript:void(0)">{$r.comments}</a></span>
 								<span class="attr2 fc-aux-a fr icon_3 icon_3-e_22"><a href="javascript:void(0)">{$r.zan}</a></span>
 							</p>
 						</div>

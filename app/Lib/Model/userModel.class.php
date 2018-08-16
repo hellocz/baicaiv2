@@ -119,11 +119,11 @@ class userModel extends Model
     /**
      * 用户排行列表
      */
-    public function top_user_list($t = '', $period = '', $limit = '1,10', $order = 'counts DESC,u.id asc') {
+    public function top_user_list($t = '', $period = '', $limit = '0,10', $order = 'counts DESC,u.id asc') {
         if(!$t) return false;
 
         $db_pre = C('DB_PREFIX');
-        $field = "u.id, count(1) counts,max(u.username) username,max(u.intro) intro,max(u.exp) exp";
+        $field = "u.id, max(u.username) username, max(u.intro) intro, max(u.exp) exp, count(1) counts";
         $table = $db_pre.'user u';
 
        //今日，本周，本月，全部
@@ -156,7 +156,7 @@ class userModel extends Model
             case 'sign': 
                 //连续签到排行 
                 // $list = $this->field($field)->table($table)->join("join {$db_pre}score_log a ON u.id=a.uid")->where("a.action='sign' ".$where)->group("u.id")->order($order)->limit($limit)->select();
-                $field = "id,username,exp,sign_num, sign_num as counts";
+                $field = "id, username, intro, exp, sign_num, sign_num as counts";
                 $list = $this->field($field)->table($table)->order($order)->limit($limit)->select();
                 break;
 
@@ -182,19 +182,19 @@ class userModel extends Model
 
             case 'exp':
                 //等级
-                $field = "id,username,exp,exp as counts";
+                $field = "id, username, intro, exp, exp as counts";
                 $list = $this->field($field)->table($table)->order($order)->limit($limit)->select();
                 break;
 
             case 'offer':
                 //贡献
-                $field = "id,username,exp,offer,offer as counts";
+                $field = "id, username, intro, exp, offer, offer as counts";
                 $list = $this->field($field)->table($table)->order($order)->limit($limit)->select();
                 break;
 
             case 'shares':
                 //爆料
-                $field = "id,username,exp,shares,shares as counts";
+                $field = "id, username, intro, exp, shares, shares as counts";
                 $list = $this->field($field)->table($table)->order($order)->limit($limit)->select();
                 break;
 

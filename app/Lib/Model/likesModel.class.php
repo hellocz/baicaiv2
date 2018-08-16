@@ -19,7 +19,7 @@ class likesModel extends Model
     /**
     * 获得收藏列表
     */
-    public function likes_list($where = '', $limit = '1,10', $order = 'addtime desc'){
+    public function likes_list($where = '', $limit = '0,10', $order = 'addtime desc'){
         if(!$order){
             $order = 'addtime desc';
         }
@@ -41,7 +41,7 @@ class likesModel extends Model
     /**
     * 用户收藏列表
     */
-    public function user_likes_list($uid = 0, $limit = '1,10', $order = 'addtime desc'){
+    public function user_likes_list($uid = 0, $limit = '0,10', $order = 'addtime desc'){
         if(!$uid) return false;
         
         $where = "uid='$uid'"; 
@@ -50,21 +50,47 @@ class likesModel extends Model
             foreach($list as $key=>$val){
                 $arr=array();
                 switch($val['xid']){
-                    case "1":$mod=D('item');$path="item";$url=U('item/index',array('id'=>$val['itemid']));break;
-                    case "2":$mod=D("zr");$path="zr";$url=U('zr/show',array('id'=>$val['itemid']));break;
-                    case "3":$mod=D("article");$path="article";$url=U('article/show',array('id'=>$val['itemid']));break;
+                    case "1":
+                        $mod=D('item');$type="item";$url=U('item/index',array('id'=>$val['itemid']));
+                        $field="title,img,content,intro,zan,comments,add_time,uid,uname";
+                        break;
+                    case "2":
+                        $mod=D("zr");$type="zr";$url=U('zr/show',array('id'=>$val['itemid']));
+                        $field="title,img,content,intro,zan,comments,add_time,uid,uname";
+                        break;
+                    case "3":
+                        $mod=D("article");$type="article";$url=U('article/show',array('id'=>$val['itemid']));
+                        $field="title,img,info as content,intro,zan,comments,add_time,uid,uname";
+                        break;
                 }
-                $arr = $mod->get_info($val['itemid'], "title,img,content,intro,zan,comments,add_time,uid,uname");
-                $list[$key]['title']=$arr['title'];
-                $list[$key]['img']=attach($arr['img'],$path);
-                $list[$key]['url']=$url;
-                // $list[$key]['content']=$arr['content'];
-                // $list[$key]['intro']=$arr['intro'];
-                $list[$key]['zan']=$arr['zan'];
-                $list[$key]['comments']=$arr['comments'];
-                $list[$key]['add_time']=$arr['add_time'];
-                $list[$key]['item_uid']=$arr['uid'];
-                $list[$key]['uname']=$arr['uname'];
+                $arr = $mod->get_info($val['itemid'], $field);
+                $list[$key][$type]=1;
+                $list[$key]['id']=$val['itemid'];
+                if(count($arr) == 0) {
+                    $list[$key]['title']="该信息不存在或已删除";
+                    $list[$key]['img']="";
+                    $list[$key]['url']="";
+                    $list[$key]['content']="";
+                    // $list[$key]['intro']="";
+                    $list[$key]['zan']=0;
+                    $list[$key]['comments']=0;
+                    $list[$key]['add_time']="";
+                    $list[$key]['item_uid']="";
+                    $list[$key]['uname']="";
+                }
+                else
+                {
+                    $list[$key]['title']=$arr['title'];
+                    $list[$key]['img']=$arr['img'];
+                    $list[$key]['url']=$url;
+                    $list[$key]['content']=$arr['content'];
+                    // $list[$key]['intro']=$arr['intro'];
+                    $list[$key]['zan']=$arr['zan'];
+                    $list[$key]['comments']=$arr['comments'];
+                    $list[$key]['add_time']=$arr['add_time'];
+                    $list[$key]['item_uid']=$arr['uid'];
+                    $list[$key]['uname']=$arr['uname'];
+                }
             }
         }
         return $list;

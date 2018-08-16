@@ -297,10 +297,10 @@ class itemModel extends Model
     /**
     * 获得置顶区list
     */
-    public function front_list($limit = '1,10', $order = 'add_time desc'){
+    public function front_list($limit = '0,10', $order = 'add_time desc'){
         // $front_list = $mod->where("status=1 and isfront=1 and add_time<$time ".$queryArr['where'])->order($queryArr['order'])->select();
         $time=time();
-        $where="status=1 and add_time<$time and isnice=1 and hits>600";//测试条件
+        $where="status=1 and isfront=1 and add_time<$time";
         if(!$order){
             $order = 'add_time desc';
         }
@@ -327,7 +327,7 @@ class itemModel extends Model
     /**
     * 用户爆料商品列表
     */
-    public function user_bao_list($uid = 0, $status = 1, $field = '', $limit = '1,10', $order = 'add_time desc'){
+    public function user_bao_list($uid = 0, $status = 1, $field = '', $limit = '0,10', $order = 'add_time desc'){
         if(!$uid) return false;
         
         $time=time();
@@ -343,7 +343,7 @@ class itemModel extends Model
     /**
     * 用户爆料商品列表-Sql
     */
-    public function user_bao_sql($uid = 0, $status = 1, $field = '', $limit = '1,10', $order = 'add_time desc'){
+    public function user_bao_sql($uid = 0, $status = 1, $field = '', $limit = '0,10', $order = 'add_time desc'){
         if(!$uid) return false;
         
         $time=time();
@@ -358,7 +358,7 @@ class itemModel extends Model
     /**
     * 获得item list
     */
-    public function item_list($where = '', $limit = '1,10', $order = 'add_time desc'){
+    public function item_list($where = '', $limit = '0,10', $order = 'add_time desc'){
         $list = $this->where($where)->order($order)->limit($limit)->select();
 
         $list = mock_zan($list);
@@ -366,9 +366,9 @@ class itemModel extends Model
           foreach ($list as $key => $val) {
             $pos = strpos($val['price'], '（');
             if($pos > 0){
-              $list[$key]['price_short'] = substr($val['price'] , 0, $pos);
+              $list[$key]['short_price'] = substr($val['price'] , 0, $pos);
             }else{
-              $list[$key]['price_short'] = $val['price'];
+              $list[$key]['short_price'] = $val['price'];
             }
           }
         }

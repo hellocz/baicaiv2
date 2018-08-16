@@ -14,7 +14,7 @@ class notify_tagModel extends Model
     /**
     * 获得TAG列表
     */
-    public function follow_list($where = '', $limit = '1,10', $order = 'id desc'){
+    public function follow_list($where = '', $limit = '0,10', $order = 'id desc'){
         if(!$order){
             $order = 'id desc';
         }
@@ -36,7 +36,7 @@ class notify_tagModel extends Model
     /**
     * 用户TAG列表
     */
-    public function user_follow_list($userid = 0, $limit = '1,10', $order = 'id desc'){
+    public function user_follow_list($userid = 0, $limit = '0,10', $order = 'id desc'){
         if(!$userid) return false;
         
         $where = "userid=$userid and f_sign=1"; 
@@ -120,7 +120,7 @@ class notify_tagModel extends Model
     /**
     * 获得top TAG列表
     */
-    public function top_follow_list($where = '', $limit = '1,100'){
+    public function top_follow_list($where = '', $limit = '0,100'){
         $list = $this->field("TRIM(tag) as tag, count(*) as count")->where($where)->group("TRIM(tag)")->order("count(*) desc")->limit($limit)->select();
         return $list;
     }
