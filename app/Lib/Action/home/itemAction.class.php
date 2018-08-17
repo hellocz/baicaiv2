@@ -286,7 +286,6 @@ class itemAction extends frontendAction {
 
         //用户列表, 获得用户等级，是否关注
         $user_list = array();
-        if(count($uids) > 0){
           array_push($uids, $this->visitor->info['id']);
           array_push($uids, $item['uid']);
           $where = array('id' => array("IN", $uids));
@@ -296,10 +295,9 @@ class itemAction extends frontendAction {
             $user_list[$val['id']] = $val;
             $user_list[$val['id']]['grade'] = grade($val['exp']);
             if(isset($follow_users[$val['id']])){
-                $user_list[$val['id']]['is_follow'] = 1;
+                $user_list[$val['id']]['follow'] = 1;
             }
           }
-        }
         $this->assign("user_list",$user_list);
         // echo "<pre>";print_r($users);echo "</pre>";exit;
                 

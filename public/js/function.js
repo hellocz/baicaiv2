@@ -538,46 +538,6 @@ $(window).load(function(){
 	});
 });
 
-function photo(){
-	var img = document.getElementById("ban_pic");
-	
-	if(!img) return false;
-
-	if(img.attachEvent){
-		img.attachEvent("mouseover", function(e) {
-		    var box = img.getBoundingClientRect();
-		    if((e.clientX - box.left) < ((box.right - box.left) / 2)){
-		    	$("#prev").show();
-		    	$("#next").hide();
-		    }else{
-		    	$("#next").show();
-		    	$("#prev").hide();
-		    }
-		});
-	}else{
-		img.addEventListener("mouseover", function(e) {
-		    var box = img.getBoundingClientRect();
-		    if((e.clientX - box.left) < ((box.right - box.left) / 2)){
-		    	$("#prev").show();
-		    	$("#next").hide();
-		    }else{
-		    	$("#next").show();
-		    	$("#prev").hide();
-		    }
-		});
-	}
-	if(img.attachEvent){
-		img.attachEvent("mouseout", function() {
-		    $("#prev").hide();
-		    $("#next").hide();
-		});
-	}else{
-		img.addEventListener("mouseout", function() {
-		    $("#prev").hide();
-		    $("#next").hide();
-		});
-	}
-}
 
 function sinaEmo(){
 	//绑定新浪表情

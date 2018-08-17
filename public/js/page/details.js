@@ -155,6 +155,9 @@ jq('#photo').banqh({
 
 function photo(){
 	var img = document.getElementById("ban_pic");
+	
+	if(!img) return false;
+
 	if(img.attachEvent){
 		img.attachEvent("mouseover", function(e) {
 		    var box = img.getBoundingClientRect();
