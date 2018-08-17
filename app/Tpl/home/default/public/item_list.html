@@ -4,13 +4,13 @@
 							<!--瀑布流样式start-->
 							<div class="cross radius-3">
 								<div class="img">
-									<a <if condition="$type eq 'isbao'">href="{:U('item/index',array('id'=>$r['id'],'isbao'=>1))}"<elseif condition="$r['status'] eq 4"/>href="{:U('article/show',array('id'=>$r['id']))}"<else/> href="{:U('item/index',array('id'=>$r['id']))}"</if> target="_blank">
-										<img class="lazyimg" src="<if condition="$r['img']==''">/images/nopic.jpg<else/><if condition="preg_match('/img.baicaio.com/',$r['img'])">{:attach($r['img'],'item')}!thumb287<else/>{:attach($r['img'],'item')}</if></if>">
+									<a <if condition="$r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}"<else/>href="{:U('item/index',array('id'=>$r['id']))}"</if> title="{$r.title}" target="_blank">
+										<img class="lazyimg" <if condition="$r['article'] eq '1'">src="{:attach($r['img'],'article')}"<else/>src="{:attach($r['img'],'item','208')}"</if> title="{$r.title}" alt="{$r.title}">
 									</a>
 								</div>
 								<div class="info">
 									<div class="font-14 title">
-										<a <if condition="$type eq 'isbao'">href="{:U('item/index',array('id'=>$r['id'],'isbao'=>1))}"<elseif condition="$r['status'] eq 4"/>href="{:U('article/show',array('id'=>$r['id']))}"<else/> href="{:U('item/index',array('id'=>$r['id']))}"</if> target="_blank">{$r.title}</a>
+										<a <if condition="$r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}"<else/>href="{:U('item/index',array('id'=>$r['id']))}"</if> title="{$r.title}" target="_blank">{$r.title}</a>
 									</div>
 									<div class="fc-red price layui-elip">{$r.price}</div>
 									<div class="content mt-15">
@@ -20,8 +20,8 @@
 									</div>
 								</div>
 								<!--弹出评价start-->
-								<div class="infoBox">
-									<div class="comments"><span>“</span>大厂的酒就是好喝，不上头买一瓶还送瓶…<span class="sy">”</span></div>
+								<div class="infoBox <if condition="$r['intro'] eq null">not-comments</if>">
+									<if condition="$r['intro']"><div class="comments"><span>“</span><if condition="mb_strlen($r['intro'],'utf-8') gt 28">{$r.intro|strip_tags|msubstr=0,28}<else/>{$r.intro}</if><span class="sy">”</span></div></if>
 									<div class="caozuo">
 										<p class="cz1">
 											<span class="fc-aux-a icon3 icon3-c_6 cursor-pointer" onclick="tipsPopup('tips_1','投票成功')">{$r.zan}</span>
@@ -29,8 +29,20 @@
 											<a href="page/details.html#comments"><span class="fc-aux-a icon3 icon3-a_43">{$r.comments}</span></a>
 										</p>
 										<p class="cz2">
-											<a <if condition="$type eq 'isbao'">href="{:U('item/index',array('id'=>$r['id'],'isbao'=>1))}"<elseif condition="$r['status'] eq 4"/>href="{:U('article/show',array('id'=>$r['id']))}"<else/> href="{:U('item/index',array('id'=>$r['id']))}"</if> target="_blank" class="btn-2">查看详情</a>
-											<a href="details.html" target="_blank" class="btn-3">去购买</a>
+											<a <if condition="$r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}"<else/>href="{:U('item/index',array('id'=>$r['id']))}"</if> title="{$r.title}" target="_blank" class="btn-2">查看详情</a><?php $llink = unserialize($r['go_link']);$lc = count($llink);?><if condition="$lc gt 1">
+											<!--多链接样式-->
+											<a href="javascript: void(0);" class="btn-more">去购买</a>
+											<div class="moreUrl radius-3 none">
+												<volist name="llink" id="rm">
+												<a href="__ROOT__/?m=item&a=tgo&to={:shortUrl($rm['link'])}" target="_blank" rel="nofollow" title="{$rm.title}">{$rm.name}</a>
+												</volist>
+											</div>
+											<!--多链接样式-->
+											<elseif condition="$lc eq 1"/>
+											<!--单链接样式-->
+											<a href="__ROOT__/?m=item&a=tgo&to={:shortUrl($llink[0]['link'])}" rel="nofollow" target="_blank" class="btn-3">去购买</a>
+											<!--单链接样式-->
+											</if>
 										</p>
 									</div>
 								</div>
@@ -41,19 +53,19 @@
 							<!--横向列表样式start-->
 							<div class="vertical none clearfix">
 								<div class="fl img">
-									<a <if condition="$type eq 'isbao'">href="{:U('item/index',array('id'=>$r['id'],'isbao'=>1))}"<elseif condition="$r['status'] eq 4"/>href="{:U('article/show',array('id'=>$r['id']))}"<else/> href="{:U('item/index',array('id'=>$r['id']))}"</if> target="_blank">
-										<img src="<if condition="$r['img']==''">/images/nopic.jpg<else/><if condition="preg_match('/img.baicaio.com/',$r['img'])">{:attach($r['img'],'item')}!thumb287<else/>{:attach($r['img'],'item')}</if></if>" class="radius-3 lazyimg">
+									<a <if condition="$r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}"<else/>href="{:U('item/index',array('id'=>$r['id']))}"</if> title="{$r.title}" target="_blank">
+										<img <if condition="$r['article'] eq '1'">src="{:attach($r['img'],'article')}"<else/>src="{:attach($r['img'],'item','')}"</if> title="{$r.title}" alt="{$r.title}" class="radius-3 lazyimg">
 									</a>
 								</div>
 								<div class="fl info mr-40">
 									<div>
-										<p class="infoTitle font-14"><a <if condition="$type eq 'isbao'">href="{:U('item/index',array('id'=>$r['id'],'isbao'=>1))}"<elseif condition="$r['status'] eq 4"/>href="{:U('article/show',array('id'=>$r['id']))}"<else/> href="{:U('item/index',array('id'=>$r['id']))}"</if> target="_blank">{$r.title}</a></p>
-										<p class="infoMember mt-8"><a href="details.html" class="hover-underline">Marlon Brando</a><span>爆料于 2018.04.13 13:22</span></p>
+										<p class="infoTitle font-14"><a <if condition="$r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}"<else/>href="{:U('item/index',array('id'=>$r['id']))}"</if> title="{$r.title}" target="_blank">{$r.title}</a></p>
+										<if condition="$r['article'] eq '1' OR $r['isbao'] eq '1'"><if condition="$r['uid'] neq 0"><p class="infoMember mt-8"><a href="{:U('member/index', array('uid'=>$r['uid']))}" class="hover-underline">{$r.uname}</a><span>爆料于 {$r.add_time|fdate}</span></p></if></if>
 									</div>
 								</div>
 								<div class="fl w-200 h-75 vcenter">
 									<div>
-										<p class="fc-red font-14 font-w-b">￥850</p>
+										<p class="fc-red font-14 font-w-b"><if condition="$r['pure_price'] neq ''">￥{$r.pure_price}<else/>{$r.price}</if></p>
 										<p class="fc-aux-9 font-w-n font-12 mt-5"><a href="{:U('orig/show',array('id'=>$r['orig_id']))}" class="hover-underline">{$options['orig'][$r['orig_id']]['name']}</a></p>
 									</div>
 								</div>

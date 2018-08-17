@@ -361,11 +361,16 @@ function shortUrlCreate($input){
 	}
 	return $show;
 }
-function attach($attach, $type) {
+function attach($attach, $type, $size = '') {
 	if($attach==""){
-		return "/images/nopic.jpg";
+		return "/public/images/nopic.jpg";
 	}else{
 		if(strpos($attach, 'http://') !== false || strpos($attach, 'https://') !== false || strpos($attach, 'base64') !== false){
+
+			if($type == 'item' && $size != '' && preg_match('/img.baicaio.com/',$attach)){
+				return $attach.'!thumb'.$size;
+			}
+
 			return $attach;
 		}
 		else{

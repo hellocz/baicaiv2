@@ -14,13 +14,13 @@
 								<volist name="[list]" id="r">
 								<li class="fl mr-12 radius-3 white-bg">
 									<div class="img">
-										<a href="{:U('item/index',array('id'=>$r['id']))}" target="_blank">
-											<img class="lazyimg" src="<if condition="$r['img']==''">/images/nopic.jpg<else/><if condition="preg_match('/img.baicaio.com/',$r['img'])">{:attach($r['img'],'item')}!thumb208<else/>{:attach($r['img'],'item')}</if></if>">
+										<a href="{:U('item/index',array('id'=>$r['id']))}" target="_blank" title="{$r.title}">
+											<img class="lazyimg" src="{:attach($r['img'],'item','208')}" title="{$r.title}" alt="{$r.title}">
 										</a>
 									</div>
 									<div class="info">
 										<p class="font-14 title">
-											<a href="{:U('item/index',array('id'=>$r['id']))}" target="_blank">{$r.title}</a>
+											<a href="{:U('item/index',array('id'=>$r['id']))}" title="{$r.title}" target="_blank">{$r.title}</a>
 										</p>
 										<p class="fc-red price">{$r.price}</p>
 										<p class="content mt-15">

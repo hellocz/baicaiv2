@@ -43,7 +43,7 @@ class articleModel extends RelationModel
     /**
     * 获得文章列表
     */
-    public function article_list($where = '', $limit = '1,10', $order = 'add_time desc'){
+    public function article_list($where = '', $limit = '0,10', $order = 'add_time desc'){
         if(!$order){
             $order = 'add_time desc';
         }
@@ -72,7 +72,7 @@ class articleModel extends RelationModel
     /**
     * 用户文章列表
     */
-    public function user_article_list($uid = 0, $status = 1, $field = '', $limit = '1,10', $order = 'add_time desc'){
+    public function user_article_list($uid = 0, $status = 1, $field = '', $limit = '0,10', $order = 'add_time desc'){
         if(!$uid) return false;
 
         $time=time();
@@ -90,7 +90,7 @@ class articleModel extends RelationModel
     /**
     * 用户文章列表-sql
     */
-    public function user_article_sql($uid = 0, $status = 1, $field = '', $limit = '1,10', $order = 'add_time desc'){
+    public function user_article_sql($uid = 0, $status = 1, $field = '', $limit = '0,10', $order = 'add_time desc'){
         if(!$uid) return false;
 
         $time=time();
@@ -108,12 +108,10 @@ class articleModel extends RelationModel
     /**
     * 获得热门文章列表
     */
-    public function hot_list($limit = '1,10', $order = 'add_time desc'){
+    public function hot_list($limit = '0,10'){
         $time = time();
-        $where = "status=1 and add_time<$time and isbest=1";
-        if(!$order){
-            $order = 'add_time desc';
-        }
+        $where = "status=1 and add_time<$time";
+        $order = 'isbest desc, add_time desc';
         $list = $this->where($where)->order($order)->limit($limit)->select();
         return $list;
     }
@@ -121,7 +119,7 @@ class articleModel extends RelationModel
     /**
     * 获得最新文章列表
     */
-    public function newest_list($limit = '1,10', $order = 'add_time desc'){
+    public function newest_list($limit = '0,10', $order = 'add_time desc'){
         $time = time();
         $where = "status=1 and add_time<$time";
         if(!$order){

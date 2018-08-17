@@ -20,7 +20,7 @@ class indexAction extends frontendAction {
 		}
 		
 		$p = $this->_get('p', 'intval', 1);
-		$type = $this->_get('type','trim');
+		// $type = $this->_get('type','trim');
 		$dss = $this->_get('dss','trim');
 		$dss = ($dss=="") ? $_COOKIE['dss'] : $dss;
 		// $dss = ($dss=="")?"lb":$dss;
@@ -32,9 +32,6 @@ class indexAction extends frontendAction {
 		$pager = $this->_new_pager($count,$pagesize);
 		
 		$mod=D("item");
-		$queryArr = array();
-		$queryArr['where']=" and isnice=1 and hits>600";//测试条件
-		$queryArr['order'] =" add_time desc";
 		if($p==1){
 			//置顶区 
 			$front_list = $mod->front_list();
@@ -47,6 +44,9 @@ class indexAction extends frontendAction {
 		//计算首页推荐的时间范围		
 		$date_list = array();
 		$time = time();
+		if(APP_DEBUG){
+			$time = strtotime('2018-05-31 23:59:59');
+		}
 		$time_homepage_s = strtotime("-" . ($p*2) . " day", strtotime(date("Y-m-d 00:00:00", $time)));
 		$time_homepage_e = strtotime("-" . ($p*2 - 2) . " day", strtotime(date("Y-m-d 00:00:00", $time))) - 1;
 		$date_list['2'] = date("Y.m.d", $time_homepage_s);
@@ -63,34 +63,35 @@ class indexAction extends frontendAction {
 		$cate_list = D('item_cate')->cate_data_cache();
 
 		//首页推荐
-		$item_list = $mod->item_list("status=1 and add_time between $time_homepage_s and $time_homepage_e".$queryArr['where'], '');
+		$item_list = $mod->item_list("status=1 and isnice=1 and add_time between $time_homepage_s and $time_homepage_e", '0,60', 'hits desc');
 		
 		$homepage_list = array();
 		if(count($item_list)>=1){
 			foreach($item_list as $key=>$val){
 				//商品一级分类
 				$cate_id = $item_list[$key]['cate_id'];
-				$cate_name = '';
-				if(isset($cate_list[$cate_id]) && $cate_list[$cate_id]['pid']==0){
-					$cate_name = $cate_list[$cate_id]['name'];
-				}else if(isset($cate_list[$cate_id])){
+				$cate_name = $cate_list[$cate_id]['name'];
+				if(isset($cate_list[$cate_id]) && $cate_list[$cate_id]['pid']!=0){
 					list($p1,$p2) = explode('|', $cate_list[$cate_id]['spid']."||");
 					if(isset($cate_list[$p1])){
 						$cate_name = $cate_list[$p1]['name'];
+						$cate_id = $p1;
 					}
 				}
 				$item_list[$key]['cate_name'] = $cate_name;
+				$item_list[$key]['cate_id'] = $cate_id;
 
 				$d = date("Y.m.d", $item_list[$key]['add_time']);
 				$homepage_list[$d][] = $item_list[$key];
 			}
 		}
 
-		$article_list = D("article")->article_list("add_time > $time_homepage_s and add_time < $time_homepage_e and status=4", '');
+		$article_list = D("article")->article_list("add_time > $time_homepage_s and add_time < $time_homepage_e and isfront=1", '');
 
 		if(count($article_list)>=1){
 			foreach($article_list as $key=>$val){
 				$d = date("Y.m.d", $article_list[$key]['add_time']);
+				$article_list[$key]['article'] = 1;
 				$homepage_list[$d][] = $article_list[$key];
 			}
 		}

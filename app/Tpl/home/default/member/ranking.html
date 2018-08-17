@@ -43,7 +43,7 @@
 					<notempty name="me_list">
 					<ul class="my clearfix">
 						<li class="ur-1 vcenter fc-green">{$me_list['rank']}</li>
-						<li class="ur-2"><img src="{:avatar($me_list['id'])}" class="radius-3"></li>
+						<li class="ur-2"><img src="{:avatar($me_list['id'], 64)}" class="radius-3"></li>
 						<li class="ur-3 vcenter">
 							<div>
 								<p class="name"><a href="{:U('member/index',array('uid'=>$me_list['id']))}" class="a-green hover-underline">{$me_list['username']}</a><span class="radius-100">合伙人</span></p>

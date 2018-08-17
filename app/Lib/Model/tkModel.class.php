@@ -48,7 +48,7 @@ class tkModel extends Model
     /**
     * 用户卡券列表
     */
-    public function user_tick_list($t = 'all', $uid = 0, $limit = '1,10', $order = 'get_time desc, tk_id desc'){
+    public function user_tick_list($t = 'all', $uid = 0, $limit = '0,10', $order = 'get_time desc, tk_id desc'){
         if(!$uid) return false;
         
         $where = "uid=$uid "; 

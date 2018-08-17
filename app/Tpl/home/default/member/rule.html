@@ -19,26 +19,32 @@
 				<div id="circle"></div>
 			</div>
 			<div class="experienceInfo">
+				<if condition="$user">
 				<p class="font-36 fc-white">Lv·{$user.grade.grade}</p>
 				<p class="mt-5 font-16">{$user.exp}/{$user.next_grade.min}</p>
 				<p class="mt-5 font-14">升级还需{$user.grade_left}点经验</p>
+				</if>
 			</div>
 			<div class="level">
 				<ul class="level-1 <if condition="$user.level eq 1">active</if>">
 					<li class="info">lv1 ~ lv4</li>
-					<li class="icon"></li>
+					<if condition="$user.level eq 1"><li class="icon"></li></if>
 				</ul>
 				<ul class="level-2 <if condition="$user.level eq 2">active</if>">
 					<li class="info">lv5 ~ lv9</li>
+					<if condition="$user.level eq 2"><li class="icon"></li></if>
 				</ul>
 				<ul class="level-3 <if condition="$user.level eq 3">active</if>">
 					<li class="info">lv10 ~ lv14</li>
+					<if condition="$user.level eq 3"><li class="icon"></li></if>
 				</ul>
 				<ul class="level-4 <if condition="$user.level eq 4">active</if>">
 					<li class="info">lv15 ~ lv19</li>
+					<if condition="$user.level eq 4"><li class="icon"></li></if>
 				</ul>
 				<ul class="level-5 <if condition="$user.level eq 5">active</if>">
 					<li class="info">lv20+</li>
+					<if condition="$user.level eq 5"><li class="icon"></li></if>
 				</ul>
 			</div>
 			<div class="background">
@@ -443,7 +449,7 @@
 		//进度插件
 		$('#circle').circleProgress({
 			startAngle: -Math.PI * 3/2.5,
-			value: {$user.grade_percent}, //进度值可更改（其他请勿修改）
+			value: <if condition="$user">{$user.grade_percent}<else/>0</if>, //进度值可更改（其他请勿修改）
 			size:340,
 			thickness:15,
 			lineCap: 'round',

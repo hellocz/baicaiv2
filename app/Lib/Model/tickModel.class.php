@@ -14,7 +14,7 @@ class tickModel extends Model
     /**
     * 获得券列表
     */
-    public function tick_list($where = '', $limit = '1,10', $order = 'start_time desc'){
+    public function tick_list($where = '', $limit = '0,10', $order = 'start_time desc'){
         if(!$order){
             $order = 'start_time desc';
         }

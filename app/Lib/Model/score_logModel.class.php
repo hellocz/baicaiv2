@@ -21,7 +21,7 @@ class score_logModel extends Model
     /**
     * 用户积分列表
     */
-    public function user_score_log_list($t = '', $uid = 0, $limit = '1,10', $order = 'add_time desc'){
+    public function user_score_log_list($t = '', $uid = 0, $limit = '0,10', $order = 'add_time desc'){
         if(!$uid) return false;
         
         $where = "uid='$uid' "; 

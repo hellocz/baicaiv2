@@ -68,4 +68,43 @@ class origAction extends frontendAction {
         $this->assign('info', $info);
         $this->display();
     }
+
+    public function test(){
+        $q = '包邮';
+        $p = 1;
+        // 迅搜
+        require LIB_PATH . 'Pinlib/php/lib/XS.php';
+        $xs = new XS('baicai');
+        $search = $xs->search;   //  获取搜索对象
+        $search->setQuery($q);
+        // $search->addRange('add_time', $time_s, $time_e);
+        // $search->addRange('orig_id', $orig_id, $orig_id);
+        // $search->setFacets(array('uname')); //Field `orig_id' cann't be used for facets search, can only be string type
+        $search->setLimit(200,200*($p-1)); 
+        $search->setSort('add_time',false);
+        $docs = $search->search();
+        $count = $search->count();
+        echo $search->getQuery()."<br>";
+
+        // // 读取分面结果
+        // $uname_counts = $search->getFacets('uname'); // 返回数组，以 fid 为键，匹配数量为值
+         
+        // // 遍历 $fid_counts, $year_counts 变量即可得到各自筛选条件下的匹配数量
+        // foreach ($uname_counts as $uname => $count)
+        // {
+        //     echo "其中uname为 $uname 的匹配数为: $count"."<br>";
+        // }
+
+        echo "<br>".count($docs)."<br>";
+        echo $count."<br>";
+        $i = 1;
+        echo "<pre>";
+        foreach ($docs as $doc) {
+            print_r($doc);
+            $i++;
+            // if($i>3) break; 
+        }
+        echo "</pre>";
+        exit;
+    }
 }

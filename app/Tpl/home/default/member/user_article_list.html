@@ -6,12 +6,12 @@
 						</div>
 						<ul class="item-info mt-12 clearfix">
 							<li class="fl info-1">
-								<img src="<if condition="$r['img']==''">/images/nopic.jpg<else/><if condition="preg_match('/img.baicaio.com/',$r['img'])">{:attach($r['img'],'item')}!thumb287<else/>{:attach($r['img'],'item')}</if></if>" class="lazyimg radius-3">
+								<a href="{:U('article/show',array('id'=>$r['id']))}" title="{$r.title}" target="_blank"><img src="{:attach($r['img'],'article')}" title="{$r.title}" alt="{$r.title}" class="lazyimg radius-3"></a>
 							</li>
 							<li class="fl info-2 lvcenter ml-12">
 								<div>
-									<p class="font-16"><a href="#">{$r.title}</a></p>
-									<p class="font-13 fc-aux-9 mt-8">{$r.content|strip_tags|msubstr=0,50}</p>
+									<p class="font-16"><a href="{:U('article/show',array('id'=>$r['id']))}" title="{$r.title}" target="_blank">{$r.title}</a></p>
+									<p class="font-13 fc-aux-9 mt-8">{$r.info|strip_tags|msubstr=0,50}</p>
 								</div>
 							</li>
 						</ul>
