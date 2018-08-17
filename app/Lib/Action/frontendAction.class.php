@@ -440,7 +440,7 @@ class frontendAction extends baseAction {
 
         //时间
         $time=time();
-        $time = strtotime('2018-05-31 23:59:59'); //测试
+        //$time = strtotime('2018-05-31 23:59:59'); //测试
         switch ($filters['period']) {
             case '1':
                 $time_s = strtotime("-1 month", strtotime(date("Y-m-d 00:00:00", $time))+86400);
@@ -507,36 +507,66 @@ class frontendAction extends baseAction {
             switch ($page_name) {
                 // 搜索页
                 case '_search_': 
-                    $q_list=$page_filters['q'];
-                    $search_content= Array();
-                     if(count($q_list) > 0){
-                        foreach($q_list as $key=>$r){
-                           $search_content[$key] ="%$r%";
-                        }
-                        $where1['title'] =array('like',$search_content,'AND');
-                        $where1['intro'] =array('like',$search_content,'AND');
-                        $where1['content'] =array('like',$search_content,'AND');
-                    }
 
-                    if(count($q_list) ==1){
-                        $tag_id =  M("tag")->where(array('name'=>$q_list[0]))->getField('id'); 
-                        $tag_id && $tag_items = M("item_tag")->where(array('tag_id'=>$tag_id))->field("item_id")->select();
-                        foreach ($tag_items as $tag_item_id) {
-                            if($str==""){
-                                 $str=$tag_item_id['item_id'];
-                            }else{
-                               $str.=",".$tag_item_id['item_id'];
-                            }
+                    require LIB_PATH . 'Pinlib/php/lib/XS.php';
+                $xs = new XS('baicai');
+                $search = $xs->search;   //  获取搜索对象
+                $search->setQuery($page_params['q']);
+                $search->addRange('add_time', $time_s, $time_e); 
+                $search->setSort('add_time',false);
+                $count = $search->count();
+                if($count > 100){
+                    $i = $count/100;
+                    if($i<1) $i=1;
+                    if($i > 10) $i=10;
+                }
+                for($j=1; $j<$i;$j++){
+                    $search->setLimit(100,100 * ($j-1)); 
+                    $docs = $search->search();
+                    foreach ($docs as $doc) {
+                        if($str==""){
+                             $str=$doc->id;
                         }
-                        $str && $where1['id'] = array('in', $str);
-                        // $where1['tag_cache'] =array('like',$tag_content,'AND');
-                        if(strlen($q) == 10){
-                            $where1['go_link'] =array('like',$search_content,'AND');
+                        else{
+                           $str.=",".$doc->id;
                         }
                     }
-                    $where1['_logic'] = 'or';
+                }
+                
+                $str && $where1['id'] = array('in', $str);
                     $where['_complex'] = $where1;
                     break;
+
+                    // $q_list=$page_filters['q'];
+                    // $search_content= Array();
+                    //  if(count($q_list) > 0){
+                    //     foreach($q_list as $key=>$r){
+                    //        $search_content[$key] ="%$r%";
+                    //     }
+                    //     $where1['title'] =array('like',$search_content,'AND');
+                    //     $where1['intro'] =array('like',$search_content,'AND');
+                    //     $where1['content'] =array('like',$search_content,'AND');
+                    // }
+
+                    // if(count($q_list) ==1){
+                    //     $tag_id =  M("tag")->where(array('name'=>$q_list[0]))->getField('id'); 
+                    //     $tag_id && $tag_items = M("item_tag")->where(array('tag_id'=>$tag_id))->field("item_id")->select();
+                    //     foreach ($tag_items as $tag_item_id) {
+                    //         if($str==""){
+                    //              $str=$tag_item_id['item_id'];
+                    //         }else{
+                    //            $str.=",".$tag_item_id['item_id'];
+                    //         }
+                    //     }
+                    //     $str && $where1['id'] = array('in', $str);
+                    //     // $where1['tag_cache'] =array('like',$tag_content,'AND');
+                    //     if(strlen($q) == 10){
+                    //         $where1['go_link'] =array('like',$search_content,'AND');
+                    //     }
+                    // }
+                    // $where1['_logic'] = 'or';
+                    // $where['_complex'] = $where1;
+                    // break;
 
                 //我的关注页
                 case '_myitems_': 
@@ -668,7 +698,6 @@ class frontendAction extends baseAction {
 
         //统计按推荐、按国内外、按分类、按商场数据
         $data =  $mod->field("orig_id, cate_id, {$queryAllArr['group']['tag']} as tag, {$queryAllArr['group']['price']} as price, {$queryAllArr['group']['price_range']} as price_range, count(id) as item_count")->where($queryAllArr['where'])->group("orig_id, cate_id, {$queryAllArr['group']['tag']}, {$queryAllArr['group']['price']}, {$queryAllArr['group']['price_range']}")->select();
-
         //统计
         $count = 0;
         if(count($data) > 0){
