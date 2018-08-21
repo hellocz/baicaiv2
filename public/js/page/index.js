@@ -1,12 +1,13 @@
 $(function(e) {
 	//置顶区切换特效
 	$(".i-atop").Xslider({
-		unitdisplayed: 1,
-		numtoMove: 1,
+		unitdisplayed: 4,
+		numtoMove: 4,
+		unitlen: 212+12,
 		speed: 300,
 		scrollobj:".atop-box",
-		scrollobjSize: Math.ceil($(".atop-box").children("li.atop-list").length / 1) * 896,
-//		loop:"cycle",
+		// scrollobjSize: Math.ceil($(".atop-box").children("li.atop-list").length / 1) * 896,
+		// loop:"cycle",
 	});
 	
 	//瀑布流与横向排列切换特效
