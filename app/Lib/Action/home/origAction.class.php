@@ -52,6 +52,11 @@ class origAction extends frontendAction {
         $info = D("item_orig")->get_info($id);
         !$info && $this->error('该信息不存在或已删除');
 
+        // 搜索关键词是否关注
+        if($this->visitor->is_login){
+          $info['is_follow'] = D("notify_tag")->is_follow($this->visitor->info['id'], $info['name']);
+        }
+
         //过滤筛选及查询结果
         //品牌
         $params = array('id' => $id);

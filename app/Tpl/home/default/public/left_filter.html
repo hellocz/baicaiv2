@@ -26,11 +26,11 @@
 				<div class="mt-12 treeNav category">
 					<volist name="options['cate']['p']" id="r">
 					<ul>
-						<span>{$r.name}（{$r.count}）</span>
+						<if condition="isset($r['count'])"><span>{$r.name}（{$r.count}）</span></if>
 						<present name="options['cate']['s'][$r['id']]">
 						<li <if condition="!isset($filters['cateid']) OR !isset($options['cate']['s'][$r['id']][$filters['cateid']])">class="none"</if>>
 							<volist name="options['cate']['s'][$r['id']]" id="rm">
-							<dl data-id="{$rm.id}" <if condition="isset($filters['cateid']) AND $rm['id'] eq $filters['cateid']">class="btn-10"</if>>{$rm.name}（{$rm.count}）</dl>
+							<if condition="isset($rm['count'])"><dl data-id="{$rm.id}" <if condition="isset($filters['cateid']) AND $rm['id'] eq $filters['cateid']">class="btn-10"</if>>{$rm.name}（{$rm.count}）</dl></if>
 							</volist>
 						</li>
 						</present>
@@ -43,14 +43,14 @@
 				<div class="layui-form-item">
 				<volist name="options['orig']" id="r">
 					<if condition="$i elt 5">
-					<input type="checkbox" name="orig[{$r.id}]" lay-skin="primary" title="{$r.name}（{$r.count}）" <present name="filters['orig'][$r['id']]">checked=""</present>><br>
+					<if condition="isset($r['count'])"><input type="checkbox" name="orig[{$r.id}]" lay-skin="primary" title="{$r.name}（{$r.count}）" <present name="filters['orig'][$r['id']]">checked=""</present>><br></if>
 					</if>
 				</volist>
 				<if condition="count($options['orig']) gt 5">
 					<if condition="!$options['orig_more']"><p class="font-12 fc-aux-a check-more mt-5 cursor-pointer">查看更多<i class="icon"></i></p></if>
 					<div <if condition="!$options['orig_more']">class="none"</if> id="checkMore">
 						<volist name="options['orig']" id="r" offset="5">
-						<input type="checkbox" name="orig[{$r.id}]" lay-skin="primary" title="{$r.name}（{$r.count}）" <present name="filters['orig'][$r['id']]">checked=""</present>><br>
+						<if condition="isset($r['count'])"><input type="checkbox" name="orig[{$r.id}]" lay-skin="primary" title="{$r.name}（{$r.count}）" <present name="filters['orig'][$r['id']]">checked=""</present>><br></if>
 						</volist>
 					</div>
 				</if>

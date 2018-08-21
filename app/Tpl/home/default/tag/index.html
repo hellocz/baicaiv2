@@ -17,7 +17,9 @@
 				<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-b_11"></use>
 			</svg>
 			共有{$options['type'][1]['count']}个含 “<span class="fc-green">{$info.name}</span>” 标签的结果
-			<span class="btn-3 cursor-pointer search-gz">+关注</span>
+			<!-- <span class="btn-3 cursor-pointer search-gz">+关注</span> -->
+			<span data-tag="{$info.name}" class="btn-3 cursor-pointer search-gz J_follow_tag" <if condition="$info['is_follow']">style="display:none;"</if>>+关注</span>
+			<span data-tag="{$info.name}" class="btn-3 cursor-pointer search-gz J_unfollow_tag" <if condition="!$info['is_follow']">style="display:none;"</if>>已关注</span>
 		</div>
 		<!--标题end-->
 	</div>

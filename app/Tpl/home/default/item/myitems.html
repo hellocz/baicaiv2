@@ -12,7 +12,7 @@
 	<div class="w-1200 mt-40">
 		<!--标题start-->
 		<div class="title font-20">
-			我的关注： <volist name="tags" id="r"><span class="fc-green mr-4">{$r}</span></volist>
+			我的关注： <if condition="$tags"><volist name="tags" id="r">“<span class="fc-green"><a href="{:U('search/index',array('q'=>param_encode($r)))}">{$r}</a></span>”<span class="mr-10"></span></volist><else/>无</if>
 		</div>
 		<!--标题end-->
 	</div>

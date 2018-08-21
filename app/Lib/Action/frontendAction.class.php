@@ -252,6 +252,8 @@ class frontendAction extends baseAction {
             }
         }
 
+        $this->assign('options',$options);
+
         return $options;
     }
 
@@ -373,6 +375,68 @@ class frontendAction extends baseAction {
 
     }
 
+
+    /**
+     * 过滤选项更新
+     * 根据结果过滤没有商品的分类、商城等
+     */
+    public function options_update($options, $filters){
+
+        // 显示更多商城
+        $arr = array_slice($options['orig'], 5, null, TRUE);
+        if(isset($filters['orig']) and count($filters['orig'])>0){
+            foreach ($filters['orig'] as $k => $v) {
+                if(array_key_exists($k, $arr)){
+                    $options['orig_more'] = true;
+                    break;
+                }
+            }
+        }
+        //过滤没有商品的分类、商城等
+        if(count($options['orig']) > 0){
+            foreach ($options['orig'] as $k => $val) {
+                if(!isset($val['count'])){
+                    //若无数据，但是为过滤条件，显示0
+                    if(isset($filters['orig']) && isset($filters['orig'][$k])){
+                        $options['orig'][$k]['count'] = 0;
+                    }else{
+                        unset($options['orig'][$k]);
+                    }
+                }
+            }
+        }
+        if(count($options['cate']) > 0){
+            foreach ($options['cate']['p'] as $k => $val) {
+                $check = 0;              
+                if(isset($options['cate']['s'][$k])){
+                    foreach ($options['cate']['s'][$k] as $k2 => $val2) {
+                        if(!isset($val2['count'])){
+                            //若无数据，但是为过滤条件，显示0
+                            if(isset($filters['cateid']) && $filters['cateid'] == $k2){
+                                $options['cate']['s'][$k][$k2]['count'] = 0;
+                                $check = 1;
+                            }else{
+                                unset($options['cate']['s'][$k][$k2]);
+                            }
+                        }
+                    }
+                }
+                if(!isset($val['count'])){
+                    if($check){
+                        $options['cate']['p'][$k]['count'] = 0;
+                    }else{
+                        unset($options['cate']['p'][$k]);
+                        unset($options['cate']['s'][$k]);
+                    }
+                }
+            }
+        }
+        // print_r($options['orig']);exit;
+
+        return $options;
+
+    }
+
     /**
      * 筛选过滤及结果查询
      * page_params Array(), 页面传过来的参数，用于生成排序、分页等URL链接
@@ -440,7 +504,9 @@ class frontendAction extends baseAction {
 
         //时间
         $time=time();
-        //$time = strtotime('2018-05-31 23:59:59'); //测试
+        if(APP_DEBUG){
+            $time = strtotime('2018-05-31 23:59:59');
+        }
         switch ($filters['period']) {
             case '1':
                 $time_s = strtotime("-1 month", strtotime(date("Y-m-d 00:00:00", $time))+86400);
@@ -460,9 +526,7 @@ class frontendAction extends baseAction {
 
         //分类过滤
         if(isset($filters['cateid'])){  
-            $cate_relate = D('item_cate')->relate_cache();//分类关系
-            $cate_ids = isset($cate_relate[$filters['cateid']]['sids']) ? $cate_relate[$filters['cateid']]['sids'] : array();
-            array_push($cate_ids, $filters['cateid']);
+            $cate_ids = D('item_cate')->get_cate_sids($filters['cateid']);//分类关系
             $where1.="and cate_id in(". implode(', ', $cate_ids) .") ";//分类
         }
 
@@ -508,80 +572,134 @@ class frontendAction extends baseAction {
                 // 搜索页
                 case '_search_': 
 
-                    require LIB_PATH . 'Pinlib/php/lib/XS.php';
-                $xs = new XS('baicai');
-                $search = $xs->search;   //  获取搜索对象
-                $search->setQuery($page_params['q']);
-                $search->addRange('add_time', $time_s, $time_e); 
-                $search->setSort('add_time',false);
-                $count = $search->count();
-                if($count > 100){
-                    $i = $count/100;
-                    if($i<1) $i=1;
-                    if($i > 10) $i=10;
-                }
-                for($j=1; $j<$i;$j++){
-                    $search->setLimit(100,100 * ($j-1)); 
-                    $docs = $search->search();
-                    foreach ($docs as $doc) {
-                        if($str==""){
-                             $str=$doc->id;
+                if(APP_DEBUG){
+                        $q_list=explode(" ",$page_filters['q']);
+                        $search_content= Array();
+                         if(count($q_list) > 0){
+                            foreach($q_list as $key=>$r){
+                               $search_content[$key] ="%$r%";
+                            }
+                            $where1['title'] =array('like',$search_content,'AND');
+                            $where1['intro'] =array('like',$search_content,'AND');
+                            $where1['content'] =array('like',$search_content,'AND');
                         }
-                        else{
-                           $str.=",".$doc->id;
+
+                        if(count($q_list) ==1){
+                            $tag_id =  M("tag")->where(array('name'=>$q_list[0]))->getField('id'); 
+                            $tag_id && $tag_items = M("item_tag")->where(array('tag_id'=>$tag_id))->field("item_id")->select();
+                            foreach ($tag_items as $tag_item_id) {
+                                if($str==""){
+                                     $str=$tag_item_id['item_id'];
+                                }else{
+                                   $str.=",".$tag_item_id['item_id'];
+                                }
+                            }
+                            $str && $where1['id'] = array('in', $str);
+                            // $where1['tag_cache'] =array('like',$tag_content,'AND');
+                            if(strlen($q) == 10){
+                                $where1['go_link'] =array('like',$search_content,'AND');
+                            }
                         }
+                        $where1['_logic'] = 'or';
+                        $where = $where1;
+                }else{
+                        require LIB_PATH . 'Pinlib/php/lib/XS.php';
+                        $xs = new XS('baicai');
+                        $search = $xs->search;   //  获取搜索对象
+                        $search->setQuery($page_filters['q']);
+                        $search->addRange('add_time', $time_s, $time_e); 
+                        $search->setSort('add_time',false);
+                        $count = $search->count();
+                        if($count > 100){
+                            $i = $count/100;
+                            if($i<1) $i=1;
+                            if($i > 10) $i=10;
+                        }
+                        for($j=1; $j<$i;$j++){
+                            $search->setLimit(100,100 * ($j-1)); 
+                            $docs = $search->search();
+                            foreach ($docs as $doc) {
+                                if($str==""){
+                                     $str=$doc->id;
+                                }
+                                else{
+                                   $str.=",".$doc->id;
+                                }
+                            }
+                        }
+                        
+                        $str && $where1['id'] = array('in', $str);
+                        $where= $where1;
                     }
-                }
-                
-                $str && $where1['id'] = array('in', $str);
-                    $where['_complex'] = $where1;
+
                     break;
-
-                    // $q_list=$page_filters['q'];
-                    // $search_content= Array();
-                    //  if(count($q_list) > 0){
-                    //     foreach($q_list as $key=>$r){
-                    //        $search_content[$key] ="%$r%";
-                    //     }
-                    //     $where1['title'] =array('like',$search_content,'AND');
-                    //     $where1['intro'] =array('like',$search_content,'AND');
-                    //     $where1['content'] =array('like',$search_content,'AND');
-                    // }
-
-                    // if(count($q_list) ==1){
-                    //     $tag_id =  M("tag")->where(array('name'=>$q_list[0]))->getField('id'); 
-                    //     $tag_id && $tag_items = M("item_tag")->where(array('tag_id'=>$tag_id))->field("item_id")->select();
-                    //     foreach ($tag_items as $tag_item_id) {
-                    //         if($str==""){
-                    //              $str=$tag_item_id['item_id'];
-                    //         }else{
-                    //            $str.=",".$tag_item_id['item_id'];
-                    //         }
-                    //     }
-                    //     $str && $where1['id'] = array('in', $str);
-                    //     // $where1['tag_cache'] =array('like',$tag_content,'AND');
-                    //     if(strlen($q) == 10){
-                    //         $where1['go_link'] =array('like',$search_content,'AND');
-                    //     }
-                    // }
-                    // $where1['_logic'] = 'or';
-                    // $where['_complex'] = $where1;
-                    // break;
 
                 //我的关注页
                 case '_myitems_': 
                     $tag_list = $page_filters['tag'];
+                    $search_cate= Array();
+                    $search_orig= Array();
+                    $search_item= Array();
                     $search_content= Array();
                      if(count($tag_list) > 0){
-                        foreach($tag_list as $key=>$r){
-                           $search_content[$key] ="%$r%";
+                        foreach($tag_list as $k=>$q){
+                            // 关键词
+                            $q_list=explode(" ",$q);
+                            $arr= Array();
+                            if(count($q_list) > 0){
+                                foreach($q_list as $key=>$r){
+                                   $arr['title'][] ="title like '%".$r."%'";
+                                   $arr['intro'][] ="intro like '%".$r."%'";
+                                   $arr['content'][] ="content like '%".$r."%'";
+                                }
+                                $search_content[]="(" . implode(' AND ', $arr['title']) . ")";
+                                $search_content[]="(" . implode(' AND ', $arr['intro']) . ")";
+                                $search_content[]="(" . implode(' AND ', $arr['content']) . ")";
+                            }
+                            if(count($q_list) ==1){
+                                // 关键词是否为TAG
+                                $tag_id =  M("tag")->where(array('name'=>$q))->getField('id'); 
+                                $tag_id && $tag_items = M("item_tag")->where(array('tag_id'=>$tag_id))->field("item_id")->select();
+                                if(isset($tag_items) && count($tag_items) > 0){
+                                    foreach ($tag_items as $tag_item_id) {
+                                        $search_item[$tag_item_id['item_id']] = $tag_item_id['item_id'];
+                                    }
+                                    // continue;
+                                }
+                                // 关键词是否为分类名称
+                                $arr = D('item_cate')->get_cate_by_name($q);
+                                if(count($arr) > 0){                                
+                                    foreach ($arr as $val) {
+                                        $cate_ids = D('item_cate')->get_cate_sids($val['id']);
+                                        $search_cate = array_merge($search_cate, $cate_ids);
+                                    } 
+                                    // continue;                          
+                                }
+                                // 关键词是否为商城名称
+                                $arr = D('item_orig')->get_orig_by_name($q);
+                                if(count($arr) > 0){
+                                    $orig_ids = array_keys($arr); 
+                                    $search_orig = array_merge($search_orig, $orig_ids);
+                                    // continue;
+                                }
+                            }
                         }
-                        $where1['title'] =array('like',$search_content,'OR');
-                        $where1['intro'] =array('like',$search_content,'OR');
-                        $where1['content'] =array('like',$search_content,'OR');
+                        if(count($search_cate) > 0){
+                            $where1['cate_id'] =array('IN',$search_cate,'OR');
+                        }
+                        if(count($search_orig) > 0){
+                            $where1['orig_id'] =array('IN',$search_orig,'OR');
+                        }
+                        if(count($search_item) > 0){
+                            $where1['id'] =array('IN',$search_item,'OR');
+                        }
+                        if(count($search_content) > 0){
+                            $where1['_string'] =implode(' OR ', $search_content);
+                        }
+
+                        $where1['_logic'] = 'or';
+                        $where = $where1;
                     }
-                    $where1['_logic'] = 'or';
-                    $where['_complex'] = $where1;
                     break;
 
                 // 品牌
@@ -607,9 +725,7 @@ class frontendAction extends baseAction {
 
                     if($page_filters['cid']){
                         $cid = $page_filters['cid'];  //分类id                     
-                        $cate_relate = D('item_cate')->relate_cache();//分类关系
-                        $cate_ids = isset($cate_relate[$cid]['sids']) ? $cate_relate[$cid]['sids'] : array();
-                        array_push($cate_ids, $cid);
+                        $cate_ids = D('item_cate')->get_cate_sids($cid);
                         $where['cate_id'] = array('in', $cate_ids); //分类
                     }
                     break;
@@ -617,9 +733,7 @@ class frontendAction extends baseAction {
                 // 分类
                 case '_cate_': 
                     $cid = $page_filters['id'];  //分类id                     
-                    $cate_relate = D('item_cate')->relate_cache();//分类关系
-                    $cate_ids = isset($cate_relate[$cid]['sids']) ? $cate_relate[$cid]['sids'] : array();
-                    array_push($cate_ids, $cid);
+                    $cate_ids = D('item_cate')->get_cate_sids($cid);//分类关系
                     $where['cate_id'] = array('in', $cate_ids); //分类
                     break;
 
@@ -658,11 +772,12 @@ class frontendAction extends baseAction {
                 $queryArr['where']['_complex'] = $where;
             }
         }
-        // echo "<pre>";print_r($queryAllArr['where']);print_r($queryArr['where']);echo "</pre>"; exit;
+        // echo "<pre>";print_r($where);echo "</pre>"; 
+        // echo "<pre>";print_r($queryArr['where']);echo "</pre>"; exit;
 
         //排序
         $queryArr['order'] =" add_time desc"; 
-        if($filters['sortby']){
+        if(isset($filters['sortby'])){
             $queryArr['order'] = $options['sortby'][$filters['sortby']]; 
         }
 
@@ -809,58 +924,8 @@ class frontendAction extends baseAction {
 
             }
         }
-        // print_r($options['orig']);
 
-        // 显示更多商城
-        $arr = array_slice($options['orig'], 5, null, TRUE);
-        if(isset($filters['orig']) and count($filters['orig'])>0){
-            foreach ($filters['orig'] as $k => $v) {
-                if(array_key_exists($k, $arr)){
-                    $options['orig_more'] = true;
-                    break;
-                }
-            }
-        }
-        //过滤没有商品的分类、商城等
-        if(count($options['orig']) > 0){
-            foreach ($options['orig'] as $k => $val) {
-                if(!isset($val['count'])){
-                    //若无数据，但是为过滤条件，显示0
-                    if(isset($filters['orig']) && isset($filters['orig'][$k])){
-                        $options['orig'][$k]['count'] = 0;
-                    }else{
-                        unset($options['orig'][$k]);
-                    }
-                }
-            }
-        }
-        if(count($options['cate']) > 0){
-            foreach ($options['cate']['p'] as $k => $val) {
-                $check = 0;              
-                if(isset($options['cate']['s'][$k])){
-                    foreach ($options['cate']['s'][$k] as $k2 => $val2) {
-                        if(!isset($val2['count'])){
-                            //若无数据，但是为过滤条件，显示0
-                            if(isset($filters['cateid']) && $filters['cateid'] == $k2){
-                                $options['cate']['s'][$k][$k2]['count'] = 0;
-                                $check = 1;
-                            }else{
-                                unset($options['cate']['s'][$k][$k2]);
-                            }
-                        }
-                    }
-                }
-                if(!isset($val['count'])){
-                    if($check){
-                        $options['cate']['p'][$k]['count'] = 0;
-                    }else{
-                        unset($options['cate']['p'][$k]);
-                        unset($options['cate']['s'][$k]);
-                    }
-                }
-            }
-        }
-        // print_r($options['cate']);exit;
+        $options = $this->options_update($options, $filters);
 
          //生成URL
         $path = MODULE_NAME."/".ACTION_NAME;

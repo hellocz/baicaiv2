@@ -22,7 +22,9 @@
 		<!--标题start-->
 		<div class="title font-20">
 			{$info['name']}
-			<span class="ml-10 btn-3 cursor-pointer search-gz">+关注</span>
+			<!-- <span class="ml-10 btn-3 cursor-pointer search-gz">+关注</span> -->
+			<span data-tag="{$info.name}" class="ml-10 btn-3 cursor-pointer search-gz J_follow_tag" <if condition="$info['is_follow']">style="display:none;"</if>>+关注</span>
+			<span data-tag="{$info.name}" class="ml-10 btn-3 cursor-pointer search-gz J_unfollow_tag" <if condition="!$info['is_follow']">style="display:none;"</if>>已关注</span>
 		</div>
 		<!--标题end-->
 	</div>

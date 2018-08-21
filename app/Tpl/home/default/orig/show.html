@@ -33,7 +33,11 @@
 			</p>
 		</div>
 		<div class="fl bd-info">
-			<div class="font-24 font-w-b bd-title">{$info.name}<span class="btn-3 cursor-pointer font-w-n ml-10">+关注</span></div>
+			<div class="font-24 font-w-b bd-title">{$info.name}
+				<!-- <span class="btn-3 cursor-pointer font-w-n ml-10">+关注</span> -->
+				<span data-tag="{$info.name}" class="btn-3 cursor-pointer font-w-n ml-10 J_follow_tag" <if condition="$info['is_follow']">style="display:none;"</if>>+关注</span>
+				<span data-tag="{$info.name}" class="btn-3 cursor-pointer font-w-n ml-10 J_unfollow_tag" <if condition="!$info['is_follow']">style="display:none;"</if>>已关注</span>
+			</div>
 			<div class="fc-grey font-13 bd-content mt-20">{$info.intro}<!-- <a href="#" class="fc-green font-w-b ml-5">查看详情</a> --></div>
 		</div>
 	</div>
