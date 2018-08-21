@@ -94,10 +94,12 @@ $(function(){
 			return false;
 		}
 		obj = $(this);
-		$.post("/index.php?m=user&a=follow_tag_create",{tag:$(this).data("tag")},function(result){
+		$.post("/index.php?m=user&a=follow_tag_create",{tag:obj.data("tag")},function(result){
 			if(result.status==1){
-				obj.addClass("none");
-				obj.siblings(".J_unfollow_tag").removeClass("none");			
+				// obj.hide();
+				// obj.siblings(".J_unfollow_tag").show();
+				$(".J_follow_tag[data-tag='"+obj.data("tag")+"'").hide();
+				$(".J_unfollow_tag[data-tag='"+obj.data("tag")+"'").show();
 				tipsPopup('tips_1', result.msg)
 			}else{
 				tipsPopup('tips_2', result.msg)
@@ -112,10 +114,12 @@ $(function(){
 			return false;
 		}
 		obj = $(this);
-		$.post("/index.php?m=user&a=follow_tag_del",{tag:$(this).data("tag")},function(result){
+		$.post("/index.php?m=user&a=follow_tag_del",{tag:obj.data("tag")},function(result){
 			if(result.status==1){
-				obj.addClass("none");
-				obj.siblings(".J_follow_tag").removeClass("none");
+				// obj.hide();
+				// obj.siblings(".J_follow_tag").show();
+				$(".J_unfollow_tag[data-tag='"+obj.data("tag")+"'").hide();
+				$(".J_follow_tag[data-tag='"+obj.data("tag")+"'").show();
 				tipsPopup('tips_1', result.msg)
 			}else{
 				tipsPopup('tips_2', result.msg)

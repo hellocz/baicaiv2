@@ -66,13 +66,29 @@ class item_origModel extends Model{
     }
 
     public function get_info($id) {
-        if (false === $orig_list = F('orig_list')) {
-            $orig_list = $this->orig_cache();
-        }
+        if(!$id) return false;
+        $orig_list = $this->orig_cache();
         if (isset($orig_list[$id])) {
             return $orig_list[$id];
         } else {
             return false;
         }
     }
+
+    /**
+     * 根据商城名查找商城
+     */
+    public function get_orig_by_name($name) {
+        if(!$name) return false;
+
+        $list = array();
+        $orig_list = $this->orig_cache();
+        foreach ($orig_list as $val) {
+            if (strtolower(trim($val['name'])) == strtolower(trim($name))) {
+                $list[$val['id']] = $val; 
+            }
+        }
+        return $list;
+    }
+
 }

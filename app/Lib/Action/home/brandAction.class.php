@@ -127,8 +127,14 @@ class brandAction extends frontendAction {
         !$id && $this->_404();
         $brand = D("brand")->get_info($id);
         !$brand && $this->error('该信息不存在或已删除');
-        $brand['name'] = str_replace("&nbsp;","",$brand['name']);
+        // $brand['name'] = str_replace("&nbsp;","",$brand['name']);
+        $brand['name'] = str_replace("&nbsp;","",$brand['chn_name']);
         $brand['abstract'] = trim($brand['abstract']);
+
+        // 搜索关键词是否关注
+        if($this->visitor->is_login){
+          $brand['is_follow'] = D("notify_tag")->is_follow($this->visitor->info['id'], $brand['name']);
+        }
 
         //分类ID
         $cid = $this->_get('cid', 'intval');

@@ -11,6 +11,11 @@ class tagAction extends frontendAction {
         $info = array();
         $info['name'] = $q;
 
+        // 搜索关键词是否关注
+        if($this->visitor->is_login){
+          $info['is_follow'] = D("notify_tag")->is_follow($this->visitor->info['id'], $info['name']);
+        }
+
         //天猫搜券
         $item_list = $this->search_quan($info['name']);
         $info['recommend']=array_slice($item_list,0,4);

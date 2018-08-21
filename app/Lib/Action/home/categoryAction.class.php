@@ -22,6 +22,10 @@ class categoryAction extends frontendAction {
         } else {
             $this->_404();
         }
+        // 搜索关键词是否关注
+        if($this->visitor->is_login){
+          $cate_info['is_follow'] = D("notify_tag")->is_follow($this->visitor->info['id'], $cate_info['name']);
+        }
 
         //天猫搜券
         $q = trim($cate_info['name']);

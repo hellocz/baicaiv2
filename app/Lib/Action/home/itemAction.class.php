@@ -319,10 +319,14 @@ class itemAction extends frontendAction {
         $tags = D("notify_tag")->user_follow_tags($this->visitor->info['id']);
         $this->assign('tags',$tags);
 
-        //过滤筛选及查询结果
-        $params = array();
-        $filters = array('tag' => array_keys($tags));
-        $this->search($params, '_myitems_', $filters);
+        if($tags){
+             //过滤筛选及查询结果
+            $params = array();
+            $filters = array('tag' => array_keys($tags));
+            $this->search($params, '_myitems_', $filters);           
+        }else{
+            $this->options();
+        }
 
         $this->assign('page_seo',set_seo('我的关注'));
         $this->display();

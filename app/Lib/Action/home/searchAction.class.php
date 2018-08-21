@@ -17,8 +17,7 @@ class searchAction extends frontendAction {
 
         //过滤筛选及查询结果       
         $params = array('q' => param_encode($q));
-        $q_list=explode(" ",$q);
-        $filters = array('q' => $q_list);
+        $filters = array('q' => $q);
         $this->search($params, '_search_', $filters);
 
         //天猫领券
@@ -26,6 +25,11 @@ class searchAction extends frontendAction {
         $info['name'] = $q;
         $item_list = $this->search_quan($q);
         $info['recommend']=array_slice($item_list,0,4);
+
+        // 搜索关键词是否关注
+        if($this->visitor->is_login){
+          $info['is_follow'] = D("notify_tag")->is_follow($this->visitor->info['id'], $info['name']);
+        }
 
         $this->assign('info', $info);
 

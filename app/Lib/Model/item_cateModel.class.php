@@ -76,6 +76,23 @@ class item_cateModel extends Model
     }
 
     /**
+     * 读取写入缓存(无层级分类列表)
+     */
+    public function cate_data_cache() {
+        if (false !== $cate_data = F('cate_data')) {
+          return $cate_data;
+        }
+
+        $cate_data = array();
+        $result = $this->field('id,pid,spid,name,fcolor,type,seo_title,seo_keys,seo_desc,top,is_index')->where('status=1')->order('ordid')->select();
+        foreach ($result as $val) {
+            $cate_data[$val['id']] = $val;
+        }
+        F('cate_data', $cate_data);
+        return $cate_data;
+    }
+
+    /**
      * 读取写入缓存(有层级的分类数据)
      */
     public function cate_cache() {
@@ -84,7 +101,7 @@ class item_cateModel extends Model
         }
 
         $cate_list = array();
-        $cate_data = $this->field('id,pid,name,fcolor,type,is_index')->where('status=1')->order('ordid')->select();
+        $cate_data = $this->cate_data_cache();
         foreach ($cate_data as $val) {
             if ($val['pid'] == '0') {
                 $cate_list['p'][$val['id']] = $val;
@@ -97,23 +114,6 @@ class item_cateModel extends Model
     }
 
     /**
-     * 读取写入缓存(无层级分类列表)
-     */
-    public function cate_data_cache() {
-        if (false !== $cate_data = F('cate_data')) {
-          return $cate_data;
-        }
-
-        $cate_data = array();
-        $result = $this->field('id,pid,spid,name,fcolor,type,seo_title,seo_keys,seo_desc,top')->where('status=1')->order('ordid')->select();
-        foreach ($result as $val) {
-            $cate_data[$val['id']] = $val;
-        }
-        F('cate_data', $cate_data);
-        return $cate_data;
-    }
-
-    /**
      * 分类关系读取写入缓存
      */
     public function relate_cache() {
@@ -122,7 +122,7 @@ class item_cateModel extends Model
           }
 
         $cate_relate = array();
-        $cate_data = $this->field('id,pid,spid')->where('status=1')->order('ordid')->select();
+        $cate_data = $this->cate_data_cache();
         foreach ($cate_data as $val) {
             $cate_relate[$val['id']]['sids'] = $this->get_child_ids($val['id']); //子孙
             if ($val['pid'] == '0') {
@@ -151,6 +151,37 @@ class item_cateModel extends Model
         } else {
             return false;
         }
+    }
+
+    /**
+     * 根据分类名获得分类
+     */
+    public function get_cate_by_name($name) {
+        if(!$name) return false;
+
+        $list = array();        
+        $cate_data = $this->cate_data_cache();
+        foreach ($cate_data as $val) {
+            if (trim($val['name']) == trim($name)) {
+                $list[$val['id']] = $val; 
+            }
+        }
+
+        return $list;
+    }
+
+    /**
+     * 取分类下的所有子分类ID集合
+     */
+    public function get_cate_sids($id, $with_self=true) {
+        if(!$id) return false;
+        $cate_relate = $this->relate_cache();
+        $cate_sids = array();
+        if (isset($cate_relate[$id])) {
+            $cate_sids = $cate_relate[$id]['sids'];
+        }
+        $with_self && $cate_sids[] = $id;
+        return $cate_sids;
     }
 
     /**

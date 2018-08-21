@@ -46,7 +46,9 @@
 			<!--没有适合优惠start-->
 			<notempty name="info['name']">
 			<div class="white-bg mt-12 radius-3 noDiscount">
-				<span class="fc-ad6 font-16">没找到适合的优惠？</span>加入关注及时把握好价<a href="#" class="fc-green ml-5">详情</a> <span class="fr btn-7 cursor-pointer radius-3">将“{$info.name}”加入关注</span>
+				<span class="fc-ad6 font-16">没找到适合的优惠？</span>加入关注及时把握好价<a href="#" class="fc-green ml-5">详情</a> 
+				<span data-tag="{$info.name}" class="fr btn-7 cursor-pointer radius-3 J_follow_tag <if condition="$info['is_follow']">none</if>">将“{$info.name}”加入关注</span>
+				<span data-tag="{$info.name}" class="fr btn-7 cursor-pointer radius-3 J_unfollow_tag <if condition="!$info['is_follow']">none</if>">已关注“{$info.name}”</span>
 			</div>
 			</notempty>
 			<!--没有适合优惠end-->

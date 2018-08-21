@@ -50,6 +50,8 @@ class notify_tagModel extends Model
     public function is_follow($userid = 0, $tag = ''){
         if(!$userid || !$tag) return false;
 
+        $tag = trim($tag);
+
         $list = $this->where("userid=$userid and tag='{$tag}'")->find();
         if(!$list){
             return false;
