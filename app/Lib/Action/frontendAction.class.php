@@ -515,12 +515,10 @@ class frontendAction extends baseAction {
                 $search->addRange('add_time', $time_s, $time_e); 
                 $search->setSort('add_time',false);
                 $count = $search->count();
-                if($count > 100){
                     $i = $count/100;
                     if($i<1) $i=1;
                     if($i > 10) $i=10;
-                }
-                for($j=1; $j<$i;$j++){
+                for($j=1; $j<=$i;$j++){
                     $search->setLimit(100,100 * ($j-1)); 
                     $docs = $search->search();
                     foreach ($docs as $doc) {
