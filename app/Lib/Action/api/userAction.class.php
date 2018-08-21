@@ -72,6 +72,7 @@ class userAction extends userbaseAction
             $info = [
             'userid'    =>  $userinfo['id'],
             'username'    =>  $userinfo['username'],
+            'password' =>   $username,
             'gender'    =>  $userinfo['gender'],
             'score'    =>  $userinfo['score'],
         ];
