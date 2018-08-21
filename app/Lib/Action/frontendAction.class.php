@@ -613,7 +613,6 @@ class frontendAction extends baseAction {
                             $i = $count/100;
                             if($i<1) $i=1;
                             if($i > 10) $i=10;
-                        }
                         for($j=1; $j<=$i;$j++){
                             $search->setLimit(100,100 * ($j-1)); 
                             $docs = $search->search();
