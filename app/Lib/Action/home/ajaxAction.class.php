@@ -6,27 +6,8 @@ class ajaxAction extends frontendAction {
 	public function zan() {//对商品点赞
 		$id = $_REQUEST['id'];
 		$t = $_REQUEST['t'];
-		$xid = $_REQUEST['xid'];
-
-		!$this->visitor->is_login && $this->ajaxReturn(0, '请登录！');
-		$user = $this->visitor->get();
-		!($id&&$xid)&&$this->ajaxReturn(0, '收藏对象错误');
-		$i_mod = get_mod($xid);
-		$item = $i_mod->where("id=$id")->find();
-		!$item&&$this->ajaxReturn(0, '收藏对象错误');
-
-		$status = action_verify($user['id'],$id,$t,$xid);
-		$isvote=D("item_vote")->where("uid=$user[id] and xid=$xid and itemid=$id")->find();
-		if($isvote){
-			$this->ajaxReturn(1, '不能重复投票');
-		}
-		else{
-			$i_mod->where("id=$id")->setInc("vote");
-			D("item_vote")->add(array('itemid'=>$id,'xid'=>$xid,'addtime'=>time(),'uid'=>$user['id']));
-			$this->ajaxReturn(1, '投票成功');
-		}
-		//$ip = trim(getip());
-		//$myip = trim(cookie("ip"));
+		$ip = trim(getip());
+		$myip = trim(cookie("ip"));
 		$zan = trim(cookie("zan".$t.$id));
 		if($ip==$myip&&$zan==1){//已点赞
 			$this->ajaxReturn(0, '您已点过赞！');

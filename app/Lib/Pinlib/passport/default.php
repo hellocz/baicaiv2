@@ -41,7 +41,7 @@ class default_passport
         return array(
             'username' => $username,
             'password' => $password,
-            'email' => $email,
+            // 'email' => $email,
             'gender' => $gender,
             'mobile' => $mobile
         );

@@ -48,50 +48,102 @@ class userAction extends userbaseAction
             $data['email'] = '0@0.c';
             $data['gender'] = 0;
 
-            $mobile = $data['mobile'];
-            $session_code = M('codesms')->where(['mobile'=>$data['mobile']])->getField("code");
-            $verify_code = $data['verify_code'];
-            if($session_code != $verify_code){
-                  echo get_result(20001,[], '验证码错误');return ;
-            }
-            $generatorUser = $this->generatorUser();
-            $username = $generatorUser['username'];
-            $password = $generatorUser['password'];
+//            $smscode = M('codesms')->where(['mobile'=>$data['mobile']])->find();
+//            if($smscode){
+//                if($smscode['out_time'] < time()){
+//                    echo get_result(20001,[], "验证码超时");return ;
+//                }
+//                if($data['captcha'] != $smscode['code']){
+//                    echo get_result(20001,[], "验证码错误");return ;
+//                }
+//            }else{
+//                echo get_result(20001,[], "未请求验证码");return ;
+//            }
+//            M('codesms')->where(['mobile'=>$data['mobile']])->delete();
+
+            //方式
+//            $type = $this->_post('type', 'trim', 'reg');
+//            if ($type == 'reg') {
+//                //验证
+//                $agreement = $this->_post('agreement');
+//                !$agreement && $this->error(L('agreement_failed'));
+//
+//                $captcha = $this->_post('captcha', 'trim');
+
+//            }
+
+ //          if ($data['password'] != $data['repassword']) {
+ //              echo get_result(20001,[], "两次输入的密码不一致");return ;
+ //          }
+
+//            //用户禁止
+//            $ipban_mod = D('ipban');
+//            $ipban_mod->clear(); //清除过期数据
+//            $is_ban = $ipban_mod->where("(type='name' AND name='".$data['username']."') OR (type='email' AND name='".$data['email']."')")->count();
+//            if($is_ban){
+//                echo get_result(20001,[], '您的帐号或邮箱被禁止注册');return ;
+//            }
+            //连接用户中心
             $passport = $this->_user_server();
+
+
             //注册
-            $uid = $passport->register($username, $password, $data['email'], $data['gender'],$mobile);
+            $uid = $passport->register($data['username'], $data['password'], $data['email'], $data['gender']);
             if(!$uid){
-                echo get_result(20001,[],"2222" . $passport->get_error());return ;
+                echo get_result(20001,[],$passport->get_error());return ;
             }
 
             //给用户加积分
             M("user")->where("id=$uid")->setField(array('score'=>10,'exp'=>10));
             //积分日志
             set_score_log(array('id'=>$uid,'username'=>$data['username']),'register',10,'','',10);
-            $userinfo = $passport->get($uid);
-            $info = [
-            'userid'    =>  $userinfo['id'],
-            'username'    =>  $userinfo['username'],
-            'gender'    =>  $userinfo['gender'],
-            'score'    =>  $userinfo['score'],
-        ];
 
-            echo get_result(10001,$info);
 
-    }
+            echo get_result(10001,$uid);
+//        $data['mobile']
 
-    public function generatorUser(){
-        $rand_id = rand('10000000','99999999');
-        $username = "菜友" . $rand_id;
-        $where['username'] = $username;
-        D("user")->where($where)->count('id');
-        if($count > 0 ){
-            return generatorUser();
-        }
-        else{
-            $password = rand("100000","999999");
-            return array("username"=>$username,"password"=>$password);
-        }
+//            //是否通过朋友分享注册的
+//            if(trim($_SESSION['tg'])!=''){
+//                $suid = M("user")->field('try_user.*')->join("try_share as s on s.uid=try_user.id")->where("s.dm='$_SESSION[tg]'")->find();
+//                //查找一天是否超过5次
+//                $time=time();
+//                $start=strtotime(date('Y-m-d',$time));
+//                $end = strtotime(date('Y-m-d',$time))+24*3600;
+//                $count = M("score_log")->where("add_time>$start and $end>add_time and uid=$suid[id] and action='share_register'")->count();
+//                if($count<5){
+//                    //给用户加积分
+//                    M("user")->where("id=$suid[id]")->setField(array("coin"=>$suid['coin']+5,"offer"=>$suid['offer']+5,'score'=>$suid['score']+5,'exp'=>$suid['exp']+5));
+//                    //积分日志
+//                    set_score_log(array('id'=>$suid['id'],'username'=>$suid['username']),'share_register',5,5,5,5);
+//                }
+//            }
+            //第三方帐号绑定
+//            if (cookie('user_bind_info')) {
+//                $user_bind_info = object_to_array(cookie('user_bind_info'));
+//                $oauth = new oauth($user_bind_info['type']);
+//                $bind_info = array(
+//                    'pin_uid' => $uid,
+//                    'keyid' => $user_bind_info['keyid'],
+//                    'bind_info' => $user_bind_info['bind_info'],
+//                );
+//                $oauth->bindByData($bind_info);
+//                //临时头像转换
+//                $this->_save_avatar($uid, $user_bind_info['temp_avatar']);
+//                //清理绑定COOKIE
+//                cookie('user_bind_info', NULL);
+//            }
+//            //注册完成钩子
+//            $tag_arg = array('uid'=>$uid, 'uname'=>$data['username'], 'action'=>'register');
+//            tag('register_end', $tag_arg);
+//            //登陆
+//            $this->visitor->login($uid);
+//            //登陆完成钩子
+//            $tag_arg = array('uid'=>$uid, 'uname'=>$data['username'], 'action'=>'login');
+//            tag('login_end', $tag_arg);
+//            //同步登陆
+//            $synlogin = $passport->synlogin($uid);
+//            $this->success(L('register_successe').$synlogin, U('user/index'));
+
 
     }
 
@@ -280,23 +332,8 @@ class userAction extends userbaseAction
         if ($passlen < 6 || $passlen > 20) {
             echo get_result(20001,[], '新密码长度不能小于6或大于20');return ;
         }
-        $uid = M("user")->where("mobile = '".$data['mobile']."'")->getField("id");
 
-        //连接用户中心
-        $passport = $this->_user_server();
-        $result = $passport->edit($uid, '', array('password'=>$data['password']),true);
-        if ($result) {
-            echo get_result();
-        } else {
-            echo get_result(20001,[], '重置失败');return;
-        }
-
-    }
-
-    //smscode verify
-
-    public function smscode_verify($data){
-         $smscode = M('codesms')->where(['mobile'=>$data['mobile']])->find();
+        $smscode = M('codesms')->where(['mobile'=>$data['mobile']])->find();
 
         if($smscode){
             if($smscode['out_time'] < time()){
@@ -309,7 +346,17 @@ class userAction extends userbaseAction
             echo get_result(20001,[], "未请求验证码");return ;
         }
         M('codesms')->where(['mobile'=>$data['mobile']])->delete();
-        echo get_result();;
+        $uid = M("user")->where("mobile = '".$data['mobile']."'")->getField("id");
+
+        //连接用户中心
+        $passport = $this->_user_server();
+        $result = $passport->edit($uid, '', array('password'=>$data['password']),true);
+        if ($result) {
+            echo get_result();
+        } else {
+            echo get_result(20001,[], '重置失败');return;
+        }
+
     }
 
     /**
