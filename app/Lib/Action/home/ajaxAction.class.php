@@ -4,40 +4,67 @@ class ajaxAction extends frontendAction {
 		parent::_initialize();
 	}
 	public function zan() {//对商品点赞
-		$id = $_REQUEST['id'];
-		$t = $_REQUEST['t'];
+		$itemid = $_REQUEST['id'];
 		$xid = $_REQUEST['xid'];
 
-		!$this->visitor->is_login && $this->ajaxReturn(0, '请登录！');
-		$user = $this->visitor->get();
-		!($id&&$xid)&&$this->ajaxReturn(0, '收藏对象错误');
-		$i_mod = get_mod($xid);
-		$item = $i_mod->where("id=$id")->find();
-		!$item&&$this->ajaxReturn(0, '收藏对象错误');
+		$vote = trim(cookie("vote".$xid."_".$itemid));
+		if($vote==1){//已点赞
+			$this->ajaxReturn(0, '您已经投过票了！');
+		}
 
-		$status = action_verify($user['id'],$id,$t,$xid);
-		$isvote=D("item_vote")->where("uid=$user[id] and xid=$xid and itemid=$id")->find();
-		if($isvote){
-			$this->ajaxReturn(1, '不能重复投票');
+		$i_mod = get_mod($xid);
+
+		if($this->visitor->is_login){
+			$user = $this->visitor->get();
+			$status = action_verify($itemid,$xid);
+			if($status['code'] == 0 ){
+				$this->ajaxReturn(0, $status['error']);
+			}
+			$vote_status = D("item_vote")->vote($user['id'],$xid,$itemid,1);
+			if($vote_status['code']==0){
+				$this->ajaxReturn(0, $vote_status['error']);
+			}
+			else{
+				cookie("vote".$xid."_".$itemid,1);
+				$this->ajaxReturn(1, '投票成功');
+			}
 		}
 		else{
-			$i_mod->where("id=$id")->setInc("vote");
-			D("item_vote")->add(array('itemid'=>$id,'xid'=>$xid,'addtime'=>time(),'uid'=>$user['id']));
+			cookie("vote".$xid."_".$itemid,1);
+			$i_mod->where("id=$itemid")->setInc("zan");
 			$this->ajaxReturn(1, '投票成功');
 		}
-		//$ip = trim(getip());
-		//$myip = trim(cookie("ip"));
-		$zan = trim(cookie("zan".$t.$id));
-		if($ip==$myip&&$zan==1){//已点赞
-			$this->ajaxReturn(0, '您已点过赞！');
-		}else{
-			cookie("ip",$ip);
-			cookie("zan".$t.$id,1);
-			$data['zan']=M($t)->where("id=$id")->getField("zan");
-			$data['zan']+=1;
-			$data['id']=$id;
-			$r=M($t)->save($data);
-			$this->ajaxReturn(1, '',$data['zan']);
+	}
+
+	public function cai() {//对商品点踩
+		$itemid = $_REQUEST['id'];
+		$xid = $_REQUEST['xid'];
+
+		$vote = trim(cookie("vote".$xid."_".$itemid));
+		if($vote==1){//已点赞
+			$this->ajaxReturn(0, '您已经投过票了！');
+		}
+
+		$i_mod = get_mod($xid);
+		if($this->visitor->is_login){
+			$user = $this->visitor->get();
+			$status = action_verify($itemid,$xid);
+			if($status['code'] == 0 ){
+				$this->ajaxReturn(0, $status['error']);
+			}
+			$vote_status = D("item_vote")->vote($user['id'],$xid,$itemid,-1);
+			if($vote_status['code']==0){
+				$this->ajaxReturn(0, $vote_status['error']);
+			}
+			else{
+				cookie("vote".$xid."_".$itemid,1);
+				$this->ajaxReturn(1, '投票成功');
+			}
+		}
+		else{
+			cookie("vote".$xid."_".$itemid,1);
+			$i_mod->where("id=$itemid")->setInc("cai");
+			$this->ajaxReturn(1, '投票成功');
 		}
 	}
 

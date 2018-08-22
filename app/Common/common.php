@@ -638,13 +638,13 @@ function param_decode($str = '') {
     return str_replace ($search,  $replace,  $str);
 }
 
-function action_verify($userid,$id,$t,$xid){
-	if(!($id&&$xid)){
+function action_verify($itemid,$xid){
+	if(!($itemid&&$xid)){
 		$status['code'] = 0;
 		$status['error'] = "操作对象错误";
 	}
 	$i_mod = get_mod($xid);
-	$item = $i_mod->where("id=$id")->find();
+	$item = $i_mod->where("id=$itemid")->find();
 	if(!$item){
 		$status['code'] = 0;
 		$status['error'] = "操作对象错误";
