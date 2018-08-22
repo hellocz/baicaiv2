@@ -65,8 +65,8 @@
 								<a <if condition="$r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}"<else/>href="{:U('item/index',array('id'=>$r['id']))}"</if> title="{$r.title}" target="_blank" class="fc-green">…阅读全文</a></p>
 							<div class="content mt-15 clearfix">
 								<div class="fl" style="width:338px;margin-top: 12px;">
-										<span class="fc-aux-a icon3 icon3-c_6 mr-20 cursor-pointer" onclick="tipsPopup('tips_1','点赞成功')">{$r.zan}</span>
-										<span class="fc-aux-a icon3 icon3-c_7 mr-20 cursor-pointer" onclick="tipsPopup('tips_1','点踩成功')">{$r.zan}</span>
+										<span class="fc-aux-a icon3 icon3-c_6 mr-20 cursor-pointer" data-id="{$r.id}" data-xid="<if condition="$r['status'] eq 4">3<else/>1</if>" onclick="jz_submit_click(this)">{$r.zan}</span>
+										<span class="fc-aux-a icon3 icon3-c_7 mr-20 cursor-pointer" data-id="{$r.id}" data-xid="<if condition="$r['status'] eq 4">3<else/>1</if>" onclick="jc_submit_click(this)">{$r.cai}</span>
 										<a href="page/details.html#comments"><span class="fc-aux-a icon3 icon3-a_43">{$r.comments}</span></a>
 									</div>
 								<?php $llink = unserialize($r['go_link']);$lc = count($llink);?><if condition="$lc gt 1">

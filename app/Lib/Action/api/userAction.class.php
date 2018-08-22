@@ -72,7 +72,7 @@ class userAction extends userbaseAction
             $info = [
             'userid'    =>  $userinfo['id'],
             'username'    =>  $userinfo['username'],
-            'password' =>   $username,
+            'password' =>   $password,
             'gender'    =>  $userinfo['gender'],
             'score'    =>  $userinfo['score'],
         ];
@@ -109,6 +109,13 @@ class userAction extends userbaseAction
                    return;
              }
         }
+        else{
+            $count = M('user')->where(['mobile'=>$data['mobile']])->count('id');
+             if($count ==0) {
+                   echo get_result(20001, [], "手机号未注册!");
+                   return;
+             }
+        }     
         $code = rand('100000','999999');
         $msg = "您的短信验证码为".$code;
         file_get_contents("http://sms.253.com/msg/send?un=N2204759&pw=1w0Xqu5xC&phone=".$data['mobile']."&msg=$msg&rd=0");

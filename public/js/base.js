@@ -385,6 +385,32 @@ function ChangeTime() {
 	}
 }
 
+function jz_submit_click(obj){
+		var obj=$(obj);
+		$.get("/index.php?m=ajax&a=zan",{id:$(obj).data("id"),xid:$(obj).data("xid")},function(result){
+			if(result.status==1){
+				var num = $(obj).html();
+				$(obj).html(++num);
+				tipsPopup('tips_1',result.msg);
+			}else{
+				tipsPopup('tips_2',result.msg);
+			}
+		},'json')
+	}
+
+function jc_submit_click(obj){
+		var obj=$(obj);
+		$.get("/index.php?m=ajax&a=cai",{id:$(obj).data("id"),xid:$(obj).data("xid")},function(result){
+			if(result.status==1){
+				var num = $(obj).html();
+				$(obj).html(++num);
+				tipsPopup('tips_1',result.msg);
+			}else{
+				tipsPopup('tips_2',result.msg);
+			}
+		},'json')
+	}
+
 //弹出登录层
 function LoginPopup(type){
 
