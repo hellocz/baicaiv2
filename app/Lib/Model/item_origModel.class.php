@@ -75,6 +75,18 @@ class item_origModel extends Model{
         }
     }
 
+    public function get_orig_by_ids($ids) {
+        if(!$ids || count($ids) == 0) return false;
+
+        $list = array();
+        $orig_list = $this->orig_cache();
+        foreach ($ids as $id) {
+            $list[$id] = $orig_list[$id]; 
+        }
+
+        return $list;
+    }
+
     /**
      * 根据商城名查找商城
      */

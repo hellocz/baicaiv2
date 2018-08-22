@@ -1,5 +1,5 @@
 <?php
-class tickModel extends Model
+class activityModel extends Model
 {
     protected $where_valid = "status=1 and DATEDIFF(now() ,start_time)>-1 and DATEDIFF(end_time,now())>0 ";
 
@@ -13,9 +13,9 @@ class tickModel extends Model
     }
 
     /**
-    * 获得券列表
+    * 获得活动列表
     */
-    public function tick_list($t = 'valid', $where = '', $field = '', $limit = '0,10', $order = 'start_time desc'){
+    public function activity_list($t = 'valid', $where = '', $limit = '0,10', $order = 'start_time desc'){
         $map = array();
         if($t == 'valid'){ //有效
             $map['_string'] = $this->where_valid;
@@ -31,9 +31,9 @@ class tickModel extends Model
     }
 
     /**
-    * 获得券列表SQL
+    * 获得活动列表SQL
     */
-    public function tick_sql($t = 'valid', $where = '', $field = '', $limit = '', $order = ''){
+    public function activity_sql($t = 'valid', $where = '', $field = '', $limit = '', $order = ''){
         $map = array();
         if($t == 'valid'){ //有效
             $map['_string'] = $this->where_valid;
@@ -46,7 +46,7 @@ class tickModel extends Model
     }
 
     /**
-    * 获得有券的商城IDs
+    * 获得有活动的商城IDs
     */
     public function get_orig_ids($t = 'valid', $where = ''){
         $map = array();

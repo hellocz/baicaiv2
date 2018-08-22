@@ -1,6 +1,6 @@
 <div class="radius-3 white-bg">
 				<div class="title font-w-b font-16">
-					<a href="#" class="fr more font-w-n fc-aux-9 font-12">浏览更多</a>
+					<a href="{:U('hour/index')}" target="_blank" class="fr more font-w-n fc-aux-9 font-12">浏览更多</a>
 					热门榜
 				</div>
 				<div class="layui-tab">
@@ -16,7 +16,7 @@
 								<img src="{:attach($r['img'],'item','')}" width="80" height="80" class="radius-3" title="{$r.title}" alt="{$r.title}">
 								<div class="tabCon">
 									<p class="tit">{$r.title}</p>
-									<p class="fc-red"><if condition="$r['pure_price'] neq ''">￥{$r.pure_price}<else/>{$r.short_price}</if></p>
+									<p class="fc-red" style="overflow: hidden;"><if condition="$r['pure_price'] neq '' and $r['pure_price'] neq '0'">{$r.pure_price}元</if></p>
 								</div>
 							</a>
 							</volist>
@@ -27,7 +27,7 @@
 								<img src="{:attach($r['img'],'item','')}" width="80" height="80" class="radius-3" title="{$r.title}" alt="{$r.title}">
 								<div class="tabCon">
 									<p class="tit">{$r.title}</p>
-									<p class="fc-red"><if condition="$r['pure_price'] neq ''">￥{$r.pure_price}<else/>{$r.short_price}</if></p>
+									<p class="fc-red" style="overflow: hidden;"><if condition="$r['pure_price'] neq '' and $r['pure_price'] neq '0'">{$r.pure_price}元</if></p>
 								</div>
 							</a>
 							</volist>
@@ -38,7 +38,7 @@
 								<img src="{:attach($r['img'],'item','')}" width="80" height="80" class="radius-3" title="{$r.title}" alt="{$r.title}">
 								<div class="tabCon">
 									<p class="tit">{$r.title}</p>
-									<p class="fc-red"><if condition="$r['pure_price'] neq ''">￥{$r.pure_price}<else/>{$r.short_price}</if></p>
+									<p class="fc-red" style="overflow: hidden;"><if condition="$r['pure_price'] neq '' and $r['pure_price'] neq '0'">{$r.pure_price}元</if></p>
 								</div>
 							</a>
 							</volist>

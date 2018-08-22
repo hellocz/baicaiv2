@@ -175,22 +175,36 @@ class itemAction extends frontendAction {
             'seo_description' => $item['seo_desc'],
         ));
 
+        //是否关注
+        $follow_users = array();
+        $follow_tags = array();
+        if($this->visitor->is_login){
+          $follow_users = D("user_follow")->user_follow_ids($this->visitor->info['id']);
+          $follow_tags = D("notify_tag")->user_follow_tags($this->visitor->info['id']);
+        }
+
         //面包屑
-        if($item['cate_id'])
-        {
+        if($item['cate_id']){
             $strpos = getpos($item['cate_id'],'');
         }
+        $this->assign("strpos",$strpos);
         
         //当前分类信息
         $cate_data = D('item_cate')->cate_data_cache();
         if (isset($cate_data[$item['cate_id']])) {
             $cate_info = $cate_data[$item['cate_id']];
-        } else {
-            //$this->_404();
+        } 
+        if(isset($follow_tags[trim($cate_info['name'])])){
+            $cate_info['is_follow'] = 1;
         }
         $this->assign('cate_info', $cate_info);
 
-        $this->assign("strpos",$strpos);
+        //活动
+        $activity_list = D('item_activity')->item_activity_list('valid', "item_id=$id");
+        $this->assign("activity_list",$activity_list);
+
+
+        //上一篇，下一篇文章
         $add_time = intval($item['add_time']);
         $time = time();
         $pre = $item_mod->where("add_time<$add_time and status=1")->field("id,title")->order("add_time desc,id desc")->find();
@@ -199,24 +213,20 @@ class itemAction extends frontendAction {
         $this->assign("pre",$pre);
         $this->assign("next",$next);
 
-
         //小时排行榜，六小时排行榜，二十四小时排行榜
-        $hour_list = D('item')->item_hour_cache();
+        $time = time() - 3600;
+        if(APP_DEBUG){
+            $time = strtotime('2018-07-31 20:00:00');
+        }
+        $hour_list = D('item')->item_hour_cache($time);
         $hour_list = array_slice($hour_list, 0, 9);
-        $hour6_list = D('item')->item_6hour_cache();
-        $hour24_list = D('item')->item_24hour_cache();
+        $hour6_list = D('item')->item_6hour_cache($time);
+        $hour24_list = D('item')->item_24hour_cache($time);
 
         $this->assign('hour_list',$hour_list);
         $this->assign('hour6_list',$hour6_list);
         $this->assign('hour24_list',$hour24_list);
 
-        //是否关注
-        $follow_users = array();
-        $follow_tags = array();
-        if($this->visitor->is_login){
-          $follow_users = D("user_follow")->user_follow_ids($this->visitor->info['id']);
-          $follow_tags = D("notify_tag")->user_follow_tags($this->visitor->info['id']);
-        }
 
         //热门订阅
         $follow_tag_list = D("notify_tag")->top_follow_list("f_sign=1", 9); 

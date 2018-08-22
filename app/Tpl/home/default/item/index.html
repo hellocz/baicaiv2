@@ -14,9 +14,9 @@
 	
 	<!--详情页start-->
 	<!--面包屑start-->
-	<div class="w-1200 mt-20 breadcrumb fc-aux-a">
-		<a href="/">首页</a>
-		{$strpos}
+	<div class="w-1200 mt-20 fc-aux-a">
+		<a href="/">首页</a> >
+		{$strpos}  >
 		<span>详情</span>
 	</div>
 	<!--面包屑end-->
@@ -26,21 +26,14 @@
 			<div class="item radius-3">
 				<div class="item-top">
 					<span class="sytj radius-3 green-bg fc-white text-center mr-7 font-13">首页推荐</span>
-					<span class="icon-1 green-bg fc-white text-center">
-						<svg class="icon">
-							<!--[if lte IE 8]><desc><img src="/public/images/ie8/a_10@2x.png" width="14" height="14"></desc><![endif]-->
-							<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-a_10"></use>
-						</svg>
-					</span>
-					<span class="icon-2 text-center font-13 mr-22">+132</span>
 					<span class="pl fc-aux-a"><i class="icon3 icon3-a_43"></i><span id="pls1">{$item.comments}</span>评论</span>
-					<img src="<if condition="$orig['img_url']">{:attach($orig['img_url'],'item_orig')}<else/>/images/nopic.jpg</if>" title="{$orig.name}" alt="{$orig.name}" class="fr img">
+					<a href="{:U('orig/show',array('id'=>$orig['id']))}" title="{$orig['name']}" target="_blank"><img src="{:attach($orig['img_url'],'item_orig')}" title="{$orig.name}" alt="{$orig.name}" class="fr img"></a>
 				</div>
 				<!--商品详情start-->
 				<div class="item-goods">
 					<div class="clearfix">
 						<div class="fl goods-pic mr-15">
-							<p><img src="<if condition="$item['img']==''">/images/nopic.jpg<else/> <if condition="preg_match('/img.baicaio.com/',$item['img'])">{:attach($item['img'],'item')}!thumb208<else/>{:attach($item['img'],'item')}</if></if>" width="296" height="296" class="radius-3"></p>
+							<p><img src="{:attach($item['img'],'item','')}" width="296" height="296" class="radius-3"></p>
 							<div class="cz mt-12 clearfix">
 								<div class="fl share-c">
 									<span class="fc-aux-a cursor-pointer radius-3 fx shareButton T_share" data-id="{$item.id}">分享</span>
@@ -123,7 +116,16 @@
 								<span class="fc-aux-9">发表时间：{$item.add_time|fdate}</span></div>
 							<div class="inst radius-3">
 								<p><span class="font-w-b">商场运费：</span><if condition="$orig['shipping'] neq ''">{$orig.shipping}<else/>--</if></p>
-								<p class="mt-8"><span class="font-w-b">折扣类型： </span><span class="layui-badge-rim">用券</span> <a href="#" class="a-green hover-underline">1000元满减券</a></p>
+								<p class="mt-8"><span class="font-w-b">折扣类型： </span>
+									<if condition="$activity_list">
+									<span class="layui-badge-rim">活动</span> 
+									<volist name="activity_list" id="r">
+									<a href="{:U('tick/show',array('id'=>$r['id']))}" class="a-green hover-underline">{$r.name}</a>
+									</volist>
+									<else/>
+									--
+									</if>
+								</p>
 							</div>
 							<div class="mt-15 clearfix">
 								<div class="fl moreButton">
@@ -290,7 +292,7 @@
 								<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_7@2x.png" width="24" height="24"></desc><![endif]-->
 								<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_7"></use>
 							</svg>
-							{$item.zan}
+							{$item.cai}
 						</button>
 						<div class="fr jb2">
 							<span class="radius-3 jb cursor-pointer">举报</span>
@@ -340,7 +342,9 @@
 			
 			<!--加入关注清单start-->
 			<div class="mt-12 jrgz white-bg radius-3">
-				<span class="fr button btn-7 cursor-pointer">将“{$cate_info.name}”加入关注清单</span>
+				<!-- <span class="fr button btn-7 cursor-pointer">将“{$cate_info.name}”加入关注清单</span> -->
+				<span data-tag="{$cate_info.name}" class="fr button btn-7 cursor-pointer J_follow_tag" <if condition="$cate_info['is_follow']">style="display:none;"</if>>将“{$cate_info.name}”加入关注清单</span>
+				<span data-tag="{$cate_info.name}" class="fr button btn-7 cursor-pointer J_unfollow_tag" <if condition="!$cate_info['is_follow']">style="display:none;"</if>>已关注“{$cate_info.name}”</span>
 				<span style="color: #AD6161;" class="font-16 font-w-b">需要更多相关优惠? </span>加入关注清单可自定义推送
 			</div>
 			<!--加入关注清单end-->

@@ -30,34 +30,33 @@ class tickAction extends frontendAction {
 		$mod = M('tick');
 		$db_pre = C('DB_PREFIX');
 
-
-		$subwhere = "status=1 and DATEDIFF(now() ,start_time)>-1 and DATEDIFF(end_time,now())>0 ";
-
 		// //获取所有有优惠券的购物平台
-		$arr_list = $mod_orig->where("id in(select distinct orig_id from try_tick where {$subwhere} union select distinct orig_id from try_activity where {$subwhere})")->order("ordid asc,id asc")->select();
-		$orig_list=array();
-		foreach($arr_list as $key=>$val){
-			$orig_list[$val['id']]=$val;
-		}
-		$this->assign('orig_list',$orig_list);
+		$tick_orig_ids = D('tick')->get_orig_ids();
+		$activity_orig_ids = D('activity')->get_orig_ids();
+		$orig_list = D("item_orig")->get_orig_by_ids(array_merge($tick_orig_ids, $activity_orig_ids));
+		$this->assign('orig_list',$orig_list);		
 
 		//获取所有的优惠券
+		$subwhere = '';
 		if($orig){
-			$subwhere .= "and orig_id={$orig} ";
+			$subwhere = "orig_id={$orig} ";
 		}
 		$field_tick = "1 as t,id,name,orig_id,start_time,end_time,intro,status,yl,sy,je,dhjf,ljdz,xl";		
 		$field_activity = "2 as t,id,name,orig_id,start_time,end_time,intro,status,'' AS yl,'' AS sy,je,'' AS dhjf,ljdz,'' AS xl";
 
+		$subQuery_tick = D('tick')->tick_sql('valid', $subwhere, $field_tick);
+		$subQuery_activity = D('activity')->activity_sql('valid', $subwhere, $field_activity);
+
 		if($t == 1){
 			//只看优惠券
-			$subQuery = $mod->field($field_tick)->table($db_pre.'tick t')->where($subwhere)->buildSql();
+			$subQuery = $subQuery_tick;
 		}else if($t == 2){
 			//只看活动
-			$subQuery = $mod->field($field_activity)->table($db_pre.'activity t')->where($subwhere)->buildSql();
+			$subQuery = $subQuery_activity;
 		}else{
 			//全部
-			$subQuery = $mod->field($field_tick)->table($db_pre.'tick t')->where($subwhere)->union("SELECT {$field_activity} FROM {$db_pre}activity t where {$subwhere}",true)->buildSql();
-		}		
+			$subQuery = "({$subQuery_tick} union all {$subQuery_activity})";
+		}
 
 		//总数
 		if($ismy != ''){
@@ -113,45 +112,23 @@ class tickAction extends frontendAction {
 	public function show() {
 		$id = $this->_get("id","intval");
 		!$id && $this->_404();
-		$mod_orig = M("item_orig");
-		$mod = M("tick");	
-		$mod_tk = M('tk');
-		$info=$mod->where("id=$id")->find();		
+		$info=D("tick")->get_info($id);		
 		!$info && $this->_404();		
 		$info['zj']=intval($info['sy'])+intval($info['yl']);
 		$info['intro'] = str_replace("\n",'<br>',$info['intro']);
 		$info['end_time'] = date("Y.m.d H:i", strtotime($info['end_time']));
 		$this->assign("info",$info);
 
-		$orig_info = $mod_orig->where("id=$info[orig_id]")->find();
+		$orig_info = D("item_orig")->get_info($info['orig_id']);
 		$this->assign('orig',$orig_info);
-
-		// //领取记录
-		// $pagesize=20;
-		// $count = $mod_tk->where("tick_id=$id and status=1")->count();
-		// $pager = $this->_pager($count,$pagesize);
-		// $lq = $mod_tk->where("tick_id=$id and status=1")->order("get_time desc")->limit($pager->firstRow.",".$pager->listRows)->select();
-		// foreach($lq as $key=>$val){
-		// 	$lq[$key]['gk']= ((time()-$val['get_time'])>3600*24)?1:0;
-		// 	$lq[$key]['uname']=str_pad(substr(get_uname($val['uid']),-3),6,'*',STR_PAD_LEFT);
-		// }
-		// $this->assign('pagebar',$pager->fshow());
-		// $this->assign('lq',$lq);
 
 		//热门优惠
 		$this->right_hot_item();
 
 		//相关优惠精选
 		$time = time();
-		$queryArr = array();
-		$queryArr['where']="status=1 and add_time<$time and isnice=1 and orig_id=" . $orig_info['id'];
-		$queryArr['order'] =" add_time desc";
-		$item_list = M('item')->where($queryArr['where'])->limit(8)->order($queryArr['order'])->select();
-		if(count($item_list) > 0){
-			foreach ($item_list as $key => $val) {
-				$item_list[$key]['zan'] = $item_list[$key]['zan']+intval($item_list[$key]['hits'] /10);
-			}
-		}
+		$where="status=1 and add_time<$time and isnice=1 and orig_id=" . $orig_info['id'];
+		$item_list = D('item')->item_list($where, 8);
 		$this->assign('item_list', $item_list);
 
 		$this->_config_seo();	

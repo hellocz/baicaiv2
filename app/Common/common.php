@@ -458,19 +458,19 @@ function getdh(){
 }
 /*面包削*/
 function getpos($id,$str=''){
-	$pstr=M("item_cate")->where("id=$id")->field("id,name,pid")->find();
+	$pstr=D("item_cate")->get_info($id);
 	if($pstr['pid']!='0'){
 		if($str==""){
-			$str = "<a href='".U('book/cate',array('cid'=>$id))."'>".$pstr['name']."</a>";
+			$str = "<a href='".U('category/cate',array('id'=>$id))."'>".$pstr['name']."</a>";
 		}else{
-			$str = "<a href='".U('book/cate',array('cid'=>$id))."'>".$pstr['name']."</a> > ".$str;
+			$str = "<a href='".U('category/cate',array('id'=>$id))."'>".$pstr['name']."</a> > ".$str;
 		}
 		$str = getpos($pstr['pid'],$str);
 	}else{
 		if($str==""){
-			$str = "<a href='".U('book/cate',array('cid'=>$id))."'>".$pstr['name']."</a> ";
+			$str = "<a href='".U('category/cate',array('id'=>$id))."'>".$pstr['name']."</a> ";
 		}else{
-			$str = "<a href='".U('book/cate',array('cid'=>$id))."'>".$pstr['name']."</a> > ".$str;
+			$str = "<a href='".U('category/cate',array('id'=>$id))."'>".$pstr['name']."</a> > ".$str;
 		}
 	}
 	return $str;

@@ -154,6 +154,21 @@ class item_cateModel extends Model
     }
 
     /**
+     * 根据ID获取分类名称
+     */
+    public function get_info($id) {
+        if(!$id) return false;
+        //分类数据
+        $cate_data = $this->cate_data_cache();
+        if(isset($cate_data[$id])){
+          return $cate_data[$id];
+        }else{
+          return false;
+        }
+        
+    }
+
+    /**
      * 根据分类名获得分类
      */
     public function get_cate_by_name($name) {

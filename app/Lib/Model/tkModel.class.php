@@ -8,7 +8,7 @@ class tkModel extends Model
     public function clear($uid){
         if(!$uid) return false;
 
-        $list = D('tick')->tick_list('DATE_SUB( CURDATE( ) , INTERVAL 6 MONTH ) > DATE( end_time )', '', '');
+        $list = D('tick')->tick_list('', 'DATE_SUB( CURDATE( ) , INTERVAL 6 MONTH ) > DATE( end_time )', '', '', '');
         if($list){
             foreach($list as $v){
                 $arr[]=$v['id'];
