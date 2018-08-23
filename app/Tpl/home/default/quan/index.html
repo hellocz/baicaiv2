@@ -20,10 +20,11 @@
 					</form>
 				</div>
 				<div class="hotWords">
-					<a href="{:U('item/index',array('id'=>272745))}" class="fr a-green">搜券教程？</a>热门搜索：
+					热门搜索：
 					<volist name="quan_keys" id="r" >
 					<a href="{:U('quan/index',array('q'=>$r))}" class="mr-10">{$r}</a>
 					</volist>
+					<a href="{:U('item/index',array('id'=>272745))}" class="fr a-green">搜券教程？</a>
 				</div>
 			</div>
 		</div>

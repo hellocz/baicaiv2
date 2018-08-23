@@ -278,7 +278,9 @@
 						</div>
 					</div>
 					</notempty>
-					
+					<if condition="$chart_data != null ">
+<div id="container" style="min-width:400px;height:400px;"></div>
+</if>
 					<div class="caiding">
 						<button class="button fc-green radius-3 mr-10 J_zan" data-id="{$item.id}">
 							<svg class="icon-1">
@@ -533,7 +535,7 @@
 	<!--新浪表情JS-->
 	<script src="/public/js/lib/sinaEmotion/jquery-1.8.0.min.js"></script>
 	<script src="/public/js/lib/sinaEmotion/jquery.sinaEmotion.js"></script>
-
+	<script src="/js/highcharts.js"></script>
 	<script type="text/javascript">
 	//百度分享JS	
 	window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"{$item.title}",'bdDesc':'',"bdUrl":"{$url}","bdMini":"2","bdMiniList":false,"bdPic":"{$item['img']}","bdStyle":"0","bdSize":"32"},"share":{}
@@ -543,6 +545,40 @@
 	// script.setAttribute("type","text/javascript");
 	// script.src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5);     //填自己的js路径
 	// document.getElementsByTagName("head")[0].appendChild(script); 
+	$(document).ready(function(e) {
+
+var chart_data = '{$chart_data}';
+if(chart_data != ""){
+ chart_data_json =  JSON.parse('{$chart_data}');
+   var options = {
+    credits: {
+      text: '白菜哦',
+      href: 'http://www.baicaio.com',
+      style: {                            // 样式设置
+        cursor: 'pointer',
+        color: '#3dc399',
+        fontSize: '14px'
+      }
+    },
+  title: {
+    text: '历史价格'                 // 标题
+  },
+  xAxis: {
+           categories: chart_data_json.x
+        },
+  yAxis: {
+    title: {
+      text: '价格'                // y 轴标题
+    }
+  },
+  series: [{                              // 数据列
+    name: '价格',                        // 数据列名
+    data: chart_data_json.y                     // 数据
+  }]
+};
+var chart = Highcharts.chart('container', options);
+}
+}) 
 	</script>
 
 </body>

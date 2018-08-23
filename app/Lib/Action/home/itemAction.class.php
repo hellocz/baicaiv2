@@ -309,6 +309,14 @@ class itemAction extends frontendAction {
             }
           }
         $this->assign("user_list",$user_list);
+
+        $goods_info = getgoods_info($item['url'],$item['orig_id']);
+      if($goods_info){
+        $chart_data = D("price_history")->generateChart($goods_info['goods_id'],$item['orig_id']);
+        if($chart_data != null){
+             $this->assign("chart_data",json_encode($chart_data));
+        }
+      }
         // echo "<pre>";print_r($users);echo "</pre>";exit;
                 
         // $where1['cate_id']=16;
