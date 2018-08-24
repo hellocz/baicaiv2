@@ -234,26 +234,31 @@ class userAction extends userbaseAction
         $mod = M("user");
         //查询是否已签到
         $user = $mod->where("id=".$data['userid'])->find();
-        $signtime=$user['sign_date'];
-        $date = strtotime(date('Ymd'));
-        $ds=intval($date-$signtime); 
-        $userinfo = [];
-        if($ds <= 0) {
-            //已签到
-            $userinfo['is_sign'] = 1;
-        }else{
-            //未签到
-            $userinfo['is_sign'] = 0;
-        }
-        $userinfo['gender'] = $user['gender'];
-        $userinfo['score'] = $user['score'];
-        $userinfo['exp'] = $user['exp'];
-        $userinfo['coin'] = $user['coin'];
-        $userinfo['offer'] = $user['offer'];
-        $userinfo['mobile'] = $user['mobile'];
-        $userinfo['email'] = $user['email'];
+        if($user){
+            $signtime=$user['sign_date'];
+            $date = strtotime(date('Ymd'));
+            $ds=intval($date-$signtime); 
+            $userinfo = [];
+            if($ds <= 0) {
+                //已签到
+                $userinfo['is_sign'] = 1;
+            }else{
+                //未签到
+                $userinfo['is_sign'] = 0;
+            }
+            $userinfo['gender'] = $user['gender'];
+            $userinfo['score'] = $user['score'];
+            $userinfo['exp'] = $user['exp'];
+            $userinfo['coin'] = $user['coin'];
+            $userinfo['offer'] = $user['offer'];
+            $userinfo['mobile'] = $user['mobile'];
+            $userinfo['email'] = $user['email'];
 
-        echo get_result(10001,$userinfo);
+            echo get_result(10001,$userinfo);
+        }
+        else{
+            echo get_result(20001,[],"获取失败");
+        }
     }
 
     /**
@@ -324,8 +329,14 @@ class userAction extends userbaseAction
      * 获取用户头像
      */
     public function getimg($data) {
-        $img = avatar($data['userid'],'32');
-        echo get_result(10001,$img);
+        $user = M("user")->where(array('id'=>$data['userid']))->find();
+        if($user){
+            $img = avatar($data['userid'],'32');
+            echo get_result(10001,$img);
+        }
+        else{
+            echo get_result(20001,[],"用户不存在");
+        }
     }
 
     //改变收货地址
@@ -336,9 +347,28 @@ class userAction extends userbaseAction
         $type = $data['type']; //新增修改删除
 
         if ($type == 'del') {
-            $user_address_mod->where(array('id'=>$id, 'uid'=>$userid))->delete();
+            $result = $user_address_mod->where(array('id'=>$id, 'uid'=>$userid))->delete();
+            if(!$result || $result ==0){
+                echo get_result(20001,[],'删除失败!');
+                return;
+            }
             echo get_result(10001,'删除成功!');
             return ;
+        }
+
+        if ($type == 'setdefault') {
+            $address['is_default'] = 0;
+            $user_address_mod->where(array('uid'=>$userid))->save($address);
+            $address['is_default'] = 1;
+            $result = $user_address_mod->where(array('id'=>$id, 'uid'=>$userid))->save($address);
+            if($result != false){
+                echo get_result(10001,'设置成功!');
+                return;
+            }
+            else{
+                echo get_result(20001,[],'设置失败!');
+                return ;
+            }
         }
 
 
@@ -357,7 +387,7 @@ class userAction extends userbaseAction
             if ($result) {
                 echo get_result(10001,'修改成功!');
             } else {
-                echo get_result(10001,'修改失败!');
+                echo get_result(20001,[],'修改失败!');
             }
         }
 
@@ -372,7 +402,7 @@ class userAction extends userbaseAction
             if ($result) {
                 echo get_result(10001, '新增成功!');
             } else {
-                echo get_result(10001, '新增失败!');
+                echo get_result(20001,[], '新增失败!');
             }
 
         }
@@ -532,12 +562,12 @@ class userAction extends userbaseAction
     {
         $user_address_mod = M('user_address');
         $userid = $data['userid'];
-        $address_list = $user_address_mod->where(array('uid'=>$userid))->field(['id','consignee','zip','mobile','address'])->select();
+        $address_list = $user_address_mod->where(array('uid'=>$userid))->field(['id','consignee','zip','mobile','address'])->order("is_default desc")->select();
         if(!empty($address_list)){
             echo get_result(10001,$address_list);
             return ;
         }
-        echo get_result(10002);
+        echo get_result(10002,[],"没有数据");
 
     }
 
@@ -718,7 +748,7 @@ class userAction extends userbaseAction
         if($mod->save($save_data)){
             echo get_result(10001,'成功');return ;
         } else {
-            echo get_result(10001,'失败');return ;
+            echo get_result(20001,'失败');return ;
         }
 
     }
@@ -1587,6 +1617,9 @@ class userAction extends userbaseAction
         $url = $data."\n";
         $upyun1->purge($url);
         @ unlink($file);
+        $user['is_avator'] = 1;
+        $user['img_url'] = $data . '?v=' . date('ymd');
+        M('user')->where("id=$uid")->save($user);
         $score_log = M('score_log')->where(['uid'=>$uid,'action'=>'upload_avator'])->select();
         if(count($score_log) < 1){
             M("user")->where("id=$uid")->setInc("score",10);
@@ -1595,7 +1628,7 @@ class userAction extends userbaseAction
             set_score_log(array('id'=>$uid,'username'=>$username),'upload_avator',10,'','',10);
         }
 
-        echo get_result(10001,"请求成功");return ;
+        echo get_result(10001,$user['img_url'],"请求成功");return ;
     }
 
     /**
