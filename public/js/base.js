@@ -255,7 +255,7 @@ function ajaxPages(a,page,content){
 			elem: a
 			,count: page.count //数据总数
 			,limit: page.size //每页显示数
-			,curr: page.curr //当前页码
+			,curr: page.p //当前页码
 			,jump: function(obj,first){
 				if(!first){
 					$("#"+a).siblings(".page-loading").show();

@@ -26,7 +26,7 @@
 			<div class="item radius-3">
 				<div class="item-top">
 					<span class="sytj radius-3 green-bg fc-white text-center mr-7 font-13">首页推荐</span>
-					<span class="pl fc-aux-a"><i class="icon3 icon3-a_43"></i><span id="pls1">{$item.comments}</span>评论</span>
+					<span class="pl fc-aux-a"><i class="icon3 icon3-a_43"></i><span id="pls1">{$comments}</span>评论</span>
 					<a href="{:U('orig/show',array('id'=>$orig['id']))}" title="{$orig['name']}" target="_blank"><img src="{:attach($orig['img_url'],'item_orig')}" title="{$orig.name}" alt="{$orig.name}" class="fr img"></a>
 				</div>
 				<!--商品详情start-->
@@ -278,9 +278,11 @@
 						</div>
 					</div>
 					</notempty>
+
 					<if condition="$chart_data != null ">
-<div id="container" style="min-width:400px;height:400px;"></div>
-</if>
+					<div id="container" style="min-width:400px;height:400px;"></div>
+					</if>
+					
 					<div class="caiding">
 						<button class="button fc-green radius-3 mr-10 J_zan" data-id="{$item.id}">
 							<svg class="icon-1">
@@ -545,6 +547,7 @@
 	// script.setAttribute("type","text/javascript");
 	// script.src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5);     //填自己的js路径
 	// document.getElementsByTagName("head")[0].appendChild(script); 
+
 	$(document).ready(function(e) {
 
 var chart_data = '{$chart_data}';
@@ -578,7 +581,7 @@ if(chart_data != ""){
 };
 var chart = Highcharts.chart('container', options);
 }
-}) 
+});
 	</script>
 
 </body>

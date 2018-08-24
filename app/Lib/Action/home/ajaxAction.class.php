@@ -179,8 +179,11 @@ class ajaxAction extends frontendAction {
 
 		// $minScore = $item_mod->where(array('id' => $data['itemid']))->max('lc');
 		// $data['lc']=intval($item['comments'])+1;
-		$lc = M("comment")->where(array('pid' => 0, 'itemid' => $data['itemid']))->count('id');
+		$lc = D("comment")->counts(array('pid' => 0, 'xid' => $data['xid'], 'itemid' => $data['itemid']));
 		$data['lc'] = $lc + 1;
+
+		$show_lc = D("comment")->counts(array('pid' => 0, 'xid' => $data['xid'], 'itemid' => $data['itemid'], 'status' => 1));
+		$show_lc = $show_lc + 1;
 		
 		//写入评论
 		$comment_mod = D('comment');
@@ -203,32 +206,8 @@ class ajaxAction extends frontendAction {
 			
 			$xc['info'] ='感谢您对<a href="'.U('home/item/index',array('id'=>$item['id'])).'">'.$item['title'].'</a>的评论,系统给您奖励积分：1，经验：1.';
 			M('message')->add($xc);*/
-			
-			// $this->assign('cmt_list', array(
-			// 	array(
-			// 	'id' => $comment_id,
-			// 	'uid' => $data['uid'],
-			// 	'uname' => $data['uname'],
-			// 	'info' => $data['info'],
-			// 	'add_time' => time(),
-			// 	'zan'=>0,
-			// 	'lc'=>$data['lc']
-			// 	)
-			// ));
-			// $resp = $this->fetch('comment');
 
-			$resp = array(
-				'id' => $comment_id,
-				'uid' => $data['uid'],
-				'uname' => $data['uname'],
-				'info' => $data['info'],
-				'add_time' => time(),
-				'zan'=> 0,
-				'lc'=> $data['lc']
-				);
-			$this->ajaxReturn(1, L('comment_success'), $resp);
-
-			// $cmt = array(
+			// $resp = array(
 			// 	'id' => $comment_id,
 			// 	'uid' => $data['uid'],
 			// 	'uname' => $data['uname'],
@@ -237,12 +216,23 @@ class ajaxAction extends frontendAction {
 			// 	'zan'=> 0,
 			// 	'lc'=> $data['lc']
 			// 	);
-			// $this->assign('cmt_list', array($cmt));
-
-			// $resp = $cmt_list;
-			// $resp['html'] = $this->fetch('comment');
-
 			// $this->ajaxReturn(1, L('comment_success'), $resp);
+
+			$comment = array(
+				'id' => $comment_id,
+				'uid' => $data['uid'],
+				'uname' => $data['uname'],
+				'info' => $data['info'],
+				'add_time' => time(),
+				'zan'=> 0,
+				'lc'=> $show_lc, 
+				);
+			$this->assign('comment_list', array($comment));
+
+			$resp = $cmt_list;
+			$resp['html'] = $this->fetch('comment');
+
+			$this->ajaxReturn(1, L('comment_success'), $resp);
 		} else {
 			$this->ajaxReturn(0, L('comment_failed'));
 		}

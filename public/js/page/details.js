@@ -10,10 +10,14 @@ $(document).ready(function() {
 	});
 	
 	//显示用户信息
-	$(".list .head > .user").hover(function(){
-		$(this).children(".user-info").show();
-	},function(){
-		$(this).children(".user-info").hide();
+	// $(".list .head > .user").hover(function(){
+	// // $(".comments").on("hover",".list .head > .user", function() {		
+	// 	$(this).children(".user-info").show();
+	// },function(){
+	// 	$(this).children(".user-info").hide();
+	// });
+	$(".comments").on("mouseenter mouseleave", ".list .head > .user", function(){
+		$(this).children(".user-info").toggle();
 	});
 
 	
@@ -48,8 +52,8 @@ $(document).ready(function() {
 	buyButton();
 	zhankaiCon();
 	
-	//加载新浪表情插件
-	sinaEmo();
+	// //加载新浪表情插件
+	// sinaEmo();
 
 	//最新评论/最热评论
 	newCom();
@@ -155,46 +159,51 @@ $(document).ready(function() {
 					// tips('感谢评论，积分+1',1);
 					tipsPopup('tips_4','感谢您的评论，积分<span style=color:#ff0000>+1</span>');
 
-					cmt = $("#comment > ul > li").clone(true);
+					// cmt = $("#comment > ul > li").clone(true);
 
-					//楼层
-					lc = result.data.lc;
-					if(lc == "1"){
-						lc = '沙发';
-					}else if(lc == "2"){
-						lc = '板凳';
-					}else if(lc == "3"){
-						lc = '地板';
-					}else{
-						lc = lc + '楼';
-					}
-					cmt.find(".comment_lc").html(lc);
+					// //楼层
+					// lc = result.data.lc;
+					// if(lc == "1"){
+					// 	lc = '沙发';
+					// }else if(lc == "2"){
+					// 	lc = '板凳';
+					// }else if(lc == "3"){
+					// 	lc = '地板';
+					// }else{
+					// 	lc = lc + '楼';
+					// }
+					// cmt.find(".comment_lc").html(lc);
 
-					//评论内容
-					info = result.data.info;
-					cmt.find(".comment_info").html(AnalyticEmotion(info));
-					cmt.find(".J_hf_content").attr('placeholder','回复：'+info);
+					// //评论内容
+					// info = result.data.info;
+					// cmt.find(".comment_info").html(AnalyticEmotion(info));
+					// cmt.find(".J_hf_content").attr('placeholder','回复：'+info);
 
-					//绑定新浪表情
-					$(cmt.find(".face")).SinaEmotion(cmt.find(".emotion"));
+					// //绑定新浪表情
+					// $(cmt.find(".face")).SinaEmotion(cmt.find(".emotion"));
 
-					//隐藏ID
-					cmt.find(".J_hf_submit").attr('data-id', result.data.id);
-					cmt.find(".J_hf_submit").attr('psid', result.data.id);
+					// //隐藏ID
+					// cmt.find(".J_hf_submit").attr('data-id', result.data.id);
+					// cmt.find(".J_hf_submit").attr('psid', result.data.id);
 
-					//客户端
-					client = '';
-					if(info.indexOf('|android')!=-1){
-						client = '·来自Android客户端';
-					}else if(info.indexOf('|iphone')!=-1){
-						client = '·来自iphone客户端';
-					}
-					cmt.find(".comment_addtime").html('刚刚'+client);
-					cmt.find("textarea").attr('placeholder','回复：'+info);
+					// //客户端
+					// client = '';
+					// if(info.indexOf('|android')!=-1){
+					// 	client = '·来自Android客户端';
+					// }else if(info.indexOf('|iphone')!=-1){
+					// 	client = '·来自iphone客户端';
+					// }
+					// cmt.find(".comment_addtime").html('刚刚'+client);
+					// cmt.find("textarea").attr('placeholder','回复：');
 
-					cmt.prependTo($("#comment_list > ul"));
+					// cmt.prependTo($("#comment_list > ul"));
 
-					// $("#comment_list > ul").prepend(result.data.html);
+					$("#comment_list > ul").prepend(result.data.html);
+
+					//替换表情
+					$(".comment_info").each(function(){
+						$(this).html(AnalyticEmotion($(this).html()));
+					});
 				}else{
 					// tips(result.msg, 0);
 					tipsPopup('tips_2', result.msg);
@@ -203,7 +212,7 @@ $(document).ready(function() {
 		});
 	});
 
-	$(".list .content").on("click",".J_hf_submit", function() {
+	$(".list").on("click",".J_hf_submit", function() {
 	// $(".J_hf_submit").on("click", function() {
 		// if(PINER.uid==""){$.get("index.php?m=user&a=login",function(res){opdg(res.data,524,262,'用户登录');},'json');}
 		if(PINER.uid==""){
@@ -297,7 +306,7 @@ $(document).ready(function() {
 
 
 	//显示回复
-	$(".list .content").on("click",".hf", function() {
+	$(".list").on("click",".hf", function() {
 		if(PINER.uid==""){
 			$("#J_lo_btn").trigger("click");return false;
 		}
@@ -314,7 +323,7 @@ $(document).ready(function() {
 	});
 	
 	//取消回复
-	$(".list .content").on("click",".qx",function(){
+	$(".list").on("click",".qx",function(){
 		$(this).parents().children(".write-hf").hide();
 	});
 
@@ -474,22 +483,23 @@ function photo(){
 	}
 }
 
-//layui分页插件
-layui.use(['element','laypage', 'layer'], function(){
-	var laypage = layui.laypage
-	,layer = layui.layer
-	,element = layui.element;
-	//总页数大于页码总数
-	laypage.render({
-		elem: 'pages-comments'
-		,count: 70 //数据总数
-		,jump: function(obj){
-//			console.log(obj)
-		}
-		,prev:'<i class="icon5 icon5-a_14" style="margin-top: 5px;"></i>'
-		,next:'<i class="icon5 icon5-a_15" style="margin-top: 5px;"></i>'
-	});
-});
+// //layui分页插件
+// layui.use(['element','laypage', 'layer'], function(){
+// 	var laypage = layui.laypage
+// 	,layer = layui.layer
+// 	,element = layui.element;
+// 	//总页数大于页码总数
+// 	laypage.render({
+// 		elem: 'pages-comments'
+// 		,count: 70 //数据总数
+// 		,jump: function(obj){
+// //			console.log(obj)
+// 		}
+// 		,prev:'<i class="icon5 icon5-a_14" style="margin-top: 5px;"></i>'
+// 		,next:'<i class="icon5 icon5-a_15" style="margin-top: 5px;"></i>'
+// 	});
+// });
+$('#pages').length && ajaxPages('pages', page, content);
 
 function buyButton(){
 	//console.log($("#gotoBuy").offset().top)

@@ -18,8 +18,8 @@ class itemAction extends frontendAction {
     public function index() {
         $id = $this->_get('id', 'intval');
         !$id && $this->_404();
-
         $p = $this->_get('p', 'intval', 1);
+        $sortby = $this->_get('sortby', 'trim');
 
         $isbao = $this->_get('isbao', 'intval');
         if($isbao==1){
@@ -163,8 +163,6 @@ class itemAction extends frontendAction {
         $this->assign('orig', $orig);
         // $this->assign('maylike_list', $maylike_list);
         $this->assign('img_list', $img_list);
-        // $this->assign('cmt_list', $cmt_list);
-        // $this->assign('page_bar', $pager_bar);
         $this->_config_seo(C('pin_seo_config.item'), array(
             'item_title' => trim($item['title'])  . trim($item['price']) . "_" . trim($orig_name) . "优惠_" . "白菜哦",
             'item_intro' => substr(strip_tags($item['content']),0,200),
@@ -199,7 +197,7 @@ class itemAction extends frontendAction {
         }
         $this->assign('cate_info', $cate_info);
 
-        //活动
+        //商品参与的活动
         $activity_list = D('item_activity')->item_activity_list('valid', "item_id=$id");
         $this->assign("activity_list",$activity_list);
 
@@ -238,76 +236,52 @@ class itemAction extends frontendAction {
         $this->assign('follow_tag_list',$follow_tag_list);
 
         //热门优惠
-        // $queryArr = array();
-        // $queryArr['where']=" and isnice=1 ";
-        // $queryArr['order'] =" add_time desc";
-        // $item_list = $item_mod->where("status=1 and add_time<$time ".$queryArr['where'])->limit(5)->order($queryArr['order'])->select();
-        // if(count($item_list) > 0){
-        //   foreach ($item_list as $key => $val) {
-        //     $pos = strpos($val['price'], '（');
-        //     if($pos > 0){
-        //       $item_list[$key]['price'] = substr($val['price'] , 0, $pos);
-        //     }            
-        //   }
-        // }
-        // $this->assign('hot_item_list', $item_list);
         $this->right_hot_item();
 
-        //评论
+        //评论列表
         $this->assign('xid',1);
-        $this->assign('itemid',$id);    
-        $itemid = $id;
-        $xid = 1;
-
-        $comment_mod = M('comment');
+        $this->assign('itemid',$id); 
         $pagesize = 2;
-        $map = array('itemid' => $itemid,'xid'=>$xid,'status'=>1,'pid'=>0);
-        $count = $comment_mod->where($map)->count('id');
-        $pager = $this->_pager($count, $pagesize);
-        $pager_bar = $pager->newfshow();
-        $this->assign('pager_bar',$pager_bar);
-
-        $pager_hot = $this->_pager($count, $pagesize);
-        $pager_bar_hot = $pager_hot->fshow();
-        $this->assign('pager_bar_hot',$pager_bar_hot);
-
-        // $sql = "select * from try_comment where itemid=$itemid and xid=$xid and status=1 and pid=0 order by id desc limit $pager->firstRow, $pager->listRows";
-        $cmt_list = $comment_mod->where($map)->order("id desc")->limit($pager->firstRow . ',' . $pager->listRows)->select();
-        $uids = array();
-        $i = $pager->firstRow + $pager->listRows;
-        if($i > $count){
-            $i = $count;
-        }
-        if(count($cmt_list) > 0){
-          foreach($cmt_list as $key=>$v){
-            $uids[$cmt_list[$key]['uid']] = $cmt_list[$key]['uid'];
-            $cmt_list[$key]['lc'] = $i;
-            $i--;
-
-            $cmt_list[$key]['list']=M()->query("select * from try_comment where status=1 and pid='".$v['id']."' order by id asc");
-            $j=1;
-            foreach($cmt_list[$key]['list'] as $key2=>$v2){
-              $cmt_list[$key]['list'][$key2]['lc'] = $j;
-              $j++;
-            }
-          }
-        }
-        $this->assign('cmt_list',$cmt_list);
+        $count = D('comment')->item_comment_count($id);                
+        $this->assign("comments",$count);
+        //comments列表
+        $comment_list = $this->get_comment_list();
+        $page = array(
+            'p'=>$p, 
+            'size'=>$pagesize, 
+            'count'=>$count,
+            'url'=> "/index.php?m=item&a=get_comment_list&id={$id}",
+        );
+        $this->assign('page', json_encode($page));        
+        $url = array();
+        $url['newest']=$page['url'] . "&soryby=newest";
+        $url['hottest']=$page['url'] . "&soryby=hottest";
+        $this->assign('url', $url);
+        $this->assign('sortby',$sortby);
+        // echo "<pre>";print_r($comment_list);echo "</pre>";exit;
 
         //用户列表, 获得用户等级，是否关注
+        $uids = array();
+        if(count($comment_list) > 0){
+          foreach($comment_list as $key=>$v){
+            $uids[$comment_list[$key]['uid']] = $comment_list[$key]['uid'];
+          }
+        }
+        if($this->visitor->is_login){
+            array_push($uids, $this->visitor->info['id']);
+        }
+        array_push($uids, $item['uid']);
         $user_list = array();
-          array_push($uids, $this->visitor->info['id']);
-          array_push($uids, $item['uid']);
-          $where = array('id' => array("IN", $uids));
-          $filed = "id,username,exp,shares";
-          $users = D("user")->user_list($where, $filed);
-          foreach ($users as $val) {
+        $where = array('id' => array("IN", $uids));
+        $filed = "id,username,exp,shares";
+        $users = D("user")->user_list($where, $filed);
+        foreach ($users as $val) {
             $user_list[$val['id']] = $val;
             $user_list[$val['id']]['grade'] = grade($val['exp']);
             if(isset($follow_users[$val['id']])){
                 $user_list[$val['id']]['follow'] = 1;
             }
-          }
+        }
         $this->assign("user_list",$user_list);
 
         $goods_info = getgoods_info($item['url'],$item['orig_id']);
@@ -325,6 +299,37 @@ class itemAction extends frontendAction {
         // $this->assign("zx_list",$article_list);
         
         $this->display();
+    }
+
+    /**
+     * 评论列表 - AJAX获取评论列表
+     */
+    public function get_comment_list() {
+        $id = $this->_get('id', 'intval');
+        !$id && IS_AJAX && $this->ajaxReturn(0, L('invalid_item'));          
+        $p = $this->_get('p', 'intval', 1);
+        $pagesize = $this->_get('pagesize', 'intval', 2);
+        $sortby = $this->_get('sortby', 'trim');
+        if($p<1){$p=1;}
+        if($sortby == 'hottest'){
+            $order = "zan desc";
+        }else{
+            $order = "id desc";
+        }
+
+        $limit = $pagesize*($p-1) . ',' . $pagesize;
+        $list = D('comment')->item_comment_list($id, $limit, $order);
+        $this->assign("comment_list",$list);
+
+        //AJAX分页请求
+        if (IS_AJAX) {
+            $data = array(
+                'list' => $this->fetch("comment_list"),
+            ); 
+            $this->ajaxReturn(1, "", $data);
+        }else{
+            return $list;
+        }
     }
 
 
@@ -348,140 +353,6 @@ class itemAction extends frontendAction {
 
         $this->assign('page_seo',set_seo('我的关注'));
         $this->display();
-    }
-
-    public function old_myitems(){
-    $mod=M("item");
-     $order =" add_time desc";
-      $tab = "myitems";
-       $p = $this->_get('p', 'intval', 1);
-    $time=time();   
-    $pagesize=18;//$mod->where("status=1 and add_time<$time ".$where)->count();
-    
-    if($tab =="myitems"){
-      require LIB_PATH . 'Pinlib/php/lib/XS.php';
-        $xs = new XS('baicai');
-        $search = $xs->search;
-        $search->setLimit(18,18*($p-1)); 
-        $search->setSort('add_time',false);
-        $notify_tag = M("notify_tag");
-        $user = $this->visitor->get();
-        $tags = $notify_tag->field('tag')->where(array('userid' => $user['id'],'f_sign'=> 1 ))->select();
-        $this->assign('tags',$tags);
-        $count=0;
-        if(!empty($tags)){
-          foreach ($tags as $tag) {
-            $search->addQueryString($tag['tag'],XS_CMD_QUERY_OP_OR);
-          }
-        $docs = $search->search();
-        $count = $search->count();
-        }
-      if($count ==0){
-        $list = "";
-      }
-      else{
-        $pager = $this->_pager($count,$pagesize);
-        foreach ($docs as $doc) {
-            if($str==""){
-                 $str=$doc->id;
-            }
-            else{
-               $str.=",".$doc->id;
-            }
-        }
-        $item_mod = M('item');
-        $str && $where1['id'] = array('in', $str);
-        $list = $item_mod->where($where1)->order($order)->select();
-      }
-      }
-      
-    $article_begin_time =0;
-    $article_end_time =0;
-    foreach($list as $key=>$val){
-        if($article_end_time==0){
-          $article_end_time = $list[$key]['add_time'];
-        }
-    $list[$key]['zan'] = $list[$key]['zan']   +intval($list[$key]['hits'] /10);
-    $article_begin_time =$list[$key]['add_time'];
-      }
-    if(p<1){
-      $article_end_time=time();
-    }
-    $article_list = M("article")->where("add_time > $article_begin_time and add_time < $article_end_time and status=4")->select();
-    if(count($article_list)>=1){
-    $list = array_merge($list, $article_list); 
-    usort($list, 'sortByAddTime');
-    }
-    $this->assign('item_list',$list);
-    $this->assign('pagebar',$pager->fshow());
-    $p = $this->_get("p",'intval');
-    if($p<1){$p=1;}
-    $this->assign('p',$p);
-    //每天排名
-    $time_s = strtotime(date('Y-m-d'),time());
-    $time_m_s = strtotime(date('Y-m-1'),time());
-    $time_m_e = time();
-    $time_e =$time_s+24*60*60;
-    $pm1 = M()->query("select distinct uid as id,uname,sum(score) as num from try_score_log where add_time>$time_s and add_time<$time_e group by uname order by num desc,uid asc limit 4");
-    $pmm = M()->query("select distinct uid as id,uname,sum(score) as num from try_score_log where add_time>$time_m_s and add_time<$time_m_e group by uname order by num desc,uid asc limit 4");
-    //全部排名
-    $pma = M("user")->field("id,username,score")->order("score desc,id asc")->limit(4)->select();   
-    if($this->visitor->is_login){
-      $user = $this->visitor->get();
-      $follow_list = M("user_follow")->where("uid=$user[id]")->select();
-      foreach($pm1 as $key=>$val){
-        foreach($follow_list as $k=>$v){
-          if($val['uid']==$v['follow_uid']){
-            $pm1[$key]['follow']=1;
-          }
-        }
-      }
-      foreach($pmm as $key=>$val){
-        foreach($follow_list as $k=>$v){
-          if($val['uid']==$v['follow_uid']){
-            $pmm[$key]['follow']=1;
-          }
-        }
-      }
-      foreach($pma as $key=>$val){
-        foreach($follow_list as $k=>$v){
-          if($val['id']==$v['follow_uid']){
-            $pma[$key]['follow']=1;
-          }
-        }
-      }
-    }
-    $this->assign('pm1',$pm1);
-    $this->assign('pmm',$pmm);
-    $this->assign('pma',$pma);
-    //表现形式
-
-        $dss =$this->_get("dss","trim");
-  //  $dss = ($dss=="")?$_SESSION['dss']:$dss;
-    $dss = ($dss=="")?"lb":$dss;
-    $_SESSION['dss']=$dss;
-    $this->assign("dss",$dss);
-    $this->assign("tab",$tab);
-    $this->assign("lb_url",U('index/index',array('type'=>$type,'tab'=>$tab,'dss'=>'lb')));
-    $this->assign("cc_url",U('index/index',array('type'=>$type,'tab'=>$tab,'dss'=>'cc')));
-        $this->_config_seo();
-    $this->assign("bcid",0);
-    //热门活动
-    $hd = M("hd")->limit(8)->order("order_s asc,id desc")->select();
-    $thd = M("item")->where('istop = 1')->limit(8)->order("id desc")->select();
-    $this->assign('hd',$hd);
-    $this->assign('thd',$thd);
-    $time = time();
-    $time_hour = $time - 3600;
-    $time_day = $time - 86400;
-
-    //小时榜和24小时榜
-    $hour_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_hour and $time ORDER BY hits desc LIMIT 9");
-    $day_list=M()->query("SELECT id,title,img,price from try_item  WHERE add_time between $time_day and $time ORDER BY hits desc LIMIT 9");
-    $this->assign('hour_list',$hour_list);
-    $this->assign('day_list',$day_list);
-        $this->display();
-
     }
 
     
@@ -518,28 +389,6 @@ class itemAction extends frontendAction {
         $url=implode("&",$arr);
 
         redirect($url);
-    }
-    /**
-     * AJAX获取评论列表
-     */
-    public function comment_list() {
-        $id = $this->_get('id', 'intval');
-        !$id && $this->ajaxReturn(0, L('invalid_item'));
-        $item_mod = M('item');
-        $item = $item_mod->where(array('id' => $id, 'status' => '1'))->count('id');
-        !$item && $this->ajaxReturn(0, L('invalid_item'));
-        $item_comment_mod = M('item_comment');
-        $pagesize = 20;
-        $map = array('item_id' => $id);
-        $count = $item_comment_mod->where($map)->count('id');
-        $pager = $this->_pager($count, $pagesize);
-        $pager->path = 'comment_list';
-        $cmt_list = $item_comment_mod->where($map)->order('id DESC')->limit($pager->firstRow . ',' . $pager->listRows)->select();
-        $this->assign('cmt_list', $cmt_list);
-        $data = array();
-        $data['list'] = $this->fetch('comment_list');
-        $data['page'] = $pager->fshow();
-        $this->ajaxReturn(1, '', $data);
     }
 
     /**

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 class commentModel extends Model
 {
     //自动完成
@@ -87,6 +87,76 @@ class commentModel extends Model
                 }
             }
         }
+        return $list;
+    }
+
+    /**
+    * 商品评论总数
+    */
+    public function item_comment_count($itemid = 0){
+        if(!$itemid) return false;
+        
+        $where = array('itemid' => $itemid,'xid'=>1,'status'=>1,'pid'=>0);
+        $count = $this->where($where)->count('id');
+        return $count;
+    }
+
+    /**
+    * 商品评论列表
+    * 历史数据的楼层lc需要计算
+    */
+    public function item_comment_list($itemid = 0, $limit = '0,10', $order = 'id desc'){
+        if(!$itemid) return false;
+        
+        //取出所有数据，计算楼层
+        $where = array('itemid' => $itemid,'xid'=>1,'status'=>1,'pid'=>0);
+        // $list = $this->where($where)->order($order)->limit($limit)->select();
+        $list = $this->where($where)->order("id asc")->select();   
+        $i = 1;
+        $arr_id=array();
+        $arr_zan=array();
+        if(count($list) > 0){
+          foreach($list as $key=>$v){
+            $list[$key]['lc'] = $i;
+            $i++;
+
+            $where1 = "status=1 and pid='".$v['id']."'";
+            $list[$key]['list']=$this->where($where1)->order("id asc")->select();   
+            $j=1;
+            foreach($list[$key]['list'] as $key2=>$v2){
+              $list[$key]['list'][$key2]['lc'] = $j;
+              $j++;
+            }
+
+            //数组排序用
+            $arr_id[$key] = $v['id'];
+            $arr_zan[$key] = $v['zan'];            
+          }
+        }
+        
+        // echo "<pre>";
+        // echo "list: ";print_r($list);echo "<br><br>";
+
+        //取分页数据
+        $arr_order = explode(" ", strtolower(trim($order)));
+        if(strpos(',', $limit) === 0){
+            $limit = '0,'.trim($limit);
+        }
+        $arr_limit = explode(",", trim($limit));    
+        $volumn = ${'arr_'.$arr_order[0]} ? ${'arr_'.$arr_order[0]} : ''; 
+        $sort = $arr_order[1] && $arr_order[1] == 'desc' ? SORT_DESC : SORT_ASC;
+        if($volumn){
+            array_multisort($volumn, $sort, $arr_id, SORT_DESC, $list);
+        }
+        $list = array_slice ($list, intval($arr_limit[0]), intval($arr_limit[1]));
+
+        // echo "arr_order: ";print_r($arr_order);echo "<br><br>";
+        // echo "arr_limit: ";print_r($arr_limit);echo "<br><br>";
+        // echo "volumn: ";print_r($volumn);echo "<br><br>";
+        // echo "sort: ";print_r($sort);echo "<br><br>";
+        // echo "list: ";print_r($list);echo "<br><br>";
+        // echo "</pre>";exit;
+
         return $list;
     }
 }
