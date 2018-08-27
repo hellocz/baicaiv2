@@ -1,0 +1,10 @@
+<div class="fl leftMenu white-bg radius-3">
+			<volist name="user_menu_list" id="menu">
+			<div>
+				<a href="{$menu.url}" title="{$menu.text}" class="<if condition="$user_menu_curr eq $key">active<else/>menu</if>">
+					{$menu.image}{$menu.text}
+				</a>
+			</div>
+			<if condition="$menu['line']"><div class="line"></div></if>
+			</volist>
+		</div>

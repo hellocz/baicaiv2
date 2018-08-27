@@ -5,6 +5,19 @@ class userAction extends userbaseAction {
     public function _initialize(){
         parent::_initialize();
         $this->_mod = D('user');
+
+        //if(in_array(ACTION_NAME, array('index', 'publish', 'likes', 'keysfollow', 'userfollow', 'lucky', 'exchange', 'tick', 'score', 'score_illegal'))){
+        if(array_key_exists(ACTION_NAME, $this->menu_list)){
+                //个人中心 - 个人信息                
+                $this->_user['join_days'] = intval((time() - $this->_user['reg_time']) / 86400); //加入天数                
+                $fans = D("user_follow")->user_fans_count($uid);
+                $this->_user['fans'] = intval($fans); //粉丝
+                $sum_article = D('article')->user_article_sum($uid);//发表的原创文章数量
+                $sum_item = D("item")->user_bao_sum($uid);//发表的爆料数量
+                $this->_user['zan'] = isset($sum_article['zan']) ? $sum_article['zan'] : 0;//原创：攻畋+晒单                
+                $this->_user['zan'] += isset($sum_item['zan']) ? $sum_item['zan'] : 0;//爆料
+                $this->assign('user',$this->_user);
+        }
     }
 
 
