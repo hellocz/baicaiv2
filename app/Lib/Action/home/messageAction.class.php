@@ -42,8 +42,14 @@ class messageAction extends userbaseAction {
         $index_count=M('message')->where("to_id='".$uid."' and ck_status=0 and from_id >0")->count();
         $this->assign('index_count',$index_count);
         $this->assign('count', $count);
-        $this->_curr_menu('message');
         $this->_config_seo();
+        $this->display();
+    }
+
+    /**
+     * 订阅消息
+     */
+    public function subscription() {
         $this->display();
     }
 
@@ -77,7 +83,6 @@ class messageAction extends userbaseAction {
         $this->assign('ta_name', $ta_name);
         $this->assign('ftid', $ftid);
         $this->assign('page_bar', $pager->fshow());
-        $this->_curr_menu('message');
         $this->_config_seo();
         $this->display();
     }
@@ -101,7 +106,6 @@ class messageAction extends userbaseAction {
             }
         }
         $this->assign('last_user', $last_user);
-        $this->_curr_menu('message');
         $this->_config_seo();
         $this->display();
     }
@@ -126,7 +130,6 @@ class messageAction extends userbaseAction {
         $ta_name = M('user')->where(array('id'=>$ta_id))->getField('username');
         $this->assign('ta_id', $ta_id);
         $this->assign('ta_name', $ta_name);
-        $this->_curr_menu('message');
         $this->_config_seo();
         $this->display();
     }
@@ -252,37 +255,56 @@ class messageAction extends userbaseAction {
      */
     public function system() {
         $uid = $this->visitor->info['id'];
-        $message_mod = M('message');
-        $pagesize = 8;
-        $map = array();
-        $map['from_id'] = '0';
-        $map['to_id'] = $uid;
-        $xx = $message_mod->where($map)->select();
-        $sx = M('ssb');
-        $where=array();
-        $arr = array();
-        foreach($xx as $key=>$v){
-            $where['uid'] = $uid;
-            $where['mid'] = $v['id'];
-            $where['type'] = 1;
-          $count = $sx->where($where)->count('id');
-            if($count == 0){
-                $arr[] = $v['id'];
-            }
-        }
+        $p = $this->_get('p', 'intval', 1);
+        if($p<1){$p=1;}
+        $pagesize = 10;
 
-        $map['id']  = array('in', implode(",",$arr));
-        $pager = $this->_pager(count($arr), $pagesize);
-        $system_list = $message_mod->where($map)->order('id DESC')->limit($pager->firstRow.','.$pager->listRows)->select();
+        //清除系统消息提示
         D('user_msgtip')->clear_tip($uid, 4);
-        M()->query("update try_message set ck_status=1 where from_id=0 AND to_id='".$uid."'");//更新消息查看状态
-        $_SESSION['user_info']['message']=M('message')->where("to_id='".$uid."' and ck_status=0")->count();
-        $index_count=M('message')->where("to_id='".$uid."' and ck_status=0 and from_id >0")->count();
-        $this->assign('index_count',$index_count);
-        $this->assign('system_list', $system_list);
-        $this->assign('page_bar', $pager->fshow());
-		$this->_curr_menu('message');
-        $this->_config_seo();
+
+        D('message')->set_ck_status(0, $uid, 1);//更新消息查看状态
+        $_SESSION['user_info']['message']=D('message')->unread_count($uid);//用户未读消息数
+
+        //用户系统消息数
+        $count = D("message")->system_count($uid);
+
+        //用户系统消息列表
+        $this->get_system_list($uid, $p, $pagesize);
+
+        $page = array(
+            'p'=>$p, 
+            'size'=>$pagesize, 
+            'count'=>$count, 
+            'url'=>'/index.php?m=message&a=get_system_list&uid='.$uid,
+        );
+        $this->assign('page', json_encode($page));
+        $this->assign('page_seo',set_seo('系统消息'));
         $this->display();
     }
+
+    /**
+     * 系统消息列表 - AJAX翻页请求
+     */
+    public function get_system_list($uid = 0, $p = 1, $pagesize = 10) {
+        if (IS_AJAX) {
+            $uid = $this->_get('uid', 'intval', 0);
+            !$uid && $this->ajaxReturn(0, '用户不存在');          
+            $p = $this->_get('p', 'intval', 1);
+            $pagesize = $this->_get('pagesize', 'intval', 10);
+        }
+        if($p<1){$p=1;}
+
+        $limit = $pagesize*($p-1) . ',' . $pagesize;        
+        $list=D("message")->system_list($uid, $limit);
+        $this->assign("system_list",$list);
+
+        //AJAX分页请求
+        if (IS_AJAX) {
+            $data = array(
+                'list' => $this->fetch("system_list"),
+            ); 
+            $this->ajaxReturn(1, "", $data);
+        }
+    }
+
 }

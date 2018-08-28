@@ -182,7 +182,7 @@ class tickAction extends frontendAction {
 		$xc['info'] ='领取优惠券：'. M('tick')->where("id=$id")->getField('name');
 
 		M('message')->add($xc);
-		$_SESSION['user_info']['message']=M('message')->where("to_id='".$info['id']."' and ck_status=0")->count();
+		$_SESSION['user_info']['message']=D('message')->unread_count($info['id']);
 		$this->ajaxReturn(2,'兑换成功!快去个人中心-我的优惠卷看看吧！');
 	}
 

@@ -1,0 +1,13 @@
+<!--循环start-->
+				<volist name="system_list" id="val">
+				<div class="item-6 clearfix">
+					<img src="/public/images/logo.png" class="fl radius-100 lazyimg" width="64" height="64">
+					<div class="fl info vcenter">
+						<div>
+							<div class="fc-aux-9 font-14">{$val.add_time|fdate}</div>
+							<div class="fc-gray font-14 mt-8">“ <if condition="preg_match('/领取优惠券/',$val['info'])"><a href="{:U('user/tick')}">{$val.info}</a><else/>{$val.info}</if> ”</div>
+						</div>
+					</div>
+				</div>
+				</volist>
+				<!--循环end-->

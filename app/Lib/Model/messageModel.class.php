@@ -101,4 +101,72 @@ class messageModel extends Model
         }
         return $result;
     }
+
+    /**
+    * 用户未读消息数量
+    */
+    public function unread_count($uid = 0){
+        if(!$uid) return false;
+
+        $map = array();
+        $map['to_id'] = $uid;
+        $map['ck_status'] = 0;
+
+        $count = $this->where($map)->count();
+        return $count;
+    }
+
+    /**
+    * 用户系统消息数量
+    */
+    public function system_count($uid = 0){
+        if(!$uid) return false;
+
+        $map = array();
+        $map['from_id'] = 0;
+        $map['to_id'] = $uid;
+
+        $arr = D('ssb')->get_mids($uid); //删除的message IDs
+        if(count($arr) > 0){
+            $map['id']  = array('not in', $arr);
+        }
+
+        $count = $this->where($map)->count();
+        return $count;
+    }
+
+    /**
+    * 用户系统消息列表
+    */
+    public function system_list($uid = 0, $limit = '0,10', $order = 'id DESC'){
+        if(!$uid) return false;
+
+        $map = array();
+        $map['from_id'] = 0;
+        $map['to_id'] = $uid;
+
+        $arr = D('ssb')->get_mids($uid); //删除的message IDs
+        if(count($arr) > 0){
+            $map['id']  = array('not in', $arr);
+        }
+
+        $list = $this->where($map)->order($order)->limit($limit)->select();
+        return $list;
+    }
+
+    /**
+    * 更新消息查看状态,1：已读，2：未读
+    */
+    function set_ck_status($from_id, $to_id, $ck_status = 1){
+        if(!$from_id && $from_id !== 0) return false;
+        if(!$to_id && $to_id !== 0) return false;
+        if(!$ck_status && $ck_status !== 0) return false;
+
+        $map = array(
+            'from_id' => $from_id,
+            'to_id' => $to_id,
+        );
+        $this->where($map)->setField('ck_status', $ck_status);
+    }
+
 }
