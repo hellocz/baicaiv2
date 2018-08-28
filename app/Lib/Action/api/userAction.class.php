@@ -61,13 +61,13 @@ class userAction extends userbaseAction
             //注册
             $uid = $passport->register($username, $password, $data['email'], $data['gender'],$mobile);
             if(!$uid){
-                echo get_result(20001,[],"2222" . $passport->get_error());return ;
+                echo get_result(20001,[],$passport->get_error());return ;
             }
 
             //给用户加积分
             M("user")->where("id=$uid")->setField(array('score'=>10,'exp'=>10));
             //积分日志
-            set_score_log(array('id'=>$uid,'username'=>$data['username']),'register',10,'','',10);
+            set_score_log(array('id'=>$uid,'username'=>$username),'register',10,'','',10);
             $userinfo = $passport->get($uid);
             $info = [
             'userid'    =>  $userinfo['id'],
@@ -504,13 +504,18 @@ class userAction extends userbaseAction
         $tag['tag'] = $data['tag'];
         $tag['userid'] = $data['userid'];
         $notify_tag = M("notify_tag");
-        $list = $notify_tag->where(array('userid' =>$userid,'tag'=>$tag ))->select();
+        $list = $notify_tag->where(array('userid' =>$tag['userid'],'tag'=>$tag['tag'] ))->select();
         if(count($list)>0){
-            echo get_result(10001, '标签已存在!');
+            echo get_result(20001, '标签已存在!');
         }
         else{
-        $notify_tag->save($tag);
-        echo get_result(10001, '更新成功!');
+        $result = $notify_tag->where(array('userid' =>$tag['userid'],'id'=>$tag['id']))->save($tag);
+            if($result == 0){
+                echo get_result(20001, '更新失败!');
+            }
+            else{
+            echo get_result(10001, '更新成功!');
+            }
         }
     }
 
@@ -521,8 +526,12 @@ class userAction extends userbaseAction
         $tag['userid'] = $data['userid'];
         $tag['p_sign'] = 0;
         $tag['id'] = $data['id'];
-        $notify_tag->save($tag);
+        $result = $notify_tag->save($tag);
+         if($result == 0){
+                echo get_result(20001, '删除失败!');
+            }else{
         echo get_result(10001,'删除推送成功!');
+        }
     }
 
     //是否选中推送
@@ -553,8 +562,12 @@ class userAction extends userbaseAction
 
     public function follow_tag_del($data){
         $notify_tag = M("notify_tag");
-        $notify_tag->where(array("tag"=>$data['tag'],"userid"=>$data['userid']))->delete();
+        $result = $notify_tag->where(array("tag"=>$data['tag'],"userid"=>$data['userid']))->delete();
+         if($result == 0){
+                echo get_result(20001, '删除关注失败!');
+            }else{
         echo get_result(10001,'删除关注成功!');
+        }
     }
 
     //查询收货地址
