@@ -2,8 +2,6 @@
 
 class memberAction extends frontendAction {
 
-    private $_user = null;
-
     /**
      * 用户主页
      */
@@ -17,30 +15,29 @@ class memberAction extends frontendAction {
         $uid = $this->_get('uid', 'intval');
         if ($uid) {
             $user = D('user')->get_info($uid);
-            $this->_user = $user;
         } elseif (!$uid && $this->visitor->is_login) {
-            $this->_user = $this->visitor->get();
+            $user = $this->visitor->get();
         } else {
             $this->_404();
         }
-        $uid=$this->_user['id'];
+        $uid=$user['id'];
         //用户相关
-        $this->_user['join_days'] = intval((time() - $this->_user['reg_time']) / 86400);
+        $user['join_days'] = intval((time() - $user['reg_time']) / 86400);
         //是否关注
         if(!$this->visitor->is_login){
-            $this->_user['follow']=false;
+            $user['follow']=false;
         }else{
             $myuser = $this->visitor->get();
-            $this->_user['follow']= D("user_follow")->is_follow($myuser['id'], $uid);
+            $user['follow']= D("user_follow")->is_follow($myuser['id'], $uid);
         }
         //发表的爆料、原创文章的总被点赞数
         $sum_article = D('article')->user_article_sum($uid);
         $sum_item = D("item")->user_bao_sum($uid);
-        $this->_user['zan'] = isset($sum_article['zan']) ? $sum_article['zan'] : 0;//原创：攻畋+晒单        
-        $this->_user['zan'] += isset($sum_item['zan']) ? $sum_item['zan'] : 0;//爆料
+        $user['zan'] = isset($sum_article['zan']) ? $sum_article['zan'] : 0;//原创：攻畋+晒单        
+        $user['zan'] += isset($sum_item['zan']) ? $sum_item['zan'] : 0;//爆料
         //粉丝
         $fans = D("user_follow")->user_fans_count($uid);
-        $this->_user['fans'] = intval($fans);
+        $user['fans'] = intval($fans);
 
         $count = array();        
         $count['article'] = isset($sum_article['count']) ? $sum_article['count'] : 0;//原创：攻畋+晒单        
@@ -71,10 +68,10 @@ class memberAction extends frontendAction {
             $this->assign('page', json_encode($page));
         }
         $this->_config_seo(array(
-            'title' => $this->_user['username'] . L('space_home_title') . '-' . C('pin_site_name'),
+            'title' => $user['username'] . L('space_home_title') . '-' . C('pin_site_name'),
         ));
         $this->assign("t",$t);
-        $this->assign('user',$this->_user);
+        $this->assign('user',$user);
         $this->display();
     }
 

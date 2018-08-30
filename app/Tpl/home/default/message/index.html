@@ -17,207 +17,29 @@
 		
 		<!--右边内容start-->
 		<div class="fl rightInfo white-bg radius-3">
-			<div class="r-title" style="line-height: 54px;"><span class="font-16">消息列表</span><div class="fr"><a href="javascript:void(0);" class="btn-8 biaoji mr-10">全部标记为已读</a><a href="javascript:void(0);" class="btn-8 biaoji mr-10" onclick="del('提示','是否删除全部消息？')">清空消息</a><a href="sendMessage.html" class="btn-5 gldy">发消息</a></div></div>
+			<div class="r-title" style="line-height: 54px;">
+				<span class="font-16">消息列表</span>
+				<div class="fr">
+					<a href="javascript:;" class="btn-8 biaoji mr-10 J_all_read">全部标记为已读</a>
+					<a href="javascript:;" class="btn-8 biaoji mr-10 J_all_del">清空消息</a>
+					<a href="{:U('message/target')}" class="btn-5 gldy">发消息</a>
+				</div>
+			</div>
 			<!--动态start-->
 			<div class="listBox">
-				<!--循环start-->
-				<div class="item-6 mt-10 clearfix">
-					<img src="/public/images/item/2.jpg" class="fl radius-100 lazyimg" width="64" height="64">
-					<div class="fl info vcenter">
-						<div>
-							<div class="tit"><a href="/public/page/userHome.html" class="hover-underline a-green font-14">Madonna</a><span class="btn-6 ml-10 cursor-pointer" onclick="tipsPopup('tips_1','加关注成功')">+关注</span></div>
-							<div class="fc-gray font-14 mt-10">“ 三十个字符以色列炸掉了一半机翼能飞回去是因为双发可以平衡力吗… ”</div>
-						</div>
-					</div>
-					<div class="fr info vcenter">
-						<div>
-							<div class="font-14 fc-aux-a text-right">2018.03.27 15:29</div>
-							<div class="fc-aux-a mt-5 wd"><a href="messageDetails.html">共4条信息，查看</a><span class="delMessage radius-3 ml-10"><svg class="icon">
-						<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_4@2x.png" width="14" height="14"></desc><![endif]-->
-						<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_4"></use>
-					</svg></span>
-						</div>
-						</div>
-					</div>
+				<div class="list-data">
+					<include file="talk_list"/>
 				</div>
-				<div class="item-6 mt-10 clearfix">
-					<img src="/public/images/item/3.jpg" class="fl radius-100 lazyimg" width="64" height="64">
-					<div class="fl info vcenter">
-						<div>
-							<div class="tit"><a href="/public/page/userHome.html" class="hover-underline a-green font-14">Madonna</a><span class="btn-6 ml-10 cursor-pointer" onclick="tipsPopup('tips_1','加关注成功')">+关注</span></div>
-							<div class="fc-gray font-14 mt-10">“ 三十个字符以色列炸掉了一半机翼能飞回去是因为双发可以平衡力吗… ”</div>
-						</div>
-					</div>
-					<div class="fr info vcenter">
-						<div>
-							<div class="font-14 fc-aux-a text-right">2018.03.27 15:29</div>
-							<div class="fc-aux-a mt-5 wd"><a href="messageDetails.html">共4条信息，查看</a><span class="delMessage radius-3 ml-10"><svg class="icon">
-						<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_4@2x.png" width="14" height="14"></desc><![endif]-->
-						<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_4"></use>
-					</svg></span>
-						</div>
-						</div>
-					</div>
-				</div>
-				<div class="item-6 mt-10 clearfix">
-					<img src="/public/images/item/4.jpg" class="fl radius-100 lazyimg" width="64" height="64">
-					<div class="fl info vcenter">
-						<div>
-							<div class="tit"><a href="/public/page/userHome.html" class="hover-underline a-green font-14">Madonna</a><span class="btn-6 ml-10 cursor-pointer" onclick="tipsPopup('tips_1','已取消关注')">已关注</span></div>
-							<div class="fc-gray font-14 mt-10">“ 三十个字符以色列炸掉了一半机翼能飞回去是因为双发可以平衡力吗… ”</div>
-						</div>
-					</div>
-					<div class="fr info vcenter">
-						<div>
-							<div class="font-14 fc-aux-a text-right">2018.03.27 15:29</div>
-							<div class="fc-aux-a mt-5 wd"><a href="messageDetails.html">共4条信息，查看</a><span class="delMessage radius-3 ml-10"><svg class="icon">
-						<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_4@2x.png" width="14" height="14"></desc><![endif]-->
-						<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_4"></use>
-					</svg></span>
-						</div>
-						</div>
-					</div>
-				</div>
-				<div class="item-6 mt-10 clearfix">
-					<img src="/public/images/item/5.jpg" class="fl radius-100 lazyimg" width="64" height="64">
-					<div class="fl info vcenter">
-						<div>
-							<div class="tit"><a href="/public/page/userHome.html" class="hover-underline a-green font-14">Madonna</a><span class="btn-6 ml-10 cursor-pointer" onclick="tipsPopup('tips_1','加关注成功')">+关注</span></div>
-							<div class="fc-gray font-14 mt-10">“ 三十个字符以色列炸掉了一半机翼能飞回去是因为双发可以平衡力吗… ”</div>
-						</div>
-					</div>
-					<div class="fr info vcenter">
-						<div>
-							<div class="font-14 fc-aux-a text-right">2018.03.27 15:29</div>
-							<div class="fc-aux-a mt-5"><a href="messageDetails.html">共4条信息，查看</a><span class="delMessage radius-3 ml-10"><svg class="icon">
-						<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_4@2x.png" width="14" height="14"></desc><![endif]-->
-						<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_4"></use>
-					</svg></span>
-						</div>
-						</div>
-					</div>
-				</div>
-				<div class="item-6 mt-10 clearfix">
-					<img src="/public/images/item/6.jpg" class="fl radius-100 lazyimg" width="64" height="64">
-					<div class="fl info vcenter">
-						<div>
-							<div class="tit"><a href="/public/page/userHome.html" class="hover-underline a-green font-14">Madonna</a><span class="btn-6 ml-10 cursor-pointer" onclick="tipsPopup('tips_1','加关注成功')">+关注</span></div>
-							<div class="fc-gray font-14 mt-10">“ 三十个字符以色列炸掉了一半机翼能飞回去是因为双发可以平衡力吗… ”</div>
-						</div>
-					</div>
-					<div class="fr info vcenter">
-						<div>
-							<div class="font-14 fc-aux-a text-right">2018.03.27 15:29</div>
-							<div class="fc-aux-a mt-5"><a href="messageDetails.html">共4条信息，查看</a><span class="delMessage radius-3 ml-10"><svg class="icon">
-						<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_4@2x.png" width="14" height="14"></desc><![endif]-->
-						<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_4"></use>
-					</svg></span>
-						</div>
-						</div>
-					</div>
-				</div>
-				<div class="item-6 mt-10 clearfix">
-					<img src="/public/images/item/7.jpg" class="fl radius-100 lazyimg" width="64" height="64">
-					<div class="fl info vcenter">
-						<div>
-							<div class="tit"><a href="/public/page/userHome.html" class="hover-underline a-green font-14">Madonna</a><span class="btn-6 ml-10 cursor-pointer" onclick="tipsPopup('tips_1','加关注成功')">+关注</span></div>
-							<div class="fc-gray font-14 mt-10">“ 三十个字符以色列炸掉了一半机翼能飞回去是因为双发可以平衡力吗… ”</div>
-						</div>
-					</div>
-					<div class="fr info vcenter">
-						<div>
-							<div class="font-14 fc-aux-a text-right">2018.03.27 15:29</div>
-							<div class="fc-aux-a mt-5"><a href="messageDetails.html">共4条信息，查看</a><span class="delMessage radius-3 ml-10"><svg class="icon">
-						<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_4@2x.png" width="14" height="14"></desc><![endif]-->
-						<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_4"></use>
-					</svg></span>
-						</div>
-						</div>
-					</div>
-				</div>
-				<div class="item-6 mt-10 clearfix">
-					<img src="/public/images/item/8.jpg" class="fl radius-100 lazyimg" width="64" height="64">
-					<div class="fl info vcenter">
-						<div>
-							<div class="tit"><a href="/public/page/userHome.html" class="hover-underline a-green font-14">Madonna</a><span class="btn-6 ml-10 cursor-pointer" onclick="tipsPopup('tips_1','加关注成功')">+关注</span></div>
-							<div class="fc-gray font-14 mt-10">“ 三十个字符以色列炸掉了一半机翼能飞回去是因为双发可以平衡力吗… ”</div>
-						</div>
-					</div>
-					<div class="fr info vcenter">
-						<div>
-							<div class="font-14 fc-aux-a text-right">2018.03.27 15:29</div>
-							<div class="fc-aux-a mt-5"><a href="messageDetails.html">共4条信息，查看</a><span class="delMessage radius-3 ml-10"><svg class="icon">
-						<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_4@2x.png" width="14" height="14"></desc><![endif]-->
-						<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_4"></use>
-					</svg></span>
-						</div>
-						</div>
-					</div>
-				</div>
-				<div class="item-6 mt-10 clearfix">
-					<img src="/public/images/item/1.jpg" class="fl radius-100 lazyimg" width="64" height="64">
-					<div class="fl info vcenter">
-						<div>
-							<div class="tit"><a href="/public/page/userHome.html" class="hover-underline a-green font-14">Madonna</a><span class="btn-6 ml-10 cursor-pointer" onclick="tipsPopup('tips_1','加关注成功')">+关注</span></div>
-							<div class="fc-gray font-14 mt-10">“ 三十个字符以色列炸掉了一半机翼能飞回去是因为双发可以平衡力吗… ”</div>
-						</div>
-					</div>
-					<div class="fr info vcenter">
-						<div>
-							<div class="font-14 fc-aux-a text-right">2018.03.27 15:29</div>
-							<div class="fc-aux-a mt-5"><a href="messageDetails.html">共4条信息，查看</a><span class="delMessage radius-3 ml-10"><svg class="icon">
-						<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_4@2x.png" width="14" height="14"></desc><![endif]-->
-						<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_4"></use>
-					</svg></span>
-						</div>
-						</div>
-					</div>
-				</div>
-				<div class="item-6 mt-10 clearfix">
-					<img src="/public/images/item/9.jpg" class="fl radius-100 lazyimg" width="64" height="64">
-					<div class="fl info vcenter">
-						<div>
-							<div class="tit"><a href="/public/page/userHome.html" class="hover-underline a-green font-14">Madonna</a><span class="btn-6 ml-10 cursor-pointer" onclick="tipsPopup('tips_1','加关注成功')">+关注</span></div>
-							<div class="fc-gray font-14 mt-10">“ 三十个字符以色列炸掉了一半机翼能飞回去是因为双发可以平衡力吗… ”</div>
-						</div>
-					</div>
-					<div class="fr info vcenter">
-						<div>
-							<div class="font-14 fc-aux-a text-right">2018.03.27 15:29</div>
-							<div class="fc-aux-a mt-5"><a href="messageDetails.html">共4条信息，查看</a><span class="delMessage radius-3 ml-10"><svg class="icon">
-						<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_4@2x.png" width="14" height="14"></desc><![endif]-->
-						<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_4"></use>
-					</svg></span>
-						</div>
-						</div>
-					</div>
-				</div>
-				<div class="item-6 mt-10 clearfix">
-					<img src="/public/images/item/10.jpg" class="fl radius-100 lazyimg" width="64" height="64">
-					<div class="fl info vcenter">
-						<div>
-							<div class="tit"><a href="/public/page/userHome.html" class="hover-underline a-green font-14">Madonna</a><span class="btn-6 ml-10 cursor-pointer" onclick="tipsPopup('tips_1','加关注成功')">+关注</span></div>
-							<div class="fc-gray font-14 mt-10">“ 三十个字符以色列炸掉了一半机翼能飞回去是因为双发可以平衡力吗… ”</div>
-						</div>
-					</div>
-					<div class="fr info vcenter">
-						<div>
-							<div class="font-14 fc-aux-a text-right">2018.03.27 15:29</div>
-							<div class="fc-aux-a mt-5"><a href="messageDetails.html">共4条信息，查看</a><span class="delMessage radius-3 ml-10"><svg class="icon">
-						<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_4@2x.png" width="14" height="14"></desc><![endif]-->
-						<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_4"></use>
-					</svg></span>
-						</div>
-						</div>
-					</div>
-				</div>
-				<!--循环end-->
+
 				<!--分页加载中start-->
 				<div class="page-loading"></div>
 				<!--分页加载中end-->
 				
 				<!--分页start-->
-				<div id="pages-dyxx" class="pages" style="text-align: center;"></div>
+				<script type="text/javascript">
+					var page={$page}, content = $(".listBox .list-data");
+				</script>
+				<div id="pages" class="pages" style="text-align: center;"></div>
 				<!--分页end-->
 			</div>
 			<!--关注end-->

@@ -6,7 +6,7 @@
  */
 class userbaseAction extends frontendAction {
 
-    protected $_user = null, $menu_list;
+    protected $menu_list;
 
     public function _initialize(){
         parent::_initialize();
@@ -20,8 +20,7 @@ class userbaseAction extends frontendAction {
                 IS_AJAX && $this->ajaxReturn(0, L('login_please'));
                 $this->redirect('user/login');
             }else{
-                $this->_user = $this->visitor->get();
-                $this->assign('user',$this->_user);
+                $this->assign('user',$this->user);
             }
         }
 
@@ -31,6 +30,7 @@ class userbaseAction extends frontendAction {
     protected function _curr_menu($module = 'user', $menu = 'index') {
         $this->menu_list = $this->_get_menu($module);
         $this->assign('user_menu_list', $this->menu_list);
+        $this->assign('user_module_curr', $module);
         $this->assign('user_menu_curr', $menu);
     }
 

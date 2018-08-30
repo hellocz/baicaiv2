@@ -1,4 +1,5 @@
 <!--循环start-->
+				<if condition="$system_list">
 				<volist name="system_list" id="val">
 				<div class="item-6 clearfix">
 					<img src="/public/images/logo.png" class="fl radius-100 lazyimg" width="64" height="64">
@@ -10,4 +11,13 @@
 					</div>
 				</div>
 				</volist>
+				<else/>
+				<div class="item-6 clearfix">
+					<div class="fl info vcenter">
+						<div>
+							<div class="fc-gray font-14 mt-8">{:L('no_system_notic')}</div>
+						</div>
+					</div>
+				</div>
+				</if>
 				<!--循环end-->

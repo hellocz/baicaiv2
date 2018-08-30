@@ -7,7 +7,7 @@
 
 class frontendAction extends baseAction {
 
-    protected $visitor = null;
+    protected $visitor = null, $user = null;
     
     public function _initialize() {
         parent::_initialize();
@@ -30,7 +30,10 @@ class frontendAction extends baseAction {
     private function _init_visitor() {
         $this->visitor = new user_visitor();
         // $this->assign('visitor', $this->visitor->info);
-        $this->assign('visitor', $this->visitor->get());
+        if($this->visitor->is_login){
+            $this->user = $this->visitor->get(); 
+            $this->assign('visitor', array_merge((array)$this->visitor->info, (array)$this->user));
+        }
     }
 
     /**

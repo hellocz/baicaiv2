@@ -1,0 +1,29 @@
+    <!--引入layui CSS文件-->
+    <link rel="stylesheet" href="/public/js/lib/layui/css/layui.css">
+    <!--引入全局公共样式文件-->
+    <link rel="stylesheet" href="/public/css/style.css">
+    <!--当前页面css-->
+    <link rel="stylesheet" href="/public/css/list.css">    				
+				<volist name="message_list" id="val">
+				<if condition="$val['from_id'] eq $visitor['id']">
+				<!--我的内容start-->
+				<div class="message clearfix">
+					<a href="{:U('member/index', array('uid'=>$val['from_id']))}" target="_blank"><img src="{:avatar($val['from_id'], 48)}" alt="{$val.from_name}" class="radius-100 fr head" width="44" height="44"></a>
+					<div class="fr mr-12">
+						<div class="fc-aux-a text-right"><!-- {$val.from_name} -->我 发自 {$val.add_time|fdate}</div>
+						<div class="info my">{$val.info}</div>
+					</div>
+				</div>
+				<!--我的内容end-->
+				<else/>
+				<!--好友内容start-->
+				<div class="message clearfix">
+					<a href="{:U('member/index', array('uid'=>$val['from_id']))}" target="_blank"><img src="{:avatar($val['from_id'], 48)}" alt="{$val.from_name}" class="radius-100 fl head" width="44" height="44"></a>
+					<div class="fl ml-12">
+						<div class="fc-aux-a">{$val.from_name} 发自 {$val.add_time|fdate}</div>
+						<div class="info user">{$val.info}</div>
+					</div>
+				</div>
+				<!--好友内容end-->
+				</if>
+				</volist>

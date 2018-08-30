@@ -558,6 +558,24 @@ function del(title,info,callback){
 	});
 }
 
+//弹出层确认对话框（info：显示内容， callback执行方法）
+function confirm(title,info,callback){
+	layui.use(['layer'], function(){
+		layer.confirm(info, {
+			title,
+			skin:'askBox',
+		}, function(index){
+			// layer.msg('删除成功');
+			layer.close(index);
+			
+			//callback这里可以写一个删除后的执行的方法			
+			if (typeof callback === "function"){
+				callback();
+			}
+		});
+	});
+}
+
 // //关注用户
 // function followUser(uid){
 // 	var result = false;

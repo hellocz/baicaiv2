@@ -110,9 +110,9 @@ class userModel extends Model
         return $info;
     }
 
-    public function user_list($where, $field = '') {
+    public function user_list($where, $field = '', $limit = '', $order = 'username asc') {
         if(!$where) return false;        
-        $user_list = $this->where($where)->field($field)->select();
+        $user_list = $this->where($where)->field($field)->order($order)->limit($limit)->select();
         return $user_list;
     }
 

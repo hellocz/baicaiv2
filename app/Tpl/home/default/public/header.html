@@ -315,7 +315,10 @@
 					</div>
 					<else /> 
 					<div class="member-info r-sub">
-						<div class="info text-center"><span class="layui-badge-dot"></span><img src="{:avatar($visitor['id'],'32')}" class="radius-100 mr-10" width="28" height="28">{$visitor['username']}<i class="haver-on"></i></div>
+						<div class="info text-center">
+							<span class="layui-badge-dot"></span>
+							<img src="{:avatar($visitor['id'],'32')}" class="radius-100 mr-10" width="28" height="28">{$visitor['username']}<i class="haver-on"></i>
+						</div>
 						<div class="arrow_up"></div>
 						<div class="sub-box radius-3">
 							<div class="head clearfix">
@@ -346,8 +349,8 @@
 								</svg>
 								我的收藏
 							</a>
-							<a href="#">
-								<span class="fr number radius-100">18</span>
+							<a href="{:U('message/system')}">
+								<if condition= "(isset($visitor['message'])) AND ($visitor['message'] neq 0)"><span class="fr number radius-100">{$visitor['message']}</span></if>
 								<svg role="img" class="icon">
 									<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_19@2x.png" width="20" height="20"></desc><![endif]-->
 									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_19"></use>
@@ -361,13 +364,13 @@
 								</svg>
 								账户设置
 							</a>
-							<a href="#">
-								<svg role="img" class="icon">
+							<!-- <a href="#">
+								<svg role="img" class="icon"> -->
 									<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_11@2x.png" width="20" height="20"></desc><![endif]-->
-									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_11"></use>
+									<!-- <use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_11"></use>
 								</svg>
 								加入合伙人
-							</a>
+							</a> -->
 							<a href="{:U('user/logout')}" id="outlogin" class="sub-radius-3">
 								<svg role="img" class="icon">
 									<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_16@2x.png" width="20" height="20"></desc><![endif]-->
@@ -381,14 +384,16 @@
 				</div>
 			</div>
 			<!--最新消息start-->
+			<if condition= "(isset($visitor['message'])) AND ($visitor['message'] neq 0)">
 			<div class="newMsg">
-				<div class="newMsgTitle"><span class="fc-red">12</span>条新消息</div>
+				<div class="newMsgTitle"><span class="fc-red">{$visitor['message']}</span>条新消息</div>
 				<ul>
-					<li><a href="#"><span class="fc-red">2</span>条系统消息</a></li>
-					<li><a href="#"><span class="fc-red">3</span>条站内短信</a></li>
-					<li><a href="#"><span class="fc-red">7</span>条关注通知</a></li>
+					<li><a href="{:U('message/system')}"><span class="fc-red">99</span>条系统消息</a></li>
+					<li><a href="{:U('message/index')}"><span class="fc-red">99</span>条站内短信</a></li>
+					<li><a href="{:U('message/subscription')}"><span class="fc-red">99</span>条关注通知</a></li>
 				</ul>
 			</div>
+			</if>
 			<!--最新消息end-->
 		</div>
 	</div>

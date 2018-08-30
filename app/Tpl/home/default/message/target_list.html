@@ -1,0 +1,3 @@
+<volist name="target_list" id="val">
+					<a href="{:U('message/talk', array('ftid'=>$val['id']+$visitor['id']))}"><img src="{:avatar_img($val['img_url'], 64)}" class="radius-100" width="24" height="24"><span class="ml-10">{$val.username}</span></a>
+					</volist>

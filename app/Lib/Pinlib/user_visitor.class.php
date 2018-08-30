@@ -19,6 +19,8 @@ class user_visitor {
             if ($user_info) {
                 //记住登陆状态
                 $this->assign_info($user_info);
+                //未读消息
+                D('message')->set_unread_message_num($user_info['id']);
                 $this->is_login = true;
             }
         } else {
@@ -74,11 +76,12 @@ class user_visitor {
         $user_mod = M('user');
         //更新用户信息
         $user_mod->where(array('id' => $uid))->save(array('last_time' => time(), 'last_ip' => get_client_ip()));
-        $user_info = $user_mod->field('id,username,password,is_bj')->find($uid);
-        $user_info['message'] = M('message')->where("to_id='".$user_info['id']."' and ck_status=0")->count();
+        $user_info = $user_mod->field('id,username,password,is_bj')->find($uid);        
         //保持状态
         $this->assign_info($user_info);
         $this->remember($user_info, $remember);
+        //未读消息
+        D('message')->set_unread_message_num($user_info['id']);
     }
 
     /**
