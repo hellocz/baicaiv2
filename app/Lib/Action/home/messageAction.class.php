@@ -380,9 +380,10 @@ class messageAction extends userbaseAction {
     public function del_talk() {
         $ftid = $this->_get('ftid', 'intval');
         !$ftid && $this->ajaxReturn(0, L('delete_message_failed'));
+        $uid= $this->visitor->info['id'];
         $message_mod = D('message');
-        $mid_arr = $message_mod->get_message_ids($ftid, $this->visitor->info['id']);
-        $result = $message_mod->user_delete($mid_arr, $this->visitor->info['id']);
+        $mid_arr = $message_mod->get_message_ids($ftid, $uid);
+        $result = $message_mod->user_delete($mid_arr, $uid);
         //更新用户未读消息数
         D('message')->set_unread_message_num($uid);
         $this->ajaxReturn(1, L('delete_message_success'));

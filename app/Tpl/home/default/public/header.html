@@ -350,7 +350,7 @@
 								我的收藏
 							</a>
 							<a href="{:U('message/system')}">
-								<if condition= "(isset($visitor['message'])) AND ($visitor['message'] neq 0)"><span class="fr number radius-100">{$visitor['message']}</span></if>
+								<span class="fr number radius-100" <if condition= "(!isset($visitor['message'])) OR ($visitor['message']['total'] eq 0)">style="display:none;"</if>>{$visitor['message']['total']}</span>
 								<svg role="img" class="icon">
 									<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_19@2x.png" width="20" height="20"></desc><![endif]-->
 									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_19"></use>
@@ -384,16 +384,14 @@
 				</div>
 			</div>
 			<!--最新消息start-->
-			<if condition= "(isset($visitor['message'])) AND ($visitor['message'] neq 0)">
-			<div class="newMsg">
-				<div class="newMsgTitle"><span class="fc-red">{$visitor['message']}</span>条新消息</div>
+			<div class="newMsg" <if condition= "(!isset($visitor['message'])) OR ($visitor['message']['total'] eq 0)">style="display:none;"<else/>style="display:block;"</if>>
+				<div class="newMsgTitle"><span class="fc-red totalMsg">{$visitor['message']['total']}</span>条新消息</div>
 				<ul>
-					<li><a href="{:U('message/system')}"><span class="fc-red">99</span>条系统消息</a></li>
-					<li><a href="{:U('message/index')}"><span class="fc-red">99</span>条站内短信</a></li>
-					<li><a href="{:U('message/subscription')}"><span class="fc-red">99</span>条关注通知</a></li>
+					<li><a href="{:U('message/system')}"><span class="fc-red systemMsg">{$visitor['message']['system']}</span>条系统消息</a></li>
+					<li><a href="{:U('message/index')}"><span class="fc-red userMsg">{$visitor['message']['user']}</span>条站内短信</a></li>
+					<li><a href="{:U('message/subscription')}"><span class="fc-red followMsg">0</span>条关注通知</a></li>
 				</ul>
 			</div>
-			</if>
 			<!--最新消息end-->
 		</div>
 	</div>

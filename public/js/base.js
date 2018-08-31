@@ -511,7 +511,7 @@ function treeNav(a){
 }
 
 function newMsg(){
-	$(".newMsg").show();
+	// $(".newMsg").show();
 	$(".newMsgTitle").click(function(){
 		if($(this).siblings("ul").is(':hidden')){
 			$(this).siblings("ul").show();

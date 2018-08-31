@@ -814,7 +814,7 @@ class userAction extends userbaseAction {
     public function messg(){
         $uid=$this->user['id'];
         $count = D('message')->set_unread_message_num($uid);
-        $this->ajaxReturn(1, $count);
+        $this->ajaxReturn(1, '', $count);
     }
 
     /**

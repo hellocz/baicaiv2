@@ -58,8 +58,8 @@ $(function(e) {
 	moreUrl(".cz2 .btn-more",".moreUrl");
 	moreUrl(".moreLink .btn-gd",".moreUrl");
 	
-	//最新消息调用此方法即可
-	newMsg();
+	// //最新消息调用此方法即可
+	// newMsg();
 });
 
 //layui分页插件

@@ -344,7 +344,7 @@
                                 我的收藏
                             </a>
                             <a href="{:U('message/system')}">
-                                <if condition= "(isset($visitor['message'])) AND ($visitor['message'] neq 0)"><span class="fr number radius-100">{$visitor['message']}</span></if>
+                                <span class="fr number radius-100" <if condition= "(!isset($visitor['message'])) OR ($visitor['message']['total'] eq 0)">style="display:none;"</if>>{$visitor['message']['total']}</span>
                                 <svg role="img" class="icon">
                                     <!--[if lte IE 8]><desc><img src="/public/images/ie8/e_19@2x.png" width="20" height="20"></desc><![endif]-->
                                     <use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_19"></use>

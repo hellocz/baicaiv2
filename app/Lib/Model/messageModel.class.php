@@ -139,13 +139,21 @@ class messageModel extends Model
         if(!$uid) return false;
 
         $map = "to_id=".$uid." AND status<>3 AND ck_status=0";
+        $field = "sum(1) as total_count";
+        $field.= ", sum(case when from_id=0 then 1 else 0 end) as system_count";
+        $field.= ", sum(case when from_id>0 then 1 else 0 end) as user_count";
 
-        $count = $this->where($map)->count();
+        // $count = $this->where($map)->count();
+        $arr = $this->field($field)->where($map)->find();
 
         //更新保存至用户信息session
-        $_SESSION['user_info']['message'] = $count;
+        // $_SESSION['user_info']['message'] = $count;        
+        $_SESSION['user_info']['message']['total'] = intval($arr['total_count']);
+        $_SESSION['user_info']['message']['system'] = intval($arr['system_count']);
+        $_SESSION['user_info']['message']['user'] = intval($arr['user_count']);
+        $_SESSION['user_info']['message']['follow'] = 0;
 
-        return $count;
+        return $_SESSION['user_info']['message'];
     }
 
     /**
@@ -302,9 +310,6 @@ class messageModel extends Model
 
             //提示接收者
             D('user_msgtip')->add_tip($data['to_id'], 3);
-
-            //更新用户未读消息数
-            D('message')->set_unread_message_num($data['to_id']);
             
             if($data['from_id'] > 0){
                 //更新积分
