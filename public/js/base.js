@@ -385,31 +385,6 @@ function ChangeTime() {
 	}
 }
 
-function jz_submit_click(obj){
-		var obj=$(obj);
-		$.get("/index.php?m=ajax&a=zan",{id:$(obj).data("id"),xid:$(obj).data("xid")},function(result){
-			if(result.status==1){
-				var num = $(obj).html();
-				$(obj).html(++num);
-				tipsPopup('tips_1',result.msg);
-			}else{
-				tipsPopup('tips_2',result.msg);
-			}
-		},'json')
-	}
-
-function jc_submit_click(obj){
-		var obj=$(obj);
-		$.get("/index.php?m=ajax&a=cai",{id:$(obj).data("id"),xid:$(obj).data("xid")},function(result){
-			if(result.status==1){
-				var num = $(obj).html();
-				$(obj).html(++num);
-				tipsPopup('tips_1',result.msg);
-			}else{
-				tipsPopup('tips_2',result.msg);
-			}
-		},'json')
-	}
 
 //弹出登录层
 function LoginPopup(type){
@@ -575,55 +550,3 @@ function confirm(title,info,callback){
 		});
 	});
 }
-
-// //关注用户
-// function followUser(uid){
-// 	var result = false;
-// 	if(PINER.uid==""){
-// 		LoginPopup();
-// 		return false;
-// 	}
-// 	$.ajax({
-// 		type: 'GET',
-// 		url: '/index.php?m=user&a=follow',
-// 		data:{uid:uid},
-// 		dataType: 'json',
-// 		async: false, //同步
-// 		cache: false,
-// 		success: function (res) {
-// 			if(res.status==0){
-// 				tipsPopup('tips_2', res.msg);
-// 			}else{
-// 				tipsPopup('tips_1', res.msg);
-// 			}
-// 			result = res;
-// 		}
-// 	});
-// 	return result;
-// }
-
-// //取消关注用户
-// function unfollowUser(uid){
-// 	var result = false;
-// 	if(PINER.uid==""){
-// 		LoginPopup();
-// 		return false;
-// 	}
-// 	$.ajax({
-// 		type: 'GET',
-// 		url: '/index.php?m=user&a=unfollow',
-// 		data:{uid:uid},
-// 		dataType: 'json',
-// 		async: false, //同步
-// 		cache: false,
-// 		success: function (res) {
-// 			if(res.status==0){
-// 				tipsPopup('tips_2', res.msg);
-// 			}else{
-// 				tipsPopup('tips_1', res.msg);
-// 			}
-// 			result = res;
-// 		}
-// 	});
-// 	return result;
-// }

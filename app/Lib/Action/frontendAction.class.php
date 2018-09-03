@@ -171,18 +171,6 @@ class frontendAction extends baseAction {
         }
         return $item_list;
     }
-
-    /**
-     * 页面右边-热门优惠（文章页、优惠券详情页）
-     */
-    public function right_hot_item(){
-        //热门优惠
-        $time = time();
-        $where = "status=1 and add_time<$time and isnice=1 ";
-        $limit = 5;
-        $item_list = D('item')->item_list($where, $limit);
-        $this->assign('right_hot_item_list', $item_list);
-    }
    
     /**
      * 筛选过滤及结果查询

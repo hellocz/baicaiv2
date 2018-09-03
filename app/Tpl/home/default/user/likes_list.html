@@ -1,34 +1,41 @@
 <!--循环start-->
 				<volist name="likes_list" id="r">
 				<div class="item item-2 clearfix">
-					<img src="<if condition="$r['img']==''">/images/nopic.jpg<else/><if condition="preg_match('/img.baicaio.com/',$r['img'])">{:attach($r['img'],'item')}!thumb287<else/>{:attach($r['img'],'item')}</if></if>" class="fl lazyimg radius-3" width="106" height="106">
+					<a <if condition="$r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}"<else/>href="{:U('item/index',array('id'=>$r['id']))}"</if> title="{$r.title}" target="_blank">
+						<img <if condition="$r['article'] eq '1'">src="{:attach($r['img'],'article')}"<else/>src="{:attach($r['img'],'item','')}"</if> title="{$r.title}" alt="{$r.title}" class="fl lazyimg radius-3" width="106" height="106">
+					</a>
 					<div class="fl info ml-15">
-						<div class="tit"><if condition="$r['type']=='0'">
-						<span class="sytj">首页推荐</span>
-						<elseif condition="$r['type']=='1'"/>
-						<span class="rmyh">热门优惠</span>
-						<elseif condition="$r['type']=='2'"/>
-						<span class="qwtj">全网特价</span>
-						<elseif condition="$r['type']=='3'"/>
-						<span class="zt-2">已退回</span>
-						</if><a href="{:U('item/index',array('id'=>$r['itemid']))}" target="_blank">{$r.title}</a></div>
-						<div class="fc-aux-9 mt-8 font-13">{$r.add_time|fdate} 来自 <a href="{:U('member/index',array('uid'=>$r['item_uid']))}" target="_blank" class="a-green hover-underline">{$r.uname}</a></div>
+						<div class="tit">
+							<if condition="$r['type']=='0'">
+							<span class="sytj">首页推荐</span>
+							<elseif condition="$r['type']=='1'"/>
+							<span class="rmyh">热门优惠</span>
+							<elseif condition="$r['type']=='2'"/>
+							<span class="qwtj">全网特价</span>
+							<elseif condition="$r['type']=='3'"/>
+							<span class="zt-2">已退回</span>
+							</if>
+							<a <if condition="isset($r['article']) && $r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}"<else/>href="{:U('item/index',array('id'=>$r['id']))}"</if> title="{$r.title}" target="_blank">{$r.title}</a>
+						</div>
+						<div class="fc-aux-9 mt-8 font-13">{$r.add_time|fdate} 
+							<if condition="isset($r['article']) && $r['article'] eq '1' OR $r['isbao'] eq '1'"><if condition="$r['item_uid'] neq 0">来自 <a href="{:U('member/index',array('uid'=>$r['item_uid']))}" target="_blank" class="a-green hover-underline">{$r.uname}</a></if></if>
+						</div>
 						<div class="op mt-20">
-							<a href="javascript:void(0);" onclick="tipsPopup('tips_1','投票成功')">
+							<a href="javascript:void(0);" class="cursor-pointer J_zan" data-id="{$r.id}" data-xid="<if condition="isset($r['article']) && $r['article'] eq '1'">3<else/>1</if>" data-num=".num">
 								<svg class="icon">
 									<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_6@2x.png" width="16" height="16"></desc><![endif]-->
 									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_6"></use>
 								</svg>
-								{$r.zan}
+								<span class="num">{$r.zan}</span>
 							</a>
-							<a href="javascript:void(0);" onclick="tipsPopup('tips_1','投票成功')">
+							<a href="javascript:void(0);" class="cursor-pointer J_cai" data-id="{$r.id}" data-xid="<if condition="isset($r['article']) && $r['article'] eq '1'">3<else/>1</if>" data-num=".num">
 								<svg class="icon">
 									<!--[if lte IE 8]><desc><img src="/public/images/ie8/c_7@2x.png" width="16" height="16"></desc><![endif]-->
 									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-c_7"></use>
 								</svg>
-								{$r.zan}
+								<span class="num">{$r.cai}</span>
 							</a>
-							<a href="/public/page/details.html#comments" target="_blank">
+							<a <if condition="isset($r['article']) && $r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}#comments"<else/>href="{:U('item/index',array('id'=>$r['id']))}#comments"</if> target="_blank">
 								<svg class="icon">
 									<!--[if lte IE 8]><desc><img src="/public/images/ie8/a_43@2x.png" width="16" height="16"></desc><![endif]-->
 									<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-a_43"></use>

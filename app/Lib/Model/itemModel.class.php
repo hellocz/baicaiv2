@@ -298,7 +298,6 @@ class itemModel extends Model
     * 获得置顶区list
     */
     public function front_list($limit = '0,10', $order = 'add_time desc'){
-        // $front_list = $mod->where("status=1 and isfront=1 and add_time<$time ".$queryArr['where'])->order($queryArr['order'])->select();
         $time=time();
         $where="status=1 and isfront=1 and add_time<$time";
         if(!$order){
@@ -373,6 +372,20 @@ class itemModel extends Model
           }
         }
 
+        return $list;
+    }
+
+    /**
+    * 页面右边-热门优惠
+    */
+    public function hot_list($limit = '0,10', $order = 'add_time desc'){
+        $time=time();
+        $where="status=1 and add_time<$time and isnice=1 ";
+        if(!$order){
+            $order = 'add_time desc';
+        }
+        $list = $this->where($where)->order($order)->limit($limit)->select();
+        $list = mock_zan($list);
         return $list;
     }
 

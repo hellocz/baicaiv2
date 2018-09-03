@@ -42,7 +42,7 @@ class memberAction extends frontendAction {
         $count = array();        
         $count['article'] = isset($sum_article['count']) ? $sum_article['count'] : 0;//原创：攻畋+晒单        
         $count['bao'] = isset($sum_item['count']) ? $sum_item['count'] : 0;//爆料        
-        $count['vote'] = 0; //投票：点选、点踩        
+        $count['vote'] = D('item_vote')->user_vote_count($uid); //投票：点选、点踩        
         $count['comm'] = D('comment')->user_comment_count($uid); //评论        
         $count['likes'] = D("likes")->user_likes_count($uid);//收藏        
         $count['follows'] = D("user_follow")->user_follow_count($uid);//关注
@@ -99,7 +99,7 @@ class memberAction extends frontendAction {
                 $list = D("item")->user_bao_list($uid, $status, $field, $limit);
                 break;
             case 'vote': //投票：点选、点踩
-                # code...
+                $list=D('item_vote')->user_vote_list($uid, $limit);
                 break;
             case 'comm': //评论
                 $list=D('comment')->user_comment_list($uid, $limit);
@@ -109,6 +109,11 @@ class memberAction extends frontendAction {
                 break;
             case 'follows': //关注
                 $list=D("user_follow")->user_follow_list($uid, $limit);
+                //关注
+                if ($this->visitor->is_login) {
+                    $follows = D("user_follow")->user_follow_ids($this->visitor->info['id']);
+                    $this->assign("follows",$follows);
+                }
                 break;
             
             default:

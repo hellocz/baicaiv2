@@ -103,7 +103,7 @@
 							?>
 							<div class="tb clearfix">
 								<volist name="header_hot_orig_list" id="r" offset="0" length="8">
-								<a href="{:U('orig/show',array('id'=>$r['id']))}" title="{$r.name}" class="fl"><img src="<if condition="$r['img']">{:attach($r['img'],'item_orig')}<else/>/images/nopic.jpg</if>" title="{$r.name}" alt="{$r.name}"><br>{$r.name}</a>
+								<a href="{:U('orig/show',array('id'=>$r['id']))}" title="{$r.name}" class="fl"><img src="{:attach($r['img'],'item_orig')}" title="{$r.name}" alt="{$r.name}"><br>{$r.name}</a>
 								</volist>
 							</div>
 							<div class="wz clearfix font-14">

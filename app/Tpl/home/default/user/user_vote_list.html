@@ -1,23 +1,15 @@
 <!--循环start-->
 				<volist name="user_vote_list" id="r">				
 				<div class="item">
-					<div class="font-14 fc-aux-a">点了赞</div>
+					<div class="font-14 fc-aux-a"><if condition="$r['type'] neq '-1'">点了赞<else/>踩了一脚</if></div>
 					<div class="clearfix mt-12">
-						<img src="/public/images/item/1.jpg" class="fl lazyimg radius-3" width="38" height="38">
+						<a <if condition="isset($r['article']) && $r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}"<else/>href="{:U('item/index',array('id'=>$r['id']))}"</if> title="{$r.title}" target="_blank">
+							<img <if condition="isset($r['article']) && $r['article'] eq '1'">src="{:attach($r['img'],'article')}"<else/>src="{:attach($r['img'],'item','')}"</if> title="{$r.title}" alt="{$r.title}" class="fl lazyimg radius-3" width="38" height="38">
+						</a>
 						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="一些中世纪欧洲建筑上规则的方形孔洞叫什么？有什么作用？" target="_blank">一些中世纪欧洲建筑上规则的方形孔洞叫什么？有什么作用？</a>
+							<a <if condition="isset($r['article']) && $r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}"<else/>href="{:U('item/index',array('id'=>$r['id']))}"</if> title="{$r.title}" class="font-16" target="_blank">{$r.title}</a>
 						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
-					</div>
-				</div>
-				<div class="item">
-					<div class="font-14 fc-aux-a">踩了一脚</div>
-					<div class="clearfix mt-12">
-						<img src="/public/images/item/2.jpg" class="fl lazyimg radius-3" width="38" height="38">
-						<div class="fl vcenter ml-12" style="height: 38px;">
-							<a href="#" class="font-16" title="阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？" target="_blank">阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？</a>
-						</div>
-						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">18小时前</span>
+						<span class="fr font-14 fc-aux-a vcenter" style="height: 38px;">{$r.add_time|fdate}</span>
 					</div>
 				</div>
 				</volist>

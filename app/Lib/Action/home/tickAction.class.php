@@ -122,9 +122,6 @@ class tickAction extends frontendAction {
 		$orig_info = D("item_orig")->get_info($info['orig_id']);
 		$this->assign('orig',$orig_info);
 
-		//热门优惠
-		$this->right_hot_item();
-
 		//相关优惠精选
 		$time = time();
 		$where="status=1 and add_time<$time and isnice=1 and orig_id=" . $orig_info['id'];

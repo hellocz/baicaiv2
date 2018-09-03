@@ -52,15 +52,15 @@ class likesModel extends Model
                 switch($val['xid']){
                     case "1":
                         $mod=D('item');$type="item";$url=U('item/index',array('id'=>$val['itemid']));
-                        $field="title,img,content,intro,zan,comments,add_time,uid,uname";
+                        $field="title,img,content,intro,zan,cai,comments,add_time,uid,uname";
                         break;
-                    case "2":
-                        $mod=D("zr");$type="zr";$url=U('zr/show',array('id'=>$val['itemid']));
-                        $field="title,img,content,intro,zan,comments,add_time,uid,uname";
-                        break;
+                    // case "2":
+                    //     $mod=D("zr");$type="zr";$url=U('zr/show',array('id'=>$val['itemid']));
+                    //     $field="title,img,content,intro,zan,comments,add_time,uid,uname";
+                    //     break;
                     case "3":
                         $mod=D("article");$type="article";$url=U('article/show',array('id'=>$val['itemid']));
-                        $field="title,img,info as content,intro,zan,comments,add_time,uid,uname";
+                        $field="title,img,info as content,intro,zan,cai,comments,add_time,uid,uname";
                         break;
                 }
                 $arr = $mod->get_info($val['itemid'], $field);
@@ -73,6 +73,7 @@ class likesModel extends Model
                     $list[$key]['content']="";
                     // $list[$key]['intro']="";
                     $list[$key]['zan']=0;
+                    $list[$key]['cai']=0;
                     $list[$key]['comments']=0;
                     $list[$key]['add_time']="";
                     $list[$key]['item_uid']="";
@@ -85,7 +86,8 @@ class likesModel extends Model
                     $list[$key]['url']=$url;
                     $list[$key]['content']=$arr['content'];
                     // $list[$key]['intro']=$arr['intro'];
-                    $list[$key]['zan']=$arr['zan'];
+                    $list[$key]['zan']=intval($arr['zan']);
+                    $list[$key]['cai']=intval($arr['cai']);
                     $list[$key]['comments']=$arr['comments'];
                     $list[$key]['add_time']=$arr['add_time'];
                     $list[$key]['item_uid']=$arr['uid'];

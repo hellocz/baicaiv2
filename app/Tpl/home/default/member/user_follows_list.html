@@ -16,8 +16,8 @@
 							</li>
 						</ul>
 						<div class="mt-8 focusOn">
-							<span onclick="tipsPopup('tips_1','关注成功')">+关注</span>
-							<!--说明：点击以后文字变为已关注-->
+							<span data-uid="{$r['id']}" class="cursor-pointer J_follow_user" <if condition="$follows[$r['id']]">style="display:none;"</if>>+关注</span>
+							<span data-uid="{$r['id']}" class="cursor-pointer J_unfollow_user" <if condition="!$follows[$r['id']]">style="display:none;"</if>>已关注</span>
 						</div>
 					</div>
 					</volist>

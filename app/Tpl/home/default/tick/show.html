@@ -63,35 +63,57 @@
 			<!--优惠券使用条件end-->
 			
 			<!--相关优惠券精选start-->
-			<div class="font-16 font-w-b cd-l-title"><a href="#" class="fr more fc-aux-9 font-w-n font-12">浏览更多</a>“{$orig.name}”相关优惠精选</div>
+			<div class="font-16 font-w-b cd-l-title"><a href="{:U('orig/show',array('id'=>$orig['id']))}" class="fr more fc-aux-9 font-w-n font-12">浏览更多</a>“{$orig.name}”相关优惠精选</div>
 			<ul class="cd-l-list clearfix">
 				<!--列表循环start-->
 				<volist name="item_list" id="r">
 				<li class="radius-3">
-					<div class="img"><img src="<if condition="$r['img']==''">/images/nopic.jpg<else/><if condition="preg_match('/img.baicaio.com/',$r['img'])">{:attach($r['img'],'item')}!thumb287<else/>{:attach($r['img'],'item')}</if></if>" class="lazyimg"></div>
+					<div class="img">
+						<a href="{:U('item/index',array('id'=>$r['id']))}" target="_blank" title="{$r.title}">
+							<img src="{:attach($r['img'],'item','')}" title="{$r.title}" alt="{$r.title}" class="lazyimg">
+						</a>
+					</div>
 					<div class="info">
 						<div class="font-14 title">
-							<a href="details.html" target="_blank">{$r.title}</a>
+							<a href="{:U('item/index',array('id'=>$r['id']))}" title="{$r.title}" target="_blank">{$r.title}</a>
 						</div>
 						<div class="fc-red price mt-8 layui-elip">{$r.price}</div>
 						<div class="content mt-12">
 							<span class="attr1 fc-aux-a icon_3 icon_3-e_21 layui-elip">{$orig.name}</span>
-							<span class="attr3 fc-aux-a fr icon_3 icon_3-e_23">99+</span>
-							<span class="attr2 fc-aux-a fr icon_3 icon_3-e_22">99+</span>
+							<a href="{:U('item/index',array('id'=>$r['id']))}#comments" target="_blank"><span class="attr3 fc-aux-a fr icon_3 icon_3-e_23">{$r.comments}</span></a>
+							<span class="attr2 fc-aux-a fr icon_3 icon_3-e_22 cursor-pointer J_zan" data-id="{$r.id}" data-xid="1">{$r.zan}</span>
 						</div>
 					</div>
 					<!--弹出评价start-->
-					<div class="infoBox">
-						<div class="comments"><span>“</span>大厂的酒就是好喝，不上头买一瓶还送瓶…<span class="sy">”</span></div>
+					<div class="infoBox <if condition="$r['intro'] eq null">not-comments</if>">
+						<if condition="$r['intro']">
+						<div class="comments">
+							<span>“</span><if condition="mb_strlen($r['intro'],'utf-8') gt 28">{$r.intro|strip_tags|msubstr=0,28}<else/>{$r.intro}</if><span class="sy">”</span>
+						</div>
+						</if>
 						<div class="caozuo">
 							<p class="cz1">
-								<span class="fc-aux-a icon3 icon3-c_6 cursor-pointer" onclick="tipsPopup('tips_1','投票成功')">252</span>
-								<span class="fc-aux-a icon3 icon3-c_7 cursor-pointer" onclick="tipsPopup('tips_1','投票成功')">220</span>
-								<a href="details.html#comments"><span class="fc-aux-a icon3 icon3-a_43">220</span></a>
+								<span class="fc-aux-a icon3 icon3-c_6 cursor-pointer J_zan" data-id="{$r.id}" data-xid="1">{$r.zan}</span>
+								<span class="fc-aux-a icon3 icon3-c_7 cursor-pointer J_cai" data-id="{$r.id}" data-xid="1">{$r.cai}</span>
+								<a href="{:U('item/index',array('id'=>$r['id']))}#comments" target="_blank"><span class="fc-aux-a icon3 icon3-a_43">{$r.comments}</span></a>
 							</p>
-							<p class="cz2">
-								<a href="details.html" target="_blank" class="btn-3">去购买</a>
-							</p>
+							<div class="cz2 moreButton" style="position: relative;">
+								<!-- <a href="details.html" target="_blank" class="btn-3">去购买</a> -->
+								<?php $llink = unserialize($r['go_link']);$lc = count($llink);?><if condition="$lc gt 1">
+											<!--多链接样式-->
+											<a href="javascript: void(0);" class="btn-more">去购买</a>
+											<div class="moreUrl radius-3 none">
+												<volist name="llink" id="rm">
+												<a href="__ROOT__/?m=item&a=tgo&to={:shortUrl($rm['link'])}" target="_blank" rel="nofollow" title="{$rm.title}">{$rm.name}</a>
+												</volist>
+											</div>
+											<!--多链接样式-->
+										<elseif condition="$lc eq 1"/>
+											<!--单链接样式-->
+											<a href="__ROOT__/?m=item&a=tgo&to={:shortUrl($llink[0]['link'])}" rel="nofollow" target="_blank" class="btn-3">去购买</a>
+											<!--单链接样式-->
+										</if>
+							</div>
 						</div>
 					</div>
 					<!--弹出评价end-->
@@ -110,50 +132,7 @@
 			<!--热门优惠end-->
 			
 			<!--热门商场start-->
-			<div class="radius-3 white-bg mt-12">
-				<div class="title font-w-b font-16">
-					<a href="mall.html" class="fr more font-w-n fc-aux-9 font-12">浏览更多</a>
-					热门商城
-				</div>
-				<ul class="rmsclist mt-8 clearfix">
-					<a href="mall.html">
-						<p><img src="/public/images/mall/mall_1.png"></p>
-						<p class="mt-5 fc-aux-9">国美</p>
-					</a>
-					<a href="mall.html">
-						<p><img src="/public/images/mall/mall_2.png"></p>
-						<p class="mt-5 fc-aux-9">亚马逊</p>
-					</a>
-					<a href="mall.html">
-						<p><img src="/public/images/mall/mall_3.png"></p>
-						<p class="mt-5 fc-aux-9">唯品会</p>
-					</a>
-					<a href="mall.html">
-						<p><img src="/public/images/mall/mall_4.png"></p>
-						<p class="mt-5 fc-aux-9">聚美优品</p>
-					</a>
-					<a href="mall.html">
-						<p><img src="/public/images/mall/mall_5.png"></p>
-						<p class="mt-5 fc-aux-9">1号店</p>
-					</a>
-					<a href="mall.html">
-						<p><img src="/public/images/mall/mall_6.png"></p>
-						<p class="mt-5 fc-aux-9">京东商城</p>
-					</a>
-					<a href="mall.html">
-						<p><img src="/public/images/mall/mall_7.png"></p>
-						<p class="mt-5 fc-aux-9">淘宝网</p>
-					</a>
-					<a href="mall.html">
-						<p><img src="/public/images/mall/mall_8.png"></p>
-						<p class="mt-5 fc-aux-9">苏宁易购</p>
-					</a>
-					<a href="mall.html">
-						<p><img src="/public/images/mall/mall_9.png"></p>
-						<p class="mt-5 fc-aux-9">IT之家</p>
-					</a>
-				</ul>
-			</div>
+			<include file="public:right_hot_orig" />
 			<!--热门商场end-->
 			
 			<div class="mt-12">
@@ -171,7 +150,6 @@
 	<!--底部统一区域+右边悬浮按钮end-->
 	
 	<script src="/public/js/page/couponDetails.js" ></script>
-	<script src="/public/js/function.js" ></script>
 
 <script>
 

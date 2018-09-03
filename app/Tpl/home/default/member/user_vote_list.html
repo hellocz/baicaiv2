@@ -1,34 +1,19 @@
 					<!--循环start-->
 					<volist name="user_vote_list" id="r">
 					<div class="item">
-						<div class="font-14 fc-aux-a">点了赞
-							<span class="fr">19小时前</span>
+						<div class="font-14 fc-aux-a"><if condition="$r['type'] neq '-1'">点了赞<else/>踩了一脚</if>
+							<span class="fr">{$r.add_time|fdate}</span>
 						</div>
 						<ul class="item-info mt-12 clearfix">
 							<li class="fl info-1">
-								<img src="/public/images/item/3.jpg" class="lazyimg radius-3">
+								<a <if condition="isset($r['article']) && $r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}"<else/>href="{:U('item/index',array('id'=>$r['id']))}"</if> title="{$r.title}" target="_blank">
+									<img <if condition="isset($r['article']) && $r['article'] eq '1'">src="{:attach($r['img'],'article')}"<else/>src="{:attach($r['img'],'item','')}"</if> title="{$r.title}" alt="{$r.title}" class="lazyimg radius-3">
+								</a>
 							</li>
 							<li class="fl info-2 lvcenter ml-12">
 								<div>
-									<p class="font-16"><a href="#">一些中世纪欧洲建筑上规则的方形孔洞叫什么？有什么作用？</a></p>
-									<p class="font-13 fc-aux-9 mt-8">以色列F15掉了一半机翼能飞回去是因为双发可以平衡力矩，这个螺旋桨单发能这样降落真是牛掰了…</p>
-								</div>
-							</li>
-						</ul>
-					</div>
-					
-					<div class="item">
-						<div class="font-14 fc-aux-a">踩了一脚
-							<span class="fr">19小时前</span>
-						</div>
-						<ul class="item-info mt-12 clearfix">
-							<li class="fl info-1">
-								<img src="/public/images/item/4.jpg" class="lazyimg radius-3">
-							</li>
-							<li class="fl info-2 lvcenter ml-12">
-								<div>
-									<p class="font-16"><a href="#">阿里钉钉算成功的产品吗？你们的企业除了打卡和电话会议，还用了哪些功能？</a></p>
-									<p class="font-13 fc-aux-9 mt-8">以色列F15掉了一半机翼能飞回去是因为双发可以平衡力矩，这个螺旋桨单发能这样降落真是牛掰了…</p>
+									<p class="font-16"><a <if condition="isset($r['article']) && $r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}"<else/>href="{:U('item/index',array('id'=>$r['id']))}"</if> title="{$r.title}" target="_blank" class="fc-aux-9">{$r.title}</a></p>
+									<p class="font-13 fc-aux-9 mt-8">{$r.content|strip_tags|msubstr=0,50}</p>
 								</div>
 							</li>
 						</ul>

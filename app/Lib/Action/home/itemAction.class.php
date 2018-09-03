@@ -235,9 +235,6 @@ class itemAction extends frontendAction {
          }
         $this->assign('follow_tag_list',$follow_tag_list);
 
-        //热门优惠
-        $this->right_hot_item();
-
         //评论列表
         $this->assign('xid',1);
         $this->assign('itemid',$id); 
