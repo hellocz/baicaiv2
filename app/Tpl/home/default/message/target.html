@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<include file="public:head" />
+    <!--当前页面css-->
+    <link rel="stylesheet" href="/public/css/member.css">
+    <!--新浪表情css-->
+    <link rel="stylesheet" href="/public/js/lib/sinaEmotion/jquery.sinaEmotion.css">
+</head>
+<body>
+	<!--个人中心顶部 start-->
+	<include file="public:header_user" />
+	<!--个人中心顶部 end-->
+	
+	<div class="w-1200 mt-149 clearfix">
+		<!--左边菜单start-->
+		<include file="public:left_menu" />
+		<!--左边菜单end-->
+		
+		<!--右边内容start-->
+		<div class="fl rightInfo white-bg radius-3">
+			<div class="r-title" style="line-height: 54px;"><a href="{:U('message/index')}" class="font-16 goback">选择收件人</a></div>
+			<ul class="sendTabNav clearfix">
+				<li class="active">查找</li>
+				<li>最近联系人</li>
+				<li>我的关注</li>
+				<li>我的粉丝</li>
+			</ul>
+			<!--查找start-->
+			<div class="listBox">
+				<div class="find">
+					<div>
+						<!-- <input type="submit" value="" class="button"> -->
+						<input type="text" placeholder="查找收件人…" class="input-1" id="find">
+					</div>
+					<div class="results">
+						<!-- <a href="messageDetails.html"><img src="/public/images/Head.jpg" class="radius-100" width="24" height="24"><span class="ml-10">Marlon Brando</span></a> -->
+					</div>
+				</div>
+			</div>
+			<!--查找end-->
+			<!--最近联系人start-->
+			<div class="listBox none">
+				<div class="userList clearfix contacts">
+					<volist name="target_contact_list" id="val">
+					<a href="{:U('message/talk', array('ftid'=>$val['id']+$visitor['id']))}"><img src="{:avatar_img($val['img_url'], 64)}" class="radius-100" width="24" height="24"><span class="ml-10">{$val.username}</span></a>
+					</volist>
+				</div>
+				<!--分页加载中start-->
+				<div class="page-loading"></div>
+				<!--分页加载中end-->
+				
+				<!--分页start-->
+				<script type="text/javascript">
+					var page_contacts={$page_contacts}, content_contacts = $(".listBox .contacts");
+				</script>
+				<div id="pages-contacts" class="pages" style="text-align: center;"></div>
+				<!--分页end-->
+			</div>
+			<!--最近联系人end-->
+			<!--我的关注start-->
+			<div class="listBox none">
+				<div class="userList clearfix follows">
+					<volist name="target_follow_list" id="val">
+					<a href="{:U('message/talk', array('ftid'=>$val['id']+$visitor['id']))}"><img src="{:avatar_img($val['img_url'], 64)}" class="radius-100" width="24" height="24"><span class="ml-10">{$val.username}</span></a>
+					</volist>
+				</div>
+				<!--分页加载中start-->
+				<div class="page-loading"></div>
+				<!--分页加载中end-->
+				
+				<!--分页start-->
+				<script type="text/javascript">
+					var page_follows={$page_follows}, content_follows = $(".listBox .follows");
+				</script>
+				<div id="pages-follows" class="pages" style="text-align: center;"></div>
+				<!--分页end-->
+			</div>
+			<!--我的关注end-->
+			<!--我的粉丝start-->
+			<div class="listBox none">
+				<div class="userList clearfix fans">
+					<volist name="target_fans_list" id="val">
+					<a href="{:U('message/talk', array('ftid'=>$val['id']+$visitor['id']))}"><img src="{:avatar_img($val['img_url'], 64)}" class="radius-100" width="24" height="24"><span class="ml-10">{$val.username}</span></a>
+					</volist>
+				</div>
+				<!--分页加载中start-->
+				<div class="page-loading"></div>
+				<!--分页加载中end-->
+				
+				<!--分页start-->
+				<script type="text/javascript">
+					var page_fans={$page_fans}, content_fans = $(".listBox .fans");
+				</script>
+				<div id="pages-fans" class="pages" style="text-align: center;"></div>
+				<!--分页end-->
+			</div>
+			<!--我的粉丝end-->
+		</div>
+		<!--右边内容end-->
+	</div>
+	
+	<!--底部统一区域+右边悬浮按钮start-->
+	<include file="public:footer" />
+	<!--底部统一区域+右边悬浮按钮end-->
+	
+	<!--引入页面单独JS文件-->
+	<script src="/public/js/member/sendMessage.js"></script>
+</body>
+</html>

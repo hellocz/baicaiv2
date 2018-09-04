@@ -122,9 +122,6 @@ class tickAction extends frontendAction {
 		$orig_info = D("item_orig")->get_info($info['orig_id']);
 		$this->assign('orig',$orig_info);
 
-		//热门优惠
-		$this->right_hot_item();
-
 		//相关优惠精选
 		$time = time();
 		$where="status=1 and add_time<$time and isnice=1 and orig_id=" . $orig_info['id'];
@@ -182,7 +179,7 @@ class tickAction extends frontendAction {
 		$xc['info'] ='领取优惠券：'. M('tick')->where("id=$id")->getField('name');
 
 		M('message')->add($xc);
-		$_SESSION['user_info']['message']=M('message')->where("to_id='".$info['id']."' and ck_status=0")->count();
+		D('message')->set_unread_message_num($info['id']);
 		$this->ajaxReturn(2,'兑换成功!快去个人中心-我的优惠卷看看吧！');
 	}
 

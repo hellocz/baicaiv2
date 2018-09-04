@@ -266,7 +266,7 @@ function avatar($uid, $size) {
 	  $avatar_size = explode(',', C('pin_avatar_size'));
     $size = in_array($size, $avatar_size) ? $size : '100';
     $avatar_dir = avatar_dir($uid);
-    $user = M("user")->where(array('id'=>$uid))->find();
+    $user = D("user")->get_info($uid);
     if($user['is_avator'] == 1){
     	return $user['img_url'];
     }
@@ -274,6 +274,18 @@ function avatar($uid, $size) {
     	$avatar_file = "default_{$size}.jpg";
     	return __ROOT__.'/' . C('pin_attach_path') . 'avatar/' . $avatar_file;
     }
+}
+
+function avatar_img($img_url, $size) {
+	$avatar_size = explode(',', C('pin_avatar_size'));
+	$size = in_array($size, $avatar_size) ? $size : '100';
+	if($img_url){
+		return $img_url;
+	}else{
+		//默认图片
+		$avatar_file = "default_{$size}.jpg";
+		return __ROOT__.'/' . C('pin_attach_path') . 'avatar/' . $avatar_file;
+	}	
 }
 
 function avatar_dir($uid) {

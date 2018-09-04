@@ -343,8 +343,8 @@
                                 </svg>
                                 我的收藏
                             </a>
-                            <a href="#">
-                                <span class="fr number radius-100">18</span>
+                            <a href="{:U('message/system')}">
+                                <span class="fr number radius-100" <if condition= "(!isset($visitor['message'])) OR ($visitor['message']['total'] eq 0)">style="display:none;"</if>>{$visitor['message']['total']}</span>
                                 <svg role="img" class="icon">
                                     <!--[if lte IE 8]><desc><img src="/public/images/ie8/e_19@2x.png" width="20" height="20"></desc><![endif]-->
                                     <use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_19"></use>
@@ -358,13 +358,13 @@
                                 </svg>
                                 账户设置
                             </a>
-                            <a href="#">
-                                <svg role="img" class="icon">
+                            <!-- <a href="#">
+                                <svg role="img" class="icon"> -->
                                     <!--[if lte IE 8]><desc><img src="/public/images/ie8/e_11@2x.png" width="20" height="20"></desc><![endif]-->
-                                    <use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_11"></use>
+                                    <!-- <use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_11"></use>
                                 </svg>
                                 加入合伙人
-                            </a>
+                            </a> -->
                             <a href="{:U('user/logout')}" id="outlogin" class="sub-radius-3">
                                 <svg role="img" class="icon">
                                     <!--[if lte IE 8]><desc><img src="/public/images/ie8/e_16@2x.png" width="20" height="20"></desc><![endif]-->
@@ -400,10 +400,10 @@
             </div>
             <div class="fr nav vcenter">
                 <div>
-                    <a href="{:U('user/index')}" class="a-green">个人中心</a>
-                    <a href="{:U('user/keysfollow')}">关注</a>
-                    <a href="index.html">消息</a>
-                    <a href="index.html">我的订单</a>
+                    <a href="{:U('user/index')}" <if condition="$user_module_curr eq 'user' AND $user_menu_curr neq 'keysfollow'">class="a-green"</if>>个人中心</a>
+                    <a href="{:U('user/keysfollow')}" <if condition="$user_module_curr eq 'user' AND $user_menu_curr eq 'keysfollow'">class="a-green"</if>>关注</a>
+                    <a href="{:U('message/system')}" <if condition="$user_module_curr eq 'message'">class="a-green"</if>>消息</a>
+                    <!-- <a href="index.html">我的订单</a> -->
                     <a href="index.html">账户设置</a>
                 </div>
             </div>

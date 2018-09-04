@@ -7,13 +7,13 @@
 						<div class="font-14 mt-10">“ {$r.info}”</div>
 						<ul class="item-info mt-12 clearfix">
 							<li class="fl info-1">
-								<a <if condition="$r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}"<else/>href="{:U('item/index',array('id'=>$r['id']))}"</if> title="{$r.title}" target="_blank">
-									<img <if condition="$r['article'] eq '1'">src="{:attach($r['img'],'article')}"<else/>src="{:attach($r['img'],'item','')}"</if> title="{$r.title}" alt="{$r.title}" class="lazyimg radius-3">
+								<a <if condition="isset($r['article']) && $r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}"<else/>href="{:U('item/index',array('id'=>$r['id']))}"</if> title="{$r.title}" target="_blank">
+									<img <if condition="isset($r['article']) && $r['article'] eq '1'">src="{:attach($r['img'],'article')}"<else/>src="{:attach($r['img'],'item','')}"</if> title="{$r.title}" alt="{$r.title}" class="lazyimg radius-3">
 								</a>
 							</li>
 							<li class="fl info-2 lvcenter ml-12">
 								<div>
-									<p class="font-16"><a <if condition="$r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}"<else/>href="{:U('item/index',array('id'=>$r['id']))}"</if> title="{$r.title}" target="_blank" class="fc-aux-9">{$r.title}</a></p>
+									<p class="font-16"><a <if condition="isset($r['article']) && $r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}"<else/>href="{:U('item/index',array('id'=>$r['id']))}"</if> title="{$r.title}" target="_blank" class="fc-aux-9">{$r.title}</a></p>
 									<p class="font-13 fc-aux-9 mt-8">{$r.content|strip_tags|msubstr=0,50}</p>
 								</div>
 							</li>

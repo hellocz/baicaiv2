@@ -1,0 +1,46 @@
+<!--循环start-->
+			<if condition="$talk_list">
+				<volist name="talk_list" id="talk">
+				<div class="item-6 mt-10 clearfix talk">
+					<a href="{:U('member/index', array('uid'=>$talk['ta_id']))}" target="_blank"><img src="{:avatar($talk['ta_id'], 48)}" title="{$talk.ta_name}" alt="{$talk.ta_name}" class="fl radius-100 lazyimg" width="64" height="64"></a>
+					<div class="fl info vcenter">
+						<div>
+							<div class="tit">
+								<a href="{:U('member/index', array('uid'=>$talk['ta_id']))}" class="hover-underline a-green font-14" target="_blank">{$talk.ta_name}</a>
+								<span data-uid="{$talk['ta_id']}" class="btn-6 ml-10 cursor-pointer J_follow_user <if condition="$follows[$talk['ta_id']]">none</if>">+关注</span>
+								<span data-uid="{$talk['ta_id']}" class="btn-6 ml-10 cursor-pointer J_unfollow_user <if condition="!$follows[$talk['ta_id']]">none</if>">已关注</span>
+							</div>
+							<div class="fc-gray font-14 mt-10">
+								<if condition="$talk['from_id'] eq $visitor['id']">{:L('i_to_h')}:<else/>{:L('h_to_i')}:</if>
+								<a href="{:U('message/talk', array('ftid'=>$talk['ftid']))}">“ {$talk.info} ”</a>
+							</div>
+						</div>
+					</div>
+					<div class="fr info vcenter">
+						<div>
+							<div class="font-14 fc-aux-a text-right">{$talk.add_time|fdate}</div>
+							<div class="fc-aux-a mt-5 wd">
+								<a href="{:U('message/talk', array('ftid'=>$talk['ftid']))}" <if condition="$talk['ck_status'] eq 0 && $talk['from_id'] neq $visitor['id']">class="a-green"</if>>共{$talk['num']}条信息，查看</a>
+								<span data-ftid="{$talk['ftid']}" class="delMessage radius-3 ml-10 J_talk_del">
+									<svg class="icon">
+										<!--[if lte IE 8]><desc><img src="/public/images/ie8/e_4@2x.png" width="14" height="14"></desc><![endif]-->
+										<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_4"></use>
+									</svg>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				</volist>
+			<else/>
+				<div class="item-6 mt-10 clearfix">
+					<div class="fl info vcenter">
+						<div>
+							<div class="fc-gray font-14 mt-10">
+								{:L('no_message')}
+							</div>
+						</div>
+					</div>
+				</div>
+			</if>
+				<!--循环end-->

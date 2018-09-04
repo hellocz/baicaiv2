@@ -1,5 +1,38 @@
 $(function(){
 
+	$(".J_zan").on('click',function(){
+		var obj=$(this);
+		$.get("/index.php?m=ajax&a=zan",{id:$(obj).data("id"),xid:$(obj).data("xid")},function(result){
+			if(result.status==1){
+				if(typeof $(obj).data("num") != "undefined"){
+					obj = $(obj).find($(obj).data("num")); //数据显示
+				}
+				var num = $(obj).html();
+				$(obj).html(++num);
+				tipsPopup('tips_1',result.msg);
+			}else{
+				tipsPopup('tips_2',result.msg);
+			}
+		},'json');
+	});
+
+	$(".J_cai").on('click',function(){
+		var obj=$(this);
+		$.get("/index.php?m=ajax&a=cai",{id:$(obj).data("id"),xid:$(obj).data("xid")},function(result){
+			if(result.status==1){
+				if(typeof $(obj).data("num") != "undefined"){
+					obj = $(obj).find($(obj).data("num")); //数据显示
+				}
+				var num = $(obj).html();
+				$(obj).html(++num);
+				tipsPopup('tips_1',result.msg);
+			}else{
+				tipsPopup('tips_2',result.msg);
+			}
+		},'json');
+	});
+
+
 	//用户关注
 	$(".J_follow_user").on("click",function(){
 		if(PINER.uid==""){
@@ -18,8 +51,8 @@ $(function(){
 				if(res.status==0){
 					tipsPopup('tips_2', res.msg);
 				}else{
-					obj.addClass("none");
-					obj.siblings(".J_unfollow_user").removeClass("none");
+					obj.hide();
+					obj.siblings(".J_unfollow_user").show();
 					tipsPopup('tips_1', res.msg);
 				}
 			}
@@ -44,8 +77,8 @@ $(function(){
 				if(res.status==0){
 					tipsPopup('tips_2', res.msg);
 				}else{
-					obj.addClass("none");
-					obj.siblings(".J_follow_user").removeClass("none");
+					obj.hide();
+					obj.siblings(".J_follow_user").show();
 					tipsPopup('tips_1', res.msg);
 				}
 			}
@@ -106,37 +139,6 @@ $(function(){
 			}
 		},'json');
 	});
-
-
-	//商品点赞
-	$(".J_zan").click(function(){
-		if(PINER.uid==""){
-			LoginPopup();
-		}
-		$.get("/index.php?m=ajax&a=zan&t=item",{id:$(this).data("id")},function(result){
-			if(result.status==1){
-				// tips('点赞成功',1);
-				tipsPopup('tips_1', '顶成功');
-			}else{
-				// tips(result.msg,0);
-				tipsPopup('tips_2', result.msg);
-			}
-		},'json')
-	});
-
-
-	// /*列表页的赞
-	// $(".Jz_submit").on('click',function(){//商品点赞
-	// 	var obj=$(this);
-	// 	$.get("/index.php?m=ajax&a=zan",{id:$(this).attr("data"),t:$(this).attr("data-t")},function(result){
-	// 		if(result.status==1){
-	// 			obj.html(parseInt(obj.html())+1);
-	// 		}else{
-	// 			tips(result.msg,0);
-	// 		}
-	// 	},'json')
-	// });
-	// */
 	
 	// /*列表页的收藏*/
 	// $(".Jl_likes").on('click',function(){//收藏商品

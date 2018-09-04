@@ -212,6 +212,43 @@
 	    //URL
 	    url: {}
 	};
+
+	//每隔20秒自动获取未读消息数并更新提示(带公共头部或用户首页公共头部才会执行)
+	if(PINER.uid!="" && ($('#header .newMsg').length>0 || $('.top-member').length>0)){
+
+		if($('#header .newMsg').length>0){
+			//最新消息调用此方法即可
+			newMsg();
+		}
+
+		var t = null;
+		t = setInterval(function(){
+		$.get(PINER.root+'/?m=user&a=messg',function(result){
+			if(result.data.total>0){
+				console.log($('#header .newMsg').length);
+				if($('#header .newMsg').length>0){
+					//公共头部-xxx条新消息提示DIV
+					$('#header .newMsg .totalMsg').html(result.data.total);
+					$('#header .newMsg .systemMsg').html(result.data.system); //系统消息
+					$('#header .newMsg .userMsg').html(result.data.user); //站内消息
+					$('#header .newMsg .followMsg').html(result.data.follow); //关注消息
+					$('#header .newMsg').show();
+				}
+				//公共头部和用户首页公共头部-个人下拉列表-我的消息数
+				$('.top-member .member-info .number').html(result.data.total);
+				$('.top-member .member-info .number').show();
+			}else{
+				if($('#header .newMsg').length>0){					
+					$('#header .newMsg').hide();
+				}
+				//公共头部和用户首页公共头部-个人下拉列表-我的消息数隐藏
+				$('.top-member .member-info .number').hide();
+			}
+		},'json');
+
+		},20000);
+	}
+
 	</script>
 
 	<script src="/public/js/function.js?v=20180223"></script>

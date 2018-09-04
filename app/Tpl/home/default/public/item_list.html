@@ -4,19 +4,19 @@
 							<!--瀑布流样式start-->
 							<div class="cross radius-3">
 								<div class="img">
-									<a <if condition="$r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}"<else/>href="{:U('item/index',array('id'=>$r['id']))}"</if> title="{$r.title}" target="_blank">
-										<img class="lazyimg" <if condition="$r['article'] eq '1'">src="{:attach($r['img'],'article')}"<else/>src="{:attach($r['img'],'item','208')}"</if> title="{$r.title}" alt="{$r.title}">
+									<a <if condition="isset($r['article']) && $r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}"<else/>href="{:U('item/index',array('id'=>$r['id']))}"</if> title="{$r.title}" target="_blank">
+										<img class="lazyimg" <if condition="isset($r['article']) && $r['article'] eq '1'">src="{:attach($r['img'],'article')}"<else/>src="{:attach($r['img'],'item','208')}"</if> title="{$r.title}" alt="{$r.title}">
 									</a>
 								</div>
 								<div class="info">
 									<div class="font-14 title">
-										<a <if condition="$r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}"<else/>href="{:U('item/index',array('id'=>$r['id']))}"</if> title="{$r.title}" target="_blank">{$r.title}</a>
+										<a <if condition="isset($r['article']) && $r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}"<else/>href="{:U('item/index',array('id'=>$r['id']))}"</if> title="{$r.title}" target="_blank">{$r.title}</a>
 									</div>
 									<div class="fc-red price layui-elip">{$r.price}</div>
 									<div class="content mt-15">
 										<span class="attr1 fc-aux-a icon_3 icon_3-e_21 layui-elip"><a href="{:U('orig/show',array('id'=>$r['orig_id']))}" class="hover-underline">{$options['orig'][$r['orig_id']]['name']}</a></span>
-										<span class="attr3 fc-aux-a fr icon_3 icon_3-e_23">{$r.comments}</span>
-										<span class="attr2 fc-aux-a fr icon_3 icon_3-e_22">{$r.zan}</span>
+										<a <if condition="isset($r['article']) && $r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}#comments"<else/>href="{:U('item/index',array('id'=>$r['id']))}#comments"</if> target="_blank"><span class="attr3 fc-aux-a fr icon_3 icon_3-e_23">{$r.comments}</span></a>
+										<span class="attr2 fc-aux-a fr icon_3 icon_3-e_22 cursor-pointer J_zan" data-id="{$r.id}" data-xid="<if condition="isset($r['article']) && $r['article'] eq '1'">3<else/>1</if>">{$r.zan}</span>
 									</div>
 								</div>
 								<!--弹出评价start-->
@@ -24,12 +24,12 @@
 									<if condition="$r['intro']"><div class="comments"><span>“</span><if condition="mb_strlen($r['intro'],'utf-8') gt 28">{$r.intro|strip_tags|msubstr=0,28}<else/>{$r.intro}</if><span class="sy">”</span></div></if>
 									<div class="caozuo">
 										<p class="cz1">
-											<span class="fc-aux-a icon3 icon3-c_6 cursor-pointer" onclick="tipsPopup('tips_1','投票成功')">{$r.zan}</span>
-											<span class="fc-aux-a icon3 icon3-c_7 cursor-pointer" onclick="tipsPopup('tips_1','投票成功')">{$r.zan}</span>
-											<a href="page/details.html#comments"><span class="fc-aux-a icon3 icon3-a_43">{$r.comments}</span></a>
+											<span class="fc-aux-a icon3 icon3-c_6  cursor-pointer J_zan" data-id="{$r.id}" data-xid="<if condition="isset($r['article']) && $r['article'] eq '1'">3<else/>1</if>">{$r.zan}</span>
+											<span class="fc-aux-a icon3 icon3-c_7 cursor-pointer J_cai" data-id="{$r.id}" data-xid="<if condition="isset($r['article']) && $r['article'] eq '1'">3<else/>1</if>">{$r.cai}</span>
+											<a <if condition="isset($r['article']) && $r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}#comments"<else/>href="{:U('item/index',array('id'=>$r['id']))}#comments"</if> target="_blank"><span class="fc-aux-a icon3 icon3-a_43">{$r.comments}</span></a>
 										</p>
 										<p class="cz2">
-											<a <if condition="$r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}"<else/>href="{:U('item/index',array('id'=>$r['id']))}"</if> title="{$r.title}" target="_blank" class="btn-2">查看详情</a><?php $llink = unserialize($r['go_link']);$lc = count($llink);?><if condition="$lc gt 1">
+											<a <if condition="isset($r['article']) && $r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}"<else/>href="{:U('item/index',array('id'=>$r['id']))}"</if> title="{$r.title}" target="_blank" class="btn-2">查看详情</a><?php $llink = unserialize($r['go_link']);$lc = count($llink);?><if condition="$lc gt 1">
 											<!--多链接样式-->
 											<a href="javascript: void(0);" class="btn-more">去购买</a>
 											<div class="moreUrl radius-3 none">
@@ -53,14 +53,14 @@
 							<!--横向列表样式start-->
 							<div class="vertical none clearfix">
 								<div class="fl img">
-									<a <if condition="$r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}"<else/>href="{:U('item/index',array('id'=>$r['id']))}"</if> title="{$r.title}" target="_blank">
-										<img <if condition="$r['article'] eq '1'">src="{:attach($r['img'],'article')}"<else/>src="{:attach($r['img'],'item','')}"</if> title="{$r.title}" alt="{$r.title}" class="radius-3 lazyimg">
+									<a <if condition="isset($r['article']) && $r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}"<else/>href="{:U('item/index',array('id'=>$r['id']))}"</if> title="{$r.title}" target="_blank">
+										<img <if condition="isset($r['article']) && $r['article'] eq '1'">src="{:attach($r['img'],'article')}"<else/>src="{:attach($r['img'],'item','')}"</if> title="{$r.title}" alt="{$r.title}" class="radius-3 lazyimg">
 									</a>
 								</div>
 								<div class="fl info mr-40">
 									<div>
-										<p class="infoTitle font-14"><a <if condition="$r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}"<else/>href="{:U('item/index',array('id'=>$r['id']))}"</if> title="{$r.title}" target="_blank">{$r.title}</a></p>
-										<if condition="$r['article'] eq '1' OR $r['isbao'] eq '1'"><if condition="$r['uid'] neq 0"><p class="infoMember mt-8"><a href="{:U('member/index', array('uid'=>$r['uid']))}" class="hover-underline">{$r.uname}</a><span>爆料于 {$r.add_time|fdate}</span></p></if></if>
+										<p class="infoTitle font-14"><a <if condition="isset($r['article']) && $r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}"<else/>href="{:U('item/index',array('id'=>$r['id']))}"</if> title="{$r.title}" target="_blank">{$r.title}</a></p>
+										<if condition="isset($r['article']) && $r['article'] eq '1' OR $r['isbao'] eq '1'"><if condition="$r['uid'] neq 0"><p class="infoMember mt-8"><a href="{:U('member/index', array('uid'=>$r['uid']))}" class="hover-underline">{$r.uname}</a><span>爆料于 {$r.add_time|fdate}</span></p></if></if>
 									</div>
 								</div>
 								<div class="fl w-200 h-75 vcenter">
@@ -71,7 +71,7 @@
 								</div>
 								<div class="fl w-90 h-75 lvcenter">
 									<div class="score">
-										<p class="text-center fc-aux-a">
+										<p class="text-center fc-aux-a cursor-pointer J_zan" data-id="{$r.id}" data-xid="<if condition="isset($r['article']) && $r['article'] eq '1'">3<else/>1</if>">
 											<svg class="icon">
 												<!--[if lte IE 8]><desc><img src="/public/images/ie8/a_42@2x.png" width="14" height="14"></desc><![endif]-->
 												<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-a_42"></use>
@@ -82,7 +82,7 @@
 									</div>
 								</div>
 								<div class="fr h-75 vcenter comments fc-aux-a">
-									<a href="#">
+									<a <if condition="isset($r['article']) && $r['article'] eq '1'">href="{:U('article/show',array('id'=>$r['id']))}#comments"<else/>href="{:U('item/index',array('id'=>$r['id']))}#comments"</if> target="_blank">
 										<svg class="icon">
 											<!--[if lte IE 8]><desc><img src="/public/images/ie8/a_43@2x.png" width="14" height="14"></desc><![endif]-->
 											<use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-a_43"></use>

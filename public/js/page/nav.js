@@ -101,23 +101,23 @@ $(document).ready(function() {
 	/*顶部其他下拉菜单*/
 	
 	
-	/*顶部显示/隐藏登录或用户信息*/
-	$("#login").click(function(){
-		$(".member-info").show();
-		$(".member-btn").hide();
-		$(".i-member .login").hide();
-		$(".i-member .info").show();
-		$(".yjr").toggle();
-		$(".wjr").toggle()
-	});
-	$("#outlogin").click(function(){
-		$(".member-info").hide();
-		$(".member-btn").show();
-		$(".i-member .login").show();
-		$(".i-member .info").hide();
-		$(".yjr").toggle()
-		$(".wjr").toggle();
-	});
+	// /*顶部显示/隐藏登录或用户信息*/
+	// $("#login").click(function(){
+	// 	$(".member-info").show();
+	// 	$(".member-btn").hide();
+	// 	$(".i-member .login").hide();
+	// 	$(".i-member .info").show();
+	// 	$(".yjr").toggle();
+	// 	$(".wjr").toggle()
+	// });
+	// $("#outlogin").click(function(){
+	// 	$(".member-info").hide();
+	// 	$(".member-btn").show();
+	// 	$(".i-member .login").show();
+	// 	$(".i-member .info").hide();
+	// 	$(".yjr").toggle()
+	// 	$(".wjr").toggle();
+	// });
 });
 
 //禁止滚动条滚动

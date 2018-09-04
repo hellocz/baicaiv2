@@ -10,8 +10,8 @@
 						<div class="fl info">
 							<p class="font-14 title"><a href="{:U('article/show',array('id'=>$r['id']))}" title="{$r.title}" target="_blank">{$r.title}</a></p>
 							<p class="tb">
-								<span class="attr fc-aux-a icon_3 icon_3-e_22">{$r.zan}</span>
-								<span class="attr fc-aux-a icon_3 icon_3-e_24">{$r.comments}</span>
+								<span class="attr fc-aux-a icon_3 icon_3-e_22 cursor-pointer J_zan" data-id="{$r.id}" data-xid="3">{$r.zan}</span>
+								<a href="{:U('article/show',array('id'=>$r['id']))}#comments" target="_blank"><span class="attr fc-aux-a icon_3 icon_3-e_24">{$r.comments}</span></a>
 							</p>
 						</div>
 					</li>

@@ -5,6 +5,19 @@ class userAction extends userbaseAction {
     public function _initialize(){
         parent::_initialize();
         $this->_mod = D('user');
+
+        //if(in_array(ACTION_NAME, array('index', 'publish', 'likes', 'keysfollow', 'userfollow', 'lucky', 'exchange', 'tick', 'score', 'score_illegal'))){
+        if(array_key_exists(ACTION_NAME, $this->menu_list)){
+                //个人中心 - 个人信息                
+                $this->user['join_days'] = intval((time() - $this->user['reg_time']) / 86400); //加入天数                
+                $fans = D("user_follow")->user_fans_count($uid);
+                $this->user['fans'] = intval($fans); //粉丝
+                $sum_article = D('article')->user_article_sum($uid);//发表的原创文章数量
+                $sum_item = D("item")->user_bao_sum($uid);//发表的爆料数量
+                $this->user['zan'] = isset($sum_article['zan']) ? $sum_article['zan'] : 0;//原创：攻畋+晒单                
+                $this->user['zan'] += isset($sum_item['zan']) ? $sum_item['zan'] : 0;//爆料
+                $this->assign('user',$this->user);
+        }
     }
 
 
@@ -17,14 +30,14 @@ class userAction extends userbaseAction {
         $p = $this->_get('p', 'intval', 1);
         if($p<1){$p=1;}
         $pagesize=10;        
-        $uid=$this->_user['id'];
+        $uid=$this->user['id'];
 
         $count = array();
         $sum_article = D('article')->user_article_sum($uid);
         $sum_item = D("item")->user_bao_sum($uid);
         $count['article'] = isset($sum_article['count']) ? $sum_article['count'] : 0;//原创：攻畋+晒单        
         $count['bao'] = isset($sum_item['count']) ? $sum_item['count'] : 0;//爆料        
-        $count['vote'] = 0; //投票：点选、点踩        
+        $count['vote'] = D('item_vote')->user_vote_count($uid); //投票：点选、点踩        
         $count['comm'] = D('comment')->user_comment_count($uid); //评论        
         $count['likes'] = D("likes")->user_likes_count($uid);//收藏        
         $count['follows'] = D("user_follow")->user_follow_count($uid);//关注
@@ -42,7 +55,7 @@ class userAction extends userbaseAction {
         // //勋章
         // $xz['share_num'] = M("share")->where("uid=$uid")->count();//分享达人
         // $xz['bao_num'] = M("item")->where("uid=$uid and status=1")->count();//爆料达人
-        // $xz['sign_num'] = $this->_user['all_sign'];//签到
+        // $xz['sign_num'] = $this->user['all_sign'];//签到
         // $xz['gl_num'] = M("article")->where("uid=$uid and status=1 and cate_id in(select id from try_article_cate where pid=9 or id=9)")->count();//攻略
         // $xz['sd_num'] = M("article")->where("uid=$uid and status=1 and cate_id=10")->count();//晒单
         // $xz['cm_num'] = M("comment")->where("uid=$uid and status=1")->count();
@@ -96,7 +109,7 @@ class userAction extends userbaseAction {
                 $list = D("item")->user_bao_list($uid, $status, $field, $limit);
                 break;
             case 'vote': //投票：点选、点踩
-                # code...
+                $list=D('item_vote')->user_vote_list($uid, $limit);
                 break;
             case 'comm': //评论
                 $list=D('comment')->user_comment_list($uid, $limit);
@@ -132,7 +145,7 @@ class userAction extends userbaseAction {
         $status = $this->_get('status', 'trim');
         if($p<1){$p=1;}
         $pagesize=10;        
-        $uid=$this->_user['id'];
+        $uid=$this->user['id'];
         if(!in_array($t, array('article', 'bao'))) $t = 'all';
         if(!in_array($status, array('0', '1', '2', '3'))) $status = '';
 
@@ -206,8 +219,8 @@ class userAction extends userbaseAction {
     public function likes(){
         $p = $this->_get('p', 'intval', 1);
         if($p<1){$p=1;}
-        $pagesize=1;        
-        $uid=$this->_user['id'];
+        $pagesize=10;        
+        $uid=$this->user['id'];
 
         $count = D("likes")->user_likes_count($uid);//收藏 
 
@@ -254,7 +267,7 @@ class userAction extends userbaseAction {
         $itemid = $this->_get('itemid','intval');
         $xid = $this->_get('xid','intval');
         // $uid = $this->_get('uid','intval');
-        $uid=$this->_user['id'];
+        $uid=$this->user['id'];
         $mod = D("likes");
         //查找是否已收藏
         $islike=$mod->is_likes($uid, $xid, $itemid);
@@ -279,7 +292,7 @@ class userAction extends userbaseAction {
         $p = $this->_get('p', 'intval', 1);
         if($p<1){$p=1;}
         $pagesize=10;        
-        $uid=$this->_user['id'];
+        $uid=$this->user['id'];
 
         $count = D("notify_tag")->user_follow_count($uid);//收藏 
 
@@ -357,7 +370,7 @@ class userAction extends userbaseAction {
      * 关注tag
      */
     public function follow_tag_create(){
-        $tag['userid'] = $this->_user['id'];
+        $tag['userid'] = $this->user['id'];
         $tag['tag'] = $this->_post('tag','trim');
         $notify_tag = D("notify_tag");
         $result = $notify_tag->follow($tag['userid'], $tag['tag']);
@@ -372,7 +385,7 @@ class userAction extends userbaseAction {
      * 推送tag
      */
     public function notify_tag_create(){
-        $tag['userid'] = $this->_user['id'];
+        $tag['userid'] = $this->user['id'];
         $tag['tag'] = $this->_post('tag','trim');
         $notify_tag = D("notify_tag");
         $result = $notify_tag->follow($tag['userid'], $tag['tag'], true);
@@ -388,7 +401,7 @@ class userAction extends userbaseAction {
      */
     public function notify_tag_del(){
         $notify_tag = D("notify_tag");
-        $tag['userid'] = $this->_user['id'];
+        $tag['userid'] = $this->user['id'];
         $tag['tag'] = $this->_post('tag','trim');
         $result = $notify_tag->unfollow($tag['userid'], $tag['tag'], true);
         if ($result) {
@@ -403,7 +416,7 @@ class userAction extends userbaseAction {
      */
     public function follow_tag_del(){
         $notify_tag = D("notify_tag");
-        $tag['userid'] = $this->_user['id'];
+        $tag['userid'] = $this->user['id'];
         $tag['tag'] = $this->_post('tag','trim');
         $result = $notify_tag->unfollow($tag['userid'], $tag['tag']);
         if ($result) {
@@ -422,7 +435,7 @@ class userAction extends userbaseAction {
         $p = $this->_get('p', 'intval', 1);
         if($p<1){$p=1;}
         $pagesize=10;        
-        $uid=$this->_user['id'];
+        $uid=$this->user['id'];
         if($t != 'fans') $t = 'follows';
 
         $count = array();
@@ -556,7 +569,7 @@ class userAction extends userbaseAction {
     public function lucky() {
         $t = $this->_get('t',"trim"); 
         $p = $this->_get('p', 'intval', 1);
-        $uid=$this->_user['id'];
+        $uid=$this->user['id'];
         if($p<1){$p=1;}
         $pagesize = 10;
         if($t != "lucky") $t = "win";
@@ -582,7 +595,7 @@ class userAction extends userbaseAction {
      */
     public function exchange() {
         $p = $this->_get('p', 'intval', 1);
-        $uid=$this->_user['id'];
+        $uid=$this->user['id'];
         if($p<1){$p=1;}
         $pagesize = 10;
         $t = "exchange";
@@ -638,7 +651,7 @@ class userAction extends userbaseAction {
     //我的优惠券
     public function tick(){
         $p = $this->_get('p', 'intval', 1);
-        $uid=$this->_user['id'];
+        $uid=$this->user['id'];
         if($p<1){$p=1;}
         $pagesize = 12; //12
         $t = $this->_get('t', 'trim');  //all, valid
@@ -700,11 +713,11 @@ class userAction extends userbaseAction {
      */
     public function score(){
         $p = $this->_get('p', 'intval', 1);
-        $uid=$this->_user['id'];
+        $uid=$this->user['id'];
         if($p<1){$p=1;}
         $pagesize = 15; //15
 
-        $user = $this->_user;
+        $user = $this->user;
         $user['grade'] = D("grade")->get_grade($user['exp']);
         $user['next_grade'] = D("grade")->get_info($user['grade']+1);
         $user['w']=($user['exp']*100)/$user['next_grade']['min'];
@@ -732,7 +745,7 @@ class userAction extends userbaseAction {
      */
     public function score_illegal(){
         $p = $this->_get('p', 'intval', 1);
-        $uid=$this->_user['id'];
+        $uid=$this->user['id'];
         if($p<1){$p=1;}
         $pagesize = 15; //15
 
@@ -782,7 +795,7 @@ class userAction extends userbaseAction {
 
     //签到
     public function sign(){
-        $uid=$this->_user['id'];
+        $uid=$this->user['id'];
 
         // 签到
         $result = $this->_mod->sign($uid);
@@ -795,6 +808,14 @@ class userAction extends userbaseAction {
         }
     }
 
+    /**
+     * 新消息 - AJAX请求
+     */
+    public function messg(){
+        $uid=$this->user['id'];
+        $count = D('message')->set_unread_message_num($uid);
+        $this->ajaxReturn(1, '', $count);
+    }
 
     /**
      * 用户登陆
@@ -1663,11 +1684,7 @@ class userAction extends userbaseAction {
 			$this->ajaxReturn("0",'删除失败');
 		}
 	}
-    public function messg(){
-        $info = $this->visitor->get();
-        $_SESSION['user_info']['message']=M('message')->where("to_id='".$info['id']."' and ck_status=0")->count();
-        $this->ajaxReturn("1",$_SESSION['user_info']['message']);
-    }
+
 
       //查询某个用户的推送时段
 
