@@ -102,7 +102,7 @@ class userAction extends userbaseAction
     public function smscode($data) {
         //$code = '123456';
 
-        if($data['type'] == "register"){
+        if($data['type'] == "register" || $data['type'] == "bind"){
              $count = M('user')->where(['mobile'=>$data['mobile']])->count('id');
              if($count >0) {
                    echo get_result(20001, [], "手机号码已经被注册!");
@@ -253,6 +253,8 @@ class userAction extends userbaseAction
             $userinfo['offer'] = $user['offer'];
             $userinfo['mobile'] = $user['mobile'];
             $userinfo['email'] = $user['email'];
+            $userinfo['username'] = $user['username'];
+            $userinfo['img_url'] = avatar($data['userid'],100);
 
             echo get_result(10001,$userinfo);
         }
@@ -587,6 +589,7 @@ class userAction extends userbaseAction
 
     //用户等级
     public function grade($data){
+        empty($data['page'])&&$data['page'] =1;
         $page = $data['page'] * 10;
         $t=$data['type'];
         $pagesize=10;
@@ -684,6 +687,82 @@ class userAction extends userbaseAction
 
     }
 
+     //积分记录
+    public function score_record($data){
+        empty($data['page'])&&$data['page'] =1;
+        $page = $data['page'] * 10;
+        $pagesize=10;
+        //经验值、等级
+        $user = M("user")->field('id,score,coin,offer,exp')->where(['id'=>$data['userid']])->find();
+        $log_mod = M("score_log");
+
+        if($data['type'] == "expend"){
+            $list = $log_mod->where("uid=$user[id] and score<0")
+                    ->field('action,score,add_time')
+                    ->order("add_time desc")
+                    ->limit($page-10, $pagesize)
+                    ->select();
+        }
+        elseif ($data['type'] == "income") {
+            $list = $log_mod->where("uid=$user[id] and score>0")
+                    ->field('action,score,add_time')
+                    ->order("add_time desc")
+                    ->limit($page-10, $pagesize)
+                    ->select();
+        }
+        
+
+        foreach($list as $key=>$val){
+            if($list[$key]['action'] == "register"){
+               $list[$key]['action'] = "注册";
+            }
+            elseif($list[$key]['action'] == "login"){
+               $list[$key]['action'] = "登陆";
+            }
+            elseif($list[$key]['action'] == "sign"){
+               $list[$key]['action'] = "签到";
+            }
+            elseif($list[$key]['action'] == "shixin"){
+               $list[$key]['action'] = "私信";
+            }
+            elseif($list[$key]['action'] == "exchange"){
+               $list[$key]['action'] = "兑换";
+            }
+            elseif($list[$key]['action'] == "upload_avator"){
+               $list[$key]['action'] = "更新照片";
+            }
+            elseif($list[$key]['action'] == "comment" OR $list[$key]['action'] == "comment1"){
+               $list[$key]['action'] = "评论";
+            }
+            elseif($list[$key]['action'] == "publish_item"){
+               $list[$key]['action'] = "爆料";
+            }
+            elseif($list[$key]['action'] == "hit_share"){
+               $list[$key]['action'] = "点击分享";
+            }
+            elseif($list[$key]['action'] == "share"){
+               $list[$key]['action'] = "分享";
+            }
+            elseif($list[$key]['action'] == "pubitem"){
+               $list[$key]['action'] = "发布分享";
+            }
+            elseif($list[$key]['action'] == "ssbx"){
+               $list[$key]['action'] = "小编修改";
+            }
+            elseif(stristr($list[$key]['action'],"publish_article") !== false){
+               $list[$key]['action'] = "晒单";
+            }
+            }
+        $user['log'] = $list;
+        $code = 10001;
+        if($list < 1){
+            $code = 10002;
+        }
+        echo get_result($code,$user);return ;
+
+
+    }
+
 
     //签到
     public function sign($data){
@@ -704,9 +783,9 @@ class userAction extends userbaseAction
             $mod->save($data);
             //积分日志
             set_score_log($user,'sign',8,'','',8);
-            echo get_result(10001,'您已连续签到1天，成功获取8个积分！');
+            echo get_result(10001,$data,'您已连续签到1天，成功获取8个积分！');
         } elseif($signtime >= $date){//当天以签到
-            echo get_result(10001,'您今天已签到');
+            echo get_result(10002,'您今天已签到');
         }else{//否则在原基础上+1
             $max_score = $user['sign_num']+8;
             $data['sign_num']=$user['sign_num']+1;
@@ -717,7 +796,7 @@ class userAction extends userbaseAction
             $mod->save($data);
             //积分日志
             set_score_log($user,'sign',$max_score,'','',$max_score);
-            echo get_result(10001,'您已连续签到'.$user['sign_num'].'天，成功获取'.$max_score.'个积分！');
+            echo get_result(10001,$data,'您已连续签到'.$user['sign_num'].'天，成功获取'.$max_score.'个积分！');
         }
 
 
@@ -735,6 +814,10 @@ class userAction extends userbaseAction
 //                echo get_result(10001,'绑定失败');
 //                return ;
 //            }
+            $user = M("user")->where(['mobile'=>$data['mobile']])->find();
+            if($user){
+                echo get_result(20001,[], "手机已经绑定其他账号");return ;
+            }
             $smscode = M('codesms')->where(['mobile'=>$data['mobile']])->find();
 
             if($smscode){
@@ -759,9 +842,9 @@ class userAction extends userbaseAction
         }
 
         if($mod->save($save_data)){
-            echo get_result(10001,'成功');return ;
+            echo get_result(10001,[],'成功');return ;
         } else {
-            echo get_result(20001,'失败');return ;
+            echo get_result(20001,[],'失败');return ;
         }
 
     }
@@ -800,7 +883,7 @@ class userAction extends userbaseAction
         $mod_tk = M('tk');
         $info=$mod->where("id=$id")->find();
         if(!$info){
-            echo get_result(10001,'ID不存在');return ;
+            echo get_result(20001,[],'ID不存在');return ;
         }
         $info['zj']=intval($info['sy'])+intval($info['yl']);
         $info['intro'] = str_replace(chr(13),'<br>',$info['intro']);
@@ -832,16 +915,16 @@ class userAction extends userbaseAction
         //查询用户积分是否足够
         $yhq = M("tick")->where("id=$id and sy>0")->find();
         if(!$yhq){
-            echo get_result(10001,'该优惠券已领完');return ;
+            echo get_result(20001,[],'该优惠券已领完');return ;
 
         }
         if(intval($info['score'])<intval($yhq['dhjf'])){
-            echo get_result(10001,'您的积分不够');return ;
+            echo get_result(20001,[],'您的积分不够');return ;
         }
         if($yhq['xl'] > 0){
             $x=M('tk')->where("tick_id=$id and status=1 and uid=".$info['id'])->count();
             if($x>=$yhq['xl']){
-                echo get_result(10001,'很抱歉，该优惠券每个账户仅限领取'.$x.'次哦，请让些机会给其他菜油吧！');return ;
+                echo get_result(20001,[],'很抱歉，该优惠券每个账户仅限领取'.$x.'次哦，请让些机会给其他菜油吧！');return ;
             }
         }
 
@@ -874,7 +957,7 @@ class userAction extends userbaseAction
         $xc['info'] ='领取优惠券：'. M('tick')->where("id=$id")->getField('name');
 
         M('message')->add($xc);
-        echo get_result(10001,'兑换成功!快去个人中心-我的优惠卷看看吧！');return ;
+        echo get_result(10001,[],'兑换成功!快去个人中心-我的优惠卷看看吧！');return ;
     }
 
     //我的优惠券
@@ -945,12 +1028,16 @@ class userAction extends userbaseAction
 
     //积分详情
     public function scoredetails($data) {
-
+        $page = $data['page'] * 10;
+        $pagesize = 10;
         $id = $data['scoreid'];
         $item_mod = M('score_item');
         $item = $item_mod->field('id,title,img,buy_num,user_num,stock,score,coin,desc')->find($id);
+        if(!$item){
+            echo get_result(20001,[],"优惠券不存在");return ;
+        }
         //兑换记录(首页不做分页)
-        $list = M("score_order")->where("item_id=$id")->field('uid,add_time')->order('add_time desc,id desc')->limit(20)->select();
+        $list = M("score_order")->where("item_id=$id")->field('uid,add_time')->order('add_time desc,id desc')->limit($page-10, $pagesize)->select();
         foreach($list as $key=>$val){
             $list[$key]['uname']=get_uname($val['uid']);
             unset($list[$key]['uid']);
@@ -1204,7 +1291,7 @@ class userAction extends userbaseAction
         echo get_result($code,$xx);return ;
     }
 
-    //系统消息
+    //个人消息
     public function getmsg_user($data) {
         $uid = $data['userid'];
         $page = $data['page'] * 10;
@@ -1222,7 +1309,7 @@ class userAction extends userbaseAction
         echo get_result($code,$xx);return ;
     }
 
-    //系统消息
+    //对话列表
     public function getmsg_userdetail($data) {
 
         $ftid = $data['ftid'];
@@ -1295,7 +1382,7 @@ class userAction extends userbaseAction
             $mod->where("id=$item[itemid]")->setDec("comments");
             echo get_result(10001,'删除成功');return ;
         }else{
-            echo get_result(10001,'删除失败');return ;
+            echo get_result(10002,'删除失败');return ;
         }
 
     }
@@ -1306,31 +1393,66 @@ class userAction extends userbaseAction
 
     //对商品点赞
     public function zan($data) {
-        $id = $data['id'];
-        $mod = 'item';
-        switch ($data['type']){
-            case 1:$mod = 'item';break;
-            case 2:$mod = 'article';break;
-            case 3:$mod = 'comment';break;
-        }
+        $itemid = $data['itemid'];
+        $xid = $data['xid'];
+        $userid = $data['userid'];
+        $i_mod = get_mod($xid);
 
-        if(M($mod)->where("id=$id")->setInc('zan')){
-            echo get_result(10001,'点赞成功');return ;
-        }else{
-            echo get_result(10001,'点赞失败');return ;
+        if(!empty($userid)){
+            $status = action_verify($itemid,$xid);
+            if($status['code'] == 0 ){
+                  echo get_result(20001,[], $status['error']);return ;
+            }
+            $vote_status = D("item_vote")->vote($userid,$xid,$itemid,1);
+            if($vote_status['code']==0){
+                 echo get_result(20001,[], $vote_status['error']);return ;
+            }
+            else{
+                echo get_result(10001,[], '投票成功');return ;
+            }
+        }
+        else{
+            $i_mod->where("id=$itemid")->setInc("zan");
+            echo get_result(10001,[],'投票成功');return ;
+        }
+    }
+
+     //对商品点赞
+    public function cai($data) {
+        $itemid = $data['itemid'];
+        $xid = $data['xid'];
+        $userid = $data['userid'];
+        $i_mod = get_mod($xid);
+
+        if(!empty($userid)){
+            $status = action_verify($itemid,$xid);
+            if($status['code'] == 0 ){
+                  echo get_result(20001,[], $status['error']);return ;
+            }
+            $vote_status = D("item_vote")->vote($userid,$xid,$itemid,-1);
+            if($vote_status['code']==0){
+                 echo get_result(20001,[], $vote_status['error']);return ;
+            }
+            else{
+                echo get_result(10001,[], '投票成功');return ;
+            }
+        }
+        else{
+            $i_mod->where("id=$itemid")->setInc("cai");
+            echo get_result(10001,[],'投票成功');return ;
         }
     }
 
     //收藏商品
     public function setlikes($data){
         $userid = $data['userid'];
-        $id = $data['id'];
+        $id = $data['itemid'];
         $xid = $data['xid'];
         $i_mod = get_mod($xid);
         //验证对象
         $item = $i_mod->where("id=$id")->find();
         if(!$item){
-            echo get_result(10001,'收藏错误');return ;
+            echo get_result(20001,[],'收藏错误');return ;
         }
         $mod = D("likes");
         //查找是否已收藏
@@ -1341,9 +1463,9 @@ class userAction extends userbaseAction
                 $i_mod->where("id=$id")->setDec("likes");
                 $res['likes']=intval($item['likes'])-1;
                 $res['t']='qx';
-                echo get_result(10001,'您已成功取消收藏');return ;
+                echo get_result(10001,[],'您已成功取消收藏');return ;
             }else{
-                echo get_result(10001,'操作失败');return ;
+                echo get_result(20001,[],'操作失败');return ;
             }
         }else{
             $r=$mod->add(array('itemid'=>$id,'xid'=>$xid,'addtime'=>time(),'uid'=>$userid));
@@ -1351,9 +1473,9 @@ class userAction extends userbaseAction
                 $i_mod->where("id=$id")->setInc("likes");
                 $res['likes']=intval($item['likes'])+1;
                 $res['t']='sc';
-                echo get_result(10001,'收藏成功');return ;
+                echo get_result(10001,[],'收藏成功');return ;
             }else{
-                echo get_result(10001,'操作失败');return ;
+                echo get_result(20001,[],'操作失败');return ;
             }
         }
     }
@@ -1364,22 +1486,25 @@ class userAction extends userbaseAction
         $ed = strtotime(date('Y-m-d',strtotime('+1 day')));
         //查询当天评论次数
         $num = M("comment")->where("uid=".$data['userid']." and add_time>$st and add_time<$ed ")->count();
+        if(!(D("user")->phone_binded($data['userid']))){
+            echo get_result(20001,[],'请先绑定手机号,再评论!');return ;
+        }
         if($num>49){
-            echo get_result(10001,'您今天评论的次数已达上限');return ;
+            echo get_result(20001,[],'您今天评论的次数已达上限');return ;
         }
         $data['info'] = Input::deleteHtmlTags($data['info']);
         //过滤字符
         $kill_word = C("pin_kill_word");
         $kill_word = explode(",",$kill_word);
         if(in_array($data['info'],$kill_word)){
-            echo get_result(10001,'您发表的内容有非法字符');return ;
+            echo get_result(20001,[],'您发表的内容有非法字符');return ;
         }
 
         //敏感词处理
         $check_result = D('badword')->check($data['info']);
         switch ($check_result['code']) {
             case 1: //禁用。直接返回
-                echo get_result(10001,'您发表的内容有敏感字符');return ;
+                echo get_result(20001,[],'您发表的内容有敏感字符');return ;
                 break;
             case 3: //需要审核
                 $data['status'] = 0;
@@ -1396,19 +1521,19 @@ class userAction extends userbaseAction
             case "2":$item_mod=M("zr");break;
             case "3":$item_mod=M("article");break;
         }
-        $itemid = $data['id'];
-        unset($data['id']);
+        $itemid = $data['itemid'];
+        unset($data['itemid']);
         $item = $item_mod->where(array('id' => $itemid, 'status' => '1'))->find();
 
         if(!$item){
-            echo get_result(10001,'错误的id');return ;
+            echo get_result(20001,[],'错误的id');return ;
         }
         $data['lc']=intval($item['comments'])+1;
         //写入评论
         $comment_mod = D('comment');
         $data['itemid'] = $itemid;
         if (false === $comment_mod->create($data)) {
-            echo get_result(10001,$comment_mod->getError());return ;
+            echo get_result(20001,[],$comment_mod->getError());return ;
         }
         $comment_id = $comment_mod->add();
         if ($comment_id) {
@@ -1420,7 +1545,7 @@ class userAction extends userbaseAction
 
             echo get_result(10001,[],"感谢您的回复,系统给您奖励积分：2，经验：2.");return ;
         } else {
-            echo get_result(10001,'评论失败');return ;
+            echo get_result(20001,[],'评论失败');return ;
         }
     }
 
@@ -1432,7 +1557,7 @@ class userAction extends userbaseAction
         if($mod->where("id=".$data['userid'])->save(['gender'=>$data['gender']])){
             echo get_result(10001,'修改成功');return ;
         } else {
-            echo get_result(10001,'修改失败');return ;
+            echo get_result(20001,[],'修改失败');return ;
         }
 
     }
@@ -1443,7 +1568,7 @@ class userAction extends userbaseAction
         $page = $data['page'] *10;
         $userid = $data['userid'];
         $mod_score = M("score_order");
-        $pagesize = 9;
+        $pagesize = 10;
         $where ="uid=$userid ";
 
         $list = $mod_score->where($where)->order("add_time desc,id desc")->field('order_sn,item_id,item_num,item_name,consignee,address,mobile,remark,add_time')->limit($page - 10,$pagesize)->select();
@@ -1455,7 +1580,7 @@ class userAction extends userbaseAction
 
         $code = 10001;
         if(count($list) < 1){
-            $code = 10002;
+            $code = 20001;
         }
         echo get_result($code,$list);return ;
     }
@@ -1479,7 +1604,7 @@ class userAction extends userbaseAction
         if($result){
             echo get_result(10001,'解除绑定成功');return ;
         } else {
-            echo get_result(10001,'解除绑定失败');return ;
+            echo get_result(20001,[],'解除绑定失败');return ;
         }
 
     }
@@ -1488,12 +1613,12 @@ class userAction extends userbaseAction
     public function bind($data)
     {
         if(empty($data['userid'])){
-            echo get_result(10001,'绑定失败');return ;
+            echo get_result(20001,[],'绑定失败');return ;
         }
         $bind = M('user_bind');
         $info = $bind->where(['uid'=>$data['userid'],'type'=>$data['type']])->find();
         if($info){
-            echo get_result(10001,'绑定成功');return ;
+            echo get_result(10001,[],'绑定成功');return ;
         }
 
         $result = $bind->add(['uid'=>$data['userid'],'type'=>$data['type'],'keyid'=>$data['keyid'],'info'=>serialize($data['info'])]);
@@ -1526,9 +1651,9 @@ class userAction extends userbaseAction
                 'f_sign' => 1
             ));
             }
-            echo get_result(10001,'绑定成功');return ;
+            echo get_result(10001,[],'绑定成功');return ;
         } else {
-            echo get_result(10001,'绑定失败');return ;
+            echo get_result(20001,[],'绑定失败');return ;
         }
     }
 
@@ -1631,7 +1756,7 @@ class userAction extends userbaseAction
         $upyun1->purge($url);
         @ unlink($file);
         $user['is_avator'] = 1;
-        $user['img_url'] = $data . '?v=' . date('ymd');
+        $user['img_url'] = $data . '?v=' . date('his');
         M('user')->where("id=$uid")->save($user);
         $score_log = M('score_log')->where(['uid'=>$uid,'action'=>'upload_avator'])->select();
         if(count($score_log) < 1){

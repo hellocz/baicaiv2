@@ -253,4 +253,15 @@ class userModel extends Model
         }
     }
 
+    public function phone_binded($id){
+        $where["id"] = $id;
+        $mobile = $this->where($where)->getField("mobile");
+        if($mobile != "" && $mobile != "0"){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
 }
