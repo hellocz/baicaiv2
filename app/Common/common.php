@@ -260,6 +260,26 @@ function fpubdate($time) {
 }
 
 /**
+ * 获取用户封面
+ */
+function cover($uid) {
+    $user = D("user")->get_info($uid);
+    if($user['cover']){
+    	return $user['cover'];
+    }else{
+    	return '/public/images/default_bg.jpg';
+    }
+}
+
+function cover_img($img_url) {
+    if($img_url){
+    	return $img_url;
+    }else{
+    	return '/public/images/default_bg.jpg';
+    }
+}
+
+/**
  * 获取用户头像
  */
 function avatar($uid, $size) {
