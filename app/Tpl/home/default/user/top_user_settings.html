@@ -1,0 +1,202 @@
+<div class="w-1200 mt-149">
+		<!--banner-->
+		<!--用户上传图片后替换<div class="topBanner" style="background-image: url(/public/images/Personal_IMG.jpg);"></div>-->
+		<div class="topBanner J_cover" style="background-image: url({:cover_img($user['cover'])});">
+			<a href="javascript:void(0);" class="button">编辑封面</a>
+			<input class="button" type="file" name="cover" id="cover" style="opacity: 0;cursor:pointer;z-index:990;font-size:0;">
+		</div>		
+		<!--banner-->
+		<div class="topInfo">
+			<!--用户信息start-->
+			<div class="userInfo clearfix">
+				<!--头像start-->
+				<!-- <div class="head cursor-pointer J_avatar" style="background-image: url(/public/images/Head.jpg);" onclick="showBox('editAvatar','500px')"> -->
+				<div class="head cursor-pointer J_avatar" style="background-image: url({:avatar_img($user['img_url'],200)});">
+					<div class="headEdit">
+						<div class="addPic">添加头像</div>
+						<div class="instructions">建议上传5M以内200*200PX的JPG，PNG，BMP格式…</div>
+					</div>
+				</div>
+				<input class="head" type="file" name="avatar" id="avatar" style="opacity: 0;cursor:pointer;z-index:990;">
+				<!--头像end-->
+				<div class="fl info">
+					<!--用户名start-->
+					<div class="name">
+						<div class="font-24" id="name">{$user.username}<!-- <span class="modifyBtn" onclick="modifyBtn('name')">修改</span> --></div>
+						<!-- <div class="clearfix none">
+							<input class="input-2 fl" value="Marlon brando">
+							<button class="saveBtn fl ml-10 font-14 cursor-pointer" onclick="saveBtn('name')">保存</button>
+							<button class="cancelBtn fl ml-5 font-14 cursor-pointer" onclick="cancelBtn('name')">取消</button>
+						</div> -->
+					</div>
+					<!--用户名end-->
+					<!--签名start-->
+					<div class="font-14 fc-grey mt-10">
+						<div id="signature">
+							<span class="font-w-b fc-2">个人签名：</span>
+							<if condition="$user.intro AND $user.intro !==''">{$user.intro}<else/>这家伙很懒，什么都没有留下.</if><span class="modifyBtn" onclick="modifyBtn('signature')">修改</span>
+						</div>
+						<div class="clearfix none">
+							<span class="fl font-w-b fc-2">个人签名：</span>
+							<input name="intro" class="input-2 fl" style="width: 400px;" value="{$user.intro}">
+							<button class="saveBtn fl ml-10 font-14 cursor-pointer" onclick="saveBtn('signature')">保存</button>
+							<button class="cancelBtn fl ml-5 font-14 cursor-pointer" onclick="cancelBtn('signature')">取消</button>
+						</div>
+					</div>
+					<!--签名end-->
+				</div>
+			</div>
+			<!--用户信息end-->
+		</div>
+	</div>
+
+	<!--弹出层 - 编辑封面层-->
+	<div id="editCover" class="uploadIMG none">
+		<div class="text-center">
+			<p class="font-36">添加/修改封面</p>
+			<p class="font-16 fc-aux-a mt-8">请尽可能选择大图片，太小的图片可能会显得模糊。最佳尺寸1200x260。<br>*滑动鼠标滑轮，可进行裁剪区域缩放；鼠标双击则顺时针旋转90度。</p>
+		</div>
+		<div id="clipArea_cover" class="mt-20" style="width: 100%; height: 410px; background-color: #f1f1f1; text-align: center; color: #999999; line-height: 410px;"><!-- 这里程序放置上传裁剪组件 --></div>
+		<div id="clipBtn_cover" class="button btn-3 cursor-pointer" style="margin: 0px auto; margin-top: 20px;">确定</div>
+	</div>
+	
+	<!--弹出层 - 编辑头像层-->
+	<div id="editAvatar" class="uploadIMG none">
+		<div class="text-center">
+			<p class="font-36">添加/修改头像</p>
+			<p class="font-16 fc-aux-a mt-8">*滑动鼠标滑轮，可进行裁剪区域缩放；鼠标双击则顺时针旋转90度。</p>
+		</div>
+		<div id="clipArea_avatar" class="mt-20" style="width: 100%; height: 350px; background-color: #f1f1f1; text-align: center; color: #999999; line-height: 350px;"><!-- 这里程序放置上传裁剪组件 --></div>
+		<div id="clipBtn_avatar" class="button btn-3 cursor-pointer" style="margin: 0px auto; margin-top: 20px;">确定</div>
+	</div>
+
+	<!--引入裁图插件JS文件-->
+	<script src="/public/js/car/jquery-3.0.0.min.js"></script>
+	<script src="/public/js/car/iscroll-zoom.js"></script>
+	<script src="/public/js/car/hammer.js"></script>
+	<script src="/public/js/car/lrz.all.bundle.js"></script>
+	<script src="/public/js/car/jquery.photoClip.js"></script>
+	<script type="text/javascript">
+
+		//封面剪裁上传
+
+		var index_cover = null, clipArea_cover = new bjj.PhotoClip("#clipArea_cover", {
+
+			size: [1200, 260],
+
+			outputSize: [1200, 260],
+
+			file: "#cover",
+
+			//source: "img/mm.jpg",
+
+			//view: "#view",
+
+			ok: "#clipBtn_cover",
+
+			loadStart: function() {
+
+				console.log("照片读取中");
+
+			},
+
+			loadComplete: function() {
+
+				console.log("照片读取完成");
+
+				index_cover = showBox('editCover','1500px');
+
+				console.log(index_cover)
+
+			},
+
+			loadError: function(event) {}, 
+
+			clipFinish: function(dataURL) {
+
+				$('#clipBtn_cover').html('保存中...');
+
+				$.post('/index.php?m=user&a=upload_cover',{data:dataURL},function(result){
+
+					if(result.status ==1){
+
+						//修改封面
+						$('.J_cover').css('background-image','url('+dataURL+')');
+
+						// $('#editAvatar').hide();
+						layer.close(index_cover);
+
+					}
+
+					$('#clipBtn_cover').html('确定');
+
+				},'json')
+
+			}
+
+		});
+
+		//头像剪裁上传
+
+		var index_avatar = null, clipArea_avatar = new bjj.PhotoClip("#clipArea_avatar", {
+
+			size: [200, 200],
+
+			outputSize: [200, 200],
+
+			file: "#avatar",
+
+			//source: "img/mm.jpg",
+
+			//view: "#view",
+
+			ok: "#clipBtn_avatar",
+
+			loadStart: function() {
+
+				console.log("照片读取中");
+
+			},
+
+			loadComplete: function() {
+
+				console.log("照片读取完成");
+
+				index_avatar = showBox('editAvatar','500px');
+
+				console.log(index_avatar)
+
+			},
+
+			loadError: function(event) {}, 
+
+			clipFinish: function(dataURL) {
+
+				$('#clipBtn_avatar').html('保存中...');
+
+				$.post('/index.php?m=user&a=upload_avatar1',{data:dataURL},function(result){
+
+					if(result.status ==1){
+
+						//修改头像
+						$('.J_avatar').css('background-image','url('+dataURL+')');
+
+						//修改头部头像
+						$('.top-member .member-info .info').find("img").attr("src", dataURL);
+						$('.top-member .member-info .head').find("img").attr("src", dataURL);
+
+						// $('#editAvatar').hide();
+						layer.close(index_avatar);
+
+					}
+
+					$('#clipBtn_avatar').html('确定');
+
+				},'json')
+
+			}
+
+		});
+
+	</script>
+	

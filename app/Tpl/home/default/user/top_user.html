@@ -1,110 +1,192 @@
-<div id="usernew">
-	<!--个人信息start-->
-	<div class="w-1200 mt-149">
-		<!--banner-->
-		<!--用户上传图片后替换<div class="topBanner" style="background-image: url(/public/images/Personal_IMG.jpg);"></div>-->
-		<div class="topBanner">
-			<a href="javascript:void(0);" class="button">编辑封面</a>
-		</div>
-		<!--banner-->
-		<div class="topInfo">
-			<!--用户信息start-->
-			<div class="userInfo clearfix">
-				<!--头像start-->
-				<div class="head" style="background-image: url({:avatar($user['id'])});"></div>
-				<!--头像end-->
-				<div class="fl info">
-					<!--用户名start-->
-					<div class="name">
-						<span class="font-24">{$user.username}</span>
-						<span class="labe labe-1 ml-10">合伙人</span>
-						<span class="labe labe-2 ml-5">写手</span>
-					</div>
-					<!--用户名end-->
-					<!--等级start-->
-					<div class="font-14 mt-10"><span class="font-w-b">Lv{:grade($user['exp'])}：</span> 初出茅庐　·　已加入<span class="font-w-b">{$user.join_days}</span>天</div>
-					<!--等级end-->
-					<!--签名start-->
-					<div class="font-14 fc-grey mt-10"><span class="font-w-b fc-2">个人签名：</span><if condition="$user.intro AND $user.intro !==''">{$user.intro}<else/>这家伙很懒，什么都没有留下.</if></div>
-					<!--签名end-->
-					<!--我的勋章start-->
-					<ul class="myMedal mt-10">
-						<li class="font-w-b font-14" style="line-height: 24px;">我的勋章：</li>
-						<li>
-							<img src="/public/images/ie8/G_18@2x.png">
-							<div class="arrow_box">勋章1</div>
-						</li>
-						<li>
-							<img src="/public/images/ie8/G_19@2x.png">
-							<div class="arrow_box">勋章2</div>
-						</li>
-						<li>
-							<img src="/public/images/ie8/G_20@2x.png">
-							<div class="arrow_box">勋章3</div>
-						</li>
-						<li>
-							<img src="/public/images/ie8/G_21@2x.png">
-							<div class="arrow_box">勋章4</div>
-						</li>
-						<li>
-							<img src="/public/images/ie8/G_22@2x.png">
-							<div class="arrow_box">勋章5</div>
-						</li>
-						<li>
-							<img src="/public/images/ie8/G_23@2x.png">
-							<div class="arrow_box">勋章6</div>
-						</li>
-					</ul>
-					<!--我的勋章end-->
-				</div>
-				<div class="fr op">
-					<a href="editProfile.html" class="btn-1 cursor-pointer">编辑个人资料</a>
-				</div>
+	<div id="usernew">
+		<!--个人信息start-->
+		<div class="w-1200 mt-149">
+			<!--banner-->
+			<!--用户上传图片后替换<div class="topBanner" style="background-image: url(/public/images/Personal_IMG.jpg);"></div>-->
+			<div class="topBanner J_cover" style="background-image: url({:cover_img($user['cover'])});">
+				<a href="javascript:void(0);" class="button">编辑封面</a>
+				<input class="button" type="file" name="cover" id="cover" style="opacity: 0;cursor:pointer;z-index:990;font-size:0;">
 			</div>
-			<!--用户信息end-->
-			<!--其他信息start-->
-			<ul class="userOther clearfix">
-				<li>
-					<p class="font-24">{$user.exp}</p>
-					<p class="font-14 fc-aux-9">经验</p>
-				</li>
-				<li>
-					<p class="font-24">{$user.score}</p>
-					<p class="font-14 fc-aux-9">积分</p>
-				</li>
-				<li>
-					<p class="font-24">{$user.offer}</p>
-					<p class="font-14 fc-aux-9">贡献</p>
-				</li>
-				<!-- <li>
-					<p class="font-24">999</p>
-					<p class="font-14 fc-aux-9">油票</p>
-				</li> -->
-				<li>
-					<p class="font-24">{$user.zan}</p>
-					<p class="font-14 fc-aux-9">被赞</p>
-				</li>
-				<li>
-					<p class="font-24">{$user.fans}</p>
-					<p class="font-14 fc-aux-9">粉丝</p>
-				</li>
-				<!-- <li>
-					<p class="font-24">999</p>
-					<p class="font-14 fc-aux-9">邀请</p>
-				</li> -->
-			</ul>
-			<!--其他信息end-->
+			<!--banner-->
+			<div class="topInfo">
+				<!--用户信息start-->
+				<div class="userInfo clearfix">
+					<!--头像start-->
+					<div class="head" style="background-image: url({:avatar_img($user['img_url'])});"></div>
+					<!--头像end-->
+					<div class="fl info">
+						<!--用户名start-->
+						<div class="name">
+							<span class="font-24">{$user.username}</span>
+							<span class="labe labe-1 ml-10">合伙人</span>
+							<span class="labe labe-2 ml-5">写手</span>
+						</div>
+						<!--用户名end-->
+						<!--等级start-->
+						<div class="font-14 mt-10"><span class="font-w-b">Lv{:grade($user['exp'])}：</span> 初出茅庐　·　已加入<span class="font-w-b">{$user.join_days}</span>天</div>
+						<!--等级end-->
+						<!--签名start-->
+						<div class="font-14 fc-grey mt-10"><span class="font-w-b fc-2">个人签名：</span><if condition="$user.intro AND $user.intro !==''">{$user.intro}<else/>这家伙很懒，什么都没有留下.</if></div>
+						<!--签名end-->
+						<!--我的勋章start-->
+						<ul class="myMedal mt-10">
+							<li class="font-w-b font-14" style="line-height: 24px;">我的勋章：</li>
+							<li>
+								<img src="/public/images/ie8/G_18@2x.png">
+								<div class="arrow_box">勋章1</div>
+							</li>
+							<li>
+								<img src="/public/images/ie8/G_19@2x.png">
+								<div class="arrow_box">勋章2</div>
+							</li>
+							<li>
+								<img src="/public/images/ie8/G_20@2x.png">
+								<div class="arrow_box">勋章3</div>
+							</li>
+							<li>
+								<img src="/public/images/ie8/G_21@2x.png">
+								<div class="arrow_box">勋章4</div>
+							</li>
+							<li>
+								<img src="/public/images/ie8/G_22@2x.png">
+								<div class="arrow_box">勋章5</div>
+							</li>
+							<li>
+								<img src="/public/images/ie8/G_23@2x.png">
+								<div class="arrow_box">勋章6</div>
+							</li>
+						</ul>
+						<!--我的勋章end-->
+					</div>
+					<div class="fr op">
+						<a href="editProfile.html" class="btn-1 cursor-pointer">编辑个人资料</a>
+					</div>
+				</div>
+				<!--用户信息end-->
+				<!--其他信息start-->
+				<ul class="userOther clearfix">
+					<li>
+						<p class="font-24">{$user.exp}</p>
+						<p class="font-14 fc-aux-9">经验</p>
+					</li>
+					<li>
+						<p class="font-24">{$user.score}</p>
+						<p class="font-14 fc-aux-9">积分</p>
+					</li>
+					<li>
+						<p class="font-24">{$user.offer}</p>
+						<p class="font-14 fc-aux-9">贡献</p>
+					</li>
+					<!-- <li>
+						<p class="font-24">999</p>
+						<p class="font-14 fc-aux-9">油票</p>
+					</li> -->
+					<li>
+						<p class="font-24">{$user.zan}</p>
+						<p class="font-14 fc-aux-9">被赞</p>
+					</li>
+					<li>
+						<p class="font-24">{$user.fans}</p>
+						<p class="font-14 fc-aux-9">粉丝</p>
+					</li>
+					<!-- <li>
+						<p class="font-24">999</p>
+						<p class="font-14 fc-aux-9">邀请</p>
+					</li> -->
+				</ul>
+				<!--其他信息end-->
+			</div>
 		</div>
+		<!--个人信息end-->
 	</div>
-	<!--个人信息end-->
-</div>
-	
-<script>
-	$(function() {
-		$(".myMedal > li").hover(function(){
-			$(this).children(".arrow_box").show();
-		},function(){
-			$(this).children(".arrow_box").hide();
+
+	<!--弹出层 - 编辑封面层-->
+	<div id="editCover" class="uploadIMG none">
+		<div class="text-center">
+			<p class="font-36">添加/修改封面</p>
+			<p class="font-16 fc-aux-a mt-8">请尽可能选择大图片，太小的图片可能会显得模糊。最佳尺寸1200x260。<br>*滑动鼠标滑轮，可进行裁剪区域缩放；鼠标双击则顺时针旋转90度。</p>
+		</div>
+		<div id="clipArea_cover" class="mt-20" style="width: 100%; height: 410px; background-color: #f1f1f1; text-align: center; color: #999999; line-height: 410px;"><!-- 这里程序放置上传裁剪组件 --></div>
+		<div id="clipBtn_cover" class="button btn-3 cursor-pointer" style="margin: 0px auto; margin-top: 20px;">确定</div>
+	</div>
+
+	<!--引入裁图插件JS文件-->
+	<script src="/public/js/car/jquery-3.0.0.min.js"></script>
+	<script src="/public/js/car/iscroll-zoom.js"></script>
+	<script src="/public/js/car/hammer.js"></script>
+	<script src="/public/js/car/lrz.all.bundle.js"></script>
+	<script src="/public/js/car/jquery.photoClip.js"></script>
+	<script type="text/javascript">
+
+		//封面剪裁上传
+
+		var index_cover = null, clipArea_cover = new bjj.PhotoClip("#clipArea_cover", {
+
+			size: [1200, 260],
+
+			outputSize: [1200, 260],
+
+			file: "#cover",
+
+			//source: "img/mm.jpg",
+
+			//view: "#view",
+
+			ok: "#clipBtn_cover",
+
+			loadStart: function() {
+
+				console.log("照片读取中");
+
+			},
+
+			loadComplete: function() {
+
+				console.log("照片读取完成");
+
+				index_cover = showBox('editCover','1500px');
+
+				console.log(index_cover)
+
+			},
+
+			loadError: function(event) {}, 
+
+			clipFinish: function(dataURL) {
+
+				$('#clipBtn_cover').html('保存中...');
+
+				$.post('/index.php?m=user&a=upload_cover',{data:dataURL},function(result){
+
+					if(result.status ==1){
+
+						//修改封面
+						$('.J_cover').css('background-image','url('+dataURL+')');
+
+						// $('#editAvatar').hide();
+						layer.close(index_cover);
+
+					}
+
+					$('#clipBtn_cover').html('确定');
+
+				},'json')
+
+			}
+
 		});
-	});
-</script>
+
+
+	</script>
+	
+
+	<script>
+		$(function() {
+			$(".myMedal > li").hover(function(){
+				$(this).children(".arrow_box").show();
+			},function(){
+				$(this).children(".arrow_box").hide();
+			});
+		});
+	</script>
+

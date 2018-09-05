@@ -351,7 +351,7 @@
                                 </svg>
                                 我的消息
                             </a>
-                            <a href="#">
+                            <a href="{:U('user/profile')}">
                                 <svg role="img" class="icon">
                                     <!--[if lte IE 8]><desc><img src="/public/images/ie8/e_15@2x.png" width="20" height="20"></desc><![endif]-->
                                     <use xlink:href="/public/images/svg_sprite/icon_symbol.svg#icon-e_15"></use>
@@ -404,7 +404,7 @@
                     <a href="{:U('user/keysfollow')}" <if condition="$user_module_curr eq 'user' AND $user_menu_curr eq 'keysfollow'">class="a-green"</if>>关注</a>
                     <a href="{:U('message/system')}" <if condition="$user_module_curr eq 'message'">class="a-green"</if>>消息</a>
                     <!-- <a href="index.html">我的订单</a> -->
-                    <a href="index.html">账户设置</a>
+                    <a href="{:U('user/profile')}">账户设置</a>
                 </div>
             </div>
         </div>

@@ -550,3 +550,22 @@ function confirm(title,info,callback){
 		});
 	});
 }
+
+//弹出对话框
+layui.use(['form'], function(){
+  var form = layui.form,layer = layui.layer;
+});
+function showBox(id,width){
+	index = layer.open({
+		type: 1,
+		title: false,
+		closeBtn: 1,
+		shadeClose: true,
+		shade:0.7,
+		anim:2,
+		skin: 'loginPopup',
+		area: width,
+		content: $('#' + id),
+	});
+	return index;
+}

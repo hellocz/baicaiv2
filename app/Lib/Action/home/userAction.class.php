@@ -505,7 +505,7 @@ class userAction extends userbaseAction {
         $follow_uid = $this->_get('uid', 'intval');
         !$follow_uid && $this->ajaxReturn(0, L('follow_invalid_user'));
 
-        $uid = $this->visitor->info['id'];
+        $uid=$this->user['id'];
         $follow_uid == $uid && $this->ajaxReturn(0, L('follow_self_not_allow'));
         $user_mod = D('user');
         if (!$user_mod->get_user_by_id($follow_uid)) {
@@ -530,7 +530,7 @@ class userAction extends userbaseAction {
         $follow_uid = $this->_get('uid', 'intval');
         !$follow_uid && $this->ajaxReturn(0, L('unfollow_invalid_user'));
 
-        $uid = $this->visitor->info['id'];
+        $uid=$this->user['id'];
 
         //取消关注
         $result = D('user_follow')->unfollow($uid, $follow_uid);
@@ -1144,6 +1144,144 @@ class userAction extends userbaseAction {
     }
 
     /**
+     * 检测用户
+     */
+    public function ajax_check() {
+        $type = $this->_get('type', 'trim', 'email');
+        $user_mod = D('user');
+        switch ($type) {
+            case 'email':
+                $email = $this->_get('email', 'trim');
+                $user_mod->email_exists($email) ? $this->ajaxReturn(0) : $this->ajaxReturn(1);
+                break;
+
+            case 'username':
+                $username = $this->_get('username', 'trim');
+                $user_mod->name_exists($username) ? $this->ajaxReturn(0) : $this->ajaxReturn(1);
+                break;
+
+            case 'mobile':
+                $mobile = $this->_get('mobile', 'trim');
+                $user_mod->mobile_exists($mobile) ? $this->ajaxReturn(0) : $this->ajaxReturn(1);
+                break;
+        }
+    }
+
+    /**
+    * 发送手机验证码
+    */
+     public function phone_send() {
+        $data['phone'] = $this->_post('mobile','trim');
+        include_once LIB_PATH . 'Pinlib/ChuanglanSmsHelper/ChuanglanSmsApi1.php';
+        $clapi  = new ChuanglanSmsApi();
+        $code = String::randString(4, 1);
+        $result = $clapi->sendSMS($data['phone'], '【白菜哦】菜友您好，您的验证码是'. $code  .",请勿向任何人提供此验证码.");
+
+        if(!is_null(json_decode($result))){
+            $output=json_decode($result,true);
+            if(isset($output['code'])  && $output['code']=='0'){
+                $msg= '短信发送成功！';
+                session('phone_verify_'.md5($data['phone']),md5($code));
+            }else{
+                 $msg= $output['errorMsg'];
+            }
+        }
+        $this->ajaxReturn($output['code'],  $msg, "123");
+    }
+
+    /**
+    * 账户设置  - 基本信息修改
+    */
+    public function profile() {
+        $uid=$this->user['id'];
+        if( IS_POST ){
+            foreach ($_POST as $key=>$val) {
+                $_POST[$key] = Input::deleteHtmlTags($val);
+            }
+            $data['gender'] = $this->_post('gender', 'intval');
+            $data['province'] = $this->_post('province', 'trim');
+            $data['city'] = $this->_post('city', 'trim');
+            $data['tags'] = $this->_post('tags', 'trim');
+            $data['intro'] = $this->_post('intro', 'trim');
+            $birthday = $this->_post('birthday', 'trim');
+            $birthday = explode('-', $birthday);
+            $data['byear'] = $birthday[0];
+            $data['bmonth'] = $birthday[1];
+            $data['bday'] = $birthday[2];
+            $data['realname']=$this->_post('realname','trim');
+            $data['zipcode']=$this->_post('zipcode','trim');
+            $data['address']=$this->_post('address','trim');
+            if (false !== M('user')->where(array('id'=>$uid))->save($data)) {
+                $msg = array('status'=>1, 'info'=>L('edit_success'));
+            }else{
+                $msg = array('status'=>0, 'info'=>L('edit_failed'));
+            }
+            $this->assign('msg', $msg);
+        }
+        // $info = $this->visitor->get();
+        $this->assign('info', $this->user);
+        $this->assign("page_seo",set_seo('基本信息修改'));
+        $this->display();
+    }
+
+    /**
+     * 头像保存
+     */
+    public function upload_avatar1() {
+        $data=$this->_post('data');
+        $data = substr(strstr($data,','),1);
+        $img=base64_decode($data);
+        $uid = abs(intval($this->user['id']));
+        !$data && $this->ajaxReturn(0, L('illegal_parameters'));
+
+        //保存上传图片并更新user头像信息
+        $data = $this->_mod->upload_avatar($uid, $img);
+        if($data){
+            $this->ajaxReturn(1, L('upload_success'), $data);
+        }else{
+            $this->ajaxReturn(0, L('illegal_parameters'));
+        }
+    }
+
+    /**
+     * 上传封面图片 20180904
+     */
+    public function upload_cover() {
+        //上传图片
+        $data=$this->_post('data');
+        $data = substr(strstr($data,','),1);
+        $img=base64_decode($data);
+        $uid = abs(intval($this->user['id']));
+        !$data && $this->ajaxReturn(0, L('illegal_parameters'));
+
+        //保存上传图片并更新封面
+        $data = $this->_mod->upload_cover($uid, $img);
+        if($data){
+            $this->ajaxReturn(1, L('upload_success'), $data);
+        }else{
+            $this->ajaxReturn(0, L('illegal_parameters'));
+        }
+    }
+
+    /**
+     * 修改个人签名 20180905
+     */
+    public function modify_intro() {
+        $uid=$this->user['id'];
+        foreach ($_POST as $key=>$val) {
+            $_POST[$key] = Input::deleteHtmlTags($val);
+        }
+        $data['intro'] = $this->_post('intro', 'trim');
+        !$data['intro'] && $this->ajaxReturn(0, L('illegal_parameters'));
+
+        if (false !== M('user')->where(array('id'=>$uid))->save($data)) {
+            $this->ajaxReturn(1, L('edit_success'), $data['intro']);
+        }else{
+            $this->ajaxReturn(0, L('edit_failed'));
+        }
+    }
+
+    /**
      * 第三方头像保存
      */
     private function _save_avatar($uid, $img) {
@@ -1168,39 +1306,6 @@ class userAction extends userbaseAction {
         $this->ajaxReturn(1, '', $result);
     }
 
-    /**
-    * 基本信息修改
-    */
-    public function profile() {
-        if( IS_POST ){
-            foreach ($_POST as $key=>$val) {
-                $_POST[$key] = Input::deleteHtmlTags($val);
-            }
-            $data['gender'] = $this->_post('gender', 'intval');
-            $data['province'] = $this->_post('province', 'trim');
-            $data['city'] = $this->_post('city', 'trim');
-            $data['tags'] = $this->_post('tags', 'trim');
-            $data['intro'] = $this->_post('intro', 'trim');
-            $birthday = $this->_post('birthday', 'trim');
-            $birthday = explode('-', $birthday);
-            $data['byear'] = $birthday[0];
-            $data['bmonth'] = $birthday[1];
-            $data['bday'] = $birthday[2];
-			$data['realname']=$this->_post('realname','trim');
-			$data['zipcode']=$this->_post('zipcode','trim');
-			$data['address']=$this->_post('address','trim');
-            if (false !== M('user')->where(array('id'=>$this->visitor->info['id']))->save($data)) {
-                $msg = array('status'=>1, 'info'=>L('edit_success'));
-            }else{
-                $msg = array('status'=>0, 'info'=>L('edit_failed'));
-            }
-            $this->assign('msg', $msg);
-        }
-        $info = $this->visitor->get();
-        $this->assign('info', $info);
-        $this->assign("page_seo",set_seo('基本信息修改'));
-        $this->display();
-    }
     /**
     * 绑定手机号
     */
@@ -1233,27 +1338,6 @@ class userAction extends userbaseAction {
         $this->display();
     }
 
-      /**
-    * 发送手机验证码
-    */
-     public function phone_send() {
-        $data['phone'] = $this->_post('mobile','trim');
-        include_once LIB_PATH . 'Pinlib/ChuanglanSmsHelper/ChuanglanSmsApi1.php';
-        $clapi  = new ChuanglanSmsApi();
-        $code = String::randString(4, 1);
-        $result = $clapi->sendSMS($data['phone'], '【白菜哦】菜友您好，您的验证码是'. $code  .",请勿向任何人提供此验证码.");
-
-        if(!is_null(json_decode($result))){
-            $output=json_decode($result,true);
-            if(isset($output['code'])  && $output['code']=='0'){
-                $msg= '短信发送成功！';
-                session('phone_verify_'.md5($data['phone']),md5($code));
-            }else{
-                 $msg= $output['errorMsg'];
-            }
-        }
-        $this->ajaxReturn($output['code'],  $msg, "123");
-    }
 
     /**
      * 修改头像
@@ -1298,30 +1382,7 @@ class userAction extends userbaseAction {
             $this->ajaxReturn(0, L('illegal_parameters'));
         }
     }
-    public function upload_avatar1() {
-        $data=$this->_post('data');
-        $uid = abs(intval($this->visitor->info['id']));
-        $data = substr(strstr($data,','),1);
-        $img=base64_decode($data);
-        $file = 'upload/'.md5($uid).'.jpg';
-        file_put_contents($file, $img);
-        $suid = sprintf("%09d", $uid);
-        $dir1 = substr($suid, 0, 3);
-        $dir2 = substr($suid, 3, 2);
-        $dir3 = substr($suid, 5, 2);
-        $avatar_dir = $dir1.'/'.$dir2.'/'.$dir3.'/';
-        $upload_path = '/'.C('pin_attach_path') . 'avatar/'. $avatar_dir .md5($uid).'.jpg';
-        $upyun = new UpYun2('baicaiopic', '528', 'lzw123456');
-        $fh = fopen($file, 'rb');
-        $rsp = $upyun->writeFile($upload_path, $fh, True);   // 上传图片，自动创建目录
-        fclose($fh);
-        $upyun1 = new UpYun1('baicaiopic', '528', 'lzw123456');
-        $data = IMG_ROOT_PATH.'/data/upload/avatar/'.$avatar_dir.md5($uid).'.jpg';
-        $url = $data."\n";
-        $upyun1->purge($url);
-        @ unlink($file);
-        $this->ajaxReturn(1, L('upload_success'), $data);
-    }
+
     /**
      * 修改密码
      */
@@ -1380,47 +1441,24 @@ class userAction extends userbaseAction {
         $this->display();
     }
 
-    /**
-     * 个人空间banner背景设置
-     */
-    public function custom() {
-        $cover = $this->visitor->get('cover');
-        $this->assign('cover', $cover);
-        $this->_config_seo();
-        $this->display();
-    }
+    // /**
+    //  * 个人空间banner背景设置
+    //  */
+    // public function custom() {
+    //     $cover = $this->visitor->get('cover');
+    //     $this->assign('cover', $cover);
+    //     $this->_config_seo();
+    //     $this->display();
+    // }
 
-    /**
-     * 取消封面
-     */
-    public function cancle_cover() {
-        $result = M('user')->where(array('id'=>$this->visitor->info['id']))->setField('cover', '');
-        !$result && $this->ajaxReturn(0, L('illegal_parameters'));
-        $this->ajaxReturn(1, L('edit_success'));
-    }
-
-    /**
-     * 上传封面图片
-     */
-    public function upload_cover() {
-        if (!empty($_FILES['cover']['name'])) {
-            $data_dir = date('ym/d');
-            $file_name = md5($this->visitor->info['id']);
-            $result = $this->_upload($_FILES['cover'], 'cover/'.$data_dir, array('width'=>'900', 'height'=>'330', 'remove_origin'=>true), $file_name);
-            if ($result['error']) {
-                $this->ajaxReturn(0, $result['info']);
-            } else {
-                $ext = array_pop(explode('.', $result['info'][0]['savename']));
-                $cover = $data_dir.'/'.$file_name.'_thumb.'.$ext;
-                $data = '<img src="./data/upload/cover/'.$data_dir.'/'.$file_name.'_thumb.'.$ext.'?'.time().'">';
-                //更新数据
-                M('user')->where(array('id'=>$this->visitor->info['id']))->setField('cover', $cover);
-                $this->ajaxReturn(1, L('upload_success'), $data);
-            }
-        } else {
-            $this->ajaxReturn(0, L('illegal_parameters'));
-        }
-    }
+    // /**
+    //  * 取消封面
+    //  */
+    // public function cancle_cover() {
+    //     $result = M('user')->where(array('id'=>$this->visitor->info['id']))->setField('cover', '');
+    //     !$result && $this->ajaxReturn(0, L('illegal_parameters'));
+    //     $this->ajaxReturn(1, L('edit_success'));
+    // }
 
     /**
      * 收货地址
@@ -1479,29 +1517,6 @@ class userAction extends userbaseAction {
         $this->display();
     }
 
-    /**
-     * 检测用户
-     */
-    public function ajax_check() {
-        $type = $this->_get('type', 'trim', 'email');
-        $user_mod = D('user');
-        switch ($type) {
-            case 'email':
-                $email = $this->_get('email', 'trim');
-                $user_mod->email_exists($email) ? $this->ajaxReturn(0) : $this->ajaxReturn(1);
-                break;
-
-            case 'username':
-                $username = $this->_get('username', 'trim');
-                $user_mod->name_exists($username) ? $this->ajaxReturn(0) : $this->ajaxReturn(1);
-                break;
-
-            case 'mobile':
-                $mobile = $this->_get('mobile', 'trim');
-                $user_mod->mobile_exists($mobile) ? $this->ajaxReturn(0) : $this->ajaxReturn(1);
-                break;
-        }
-    }
 
 
 
