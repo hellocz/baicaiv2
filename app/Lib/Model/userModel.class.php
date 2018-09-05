@@ -331,5 +331,21 @@ class userModel extends Model
 
         return $data;
     }
+    /**
+    * 生成随机用户密码
+    */
+    public function generatorUser(){
+        $rand_id = rand('10000000','99999999');
+        $username = "菜友" . $rand_id;
+        $where['username'] = $username;
+        D("user")->where($where)->count('id');
+        if($count > 0 ){
+            return generatorUser();
+        }
+        else{
+            $password = rand("100000","999999");
+            return array("username"=>$username,"password"=>$password);
+        }
 
+    }
 }
