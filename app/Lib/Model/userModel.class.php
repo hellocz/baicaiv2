@@ -264,4 +264,72 @@ class userModel extends Model
         }
     }
 
+    /**
+     * 上传头像并更新
+     */
+    public function upload_avatar($id, $img) {
+        $user = $this->get_user_by_id($id);
+
+        if(!$user) return false;
+
+        $uid = $user['id'];
+
+        $file = 'upload/'.md5($uid).'.jpg';
+        file_put_contents($file, $img);
+        $suid = sprintf("%09d", $uid);
+        $dir1 = substr($suid, 0, 3);
+        $dir2 = substr($suid, 3, 2);
+        $dir3 = substr($suid, 5, 2);
+        $avatar_dir = $dir1.'/'.$dir2.'/'.$dir3.'/';
+        $upload_path = '/'.C('pin_attach_path') . 'avatar/'. $avatar_dir .md5($uid).'.jpg';
+        $upyun = new UpYun2('baicaiopic', '528', 'lzw123456');
+        $fh = fopen($file, 'rb');
+        $rsp = $upyun->writeFile($upload_path, $fh, True);   // 上传图片，自动创建目录
+        fclose($fh);
+        $upyun1 = new UpYun1('baicaiopic', '528', 'lzw123456');
+        $data = IMG_ROOT_PATH.'/data/upload/avatar/'.$avatar_dir.md5($uid).'.jpg';
+        $url = $data."\n";
+        $upyun1->purge($url);
+        @ unlink($file);
+
+        $user = array();
+        $user['is_avator'] = 1;
+        $user['img_url'] = $data . '?v=' . date('his');
+        $this->where("id=$uid")->save($user);
+
+        return $data;
+    }
+
+    /**
+     * 上传封面并更新
+     */
+    public function upload_cover($id, $img) {
+        $user = $this->get_user_by_id($id);
+
+        if(!$user) return false;
+
+        $uid = $user['id'];
+
+        $file = 'upload/'.md5($uid).'.jpg';
+        file_put_contents($file, $img);
+        $suid = sprintf("%09d", $uid);
+        $dir1 = substr($suid, 0, 3);
+        $dir2 = substr($suid, 3, 2);
+        $dir3 = substr($suid, 5, 2);
+        $cover_dir = $dir1.'/'.$dir2.'/'.$dir3.'/';
+        $upload_path = '/'.C('pin_attach_path') . 'cover/'. $cover_dir.md5($uid).'.jpg';
+        $upyun = new UpYun2('baicaiopic', '528', 'lzw123456');
+        $fh = fopen($file, 'rb');
+        $rsp = $upyun->writeFile($upload_path, $fh, True);   // 上传图片，自动创建目录
+        fclose($fh);
+        $data = IMG_ROOT_PATH.'/data/upload/cover/'. $cover_dir.md5($uid).'.jpg';
+        @unlink ($file);
+
+        //更新数据
+        $cover = $data . '?v=' . date('his');
+        M('user')->where(array('id'=>$uid))->setField('cover', $cover);
+
+        return $data;
+    }
+
 }
