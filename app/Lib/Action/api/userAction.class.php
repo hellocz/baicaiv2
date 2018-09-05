@@ -54,7 +54,7 @@ class userAction extends userbaseAction
             if($session_code != $verify_code){
                   echo get_result(20001,[], '验证码错误');return ;
             }
-            $generatorUser = $this->generatorUser();
+            $generatorUser = D("user")->generatorUser();
             $username = $generatorUser['username'];
             $password = $generatorUser['password'];
             $passport = $this->_user_server();
@@ -81,20 +81,81 @@ class userAction extends userbaseAction
 
     }
 
-    public function generatorUser(){
-        $rand_id = rand('10000000','99999999');
-        $username = "菜友" . $rand_id;
-        $where['username'] = $username;
-        D("user")->where($where)->count('id');
-        if($count > 0 ){
-            return generatorUser();
+    /**
+     * 用户注册
+     * @param $data
+     */
+    public function register_bind($data) {
+            $data['email'] = '0@0.c';
+            $data['gender'] = 0;
+
+            $generatorUser = D("user")->generatorUser();
+            $username = $generatorUser['username'];
+            $password = $generatorUser['password'];
+            $passport = $this->_user_server();
+            //注册
+            $uid = $passport->register($username, $password, $data['email'], $data['gender'],$mobile);
+            if(!$uid){
+                echo get_result(20001,[],$passport->get_error());return ;
+            }
+            //给用户加积分
+            M("user")->where("id=$uid")->setField(array('score'=>10,'exp'=>10));
+            //积分日志
+            set_score_log(array('id'=>$uid,'username'=>$username),'register',10,'','',10);
+            
+
+        $bind = M('user_bind');
+        $data['userid'] = $uid;
+        $info = $bind->where(['uid'=>$uid,'type'=>$data['type']])->find();
+        if($info){
+            echo get_result(20001,[],'此账号已经被绑定');return ;
         }
-        else{
-            $password = rand("100000","999999");
-            return array("username"=>$username,"password"=>$password);
+
+        $result = $bind->add(['uid'=>$data['userid'],'type'=>$data['type'],'keyid'=>$data['keyid'],'info'=>serialize($data['info'])]);
+        if($result){
+             $notify_tag_count = M('notify_tag')->where(array("userid"=>$data['userid']))->count('id');
+            if($notify_tag_count == 0){
+                $notify_tag = M('notify_tag');
+                $notify_tag->add(array(
+                'userid' => $data['userid'],
+                'tag' => "白菜",
+                'p_sign' => 1,
+                'f_sign' => 1
+            ));
+                $notify_tag->add(array(
+                'userid' => $data['userid'],
+                'tag' => "手快有",
+                'p_sign' => 1,
+                'f_sign' => 1
+            ));
+                $notify_tag->add(array(
+                'userid' => $data['userid'],
+                'tag' => "神价格",
+                'p_sign' => 1,
+                'f_sign' => 1
+            ));
+                $notify_tag->add(array(
+                'userid' => $data['userid'],
+                'tag' => "BUG",
+                'p_sign' => 1,
+                'f_sign' => 1
+            ));
+            }
+            $userinfo = $passport->get($uid);
+            $info = [
+            'userid'    =>  $userinfo['id'],
+            'username'    =>  $userinfo['username'],
+            'gender'    =>  $userinfo['gender'],
+            'score'    =>  $userinfo['score'],
+        ];
+            echo get_result(10001,[],$info);return ;
+        } else {
+            echo get_result(20001,[],'绑定失败');return ;
         }
 
     }
+
+    
 
     /**
      * 获取手机验证码
