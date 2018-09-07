@@ -89,15 +89,35 @@ class userAction extends userbaseAction
             $data['email'] = '0@0.c';
             $data['gender'] = 0;
 
+            $bind = M('user_bind');
+            $info = $bind->where(['keyid'=>$data['keyid'],'type'=>$data['type']])->find();
+            if($info){
+                echo get_result(20001,[],'此' . $data['type'] . "绑定过其他账号");return ;
+            }
+
             $generatorUser = D("user")->generatorUser();
             $username = $generatorUser['username'];
             $password = $generatorUser['password'];
             $passport = $this->_user_server();
             //注册
+            if(!empty($data['username'])){
+                $username = $data['username'] . rand('1000','9999');;
+            }
+            //注册
+            
             $uid = $passport->register($username, $password, $data['email'], $data['gender'],$mobile);
             if(!$uid){
                 echo get_result(20001,[],$passport->get_error());return ;
+
             }
+
+            if(!empty($data['img_url'])){
+                $user_img['img_url'] = $data['img_url'];
+                $user_img['is_avator'] = 1;
+                $user_img['id'] = $uid;
+                M("user")->save($user_img);
+            }
+            
             //给用户加积分
             M("user")->where("id=$uid")->setField(array('score'=>10,'exp'=>10));
             //积分日志
@@ -148,7 +168,7 @@ class userAction extends userbaseAction
             'gender'    =>  $userinfo['gender'],
             'score'    =>  $userinfo['score'],
         ];
-            echo get_result(10001,[],$info);return ;
+            echo get_result(10001,$info);return ;
         } else {
             echo get_result(20001,[],'绑定失败');return ;
         }
@@ -312,9 +332,10 @@ class userAction extends userbaseAction
             $userinfo['exp'] = $user['exp'];
             $userinfo['coin'] = $user['coin'];
             $userinfo['offer'] = $user['offer'];
-            $userinfo['mobile'] = $user['mobile'];
+            $userinfo['mobile'] = $user['mobile'] ? $user['mobile']:"" ;
             $userinfo['email'] = $user['email'];
             $userinfo['username'] = $user['username'];
+            $userinfo['sign_num'] = $user['sign_num'];
             $userinfo['img_url'] = avatar($data['userid'],100);
 
             echo get_result(10001,$userinfo);
@@ -532,7 +553,7 @@ class userAction extends userbaseAction
         $list = $user->where(array('id'=>$userid))->field("push_range")->select();
        $code = 10001;
         if(count($list) < 1){
-            $code = 10002;
+            $code = 20001;
         }
         echo get_result($code,$list);return ;
     }
@@ -555,7 +576,7 @@ class userAction extends userbaseAction
         $list = $notify_tag->where(array('userid'=>$userid))->select();
         $code = 10001;
         if(count($list) < 1){
-            $code = 10002;
+            $code = 20001;
         }
         echo get_result($code,$list);return ;
     }
@@ -605,7 +626,7 @@ class userAction extends userbaseAction
             echo get_result(10001, '已关注推送!');
         }
         else{
-            echo get_result(10002, '未关注推送!');
+            echo get_result(20001, '未关注推送!');
         }
     }
 
@@ -617,7 +638,7 @@ class userAction extends userbaseAction
             echo get_result(10001, '已关注!');
         }
         else{
-            echo get_result(10002, '未关注!');
+            echo get_result(20001, '未关注!');
         }
     }
 
@@ -643,7 +664,7 @@ class userAction extends userbaseAction
             echo get_result(10001,$address_list);
             return ;
         }
-        echo get_result(10002,[],"没有数据");
+        echo get_result(20001,[],"没有数据");
 
     }
 
@@ -741,7 +762,7 @@ class userAction extends userbaseAction
 
         $code = 10001;
         if(count($list) < 1){
-            $code = 10002;
+            $code = 20001;
         }
         echo get_result($code,['grade'=>$user['grade'],'num'=>$num,'list'=>$list]);return ;
 
@@ -817,7 +838,7 @@ class userAction extends userbaseAction
         $user['log'] = $list;
         $code = 10001;
         if($list < 1){
-            $code = 10002;
+            $code = 20001;
         }
         echo get_result($code,$user);return ;
 
@@ -846,7 +867,7 @@ class userAction extends userbaseAction
             set_score_log($user,'sign',8,'','',8);
             echo get_result(10001,$data,'您已连续签到1天，成功获取8个积分！');
         } elseif($signtime >= $date){//当天以签到
-            echo get_result(10002,'您今天已签到');
+            echo get_result(20001,'您今天已签到');
         }else{//否则在原基础上+1
             $max_score = $user['sign_num']+8;
             $data['sign_num']=$user['sign_num']+1;
@@ -930,7 +951,7 @@ class userAction extends userbaseAction
         }
         $code = 10001;
         if(count($list) < 1){
-            $code = 10002;
+            $code = 20001;
         }
         echo get_result($code,$list);return ;
 
@@ -1057,7 +1078,7 @@ class userAction extends userbaseAction
         }
         $code = 10001;
         if(count($list) < 1){
-            $code = 10002;
+            $code = 20001;
         }
         echo get_result($code,$list);return ;
 
@@ -1082,7 +1103,7 @@ class userAction extends userbaseAction
         $item_list = $score_item->where($where)->field('title,coin,score,img,id')->order($sort_order)->limit($page-10, $pagesize)->select();
         $code = 10001;
         if(count($item_list) < 1){
-            $code = 10002;
+            $code = 20001;
         }
         echo get_result($code,$item_list);return ;
     }
@@ -1180,7 +1201,7 @@ class userAction extends userbaseAction
 
         $code = 10001;
         if(count($list) < 1){
-            $code = 10002;
+            $code = 20001;
         }
         echo get_result($code,$list);return ;
     }
@@ -1257,7 +1278,7 @@ class userAction extends userbaseAction
 
         $code = 10001;
         if(count($list) < 1){
-            $code = 10002;
+            $code = 20001;
         }
         echo get_result($code,$list);return ;
     }
@@ -1329,7 +1350,7 @@ class userAction extends userbaseAction
         }
         $code = 10001;
         if(count($list) < 1){
-            $code = 10002;
+            $code = 20001;
         }
         echo get_result($code,$list);return ;
     }
@@ -1347,7 +1368,7 @@ class userAction extends userbaseAction
 
         $code = 10001;
         if(count($xx) < 1){
-            $code = 10002;
+            $code = 20001;
         }
         echo get_result($code,$xx);return ;
     }
@@ -1365,7 +1386,7 @@ class userAction extends userbaseAction
 
         $code = 10001;
         if(count($xx) < 1){
-            $code = 10002;
+            $code = 20001;
         }
         echo get_result($code,$xx);return ;
     }
@@ -1390,7 +1411,7 @@ class userAction extends userbaseAction
 
         $code = 10001;
         if(count($message_list) < 1){
-            $code = 10002;
+            $code = 20001;
         }
         echo get_result($code,$message_list);return ;
     }
@@ -1424,7 +1445,7 @@ class userAction extends userbaseAction
 
         $code = 10001;
         if(count($list) < 1){
-            $code = 10002;
+            $code = 20001;
         }
         echo get_result($code,$list);return ;
     }
@@ -1443,7 +1464,7 @@ class userAction extends userbaseAction
             $mod->where("id=$item[itemid]")->setDec("comments");
             echo get_result(10001,'删除成功');return ;
         }else{
-            echo get_result(10002,'删除失败');return ;
+            echo get_result(20001,'删除失败');return ;
         }
 
     }
@@ -1650,12 +1671,24 @@ class userAction extends userbaseAction
     public function getbind($data)
     {
         $bind = M('user_bind');
-        $list = $bind->where(['uid'=>$data['userid']])->field('uid,type')->select();
+        $list = $bind->where(['uid'=>$data['userid']])->field('type')->select();
         $code = 10001;
-        if(count($list) < 1){
-            $code = 10002;
+        $qq = 0;
+        $wechat = 0;
+        $sina = 0;
+        foreach ($list as $item) {
+            if($item['type'] == "qq"){
+                $qq = 1;
+            }
+            elseif($item['type'] == "wechat"){
+                $wechat = 1;
+            }
+            elseif($item['type'] == "sina"){
+                $sina = 1;
+            }
         }
-        echo get_result($code,$list);return ;
+        $result = array(array('name'=>'qq','status'=>$qq),array('name'=>'wechat','status'=>$wechat),array('name'=>'sina','status'=>$sina));
+        echo get_result($code,$result);return ;
     }
     //解除绑定的社交平台
     public function removebind($data)
@@ -1724,7 +1757,7 @@ class userAction extends userbaseAction
         $bind = M('user_bind');
         $info = $bind->where(['keyid'=>$data['keyid'],'type'=>$data['type']])->find();
         if(!$info){
-            echo get_result(10001,'未绑定社交平台');return ;
+            echo get_result(20001,[],'未绑定社交平台');return ;
         }
         //连接用户中心
         $passport = $this->_user_server();
@@ -2035,7 +2068,7 @@ class userAction extends userbaseAction
 
         $code = 10001;
         if(count($talk_list) < 1){
-            $code = 10002;
+            $code = 20001;
         }
         echo get_result($code,$talk_list);return ;
     }
@@ -2064,7 +2097,7 @@ class userAction extends userbaseAction
         M()->query("update try_message set ck_status=1 where ftid='".$ftid."' AND to_id='".$uid."'");//更新消息查看状态
         $code = 10001;
         if(count($message_list) < 1){
-            $code = 10002;
+            $code = 20001;
         }
         echo get_result($code,$message_list);return ;
 
@@ -2261,7 +2294,7 @@ class userAction extends userbaseAction
 
          $code = 10001;
          if(count($order_list) < 1){
-            $code = 10002;
+            $code = 20001;
         }
         echo get_result($code,$order_list);return ;
     }
@@ -2278,7 +2311,7 @@ class userAction extends userbaseAction
         $score_item = M('score_item')->where($where)->order($sort_order)->limit($page-$data['pagesize'], $data['pagesize'])->select();
          $code = 10001;
          if(count($score_item) < 1){
-            $code = 10002;
+            $code = 20001;
         }
         echo get_result($code,$score_item);return ;
     }
@@ -2295,7 +2328,7 @@ class userAction extends userbaseAction
         $score_item = M('score_item')->where($where)->order($sort_order)->limit($page-$data['pagesize'], $data['pagesize'])->select();
         $code = 10001;
         if(count($score_item) < 1){
-            $code = 10002;
+            $code = 20001;
         }
         echo get_result($code,$score_item);return ;
     }
@@ -2325,7 +2358,7 @@ class userAction extends userbaseAction
             $code = 10001;
         }
         else{
-            $code = 10002;
+            $code = 20001;
         }
         
         echo get_result($code);return ;
@@ -2342,7 +2375,7 @@ class userAction extends userbaseAction
             $code = 10001;
         }
         else{
-            $code = 10002;
+            $code = 20001;
         }
         
         echo get_result($code);return ;
