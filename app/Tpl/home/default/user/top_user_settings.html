@@ -10,7 +10,6 @@
 			<!--用户信息start-->
 			<div class="userInfo clearfix">
 				<!--头像start-->
-				<!-- <div class="head cursor-pointer J_avatar" style="background-image: url(/public/images/Head.jpg);" onclick="showBox('editAvatar','500px')"> -->
 				<div class="head cursor-pointer J_avatar" style="background-image: url({:avatar_img($user['img_url'],200)});">
 					<div class="headEdit">
 						<div class="addPic">添加头像</div>
@@ -32,15 +31,16 @@
 					<!--用户名end-->
 					<!--签名start-->
 					<div class="font-14 fc-grey mt-10">
-						<div id="signature">
+						<div id="intro">
 							<span class="font-w-b fc-2">个人签名：</span>
-							<if condition="$user.intro AND $user.intro !==''">{$user.intro}<else/>这家伙很懒，什么都没有留下.</if><span class="modifyBtn" onclick="modifyBtn('signature')">修改</span>
+							<span class="J_intro"><if condition="$user.intro AND $user.intro !==''">{$user.intro}<else/>这家伙很懒，什么都没有留下.</if></span>
+							<span class="modifyBtn" onclick="modifyBtn('intro')">修改</span>
 						</div>
 						<div class="clearfix none">
 							<span class="fl font-w-b fc-2">个人签名：</span>
 							<input name="intro" class="input-2 fl" style="width: 400px;" value="{$user.intro}">
-							<button class="saveBtn fl ml-10 font-14 cursor-pointer" onclick="saveBtn('signature')">保存</button>
-							<button class="cancelBtn fl ml-5 font-14 cursor-pointer" onclick="cancelBtn('signature')">取消</button>
+							<button class="saveBtn fl ml-10 font-14 cursor-pointer" onclick="saveBtn('intro', this)" data-url="{:U('user/modify_intro')}">保存</button>
+							<button class="cancelBtn fl ml-5 font-14 cursor-pointer" onclick="cancelBtn('intro')">取消</button>
 						</div>
 					</div>
 					<!--签名end-->
@@ -104,7 +104,7 @@
 
 				console.log("照片读取完成");
 
-				index_cover = showBox('editCover','1500px');
+				index_cover = dialogPopup($('#editCover'),'1500px');
 
 				console.log(index_cover)
 
@@ -162,7 +162,7 @@
 
 				console.log("照片读取完成");
 
-				index_avatar = showBox('editAvatar','500px');
+				index_avatar = dialogPopup($('#editAvatar'),'500px');
 
 				console.log(index_avatar)
 

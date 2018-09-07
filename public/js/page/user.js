@@ -1,27 +1,6 @@
 ﻿layui.use('layer', function(){
 	var layer = layui.layer;
 });
-//弹出对话层
-function dialogPopup(content){
-	layer.open({
-		type: 1,
-		title: false,
-		closeBtn: 1,
-		shadeClose: false,
-		shade:0.7,
-		anim:2,
-		skin: 'loginPopup',
-		area: '430px',
-		content: content //html or $('#id')
-	});
-}
-
-function tipsShow(msg, input){
-	layer.tips(msg, input, {
-		tips: [2, '#33CC99'],
-		time: 2000
-	});
-}
 
 $(".protocol").on("click", function(){
 	dialogPopup($('#J_protocol'));

@@ -260,6 +260,33 @@ function fpubdate($time) {
 }
 
 /**
+ * 上传用户图片 $type: cover, avatar
+ */
+function upload_user_img($type, $uid, $img) {
+	if(!$type || !$uid || !$img) return false;
+
+	$file = 'upload/'.md5($uid).'.jpg';
+	file_put_contents($file, $img);
+	$suid = sprintf("%09d", $uid);
+	$dir1 = substr($suid, 0, 3);
+	$dir2 = substr($suid, 3, 2);
+	$dir3 = substr($suid, 5, 2);
+	$dir = $dir1.'/'.$dir2.'/'.$dir3.'/';
+	$upload_path = '/'.C('pin_attach_path') . $type . '/'. $dir .md5($uid).'.jpg';
+	$upyun = new UpYun2('baicaiopic', '528', 'lzw123456');
+	$fh = fopen($file, 'rb');
+	$rsp = $upyun->writeFile($upload_path, $fh, True);   // 上传图片，自动创建目录
+	fclose($fh);
+	$upyun1 = new UpYun1('baicaiopic', '528', 'lzw123456');
+	$data = IMG_ROOT_PATH.'/data/upload/'. $type .'/'.$dir.md5($uid).'.jpg';
+	$url = $data."\n";
+	$upyun1->purge($url);
+	@ unlink($file);
+
+	return $data;
+}
+
+/**
  * 获取用户封面
  */
 function cover($uid) {

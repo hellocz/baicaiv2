@@ -264,73 +264,7 @@ class userModel extends Model
         }
     }
 
-    /**
-     * 上传头像并更新
-     */
-    public function upload_avatar($id, $img) {
-        $user = $this->get_user_by_id($id);
 
-        if(!$user) return false;
-
-        $uid = $user['id'];
-
-        $file = 'upload/'.md5($uid).'.jpg';
-        file_put_contents($file, $img);
-        $suid = sprintf("%09d", $uid);
-        $dir1 = substr($suid, 0, 3);
-        $dir2 = substr($suid, 3, 2);
-        $dir3 = substr($suid, 5, 2);
-        $avatar_dir = $dir1.'/'.$dir2.'/'.$dir3.'/';
-        $upload_path = '/'.C('pin_attach_path') . 'avatar/'. $avatar_dir .md5($uid).'.jpg';
-        $upyun = new UpYun2('baicaiopic', '528', 'lzw123456');
-        $fh = fopen($file, 'rb');
-        $rsp = $upyun->writeFile($upload_path, $fh, True);   // 上传图片，自动创建目录
-        fclose($fh);
-        $upyun1 = new UpYun1('baicaiopic', '528', 'lzw123456');
-        $data = IMG_ROOT_PATH.'/data/upload/avatar/'.$avatar_dir.md5($uid).'.jpg';
-        $url = $data."\n";
-        $upyun1->purge($url);
-        @ unlink($file);
-
-        $user = array();
-        $user['is_avator'] = 1;
-        $user['img_url'] = $data . '?v=' . date('his');
-        $this->where("id=$uid")->save($user);
-
-        return $data;
-    }
-
-    /**
-     * 上传封面并更新
-     */
-    public function upload_cover($id, $img) {
-        $user = $this->get_user_by_id($id);
-
-        if(!$user) return false;
-
-        $uid = $user['id'];
-
-        $file = 'upload/'.md5($uid).'.jpg';
-        file_put_contents($file, $img);
-        $suid = sprintf("%09d", $uid);
-        $dir1 = substr($suid, 0, 3);
-        $dir2 = substr($suid, 3, 2);
-        $dir3 = substr($suid, 5, 2);
-        $cover_dir = $dir1.'/'.$dir2.'/'.$dir3.'/';
-        $upload_path = '/'.C('pin_attach_path') . 'cover/'. $cover_dir.md5($uid).'.jpg';
-        $upyun = new UpYun2('baicaiopic', '528', 'lzw123456');
-        $fh = fopen($file, 'rb');
-        $rsp = $upyun->writeFile($upload_path, $fh, True);   // 上传图片，自动创建目录
-        fclose($fh);
-        $data = IMG_ROOT_PATH.'/data/upload/cover/'. $cover_dir.md5($uid).'.jpg';
-        @unlink ($file);
-
-        //更新数据
-        $cover = $data . '?v=' . date('his');
-        M('user')->where(array('id'=>$uid))->setField('cover', $cover);
-
-        return $data;
-    }
     /**
     * 生成随机用户密码
     */
@@ -348,4 +282,114 @@ class userModel extends Model
         }
 
     }
+
+
+    /**
+     * 更新头像
+     */
+    public function update_avatar($id, $img) {
+        if(!$id) return false;
+
+        $user = array();
+        $user['is_avator'] = 0;
+        $user['img_url'] = '';
+        if($img){
+            $user['is_avator'] = 1;
+            $user['img_url'] = $img . '?v=' . date('his');
+        }
+        $result = $this->where("id=$id")->save($user);
+
+        return $result;
+    }
+
+    /**
+     * 更新封面
+     */
+    public function update_cover($id, $img) {
+        if(!$id) return false;
+
+        //更新数据
+        if($img){
+            $img .= '?v=' . date('his');
+        }
+        $result = $this->where(array('id'=>$id))->setField('cover', $img);
+
+        return $result;
+    }
+
+    /**
+     * 更新个性签名
+     */
+    public function update_intro($id, $value) {
+        if(!$id) return false;
+
+        $value = Input::deleteHtmlTags($value);
+
+        $result = $this->where(array('id'=>$id))->setField('intro', $value);
+
+        return $result;
+    }
+
+    /**
+     * 更新邮箱
+     */
+    public function update_email($id, $value) {
+        if(!$id){
+            $this->error = '用户ID为空';
+            return false;
+        }
+
+        $value = Input::deleteHtmlTags($value);
+        if(!$value){
+            $this->error = '请输入邮箱';
+            return false;
+        }
+        if($this->email_exists($value)){
+            $this->error = L('email_exists');
+            return false;
+        }
+
+        $result = $this->where(array('id'=>$id))->setField('email', $value);
+
+        return $result;
+    }
+
+    /**
+     * 更新手机号
+     */
+    public function update_mobile($id, $value) {
+        if(!$id){
+            $this->error = '用户ID为空';
+            return false;
+        }
+
+        if(!$value){
+            $this->error = '请输入手机号码';
+            return false;
+        }
+        if($this->mobile_exists($value)){
+            $this->error = '该手机号码已被注册';
+            return false;
+        }
+
+        $result = $this->where(array('id'=>$id))->setField('mobile', $value);
+
+        return $result;
+    }
+ 
+    /**
+     * 更新用户信息profile
+     */
+    public function update_profile($id, $data) {
+        if(!$id || !$data) return false;
+
+        //更新数据
+        $user = array();
+        if(isset($data['gender'])) $user['gender'] = $data['gender'];
+
+        $result = $this->where("id=$id")->save($user);
+
+        return $result;
+    }
+
 }

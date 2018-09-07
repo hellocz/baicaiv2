@@ -1199,29 +1199,33 @@ class userAction extends userbaseAction {
                 $_POST[$key] = Input::deleteHtmlTags($val);
             }
             $data['gender'] = $this->_post('gender', 'intval');
-            $data['province'] = $this->_post('province', 'trim');
-            $data['city'] = $this->_post('city', 'trim');
-            $data['tags'] = $this->_post('tags', 'trim');
-            $data['intro'] = $this->_post('intro', 'trim');
-            $birthday = $this->_post('birthday', 'trim');
-            $birthday = explode('-', $birthday);
-            $data['byear'] = $birthday[0];
-            $data['bmonth'] = $birthday[1];
-            $data['bday'] = $birthday[2];
-            $data['realname']=$this->_post('realname','trim');
-            $data['zipcode']=$this->_post('zipcode','trim');
-            $data['address']=$this->_post('address','trim');
-            if (false !== M('user')->where(array('id'=>$uid))->save($data)) {
-                $msg = array('status'=>1, 'info'=>L('edit_success'));
+            // $data['province'] = $this->_post('province', 'trim');
+            // $data['city'] = $this->_post('city', 'trim');
+            // $data['tags'] = $this->_post('tags', 'trim');
+            // $data['intro'] = $this->_post('intro', 'trim');
+            // $birthday = $this->_post('birthday', 'trim');
+            // $birthday = explode('-', $birthday);
+            // $data['byear'] = $birthday[0];
+            // $data['bmonth'] = $birthday[1];
+            // $data['bday'] = $birthday[2];
+            // $data['realname']=$this->_post('realname','trim');
+            // $data['zipcode']=$this->_post('zipcode','trim');
+            // $data['address']=$this->_post('address','trim');
+            if (false !== $this->_mod->update_profile($uid, $data)) {
+                $this->ajaxReturn(1, L('edit_success'));
             }else{
-                $msg = array('status'=>0, 'info'=>L('edit_failed'));
+                $this->ajaxReturn(0, L('edit_failed'));
             }
-            $this->assign('msg', $msg);
+        }else{
+            $pattern = '/(.{1,2}).*?(.{1,2})@(.*)/';
+            $this->user['email'] && $this->user['email_hide'] = preg_replace($pattern, '$1****$2@$3', $this->user['email']);
+            $pattern = '/(1[0-9]{2})[0-9]{4}([0-9]{4})/i';
+            $this->user['mobile'] && $this->user['mobile_hide'] = preg_replace($pattern, '$1****$2', $this->user['mobile']);
+            $this->assign('user', $this->user);
+
+            $this->assign("page_seo",set_seo('基本信息修改'));
+            $this->display();
         }
-        // $info = $this->visitor->get();
-        $this->assign('info', $this->user);
-        $this->assign("page_seo",set_seo('基本信息修改'));
-        $this->display();
     }
 
     /**
@@ -1234,12 +1238,15 @@ class userAction extends userbaseAction {
         $uid = abs(intval($this->user['id']));
         !$data && $this->ajaxReturn(0, L('illegal_parameters'));
 
+        $data = upload_user_img('avatar', $uid, $img);
+        !$data && $this->ajaxReturn(0, '上传失败');
+
         //保存上传图片并更新user头像信息
-        $data = $this->_mod->upload_avatar($uid, $img);
-        if($data){
+        $r = $this->_mod->update_avatar($uid, $data);
+        if($r){
             $this->ajaxReturn(1, L('upload_success'), $data);
         }else{
-            $this->ajaxReturn(0, L('illegal_parameters'));
+            $this->ajaxReturn(0, '更新失败');
         }
     }
 
@@ -1254,12 +1261,15 @@ class userAction extends userbaseAction {
         $uid = abs(intval($this->user['id']));
         !$data && $this->ajaxReturn(0, L('illegal_parameters'));
 
+        $data = upload_user_img('cover', $uid, $img);
+        !$data && $this->ajaxReturn(0, '上传失败');
+
         //保存上传图片并更新封面
-        $data = $this->_mod->upload_cover($uid, $img);
-        if($data){
+        $r = $this->_mod->update_cover($uid, $data);
+        if($r){
             $this->ajaxReturn(1, L('upload_success'), $data);
         }else{
-            $this->ajaxReturn(0, L('illegal_parameters'));
+            $this->ajaxReturn(0, '更新失败');
         }
     }
 
@@ -1268,16 +1278,68 @@ class userAction extends userbaseAction {
      */
     public function modify_intro() {
         $uid=$this->user['id'];
-        foreach ($_POST as $key=>$val) {
-            $_POST[$key] = Input::deleteHtmlTags($val);
-        }
-        $data['intro'] = $this->_post('intro', 'trim');
-        !$data['intro'] && $this->ajaxReturn(0, L('illegal_parameters'));
+        $data = $this->_post('data', 'trim');
+        !$data && $this->ajaxReturn(0, "请输入个人签名");
 
-        if (false !== M('user')->where(array('id'=>$uid))->save($data)) {
-            $this->ajaxReturn(1, L('edit_success'), $data['intro']);
+        if (false !== $this->_mod->update_intro($uid, $data)) {
+            $this->ajaxReturn(1, L('edit_success'), $data);
         }else{
             $this->ajaxReturn(0, L('edit_failed'));
+        }
+    }
+
+    /**
+     * 修改邮箱 20180906
+     */
+    public function modify_email() {
+        $uid=$this->user['id'];
+        $data = $this->_post('data', 'trim');        
+        !$data && $this->ajaxReturn(0, "请输入邮箱");
+        
+        // 图片验证码
+        $captcha = $this->_post('captcha', 'trim');
+        if(session('captcha') != md5($captcha)){
+            $this->ajaxReturn(0, L('captcha_failed'));
+        }
+        // session('captcha', NULL);
+
+        if (false !== $this->_mod->update_email($uid, $data)) {
+            $this->ajaxReturn(1, L('edit_success'), $data);
+        }else{
+            $this->ajaxReturn(0, $this->_mod->getError());
+        }
+    }
+
+    /**
+     * 修改手机号 20180907
+     */
+    public function modify_mobile() {
+        $uid=$this->user['id'];
+        $data = $this->_post('data', 'trim');        
+        !$data && $this->ajaxReturn(0, "请输入手机号码");
+        
+        // 图片验证码
+        $captcha = $this->_post('captcha', 'trim');
+        if(session('captcha') != md5($captcha)){
+            $this->ajaxReturn(0, L('captcha_failed'));
+        }
+        // session('captcha', NULL);
+
+        // 手机验证码
+        $mobile = $data;
+        $verify_code = $this->_post('phone_verify', 'trim');
+        if(!isset($_SESSION['phone_verify_'.md5($mobile)])){
+            $this->ajaxReturn(0, '手机验证码未发送或已过期');
+        }
+        else if(session('phone_verify_'.md5($mobile)) != md5($verify_code)){
+            $this->ajaxReturn(0, L('verify_code_error'));
+        }
+        // session('phone_verify_'.md5($mobile), NULL);
+
+        if (false !== $this->_mod->update_mobile($uid, $data)) {
+            $this->ajaxReturn(1, L('edit_success'), $data);
+        }else{
+            $this->ajaxReturn(0, $this->_mod->getError());
         }
     }
 

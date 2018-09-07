@@ -26,7 +26,7 @@ return array(
     'change_captcha' => '换一张',
     'index_page' => '首页',
     'confirm_password' => '确认密码',
-    'captcha_failed' => '验证码错误',
+    'captcha_failed' => '图片验证码错误',
     'not_exist' => '不存在',
     'setting' => '设置',
     'follow' => '关注',
@@ -101,7 +101,7 @@ return array(
         'confirm_unfollow' => '确定要取消关注么？',
         'wait' => '请稍后......',
     ),
-	 'verify_code_error' => '验证码错误',
+	 'verify_code_error' => '手机验证码错误',
 	'operation_success' => '操作成功',
     'operation_failure' => '操作失败',
 	//文章

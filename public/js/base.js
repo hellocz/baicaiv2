@@ -555,7 +555,7 @@ function confirm(title,info,callback){
 layui.use(['form'], function(){
   var form = layui.form,layer = layui.layer;
 });
-function showBox(id,width){
+function dialogPopup(content, width='430px'){
 	index = layer.open({
 		type: 1,
 		title: false,
@@ -565,7 +565,14 @@ function showBox(id,width){
 		anim:2,
 		skin: 'loginPopup',
 		area: width,
-		content: $('#' + id),
+		content: content,
 	});
 	return index;
+}
+
+function tipsShow(msg, input){
+	layer.tips(msg, input, {
+		tips: [2, '#33CC99'],
+		time: 2000
+	});
 }
