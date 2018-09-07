@@ -116,6 +116,7 @@ class userAction extends userbaseAction
                 $user_img['is_avator'] = 1;
                 $user_img['id'] = $uid;
                 M("user")->save($user_img);
+                
             }
             
             //给用户加积分
